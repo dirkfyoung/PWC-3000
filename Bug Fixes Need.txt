@@ -1,0 +1,5 @@
+Line 7, we need a dummy area
+Line 46:  If depth is blank, we need a number value like 0
+Line 50, Need hydraulic Length
+Line 62 albedo, bc
+Line 76, use years
