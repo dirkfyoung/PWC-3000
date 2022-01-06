@@ -8,7 +8,7 @@ Imports System.Windows.Forms.VisualStyles
 Public Class Form1
     Const VersionNumber As Double = 1.0
 
-    Private SchemeInfoList As New ArrayList ' this is a list and characteristics of all the application schemes, icluding crops, rates everything from labels
+    Private ReadOnly SchemeInfoList As New ArrayList ' this is a list and characteristics of all the application schemes, icluding crops, rates everything from labels
 
     ' these are for hiding the tabs that are not normally used
     Private tempTabpage1 As TabPage
