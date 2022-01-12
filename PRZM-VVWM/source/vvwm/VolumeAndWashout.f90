@@ -113,6 +113,7 @@ contains
     !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     subroutine burial_calc(koc)
 	!this is not really burial,mut a mass sediment mass balance onthe benthic zone
+
      use waterbody_parameters, ONLY: froc2
      use constants_and_variables, ONLY:   burial,capacity_2, & 
                                           k_burial                !output(kg/sec)
