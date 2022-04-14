@@ -125,7 +125,7 @@
         msg &= String.Format("{0}{1},", vbNewLine, WaterbodyList.Items.Count)
 
         For Each specialwaterbody As String In WaterbodyList.Items
-            msg = msg & vbNewLine & specialwaterbody
+            msg = msg & vbNewLine & """" & specialwaterbody & """"
         Next
 
         '*********** OUTPUT ******************************
