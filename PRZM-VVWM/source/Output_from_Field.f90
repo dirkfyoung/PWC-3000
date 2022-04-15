@@ -64,16 +64,13 @@ Module Output_From_Field
 		end if
 
 
-
-		
-
 	end subroutine get_inputs_from_field_for_vvwm
 	
 
 
   !**********************************************************************************************
   subroutine write_outputfile_header_2
-      !called immediately after reading input file
+  !called by program below id time series is selected
       use  constants_and_Variables, ONLY:TimeSeriesUnit2,Version_Number,PLNAME,chem_id,NPLOTS
       integer :: i
       

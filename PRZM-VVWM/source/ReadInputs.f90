@@ -293,9 +293,24 @@ use utilities
         if (is_infiltration_at_depth_output) is_timeseriesfile = .TRUE.
     read(inputfile_unit_number,*) is_infiltrated_bottom_output
         if (is_infiltrated_bottom_output) is_timeseriesfile = .TRUE.
+		
+	!these next 3 are for output from waterbody, this goes into a separate output file
+	read(inputfile_unit_number,*)	
+	read(inputfile_unit_number,*)	
+	read(inputfile_unit_number,*)
+	
+	read(inputfile_unit_number,*)	!expansion lines
+	read(inputfile_unit_number,*)
+	read(inputfile_unit_number,*)	
+	read(inputfile_unit_number,*)	
+	read(inputfile_unit_number,*)	
+		
+		
     read(inputfile_unit_number,*) extra_plots
 	    if (extra_plots > 0) is_timeseriesfile = .TRUE.
 
+		write(*,*) "reading extra time series if any"
+		
     do i = 1, extra_plots
         read(inputfile_unit_number,*)  temp_PLNAME(i),  temp_chem_id(i), temp_MODE(i),temp_ARG(i),temp_ARG2(i),temp_CONST(i)      
 	end do

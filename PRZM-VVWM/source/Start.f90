@@ -147,11 +147,6 @@ write (*,*) '###################################################'
                      call make_run_id (i,kk, hh,jj) !makes a string that can be used for identifying output scheme#_scenario#_scenarioname      
 
 					 
-					 
-					 
-					 
-					 
-					 
 					 call chem_transport_onfield
 					 
 write (*,*) '###################################################'	 
@@ -159,20 +154,12 @@ CALL CPU_TIME (time_1)
 write (*,*) 'cpu time chen xport ',time_1- cputime_begin
 write (*,*) '###################################################'					 
 					 
-					 
-					 
-					 
-					 
 					 call groundwater
 					 
 write (*,*) '###################################################'	 
 CALL CPU_TIME (time_1)
 write (*,*) 'cpu time gw  ',time_1- cputime_begin
 write (*,*) '###################################################'					 
-					 
-					 
-					 
-					 
 					 
                      call VVWM 
 					 
@@ -184,7 +171,6 @@ write (*,*) 'cpu time vvwm ',time_1- cputime_begin
 write (*,*) '###################################################'					 
 					 
 					 
-		 
 			   end do    
 			   
 			   

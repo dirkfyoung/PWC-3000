@@ -121,7 +121,7 @@ module outputprocessing
 !    !**************************************************************************
 !end if
 
-    write(*,*) 'Start Widow averaging'
+    write(*,*) 'Start Window averaging'
     !Calculate chronic values *******************
     !The following returns the n-day running averages for each day in simulation
    

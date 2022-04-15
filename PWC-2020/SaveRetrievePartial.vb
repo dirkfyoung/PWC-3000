@@ -153,10 +153,21 @@
         msg = msg & vbNewLine & outputInfiltrationAtDepth.Checked & "," & OutputInfiltrationDepth.Text & ","
         msg = msg & vbNewLine & outputInfiltratedWaterLastLayer.Checked & ","
 
+        msg = msg & vbNewLine & outputWaterConc.Checked & ","
+        msg = msg & vbNewLine & outputBenthicConc.Checked & ","
+        msg = msg & vbNewLine & outputWaterDepth.Checked & ","
+
+        msg = msg & vbNewLine & "holder for future expansion" & ","
+        msg = msg & vbNewLine & "holder for future expansion" & ","
+        msg = msg & vbNewLine & "holder for future expansion" & ","
+        msg = msg & vbNewLine & "holder for future expansion" & ","
+        msg = msg & vbNewLine & "holder for future expansion" & ","
+
         AdditionalOutputGridView.CommitEdit(DataGridViewDataErrorContexts.Commit)
         Dim NumberAdditionalOutputs As Integer
         NumberAdditionalOutputs = AdditionalOutputGridView.RowCount - 1
         msg = msg & vbNewLine & NumberAdditionalOutputs & ","
+
 
 
         For i As Integer = 0 To NumberAdditionalOutputs - 1
@@ -741,9 +752,23 @@
             currentrow = MyReader.ReadFields
             outputInfiltratedWaterLastLayer.Checked = currentrow(0)
 
+            currentrow = MyReader.ReadFields
+            outputWaterConc.Checked = currentrow(0)
+            currentrow = MyReader.ReadFields
+            outputBenthicConc.Checked = currentrow(0)
+            currentrow = MyReader.ReadFields
+            outputWaterDepth.Checked = currentrow(0)
+
+            MyReader.ReadLine() 'expansion lines
+            MyReader.ReadLine()
+            MyReader.ReadLine()
+            MyReader.ReadLine()
+            MyReader.ReadLine()
+
             Dim NumOutputRows As Integer
             currentrow = MyReader.ReadFields
             NumOutputRows = currentrow(0)
+
 
             AdditionalOutputGridView.Rows.Clear()
             For j As Integer = 0 To NumOutputRows - 1

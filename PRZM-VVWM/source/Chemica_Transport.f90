@@ -252,11 +252,7 @@ module chemical_transport
        !Store new values for start values of next run
        old_Henry(K,:) = new_henry(K,:) !First Store Previous Run's Henry's Constant
 	 end do
-	
 
-	 
-	 
-	 
     !probably could/should take this out of this subroutine	, but would require more arrays saves
 	call get_inputs_from_field_for_vvwm	
     CALL write_outputfile_2    

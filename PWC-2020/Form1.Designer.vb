@@ -476,6 +476,10 @@ Partial Class Form1
         Me.SaveWaterbodyFile = New System.Windows.Forms.SaveFileDialog()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.outputWaterConc = New System.Windows.Forms.CheckBox()
+        Me.outputBenthicConc = New System.Windows.Forms.CheckBox()
+        Me.outputWaterDepth = New System.Windows.Forms.CheckBox()
+        Me.Label128 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.AdvancedTab.SuspendLayout()
         Me.ScenarioExaminerTab.SuspendLayout()
@@ -525,13 +529,13 @@ Partial Class Form1
         'SaveToolStripMenuItem
         '
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(146, 26)
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.SaveToolStripMenuItem.Text = "Save"
         '
         'RetrieveToolStripMenuItem
         '
         Me.RetrieveToolStripMenuItem.Name = "RetrieveToolStripMenuItem"
-        Me.RetrieveToolStripMenuItem.Size = New System.Drawing.Size(146, 26)
+        Me.RetrieveToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
         Me.RetrieveToolStripMenuItem.Text = "Retrieve"
         '
         'MorenTabsToolStripMenuItem
@@ -4688,7 +4692,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.66038!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.33962!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 177.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 178.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.IsAqueousDegradation, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.IsAllMedia, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label63, 2, 0)
@@ -4706,7 +4710,7 @@ Partial Class Form1
         Me.IsAqueousDegradation.Location = New System.Drawing.Point(94, 2)
         Me.IsAqueousDegradation.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.IsAqueousDegradation.Name = "IsAqueousDegradation"
-        Me.IsAqueousDegradation.Size = New System.Drawing.Size(103, 21)
+        Me.IsAqueousDegradation.Size = New System.Drawing.Size(102, 21)
         Me.IsAqueousDegradation.TabIndex = 71
         Me.IsAqueousDegradation.Text = "Aqueous Only"
         Me.IsAqueousDegradation.UseVisualStyleBackColor = True
@@ -4792,6 +4796,10 @@ Partial Class Form1
         'OptionalOutputTab
         '
         Me.OptionalOutputTab.BackColor = System.Drawing.Color.Yellow
+        Me.OptionalOutputTab.Controls.Add(Me.Label128)
+        Me.OptionalOutputTab.Controls.Add(Me.outputWaterDepth)
+        Me.OptionalOutputTab.Controls.Add(Me.outputBenthicConc)
+        Me.OptionalOutputTab.Controls.Add(Me.outputWaterConc)
         Me.OptionalOutputTab.Controls.Add(Me.OutputInfiltrationDepth)
         Me.OptionalOutputTab.Controls.Add(Me.OutputDailyPestLeached)
         Me.OptionalOutputTab.Controls.Add(Me.Label105)
@@ -4875,18 +4883,18 @@ Partial Class Form1
         'Label104
         '
         Me.Label104.AutoSize = True
-        Me.Label104.Location = New System.Drawing.Point(26, 307)
+        Me.Label104.Location = New System.Drawing.Point(26, 238)
         Me.Label104.Name = "Label104"
-        Me.Label104.Size = New System.Drawing.Size(524, 34)
+        Me.Label104.Size = New System.Drawing.Size(746, 17)
         Me.Label104.TabIndex = 80
         Me.Label104.Text = "Include any other desired output using  traditional PRZM time series specificatio" &
-    "ns" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(Example: TPST, TCUM,1, 60, 1.0)"
+    "ns (Example: TPST, TCUM,1, 60, 1.0)"
         '
         'AdditionalOutputGridView
         '
         Me.AdditionalOutputGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.AdditionalOutputGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Item, Me.Column10, Me.Mode, Me.Bound1, Me.Bound2, Me.Column11, Me.Column12})
-        Me.AdditionalOutputGridView.Location = New System.Drawing.Point(28, 344)
+        Me.AdditionalOutputGridView.Location = New System.Drawing.Point(28, 258)
         Me.AdditionalOutputGridView.Name = "AdditionalOutputGridView"
         Me.AdditionalOutputGridView.RowHeadersVisible = False
         Me.AdditionalOutputGridView.RowHeadersWidth = 51
@@ -5074,9 +5082,9 @@ Partial Class Form1
         Me.Label293.Location = New System.Drawing.Point(24, 3)
         Me.Label293.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label293.Name = "Label293"
-        Me.Label293.Size = New System.Drawing.Size(206, 20)
+        Me.Label293.Size = New System.Drawing.Size(353, 20)
         Me.Label293.TabIndex = 71
-        Me.Label293.Text = "Optional Output to File "
+        Me.Label293.Text = "Optional Daily Field Output to a .Out File"
         '
         'Label294
         '
@@ -5260,6 +5268,51 @@ Partial Class Form1
         'Timer1
         '
         Me.Timer1.Interval = 1000
+        '
+        'outputWaterConc
+        '
+        Me.outputWaterConc.AutoSize = True
+        Me.outputWaterConc.Location = New System.Drawing.Point(33, 513)
+        Me.outputWaterConc.Margin = New System.Windows.Forms.Padding(4)
+        Me.outputWaterConc.Name = "outputWaterConc"
+        Me.outputWaterConc.Size = New System.Drawing.Size(260, 21)
+        Me.outputWaterConc.TabIndex = 83
+        Me.outputWaterConc.Text = "Water Column Concentration (kg/m³)"
+        Me.outputWaterConc.UseVisualStyleBackColor = True
+        '
+        'outputBenthicConc
+        '
+        Me.outputBenthicConc.AutoSize = True
+        Me.outputBenthicConc.Location = New System.Drawing.Point(33, 533)
+        Me.outputBenthicConc.Margin = New System.Windows.Forms.Padding(4)
+        Me.outputBenthicConc.Name = "outputBenthicConc"
+        Me.outputBenthicConc.Size = New System.Drawing.Size(206, 21)
+        Me.outputBenthicConc.TabIndex = 84
+        Me.outputBenthicConc.Text = "Benthic  Pore Water (kg/m³)"
+        Me.outputBenthicConc.UseVisualStyleBackColor = True
+        '
+        'outputWaterDepth
+        '
+        Me.outputWaterDepth.AutoSize = True
+        Me.outputWaterDepth.Location = New System.Drawing.Point(33, 553)
+        Me.outputWaterDepth.Margin = New System.Windows.Forms.Padding(4)
+        Me.outputWaterDepth.Name = "outputWaterDepth"
+        Me.outputWaterDepth.Size = New System.Drawing.Size(182, 21)
+        Me.outputWaterDepth.TabIndex = 85
+        Me.outputWaterDepth.Text = "Water column depth (m)"
+        Me.outputWaterDepth.UseVisualStyleBackColor = True
+        '
+        'Label128
+        '
+        Me.Label128.AutoSize = True
+        Me.Label128.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label128.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Label128.Location = New System.Drawing.Point(29, 480)
+        Me.Label128.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label128.Name = "Label128"
+        Me.Label128.Size = New System.Drawing.Size(443, 20)
+        Me.Label128.TabIndex = 86
+        Me.Label128.Text = "Optional Daily Waterbody Output to a water.out File"
         '
         'Form1
         '
@@ -5773,4 +5826,8 @@ Partial Class Form1
     Friend WithEvents spray13 As TextBox
     Friend WithEvents Label126 As Label
     Friend WithEvents Label127 As Label
+    Friend WithEvents Label128 As Label
+    Friend WithEvents outputWaterDepth As CheckBox
+    Friend WithEvents outputBenthicConc As CheckBox
+    Friend WithEvents outputWaterConc As CheckBox
 End Class
