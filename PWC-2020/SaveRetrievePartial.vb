@@ -154,8 +154,8 @@
         msg = msg & vbNewLine & outputInfiltratedWaterLastLayer.Checked & ","
 
         msg = msg & vbNewLine & outputWaterConc.Checked & ","
-        msg = msg & vbNewLine & outputBenthicConc.Checked & ","
-        msg = msg & vbNewLine & outputWaterDepth.Checked & ","
+        msg = msg & vbNewLine & "holder for future expansion" & ","
+        msg = msg & vbNewLine & "holder for future expansion" & ","
 
         msg = msg & vbNewLine & "holder for future expansion" & ","
         msg = msg & vbNewLine & "holder for future expansion" & ","
@@ -754,12 +754,10 @@
 
             currentrow = MyReader.ReadFields
             outputWaterConc.Checked = currentrow(0)
-            currentrow = MyReader.ReadFields
-            outputBenthicConc.Checked = currentrow(0)
-            currentrow = MyReader.ReadFields
-            outputWaterDepth.Checked = currentrow(0)
 
             MyReader.ReadLine() 'expansion lines
+            MyReader.ReadLine()
+            MyReader.ReadLine()
             MyReader.ReadLine()
             MyReader.ReadLine()
             MyReader.ReadLine()

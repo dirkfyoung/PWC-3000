@@ -52,7 +52,9 @@ module constants_and_variables
 
        
       character(len= 256) :: run_id
-      
+      character(len= 512) :: full_run_identification  !run id plus all path information
+	  
+	  
       !output
       real :: effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2
 
@@ -810,6 +812,16 @@ logical :: is_irrigation_output
 logical :: is_infiltration_at_depth_output
 real    :: infiltration_point
 logical :: is_infiltrated_bottom_output
+
+logical :: is_waterbody_info_output
+!logical :: is_waterbody_depth_output	  
+!logical :: is_waterbody_concen_output    
+!logical :: is_waterbody_porewater_output 
+
+
+
+
+
 
 
 logical::  is_constant_profile, is_ramp_profile, is_exp_profile 

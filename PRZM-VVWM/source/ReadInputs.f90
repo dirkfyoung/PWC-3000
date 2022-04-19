@@ -30,7 +30,8 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     is_infiltration_at_depth_output,infiltration_point,is_infiltrated_bottom_output,infiltration_point,is_infiltrated_bottom_output, &
     extra_plots, temp_PLNAME,  temp_chem_id, temp_MODE,temp_ARG,temp_ARG2,temp_CONST,&
     is_constant_profile, is_ramp_profile, ramp1, ramp2, ramp3, is_exp_profile , exp_profile1, exp_profile2, is_total_degradation, &
-    is_app_window, app_window_span, app_window_step, is_timeseriesfile
+    is_app_window, app_window_span, app_window_step, is_timeseriesfile, &
+	is_waterbody_info_output 
 
 use waterbody_parameters, ONLY: itsapond, itsareservoir, itsother,waterbody_names,    USEPA_reservoir,USEPA_pond 
 use utilities
@@ -88,7 +89,9 @@ use utilities
     read(inputfile_unit_number,*) hydrolysis_halflife_input(1),hydrolysis_halflife_input(2),hydrolysis_halflife_input(3) , xhydro(1), xhydro(2)
     write(*,*) 'hydrol halflife: ', hydrolysis_halflife_input(1),hydrolysis_halflife_input(2),hydrolysis_halflife_input(3)
     read(inputfile_unit_number,*) soil_degradation_halflife_input(1), soil_degradation_halflife_input(2),soil_degradation_halflife_input(3), xsoil(1), xsoil(2), is_total_degradation
-    read(inputfile_unit_number,*) soil_ref_temp(1), soil_ref_temp(2), soil_ref_temp(3)
+    write(*,*) 'soil conversions',  xsoil(1), xsoil(2)
+	
+	read(inputfile_unit_number,*) soil_ref_temp(1), soil_ref_temp(2), soil_ref_temp(3)
     read(inputfile_unit_number,*) plant_pesticide_degrade_rate(1), plant_pesticide_degrade_rate(2), plant_pesticide_degrade_rate(3),foliar_formation_ratio_12, foliar_formation_ratio_23 
     read(inputfile_unit_number,*) plant_washoff_coeff(1),plant_washoff_coeff(2),plant_washoff_coeff(3) 
     read(inputfile_unit_number,*) mwt(1), mwt(2), mwt(3)                                !Line 24
@@ -285,8 +288,6 @@ use utilities
 	    if (is_evapotranspiration_output) is_timeseriesfile = .TRUE.
     read(inputfile_unit_number,*)  is_soil_water_output
 	    if (is_soil_water_output) is_timeseriesfile = .TRUE.
-		
-		
     read(inputfile_unit_number,*)  is_irrigation_output
         if (is_irrigation_output) is_timeseriesfile = .TRUE.
     read(inputfile_unit_number,*)  is_infiltration_at_depth_output,infiltration_point
@@ -294,12 +295,13 @@ use utilities
     read(inputfile_unit_number,*) is_infiltrated_bottom_output
         if (is_infiltrated_bottom_output) is_timeseriesfile = .TRUE.
 		
+		
 	!these next 3 are for output from waterbody, this goes into a separate output file
-	read(inputfile_unit_number,*)	
-	read(inputfile_unit_number,*)	
-	read(inputfile_unit_number,*)
+	read(inputfile_unit_number,*) is_waterbody_info_output   !waterbody depth, conc and benthic
 	
-	read(inputfile_unit_number,*)	!expansion lines
+	read(inputfile_unit_number,*)  !expansion lines
+	read(inputfile_unit_number,*)	
+	read(inputfile_unit_number,*)	
 	read(inputfile_unit_number,*)
 	read(inputfile_unit_number,*)	
 	read(inputfile_unit_number,*)	
@@ -315,8 +317,6 @@ use utilities
         read(inputfile_unit_number,*)  temp_PLNAME(i),  temp_chem_id(i), temp_MODE(i),temp_ARG(i),temp_ARG2(i),temp_CONST(i)      
 	end do
     
-	
-
 end subroutine read_inputfile
     
     

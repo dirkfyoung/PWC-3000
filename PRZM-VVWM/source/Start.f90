@@ -46,7 +46,9 @@ program PRZMVVWM
 	
     write(*,*) "Input file: ", trim(inputfile)
     call read_inputfile
-    
+    call chemical_manipulations
+	
+	
     write(*,*)    '************* Start PRZM-VVWM Scheme Loop *******************'
 
     !LOOP Description

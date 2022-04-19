@@ -23,12 +23,13 @@ module outputprocessing
                                  erosion_total,  &
                                  spray_total ,   &
                                  Daily_Avg_Runoff, Daily_avg_flow_out,  runoff_fraction, erosion_fraction, drift_fraction ,&
-    k_burial, k_aer_aq, k_flow, k_hydro, k_photo, k_volatile,k_anaer_aq, gamma_1, gamma_2, gw_peak, post_bt_avg ,throughputs,simulation_avg
+    k_burial, k_aer_aq, k_flow, k_hydro, k_photo, k_volatile,k_anaer_aq, gamma_1, gamma_2, gw_peak, post_bt_avg ,throughputs,simulation_avg, &
+		is_waterbody_info_output, full_run_identification
    
                          
     implicit none
     integer, intent(in) :: chem_index
-    
+    character(len=512) :: waterbody_outputfile
     
     !temporary parameters for esa, should make this more generalk in the future
     real:: return_frequency
@@ -82,8 +83,29 @@ module outputprocessing
     first_annual_dates= 0
     
 
-!if (is_output_all  ) then
-!
+if (is_waterbody_info_output) then
+	select case (chem_index)
+
+		
+	    case (1)
+		    waterbody_outputfile = trim(full_run_identification) // '_parent_wb.out'
+	    case (2)
+		    waterbody_outputfile = trim(full_run_identification) // '_daugter_wb.out'
+	    case (3)
+		    waterbody_outputfile = trim(full_run_identification) // '_granddaugter_wb.out'		
+	    case default
+		    waterbody_outputfile =trim(full_run_identification) // '_nada.out'	
+	end select
+	
+	open (UNIT=12,FILE= trim(waterbody_outputfile),  STATUS='unknown')
+
+    do i =1, num_records
+        write(12,'(G12.4E3, "," ,ES12.4E3, "," ,ES12.4E3, "," ,ES12.4E3)')  daily_depth(i), aqconc_avg1(i), aqconc_avg2(i)
+	end do
+	close (12)
+end if
+
+
 !
 !    !***** EFED TIME SERIES ********************************************
 !    write(12,*) "col 1: Daily Depth (m)" 

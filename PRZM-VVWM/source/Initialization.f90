@@ -2,6 +2,33 @@ module initialization
 implicit none
 	contains
 
+subroutine chemical_manipulations
+use constants_and_Variables, ONLY: MolarConvert_aq12_input, MolarConvert_s12_input,MolarConvert_aq23_input,MolarConvert_s23_input, xsoil
+
+
+!SET Soil molar coinversions to the same value for all horizons, for both aqueous and sorbed degradation
+MolarConvert_aq12_input = xsoil(1)
+MolarConvert_s12_input  = xsoil(1)
+
+!MolarConvert_aq13_input(i) = not defined in this version
+!MolarConvert_s13_input(i) = not defined 
+
+MolarConvert_aq23_input = xsoil(2)
+MolarConvert_s23_input  = xsoil(2)
+
+
+end subroutine chemical_manipulations
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!     
 SUBROUTINE INITL
@@ -55,6 +82,8 @@ use waterbody_parameters, ONLY: afield
     integer         :: start, xend
     real            :: running_depth, previous_depth,slope_ramp, value1, value2, value_integrated
     
+	
+	!please move these to chem manipulations, no need to repeat them
     
     call Convert_halflife_to_rate_per_sec(water_column_halflife_input(1), water_column_rate(1)) 
     call Convert_halflife_to_rate_per_sec(water_column_halflife_input(2), water_column_rate(2))
@@ -110,7 +139,7 @@ use waterbody_parameters, ONLY: afield
     ! *** Populate the Delx Vector and Kf & N *******
     start = 1
     Xend = 0
-        
+  
     do i=1, nhoriz
         xend = start +num_delx(i)-1      
         delx(start:xend)           = thickness(i)/num_delx(i) 
@@ -167,8 +196,6 @@ use waterbody_parameters, ONLY: afield
 		bottom_node_last_horizon = sum(Num_delx(1:nhoriz))
 	end if
 
-	
-	
 	
 	
      
@@ -672,11 +699,11 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
     is_evapotranspiration_output, is_soil_water_output, is_irrigation_output,is_chem_in_all_soil_output, &
     is_infiltration_at_depth_output,infiltration_point,is_infiltrated_bottom_output,infiltration_point,is_infiltrated_bottom_output, &
     PLNAME, chem_id, mode, arg, arg2, const, nplots, thickness, ncom2,soil_depth,nhoriz,leachdepth, &
-    extra_plots, temp_PLNAME,  temp_chem_id, temp_MODE,temp_ARG,temp_ARG2,temp_CONST
+    extra_plots, temp_PLNAME,  temp_chem_id, temp_MODE,temp_ARG,temp_ARG2,temp_CONST, nchem
     
     
     implicit none
-    integer :: i
+    integer :: i, j
     real :: depth1 !local variables used to determine reklevant depths for output in last horizon, and possibly elsewher
     real :: depth2 
     integer :: num_std_plots  !counter for the number of standard plots that were requested 
@@ -702,118 +729,8 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
          ARG(i) = 0
          ARG2(i) = 0
          CONST(i) = 1.0
-    end if
+	end if
 
-    if (is_runoff_chem_output) then
-        i=i+1
-         PLNAME(i) = 'RFLX'
-         chem_id(I) = 1
-         MODE(i) = 'TSER'
-         ARG(i) = 0
-         ARG2(i) = 0
-         CONST(i) = 100000.  !kg/ha
-    end if
-    
-    if (is_erosion_chem_output) then
-        i=i+1
-         PLNAME(i) = 'EFLX'
-         chem_id(I) = 1
-         MODE(i) = 'TSER'
-         ARG(i) = 0
-         ARG2(i) = 0
-         CONST(i) = 100000.
-    end if
-
-    if (is_conc_bottom_output) then
-        i=i+1
-         PLNAME(i) = 'DCON'
-         chem_id(I) = 1
-         MODE(i) = 'TAVE'
-          
-         depth1 = sum(thickness(1:(nhoriz-1)) )     !top of last horizon
-         depth2 = sum(thickness)                   !Bottom of last horizon   
-         
-         ARG(i)  = find_depth_node(ncom2,soil_depth,depth1) 
-         If (Arg(i) > 1) then    !Forthe unusual case where the last node is the first node
-             ARG(i)  = ARG(i) +1 !need to add node because depth is countedat bottom of node
-         end if
-         
-         ARG2(i) = find_depth_node(ncom2,soil_depth,depth2)
-         CONST(i) = 1000.     
-    end if
-    
-    if (is_daily_volatilized_output) then
-        i=i+1
-         PLNAME(i) = 'VFLX'
-         chem_id(I) = 1
-         MODE(i) = 'TSER'
-         ARG(i) = 0
-         ARG2(i) = 0
-         CONST(i) = 100000. !kg/ha
-    end if
-    
-    if (is_daily_chem_leached_output) then
-        i=i+1
-         PLNAME(i) = 'COFX'
-         chem_id(i) = 1
-         MODE(i) = 'TSER'
-         ARG(i)  = find_depth_node(ncom2,soil_depth,leachdepth)
-         ARG2(i) = 0
-         CONST(i) = 100000. !kg/ha
-    end if
-
-    if (is_chem_decayed_part_of_soil_output) then
-        i=i+1
-         PLNAME(i) = 'DKFX'
-         chem_id(I) = 1
-         MODE(i) = 'TSUM'
-         ARG(i)  = find_depth_node(ncom2,soil_depth,decay_start)
-         !because depth is determined at bottom of compartment need to add 1 (except fdor case of 1, where find_node already considers this)
-         If (Arg(i) > 1) then             
-             ARG(i)  = ARG(i) +1
-         end if
-                 
-         ARG2(i) = find_depth_node(ncom2,soil_depth,decay_end)
-         CONST(i) = 100000. !kg/ha
-    end if
-
-    if (is_chem_in_part_soil_output) then
-        i=i+1
-         PLNAME(i) = 'TPST'
-         chem_id(i) = 1
-         MODE(i) = 'TSUM'
-         
-         ARG(i)  = find_depth_node(ncom2,soil_depth,fieldmass_start)
-         !because depth is determined at bottom of compartment need to add 1 (except fdor case of 1, where find_node already considers this)
-         If (Arg(i) > 1) then             
-             ARG(i)  = ARG(i) +1
-         end if
-         
-         ARG2(i) = find_depth_node(ncom2,soil_depth, fieldmass_end )
-         
-         CONST(i) = 100000. !kg/ha
-    end if
-
-    if (is_chem_in_all_soil_output) then
-        i=i+1
-         PLNAME(i) = 'TPST'
-         chem_id(i) = 1
-         MODE(i) = 'TSUM'     
-         ARG(i) = 1
-         depth2 = sum(thickness)
-         ARG2(i) = find_depth_node(ncom2,soil_depth,depth2)
-         CONST(i) = 100000. !kg/ha
-    end if
-    
-    if (is_chem_on_foliage_output ) then
-        i=i+1
-         PLNAME(i) = 'FPST'
-         chem_id(i) = 1
-         MODE(i) = 'TSER'   
-         ARG(i) = 1
-         ARG2(i) = 2
-         CONST(i) = 100000. !kg/ha
-    end if
 
     if (is_precipitation_output) then
         i=i+1
@@ -834,9 +751,6 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
          ARG2(i) = 2
          CONST(i) = 1.
 	end if
-
-	
-	
 	
     if (is_soil_water_output) then
         i=i+1
@@ -886,9 +800,122 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
 	
 
 
-   
-   
-   
+   !Below are the chemicl outputs, ned to get parent and degradates
+	do j=1, nchem
+           if (is_runoff_chem_output) then
+               i=i+1
+                PLNAME(i) = 'RFLX'
+                chem_id(I) = j
+                MODE(i) = 'TSER'
+                ARG(i) = 0
+                ARG2(i) = 0
+                CONST(i) = 100000.  !kg/ha
+           end if
+    
+           if (is_erosion_chem_output) then
+               i=i+1
+                PLNAME(i) = 'EFLX'
+                chem_id(I) = j
+                MODE(i) = 'TSER'
+                ARG(i) = 0
+                ARG2(i) = 0
+                CONST(i) = 100000.
+           end if
+           
+           if (is_conc_bottom_output) then
+               i=i+1
+                PLNAME(i) = 'DCON'
+                chem_id(I) = j
+                MODE(i) = 'TAVE'
+                 
+                depth1 = sum(thickness(1:(nhoriz-1)) )     !top of last horizon
+                depth2 = sum(thickness)                   !Bottom of last horizon   
+                
+                ARG(i)  = find_depth_node(ncom2,soil_depth,depth1) 
+                If (Arg(i) > 1) then    !Forthe unusual case where the last node is the first node
+                    ARG(i)  = ARG(i) +1 !need to add node because depth is countedat bottom of node
+                end if
+                
+                ARG2(i) = find_depth_node(ncom2,soil_depth,depth2)
+                CONST(i) = 1000.     
+           end if
+           
+           if (is_daily_volatilized_output) then
+               i=i+1
+                PLNAME(i) = 'VFLX'
+                chem_id(I) = j
+                MODE(i) = 'TSER'
+                ARG(i) = 0
+                ARG2(i) = 0
+                CONST(i) = 100000. !kg/ha
+           end if
+           
+           if (is_daily_chem_leached_output) then
+               i=i+1
+                PLNAME(i) = 'COFX'
+                chem_id(i) = j
+                MODE(i) = 'TSER'
+                ARG(i)  = find_depth_node(ncom2,soil_depth,leachdepth)
+                ARG2(i) = 0
+                CONST(i) = 100000. !kg/ha
+           end if
+           
+           if (is_chem_decayed_part_of_soil_output) then
+               i=i+1
+                PLNAME(i) = 'DKFX'
+                chem_id(I) = j
+                MODE(i) = 'TSUM'
+                ARG(i)  = find_depth_node(ncom2,soil_depth,decay_start)
+                !because depth is determined at bottom of compartment need to add 1 (except fdor case of 1, where find_node already considers this)
+                If (Arg(i) > 1) then             
+                    ARG(i)  = ARG(i) +1
+                end if
+                        
+                ARG2(i) = find_depth_node(ncom2,soil_depth,decay_end)
+                CONST(i) = 100000. !kg/ha
+           end if
+           
+           if (is_chem_in_part_soil_output) then
+               i=i+1
+                PLNAME(i) = 'TPST'
+                chem_id(i) = j
+                MODE(i) = 'TSUM'
+                
+                ARG(i)  = find_depth_node(ncom2,soil_depth,fieldmass_start)
+                !because depth is determined at bottom of compartment need to add 1 (except fdor case of 1, where find_node already considers this)
+                If (Arg(i) > 1) then             
+                    ARG(i)  = ARG(i) +1
+                end if
+                
+                ARG2(i) = find_depth_node(ncom2,soil_depth, fieldmass_end )
+                
+                CONST(i) = 100000. !kg/ha
+           end if
+           
+           if (is_chem_in_all_soil_output) then
+               i=i+1
+                PLNAME(i) = 'TPST'
+                chem_id(i) = j
+                MODE(i) = 'TSUM'     
+                ARG(i) = 1
+                depth2 = sum(thickness)
+                ARG2(i) = find_depth_node(ncom2,soil_depth,depth2)
+                CONST(i) = 100000. !kg/ha
+           end if
+           
+           if (is_chem_on_foliage_output ) then
+               i=i+1
+                PLNAME(i) = 'FPST'
+                chem_id(i) = j
+                MODE(i) = 'TSER'   
+                ARG(i) = 1
+                ARG2(i) = 2
+                CONST(i) = 100000. !kg/ha
+           end if
+
+	end do
+	
+
     num_std_plots= i 
 	
 

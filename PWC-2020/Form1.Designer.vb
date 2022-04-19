@@ -429,6 +429,8 @@ Partial Class Form1
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.WatershedTab = New System.Windows.Forms.TabPage()
         Me.OptionalOutputTab = New System.Windows.Forms.TabPage()
+        Me.Label128 = New System.Windows.Forms.Label()
+        Me.outputWaterConc = New System.Windows.Forms.CheckBox()
         Me.OutputInfiltrationDepth = New System.Windows.Forms.TextBox()
         Me.OutputDailyPestLeached = New System.Windows.Forms.CheckBox()
         Me.Label105 = New System.Windows.Forms.Label()
@@ -476,10 +478,6 @@ Partial Class Form1
         Me.SaveWaterbodyFile = New System.Windows.Forms.SaveFileDialog()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.outputWaterConc = New System.Windows.Forms.CheckBox()
-        Me.outputBenthicConc = New System.Windows.Forms.CheckBox()
-        Me.outputWaterDepth = New System.Windows.Forms.CheckBox()
-        Me.Label128 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.AdvancedTab.SuspendLayout()
         Me.ScenarioExaminerTab.SuspendLayout()
@@ -3948,6 +3946,7 @@ Partial Class Form1
         Me.SoilMolarRatio1.Name = "SoilMolarRatio1"
         Me.SoilMolarRatio1.Size = New System.Drawing.Size(41, 22)
         Me.SoilMolarRatio1.TabIndex = 68
+        Me.SoilMolarRatio1.Tag = "molasr conversion soil/"
         Me.ToolTip1.SetToolTip(Me.SoilMolarRatio1, "Moles of daughter produced per mole of parent degraded")
         Me.SoilMolarRatio1.Visible = False
         '
@@ -3972,6 +3971,7 @@ Partial Class Form1
         Me.HydroMolarRatio1.Name = "HydroMolarRatio1"
         Me.HydroMolarRatio1.Size = New System.Drawing.Size(41, 22)
         Me.HydroMolarRatio1.TabIndex = 67
+        Me.HydroMolarRatio1.Tag = "molar conversion hydro."
         Me.ToolTip1.SetToolTip(Me.HydroMolarRatio1, "Moles of daughter produced per mole of parent degraded")
         Me.HydroMolarRatio1.Visible = False
         '
@@ -4076,6 +4076,7 @@ Partial Class Form1
         Me.PhotoMolarRatio1.Name = "PhotoMolarRatio1"
         Me.PhotoMolarRatio1.Size = New System.Drawing.Size(41, 22)
         Me.PhotoMolarRatio1.TabIndex = 69
+        Me.PhotoMolarRatio1.Tag = "molar conversion photo."
         Me.ToolTip1.SetToolTip(Me.PhotoMolarRatio1, "Moles of daughter produced per mole of parent degraded")
         Me.PhotoMolarRatio1.Visible = False
         '
@@ -4101,6 +4102,7 @@ Partial Class Form1
         Me.BenthicMolarRatio1.Name = "BenthicMolarRatio1"
         Me.BenthicMolarRatio1.Size = New System.Drawing.Size(41, 22)
         Me.BenthicMolarRatio1.TabIndex = 68
+        Me.BenthicMolarRatio1.Tag = "molar conversion bentrhic."
         Me.ToolTip1.SetToolTip(Me.BenthicMolarRatio1, "Moles of daughter produced per mole of parent degraded")
         Me.BenthicMolarRatio1.Visible = False
         '
@@ -4198,6 +4200,7 @@ Partial Class Form1
         Me.WaterMolarRatio1.Name = "WaterMolarRatio1"
         Me.WaterMolarRatio1.Size = New System.Drawing.Size(41, 22)
         Me.WaterMolarRatio1.TabIndex = 66
+        Me.WaterMolarRatio1.Tag = "Molar Conversion Water Column."
         Me.ToolTip1.SetToolTip(Me.WaterMolarRatio1, "Moles of daughter produced per mole of parent degraded")
         Me.WaterMolarRatio1.Visible = False
         '
@@ -4631,6 +4634,7 @@ Partial Class Form1
         Me.FoliarMolarRatio1.Name = "FoliarMolarRatio1"
         Me.FoliarMolarRatio1.Size = New System.Drawing.Size(41, 22)
         Me.FoliarMolarRatio1.TabIndex = 86
+        Me.FoliarMolarRatio1.Tag = "molar conversion foliar."
         Me.ToolTip1.SetToolTip(Me.FoliarMolarRatio1, "Moles of daughter produced per mole of parent degraded")
         Me.FoliarMolarRatio1.Visible = False
         '
@@ -4692,7 +4696,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.66038!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.33962!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 178.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.IsAqueousDegradation, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.IsAllMedia, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label63, 2, 0)
@@ -4707,10 +4711,10 @@ Partial Class Form1
         'IsAqueousDegradation
         '
         Me.IsAqueousDegradation.AutoSize = True
-        Me.IsAqueousDegradation.Location = New System.Drawing.Point(94, 2)
+        Me.IsAqueousDegradation.Location = New System.Drawing.Point(93, 2)
         Me.IsAqueousDegradation.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.IsAqueousDegradation.Name = "IsAqueousDegradation"
-        Me.IsAqueousDegradation.Size = New System.Drawing.Size(102, 21)
+        Me.IsAqueousDegradation.Size = New System.Drawing.Size(101, 21)
         Me.IsAqueousDegradation.TabIndex = 71
         Me.IsAqueousDegradation.Text = "Aqueous Only"
         Me.IsAqueousDegradation.UseVisualStyleBackColor = True
@@ -4723,7 +4727,7 @@ Partial Class Form1
         Me.IsAllMedia.Location = New System.Drawing.Point(3, 2)
         Me.IsAllMedia.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.IsAllMedia.Name = "IsAllMedia"
-        Me.IsAllMedia.Size = New System.Drawing.Size(85, 21)
+        Me.IsAllMedia.Size = New System.Drawing.Size(84, 21)
         Me.IsAllMedia.TabIndex = 72
         Me.IsAllMedia.TabStop = True
         Me.IsAllMedia.Text = "All Media"
@@ -4797,8 +4801,6 @@ Partial Class Form1
         '
         Me.OptionalOutputTab.BackColor = System.Drawing.Color.Yellow
         Me.OptionalOutputTab.Controls.Add(Me.Label128)
-        Me.OptionalOutputTab.Controls.Add(Me.outputWaterDepth)
-        Me.OptionalOutputTab.Controls.Add(Me.outputBenthicConc)
         Me.OptionalOutputTab.Controls.Add(Me.outputWaterConc)
         Me.OptionalOutputTab.Controls.Add(Me.OutputInfiltrationDepth)
         Me.OptionalOutputTab.Controls.Add(Me.OutputDailyPestLeached)
@@ -4840,6 +4842,29 @@ Partial Class Form1
         Me.OptionalOutputTab.Size = New System.Drawing.Size(894, 589)
         Me.OptionalOutputTab.TabIndex = 10
         Me.OptionalOutputTab.Text = "Optional Output"
+        '
+        'Label128
+        '
+        Me.Label128.AutoSize = True
+        Me.Label128.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label128.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer))
+        Me.Label128.Location = New System.Drawing.Point(29, 480)
+        Me.Label128.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label128.Name = "Label128"
+        Me.Label128.Size = New System.Drawing.Size(443, 20)
+        Me.Label128.TabIndex = 86
+        Me.Label128.Text = "Optional Daily Waterbody Output to a water.out File"
+        '
+        'outputWaterConc
+        '
+        Me.outputWaterConc.AutoSize = True
+        Me.outputWaterConc.Location = New System.Drawing.Point(33, 513)
+        Me.outputWaterConc.Margin = New System.Windows.Forms.Padding(4)
+        Me.outputWaterConc.Name = "outputWaterConc"
+        Me.outputWaterConc.Size = New System.Drawing.Size(476, 21)
+        Me.outputWaterConc.TabIndex = 83
+        Me.outputWaterConc.Text = "Waterbody depth, concentration, and benthic pore water concentration"
+        Me.outputWaterConc.UseVisualStyleBackColor = True
         '
         'OutputInfiltrationDepth
         '
@@ -5268,51 +5293,6 @@ Partial Class Form1
         'Timer1
         '
         Me.Timer1.Interval = 1000
-        '
-        'outputWaterConc
-        '
-        Me.outputWaterConc.AutoSize = True
-        Me.outputWaterConc.Location = New System.Drawing.Point(33, 513)
-        Me.outputWaterConc.Margin = New System.Windows.Forms.Padding(4)
-        Me.outputWaterConc.Name = "outputWaterConc"
-        Me.outputWaterConc.Size = New System.Drawing.Size(260, 21)
-        Me.outputWaterConc.TabIndex = 83
-        Me.outputWaterConc.Text = "Water Column Concentration (kg/m³)"
-        Me.outputWaterConc.UseVisualStyleBackColor = True
-        '
-        'outputBenthicConc
-        '
-        Me.outputBenthicConc.AutoSize = True
-        Me.outputBenthicConc.Location = New System.Drawing.Point(33, 533)
-        Me.outputBenthicConc.Margin = New System.Windows.Forms.Padding(4)
-        Me.outputBenthicConc.Name = "outputBenthicConc"
-        Me.outputBenthicConc.Size = New System.Drawing.Size(206, 21)
-        Me.outputBenthicConc.TabIndex = 84
-        Me.outputBenthicConc.Text = "Benthic  Pore Water (kg/m³)"
-        Me.outputBenthicConc.UseVisualStyleBackColor = True
-        '
-        'outputWaterDepth
-        '
-        Me.outputWaterDepth.AutoSize = True
-        Me.outputWaterDepth.Location = New System.Drawing.Point(33, 553)
-        Me.outputWaterDepth.Margin = New System.Windows.Forms.Padding(4)
-        Me.outputWaterDepth.Name = "outputWaterDepth"
-        Me.outputWaterDepth.Size = New System.Drawing.Size(182, 21)
-        Me.outputWaterDepth.TabIndex = 85
-        Me.outputWaterDepth.Text = "Water column depth (m)"
-        Me.outputWaterDepth.UseVisualStyleBackColor = True
-        '
-        'Label128
-        '
-        Me.Label128.AutoSize = True
-        Me.Label128.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label128.ForeColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(0, Byte), Integer))
-        Me.Label128.Location = New System.Drawing.Point(29, 480)
-        Me.Label128.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(443, 20)
-        Me.Label128.TabIndex = 86
-        Me.Label128.Text = "Optional Daily Waterbody Output to a water.out File"
         '
         'Form1
         '
@@ -5827,7 +5807,5 @@ Partial Class Form1
     Friend WithEvents Label126 As Label
     Friend WithEvents Label127 As Label
     Friend WithEvents Label128 As Label
-    Friend WithEvents outputWaterDepth As CheckBox
-    Friend WithEvents outputBenthicConc As CheckBox
     Friend WithEvents outputWaterConc As CheckBox
 End Class

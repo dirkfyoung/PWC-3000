@@ -63,6 +63,25 @@ Partial Public Class Form1
 
         'OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
         If DoDegradate1.Checked Then
+            TestRealNumbers(TrueOrFalse, msg, WaterMolarRatio1, "")
+            If TrueOrFalse = False Then Return
+
+            TestRealNumbers(TrueOrFalse, msg, BenthicMolarRatio1, "")
+            If TrueOrFalse = False Then Return
+
+            TestRealNumbers(TrueOrFalse, msg, PhotoMolarRatio1, "")
+            If TrueOrFalse = False Then Return
+
+            TestRealNumbers(TrueOrFalse, msg, HydroMolarRatio1, "")
+            If TrueOrFalse = False Then Return
+
+            TestRealNumbers(TrueOrFalse, msg, SoilMolarRatio1, "")
+            If TrueOrFalse = False Then Return
+
+            TestRealNumbers(TrueOrFalse, msg, FoliarMolarRatio1, "")
+            If TrueOrFalse = False Then Return
+
+
             TestRealNumbers(TrueOrFalse, msg, sorption2)
             If TrueOrFalse = False Then Return
 
@@ -123,10 +142,26 @@ Partial Public Class Form1
 
         End If
 
-        If DoDegradate1.Checked Then
+        If DoDegradate2.Checked Then
 
-            TestIntegers(TrueOrFalse, msg, WaterMolarRatio1, "")
+            TestRealNumbers(TrueOrFalse, msg, WaterMolarRatio2, "")
             If TrueOrFalse = False Then Return
+
+            TestRealNumbers(TrueOrFalse, msg, BenthicMolarRatio2, "")
+            If TrueOrFalse = False Then Return
+
+            TestRealNumbers(TrueOrFalse, msg, PhotoMolarRatio2, "")
+            If TrueOrFalse = False Then Return
+
+            TestRealNumbers(TrueOrFalse, msg, HydroMolarRatio2, "")
+            If TrueOrFalse = False Then Return
+
+            TestRealNumbers(TrueOrFalse, msg, SoilMolarRatio2, "")
+            If TrueOrFalse = False Then Return
+
+            TestRealNumbers(TrueOrFalse, msg, FoliarMolarRatio2, "")
+            If TrueOrFalse = False Then Return
+
 
             TestRealNumbers(TrueOrFalse, msg, sorption3)
             If TrueOrFalse = False Then Return

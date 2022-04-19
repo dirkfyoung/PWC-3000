@@ -90,7 +90,7 @@ Module Output_From_Field
     OUTPJJ,chem_id,NPLOTS, ARG,ARG2,PLNAME,MODE,DCOFLX,max_number_plots,Version_Number,julday1900,  &
      day_number_chemtrans,mass_off_field, &
     First_time_through_PRZM , working_directory, family_name, run_id,maxFileLength, &
-	top_node_last_horizon, bottom_node_last_horizon,conc_last_horizon_save, day_number_chemtrans
+	top_node_last_horizon, bottom_node_last_horizon,conc_last_horizon_save, day_number_chemtrans, full_run_identification
     
     use waterbody_parameters, ONLY: afield 
     use utilities_1
@@ -104,7 +104,7 @@ Module Output_From_Field
     REAL ::  PNBRN(max_number_plots)
     real ::  PRTBUF(max_number_plots)
 
-    REAL   RMULT,XSOIL(3)
+    REAL   RMULT,onSOIL(3)
     REAL   TTTOT,DPTOT
 
     CHARACTER(len=4) :: TSUM,TAVE,TSER,TCUM
@@ -128,6 +128,7 @@ Module Output_From_Field
 	if (is_timeseriesfile .eqv. .FALSE. ) return  !if time series file is not specified, then leave
 	
     if (First_time_through_PRZM) then 
+		full_run_identification = trim(working_directory) // trim(family_name) // "_" // trim(run_id)
 		filename = trim(working_directory) // trim(family_name) // "_" // trim(run_id) // ".out"
 	    OPEN(Unit=TimeSeriesUnit2,FILE=trim(adjustl(filename)), STATUS='UNKNOWN') 
         call  write_outputfile_header_2
@@ -140,9 +141,9 @@ Module Output_From_Field
     TSER = 'TSER'
     
     DO K=1,NCHEM
-      XSOIL(K) = 0.00
+      onSOIL(K) = 0.00
       DO i = 1, NCOM2
-        XSOIL(K) = XSOIL(K) + SOILAP(K,i)  !total soil application
+        onSOIL(K) = onSOIL(K) + SOILAP(K,i)  !total soil application
       END DO
     END DO
 
@@ -362,7 +363,7 @@ Module Output_From_Field
       !  Pesticide storages (units of GRAMS/(CM**2)
       IF (PLNAME(I) .EQ. 'FPST') PNBRN(I)=FOLPST(chem_id(i))
       IF (PLNAME(I) .EQ. 'PCNC') PNBRN(I)=TCNC(chem_id(i))
-      IF (PLNAME(I) .EQ. 'TPAP') PNBRN(I)= XSOIL(chem_id(i)) + plant_app       
+      IF (PLNAME(I) .EQ. 'TPAP') PNBRN(I)= onSOIL(chem_id(i)) + plant_app       
       
       IF (PLNAME(I) .EQ. 'FPDL') PNBRN(I)= Foliar_degrade_loss(chem_id(i))
       IF (PLNAME(I) .EQ. 'WFLX') PNBRN(I)= WOFLUX(chem_id(i))

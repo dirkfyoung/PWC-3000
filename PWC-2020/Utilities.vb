@@ -41,9 +41,12 @@
         Try
             TestNumber = name.Text
         Catch ex As Exception
+
+            MsgBox(name.Text)
             name.BackColor = Color.Orange
             msg = "Check the value for " & name.Tag
             TrueOrFalse = False
+
             Return
 
         End Try
@@ -77,6 +80,7 @@
         Try
             TestNumber = name.Text
         Catch ex As Exception
+
             name.BackColor = Color.Orange
             msg = "Check the value for " & name.Tag
             TrueOrFalse = False

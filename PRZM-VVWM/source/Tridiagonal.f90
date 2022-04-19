@@ -142,7 +142,7 @@ subroutine flux_calculations(k, concentration)
      
     ERFLUX(K) =  sum( enriched_eroded_solids*kd_new(K,1:erosion_compt)*    & 
                        concentration(1:erosion_compt)*erosion_intensity(1:erosion_compt)*DELX(1:erosion_compt) )
-      
+   
 
         !-------------------VOLATILIZATION--------------------------
         !PVFLUX: Daily Soil Pesticide Volatilization Flux (g cm^-2 day^-1)
