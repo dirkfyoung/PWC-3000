@@ -31,8 +31,8 @@ Public Class Form1
         'Add Columns
         AppTableDisplay.ColumnCount = 2
         AppTableDisplay.Columns(0).Name = "Days"
-        AppTableDisplay.Columns(0).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
-
+        ' AppTableDisplay.Columns(0).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+        AppTableDisplay.Columns(0).Width = 56
 
         AppTableDisplay.Columns(1).Name = "Amount (kg/ha)"
         AppTableDisplay.Columns(1).AutoSizeMode = DataGridViewAutoSizeColumnMode.None
@@ -59,14 +59,14 @@ Public Class Form1
         AppTableDisplay.Columns.Add(combo)
 
         AppTableDisplay.Columns.Add("Depth", "Depth (cm)")
-        AppTableDisplay.Columns(3).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+        ' AppTableDisplay.Columns(3).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
         AppTableDisplay.Columns(3).SortMode = DataGridViewColumnSortMode.NotSortable
-        AppTableDisplay.Columns(3).Width = 46
+        AppTableDisplay.Columns(3).Width = 42
 
         AppTableDisplay.Columns.Add("Split", "Split")
         '    AppTableDisplay.Columns(4).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
         AppTableDisplay.Columns(4).SortMode = DataGridViewColumnSortMode.NotSortable
-        AppTableDisplay.Columns(4).Width = 46
+        AppTableDisplay.Columns(4).Width = 44
 
 
         Dim driftcombo As New DataGridViewComboBoxColumn With {
@@ -98,16 +98,24 @@ Public Class Form1
         'AppTableDisplay.Columns(5).SortMode = DataGridViewColumnSortMode.NotSortable
         'AppTableDisplay.Columns(5).Width = 80
 
+
+        AppTableDisplay.Columns.Add("Drift Red", "Drift Factor")
+        'AppTableDisplay.Columns(5).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+        AppTableDisplay.Columns(6).SortMode = DataGridViewColumnSortMode.NotSortable
+        AppTableDisplay.Columns(6).Width = 54
+
+
+
         AppTableDisplay.Columns.Add("Periodicity", "Period")
         'AppTableDisplay.Columns(6).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
-        AppTableDisplay.Columns(6).SortMode = DataGridViewColumnSortMode.NotSortable
-        AppTableDisplay.Columns(6).Width = 60
+        AppTableDisplay.Columns(7).SortMode = DataGridViewColumnSortMode.NotSortable
+        AppTableDisplay.Columns(7).Width = 56
 
 
         AppTableDisplay.Columns.Add("Lag", "Lag")
         '  AppTableDisplay.Columns(8).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
-        AppTableDisplay.Columns(7).SortMode = DataGridViewColumnSortMode.NotSortable
-        AppTableDisplay.Columns(7).Width = 60
+        AppTableDisplay.Columns(8).SortMode = DataGridViewColumnSortMode.NotSortable
+        AppTableDisplay.Columns(8).Width = 42
 
         Dim btn As New DataGridViewButtonColumn()
         btn.Text = "X"
@@ -115,7 +123,7 @@ Public Class Form1
         btn.Name = "Delete"
         btn.UseColumnTextForButtonValue = True
         AppTableDisplay.Columns.Add(btn)
-        AppTableDisplay.Columns(8).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+        AppTableDisplay.Columns(9).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
     End Sub
 
     Private Sub RunoffGridView_RowPostPaint(ByVal sender As Object, ByVal e As DataGridViewRowPostPaintEventArgs)
