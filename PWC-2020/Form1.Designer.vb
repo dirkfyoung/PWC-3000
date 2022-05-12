@@ -513,7 +513,7 @@ Partial Class Form1
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 2, 0, 2)
-        Me.MenuStrip1.Size = New System.Drawing.Size(908, 28)
+        Me.MenuStrip1.Size = New System.Drawing.Size(923, 28)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -527,13 +527,13 @@ Partial Class Form1
         'SaveToolStripMenuItem
         '
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(146, 26)
         Me.SaveToolStripMenuItem.Text = "Save"
         '
         'RetrieveToolStripMenuItem
         '
         Me.RetrieveToolStripMenuItem.Name = "RetrieveToolStripMenuItem"
-        Me.RetrieveToolStripMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.RetrieveToolStripMenuItem.Size = New System.Drawing.Size(146, 26)
         Me.RetrieveToolStripMenuItem.Text = "Retrieve"
         '
         'MorenTabsToolStripMenuItem
@@ -3321,7 +3321,7 @@ Partial Class Form1
         Me.SchemeApplications.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SchemeApplications.Name = "SchemeApplications"
         Me.SchemeApplications.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.SchemeApplications.Size = New System.Drawing.Size(894, 589)
+        Me.SchemeApplications.Size = New System.Drawing.Size(913, 589)
         Me.SchemeApplications.TabIndex = 1
         Me.SchemeApplications.Text = "Applications"
         Me.SchemeApplications.UseVisualStyleBackColor = True
@@ -3452,7 +3452,7 @@ Partial Class Form1
         Me.AppTableDisplay.RowHeadersVisible = False
         Me.AppTableDisplay.RowHeadersWidth = 51
         Me.AppTableDisplay.RowTemplate.Height = 24
-        Me.AppTableDisplay.Size = New System.Drawing.Size(876, 276)
+        Me.AppTableDisplay.Size = New System.Drawing.Size(896, 276)
         Me.AppTableDisplay.TabIndex = 0
         '
         'Schemes
@@ -4696,7 +4696,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.66038!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.33962!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 181.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.IsAqueousDegradation, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.IsAllMedia, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label63, 2, 0)
@@ -4711,7 +4711,7 @@ Partial Class Form1
         'IsAqueousDegradation
         '
         Me.IsAqueousDegradation.AutoSize = True
-        Me.IsAqueousDegradation.Location = New System.Drawing.Point(93, 2)
+        Me.IsAqueousDegradation.Location = New System.Drawing.Point(92, 2)
         Me.IsAqueousDegradation.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.IsAqueousDegradation.Name = "IsAqueousDegradation"
         Me.IsAqueousDegradation.Size = New System.Drawing.Size(101, 21)
@@ -4727,7 +4727,7 @@ Partial Class Form1
         Me.IsAllMedia.Location = New System.Drawing.Point(3, 2)
         Me.IsAllMedia.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.IsAllMedia.Name = "IsAllMedia"
-        Me.IsAllMedia.Size = New System.Drawing.Size(84, 21)
+        Me.IsAllMedia.Size = New System.Drawing.Size(83, 21)
         Me.IsAllMedia.TabIndex = 72
         Me.IsAllMedia.TabStop = True
         Me.IsAllMedia.Text = "All Media"
@@ -4779,7 +4779,7 @@ Partial Class Form1
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(902, 618)
+        Me.TabControl1.Size = New System.Drawing.Size(921, 618)
         Me.TabControl1.TabIndex = 0
         '
         'WatershedTab
@@ -5298,7 +5298,7 @@ Partial Class Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(908, 709)
+        Me.ClientSize = New System.Drawing.Size(923, 709)
         Me.Controls.Add(Me.CalculateButton)
         Me.Controls.Add(Me.IOFamilyName)
         Me.Controls.Add(Me.WorkingDirectoryLabel)

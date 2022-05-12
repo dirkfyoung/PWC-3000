@@ -27,7 +27,7 @@
     Public Const sprayterm11 As String = "Airblast (vinyard)"
     Public Const sprayterm12 As String = "Airblast (orchard)"
 
-    Public Const sprayterm13 As String = "Other"
+    Public Const sprayterm13 As String = "Directly applied to waterbody"
     Public Const sprayterm14 As String = "None"
 
 End Class

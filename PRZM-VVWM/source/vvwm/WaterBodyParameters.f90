@@ -52,7 +52,7 @@ implicit none
     real,parameter :: baseflow_P      = 0.0   
     integer,parameter :: flow_averaging_P = 0
     real,parameter :: hydro_length_P      = 356.8 
-	real,dimension(14),parameter :: spray_p = (/0.242,0.125,0.089,0.068, 0.062, 0.027, 0.017, 0.011, 0.042, 0.015, 0.002, 0.022, 0.0, 0.0 /)
+	real,dimension(14),parameter :: spray_p = (/0.242,0.125,0.089,0.068, 0.062, 0.027, 0.017, 0.011, 0.042, 0.015, 0.002, 0.022, 1.0, 0.0 /)
     
     !*** RESERVOIR ****************
     integer, parameter :: waterbodytype_R = 3
@@ -76,7 +76,7 @@ implicit none
     real,parameter :: baseflow_R          = 0.0   
     integer,parameter :: flow_averaging_R = 0
     real,parameter :: hydro_length_R      = 600. 
-    real,dimension(14),parameter :: spray_R = (/0.258, 0.135, 0.097, 0.076, 0.066,0.027,0.017,0.011, 0.048, 0.017,0.0003,0.025, 0.0, 0.0 /)
+    real,dimension(14),parameter :: spray_R = (/0.258, 0.135, 0.097, 0.076, 0.066,0.027,0.017,0.011, 0.048, 0.017,0.0003,0.025, 1.0, 0.0 /)
     
     contains
     subroutine get_pond_parameters

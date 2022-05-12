@@ -61,12 +61,12 @@ Public Class Form1
         AppTableDisplay.Columns.Add("Depth", "Depth (cm)")
         AppTableDisplay.Columns(3).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
         AppTableDisplay.Columns(3).SortMode = DataGridViewColumnSortMode.NotSortable
-        AppTableDisplay.Columns(3).Width = 60
+        AppTableDisplay.Columns(3).Width = 46
 
         AppTableDisplay.Columns.Add("Split", "Split")
         '    AppTableDisplay.Columns(4).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
         AppTableDisplay.Columns(4).SortMode = DataGridViewColumnSortMode.NotSortable
-        AppTableDisplay.Columns(4).Width = 60
+        AppTableDisplay.Columns(4).Width = 46
 
 
         Dim driftcombo As New DataGridViewComboBoxColumn With {
@@ -98,16 +98,16 @@ Public Class Form1
         'AppTableDisplay.Columns(5).SortMode = DataGridViewColumnSortMode.NotSortable
         'AppTableDisplay.Columns(5).Width = 80
 
-        AppTableDisplay.Columns.Add("Periodicity", "Periodicity")
+        AppTableDisplay.Columns.Add("Periodicity", "Period")
         'AppTableDisplay.Columns(6).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
         AppTableDisplay.Columns(6).SortMode = DataGridViewColumnSortMode.NotSortable
-        AppTableDisplay.Columns(6).Width = 80
+        AppTableDisplay.Columns(6).Width = 60
 
 
         AppTableDisplay.Columns.Add("Lag", "Lag")
         '  AppTableDisplay.Columns(8).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
         AppTableDisplay.Columns(7).SortMode = DataGridViewColumnSortMode.NotSortable
-        AppTableDisplay.Columns(7).Width = 80
+        AppTableDisplay.Columns(7).Width = 60
 
         Dim btn As New DataGridViewButtonColumn()
         btn.Text = "X"
