@@ -72,11 +72,12 @@ module constants_and_variables
       
    !   character(LEN=10), allocatable,dimension(:,:) absolute_date_option
       integer,allocatable,dimension(:,:)      :: drift_schemes    !this is an integer corresponding to the drift in the waterbody file
-      
+      real,allocatable,dimension(:,:)         :: driftfactor_schemes  !reduction factor to account for spray buffers
+	  
       real,allocatable,dimension(:,:)      :: application_rate_schemes
       real,allocatable,dimension(:,:)      :: depth_schemes
       real,allocatable,dimension(:,:)      :: split_schemes
-
+      
       integer,allocatable,dimension(:,:)      :: lag_schemes
       integer,allocatable,dimension(:,:)      :: periodicity_schemes
       
@@ -399,6 +400,7 @@ module constants_and_variables
       real,allocatable,dimension(:) :: APPEFF_in
       real,allocatable,dimension(:) :: Tband_top_in
       real,allocatable,dimension(:) :: drift_in
+
       integer,allocatable,dimension(:) :: lag_app_in
       integer,allocatable,dimension(:) :: repeat_app_in
       

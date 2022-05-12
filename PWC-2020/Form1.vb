@@ -99,7 +99,7 @@ Public Class Form1
         'AppTableDisplay.Columns(5).Width = 80
 
 
-        AppTableDisplay.Columns.Add("Drift Red", "Drift Factor")
+        AppTableDisplay.Columns.Add("DriftFactor", "Drift Factor")
         'AppTableDisplay.Columns(5).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
         AppTableDisplay.Columns(6).SortMode = DataGridViewColumnSortMode.NotSortable
         AppTableDisplay.Columns(6).Width = 54
@@ -466,8 +466,9 @@ Public Class Form1
                                 AppTableDisplay.Item(5, i).Value = Standard.sprayterm5
                         End Select
 
-                        AppTableDisplay.Item(6, i).Value = ApplicationTable.Periodicity(i)
-                        AppTableDisplay.Item(7, i).Value = ApplicationTable.Lag(i)
+                        AppTableDisplay.Item(6, i).Value = ApplicationTable.DriftFactor(i)
+                        AppTableDisplay.Item(7, i).Value = ApplicationTable.Periodicity(i)
+                        AppTableDisplay.Item(8, i).Value = ApplicationTable.Lag(i)
 
                     Next
                 End If

@@ -18,7 +18,7 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     number_of_schemes, scheme_number, scheme_name,num_apps_in_schemes, number_of_scenarios, &
     app_reference_point_schemes  ,&
     application_rate_schemes, depth_schemes, split_schemes, drift_schemes, &
-    lag_schemes, periodicity_schemes,&
+    lag_schemes, periodicity_schemes,driftfactor_schemes,&
     method_schemes, days_until_applied_schemes,&
     scenario_names, working_directory, family_name,weatherfiledirectory,erflag, nchem,  &
     ADJUST_CN, water_column_halflife_input, &
@@ -122,6 +122,9 @@ use utilities
     allocate (depth_schemes(number_of_schemes,366)) 
     allocate (split_schemes(number_of_schemes,366)) 
     allocate (drift_schemes(number_of_schemes,366)) 
+	allocate (driftfactor_schemes(number_of_schemes,366))
+
+	
     allocate (lag_schemes(number_of_schemes,366)) 
     allocate (periodicity_schemes(number_of_schemes,366)) 
     allocate (scenario_names(number_of_schemes,1000))       
@@ -169,16 +172,17 @@ use utilities
                 read(wholeline((comma_2+1):(comma_3-1)),*)         method_schemes(i,j)
                 read(wholeline((comma_3+1):(comma_4-1)),*)         depth_schemes(i,j) 
                 read(wholeline((comma_4+1):(comma_5-1)),*)         split_schemes(i,j)
-                read(wholeline((comma_5+1):(comma_6-1)),*)         drift_schemes(i,j)	
-                read(wholeline((comma_6+1):(comma_7-1)),*)         periodicity_schemes(i,j)  
-                read(wholeline((comma_7+1):len(wholeline)),*)         lag_schemes(i,j)  
+                read(wholeline((comma_5+1):(comma_6-1)),*)         drift_schemes(i,j)
+				read(wholeline((comma_6+1):(comma_7-1)),*)		   driftfactor_schemes(i,j)
+                read(wholeline((comma_7+1):(comma_8-1)),*)         periodicity_schemes(i,j)  
+                read(wholeline((comma_8+1):len(wholeline)),*)      lag_schemes(i,j)  
 				
                 !read(wholeline((comma_8+1):len(wholeline)),*)       
                 
             case default
                      read(inputfile_unit_number,*) days_until_applied_schemes(i,j), application_rate_schemes(i,j), &
                          method_schemes(i,j), depth_schemes(i,j), split_schemes(i,j),   &
-                         drift_schemes(i,j), periodicity_schemes(i,j) , lag_schemes(i,j)           
+                         drift_schemes(i,j), driftfactor_schemes(i,j) ,periodicity_schemes(i,j) , lag_schemes(i,j)           
             end select                
 		end do
 
