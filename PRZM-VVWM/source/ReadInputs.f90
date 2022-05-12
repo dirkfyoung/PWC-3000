@@ -96,17 +96,17 @@ use utilities
     read(inputfile_unit_number,*) plant_washoff_coeff(1),plant_washoff_coeff(2),plant_washoff_coeff(3) 
     read(inputfile_unit_number,*) mwt(1), mwt(2), mwt(3)                                !Line 24
     read(inputfile_unit_number,*) vapor_press(1), vapor_press(2),vapor_press(3)
-    read(inputfile_unit_number,*) solubilty(1), solubilty(2), solubilty(3)
+    read(inputfile_unit_number,*) solubilty(1), solubilty(2), solubilty(3)                                !Line 26
     read(inputfile_unit_number,*) Henry_unitless(1),Henry_unitless(2),Henry_unitless(3)
-    read(inputfile_unit_number,*) DAIR(1),DAIR(2),DAIR(3) 
+    read(inputfile_unit_number,*) DAIR(1),DAIR(2),DAIR(3)                                 !Line 28
     read(inputfile_unit_number,*) Heat_of_Henry(1),Heat_of_Henry(2),Heat_of_Henry(3)
-    read(inputfile_unit_number,*) Q_10
+    read(inputfile_unit_number,*) Q_10                                                     !Line 30
       
     read(inputfile_unit_number,*) is_constant_profile
     read(inputfile_unit_number,*) is_ramp_profile, ramp1, ramp2, ramp3  !ramp1 is first plateau distance, ramp2 is second plateau distance, ramp3 is second plateau value
-    read(inputfile_unit_number,*) is_exp_profile , exp_profile1, exp_profile2
+    read(inputfile_unit_number,*) is_exp_profile , exp_profile1, exp_profile2               !Line 33
 
-    read(inputfile_unit_number,*) number_of_schemes
+    read(inputfile_unit_number,*) number_of_schemes                                         !Line 34
 
     write(*,*) "Number of schemes = ", number_of_schemes
     
@@ -135,7 +135,7 @@ use utilities
     do i=1, number_of_schemes
         read(inputfile_unit_number,*) scheme_number, scheme_name 
         write(*,*) "Scheme Number & Name ", scheme_number, trim(scheme_name)
-        
+         
         read(inputfile_unit_number,*) app_reference_point_schemes(i)
         read(inputfile_unit_number,*) num_apps_in_schemes(i)
         
@@ -188,9 +188,6 @@ use utilities
 
 !*****************************************************************
 
-
-
-        !TO BE ADDED HERE are the application window parameters
         read(inputfile_unit_number,*) is_app_window(i), app_window_span(i), app_window_step(i)
         if (not(is_app_window(i) )) then 
             app_window_span(i) =0  !the stepping starts with zero, so the span iz zero for only one iteration
@@ -207,7 +204,9 @@ use utilities
              write(*,'(A)') trim(scenario_names(i,j))
         end do 
             
-    enddo
+	enddo
+	
+	
      read(inputfile_unit_number,*) erflag
      read(inputfile_unit_number,*) 
      read(inputfile_unit_number,*) 

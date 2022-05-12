@@ -265,7 +265,6 @@ use waterbody_parameters, ONLY: afield
                previous_depth = running_depth
             end do
             
-            
  
         else  !is_constant_profile
              do i = 1, ncom2
