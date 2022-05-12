@@ -66,7 +66,7 @@ module constants_and_variables
       integer, allocatable, dimension(:)   :: app_reference_point_schemes  !0=absolute date, 1=emergence, 2=maturity, 3=removal
       integer, allocatable, dimension(:)   :: num_apps_in_schemes
       integer, allocatable, dimension(:,:) :: method_schemes
-      integer, allocatable, dimension(:,:) :: days_until_applied_schemes   !(scehme #, application # max of 366) 
+      integer, allocatable, dimension(:,:) :: days_until_applied_schemes   !(scheme #, application # max of 366) 
       
 
       
