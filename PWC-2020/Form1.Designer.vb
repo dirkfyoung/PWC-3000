@@ -687,7 +687,7 @@ Partial Class Form1
         Me.AdvancedTab.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.AdvancedTab.Name = "AdvancedTab"
         Me.AdvancedTab.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.AdvancedTab.Size = New System.Drawing.Size(894, 589)
+        Me.AdvancedTab.Size = New System.Drawing.Size(913, 589)
         Me.AdvancedTab.TabIndex = 4
         Me.AdvancedTab.Text = "Advanced"
         Me.AdvancedTab.UseVisualStyleBackColor = True
@@ -1287,7 +1287,7 @@ Partial Class Form1
         Me.ScenarioExaminerTab.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ScenarioExaminerTab.Name = "ScenarioExaminerTab"
         Me.ScenarioExaminerTab.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ScenarioExaminerTab.Size = New System.Drawing.Size(894, 589)
+        Me.ScenarioExaminerTab.Size = New System.Drawing.Size(913, 589)
         Me.ScenarioExaminerTab.TabIndex = 2
         Me.ScenarioExaminerTab.Text = "Scenario Examiner"
         '
@@ -3121,7 +3121,7 @@ Partial Class Form1
         Me.SchemeScenarios.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SchemeScenarios.Name = "SchemeScenarios"
         Me.SchemeScenarios.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.SchemeScenarios.Size = New System.Drawing.Size(894, 589)
+        Me.SchemeScenarios.Size = New System.Drawing.Size(913, 589)
         Me.SchemeScenarios.TabIndex = 8
         Me.SchemeScenarios.Text = "Scenarios"
         Me.SchemeScenarios.UseVisualStyleBackColor = True
@@ -3331,9 +3331,9 @@ Partial Class Form1
         Me.UseApplicationWindow.AutoSize = True
         Me.UseApplicationWindow.Location = New System.Drawing.Point(36, 460)
         Me.UseApplicationWindow.Name = "UseApplicationWindow"
-        Me.UseApplicationWindow.Size = New System.Drawing.Size(501, 22)
+        Me.UseApplicationWindow.Size = New System.Drawing.Size(485, 22)
         Me.UseApplicationWindow.TabIndex = 16
-        Me.UseApplicationWindow.Text = "Invoke an application window to account  for application day uncertainty:"
+        Me.UseApplicationWindow.Text = "Use an application window to account  for application day uncertainty:"
         Me.UseApplicationWindow.UseVisualStyleBackColor = True
         '
         'Label113
@@ -3374,9 +3374,9 @@ Partial Class Form1
         Me.Label88.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label88.Location = New System.Drawing.Point(244, 27)
         Me.Label88.Name = "Label88"
-        Me.Label88.Size = New System.Drawing.Size(68, 20)
+        Me.Label88.Size = New System.Drawing.Size(146, 20)
         Me.Label88.TabIndex = 10
-        Me.Label88.Text = "Label88"
+        Me.Label88.Text = "Scheme Unnamed"
         '
         'Label86
         '
@@ -3463,7 +3463,7 @@ Partial Class Form1
         Me.Schemes.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Schemes.Name = "Schemes"
         Me.Schemes.Padding = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.Schemes.Size = New System.Drawing.Size(894, 589)
+        Me.Schemes.Size = New System.Drawing.Size(913, 589)
         Me.Schemes.TabIndex = 7
         Me.Schemes.Text = "Schemes"
         Me.Schemes.UseVisualStyleBackColor = True
@@ -3555,7 +3555,7 @@ Partial Class Form1
         Me.Chemical.Location = New System.Drawing.Point(4, 25)
         Me.Chemical.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Chemical.Name = "Chemical"
-        Me.Chemical.Size = New System.Drawing.Size(894, 589)
+        Me.Chemical.Size = New System.Drawing.Size(913, 589)
         Me.Chemical.TabIndex = 0
         Me.Chemical.Text = "Chemical"
         '
@@ -4696,7 +4696,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.66038!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.33962!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 181.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 183.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.IsAqueousDegradation, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.IsAllMedia, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label63, 2, 0)
@@ -4714,7 +4714,7 @@ Partial Class Form1
         Me.IsAqueousDegradation.Location = New System.Drawing.Point(92, 2)
         Me.IsAqueousDegradation.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.IsAqueousDegradation.Name = "IsAqueousDegradation"
-        Me.IsAqueousDegradation.Size = New System.Drawing.Size(101, 21)
+        Me.IsAqueousDegradation.Size = New System.Drawing.Size(99, 21)
         Me.IsAqueousDegradation.TabIndex = 71
         Me.IsAqueousDegradation.Text = "Aqueous Only"
         Me.IsAqueousDegradation.UseVisualStyleBackColor = True
@@ -4792,7 +4792,7 @@ Partial Class Form1
         Me.WatershedTab.Location = New System.Drawing.Point(4, 25)
         Me.WatershedTab.Name = "WatershedTab"
         Me.WatershedTab.Padding = New System.Windows.Forms.Padding(3)
-        Me.WatershedTab.Size = New System.Drawing.Size(894, 589)
+        Me.WatershedTab.Size = New System.Drawing.Size(913, 589)
         Me.WatershedTab.TabIndex = 9
         Me.WatershedTab.Text = "Watershed/Waterbody"
         Me.WatershedTab.UseVisualStyleBackColor = True
@@ -4839,7 +4839,7 @@ Partial Class Form1
         Me.OptionalOutputTab.Location = New System.Drawing.Point(4, 25)
         Me.OptionalOutputTab.Name = "OptionalOutputTab"
         Me.OptionalOutputTab.Padding = New System.Windows.Forms.Padding(3)
-        Me.OptionalOutputTab.Size = New System.Drawing.Size(894, 589)
+        Me.OptionalOutputTab.Size = New System.Drawing.Size(913, 589)
         Me.OptionalOutputTab.TabIndex = 10
         Me.OptionalOutputTab.Text = "Optional Output"
         '

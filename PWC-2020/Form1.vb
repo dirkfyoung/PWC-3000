@@ -99,7 +99,7 @@ Public Class Form1
         'AppTableDisplay.Columns(5).Width = 80
 
 
-        AppTableDisplay.Columns.Add("DriftFactor", "Drift Factor")
+        AppTableDisplay.Columns.Add("DriftFactor", "Adjust Drift ")
         'AppTableDisplay.Columns(5).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
         AppTableDisplay.Columns(6).SortMode = DataGridViewColumnSortMode.NotSortable
         AppTableDisplay.Columns(6).Width = 54
