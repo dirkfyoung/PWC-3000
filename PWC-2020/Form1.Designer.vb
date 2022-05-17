@@ -307,6 +307,7 @@ Partial Class Form1
         Me.ItsaPond = New System.Windows.Forms.CheckBox()
         Me.Label95 = New System.Windows.Forms.Label()
         Me.SchemeApplications = New System.Windows.Forms.TabPage()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.UseApplicationWindow = New System.Windows.Forms.CheckBox()
         Me.Label113 = New System.Windows.Forms.Label()
         Me.Label112 = New System.Windows.Forms.Label()
@@ -478,6 +479,16 @@ Partial Class Form1
         Me.SaveWaterbodyFile = New System.Windows.Forms.SaveFileDialog()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.rain_limit = New System.Windows.Forms.TextBox()
+        Me.intolerable_rain_window = New System.Windows.Forms.TextBox()
+        Me.optimum_application_window = New System.Windows.Forms.TextBox()
+        Me.MinDaysBetweenApps = New System.Windows.Forms.TextBox()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Label341 = New System.Windows.Forms.Label()
+        Me.Label343 = New System.Windows.Forms.Label()
+        Me.Label342 = New System.Windows.Forms.Label()
+        Me.Label344 = New System.Windows.Forms.Label()
+        Me.Panel5 = New System.Windows.Forms.Panel()
         Me.MenuStrip1.SuspendLayout()
         Me.AdvancedTab.SuspendLayout()
         Me.ScenarioExaminerTab.SuspendLayout()
@@ -504,6 +515,8 @@ Partial Class Form1
         Me.WatershedTab.SuspendLayout()
         Me.OptionalOutputTab.SuspendLayout()
         CType(Me.AdditionalOutputGridView, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel4.SuspendLayout()
+        Me.Panel5.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -513,7 +526,7 @@ Partial Class Form1
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 2, 0, 2)
-        Me.MenuStrip1.Size = New System.Drawing.Size(923, 28)
+        Me.MenuStrip1.Size = New System.Drawing.Size(923, 30)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -521,7 +534,7 @@ Partial Class Form1
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveToolStripMenuItem, Me.RetrieveToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 24)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 26)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'SaveToolStripMenuItem
@@ -540,7 +553,7 @@ Partial Class Form1
         '
         Me.MorenTabsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToggleAdvancedToolStripMenuItem, Me.ToggleMoreOutputToolStripMenuItem, Me.ToggleScenarioExaminerToolStripMenuItem})
         Me.MorenTabsToolStripMenuItem.Name = "MorenTabsToolStripMenuItem"
-        Me.MorenTabsToolStripMenuItem.Size = New System.Drawing.Size(91, 24)
+        Me.MorenTabsToolStripMenuItem.Size = New System.Drawing.Size(91, 26)
         Me.MorenTabsToolStripMenuItem.Text = "More Tabs"
         '
         'ToggleAdvancedToolStripMenuItem
@@ -1296,7 +1309,7 @@ Partial Class Form1
         Me.Label92.AutoSize = True
         Me.Label92.Font = New System.Drawing.Font("Algerian", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label92.ForeColor = System.Drawing.Color.Aqua
-        Me.Label92.Location = New System.Drawing.Point(287, 655)
+        Me.Label92.Location = New System.Drawing.Point(1369, 3125)
         Me.Label92.Name = "Label92"
         Me.Label92.Size = New System.Drawing.Size(276, 45)
         Me.Label92.TabIndex = 206
@@ -1307,7 +1320,7 @@ Partial Class Form1
         Me.Label91.AutoSize = True
         Me.Label91.Font = New System.Drawing.Font("Algerian", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label91.ForeColor = System.Drawing.Color.Moccasin
-        Me.Label91.Location = New System.Drawing.Point(255, 19)
+        Me.Label91.Location = New System.Drawing.Point(1219, 94)
         Me.Label91.Name = "Label91"
         Me.Label91.Size = New System.Drawing.Size(335, 45)
         Me.Label91.TabIndex = 205
@@ -1520,7 +1533,7 @@ Partial Class Form1
         'Label35
         '
         Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(12, 298)
+        Me.Label35.Location = New System.Drawing.Point(12, 299)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(198, 17)
         Me.Label35.TabIndex = 134
@@ -1872,7 +1885,7 @@ Partial Class Form1
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(12, 14)
+        Me.Label21.Location = New System.Drawing.Point(12, 15)
         Me.Label21.Name = "Label21"
         Me.Label21.Size = New System.Drawing.Size(81, 17)
         Me.Label21.TabIndex = 4
@@ -1921,7 +1934,7 @@ Partial Class Form1
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(434, 1557)
+        Me.Label26.Location = New System.Drawing.Point(435, 1557)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(181, 17)
         Me.Label26.TabIndex = 121
@@ -1947,7 +1960,7 @@ Partial Class Form1
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(419, 1510)
+        Me.Label28.Location = New System.Drawing.Point(419, 1511)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(196, 17)
         Me.Label28.TabIndex = 119
@@ -2310,7 +2323,7 @@ Partial Class Form1
         'Label33
         '
         Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(558, 1291)
+        Me.Label33.Location = New System.Drawing.Point(559, 1291)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(70, 17)
         Me.Label33.TabIndex = 106
@@ -3083,7 +3096,7 @@ Partial Class Form1
         'Label94
         '
         Me.Label94.AutoSize = True
-        Me.Label94.Location = New System.Drawing.Point(390, 1448)
+        Me.Label94.Location = New System.Drawing.Point(1864, 6906)
         Me.Label94.Name = "Label94"
         Me.Label94.Size = New System.Drawing.Size(52, 17)
         Me.Label94.TabIndex = 167
@@ -3303,11 +3316,8 @@ Partial Class Form1
         '
         'SchemeApplications
         '
-        Me.SchemeApplications.Controls.Add(Me.UseApplicationWindow)
-        Me.SchemeApplications.Controls.Add(Me.Label113)
-        Me.SchemeApplications.Controls.Add(Me.Label112)
-        Me.SchemeApplications.Controls.Add(Me.ApplicationWindowStep)
-        Me.SchemeApplications.Controls.Add(Me.ApplicationWindowDays)
+        Me.SchemeApplications.Controls.Add(Me.Panel5)
+        Me.SchemeApplications.Controls.Add(Me.Panel4)
         Me.SchemeApplications.Controls.Add(Me.Label88)
         Me.SchemeApplications.Controls.Add(Me.Label86)
         Me.SchemeApplications.Controls.Add(Me.Label9)
@@ -3326,20 +3336,30 @@ Partial Class Form1
         Me.SchemeApplications.Text = "Applications"
         Me.SchemeApplications.UseVisualStyleBackColor = True
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(13, 12)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(256, 22)
+        Me.CheckBox1.TabIndex = 17
+        Me.CheckBox1.Text = "Adjust Application Dates if Raining "
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'UseApplicationWindow
         '
         Me.UseApplicationWindow.AutoSize = True
-        Me.UseApplicationWindow.Location = New System.Drawing.Point(36, 460)
+        Me.UseApplicationWindow.Location = New System.Drawing.Point(7, 10)
         Me.UseApplicationWindow.Name = "UseApplicationWindow"
-        Me.UseApplicationWindow.Size = New System.Drawing.Size(485, 22)
+        Me.UseApplicationWindow.Size = New System.Drawing.Size(283, 40)
         Me.UseApplicationWindow.TabIndex = 16
-        Me.UseApplicationWindow.Text = "Use an application window to account  for application day uncertainty:"
+        Me.UseApplicationWindow.Text = " Use an application window to account" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & " for application day uncertainty:"
         Me.UseApplicationWindow.UseVisualStyleBackColor = True
         '
         'Label113
         '
         Me.Label113.AutoSize = True
-        Me.Label113.Location = New System.Drawing.Point(95, 521)
+        Me.Label113.Location = New System.Drawing.Point(113, 107)
         Me.Label113.Name = "Label113"
         Me.Label113.Size = New System.Drawing.Size(83, 18)
         Me.Label113.TabIndex = 15
@@ -3348,7 +3368,7 @@ Partial Class Form1
         'Label112
         '
         Me.Label112.AutoSize = True
-        Me.Label112.Location = New System.Drawing.Point(35, 491)
+        Me.Label112.Location = New System.Drawing.Point(113, 77)
         Me.Label112.Name = "Label112"
         Me.Label112.Size = New System.Drawing.Size(143, 18)
         Me.Label112.TabIndex = 14
@@ -3356,14 +3376,14 @@ Partial Class Form1
         '
         'ApplicationWindowStep
         '
-        Me.ApplicationWindowStep.Location = New System.Drawing.Point(194, 518)
+        Me.ApplicationWindowStep.Location = New System.Drawing.Point(7, 104)
         Me.ApplicationWindowStep.Name = "ApplicationWindowStep"
         Me.ApplicationWindowStep.Size = New System.Drawing.Size(100, 24)
         Me.ApplicationWindowStep.TabIndex = 13
         '
         'ApplicationWindowDays
         '
-        Me.ApplicationWindowDays.Location = New System.Drawing.Point(194, 488)
+        Me.ApplicationWindowDays.Location = New System.Drawing.Point(7, 71)
         Me.ApplicationWindowDays.Name = "ApplicationWindowDays"
         Me.ApplicationWindowDays.Size = New System.Drawing.Size(100, 24)
         Me.ApplicationWindowDays.TabIndex = 12
@@ -3391,7 +3411,7 @@ Partial Class Form1
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(33, 130)
+        Me.Label9.Location = New System.Drawing.Point(33, 104)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(147, 18)
         Me.Label9.TabIndex = 8
@@ -3400,7 +3420,7 @@ Partial Class Form1
         'removal
         '
         Me.removal.AutoSize = True
-        Me.removal.Location = New System.Drawing.Point(505, 129)
+        Me.removal.Location = New System.Drawing.Point(505, 103)
         Me.removal.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.removal.Name = "removal"
         Me.removal.Size = New System.Drawing.Size(88, 22)
@@ -3411,7 +3431,7 @@ Partial Class Form1
         'maturity
         '
         Me.maturity.AutoSize = True
-        Me.maturity.Location = New System.Drawing.Point(365, 129)
+        Me.maturity.Location = New System.Drawing.Point(365, 103)
         Me.maturity.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.maturity.Name = "maturity"
         Me.maturity.Size = New System.Drawing.Size(81, 22)
@@ -3423,7 +3443,7 @@ Partial Class Form1
         '
         Me.emerge.AutoSize = True
         Me.emerge.Checked = True
-        Me.emerge.Location = New System.Drawing.Point(207, 129)
+        Me.emerge.Location = New System.Drawing.Point(207, 103)
         Me.emerge.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.emerge.Name = "emerge"
         Me.emerge.Size = New System.Drawing.Size(105, 22)
@@ -3435,7 +3455,7 @@ Partial Class Form1
         'AbsoluteDaysButton
         '
         Me.AbsoluteDaysButton.AutoSize = True
-        Me.AbsoluteDaysButton.Location = New System.Drawing.Point(33, 94)
+        Me.AbsoluteDaysButton.Location = New System.Drawing.Point(26, 66)
         Me.AbsoluteDaysButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.AbsoluteDaysButton.Name = "AbsoluteDaysButton"
         Me.AbsoluteDaysButton.Size = New System.Drawing.Size(224, 22)
@@ -3446,7 +3466,7 @@ Partial Class Form1
         'AppTableDisplay
         '
         Me.AppTableDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.AppTableDisplay.Location = New System.Drawing.Point(9, 166)
+        Me.AppTableDisplay.Location = New System.Drawing.Point(9, 131)
         Me.AppTableDisplay.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.AppTableDisplay.Name = "AppTableDisplay"
         Me.AppTableDisplay.RowHeadersVisible = False
@@ -4696,7 +4716,7 @@ Partial Class Form1
         Me.TableLayoutPanel2.ColumnCount = 3
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.66038!))
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.33962!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 183.0!))
+        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 185.0!))
         Me.TableLayoutPanel2.Controls.Add(Me.IsAqueousDegradation, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.IsAllMedia, 0, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.Label63, 2, 0)
@@ -4711,10 +4731,10 @@ Partial Class Form1
         'IsAqueousDegradation
         '
         Me.IsAqueousDegradation.AutoSize = True
-        Me.IsAqueousDegradation.Location = New System.Drawing.Point(92, 2)
+        Me.IsAqueousDegradation.Location = New System.Drawing.Point(91, 2)
         Me.IsAqueousDegradation.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.IsAqueousDegradation.Name = "IsAqueousDegradation"
-        Me.IsAqueousDegradation.Size = New System.Drawing.Size(99, 21)
+        Me.IsAqueousDegradation.Size = New System.Drawing.Size(98, 21)
         Me.IsAqueousDegradation.TabIndex = 71
         Me.IsAqueousDegradation.Text = "Aqueous Only"
         Me.IsAqueousDegradation.UseVisualStyleBackColor = True
@@ -4727,7 +4747,7 @@ Partial Class Form1
         Me.IsAllMedia.Location = New System.Drawing.Point(3, 2)
         Me.IsAllMedia.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.IsAllMedia.Name = "IsAllMedia"
-        Me.IsAllMedia.Size = New System.Drawing.Size(83, 21)
+        Me.IsAllMedia.Size = New System.Drawing.Size(82, 21)
         Me.IsAllMedia.TabIndex = 72
         Me.IsAllMedia.TabStop = True
         Me.IsAllMedia.Text = "All Media"
@@ -5294,6 +5314,98 @@ Partial Class Form1
         '
         Me.Timer1.Interval = 1000
         '
+        'rain_limit
+        '
+        Me.rain_limit.Location = New System.Drawing.Point(13, 43)
+        Me.rain_limit.Name = "rain_limit"
+        Me.rain_limit.Size = New System.Drawing.Size(100, 24)
+        Me.rain_limit.TabIndex = 18
+        '
+        'intolerable_rain_window
+        '
+        Me.intolerable_rain_window.Location = New System.Drawing.Point(13, 73)
+        Me.intolerable_rain_window.Name = "intolerable_rain_window"
+        Me.intolerable_rain_window.Size = New System.Drawing.Size(100, 24)
+        Me.intolerable_rain_window.TabIndex = 19
+        '
+        'optimum_application_window
+        '
+        Me.optimum_application_window.Location = New System.Drawing.Point(13, 103)
+        Me.optimum_application_window.Name = "optimum_application_window"
+        Me.optimum_application_window.Size = New System.Drawing.Size(100, 24)
+        Me.optimum_application_window.TabIndex = 20
+        '
+        'MinDaysBetweenApps
+        '
+        Me.MinDaysBetweenApps.Location = New System.Drawing.Point(13, 133)
+        Me.MinDaysBetweenApps.Name = "MinDaysBetweenApps"
+        Me.MinDaysBetweenApps.Size = New System.Drawing.Size(100, 24)
+        Me.MinDaysBetweenApps.TabIndex = 21
+        '
+        'Panel4
+        '
+        Me.Panel4.Controls.Add(Me.Label344)
+        Me.Panel4.Controls.Add(Me.Label342)
+        Me.Panel4.Controls.Add(Me.Label343)
+        Me.Panel4.Controls.Add(Me.Label341)
+        Me.Panel4.Controls.Add(Me.MinDaysBetweenApps)
+        Me.Panel4.Controls.Add(Me.optimum_application_window)
+        Me.Panel4.Controls.Add(Me.intolerable_rain_window)
+        Me.Panel4.Controls.Add(Me.rain_limit)
+        Me.Panel4.Controls.Add(Me.CheckBox1)
+        Me.Panel4.Location = New System.Drawing.Point(492, 411)
+        Me.Panel4.Name = "Panel4"
+        Me.Panel4.Size = New System.Drawing.Size(376, 173)
+        Me.Panel4.TabIndex = 22
+        '
+        'Label341
+        '
+        Me.Label341.AutoSize = True
+        Me.Label341.Location = New System.Drawing.Point(119, 49)
+        Me.Label341.Name = "Label341"
+        Me.Label341.Size = New System.Drawing.Size(144, 18)
+        Me.Label341.TabIndex = 22
+        Me.Label341.Text = "Intolerable Rain (cm)"
+        '
+        'Label343
+        '
+        Me.Label343.AutoSize = True
+        Me.Label343.Location = New System.Drawing.Point(119, 79)
+        Me.Label343.Name = "Label343"
+        Me.Label343.Size = New System.Drawing.Size(212, 18)
+        Me.Label343.TabIndex = 23
+        Me.Label343.Text = "Intolerable Rain Window (days)"
+        '
+        'Label342
+        '
+        Me.Label342.AutoSize = True
+        Me.Label342.Location = New System.Drawing.Point(119, 106)
+        Me.Label342.Name = "Label342"
+        Me.Label342.Size = New System.Drawing.Size(247, 18)
+        Me.Label342.TabIndex = 24
+        Me.Label342.Text = "Optimum Application Window (days)"
+        '
+        'Label344
+        '
+        Me.Label344.AutoSize = True
+        Me.Label344.Location = New System.Drawing.Point(119, 133)
+        Me.Label344.Name = "Label344"
+        Me.Label344.Size = New System.Drawing.Size(251, 18)
+        Me.Label344.TabIndex = 25
+        Me.Label344.Text = "Minimum Days Between Applications"
+        '
+        'Panel5
+        '
+        Me.Panel5.Controls.Add(Me.UseApplicationWindow)
+        Me.Panel5.Controls.Add(Me.Label113)
+        Me.Panel5.Controls.Add(Me.Label112)
+        Me.Panel5.Controls.Add(Me.ApplicationWindowStep)
+        Me.Panel5.Controls.Add(Me.ApplicationWindowDays)
+        Me.Panel5.Location = New System.Drawing.Point(36, 413)
+        Me.Panel5.Name = "Panel5"
+        Me.Panel5.Size = New System.Drawing.Size(320, 171)
+        Me.Panel5.TabIndex = 23
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -5353,6 +5465,10 @@ Partial Class Form1
         Me.OptionalOutputTab.ResumeLayout(False)
         Me.OptionalOutputTab.PerformLayout()
         CType(Me.AdditionalOutputGridView, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel4.ResumeLayout(False)
+        Me.Panel4.PerformLayout()
+        Me.Panel5.ResumeLayout(False)
+        Me.Panel5.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -5808,4 +5924,15 @@ Partial Class Form1
     Friend WithEvents Label127 As Label
     Friend WithEvents Label128 As Label
     Friend WithEvents outputWaterConc As CheckBox
+    Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents Panel5 As Panel
+    Friend WithEvents Panel4 As Panel
+    Friend WithEvents Label344 As Label
+    Friend WithEvents Label342 As Label
+    Friend WithEvents Label343 As Label
+    Friend WithEvents Label341 As Label
+    Friend WithEvents MinDaysBetweenApps As TextBox
+    Friend WithEvents optimum_application_window As TextBox
+    Friend WithEvents intolerable_rain_window As TextBox
+    Friend WithEvents rain_limit As TextBox
 End Class

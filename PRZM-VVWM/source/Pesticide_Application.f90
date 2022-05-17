@@ -9,8 +9,8 @@ Subroutine adjust_application_dates_for_weather
 ! If no date is found, then the original date is retained.
 
 
-  !use  constants_and_Variables, ONLY: application_date, precip, num_applications, startday , &
-  !rain_limit, optimum_application_window,intolerable_rain_window,min_days_between_apps, EchoFileUnit,num_records
+use  constants_and_Variables, ONLY: application_date, precip, total_applications, startday  , &
+  rain_limit, optimum_application_window,intolerable_rain_window, min_days_between_apps,num_records
   !
   !use utilities
   !implicit none
