@@ -1,7 +1,76 @@
 module Pesticide_Applications
 implicit none
-contains
+	contains
     
+Subroutine adjust_application_dates_for_weather
+!Start with given application date. Check to see if a rain event of size "rain_limit" occurs within
+! the "intolerable_rain_window", check alternately forward and backward one day at a time to find a date that
+! has only less than the limit during that intolerable window. 
+! If no date is found, then the original date is retained.
+
+
+  !use  constants_and_Variables, ONLY: application_date, precip, num_applications, startday , &
+  !rain_limit, optimum_application_window,intolerable_rain_window,min_days_between_apps, EchoFileUnit,num_records
+  !
+  !use utilities
+  !implicit none
+  !
+  !integer :: i, j, YEAR,MONTH,DAY
+  !integer :: day_initial
+  !integer :: m, n , k
+  !integer :: previous_application_date 
+  !character(len = 20) :: overide
+  !
+  !previous_application_date = -1000 !arbitrary low number
+  !do i = 1 , num_applications  
+  !    day_initial = application_date(i)-startday+1       
+  !    do j = 0, optimum_application_window 
+  !        k = (-1)**(j+1) *( j/2+ (1-(-1)**j)/2) !Alternating sign and increasing magnitude index 0, 1, -1, 2,-2, 3,-3...
+  !        
+  !        m = day_initial + k
+  !        n = day_initial+intolerable_rain_window +k 
+  !        m =max(1,m)
+  !        n= min(n,num_records)
+  !        
+  !        call get_date (m +startday-1, YEAR,MONTH,DAY) 
+  !        
+  !       
+  !        if (any(precip(m:n) > rain_limit) .eqv. .FALSE. )  then    
+  !            application_date(i) = application_date(i) +k         
+  !            if (application_date(i) - previous_application_date < min_days_between_apps) cycle
+  !            exit
+  !        end if      
+		!
+  !    end do  
+  ! 
+  !   
+  !   overide = ""
+  !   if (application_date(i) - previous_application_date < min_days_between_apps) then
+  !       application_date(i) = previous_application_date + min_days_between_apps
+  !       overide = "minimum overide"       
+  !   end if
+  !   
+  !   
+  !   call get_date(application_date(i) , YEAR,MONTH,DAY)  
+  !   
+  !   
+  !    write(*,'("actual application day (YMD) = ", I4,1x, I2,1x ,I2, ", added days =", I3,  ", " , A20)') YEAR,MONTH,DAY, k, overide
+  !    
+  !    previous_application_date =  application_date(i)  !reset app date to be used for check with minimum interval
+  !end do
+  !
+
+end subroutine adjust_application_dates_for_weather	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 SUBROUTINE PESTAP(application_index)
       !Loads conc_porewater and conc_total_per_water into parameter module after pesticide application
 
@@ -149,8 +218,6 @@ SUBROUTINE PESTAP(application_index)
 	 
 END SUBROUTINE PESTAP
 
-
-
 !*********************************************************************************************************
 SUBROUTINE plant_pesticide_harvest_application
 
@@ -196,8 +263,6 @@ SUBROUTINE plant_pesticide_harvest_application
       end select
       
 end subroutine plant_pesticide_harvest_application
-
-
 
 !******************************************************************************************************************************
     SUBROUTINE pesticide_decreasing_distribution(APPAMT,DMAX,BASE,SLOPE,applied_to_soil )
@@ -285,8 +350,7 @@ end subroutine plant_pesticide_harvest_application
         if (DEP >= DMAX) exit
       end do  
        
-    END SUBROUTINE pesticide_uniform_distribution
-    
+    END SUBROUTINE pesticide_uniform_distribution 
  
     SUBROUTINE pesticide_increasing_distribution(APPAMT,DMAX,BASE,SLOPE,applied_to_soil)
       use  constants_and_Variables, ONLY: delx,ncom2
@@ -386,12 +450,7 @@ end subroutine plant_pesticide_harvest_application
        
        
     END SUBROUTINE pesticide_Tband_distribution
-    
-  
-    
-    
-    
-    
+        
     SUBROUTINE pesticide_atdepth_distribution(APPAMT,DMAX,applied_to_soil)
           use constants_and_variables, ONLY: DELX,ncom2
           implicit none
