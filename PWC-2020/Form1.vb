@@ -482,6 +482,14 @@ Public Class Form1
                 ApplicationWindowDays.Text = ApplicationTable.ApplicationWindowSpan
                 ApplicationWindowStep.Text = ApplicationTable.ApplicationWindowStep
 
+                UseRainFast.Checked = ApplicationTable.UseRainFast
+                RainLimit.Text = ApplicationTable.RainLimit
+                IntolerableRainWindow.Text = ApplicationTable.IntolerableRainWindow
+                OptimumApplicationWindow.Text = ApplicationTable.OptimumApplicationWindow
+                MinDaysBetweenApps.Text = ApplicationTable.MinDaysBetweenApps
+
+
+
                 ScenarioListBox.Items.Clear()
                 For Each ee As String In ApplicationTable.Scenarios
                     ScenarioListBox.Items.Add(ee)

@@ -48,9 +48,7 @@ module constants_and_variables
       integer, parameter :: max_number_crop_periods  = 7 ! Maximum nuber of crop periods that the scenario file holds, Currently the PWC 2020 it is 7 periods oer year
      
       character(len=10)  :: waterbodytext  !text for water body type (not an input)
- 
 
-       
       character(len= 256) :: run_id
       character(len= 512) :: full_run_identification  !run id plus all path information
 	  
@@ -62,9 +60,16 @@ module constants_and_variables
       
       !Scheme inputs
       
-      integer, allocatable,dimension(:)    :: number_of_scenarios
-      integer, allocatable, dimension(:)   :: app_reference_point_schemes  !0=absolute date, 1=emergence, 2=maturity, 3=removal
-      integer, allocatable, dimension(:)   :: num_apps_in_schemes
+      integer, allocatable, dimension(:) :: number_of_scenarios
+      integer, allocatable, dimension(:) :: app_reference_point_schemes  !0=absolute date, 1=emergence, 2=maturity, 3=removal
+      integer, allocatable, dimension(:) :: num_apps_in_schemes
+	                                     
+	  logical, allocatable, dimension(:) :: is_adjust_for_rain_schemes
+	  real,    allocatable, dimension(:) :: rain_limit_schemes
+	  integer, allocatable, dimension(:) :: optimum_application_window_schemes
+	  integer, allocatable, dimension(:) :: intolerable_rain_window_schemes
+	  integer, allocatable, dimension(:) ::	min_days_between_apps_schemes
+	   
       integer, allocatable, dimension(:,:) :: method_schemes
       integer, allocatable, dimension(:,:) :: days_until_applied_schemes   !(scheme #, application # max of 366) 
       
@@ -74,9 +79,9 @@ module constants_and_variables
       integer,allocatable,dimension(:,:)      :: drift_schemes    !this is an integer corresponding to the drift in the waterbody file
       real,allocatable,dimension(:,:)         :: driftfactor_schemes  !reduction factor to account for spray buffers
 	  
-      real,allocatable,dimension(:,:)      :: application_rate_schemes
-      real,allocatable,dimension(:,:)      :: depth_schemes
-      real,allocatable,dimension(:,:)      :: split_schemes
+      real,allocatable,dimension(:,:)		  :: application_rate_schemes
+      real,allocatable,dimension(:,:)         :: depth_schemes
+      real,allocatable,dimension(:,:)         :: split_schemes
       
       integer,allocatable,dimension(:,:)      :: lag_schemes
       integer,allocatable,dimension(:,:)      :: periodicity_schemes
@@ -391,13 +396,13 @@ module constants_and_variables
         
       
       !these parameters are the application parameters that are read in from the input file.  They represent a short-hand of the actual applications above
-      integer :: num_applications_input  !number of apps reported in the input file (shorthand, does not include each year individual apps)
+      integer :: num_applications_input  !number of apps reported in the input file (shorthand, does not include all individual apps ocurring every year)
       
       integer,allocatable,dimension(:) :: pest_app_method_in
       real,allocatable,dimension(:) :: DEPI_in
       real,allocatable,dimension(:) :: application_rate_in  
            
-      real,allocatable,dimension(:) :: APPEFF_in
+      real,allocatable,dimension(:) :: APPEFF_in  !no longer an input, calculated based on spray losses
       real,allocatable,dimension(:) :: Tband_top_in
       real,allocatable,dimension(:) :: drift_in
 
@@ -406,6 +411,18 @@ module constants_and_variables
       
       integer,allocatable,dimension(:) :: days_until_applied          !for relative dates
 
+	  
+	 !*** Application Optimizing for Rainfall ********* 
+     logical :: is_adjust_for_rain       !True means to adjust the applications dates
+     real    :: rain_limit               !cm
+     integer :: optimum_application_window 
+     integer :: intolerable_rain_window
+     integer :: min_days_between_apps
+	  
+	  
+	  
+	  
+	  
 
       
       real    :: plant_app     !store the plant applied pesticide

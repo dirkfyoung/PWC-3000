@@ -31,7 +31,11 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     extra_plots, temp_PLNAME,  temp_chem_id, temp_MODE,temp_ARG,temp_ARG2,temp_CONST,&
     is_constant_profile, is_ramp_profile, ramp1, ramp2, ramp3, is_exp_profile , exp_profile1, exp_profile2, is_total_degradation, &
     is_app_window, app_window_span, app_window_step, is_timeseriesfile, &
-	is_waterbody_info_output 
+	is_waterbody_info_output , is_adjust_for_rain_schemes,rain_limit_schemes,optimum_application_window_schemes, &
+	intolerable_rain_window_schemes, min_days_between_apps_schemes
+
+
+
 
 use waterbody_parameters, ONLY: itsapond, itsareservoir, itsother,waterbody_names,    USEPA_reservoir,USEPA_pond 
 use utilities
@@ -115,15 +119,12 @@ use utilities
     allocate (app_reference_point_schemes(number_of_schemes))
     allocate (days_until_applied_schemes(number_of_schemes,366)) 
     
-    
-
     allocate (application_rate_schemes(number_of_schemes,366)) 
     allocate (method_schemes(number_of_schemes,366)) 
     allocate (depth_schemes(number_of_schemes,366)) 
     allocate (split_schemes(number_of_schemes,366)) 
     allocate (drift_schemes(number_of_schemes,366)) 
 	allocate (driftfactor_schemes(number_of_schemes,366))
-
 	
     allocate (lag_schemes(number_of_schemes,366)) 
     allocate (periodicity_schemes(number_of_schemes,366)) 
@@ -134,7 +135,13 @@ use utilities
     allocate (app_window_span(number_of_schemes))
     allocate (app_window_step(number_of_schemes))
     
+	allocate (is_adjust_for_rain_schemes(number_of_schemes))
+    allocate (rain_limit_schemes(number_of_schemes))
+    allocate (optimum_application_window_schemes(number_of_schemes))
+    allocate (intolerable_rain_window_schemes(number_of_schemes))
+    allocate (min_days_between_apps_schemes(number_of_schemes))
 
+	
     do i=1, number_of_schemes
         read(inputfile_unit_number,*) scheme_number, scheme_name 
         write(*,*) "Scheme Number & Name ", scheme_number, trim(scheme_name)
@@ -196,11 +203,18 @@ use utilities
         if (not(is_app_window(i) )) then 
             app_window_span(i) =0  !the stepping starts with zero, so the span iz zero for only one iteration
             app_window_step(i)= 1          
-        end if
+		end if
         
     
-        
-        read(inputfile_unit_number,*) number_of_scenarios(i)
+		read(inputfile_unit_number,*) is_adjust_for_rain_schemes(i),rain_limit_schemes(i), &
+		   optimum_application_window_schemes(i),intolerable_rain_window_schemes(i),min_days_between_apps_schemes(i) 
+		
+		
+		 write(*,*) "Rain fast" , 	is_adjust_for_rain_schemes(i),rain_limit_schemes(i), &
+		   optimum_application_window_schemes(i),intolerable_rain_window_schemes(i),min_days_between_apps_schemes(i) 						  
+
+		 
+		read(inputfile_unit_number,*) number_of_scenarios(i) 
         write(*,*)"Number of Scenarios = ", number_of_scenarios(i)
            
         do j=1, number_of_scenarios(i)

@@ -488,7 +488,7 @@ end subroutine INITL
 
 subroutine SetupApplications
   !Gets a scheme application set and 
-  !sets the application days in julian days referenced to 1/1/1900 and puts them  in  application_date array
+  !sets the application days in julian days referenced to 1/1/1900 and puts them in application_date array
   ! Applcation_date is the entire
   use utilities_1
   use constants_and_Variables, ONLY:num_applications_input,pest_app_method_in,DEPI_in,application_rate_in,APPEFF_in, &
@@ -580,7 +580,7 @@ subroutine SetupApplications
     
   application_date_original = application_date  !keep application_date_original the same for every scheme
   
-    write(*,*) 'Done setting application dates, Total applications in sim = ', app_counter
+  write(*,*) 'Done setting application dates, Total applications in sim = ', app_counter
 
   end subroutine SetupApplications
 

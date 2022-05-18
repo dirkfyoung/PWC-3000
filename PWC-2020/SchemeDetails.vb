@@ -20,6 +20,12 @@
     Public Property UseApplicationWindow As Boolean
     Public Property ApplicationWindowSpan As String
     Public Property ApplicationWindowStep As String
+    Public Property UseRainFast As Boolean
+    Public Property RainLimit As String
+    Public Property IntolerableRainWindow As String
+    Public Property OptimumApplicationWindow As String
+    Public Property MinDaysBetweenApps As String
+
 
     Public Sub ClearAll()
         Days.Clear()

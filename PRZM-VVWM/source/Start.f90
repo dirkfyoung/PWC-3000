@@ -3,7 +3,7 @@ program PRZMVVWM
     use readinputs
     use constants_and_variables, ONLY: maxFileLength, inputfile,number_of_schemes, &
                                        number_of_scenarios,  First_time_through, &
-                                       app_window_span, app_window_step, application_date, application_date_original
+                                       app_window_span, app_window_step, application_date, application_date_original, is_adjust_for_rain
     use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond 
     use clock_variables
 	
@@ -17,6 +17,7 @@ program PRZMVVWM
     use field_hydrology
     use chemical_transport
 	use Output_From_Field
+	use Pesticide_Applications
 	
     implicit none
     integer :: length !length of input file characters
@@ -38,10 +39,6 @@ program PRZMVVWM
 
     call get_command_argument(1,inputfile,length)
     call przm_id                                     !Stamp the runstatus file 
-	
-	
-	
-	
 	
 	
     write(*,*) "Input file: ", trim(inputfile)
@@ -128,9 +125,7 @@ write (*,*) '###################################################'
 CALL CPU_TIME (time_1)
 write (*,*) 'cpu time allocate  ',time_1- cputime_begin
 write (*,*) '###################################################'			   
-			   
-			   
-			   
+
 			   
                call allocation_for_VVWM
 			   
@@ -147,7 +142,9 @@ write (*,*) '###################################################'
                do jj = 0, app_window_span(i), app_window_step(i) 
 				     application_date= application_date_original + jj
                      call make_run_id (i,kk, hh,jj) !makes a string that can be used for identifying output scheme#_scenario#_scenarioname      
-
+                     
+					 !"Rain Fast" Option
+					 if (is_adjust_for_rain) call adjust_application_dates_for_weather
 					 
 					 call chem_transport_onfield
 					 

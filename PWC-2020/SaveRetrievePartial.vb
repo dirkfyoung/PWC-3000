@@ -101,7 +101,7 @@
 
 
             msg = msg & String.Format("{0}{1},{2},{3},", vbNewLine, ApplicationTable.UseApplicationWindow, ApplicationTable.ApplicationWindowSpan, ApplicationTable.ApplicationWindowStep)
-
+            msg = msg & String.Format("{0}{1},{2},{3},{4},{5},", vbNewLine, ApplicationTable.UseRainFast, ApplicationTable.RainLimit, ApplicationTable.IntolerableRainWindow, ApplicationTable.OptimumApplicationWindow, ApplicationTable.MinDaysBetweenApps)
 
 
             NumberOfScenarios = ApplicationTable.Scenarios.Count
@@ -664,6 +664,16 @@
                 ApplicationTable.ApplicationWindowSpan = currentrow(1)
                 ApplicationTable.ApplicationWindowStep = currentrow(2)
 
+                currentrow = MyReader.ReadFields
+                ApplicationTable.UseRainFast = currentrow(0)
+                ApplicationTable.RainLimit = currentrow(1)
+                ApplicationTable.IntolerableRainWindow = currentrow(2)
+                ApplicationTable.OptimumApplicationWindow = currentrow(3)
+                ApplicationTable.MinDaysBetweenApps = currentrow(4)
+
+
+
+
                 currentrow = MyReader.ReadFields  'Read number of scenarios
 
                 NumberOfScenarios = currentrow(0)
@@ -1164,6 +1174,12 @@
         AppData.UseApplicationWindow = UseApplicationWindow.Checked
         AppData.ApplicationWindowSpan = ApplicationWindowDays.Text
         AppData.ApplicationWindowStep = ApplicationWindowStep.Text
+
+        AppData.UseRainFast = UseRainFast.Checked
+        AppData.RainLimit = RainLimit.Text
+        AppData.IntolerableRainWindow = IntolerableRainWindow.Text
+        AppData.OptimumApplicationWindow = OptimumApplicationWindow.Text
+        AppData.MinDaysBetweenApps = MinDaysBetweenApps.Text
 
 
         AppData.Scenarios = ScenarioListBox.Items.Cast(Of String).ToList

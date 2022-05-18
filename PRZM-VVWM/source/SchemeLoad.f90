@@ -26,7 +26,12 @@ module schemeload
         days_until_applied,&
         days_until_applied_schemes,application_rate_schemes,method_schemes,depth_schemes,split_schemes,&
         drift_schemes,lag_schemes,periodicity_schemes,driftfactor_schemes,&
-        app_reference_point, app_reference_point_schemes
+        app_reference_point, app_reference_point_schemes, & 
+		is_adjust_for_rain_schemes, &
+        rain_limit_schemes,optimum_application_window_schemes,intolerable_rain_window_schemes,min_days_between_apps_schemes, & 
+		is_adjust_for_rain, rain_limit,optimum_application_window,intolerable_rain_window,min_days_between_apps  
+
+		
     use waterbody_parameters, ONLY: afield,   area_waterbody, spray_values
         integer,intent(in):: scheme_number
         integer :: i
@@ -34,7 +39,6 @@ module schemeload
         num_applications_input = num_apps_in_schemes(scheme_number)
         
         write(*,*) 'number of apps ', num_apps_in_schemes(scheme_number)
-        
 
         allocate(application_rate_in(num_applications_input))
         
@@ -46,11 +50,8 @@ module schemeload
         allocate(lag_app_in         (num_applications_input)) 
         allocate(repeat_app_in      (num_applications_input))
         
-        
         allocate(days_until_applied (num_applications_input))
 
-
-        
         !pest_app_method = 1 "Below Crop"
         !pest_app_method = 2 "Above Crop"
         !pest_app_method = 3 "Uniform"
@@ -59,13 +60,12 @@ module schemeload
         !pest_app_method = 6 "invert triange chrw 9661"
         !pest_app_method = 7 "triangle chrw 9651"
         
-      write(*,'(A)') '     day  rate  method   depth   Tband   Eff   drft#  driftValue  repeat  lag'
+       write(*,'(A)') '     day  rate  method   depth   Tband   Eff   drft#  driftValue  repeat  lag'
       
        app_reference_point = app_reference_point_schemes(scheme_number)
       
         do i=1, num_applications_input
 
-			
             days_until_applied(i)  = days_until_applied_schemes(scheme_number,i)
             application_rate_in(i) = application_rate_schemes(scheme_number,i)
             pest_app_method_in(i)  = method_schemes(scheme_number,i)
@@ -80,16 +80,24 @@ module schemeload
                    
 			
 			
-			!calclautaed based on looses to the waterbody suvtracted from fields applied pesticide
+			!calclautaed based on losses to the waterbody subtracted from fields applied pesticide
 			APPEFF_in(i)           = 1.0 - drift_in(i) * area_waterbody/afield
-			
-			
+
            write(*,'(I8,G10.3, I4, 3F8.3, I4, 3x, F8.3,3x, 2I6)')days_until_applied(i),application_rate_in(i), pest_app_method_in(i), DEPI_in(i),Tband_top_in(i), APPEFF_in(i),drift_schemes(scheme_number,i), drift_in(i) , repeat_app_in(i),lag_app_in(i) 
         
 		end do 
 
-
-
+		
+		!the following cannot be applied until after the weather file has been read in. 
+		!But parameters are read in here because they are part of the application scheme
+		is_adjust_for_rain	       = is_adjust_for_rain_schemes(i)
+		rain_limit                 = rain_limit_schemes(i)
+		optimum_application_window = optimum_application_window_schemes(i)
+		intolerable_rain_window    = intolerable_rain_window_schemes(i)
+		min_days_between_apps      = min_days_between_apps_schemes(i)
+		
+		
+	
       some_applications_were_foliar = .FALSE.
       if(any(pest_app_method_in==2)) then
           some_applications_were_foliar = .TRUE.
