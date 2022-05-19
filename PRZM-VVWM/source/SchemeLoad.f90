@@ -31,7 +31,6 @@ module schemeload
         rain_limit_schemes,optimum_application_window_schemes,intolerable_rain_window_schemes,min_days_between_apps_schemes, & 
 		is_adjust_for_rain, rain_limit,optimum_application_window,intolerable_rain_window,min_days_between_apps  
 
-		
     use waterbody_parameters, ONLY: afield,   area_waterbody, spray_values
         integer,intent(in):: scheme_number
         integer :: i
@@ -85,16 +84,24 @@ module schemeload
 
            write(*,'(I8,G10.3, I4, 3F8.3, I4, 3x, F8.3,3x, 2I6)')days_until_applied(i),application_rate_in(i), pest_app_method_in(i), DEPI_in(i),Tband_top_in(i), APPEFF_in(i),drift_schemes(scheme_number,i), drift_in(i) , repeat_app_in(i),lag_app_in(i) 
         
+
+		   
 		end do 
 
 		
 		!the following cannot be applied until after the weather file has been read in. 
 		!But parameters are read in here because they are part of the application scheme
-		is_adjust_for_rain	       = is_adjust_for_rain_schemes(i)
-		rain_limit                 = rain_limit_schemes(i)
-		optimum_application_window = optimum_application_window_schemes(i)
-		intolerable_rain_window    = intolerable_rain_window_schemes(i)
-		min_days_between_apps      = min_days_between_apps_schemes(i)
+		
+		is_adjust_for_rain	       = is_adjust_for_rain_schemes(scheme_number)
+		rain_limit                 = rain_limit_schemes(scheme_number)
+		optimum_application_window = optimum_application_window_schemes(scheme_number)
+		intolerable_rain_window    = intolerable_rain_window_schemes(scheme_number)
+		min_days_between_apps      = min_days_between_apps_schemes(scheme_number)
+	
+
+		
+		
+		
 		
 		
 	

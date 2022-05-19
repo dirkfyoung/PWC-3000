@@ -108,42 +108,26 @@ write (*,*) '###################################################'
 CALL CPU_TIME (time_1)
 write (*,*) 'cpu time read weather ',time_1- cputime_begin
 write (*,*) '###################################################'			   
-			   
-			   
-			   
+
                CALL INITL    !initialize and ALLOCATIONS przm variables  
-			   
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time allocate  ',time_1- cputime_begin
-write (*,*) '###################################################'			   
-			   
-	   
+			   		   
                Call Crop_Growth
 			   call hydrology_only
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time allocate  ',time_1- cputime_begin
-write (*,*) '###################################################'			   
-
-			   
+		   
+               write(*,*) 'Start allocations'
                call allocation_for_VVWM
-			   
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time allocation  ',time_1- cputime_begin
-write (*,*) '###################################################'				   
-			   
-			   
-			   
+			   			   
 			   write(*,*) '********************************************************************'
 			   write(*,*) '****************** Start App Loop **********************************'
 			   write(*,*) '********************************************************************'
+			   
+			   
                do jj = 0, app_window_span(i), app_window_step(i) 
 				     application_date= application_date_original + jj
                      call make_run_id (i,kk, hh,jj) !makes a string that can be used for identifying output scheme#_scenario#_scenarioname      
                      
 					 !"Rain Fast" Option
+					 write(*,*) "Adjust applications for rain?", is_adjust_for_rain
 					 if (is_adjust_for_rain) call adjust_application_dates_for_weather
 					 
 					 call chem_transport_onfield

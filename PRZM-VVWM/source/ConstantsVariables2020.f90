@@ -385,13 +385,14 @@ module constants_and_variables
 	  integer,allocatable,dimension(:) :: application_date_original  !holds the original application date so that "application_date" can be modified during runs
 	  
       integer,allocatable,dimension(:) :: pest_app_method
-      real,allocatable,dimension(:) :: DEPI
+      real,allocatable,dimension(:)	   :: DEPI
+      real,allocatable,dimension(:)    :: TAPP                !read in application_rate_in as KG/HA but converted to G/CM**2 in initialization
+      real,allocatable,dimension(:)    :: APPEFF
+      real,allocatable,dimension(:)    :: Tband_top
+      real,allocatable,dimension(:)	   :: drift_kg_per_m2     !the drift application rate to pond
 
-      real,allocatable,dimension(:) :: TAPP     !read in application_rate_in as KG/HA but converted to G/CM**2 in initialization
-      real,allocatable,dimension(:) :: APPEFF
-      real,allocatable,dimension(:) :: Tband_top
-      real,allocatable,dimension(:) :: drift_kg_per_m2  !the drift application rate to pond
-
+	  integer,allocatable,dimension(:) :: application_order !array of indices to order the applications chronologically, needed only if the rain fast option is to be used.
+	  
       integer :: total_applications      !Total applications for simulations 
         
       
@@ -399,12 +400,12 @@ module constants_and_variables
       integer :: num_applications_input  !number of apps reported in the input file (shorthand, does not include all individual apps ocurring every year)
       
       integer,allocatable,dimension(:) :: pest_app_method_in
-      real,allocatable,dimension(:) :: DEPI_in
-      real,allocatable,dimension(:) :: application_rate_in  
+      real,allocatable,dimension(:)    :: DEPI_in
+      real,allocatable,dimension(:)    :: application_rate_in  
            
-      real,allocatable,dimension(:) :: APPEFF_in  !no longer an input, calculated based on spray losses
-      real,allocatable,dimension(:) :: Tband_top_in
-      real,allocatable,dimension(:) :: drift_in
+      real,allocatable,dimension(:)    :: APPEFF_in  !no longer an input, calculated based on spray losses
+      real,allocatable,dimension(:)    :: Tband_top_in
+      real,allocatable,dimension(:)    :: drift_in
 
       integer,allocatable,dimension(:) :: lag_app_in
       integer,allocatable,dimension(:) :: repeat_app_in

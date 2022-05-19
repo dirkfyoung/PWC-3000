@@ -22,13 +22,6 @@ end subroutine chemical_manipulations
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!     
 SUBROUTINE INITL
@@ -489,14 +482,14 @@ end subroutine INITL
 subroutine SetupApplications
   !Gets a scheme application set and 
   !sets the application days in julian days referenced to 1/1/1900 and puts them in application_date array
-  ! Applcation_date is the entire
+  ! Application_date is the entire
   use utilities_1
   use constants_and_Variables, ONLY:num_applications_input,pest_app_method_in,DEPI_in,application_rate_in,APPEFF_in, &
                                     Tband_top_in,drift_in,lag_app_in,repeat_app_in, first_year, last_year,  &
                                     application_date_original,application_date, pest_app_method,DEPI,TAPP,APPEFF,Tband_top, &
                                     num_crop_periods_input, emm, emd, mam,mad, ham,had, &
                                     total_applications , drift_kg_per_m2, cam123_soil_depth, delx, &
-                                     days_until_applied,app_reference_point
+                                     days_until_applied,app_reference_point, application_order
                                                        
   implicit none 
   integer :: i, j, mcrop,crop_iterations
@@ -510,6 +503,7 @@ subroutine SetupApplications
   write(*,*)"Total Applications = ",   total_applications
 
   allocate (application_date(total_applications))
+  allocate (application_order(total_applications))
   allocate (application_date_original(total_applications))
   
   allocate (pest_app_method(total_applications))
@@ -517,12 +511,20 @@ subroutine SetupApplications
   allocate (TAPP(total_applications))             
   allocate (APPEFF(total_applications))
   allocate (Tband_top(total_applications))
-  allocate ( drift_kg_per_m2(total_applications))
+  allocate (drift_kg_per_m2(total_applications))
 
   
   !initialize application date to very high (unlikely julian app date). 
   !Because allocated array may be larger than the actual number of applications (i.e. i used a simple counting scheme)
   application_date = 100000000 
+  pest_app_method = 1
+  DEPI = 0.0
+  TAPP= 0.0
+  APPEFF= 0.0
+  Tband_top= 0.0
+  drift_kg_per_m2 = 0.0
+ 
+  
   if (app_reference_point== 0) then
       crop_iterations = 1
   else
@@ -546,8 +548,12 @@ subroutine SetupApplications
          case (3) !relative to harvest 
                  month = ham(mcrop)
                  day = had(mcrop)     
-     end select
+		 end select
      
+		 
+	!The following does not put apps in chrono order, rather by app number, then chrono.
+	! this is because each app may be lagged and stepped independent of others
+	!For rain fast option, will need chrono order.
      do i=1, num_applications_input
 
         do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
@@ -574,11 +580,35 @@ subroutine SetupApplications
              Tband_top(app_counter) = Tband_top_in(i)                                   
              drift_kg_per_m2(app_counter) = drift_in(i)*application_rate_in(i)/10000.    !Kg/m2 drift application to waterbody         
              call get_date (application_date(app_counter), YEAR_out,MONTH_out,DAY_out)
+
         end do      
      end  do    
   end do
     
   application_date_original = application_date  !keep application_date_original the same for every scheme
+  
+  !Put applications in chronlogical order for use with rain-fast option. its not necessary to do this for normal runs,
+  !but whatever...
+
+  	application_order = get_order(application_date)
+
+    application_date = application_date(application_order)
+	pest_app_method  = pest_app_method (application_order)
+	DEPI             = DEPI            (application_order)
+	TAPP             = TAPP            (application_order)
+	APPEFF           = APPEFF          (application_order)
+	Tband_top        = Tband_top       (application_order)
+	drift_kg_per_m2  = drift_kg_per_m2 (application_order)
+
+	application_date_original = application_date  !keep application_date_original the same for every scheme
+	
+	
+  do i = 1, total_applications
+	 write(*,*) i, application_date(i), TAPP(i)
+	  
+  end do
+  
+
   
   write(*,*) 'Done setting application dates, Total applications in sim = ', app_counter
 

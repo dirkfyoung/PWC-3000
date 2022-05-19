@@ -9,67 +9,68 @@ Subroutine adjust_application_dates_for_weather
 ! If no date is found, then the original date is retained.
 
 
+
+!PROBLEM TO FIX: New PWC doesnt have APPLICATIONS IN CHRONO ORDER, but this routine needs them in order
+
 use  constants_and_Variables, ONLY: application_date, precip, total_applications, startday  , &
   rain_limit, optimum_application_window,intolerable_rain_window, min_days_between_apps,num_records
-  !
-  !use utilities
-  !implicit none
-  !
-  !integer :: i, j, YEAR,MONTH,DAY
-  !integer :: day_initial
-  !integer :: m, n , k
-  !integer :: previous_application_date 
-  !character(len = 20) :: overide
-  !
-  !previous_application_date = -1000 !arbitrary low number
-  !do i = 1 , num_applications  
-  !    day_initial = application_date(i)-startday+1       
-  !    do j = 0, optimum_application_window 
-  !        k = (-1)**(j+1) *( j/2+ (1-(-1)**j)/2) !Alternating sign and increasing magnitude index 0, 1, -1, 2,-2, 3,-3...
-  !        
-  !        m = day_initial + k
-  !        n = day_initial+intolerable_rain_window +k 
-  !        m =max(1,m)
-  !        n= min(n,num_records)
-  !        
-  !        call get_date (m +startday-1, YEAR,MONTH,DAY) 
-  !        
-  !       
-  !        if (any(precip(m:n) > rain_limit) .eqv. .FALSE. )  then    
-  !            application_date(i) = application_date(i) +k         
-  !            if (application_date(i) - previous_application_date < min_days_between_apps) cycle
-  !            exit
-  !        end if      
-		!
-  !    end do  
-  ! 
-  !   
-  !   overide = ""
-  !   if (application_date(i) - previous_application_date < min_days_between_apps) then
-  !       application_date(i) = previous_application_date + min_days_between_apps
-  !       overide = "minimum overide"       
-  !   end if
-  !   
-  !   
-  !   call get_date(application_date(i) , YEAR,MONTH,DAY)  
-  !   
-  !   
-  !    write(*,'("actual application day (YMD) = ", I4,1x, I2,1x ,I2, ", added days =", I3,  ", " , A20)') YEAR,MONTH,DAY, k, overide
-  !    
-  !    previous_application_date =  application_date(i)  !reset app date to be used for check with minimum interval
-  !end do
-  !
+  
+  use utilities
+
+
+  implicit none
+  
+  integer :: i, j, YEAR,MONTH,DAY
+  integer :: day_initial
+  integer :: m, n , k
+  integer :: previous_application_date 
+  character(len = 20) :: overide
+  
+  previous_application_date = -1000 !arbitrary low number
+  
+  write(*,*) 'Total Applications =  ', total_applications
+  
+  do i = 1 , total_applications  
+      day_initial = application_date(i)-startday+1   
+	    write(*,*) i, day_initial
+	  
+      do j = 0, optimum_application_window 
+          k = (-1)**(j+1) *( j/2+ (1-(-1)**j)/2) !Alternating sign and increasing magnitude index 0, 1, -1, 2,-2, 3,-3...
+          
+          m = day_initial + k
+          n = day_initial+intolerable_rain_window +k 
+          m =max(1,m)
+          n= min(n,num_records)
+          
+          call get_date (m +startday-1, YEAR,MONTH,DAY) 
+                  
+          if (any(precip(m:n) > rain_limit) .eqv. .FALSE. )  then    
+              application_date(i) = application_date(i) +k         
+              if (application_date(i) - previous_application_date < min_days_between_apps) cycle
+              exit
+          end if      
+		
+      end do  
+      
+     overide = ""
+     if (application_date(i) - previous_application_date < min_days_between_apps) then
+         application_date(i) = previous_application_date + min_days_between_apps
+         overide = "cant find rain-free date, default to minimum interval regardless of rain"       
+     end if
+
+     call get_date(application_date(i) , YEAR,MONTH,DAY)  
+     
+     
+      write(*,'("actual application day (YMD) = ", I4,1x, I2,1x ,I2, ", added days =", I3,  ", " , A20)') YEAR,MONTH,DAY, k, overide
+      
+      previous_application_date =  application_date(i)  !reset app date to be used for check with minimum interval
+  end do
+  
 
 end subroutine adjust_application_dates_for_weather	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+
 	
 SUBROUTINE PESTAP(application_index)
       !Loads conc_porewater and conc_total_per_water into parameter module after pesticide application

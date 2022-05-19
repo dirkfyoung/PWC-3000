@@ -2,8 +2,23 @@
 	module utilities_1
     implicit none
     
-    contains 
-
+	contains 
+	
+    function get_order(x) result(order)
+    !returns an integer array with indices idicating the sort order of original array x
+       implicit none
+       integer, intent(in) :: x(:)
+       integer :: order(size(x))      ! Function result
+    
+       logical :: mask(size(x))
+       integer :: i
+	    
+       mask = .true.
+       do i = 1, size(x)
+             order(i) = findloc( x, value=minval(x,dim=1,mask=mask), dim=1 )
+             mask(order(i)) = .false.
+       end do  
+    end function
     
     
     subroutine make_run_id (i,j, ii,mm)

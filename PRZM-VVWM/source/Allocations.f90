@@ -197,7 +197,7 @@ end subroutine allocation_for_VVWM
         conc_porewater,sorbed2,Kd_2, ainf, vel, &
         EvapoTran,GAMMA1,new_henry,old_Henry,runoff_intensity, erosion_intensity,soilap,  &
         DKFLUX,SRCFLX,PVFLUX,UPFLUX, dgair, soil_applied_washoff,&
-        application_date,application_date_original, pest_app_method, DEPI,TAPP,APPEFF,Tband_top,drift_kg_per_m2,&
+        application_order, application_date,application_date_original, pest_app_method, DEPI,TAPP,APPEFF,Tband_top,drift_kg_per_m2,&
         crop_fraction_of_max,canopy_cover,canopy_height,canopy_holdup,is_harvest_day,&      
         evapo_root_node,root_depth,root_node,atharvest_pest_app,  &
         flowthru_the_body,burial,eroded_solids_mass,fraction_to_benthic, &
@@ -296,6 +296,8 @@ end subroutine allocation_for_VVWM
         deallocate (SRCFLX)    !this one needs to be 3 becuz parent can produces 2 degradates           
         deallocate (soil_applied_washoff)   !plant washoff pesticide 
         
+        deallocate (application_order)		
+		
         deallocate (application_date)
 		deallocate (application_date_original)
         deallocate (pest_app_method)
