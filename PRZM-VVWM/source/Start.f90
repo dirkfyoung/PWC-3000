@@ -130,6 +130,7 @@ write (*,*) '###################################################'
 					 write(*,*) "Adjust applications for rain?", is_adjust_for_rain
 					 if (is_adjust_for_rain) call adjust_application_dates_for_weather
 					 
+					 
 					 call chem_transport_onfield
 					 
 write (*,*) '###################################################'	 

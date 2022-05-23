@@ -60,13 +60,13 @@ use  constants_and_Variables, ONLY: application_date, precip, total_applications
 
      call get_date(application_date(i) , YEAR,MONTH,DAY)  
      
-     
+     if (YEAR > 9999) Year = 9999
       write(*,'("actual application day (YMD) = ", I4,1x, I2,1x ,I2, ", added days =", I3,  ", " , A20)') YEAR,MONTH,DAY, k, overide
       
       previous_application_date =  application_date(i)  !reset app date to be used for check with minimum interval
   end do
   
-
+write(*,*) "Finished adjusting application days for rain"
 end subroutine adjust_application_dates_for_weather	
 	
 	

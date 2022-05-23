@@ -30,6 +30,8 @@ module chemical_transport
     First_time_through_PRZM = .TRUE. 
     julday1900 = startday
   
+	write(*,*) "Enter chemical transport"
+	
     do i=1, num_records   !day loop driven by metfile only   
        
        day_number_chemtrans = i
