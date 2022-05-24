@@ -8,9 +8,8 @@ Subroutine adjust_application_dates_for_weather
 ! has only less than the limit during that intolerable window. 
 ! If no date is found, then the original date is retained.
 
-
-
-!PROBLEM TO FIX: New PWC doesnt have APPLICATIONS IN CHRONO ORDER, but this routine needs them in order
+!note: previously New PWC didnt have APPLICATIONS IN CHRONO ORDER,
+!but this routine needs them in order, now this is fixed, they are ordered in initialization with get_order
 
 use  constants_and_Variables, ONLY: application_date, precip, total_applications, startday  , &
   rain_limit, optimum_application_window,intolerable_rain_window, min_days_between_apps,num_records
