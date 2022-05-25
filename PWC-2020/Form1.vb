@@ -25,8 +25,21 @@ Public Class Form1
         TabControl1.Controls.Remove(AdvancedTab)
         TabControl1.Controls.Remove(ScenarioExaminerTab)
         TabControl1.Controls.Remove(OptionalOutputTab)
+        LoadDefaultDiscretizations()
+    End Sub
+
+    Private Sub LoadDefaultDiscretizations()
+        DiscretizationGridView.Rows.Add(3, 0.1)
+        DiscretizationGridView.Rows.Add(7, 1.0)
+        DiscretizationGridView.Rows.Add(10, 5.0)
+        DiscretizationGridView.Rows.Add(80, 20.0)
+        DiscretizationGridView.Rows.Add(1000, 50.0)
 
     End Sub
+
+
+
+
     Private Sub MakeApplicationTable()
         'Add Columns
         AppTableDisplay.ColumnCount = 2
