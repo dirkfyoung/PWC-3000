@@ -391,6 +391,19 @@
 
         msg = msg & vbNewLine & VolatilizationBounday.Text
 
+
+        msg = msg & vbNewLine & useAutoGWprofile.Checked
+        Dim numberofdiscreterows As Integer
+        numberofdiscreterows = DiscretizationGridView.RowCount - 1
+        msg = msg & vbNewLine & numberofdiscreterows
+
+        For i As Integer = 0 To numberofdiscreterows - 1
+            msg = msg & String.Format("{0}{1}, {2}", vbNewLine, DiscretizationGridView.Item(0, i).Value, DiscretizationGridView.Item(1, i).Value)
+
+        Next
+
+
+
         Return msg
 
 
@@ -1092,6 +1105,30 @@
             MyReader.ReadLine() 'use usle years
             MyReader.ReadLine() 'list of usle years if used
             VolatilizationBounday.Text = MyReader.ReadLine() 'volatilization boundary
+
+
+            'adding in the new discretization routine
+            If MyReader.EndOfData Then
+            Else
+                Dim numberofdiscreterows As Integer
+                useAutoGWprofile.Checked = MyReader.ReadLine()
+                numberofdiscreterows = MyReader.ReadLine()
+
+                DiscretizationGridView.Rows.Clear()
+
+                For i As Integer = 1 To numberofdiscreterows
+                    currentRow = MyReader.ReadFields
+                    DiscretizationGridView.Rows.Add(currentRow(0), currentRow(1))
+                Next
+                wellScreen.Text = MyReader.ReadLine()
+
+
+            End If
+
+
+
+
+
 
 
         End Using

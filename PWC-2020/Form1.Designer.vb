@@ -24,9 +24,9 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -118,8 +118,10 @@ Partial Class Form1
         Me.PushToSaveScenario = New System.Windows.Forms.Button()
         Me.PushToLoadScenario = New System.Windows.Forms.Button()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Label135 = New System.Windows.Forms.Label()
+        Me.useAutoGWprofile = New System.Windows.Forms.CheckBox()
         Me.Label133 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.wellScreen = New System.Windows.Forms.TextBox()
         Me.Label132 = New System.Windows.Forms.Label()
         Me.Label131 = New System.Windows.Forms.Label()
         Me.DiscretizationGridView = New System.Windows.Forms.DataGridView()
@@ -498,8 +500,6 @@ Partial Class Form1
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Label129 = New System.Windows.Forms.Label()
         Me.Label130 = New System.Windows.Forms.Label()
-        Me.Label134 = New System.Windows.Forms.Label()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
         Me.MenuStrip1.SuspendLayout()
         Me.AdvancedTab.SuspendLayout()
         Me.ScenarioExaminerTab.SuspendLayout()
@@ -1391,10 +1391,10 @@ Partial Class Form1
         Me.Panel2.AutoScroll = True
         Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.Panel2.Controls.Add(Me.Label134)
-        Me.Panel2.Controls.Add(Me.TextBox4)
+        Me.Panel2.Controls.Add(Me.Label135)
+        Me.Panel2.Controls.Add(Me.useAutoGWprofile)
         Me.Panel2.Controls.Add(Me.Label133)
-        Me.Panel2.Controls.Add(Me.TextBox1)
+        Me.Panel2.Controls.Add(Me.wellScreen)
         Me.Panel2.Controls.Add(Me.Label132)
         Me.Panel2.Controls.Add(Me.Label131)
         Me.Panel2.Controls.Add(Me.DiscretizationGridView)
@@ -1456,27 +1456,46 @@ Partial Class Form1
         Me.Panel2.Size = New System.Drawing.Size(842, 491)
         Me.Panel2.TabIndex = 200
         '
+        'Label135
+        '
+        Me.Label135.AutoSize = True
+        Me.Label135.Location = New System.Drawing.Point(19, 636)
+        Me.Label135.Name = "Label135"
+        Me.Label135.Size = New System.Drawing.Size(719, 68)
+        Me.Label135.TabIndex = 210
+        Me.Label135.Text = resources.GetString("Label135.Text")
+        '
+        'useAutoGWprofile
+        '
+        Me.useAutoGWprofile.AutoSize = True
+        Me.useAutoGWprofile.Location = New System.Drawing.Point(263, 612)
+        Me.useAutoGWprofile.Name = "useAutoGWprofile"
+        Me.useAutoGWprofile.Size = New System.Drawing.Size(249, 21)
+        Me.useAutoGWprofile.TabIndex = 209
+        Me.useAutoGWprofile.Text = "Use automatic standardized profile"
+        Me.useAutoGWprofile.UseVisualStyleBackColor = False
+        '
         'Label133
         '
         Me.Label133.AutoSize = True
-        Me.Label133.Location = New System.Drawing.Point(19, 999)
+        Me.Label133.Location = New System.Drawing.Point(11, 978)
         Me.Label133.Name = "Label133"
-        Me.Label133.Size = New System.Drawing.Size(169, 17)
+        Me.Label133.Size = New System.Drawing.Size(180, 17)
         Me.Label133.TabIndex = 206
-        Me.Label133.Text = "Length of Well Head (cm)"
+        Me.Label133.Text = "Length of Well Screen (cm)"
         '
-        'TextBox1
+        'wellScreen
         '
-        Me.TextBox1.Location = New System.Drawing.Point(220, 999)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(54, 22)
-        Me.TextBox1.TabIndex = 205
-        Me.TextBox1.Text = "100"
+        Me.wellScreen.Location = New System.Drawing.Point(220, 973)
+        Me.wellScreen.Name = "wellScreen"
+        Me.wellScreen.Size = New System.Drawing.Size(54, 22)
+        Me.wellScreen.TabIndex = 205
+        Me.wellScreen.Text = "100"
         '
         'Label132
         '
         Me.Label132.AutoSize = True
-        Me.Label132.Location = New System.Drawing.Point(379, 679)
+        Me.Label132.Location = New System.Drawing.Point(336, 718)
         Me.Label132.Name = "Label132"
         Me.Label132.Size = New System.Drawing.Size(474, 272)
         Me.Label132.TabIndex = 204
@@ -1485,7 +1504,7 @@ Partial Class Form1
         'Label131
         '
         Me.Label131.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label131.Location = New System.Drawing.Point(14, 669)
+        Me.Label131.Location = New System.Drawing.Point(9, 605)
         Me.Label131.Name = "Label131"
         Me.Label131.Size = New System.Drawing.Size(271, 31)
         Me.Label131.TabIndex = 203
@@ -1495,12 +1514,12 @@ Partial Class Form1
         '
         Me.DiscretizationGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DiscretizationGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Thickness, Me.Increments})
-        Me.DiscretizationGridView.Location = New System.Drawing.Point(14, 719)
+        Me.DiscretizationGridView.Location = New System.Drawing.Point(4, 718)
         Me.DiscretizationGridView.Name = "DiscretizationGridView"
         Me.DiscretizationGridView.RowHeadersVisible = False
         Me.DiscretizationGridView.RowHeadersWidth = 51
         Me.DiscretizationGridView.RowTemplate.Height = 24
-        Me.DiscretizationGridView.Size = New System.Drawing.Size(336, 219)
+        Me.DiscretizationGridView.Size = New System.Drawing.Size(323, 219)
         Me.DiscretizationGridView.TabIndex = 202
         '
         'Thickness
@@ -2064,8 +2083,8 @@ Partial Class Form1
         Me.HorizonGridView.Name = "HorizonGridView"
         Me.HorizonGridView.RowHeadersVisible = False
         Me.HorizonGridView.RowHeadersWidth = 51
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.HorizonGridView.RowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.HorizonGridView.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.HorizonGridView.RowTemplate.Height = 24
         Me.HorizonGridView.Size = New System.Drawing.Size(805, 252)
         Me.HorizonGridView.TabIndex = 0
@@ -2314,14 +2333,14 @@ Partial Class Form1
         '
         'HydroDataGrid
         '
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.HydroDataGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.HydroDataGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.HydroDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.HydroDataGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column20, Me.Column22, Me.Column23})
         Me.HydroDataGrid.Location = New System.Drawing.Point(14, 1710)
@@ -3675,14 +3694,14 @@ Partial Class Form1
         '
         Me.SchemeTableDisplay.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.SchemeTableDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.SchemeTableDisplay.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.SchemeTableDisplay.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.SchemeTableDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.SchemeTableDisplay.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column21, Me.Edit, Me.Commit, Me.Column24, Me.Delete})
         Me.SchemeTableDisplay.Location = New System.Drawing.Point(23, 88)
@@ -5505,23 +5524,6 @@ Partial Class Form1
         Me.Label130.TabIndex = 6
         Me.Label130.Text = "Family Name:"
         '
-        'Label134
-        '
-        Me.Label134.AutoSize = True
-        Me.Label134.Location = New System.Drawing.Point(18, 971)
-        Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(196, 17)
-        Me.Label134.TabIndex = 208
-        Me.Label134.Text = "Depth to Aquifer Surface (cm)"
-        '
-        'TextBox4
-        '
-        Me.TextBox4.Location = New System.Drawing.Point(220, 971)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(54, 22)
-        Me.TextBox4.TabIndex = 207
-        Me.TextBox4.Text = "1000"
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -6060,9 +6062,9 @@ Partial Class Form1
     Friend WithEvents Label131 As Label
     Friend WithEvents DiscretizationGridView As DataGridView
     Friend WithEvents Label133 As Label
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents wellScreen As TextBox
     Friend WithEvents Thickness As DataGridViewTextBoxColumn
     Friend WithEvents Increments As DataGridViewTextBoxColumn
-    Friend WithEvents Label134 As Label
-    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents Label135 As Label
+    Friend WithEvents useAutoGWprofile As CheckBox
 End Class
