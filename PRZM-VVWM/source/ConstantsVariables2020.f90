@@ -234,10 +234,48 @@ module constants_and_variables
       real    :: soil_temp_input(max_horizons)    !input of initial soil temperatures
       real    :: thickness(max_horizons)          !thickness of each horizon
       real    :: dispersion_input(max_horizons)   !dispersion
-             
+       
+	  
+	  !Optional parameters for discretization
+	  logical :: is_auto_profile  !use the specified discetization and let program calcuate properties, ignore delta in soil profile
+	  integer :: number_of_discrete  !number of discrete layers with different discretizations
+	  real    :: profile_thick		!thickness of uniquely discretized layer
+	  integer :: profile_number_increments  !number of increments in a layer
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
       real ::  hydrolysis_halflife_input(3)       ! halflife in per days
       real ::  hydrolysis_rate(3)                 ! rate in per sec
  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
       real :: water_column_halflife_input(3)      ! Degradation halflife in per day
       real :: water_column_rate(3)                ! converted to per sec
       real :: water_column_ref_temp(3)

@@ -349,8 +349,16 @@ end subroutine read_inputfile
         FLEACH,PCDEPL,max_irrig ,UserSpecifiesDepth, user_irrig_depth,irtype, USLEK,USLELS,USLEP, IREG,SLP, &
         nhoriz,thickness,bd_input,fc_input, wp_input, oc_input, bd_input, Num_delx,sand_input,clay_input,dispersion_input, &
         is_temperature_simulated , albedo, emmiss, NUSLEC,GDUSLEC,GMUSLEC,cn_2, uslec, &
-    runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth, erosion_decline, erosion_effic,use_usleyears,Height_stagnant_air_layer_cm
+        runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth, erosion_decline, erosion_effic,use_usleyears,Height_stagnant_air_layer_cm, &
+		is_auto_profile,number_of_discrete,  profile_thick, profile_number_increments
     
+	
+
+	  
+	  
+	  integer :: eof
+
+	
     logical, intent(out) :: error
         integer, intent(in) :: schemenumber,scenarionumber
         character (len=512) filename
@@ -361,11 +369,19 @@ end subroutine read_inputfile
         
         character(len= 50) ::dummy
         real :: scalar_albedo
+		
+		logical :: checkopen
+		
                                 
         write(*,*)  '**********  Start Reading Scenario Values ************************'  
         error = .FALSE.      
         filename = trim(scenario_names(schemenumber,scenarionumber))  
-        write(*,*) trim(filename)      
+        write(*,*) trim(filename)   
+		
+		inquire(53, OPENED=checkopen)
+		write(*,*) 'is scenario open ', checkopen
+
+		
         OPEN(Unit = ScenarioFileUnit, FILE=(filename),STATUS='OLD', IOSTAT=status  )
         IF (status .NE. 0) THEN
             WRITE(*,*)'Problem opening scenario file: ', status, trim(filename)
@@ -528,30 +544,17 @@ end subroutine read_inputfile
       write (*,*) 'stagnant layer ',Height_stagnant_air_layer_cm
 
 
-       ! ! simtypeflag  
-       ! ! 1= vary volume w/ flowthrough, 2=const volume, no flowthrough, 3=const vol, flowthrough, 
-       ! ! 4 = const vol no flow, 5 = const vol, flow, 
-       ! ! 2 & 3 For use with the USEPA pond and reservoir ( and other situations) 
-       !If (A1) then !EPAreservoir.Checked = currentrow(0)
-       !     simtypeflag=3
-       ! else if (A2) then !EPApond.Checked = currentrow(1)
-       !     simtypeflag=2
-       ! else if (A3) then !VaryVolFlow.Checked = currentrow(2)  
-       !     simtypeflag=1
-       ! elseif (A4) then !ConstVolNoFlow.Checked = currentrow(3) 
-       !     simtypeflag=4
-       ! elseif (A5) then !ConstVolFlow.Checked = currentrow(4)   
-       !     simtypeflag=5
-       ! elseif (A6) then !GroundWater.Checked = currentrow(5)     
-       !     !no waterbody
-       ! elseif (A7) then !PRZMonly.Checked = currentrow(6)
-       !     !no waterbody
-       ! end if
-       ! 
-   
-
-
-
+	  read(ScenarioFileUnit,*, IOSTAT=eof)  is_auto_profile
+	  if (eof >= 0) then             !provides for the possibilty of older scenarios without this feature
+		  if (is_auto_profile) then 
+		     read(ScenarioFileUnit,*) number_of_discrete
+		     do i = 1,  number_of_discrete
+		       read(ScenarioFileUnit,*) profile_thick, profile_number_increments	  
+		     end do
+	      end if
+	  end if
+	  
+	  
         
         close (ScenarioFileUnit)
     end subroutine read_scenario_file

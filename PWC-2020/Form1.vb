@@ -29,12 +29,12 @@ Public Class Form1
     End Sub
 
     Private Sub LoadDefaultDiscretizations()
-        DiscretizationGridView.Rows.Add(3, 0.1)
-        DiscretizationGridView.Rows.Add(7, 1.0)
-        DiscretizationGridView.Rows.Add(10, 5.0)
-        DiscretizationGridView.Rows.Add(80, 20.0)
-        DiscretizationGridView.Rows.Add(1000, 50.0)
-
+        DiscretizationGridView.Rows.Add(3, 30)
+        DiscretizationGridView.Rows.Add(7, 7)
+        DiscretizationGridView.Rows.Add(10, 2)
+        DiscretizationGridView.Rows.Add(80, 4)
+        DiscretizationGridView.Rows.Add(1000, 20)
+        DiscretizationGridView.Rows.Add(100, 2)
     End Sub
 
 

@@ -150,12 +150,12 @@ mean larger amounts of dispersion. Dispersion can be
 precissely controlled by specifying the appropriate increments
 in the adjacent table. USEPA recommends the following:
 
-thickness                        delta   start depth      end depth
-3                                        0.1           0                   3
-7                                        1.0           3                  10
-10                                       5.0          10                 20
-80                                       20          20                 100
-from 100 to max depth        50         100               aquifer surface
+thickness                        Num delta   start depth      end depth
+3                                      30    0.1           0                   3
+7                                        7    1.0           3                  10
+10                                      2     5.0          10                 20
+80                                      4     20          20                 100
+100 to max depth             20    50         100               aquifer surface
 
 In any case, the top 3 cm should have fine discretizations (0.1 cm or less) 
 to account for proper runoff extraction precision </value>

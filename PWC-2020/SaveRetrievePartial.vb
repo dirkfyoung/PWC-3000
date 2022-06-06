@@ -1120,7 +1120,6 @@
                     currentRow = MyReader.ReadFields
                     DiscretizationGridView.Rows.Add(currentRow(0), currentRow(1))
                 Next
-                wellScreen.Text = MyReader.ReadLine()
 
 
             End If

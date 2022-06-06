@@ -120,8 +120,6 @@ Partial Class Form1
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label135 = New System.Windows.Forms.Label()
         Me.useAutoGWprofile = New System.Windows.Forms.CheckBox()
-        Me.Label133 = New System.Windows.Forms.Label()
-        Me.wellScreen = New System.Windows.Forms.TextBox()
         Me.Label132 = New System.Windows.Forms.Label()
         Me.Label131 = New System.Windows.Forms.Label()
         Me.DiscretizationGridView = New System.Windows.Forms.DataGridView()
@@ -1393,8 +1391,6 @@ Partial Class Form1
         Me.Panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Panel2.Controls.Add(Me.Label135)
         Me.Panel2.Controls.Add(Me.useAutoGWprofile)
-        Me.Panel2.Controls.Add(Me.Label133)
-        Me.Panel2.Controls.Add(Me.wellScreen)
         Me.Panel2.Controls.Add(Me.Label132)
         Me.Panel2.Controls.Add(Me.Label131)
         Me.Panel2.Controls.Add(Me.DiscretizationGridView)
@@ -1475,27 +1471,10 @@ Partial Class Form1
         Me.useAutoGWprofile.Text = "Use automatic standardized profile"
         Me.useAutoGWprofile.UseVisualStyleBackColor = False
         '
-        'Label133
-        '
-        Me.Label133.AutoSize = True
-        Me.Label133.Location = New System.Drawing.Point(11, 978)
-        Me.Label133.Name = "Label133"
-        Me.Label133.Size = New System.Drawing.Size(180, 17)
-        Me.Label133.TabIndex = 206
-        Me.Label133.Text = "Length of Well Screen (cm)"
-        '
-        'wellScreen
-        '
-        Me.wellScreen.Location = New System.Drawing.Point(220, 973)
-        Me.wellScreen.Name = "wellScreen"
-        Me.wellScreen.Size = New System.Drawing.Size(54, 22)
-        Me.wellScreen.TabIndex = 205
-        Me.wellScreen.Text = "100"
-        '
         'Label132
         '
         Me.Label132.AutoSize = True
-        Me.Label132.Location = New System.Drawing.Point(336, 718)
+        Me.Label132.Location = New System.Drawing.Point(314, 718)
         Me.Label132.Name = "Label132"
         Me.Label132.Size = New System.Drawing.Size(474, 272)
         Me.Label132.TabIndex = 204
@@ -1519,7 +1498,7 @@ Partial Class Form1
         Me.DiscretizationGridView.RowHeadersVisible = False
         Me.DiscretizationGridView.RowHeadersWidth = 51
         Me.DiscretizationGridView.RowTemplate.Height = 24
-        Me.DiscretizationGridView.Size = New System.Drawing.Size(323, 219)
+        Me.DiscretizationGridView.Size = New System.Drawing.Size(281, 254)
         Me.DiscretizationGridView.TabIndex = 202
         '
         'Thickness
@@ -1532,7 +1511,7 @@ Partial Class Form1
         'Increments
         '
         Me.Increments.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Increments.HeaderText = "Increment Size (cm)"
+        Me.Increments.HeaderText = "Number of Increments"
         Me.Increments.MinimumWidth = 6
         Me.Increments.Name = "Increments"
         '
@@ -6061,10 +6040,8 @@ Partial Class Form1
     Friend WithEvents Label132 As Label
     Friend WithEvents Label131 As Label
     Friend WithEvents DiscretizationGridView As DataGridView
-    Friend WithEvents Label133 As Label
-    Friend WithEvents wellScreen As TextBox
-    Friend WithEvents Thickness As DataGridViewTextBoxColumn
-    Friend WithEvents Increments As DataGridViewTextBoxColumn
     Friend WithEvents Label135 As Label
     Friend WithEvents useAutoGWprofile As CheckBox
+    Friend WithEvents Thickness As DataGridViewTextBoxColumn
+    Friend WithEvents Increments As DataGridViewTextBoxColumn
 End Class
