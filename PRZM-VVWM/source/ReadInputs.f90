@@ -350,7 +350,7 @@ end subroutine read_inputfile
         nhoriz,thickness,bd_input,fc_input, wp_input, oc_input, bd_input, Num_delx,sand_input,clay_input,dispersion_input, &
         is_temperature_simulated , albedo, emmiss, NUSLEC,GDUSLEC,GMUSLEC,cn_2, uslec, &
         runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth, erosion_decline, erosion_effic,use_usleyears,Height_stagnant_air_layer_cm, &
-		is_auto_profile,number_of_discrete,  profile_thick, profile_number_increments
+		is_auto_profile,number_of_discrete_layers,  profile_thick, profile_number_increments
     
 	
 
@@ -545,11 +545,15 @@ end subroutine read_inputfile
 
 
 	  read(ScenarioFileUnit,*, IOSTAT=eof)  is_auto_profile
+	  profile_thick= 0.0
+	  profile_number_increments=0
+
+	  
 	  if (eof >= 0) then             !provides for the possibilty of older scenarios without this feature
 		  if (is_auto_profile) then 
-		     read(ScenarioFileUnit,*) number_of_discrete
-		     do i = 1,  number_of_discrete
-		       read(ScenarioFileUnit,*) profile_thick, profile_number_increments	  
+		     read(ScenarioFileUnit,*) number_of_discrete_layers
+		     do i = 1,  number_of_discrete_layers
+		       read(ScenarioFileUnit,*) profile_thick(i), profile_number_increments(i)
 		     end do
 	      end if
 	  end if

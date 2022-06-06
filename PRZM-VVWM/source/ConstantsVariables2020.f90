@@ -235,12 +235,14 @@ module constants_and_variables
       real    :: thickness(max_horizons)          !thickness of each horizon
       real    :: dispersion_input(max_horizons)   !dispersion
        
-	  
+	 
 	  !Optional parameters for discretization
+	  integer,parameter :: max_discretized_layers = 100 !new user defined  discretized layering
+
 	  logical :: is_auto_profile  !use the specified discetization and let program calcuate properties, ignore delta in soil profile
-	  integer :: number_of_discrete  !number of discrete layers with different discretizations
-	  real    :: profile_thick		!thickness of uniquely discretized layer
-	  integer :: profile_number_increments  !number of increments in a layer
+	  integer :: number_of_discrete_layers  !number of discrete layers with different discretizations
+	  real    :: profile_thick(max_discretized_layers)		!thickness of uniquely discretized layer
+	  integer :: profile_number_increments(max_discretized_layers)  !number of increments in a layer
 	  
 	  
 	  

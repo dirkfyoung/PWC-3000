@@ -61,13 +61,13 @@ use constants_and_Variables, ONLY: min_evap_depth,                              
         water_column_rate,benthic_rate, photo_halflife_input, photo_rate, &
         hydrolysis_rate, hydrolysis_halflife_input,water_column_halflife_input   ,  benthic_halflife_input , soil_degradation_halflife_input, &
         is_total_degradation,is_constant_profile, is_ramp_profile, ramp1, ramp2, ramp3,is_exp_profile , exp_profile1, exp_profile2, folpst, &
-	    top_node_last_horizon, bottom_node_last_horizon, snow, cint, foliar_degrade_loss, SUPFLX, Foliar_volatile_loss
-
+	    top_node_last_horizon, bottom_node_last_horizon, snow, cint, foliar_degrade_loss, SUPFLX, Foliar_volatile_loss, &
+        is_auto_profile, profile_thick, profile_number_increments, number_of_discrete_layers
 
 use waterbody_parameters, ONLY: afield
      
     implicit none
-    INTEGER         :: i,k   
+    INTEGER         :: i,k   , j
     real            :: delx_avg_depth
     integer         :: startday_doy !  startday day of year  number of days past Jan 1, used for erosion
     integer         :: day_difference, smallest_difference
@@ -119,8 +119,19 @@ use waterbody_parameters, ONLY: afield
     ENPY = Heat_of_Henry/ 4184.0   
     
     !********Allocations of Soil Profile Variables**********************
-    NCOM2 = sum(num_delx(1:nhoriz))  !Total Number of Compartments
-
+	
+	if (is_auto_profile) then
+		ncom2 = sum(profile_number_increments(1:number_of_discrete_layers))  !New way
+	else
+        NCOM2 = sum(num_delx(1:nhoriz))  !Total Number of Compartments       !old way
+	end if
+	
+!******************************************************	
+	!delete this line once its working
+	NCOM2 = sum(num_delx(1:nhoriz))  !Total Number of Compartments
+!****************************************************
+	
+	
     call  allocate_soil_compartments
 	call  allocate_time_series       !some time series also have soil components, so ncom2 must be defined previoyusly before this call
 	
@@ -129,10 +140,44 @@ use waterbody_parameters, ONLY: afield
     GAMMA1  = 0.0
     vel = 0.0
     
+	
+	 write (*,*) "Do autoprofile ? " , is_auto_profile
+	
+if (is_auto_profile) then  ! create the discretization based on iput profile instead of delx
+	!get thicknesses for each compartment
+			start = 1
+		    xend = 0
+
+	do i = 1, number_of_discrete_layers
+		xend = xend + profile_number_increments(i)
+		do j = start, xend
+			delx(j)  = profile_thick(i)/ real(profile_number_increments(i))
+		end do
+        start =xend +1
+	end do
+	
+    !*** Populate Soil Depth Vector *********
+    soil_depth = 0.0
+    soil_depth(1) = delx(1)
+    
+    do i=2, NCOM2
+       soil_depth(i) = soil_depth(i-1) + delx(i) 
+	end do
+
+	write(*,*) "Profile Depths: "
+	do i  = 1, ncom2
+		write(*,*) i , soil_depth(i) 
+    end do
+	
+end if
+
+	
+!&&&&&&&&&&&&&&&&&&&&&&&&&&& START OF  OLD WAY -- Possibly eliminate &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&		
     ! *** Populate the Delx Vector and Kf & N *******
     start = 1
     Xend = 0
   
+
     do i=1, nhoriz
         xend = start +num_delx(i)-1      
         delx(start:xend)           = thickness(i)/num_delx(i) 
@@ -179,6 +224,22 @@ use waterbody_parameters, ONLY: afield
          start = xend+1
 	end do
 
+
+    !*** Populate Soil Depth Vector *********
+    soil_depth = 0.0
+    soil_depth(1) = delx(1)
+    
+    do i=2, NCOM2
+       soil_depth(i) = soil_depth(i-1) + delx(i) 
+	end do
+
+!&&&&&&&&&&&&&&&&&&&&&&&&&&& END OF  OLD WAY &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&	
+	
+	
+	
+	
+	
+	
 	
     !Find nodes of last horizon, this will be used for groundwater calculations
 	if (nhoriz==1) then
@@ -303,14 +364,10 @@ use waterbody_parameters, ONLY: afield
     conc_porewater = 0.0
     Sorbed2 = 0.0   !nonequilibrium phase concentration
 
-    !*** Populate Soil Depth Vector *********
-    soil_depth = 0.0
-    soil_depth(1) = delx(1)
-    
-    do i=2, NCOM2
-       soil_depth(i) = soil_depth(i-1) + delx(i) 
-    end do
+	
 
+	
+	
     !*** Calculate Runoff Depth   ****************
     cn_moist_node = find_depth_node(ncom2,soil_depth,CN_moisture_depth)
     
