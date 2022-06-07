@@ -67,7 +67,7 @@ use constants_and_Variables, ONLY: min_evap_depth,                              
 use waterbody_parameters, ONLY: afield
      
     implicit none
-    INTEGER         :: i,k   , j
+    INTEGER         :: i,j,k   
     real            :: delx_avg_depth
     integer         :: startday_doy !  startday day of year  number of days past Jan 1, used for erosion
     integer         :: day_difference, smallest_difference
@@ -77,6 +77,13 @@ use waterbody_parameters, ONLY: afield
    
 	
 	real :: target_depth(nhoriz)  ! depth of horizons for use with custom discretizartion
+	real :: lowerdepth            ! for tracking lower depth of a compartment strandling multipe data horizons
+	integer :: count_straddled	  ! counter for the number of straddled horizons
+	integer :: horiz_indx_tracker(50)
+	real :: tracker(50)
+	
+	horiz_indx_tracker=0
+	rtracker = 0.0
 	
 	
 	
@@ -135,15 +142,13 @@ use waterbody_parameters, ONLY: afield
 	NCOM2 = sum(num_delx(1:nhoriz))  !Total Number of Compartments
 !****************************************************
 	
-	
+	!***********  allocate and initialize ***********
     call  allocate_soil_compartments
 	call  allocate_time_series       !some time series also have soil components, so ncom2 must be defined previoyusly before this call
-	
-	
     ainf = 0.0
     GAMMA1  = 0.0
     vel = 0.0
-    
+    !************************************************
 	
 	 write (*,*) "Do autoprofile ? " , is_auto_profile
 	
@@ -182,11 +187,66 @@ if (is_auto_profile) then  ! create the discretization based on iput profile ins
 	   
 	   
 	   do i= 1, nhoriz
-	        write(*,*)"target ",  target_depth (i)
-    	end do
+	        write(*,*)"target ", target_depth(i)
+	   end do
 	
+	   
+	   
+	   j = 1  ! tracker for data horizons
+	   do i = 1, ncom2   !check each fixed compartment depth against the horizon depth to determine its location
+	        if (soil_depth(i) <= target_depth(j)) then 
+	            bulkdensity(i)       = bd_input  (j)
+                clay       (i)       = clay_input(j)
+                sand       (i)		 = sand_input(j)
+                orgcarb    (i)       = oc_input  (j)                                          
+                theta_fc   (i)       = fc_input  (j)
+                theta_wp   (i)       = wp_input  (j)    
+				theta_zero (i)       = fc_input  (j)  !Set the iniitial Water content to field capacity 
+                dispersion (i)		 = dispersion_input(j)	            
+                soil_temp  (i)       = soil_temp_input (j)
+	            		
+                MolarConvert_aq12(i) = MolarConvert_aq12_input(j)
+                MolarConvert_aq13(i) = MolarConvert_aq13_input(j)
+                MolarConvert_aq23(i) = MolarConvert_aq23_input(j)
+                MolarConvert_s12 (i)  = MolarConvert_s12_input(j)
+                MolarConvert_s13 (i)  = MolarConvert_s13_input(j)
+                MolarConvert_s23 (i)  = MolarConvert_s23_input(j)	   
+			else !compartment depth is greater than horizon
+				lowerdepth = soil_depth(i-1)  !capture the lower depth of the compartment that straddles
+				!find out how many data horizons this compartment straddles (typically will be 2, but keep possibilitiy open for many)
+				count_straddled = 0
+				do k= j, nhoriz
+                    count_straddled = count_straddled +1
+					horiz_indx_tracker(count_straddled) = k
+					if (soil_depth(i) > target_depth(k)) then 
+                        tracker(count_straddled) = target_depth(k)-lowerdepth
+					else	
+						tracker(count_straddled) = soil_depth(i) - target_depth(k-1)
+						j = j + count_straddled 
+					    exit 
+					end if
+				end do
+				
+				!Do Averaging
+				
+				
+				
+				
+				
+				
+			end if
+			
 	
-	
+			write (*,*) i, bulkdensity(i),theta_fc   (i)
+			
+			
+			
+			
+	   end do
+	   
+	   
+	   
+
 end if
 
 	

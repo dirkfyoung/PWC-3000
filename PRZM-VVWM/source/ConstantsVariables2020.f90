@@ -222,7 +222,7 @@ module constants_and_variables
 
       
       !*****Soil Profile Dependent Input Parameters *****************
-      integer :: NHORIZ                           !input value
+      integer :: NHORIZ                           !input value, number of data horizons
       integer :: Num_delx(max_horizons)           !Input Number of discretizations in horizon
       real    :: bd_input(max_horizons)           !bulk density of each horizon input
       real    :: clay_input(max_horizons)         !clay of each horizon input
