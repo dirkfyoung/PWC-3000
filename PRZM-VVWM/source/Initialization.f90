@@ -67,7 +67,7 @@ use constants_and_Variables, ONLY: min_evap_depth,                              
 use waterbody_parameters, ONLY: afield
      
     implicit none
-    INTEGER         :: i,j,k   
+    INTEGER         :: i,j,k,m   
     real            :: delx_avg_depth
     integer         :: startday_doy !  startday day of year  number of days past Jan 1, used for erosion
     integer         :: day_difference, smallest_difference
@@ -80,10 +80,19 @@ use waterbody_parameters, ONLY: afield
 	real :: lowerdepth            ! for tracking lower depth of a compartment strandling multipe data horizons
 	integer :: count_straddled	  ! counter for the number of straddled horizons
 	integer :: horiz_indx_tracker(50)
-	real :: tracker(50)
+	real :: track_thickness(50)
+	
+	real :: sumofdp
+	real :: sumofbd
+	real :: sumofmx
+	real :: sumofmn
+	real :: sumofoc
+	real :: sumofsn
+	real :: sumofcl
+	
 	
 	horiz_indx_tracker=0
-	rtracker = 0.0
+	track_thickness = 0.0
 	
 	
 	
@@ -139,7 +148,7 @@ use waterbody_parameters, ONLY: afield
 	
 !******************************************************	
 	!delete this line once its working
-	NCOM2 = sum(num_delx(1:nhoriz))  !Total Number of Compartments
+	!NCOM2 = sum(num_delx(1:nhoriz))  !Total Number of Compartments
 !****************************************************
 	
 	!***********  allocate and initialize ***********
@@ -194,6 +203,7 @@ if (is_auto_profile) then  ! create the discretization based on iput profile ins
 	   
 	   j = 1  ! tracker for data horizons
 	   do i = 1, ncom2   !check each fixed compartment depth against the horizon depth to determine its location
+		   
 	        if (soil_depth(i) <= target_depth(j)) then 
 	            bulkdensity(i)       = bd_input  (j)
                 clay       (i)       = clay_input(j)
@@ -216,28 +226,60 @@ if (is_auto_profile) then  ! create the discretization based on iput profile ins
 				!find out how many data horizons this compartment straddles (typically will be 2, but keep possibilitiy open for many)
 				count_straddled = 0
 				do k= j, nhoriz
+
                     count_straddled = count_straddled +1
 					horiz_indx_tracker(count_straddled) = k
 					if (soil_depth(i) > target_depth(k)) then 
-                        tracker(count_straddled) = target_depth(k)-lowerdepth
+                        track_thickness(count_straddled) = target_depth(k)-lowerdepth
 					else	
-						tracker(count_straddled) = soil_depth(i) - target_depth(k-1)
-						j = j + count_straddled 
+						track_thickness(count_straddled) = soil_depth(i) - target_depth(k-1)
+						j = j + count_straddled -1
 					    exit 
 					end if
 				end do
 				
 				!Do Averaging
+				sumofdp =  0.0
+				sumofbd =  0.0
+                sumofmx =  0.0
+                sumofmn =  0.0
+                sumofoc =  0.0
+                sumofsn =  0.0
+                sumofcl =  0.0
+
+				do m = 1, count_straddled
+					sumofdp = sumofdp + track_thickness(m)
+					sumofbd = sumofbd + bd_input  (horiz_indx_tracker(m)) *   track_thickness(m)
+                    sumofmx = sumofmx + fc_input  (horiz_indx_tracker(m)) *   track_thickness(m)
+                    sumofmn = sumofmn + wp_input  (horiz_indx_tracker(m)) *   track_thickness(m)
+                    sumofoc = sumofoc + oc_input  (horiz_indx_tracker(m)) *   track_thickness(m)
+                    sumofsn = sumofsn + sand_input(horiz_indx_tracker(m)) *   track_thickness(m)
+                    sumofcl = sumofcl + clay_input(horiz_indx_tracker(m)) *   track_thickness(m)
+				end do                     
 				
 				
+				 bulkdensity(i) = sumofbd /sumofdp	
+                 theta_fc   (i) = sumofmx /sumofdp	
+                 theta_wp   (i) = sumofmn /sumofdp	
+                 orgcarb    (i) = sumofoc /sumofdp	
+                 sand       (i)	= sumofsn /sumofdp	 
+				 clay       (i) = sumofcl /sumofdp	
+				 
+                ! theta_zero (i) 
+                ! dispersion (i)	
+                ! soil_temp  (i) 
 				
 				
-				
+				 
+				 
+				 
+				 
+
 				
 			end if
 			
 	
-			write (*,*) i, bulkdensity(i),theta_fc   (i)
+			write (*,*) i,soil_depth(i), bulkdensity(i),theta_fc(i)
 			
 			
 			
@@ -247,9 +289,9 @@ if (is_auto_profile) then  ! create the discretization based on iput profile ins
 	   
 	   
 
-end if
 
-	
+
+else 	!No auto discretization
 !&&&&&&&&&&&&&&&&&&&&&&&&&&& START OF  OLD WAY -- Possibly eliminate &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&		
     ! *** Populate the Delx Vector and Kf & N *******
     start = 1
@@ -312,7 +354,7 @@ end if
 	end do
 
 !&&&&&&&&&&&&&&&&&&&&&&&&&&& END OF  OLD WAY &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&	
-	
+end if	
 	
 	
 	
