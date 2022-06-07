@@ -389,6 +389,9 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testScenario.scn2
          312   1200.000    
          313   1200.000    
          314   1200.000    
+ target    18.00000    
+ target    71.00000    
+ target    152.0000    
  crop periods            1
  Total Applications =          108
            1       22425  1.1200000E-05
@@ -729,10 +732,10 @@ actual application day (YMD) = 9999 10 11, added days = -1, cant find rain-free
  Finished adjusting application days for rain
  Enter chemical transport
  ###################################################
- cpu time chen xport   0.5000000    
+ cpu time chen xport   0.5468750    
  ###################################################
  ###################################################
- cpu time gw    0.5000000    
+ cpu time gw    0.5468750    
  ###################################################
  enter VVWM
  parent runoff mass delivered    6.367408    
@@ -750,23 +753,23 @@ actual application day (YMD) = 9999 10 11, added days = -1, cant find rain-free
  Doing output process
  done output batch 
  ###################################################
- cpu time vvwm   0.5000000    
+ cpu time vvwm   0.5468750    
  ###################################################
  ###################################################
- cpu time deallocate    0.5156250    
+ cpu time deallocate    0.5625000    
  ###################################################
  ###################################################
- cpu time vvwm done        0.5156250    
+ cpu time vvwm done        0.5625000    
  ###################################################
  *****************************Done with scheme            1
  ###################################################
- cpu time, scheme     0.5156250               2
+ cpu time, scheme     0.5625000               2
  ###################################################
  ###################################################
- cpu time, waterbody     0.5156250               1
+ cpu time, waterbody     0.5625000               1
  ###################################################
  ###################################################
- End Proram cpu time     0.5156250    
+ End Proram cpu time     0.5625000    
  ###################################################
- Total clock time =   0.5390625    
- tridiag  0.1250000    
+ Total clock time =   0.5781250    
+ tridiag  3.1250000E-02

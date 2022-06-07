@@ -104,7 +104,7 @@ end subroutine allocation_for_VVWM
         EvapoTran,GAMMA1,new_henry,old_Henry,runoff_intensity, erosion_intensity,soilap, nchem,  &
         DKFLUX,SRCFLX,PVFLUX,UPFLUX, dgair, soil_applied_washoff
     
-    
+        
         allocate (soil_depth(ncom2))
         allocate (wiltpoint_water(ncom2))
         allocate (fieldcap_water(ncom2))

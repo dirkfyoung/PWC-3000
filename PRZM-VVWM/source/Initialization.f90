@@ -74,7 +74,11 @@ use waterbody_parameters, ONLY: afield
     real, parameter :: tol = 0.01  !some kind of tolerance for compartment size, Needs checking
     integer         :: start, xend
     real            :: running_depth, previous_depth,slope_ramp, value1, value2, value_integrated
-    
+   
+	
+	real :: target_depth(nhoriz)  ! depth of horizons for use with custom discretizartion
+	
+	
 	
 	!please move these to chem manipulations, no need to repeat them
     
@@ -167,7 +171,21 @@ if (is_auto_profile) then  ! create the discretization based on iput profile ins
 	write(*,*) "Profile Depths: "
 	do i  = 1, ncom2
 		write(*,*) i , soil_depth(i) 
-    end do
+	end do
+	
+	!Find depths of input horizons these are "target depths" where changes occur
+	
+	target_depth(1) = thickness(1)
+	   do i=2, nhoriz
+		   target_depth(i) =target_depth(i-1) + thickness(i) 
+	   end do
+	   
+	   
+	   do i= 1, nhoriz
+	        write(*,*)"target ",  target_depth (i)
+    	end do
+	
+	
 	
 end if
 
