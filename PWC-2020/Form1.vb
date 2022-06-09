@@ -1010,6 +1010,22 @@ Public Class Form1
 
     End Sub
 
+    Private Sub HorizonGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles HorizonGridView.CellContentClick
+
+        Select Case HorizonGridView.Columns(e.ColumnIndex).HeaderText
+            Case "Delete"
+
+                If HorizonGridView.CurrentRow.IsNewRow Then
+                    Beep()
+                Else
+                    HorizonGridView.Rows.Remove(HorizonGridView.Rows(e.RowIndex))
+                End If
+            Case Else
+                Exit Sub
+
+        End Select
+
+    End Sub
 End Class
 
 

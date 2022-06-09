@@ -190,6 +190,7 @@ Partial Class Form1
         Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column13 = New PWC_2020.DataGridViewDisableButtonColumn()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.Label62 = New System.Windows.Forms.Label()
@@ -498,6 +499,8 @@ Partial Class Form1
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Label129 = New System.Windows.Forms.Label()
         Me.Label130 = New System.Windows.Forms.Label()
+        Me.Label133 = New System.Windows.Forms.Label()
+        Me.Label134 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.AdvancedTab.SuspendLayout()
         Me.ScenarioExaminerTab.SuspendLayout()
@@ -1297,6 +1300,8 @@ Partial Class Form1
         '
         Me.ScenarioExaminerTab.AutoScroll = True
         Me.ScenarioExaminerTab.BackColor = System.Drawing.Color.FromArgb(CType(CType(192, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label134)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label133)
         Me.ScenarioExaminerTab.Controls.Add(Me.Label92)
         Me.ScenarioExaminerTab.Controls.Add(Me.Label91)
         Me.ScenarioExaminerTab.Controls.Add(Me.PushToSaveWaterBody)
@@ -1341,7 +1346,7 @@ Partial Class Form1
         Me.PushToSaveWaterBody.BackColor = System.Drawing.Color.Gold
         Me.PushToSaveWaterBody.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.PushToSaveWaterBody.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PushToSaveWaterBody.Location = New System.Drawing.Point(601, 644)
+        Me.PushToSaveWaterBody.Location = New System.Drawing.Point(633, 2376)
         Me.PushToSaveWaterBody.Name = "PushToSaveWaterBody"
         Me.PushToSaveWaterBody.Size = New System.Drawing.Size(229, 51)
         Me.PushToSaveWaterBody.TabIndex = 204
@@ -1353,7 +1358,7 @@ Partial Class Form1
         Me.PushToLoadWaterBody.BackColor = System.Drawing.Color.SpringGreen
         Me.PushToLoadWaterBody.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.PushToLoadWaterBody.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PushToLoadWaterBody.Location = New System.Drawing.Point(19, 644)
+        Me.PushToLoadWaterBody.Location = New System.Drawing.Point(10, 2376)
         Me.PushToLoadWaterBody.Name = "PushToLoadWaterBody"
         Me.PushToLoadWaterBody.Size = New System.Drawing.Size(229, 51)
         Me.PushToLoadWaterBody.TabIndex = 203
@@ -1365,7 +1370,7 @@ Partial Class Form1
         Me.PushToSaveScenario.BackColor = System.Drawing.Color.Lime
         Me.PushToSaveScenario.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.PushToSaveScenario.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PushToSaveScenario.Location = New System.Drawing.Point(649, 19)
+        Me.PushToSaveScenario.Location = New System.Drawing.Point(653, 47)
         Me.PushToSaveScenario.Name = "PushToSaveScenario"
         Me.PushToSaveScenario.Size = New System.Drawing.Size(203, 45)
         Me.PushToSaveScenario.TabIndex = 202
@@ -1377,7 +1382,7 @@ Partial Class Form1
         Me.PushToLoadScenario.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(0, Byte), Integer))
         Me.PushToLoadScenario.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.PushToLoadScenario.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PushToLoadScenario.Location = New System.Drawing.Point(10, 19)
+        Me.PushToLoadScenario.Location = New System.Drawing.Point(17, 46)
         Me.PushToLoadScenario.Name = "PushToLoadScenario"
         Me.PushToLoadScenario.Size = New System.Drawing.Size(201, 46)
         Me.PushToLoadScenario.TabIndex = 201
@@ -1447,9 +1452,9 @@ Partial Class Form1
         Me.Panel2.Controls.Add(Me.usleP)
         Me.Panel2.Controls.Add(Me.ireg)
         Me.Panel2.Controls.Add(Me.slope)
-        Me.Panel2.Location = New System.Drawing.Point(10, 77)
+        Me.Panel2.Location = New System.Drawing.Point(17, 98)
         Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(842, 491)
+        Me.Panel2.Size = New System.Drawing.Size(839, 2189)
         Me.Panel2.TabIndex = 200
         '
         'Label135
@@ -2056,7 +2061,7 @@ Partial Class Form1
         'HorizonGridView
         '
         Me.HorizonGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.HorizonGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.Column8, Me.Column9})
+        Me.HorizonGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.Column8, Me.Column9, Me.Column13})
         Me.HorizonGridView.Location = New System.Drawing.Point(4, 348)
         Me.HorizonGridView.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.HorizonGridView.Name = "HorizonGridView"
@@ -2065,22 +2070,22 @@ Partial Class Form1
         DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.HorizonGridView.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.HorizonGridView.RowTemplate.Height = 24
-        Me.HorizonGridView.Size = New System.Drawing.Size(805, 252)
+        Me.HorizonGridView.Size = New System.Drawing.Size(810, 252)
         Me.HorizonGridView.TabIndex = 0
         '
         'Column1
         '
-        Me.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Column1.FillWeight = 10.0!
-        Me.Column1.HeaderText = "#"
+        Me.Column1.FillWeight = 11.0!
+        Me.Column1.HeaderText = "  #"
         Me.Column1.MinimumWidth = 6
         Me.Column1.Name = "Column1"
         Me.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Column1.Width = 54
         '
         'Column2
         '
         Me.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Column2.FillWeight = 25.0!
+        Me.Column2.FillWeight = 22.0!
         Me.Column2.HeaderText = "Thickness (cm)"
         Me.Column2.MinimumWidth = 6
         Me.Column2.Name = "Column2"
@@ -2088,17 +2093,18 @@ Partial Class Form1
         '
         'Column3
         '
-        Me.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
         Me.Column3.FillWeight = 25.0!
-        Me.Column3.HeaderText = "ρ     (g/cm³)"
+        Me.Column3.HeaderText = "   ρ              (g/cm³)"
         Me.Column3.MinimumWidth = 6
         Me.Column3.Name = "Column3"
         Me.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
+        Me.Column3.Width = 81
         '
         'Column4
         '
         Me.Column4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Column4.FillWeight = 25.0!
+        Me.Column4.FillWeight = 24.0!
         Me.Column4.HeaderText = "Max Cap (fraction)"
         Me.Column4.MinimumWidth = 6
         Me.Column4.Name = "Column4"
@@ -2107,7 +2113,7 @@ Partial Class Form1
         'Column5
         '
         Me.Column5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Column5.FillWeight = 25.0!
+        Me.Column5.FillWeight = 24.0!
         Me.Column5.HeaderText = "Min Cap (fraction)"
         Me.Column5.MinimumWidth = 6
         Me.Column5.Name = "Column5"
@@ -2116,8 +2122,8 @@ Partial Class Form1
         'Column6
         '
         Me.Column6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Column6.FillWeight = 25.0!
-        Me.Column6.HeaderText = "O.C.        (%)"
+        Me.Column6.FillWeight = 20.0!
+        Me.Column6.HeaderText = "O.C. (%)"
         Me.Column6.MinimumWidth = 6
         Me.Column6.Name = "Column6"
         Me.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
@@ -2125,30 +2131,41 @@ Partial Class Form1
         'Column7
         '
         Me.Column7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Column7.FillWeight = 10.0!
-        Me.Column7.HeaderText = "∆"
+        Me.Column7.FillWeight = 12.0!
+        Me.Column7.HeaderText = "  ∆"
         Me.Column7.MinimumWidth = 6
         Me.Column7.Name = "Column7"
         Me.Column7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
         '
         'Column8
         '
-        Me.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.Column8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.Column8.FillWeight = 20.0!
         Me.Column8.HeaderText = "Sand (%)"
         Me.Column8.MinimumWidth = 6
         Me.Column8.Name = "Column8"
         Me.Column8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Column8.Width = 66
         '
         'Column9
         '
-        Me.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.Column9.FillWeight = 25.0!
+        Me.Column9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.Column9.FillWeight = 20.0!
         Me.Column9.HeaderText = "Clay (%)"
         Me.Column9.MinimumWidth = 6
         Me.Column9.Name = "Column9"
         Me.Column9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable
-        Me.Column9.Width = 41
+        '
+        'Column13
+        '
+        Me.Column13.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.Column13.FillWeight = 14.0!
+        Me.Column13.HeaderText = "Delete"
+        Me.Column13.MinimumWidth = 6
+        Me.Column13.Name = "Column13"
+        Me.Column13.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Column13.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic
+        Me.Column13.Text = "X"
+        Me.Column13.UseColumnTextForButtonValue = True
         '
         'Label24
         '
@@ -2199,7 +2216,7 @@ Partial Class Form1
         Me.CropGridView.RowHeadersVisible = False
         Me.CropGridView.RowHeadersWidth = 51
         Me.CropGridView.RowTemplate.Height = 24
-        Me.CropGridView.Size = New System.Drawing.Size(803, 293)
+        Me.CropGridView.Size = New System.Drawing.Size(803, 286)
         Me.CropGridView.TabIndex = 109
         '
         'DataGridViewTextBoxColumn1
@@ -2516,7 +2533,7 @@ Partial Class Form1
         Me.Panel1.Controls.Add(Me.Label66)
         Me.Panel1.Controls.Add(Me.Label65)
         Me.Panel1.Controls.Add(Me.Label64)
-        Me.Panel1.Location = New System.Drawing.Point(7, 703)
+        Me.Panel1.Location = New System.Drawing.Point(7, 2433)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(855, 735)
         Me.Panel1.TabIndex = 199
@@ -5503,6 +5520,28 @@ Partial Class Form1
         Me.Label130.TabIndex = 6
         Me.Label130.Text = "Family Name:"
         '
+        'Label133
+        '
+        Me.Label133.AutoSize = True
+        Me.Label133.Font = New System.Drawing.Font("Modern No. 20", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label133.ForeColor = System.Drawing.Color.Yellow
+        Me.Label133.Location = New System.Drawing.Point(308, 41)
+        Me.Label133.Name = "Label133"
+        Me.Label133.Size = New System.Drawing.Size(269, 41)
+        Me.Label133.TabIndex = 207
+        Me.Label133.Text = "Field Scenario"
+        '
+        'Label134
+        '
+        Me.Label134.AutoSize = True
+        Me.Label134.Font = New System.Drawing.Font("Modern No. 20", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label134.ForeColor = System.Drawing.Color.Yellow
+        Me.Label134.Location = New System.Drawing.Point(294, 2373)
+        Me.Label134.Name = "Label134"
+        Me.Label134.Size = New System.Drawing.Size(289, 41)
+        Me.Label134.TabIndex = 208
+        Me.Label134.Text = "Waterbody/shed"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -5903,15 +5942,6 @@ Partial Class Form1
     Friend WithEvents Commit As DataGridViewDisableButtonColumn
     Friend WithEvents Column24 As DataGridViewTextBoxColumn
     Friend WithEvents Delete As DataGridViewButtonColumn
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As DataGridViewTextBoxColumn
-    Friend WithEvents Column4 As DataGridViewTextBoxColumn
-    Friend WithEvents Column5 As DataGridViewTextBoxColumn
-    Friend WithEvents Column6 As DataGridViewTextBoxColumn
-    Friend WithEvents Column7 As DataGridViewTextBoxColumn
-    Friend WithEvents Column8 As DataGridViewTextBoxColumn
-    Friend WithEvents Column9 As DataGridViewTextBoxColumn
     Friend WithEvents WatershedTab As TabPage
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents Timer1 As Timer
@@ -6044,4 +6074,16 @@ Partial Class Form1
     Friend WithEvents useAutoGWprofile As CheckBox
     Friend WithEvents Thickness As DataGridViewTextBoxColumn
     Friend WithEvents Increments As DataGridViewTextBoxColumn
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column4 As DataGridViewTextBoxColumn
+    Friend WithEvents Column5 As DataGridViewTextBoxColumn
+    Friend WithEvents Column6 As DataGridViewTextBoxColumn
+    Friend WithEvents Column7 As DataGridViewTextBoxColumn
+    Friend WithEvents Column8 As DataGridViewTextBoxColumn
+    Friend WithEvents Column9 As DataGridViewTextBoxColumn
+    Friend WithEvents Column13 As DataGridViewDisableButtonColumn
+    Friend WithEvents Label134 As Label
+    Friend WithEvents Label133 As Label
 End Class
