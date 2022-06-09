@@ -199,7 +199,18 @@ if (is_auto_profile) then  ! create the discretization based on iput profile ins
 	        write(*,*)"target ", target_depth(i)
 	   end do
 	
+	   bulkdensity   = 0.0
+       clay          = 0.0
+       sand       	 = 0.0
+       orgcarb       = 0.0
+       theta_fc      = 0.0
+       theta_wp      = 0.0
+       theta_zero    = 0.0
+       dispersion 	 = 0.0
+       soil_temp     = 0.0
 	   
+	   
+	
 	   
 	   j = 1  ! tracker for data horizons
 	   do i = 1, ncom2   !check each fixed compartment depth against the horizon depth to determine its location
@@ -222,60 +233,74 @@ if (is_auto_profile) then  ! create the discretization based on iput profile ins
                 MolarConvert_s13 (i)  = MolarConvert_s13_input(j)
                 MolarConvert_s23 (i)  = MolarConvert_s23_input(j)	   
 			else !compartment depth is greater than horizon
+
 				lowerdepth = soil_depth(i-1)  !capture the lower depth of the compartment that straddles
-				!find out how many data horizons this compartment straddles (typically will be 2, but keep possibilitiy open for many)
-				count_straddled = 0
-				do k= j, nhoriz
+				
+				if ( lowerdepth > target_depth(nhoriz)) then  !we've run out of horizons, so every thing is the last horizon
+					bulkdensity(i) = bd_input  (nhoriz)
+                    theta_fc   (i) = fc_input  (nhoriz)
+                    theta_wp   (i) = wp_input  (nhoriz)
+                    orgcarb    (i) = oc_input  (nhoriz)
+                    sand       (i) = sand_input(nhoriz)
+                    clay       (i) = clay_input(nhoriz)
+				else	
+				
+		
+			        	!find out how many data horizons this compartment straddles (typically will be 2, but keep possibilitiy open for many)
+			        	count_straddled = 0
+			        	do k= j, nhoriz
+                    
+                            count_straddled = count_straddled +1
+			        		horiz_indx_tracker(count_straddled) = k
+			        		
+			        		if (soil_depth(i) > target_depth(k)) then 
+                                track_thickness(count_straddled) = target_depth(k)-lowerdepth
+			        			lowerdepth = target_depth(k)
+			        			
+			        		else	
+			        			track_thickness(count_straddled) = soil_depth(i) - target_depth(k-1)			        			
+			        			j = j + count_straddled -1
+			        		    exit 
+			        		end if
+			        		
 
-                    count_straddled = count_straddled +1
-					horiz_indx_tracker(count_straddled) = k
-					if (soil_depth(i) > target_depth(k)) then 
-                        track_thickness(count_straddled) = target_depth(k)-lowerdepth
-					else	
-						track_thickness(count_straddled) = soil_depth(i) - target_depth(k-1)
-						j = j + count_straddled -1
-					    exit 
-					end if
-				end do
-				
-				!Do Averaging
-				sumofdp =  0.0
-				sumofbd =  0.0
-                sumofmx =  0.0
-                sumofmn =  0.0
-                sumofoc =  0.0
-                sumofsn =  0.0
-                sumofcl =  0.0
+			        	end do
+			        	
+			        	
+			        	
+			        	!Do Averaging
+			        	sumofdp =  0.0
+			        	sumofbd =  0.0
+                        sumofmx =  0.0
+                        sumofmn =  0.0
+                        sumofoc =  0.0
+                        sumofsn =  0.0
+                        sumofcl =  0.0
+                    
+			        	do m = 1, count_straddled
+			        		sumofdp = sumofdp + track_thickness(m)
+			        		sumofbd = sumofbd + bd_input  (horiz_indx_tracker(m)) *   track_thickness(m)
+                            sumofmx = sumofmx + fc_input  (horiz_indx_tracker(m)) *   track_thickness(m)
+                            sumofmn = sumofmn + wp_input  (horiz_indx_tracker(m)) *   track_thickness(m)
+                            sumofoc = sumofoc + oc_input  (horiz_indx_tracker(m)) *   track_thickness(m)
+                            sumofsn = sumofsn + sand_input(horiz_indx_tracker(m)) *   track_thickness(m)
+                            sumofcl = sumofcl + clay_input(horiz_indx_tracker(m)) *   track_thickness(m)
+			        	end do                     
+			        	
+			        	
+			        	 bulkdensity(i) = sumofbd /sumofdp	
+                         theta_fc   (i) = sumofmx /sumofdp	
+                         theta_wp   (i) = sumofmn /sumofdp	
+                         orgcarb    (i) = sumofoc /sumofdp	
+                         sand       (i)	= sumofsn /sumofdp	 
+			        	 clay       (i) = sumofcl /sumofdp	
+			        	 
+                        ! theta_zero (i) 
+                        ! dispersion (i)	
+                        ! soil_temp  (i) 
 
-				do m = 1, count_straddled
-					sumofdp = sumofdp + track_thickness(m)
-					sumofbd = sumofbd + bd_input  (horiz_indx_tracker(m)) *   track_thickness(m)
-                    sumofmx = sumofmx + fc_input  (horiz_indx_tracker(m)) *   track_thickness(m)
-                    sumofmn = sumofmn + wp_input  (horiz_indx_tracker(m)) *   track_thickness(m)
-                    sumofoc = sumofoc + oc_input  (horiz_indx_tracker(m)) *   track_thickness(m)
-                    sumofsn = sumofsn + sand_input(horiz_indx_tracker(m)) *   track_thickness(m)
-                    sumofcl = sumofcl + clay_input(horiz_indx_tracker(m)) *   track_thickness(m)
-				end do                     
-				
-				
-				 bulkdensity(i) = sumofbd /sumofdp	
-                 theta_fc   (i) = sumofmx /sumofdp	
-                 theta_wp   (i) = sumofmn /sumofdp	
-                 orgcarb    (i) = sumofoc /sumofdp	
-                 sand       (i)	= sumofsn /sumofdp	 
-				 clay       (i) = sumofcl /sumofdp	
-				 
-                ! theta_zero (i) 
-                ! dispersion (i)	
-                ! soil_temp  (i) 
-				
-				
-				 
-				 
-				 
-				 
+				endif 
 
-				
 			end if
 			
 	
