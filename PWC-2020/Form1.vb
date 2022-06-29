@@ -1046,9 +1046,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub ScenarioExaminerTab_Click(sender As Object, e As EventArgs) Handles ScenarioExaminerTab.Click
-        ..
-    End Sub
+
 End Class
 
 
