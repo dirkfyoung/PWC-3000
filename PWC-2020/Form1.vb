@@ -14,6 +14,7 @@ Public Class Form1
     Private tempTabpage1 As TabPage
     Private tempTabpage2 As TabPage
     Private tempTabpage3 As TabPage
+    Private tempTabpage4 As TabPage
 
 
 
@@ -22,9 +23,13 @@ Public Class Form1
         tempTabpage1 = AdvancedTab
         tempTabpage2 = ScenarioExaminerTab
         tempTabpage3 = OptionalOutputTab
+        tempTabpage4 = WaterbodyExaminerTab
+
         TabControl1.Controls.Remove(AdvancedTab)
         TabControl1.Controls.Remove(ScenarioExaminerTab)
         TabControl1.Controls.Remove(OptionalOutputTab)
+        TabControl1.Controls.Remove(WaterbodyExaminerTab)
+
         LoadDefaultDiscretizations()
     End Sub
 
@@ -878,6 +883,18 @@ Public Class Form1
         End If
         TabControl1.Controls.Add(tempTabpage2)
     End Sub
+
+
+    Private Sub ToggeWaterbodyExaminerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ToggeWaterbodyExaminerToolStripMenuItem.Click
+        If TabControl1.Controls.Contains(tempTabpage4) Then
+            TabControl1.Controls.Remove(WaterbodyExaminerTab)
+            Return
+        End If
+        TabControl1.Controls.Add(tempTabpage4)
+    End Sub
+
+
+
     Private Sub ToggleMoreOutputToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ToggleMoreOutputToolStripMenuItem.Click
         If TabControl1.Controls.Contains(tempTabpage3) Then
             TabControl1.Controls.Remove(OptionalOutputTab)
@@ -1010,6 +1027,8 @@ Public Class Form1
 
     End Sub
 
+
+
     Private Sub HorizonGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles HorizonGridView.CellContentClick
 
         Select Case HorizonGridView.Columns(e.ColumnIndex).HeaderText
@@ -1025,6 +1044,10 @@ Public Class Form1
 
         End Select
 
+    End Sub
+
+    Private Sub ScenarioExaminerTab_Click(sender As Object, e As EventArgs) Handles ScenarioExaminerTab.Click
+        ..
     End Sub
 End Class
 
