@@ -31,6 +31,8 @@ Public Class Form1
         TabControl1.Controls.Remove(WaterbodyExaminerTab)
 
         LoadDefaultDiscretizations()
+        MakeSprayTable()
+
     End Sub
 
     Private Sub LoadDefaultDiscretizations()
@@ -42,7 +44,22 @@ Public Class Form1
         DiscretizationGridView.Rows.Add(100, 2)
     End Sub
 
+    Private Sub MakeSprayTable()
+        SprayGridView.Rows.Add("1. Aerial(Very Fine To Fine)")
+        SprayGridView.Rows.Add("2. Aerial (Fine to Medium)")
+        SprayGridView.Rows.Add("3. Aerial (Medium to Coarse)")
+        SprayGridView.Rows.Add("4. Aerial(Coarse to Very Coarse)")
+        SprayGridView.Rows.Add("5. Ground High Boom (VF To Fine)")
+        SprayGridView.Rows.Add("6. Ground Low Boom (VF to Fine)")
+        SprayGridView.Rows.Add("7. Ground High Boom (Fine to Medium Coarse)")
+        SprayGridView.Rows.Add("8. Ground Low Boom (Fine to Medium Coarse)")
+        SprayGridView.Rows.Add("9. Airblast (Sparse)")
+        SprayGridView.Rows.Add("10. Aeirblast (Dense)")
+        SprayGridView.Rows.Add("11. Airblast (Vineyard)")
+        SprayGridView.Rows.Add("12. Airblast (Orchard)")
 
+
+    End Sub
 
 
     Private Sub MakeApplicationTable()
@@ -260,7 +277,7 @@ Public Class Form1
     Private Sub CalculateButton_Click(sender As Object, e As EventArgs) Handles CalculateButton.Click
 
         If Not System.IO.Directory.Exists(WorkingDirectoryLabel.Text) Then
-            MsgBox("No Working Directory. Save this work, and a working directory will be automatcally established")
+            MsgBox("No Working Directory. Save this work, And a working directory will be automatcally established")
             Return
         End If
 
@@ -951,7 +968,7 @@ Public Class Form1
 
         msg = ""
 
-        If MsgBox("Do you want to overwrite the Henry's Law value with an estimate based on the solubility and vapor pressure?", 4, "Overwrite Warning") = 7 Then
+        If MsgBox("Do you want To overwrite the Henry's Law value with an estimate based on the solubility and vapor pressure?", 4, "Overwrite Warning") = 7 Then
             Return
         End If
 
@@ -1046,7 +1063,9 @@ Public Class Form1
 
     End Sub
 
+    Private Sub DataGridView1_CellContentClick_1(sender As Object, e As DataGridViewCellEventArgs) Handles SprayGridView.CellContentClick
 
+    End Sub
 End Class
 
 
