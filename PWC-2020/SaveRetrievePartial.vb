@@ -858,6 +858,31 @@
             spray14.Text = currentRow(13)
 
 
+            Dim rowcount As Integer
+            rowcount = MyReader.ReadLine
+
+
+            For i As Integer = 0 To rowcount - 1
+                currentRow = MyReader.ReadFields
+
+                SprayGridView.Item(1, i).Value = currentRow(0)
+                SprayGridView.Item(2, i).Value = currentRow(1)
+                SprayGridView.Item(3, i).Value = currentRow(2)
+                SprayGridView.Item(4, i).Value = currentRow(3)
+                SprayGridView.Item(5, i).Value = currentRow(4)
+                SprayGridView.Item(6, i).Value = currentRow(5)
+                SprayGridView.Item(7, i).Value = currentRow(6)
+                SprayGridView.Item(8, i).Value = currentRow(7)
+                SprayGridView.Item(9, i).Value = currentRow(8)
+                SprayGridView.Item(10, i).Value = currentRow(9)
+                SprayGridView.Item(11, i).Value = currentRow(10)
+                SprayGridView.Item(12, i).Value = currentRow(11)
+
+            Next
+
+
+
+
 
         End Using
 
@@ -888,6 +913,20 @@
         msg = msg & vbNewLine & FlowLength.Text
         msg = msg & String.Format("{0}{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14}", vbNewLine, spray1.Text, spray2.Text, spray3.Text, spray4.Text, spray5.Text,
                                   spray6.Text, spray7.Text, spray8.Text, spray9.Text, spray10.Text, spray11.Text, spray12.Text, spray13.Text, spray14.Text)
+
+
+
+
+        msg = msg & vbNewLine & SprayGridView.RowCount
+        For i As Integer = 0 To SprayGridView.RowCount - 1
+            msg = msg & String.Format("{0}{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}", vbNewLine,
+                              SprayGridView.Item(1, i).Value, SprayGridView.Item(2, i).Value, SprayGridView.Item(3, i).Value, SprayGridView.Item(4, i).Value, SprayGridView.Item(5, i).Value,
+                              SprayGridView.Item(6, i).Value, SprayGridView.Item(7, i).Value, SprayGridView.Item(8, i).Value, SprayGridView.Item(9, i).Value, SprayGridView.Item(10, i).Value,
+                              SprayGridView.Item(11, i).Value, SprayGridView.Item(12, i).Value)
+
+        Next
+
+
 
 
 

@@ -45,18 +45,40 @@ Public Class Form1
     End Sub
 
     Private Sub MakeSprayTable()
-        SprayGridView.Rows.Add("1. Aerial(Very Fine To Fine)")
-        SprayGridView.Rows.Add("2. Aerial (Fine to Medium)")
-        SprayGridView.Rows.Add("3. Aerial (Medium to Coarse)")
-        SprayGridView.Rows.Add("4. Aerial(Coarse to Very Coarse)")
-        SprayGridView.Rows.Add("5. Ground High Boom (VF To Fine)")
-        SprayGridView.Rows.Add("6. Ground Low Boom (VF to Fine)")
-        SprayGridView.Rows.Add("7. Ground High Boom (Fine to Medium Coarse)")
-        SprayGridView.Rows.Add("8. Ground Low Boom (Fine to Medium Coarse)")
-        SprayGridView.Rows.Add("9. Airblast (Sparse)")
-        SprayGridView.Rows.Add("10. Aeirblast (Dense)")
-        SprayGridView.Rows.Add("11. Airblast (Vineyard)")
-        SprayGridView.Rows.Add("12. Airblast (Orchard)")
+        SprayGridView.Rows.Add(Standard.sprayterm1)
+        SprayGridView.Rows.Add(Standard.sprayterm2)
+        SprayGridView.Rows.Add(Standard.sprayterm3)
+        SprayGridView.Rows.Add(Standard.sprayterm4)
+        SprayGridView.Rows.Add(Standard.sprayterm5)
+        SprayGridView.Rows.Add(Standard.sprayterm6)
+        SprayGridView.Rows.Add(Standard.sprayterm7)
+        SprayGridView.Rows.Add(Standard.sprayterm8)
+        SprayGridView.Rows.Add(Standard.sprayterm9)
+        SprayGridView.Rows.Add(Standard.sprayterm10)
+        SprayGridView.Rows.Add(Standard.sprayterm11)
+        SprayGridView.Rows.Add(Standard.sprayterm12)
+        SprayGridView.Rows.Add(Standard.sprayterm13)
+        SprayGridView.Rows.Add(Standard.sprayterm14)
+        SprayGridView.Rows.Add(Standard.sprayterm15)
+
+        'SprayGridView.Rows.Add("1. Aerial(Very Fine To Fine)")
+        'SprayGridView.Rows.Add("2. Aerial (Fine to Medium)")
+        'SprayGridView.Rows.Add("3. Aerial (Medium to Coarse)")
+        'SprayGridView.Rows.Add("4. Aerial(Coarse to Very Coarse)")
+        'SprayGridView.Rows.Add("5. Ground High Boom (VF To Fine)")
+        'SprayGridView.Rows.Add("6. Ground Low Boom (VF to Fine)")
+        'SprayGridView.Rows.Add("7. Ground High Boom (Fine to Medium Coarse)")
+        'SprayGridView.Rows.Add("8. Ground Low Boom (Fine to Medium Coarse)")
+        'SprayGridView.Rows.Add("9. Airblast (Sparse)")
+        'SprayGridView.Rows.Add("10. Aeirblast (Dense)")
+        'SprayGridView.Rows.Add("11. Airblast (Vineyard)")
+        'SprayGridView.Rows.Add("12. Airblast (Orchard)")
+        'SprayGridView.Rows.Add("13. Direct")
+        'SprayGridView.Rows.Add("14. None")
+        'SprayGridView.Rows.Add("15. You specify")
+
+
+
 
 
     End Sub
@@ -124,6 +146,8 @@ Public Class Form1
         driftcombo.Items.Add(Standard.sprayterm12)
         driftcombo.Items.Add(Standard.sprayterm13)
         driftcombo.Items.Add(Standard.sprayterm14)
+        driftcombo.Items.Add(Standard.sprayterm15)
+
 
         AppTableDisplay.Columns.Add(driftcombo)
 

@@ -29,6 +29,8 @@
 
     Public Const sprayterm13 As String = "Directly applied to waterbody"
     Public Const sprayterm14 As String = "None"
+    Public Const sprayterm15 As String = "You Specify"
+
 
 End Class
 
