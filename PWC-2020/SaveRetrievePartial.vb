@@ -841,23 +841,6 @@
             BaseFlow.Text = MyReader.ReadLine()
             FlowLength.Text = MyReader.ReadLine()
 
-            currentRow = MyReader.ReadFields
-            spray1.Text = currentRow(0)
-            spray2.Text = currentRow(1)
-            spray3.Text = currentRow(2)
-            spray4.Text = currentRow(3)
-            spray5.Text = currentRow(4)
-            spray6.Text = currentRow(5)
-            spray7.Text = currentRow(6)
-            spray8.Text = currentRow(7)
-            spray9.Text = currentRow(8)
-            spray10.Text = currentRow(9)
-            spray11.Text = currentRow(10)
-            spray12.Text = currentRow(11)
-            spray13.Text = currentRow(12)
-            spray14.Text = currentRow(13)
-
-
             Dim rowcount As Integer
             rowcount = MyReader.ReadLine
 
@@ -877,7 +860,7 @@
                 SprayGridView.Item(10, i).Value = currentRow(9)
                 SprayGridView.Item(11, i).Value = currentRow(10)
                 SprayGridView.Item(12, i).Value = currentRow(11)
-
+                SprayGridView.Item(13, i).Value = currentRow(12)
             Next
 
 
@@ -911,24 +894,16 @@
         msg = msg & vbNewLine & MaxDepth.Text
         msg = msg & vbNewLine & BaseFlow.Text
         msg = msg & vbNewLine & FlowLength.Text
-        msg = msg & String.Format("{0}{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14}", vbNewLine, spray1.Text, spray2.Text, spray3.Text, spray4.Text, spray5.Text,
-                                  spray6.Text, spray7.Text, spray8.Text, spray9.Text, spray10.Text, spray11.Text, spray12.Text, spray13.Text, spray14.Text)
-
-
 
 
         msg = msg & vbNewLine & SprayGridView.RowCount
         For i As Integer = 0 To SprayGridView.RowCount - 1
-            msg = msg & String.Format("{0}{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}", vbNewLine,
+            msg = msg & String.Format("{0}{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}", vbNewLine,
                               SprayGridView.Item(1, i).Value, SprayGridView.Item(2, i).Value, SprayGridView.Item(3, i).Value, SprayGridView.Item(4, i).Value, SprayGridView.Item(5, i).Value,
                               SprayGridView.Item(6, i).Value, SprayGridView.Item(7, i).Value, SprayGridView.Item(8, i).Value, SprayGridView.Item(9, i).Value, SprayGridView.Item(10, i).Value,
-                              SprayGridView.Item(11, i).Value, SprayGridView.Item(12, i).Value)
+                              SprayGridView.Item(11, i).Value, SprayGridView.Item(12, i).Value, SprayGridView.Item(13, i).Value)
 
         Next
-
-
-
-
 
 
         CreateWaterbodyString = msg
