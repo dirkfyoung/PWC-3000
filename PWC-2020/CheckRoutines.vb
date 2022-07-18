@@ -277,7 +277,7 @@ Partial Public Class Form1
                 TestActualRealNumbers(TrueOrFalse, msg, ApplicationTable.Drift(j))
                 If TrueOrFalse = False Then Return
 
-                TestActualRealNumbers(TrueOrFalse, msg, ApplicationTable.DriftFactor(j))
+                TestActualRealNumbers(TrueOrFalse, msg, ApplicationTable.DriftBuffer(j))
                 If TrueOrFalse = False Then Return
 
                 TestActualRealNumbers(TrueOrFalse, msg, ApplicationTable.Periodicity(j))

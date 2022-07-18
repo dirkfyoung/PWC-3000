@@ -22,6 +22,9 @@ implicit none
     real :: baseflow       
     integer:: flow_averaging
     real   :: hydro_length
+	
+	integer :: rows_spray, columns_spray !spray table dimensions
+	
 	real,dimension(14):: spray_values  !default or read-in values for spray drift, their order should corresponds to the menu in the application table
     
     logical  itsapond, itsareservoir, itsother
@@ -134,7 +137,9 @@ implicit none
     
     subroutine read_waterbodyfile(file_index)
     use constants_and_variables, ONLY: waterbody_file_unit
+	use 
     integer,intent(in) :: file_index
+	
      
         open (UNIT=waterbody_file_unit, FILE= trim(waterbody_names(file_index)), STATUS ='old')
         read(waterbody_file_unit, *) simtypeflag        
@@ -158,6 +163,13 @@ implicit none
         read(waterbody_file_unit, *) depth_max          
         read(waterbody_file_unit, *) baseflow           
         read(waterbody_file_unit, *) hydro_length
+		read(waterbody_file_unit, *) rows_spray, columns_spray
+		
+		do i =1, rows_spray
+			
+		end do
+		
+		
         read(waterbody_file_unit, *) spray_values(1), spray_values(2),spray_values(3),spray_values(4), &
 		                             spray_values(5), spray_values(6),spray_values(7),spray_values(8), &
 			                         spray_values(9), spray_values(10),spray_values(11),spray_values(12), &

@@ -61,24 +61,6 @@ Public Class Form1
         SprayGridView.Rows.Add(Standard.sprayterm14)
         SprayGridView.Rows.Add(Standard.sprayterm15)
 
-        'SprayGridView.Rows.Add("1. Aerial(Very Fine To Fine)")
-        'SprayGridView.Rows.Add("2. Aerial (Fine to Medium)")
-        'SprayGridView.Rows.Add("3. Aerial (Medium to Coarse)")
-        'SprayGridView.Rows.Add("4. Aerial(Coarse to Very Coarse)")
-        'SprayGridView.Rows.Add("5. Ground High Boom (VF To Fine)")
-        'SprayGridView.Rows.Add("6. Ground Low Boom (VF to Fine)")
-        'SprayGridView.Rows.Add("7. Ground High Boom (Fine to Medium Coarse)")
-        'SprayGridView.Rows.Add("8. Ground Low Boom (Fine to Medium Coarse)")
-        'SprayGridView.Rows.Add("9. Airblast (Sparse)")
-        'SprayGridView.Rows.Add("10. Aeirblast (Dense)")
-        'SprayGridView.Rows.Add("11. Airblast (Vineyard)")
-        'SprayGridView.Rows.Add("12. Airblast (Orchard)")
-        'SprayGridView.Rows.Add("13. Direct")
-        'SprayGridView.Rows.Add("14. None")
-        'SprayGridView.Rows.Add("15. You specify")
-
-
-
 
 
     End Sub
@@ -157,19 +139,15 @@ Public Class Form1
         'AppTableDisplay.Columns(5).SortMode = DataGridViewColumnSortMode.NotSortable
         'AppTableDisplay.Columns(5).Width = 80
 
-
-        AppTableDisplay.Columns.Add("DriftFactor", "Adjust Drift ")
+        AppTableDisplay.Columns.Add("Buffer", "Drift Buffer (ft)")
         'AppTableDisplay.Columns(5).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
         AppTableDisplay.Columns(6).SortMode = DataGridViewColumnSortMode.NotSortable
         AppTableDisplay.Columns(6).Width = 54
-
-
 
         AppTableDisplay.Columns.Add("Periodicity", "Period")
         'AppTableDisplay.Columns(6).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
         AppTableDisplay.Columns(7).SortMode = DataGridViewColumnSortMode.NotSortable
         AppTableDisplay.Columns(7).Width = 56
-
 
         AppTableDisplay.Columns.Add("Lag", "Lag")
         '  AppTableDisplay.Columns(8).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
@@ -299,6 +277,7 @@ Public Class Form1
     End Sub
 
     Private Sub CalculateButton_Click(sender As Object, e As EventArgs) Handles CalculateButton.Click
+
 
         If Not System.IO.Directory.Exists(WorkingDirectoryLabel.Text) Then
             MsgBox("No Working Directory. Save this work, And a working directory will be automatcally established")
@@ -525,7 +504,7 @@ Public Class Form1
                                 AppTableDisplay.Item(5, i).Value = Standard.sprayterm5
                         End Select
 
-                        AppTableDisplay.Item(6, i).Value = ApplicationTable.DriftFactor(i)
+                        AppTableDisplay.Item(6, i).Value = ApplicationTable.DriftBuffer(i)
                         AppTableDisplay.Item(7, i).Value = ApplicationTable.Periodicity(i)
                         AppTableDisplay.Item(8, i).Value = ApplicationTable.Lag(i)
 
@@ -842,6 +821,7 @@ Public Class Form1
     End Sub
 
     Private Sub PushToLoadWaterBody_Click(sender As Object, e As EventArgs) Handles PushToLoadWaterBody.Click
+
 
 
         OpenWaterbodyFile.Filter = "Waterbody Files (*.WAT)|*.WAT"

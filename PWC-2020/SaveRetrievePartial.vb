@@ -96,7 +96,7 @@
 
                 msg = msg & String.Format("{0}{1},{2},{3},{4},{5},{6},{7},{8},{9},", vbNewLine, ApplicationTable.Days(j), ApplicationTable.Amount(j),
                                           ApplicationTable.Method(j), ApplicationTable.Depth(j), ApplicationTable.Split(j),
-                                          ApplicationTable.Drift(j), ApplicationTable.DriftFactor(j), ApplicationTable.Periodicity(j), ApplicationTable.Lag(j))
+                                          ApplicationTable.Drift(j), ApplicationTable.DriftBuffer(j), ApplicationTable.Periodicity(j), ApplicationTable.Lag(j))
             Next
 
 
@@ -626,7 +626,7 @@
                 .Depth = New List(Of String),
                 .Split = New List(Of String),
                 .Drift = New List(Of String),
-                .DriftFactor = New List(Of String),
+                .DriftBuffer = New List(Of String),
                 .Periodicity = New List(Of String),
                 .Lag = New List(Of String),
                 .Scenarios = New List(Of String)
@@ -666,7 +666,7 @@
                     ApplicationTable.Depth.Add(currentrow(3))
                     ApplicationTable.Split.Add(currentrow(4))
                     ApplicationTable.Drift.Add(currentrow(5))
-                    ApplicationTable.DriftFactor.Add(currentrow(6))
+                    ApplicationTable.DriftBuffer.Add(currentrow(6))
                     ApplicationTable.Periodicity.Add(currentrow(7))
                     ApplicationTable.Lag.Add(currentrow(8))
 
@@ -896,7 +896,7 @@
         msg = msg & vbNewLine & FlowLength.Text
 
 
-        msg = msg & vbNewLine & SprayGridView.RowCount
+        msg = msg & vbNewLine & SprayGridView.RowCount & "'" & SprayGridView.ColumnCount
         For i As Integer = 0 To SprayGridView.RowCount - 1
             msg = msg & String.Format("{0}{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}", vbNewLine,
                               SprayGridView.Item(1, i).Value, SprayGridView.Item(2, i).Value, SprayGridView.Item(3, i).Value, SprayGridView.Item(4, i).Value, SprayGridView.Item(5, i).Value,
@@ -1159,7 +1159,7 @@
             .Depth = New List(Of String),
             .Split = New List(Of String),
             .Drift = New List(Of String),
-            .DriftFactor = New List(Of String),
+            .DriftBuffer = New List(Of String),
             .Periodicity = New List(Of String),
             .Lag = New List(Of String)
         }
@@ -1211,7 +1211,7 @@
                     AppData.Drift.Add("5")
             End Select
 
-            AppData.DriftFactor.Add(AppTableDisplay.Item(6, i).Value)
+            AppData.DriftBuffer.Add(AppTableDisplay.Item(6, i).Value)
             AppData.Periodicity.Add(AppTableDisplay.Item(7, i).Value)
             AppData.Lag.Add(AppTableDisplay.Item(8, i).Value)
         Next

@@ -6,9 +6,7 @@
     Public Property Split As IList(Of String)
     'Public Property Efficiency As List(Of String)
     Public Property Drift As List(Of String)
-
-    Public Property DriftFactor As List(Of String)
-
+    Public Property DriftBuffer As List(Of String)
 
     Public Property Periodicity As IList(Of String)
     Public Property Lag As IList(Of String)
@@ -35,7 +33,7 @@
         Split.Clear()
         'Efficiency.Clear()
         Drift.Clear()
-        DriftFactor.Clear()
+        DriftBuffer.Clear()
         Lag.Clear()
         Periodicity.Clear()
         Scenarios.Clear()
