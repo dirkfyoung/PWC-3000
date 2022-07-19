@@ -26,6 +26,8 @@ implicit none
 	integer :: rows_spray, columns_spray !spray table dimensions
 	
 	real,dimension(14):: spray_values  !default or read-in values for spray drift, their order should corresponds to the menu in the application table
+	real,allocatable,dimension(:,:)	  :: spraytable !holds all the spraydrift and buffer values
+	
     
     logical  itsapond, itsareservoir, itsother
     character(len=512), allocatable, dimension(:) :: waterbody_names  !this holds the info for looping waterbodies (position 1 and 2 are often Pond and reservoir)
@@ -137,9 +139,9 @@ implicit none
     
     subroutine read_waterbodyfile(file_index)
     use constants_and_variables, ONLY: waterbody_file_unit
-	use 
+
     integer,intent(in) :: file_index
-	
+	integer :: i,j
      
         open (UNIT=waterbody_file_unit, FILE= trim(waterbody_names(file_index)), STATUS ='old')
         read(waterbody_file_unit, *) simtypeflag        
@@ -163,17 +165,29 @@ implicit none
         read(waterbody_file_unit, *) depth_max          
         read(waterbody_file_unit, *) baseflow           
         read(waterbody_file_unit, *) hydro_length
-		read(waterbody_file_unit, *) rows_spray, columns_spray
+		read(waterbody_file_unit, *) rows_spray, columns_spray ! data is 1 less column, col 0 is a text description in the vb interface, row 1 is length header
+		
+		
+		allocate (spraytable (rows_spray, columns_spray-1))
 		
 		do i =1, rows_spray
-			
+			read(waterbody_file_unit, *) (spraytable(i,j),j=1, columns_spray-1)
 		end do
 		
 		
-        read(waterbody_file_unit, *) spray_values(1), spray_values(2),spray_values(3),spray_values(4), &
-		                             spray_values(5), spray_values(6),spray_values(7),spray_values(8), &
-			                         spray_values(9), spray_values(10),spray_values(11),spray_values(12), &
-                                     spray_values(13), spray_values(14)
+		do i =1, rows_spray
+			write(*, *) (spraytable(i,j),j=1, columns_spray-1)
+		end do
+		
+		
+		
+		
+		
+		      !
+        !read(waterbody_file_unit, *) spray_values(1), spray_values(2),spray_values(3),spray_values(4), &
+		      !                       spray_values(5), spray_values(6),spray_values(7),spray_values(8), &
+			     !                    spray_values(9), spray_values(10),spray_values(11),spray_values(12), &
+        !                             spray_values(13), spray_values(14)
         
         
     end subroutine read_waterbodyfile

@@ -45,6 +45,7 @@ Public Class Form1
     End Sub
 
     Private Sub MakeSprayTable()
+        SprayGridView.Rows.Add(Standard.sprayterm0) 'Header with buffer length in ft
         SprayGridView.Rows.Add(Standard.sprayterm1)
         SprayGridView.Rows.Add(Standard.sprayterm2)
         SprayGridView.Rows.Add(Standard.sprayterm3)
@@ -62,6 +63,8 @@ Public Class Form1
         SprayGridView.Rows.Add(Standard.sprayterm15)
 
 
+        SprayGridView.Rows(0).DefaultCellStyle = New DataGridViewCellStyle With {.Font = New System.Drawing.Font("Arial", 10.0!, FontStyle.Bold)}
+        SprayGridView.Rows(0).DefaultCellStyle.ForeColor = Color.Purple
 
     End Sub
 

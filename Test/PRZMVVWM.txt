@@ -48,9 +48,9 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testScenario.scn2
 ,
 ,
 True,
-True,False,False
+False,False,True
 1,
-"C:\Users\dfy97\Desktop\PWC Validation\junk.WAT"
+"C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\waterbodies\test.WAT"
 False,
 False,
 False,

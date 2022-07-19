@@ -4,7 +4,7 @@ program PRZMVVWM
     use constants_and_variables, ONLY: maxFileLength, inputfile,number_of_schemes, &
                                        number_of_scenarios,  First_time_through, &
                                        app_window_span, app_window_step, application_date, application_date_original, is_adjust_for_rain
-    use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond 
+    use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond , spraytable
     use clock_variables
 	
     use PRZM_VERSION
@@ -200,7 +200,7 @@ CALL CPU_TIME (time_1)
 write (*,*) 'cpu time, waterbody   ',time_1- cputime_begin, hh
 write (*,*) '###################################################'
 		 
-		 
+		 deallocate (spraytable )
 		 
 	 end do !End Waterbody/Watershed Loop
 

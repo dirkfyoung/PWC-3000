@@ -841,9 +841,11 @@
             BaseFlow.Text = MyReader.ReadLine()
             FlowLength.Text = MyReader.ReadLine()
 
-            Dim rowcount As Integer
-            rowcount = MyReader.ReadLine
+            Dim rowcount, colcount As Integer
 
+            currentRow = MyReader.ReadFields
+            rowcount = currentRow(0)
+            colcount = currentRow(1)
 
             For i As Integer = 0 To rowcount - 1
                 currentRow = MyReader.ReadFields
@@ -896,14 +898,26 @@
         msg = msg & vbNewLine & FlowLength.Text
 
 
-        msg = msg & vbNewLine & SprayGridView.RowCount & "'" & SprayGridView.ColumnCount
+        msg = msg & vbNewLine & SprayGridView.RowCount & "," & SprayGridView.ColumnCount
+        'For i As Integer = 0 To SprayGridView.RowCount - 1
+        '    msg = msg & String.Format("{0}{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}", vbNewLine,
+        '                      SprayGridView.Item(1, i).Value, SprayGridView.Item(2, i).Value, SprayGridView.Item(3, i).Value, SprayGridView.Item(4, i).Value, SprayGridView.Item(5, i).Value,
+        '                      SprayGridView.Item(6, i).Value, SprayGridView.Item(7, i).Value, SprayGridView.Item(8, i).Value, SprayGridView.Item(9, i).Value, SprayGridView.Item(10, i).Value,
+        '                      SprayGridView.Item(11, i).Value, SprayGridView.Item(12, i).Value, SprayGridView.Item(13, i).Value)
+
+        'Next
+        Dim submsg As String
+
         For i As Integer = 0 To SprayGridView.RowCount - 1
-            msg = msg & String.Format("{0}{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}", vbNewLine,
-                              SprayGridView.Item(1, i).Value, SprayGridView.Item(2, i).Value, SprayGridView.Item(3, i).Value, SprayGridView.Item(4, i).Value, SprayGridView.Item(5, i).Value,
-                              SprayGridView.Item(6, i).Value, SprayGridView.Item(7, i).Value, SprayGridView.Item(8, i).Value, SprayGridView.Item(9, i).Value, SprayGridView.Item(10, i).Value,
-                              SprayGridView.Item(11, i).Value, SprayGridView.Item(12, i).Value, SprayGridView.Item(13, i).Value)
+            submsg = SprayGridView.Item(1, i).Value
+            For j As Integer = 2 To SprayGridView.ColumnCount - 1
+                submsg = submsg & ", " & SprayGridView.Item(j, i).Value
+            Next
+            msg = msg & vbNewLine & submsg
 
         Next
+
+
 
 
         CreateWaterbodyString = msg

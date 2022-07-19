@@ -11,7 +11,7 @@
     Public Const method6 As String = ChrW(9651) ' "△"
     Public Const method7 As String = ChrW(9661) ' "▽"
 
-
+    Public Const sprayterm0 As String = "Method \  Buffer (ft)"
     Public Const sprayterm1 As String = "Aerial (VF-F)"
     Public Const sprayterm2 As String = "Aerial (F-M) default"
     Public Const sprayterm3 As String = "Aerial (M-C)"
