@@ -445,7 +445,14 @@ module constants_and_variables
            
       real,allocatable,dimension(:)    :: APPEFF_in  !no longer an input, calculated based on spray losses
       real,allocatable,dimension(:)    :: Tband_top_in
-      real,allocatable,dimension(:)    :: drift_in
+	  
+	  !$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+      real,allocatable,dimension(:)    :: drift_value  !no longer an input----to be modified onmce spray table completed
+	  !$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+	  
+	  !spray table coordinates:
+	  integer,allocatable,dimension(:)    :: drift_row
+	  real,allocatable,dimension(:)       :: drift_buffer !column
 
       integer,allocatable,dimension(:) :: lag_app_in
       integer,allocatable,dimension(:) :: repeat_app_in

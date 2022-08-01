@@ -687,7 +687,7 @@ subroutine SetupApplications
   ! Application_date is the entire
   use utilities_1
   use constants_and_Variables, ONLY:num_applications_input,pest_app_method_in,DEPI_in,application_rate_in,APPEFF_in, &
-                                    Tband_top_in,drift_in,lag_app_in,repeat_app_in, first_year, last_year,  &
+                                    Tband_top_in,drift_value,lag_app_in,repeat_app_in, first_year, last_year,  &
                                     application_date_original,application_date, pest_app_method,DEPI,TAPP,APPEFF,Tband_top, &
                                     num_crop_periods_input, emm, emd, mam,mad, ham,had, &
                                     total_applications , drift_kg_per_m2, cam123_soil_depth, delx, &
@@ -780,7 +780,7 @@ subroutine SetupApplications
              TAPP(app_counter) = application_rate_in(i)/1.0E5  !     TAPP... kg/ha ---> g/cm**2
              APPEFF(app_counter) = APPEFF_in(i)
              Tband_top(app_counter) = Tband_top_in(i)                                   
-             drift_kg_per_m2(app_counter) = drift_in(i)*application_rate_in(i)/10000.    !Kg/m2 drift application to waterbody         
+             drift_kg_per_m2(app_counter) = drift_value(i)*application_rate_in(i)/10000.    !Kg/m2 drift application to waterbody         
              call get_date (application_date(app_counter), YEAR_out,MONTH_out,DAY_out)
 
         end do      

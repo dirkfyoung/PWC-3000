@@ -494,17 +494,38 @@ Public Class Form1
                         AppTableDisplay.Item(4, i).Value = ApplicationTable.Split(i)
                         '   AppTableDisplay.Item(5, i).Value = ApplicationTable.Drift(i)
 
-                        Select Case (ApplicationTable.Drift(i))
-                            Case (1)
+                        Select Case ApplicationTable.Drift(i)
+                            Case 1
                                 AppTableDisplay.Item(5, i).Value = Standard.sprayterm1
-                            Case (2)
+                            Case 2
                                 AppTableDisplay.Item(5, i).Value = Standard.sprayterm2
-                            Case (3)
+                            Case 3
                                 AppTableDisplay.Item(5, i).Value = Standard.sprayterm3
-                            Case (4)
+                            Case 4
                                 AppTableDisplay.Item(5, i).Value = Standard.sprayterm4
                             Case (5)
                                 AppTableDisplay.Item(5, i).Value = Standard.sprayterm5
+                            Case (6)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm6
+                            Case (7)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm7
+                            Case (8)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm8
+                            Case (9)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm9
+                            Case (10)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm10
+                            Case (11)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm11
+                            Case (12)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm12
+                            Case (13)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm13
+                            Case (14)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm14
+                            Case (15)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm15
+
                         End Select
 
                         AppTableDisplay.Item(6, i).Value = ApplicationTable.DriftBuffer(i)

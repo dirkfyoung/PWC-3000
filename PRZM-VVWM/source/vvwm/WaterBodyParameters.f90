@@ -57,6 +57,8 @@ implicit none
     real,parameter :: baseflow_P      = 0.0   
     integer,parameter :: flow_averaging_P = 0
     real,parameter :: hydro_length_P      = 356.8 
+	
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 	real,dimension(14),parameter :: spray_p = (/0.242,0.125,0.089,0.068, 0.062, 0.027, 0.017, 0.011, 0.042, 0.015, 0.002, 0.022, 1.0, 0.0 /)
     
     !*** RESERVOIR ****************
@@ -174,9 +176,9 @@ implicit none
 			read(waterbody_file_unit, *) (spraytable(i,j),j=1, columns_spray-1)
 		end do
 		
-		
+		write(*, *) 'spray table'
 		do i =1, rows_spray
-			write(*, *) (spraytable(i,j),j=1, columns_spray-1)
+			write(*,'(20G12.4)' ) (spraytable(i,j),j=1, columns_spray-1)
 		end do
 		
 		
