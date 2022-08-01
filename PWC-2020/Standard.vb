@@ -18,9 +18,9 @@
     Public Const sprayterm4 As String = "Aerial (C-VC)"
 
     Public Const sprayterm5 As String = "Ground (High, VF-F) default"
-    Public Const sprayterm6 As String = "Ground (Low, VF-F)"
+    Public Const sprayterm6 As String = "Ground (High, F-MC)"
 
-    Public Const sprayterm7 As String = "Ground (High, F-MC)"
+    Public Const sprayterm7 As String = "Ground (Low, VF-F)"
     Public Const sprayterm8 As String = "Ground (Low, F-MC)"
     Public Const sprayterm9 As String = "Airblast (sparse) default"
     Public Const sprayterm10 As String = "Airblast (dense)"
