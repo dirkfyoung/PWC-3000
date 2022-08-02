@@ -1,4 +1,4 @@
- Start CPU Time  1.5625000E-02
+ Start CPU Time  3.1250000E-02
  PRZM5-VVWM Version  -1.000
  
      For technical support contact:
@@ -8,12 +8,12 @@
        Washington, DC 20460-0001
        E-mail: young.dirk@epa.gov
  
- Input file: C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\PRZMVVWM.txt
- C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\PRZMVVWM.txt
- Working Directory is: C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\
- Family Name is: testnew
+ Input file: C:\Users\dyoung03\source\repos\PWC-2022\Test\PRZMVVWM.txt
+ C:\Users\dyoung03\source\repos\PWC-2022\Test\PRZMVVWM.txt
+ Working Directory is: C:\Users\dyoung03\source\repos\PWC-2022\Test\
+ Family Name is: testWork
  weather directory is 
- C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\WeatherFiles\
+ C:\Users\dyoung03\source\repos\PWC-2022\Test\scenario\WeatherFiles\
  Sorption coeff.    5.000000       12.00000      0.0000000E+00
  Freundlich exponents    1.000000       1.000000       1.000000    
  Sorption coeff 2:   0.0000000E+00  0.0000000E+00  0.0000000E+00
@@ -27,33 +27,33 @@
  Scheme Number & Name            1 one
  Rain fast F   2.000000               2          10           7
  Number of Scenarios =            1
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testScenario.scn2
+C:\Users\dyoung03\source\repos\PWC-2022\Test\scenario\testScenario.scn2
  Total Number of waterbodies           1
- C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\waterbodies\xtest.WAT
+ USEPA Reservoir
  reading extra time series if any
  ************* Start PRZM-VVWM Scheme Loop *******************
  ********************************************************************
  Start Waterbody Loop ***********************************************
  ********************************************************************
- spray table
-   0.000       5.000       10.00       25.00       50.00       100.0       150.0       200.0       250.0       300.0       350.0       400.0       500.0    
-  0.2421      0.2340      0.2266      0.2076      0.1821      0.1446      0.1200      0.1020      0.8900E-01  0.8000E-01  0.7300E-01  0.6700E-01  0.5800E-01
-  0.1254      0.1160      0.1082      0.9160E-01  0.7330E-01  0.5030E-01  0.3850E-01  0.3140E-01  0.2660E-01  0.2310E-01  0.2050E-01  0.1860E-01  0.1600E-01
-  0.8850E-01  0.7890E-01  0.7130E-01  0.5640E-01  0.4280E-01  0.2710E-01  0.1970E-01  0.1540E-01  0.1260E-01  0.1080E-01  0.9500E-02  0.8100E-02  0.7400E-02
-  0.6800E-01   0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000    
-  0.6160E-01  0.4550E-01  0.3760E-01  0.2670E-01  0.1940E-01  0.1300E-01  0.9800E-02  0.7800E-02  0.6400E-02  0.5300E-02  0.4600E-02  0.3900E-02  0.3000E-03
-  0.2700E-01   0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000    
-  0.1650E-01  0.1040E-01  0.9000E-02  0.7100E-02  0.5600E-02  0.4200E-02  0.3400E-02  0.2800E-02  0.2400E-02  0.2100E-02  0.1900E-02  0.1700E-02  0.1400E-02
-  0.1090E-01  0.6500E-02  0.5600E-02  0.4500E-02  0.3600E-02  0.2800E-02  0.2300E-02  0.1900E-02  0.1700E-02  0.1500E-02  0.1300E-02  0.1200E-02  0.1000E-02
-  0.4160E-01  0.3230E-01  0.2580E-01  0.1500E-02  0.7700E-02  0.3100E-02  0.1700E-02  0.1000E-02  0.7000E-03  0.5000E-03  0.4000E-03  0.3000E-03  0.2000E-03
-  0.1450E-01  0.1220E-01  0.1060E-01  0.7400E-02  0.5000E-02  0.3000E-02  0.2200E-02  0.1700E-02  0.1400E-02  0.1200E-02  0.1100E-02  0.1000E-02  0.8000E-03
-  0.2400E-02  0.2300E-03  0.1400E-02  0.9000E-03  0.6000E-03  0.3000E-03  0.2000E-03  0.2000E-03  0.1000E-03  0.1000E-03  0.1000E-03  0.8810E-04  0.6720E-04
-  0.2180E-01  0.1750E-01  0.1450E-01  0.9300E-02  0.5600E-02  0.3100E-02  0.2100E-02  0.1600E-02  0.1300E-02  0.1100E-02  0.9000E-03  0.8000E-03  0.7000E-03
-   1.000       1.000       1.000       1.000       1.000       1.000       1.000       1.000       1.000       1.000       1.000       1.000       1.000    
-   0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000    
-   1.000       2.000       3.000       4.000       5.000       6.000       7.000       8.000       8.000       0.000       11.00       22.00       33.00    
- Doing Water Body: 
- C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\waterbodies\xtest.WAT
+ Default Reservoir Spraydrift Table
+   0.000       10.00       25.00       50.00       75.00       100.0       125.0       150.0       200.0       250.0       300.0       350.0       400.0       450.0       500.0    
+  0.2583      0.2469      0.2255      0.1976      0.1762      0.1573      0.1429      0.1304      0.1116      0.9804E-01  0.8780E-01  0.7978E-01  0.7339E-01  0.6819E-01  0.6395E-01
+  0.1349      0.1241      0.1019      0.8215E-01  0.6613E-01  0.5548E-01  0.4745E-01  0.4213E-01  0.3409E-01  0.2889E-01  0.2522E-01  0.2252E-01  0.2046E-01  0.1889E-01  0.1769E-01
+  0.9654E-01  0.8622E-01  0.6432E-01  0.4868E-01  0.3697E-01  0.2992E-01  0.2487E-01  0.2160E-01  0.1680E-01  0.1374E-01  0.1182E-01  0.1047E-01  0.9489E-02  0.8763E-02  0.8172E-02
+  0.7574E-01  0.6581E-01  0.4483E-01  0.3094E-01  0.2323E-01  0.1861E-01  0.1531E-01  0.1314E-01  0.1011E-01  0.8412E-02  0.7183E-02  0.6446E-02  0.5843E-02  0.5252E-02  0.4895E-02
+  0.6607E-01  0.5068E-01  0.3218E-01  0.2188E-01  0.1710E-01  0.1416E-01  0.1215E-01  0.1060E-01  0.8426E-02  0.6840E-02  0.5735E-02  0.4897E-02  0.4283E-02  0.3703E-02  0.3334E-02
+  0.1662E-01  0.1126E-01  0.8189E-02  0.6246E-02  0.5238E-02  0.4566E-02  0.4040E-02  0.3660E-02  0.3046E-02  0.2666E-02  0.2309E-02  0.2074E-02  0.1840E-02  0.1706E-02  0.1494E-02
+  0.2723E-01  0.1815E-01  0.1812E-01  0.8518E-02  0.6903E-02  0.5929E-02  0.5257E-02  0.4632E-02  0.3872E-02  0.3269E-02  0.2889E-02  0.2540E-02  0.2297E-02  0.2063E-02  0.1840E-02
+  0.1082E-01  0.6938E-02  0.5212E-02  0.4077E-02  0.3394E-02  0.2980E-02  0.2712E-02  0.2466E-02  0.2097E-02  0.1852E-02  0.1617E-02  0.1483E-02  0.1371E-02  0.1249E-02  0.1137E-02
+  0.1220E-02  0.1066E-02  0.8172E-03  0.5258E-03  0.3915E-03  0.3686E-03  0.2572E-03  0.2457E-03  0.2343E-03  0.1229E-03  0.1229E-03  0.1114E-03  0.1031E-03  0.9273E-04  0.8360E-04
+  0.1654E-01  0.1402E-01  0.9264E-02  0.5755E-02  0.4172E-02  0.3286E-02  0.2715E-02  0.2412E-02  0.1886E-02  0.1529E-02  0.1283E-02  0.1160E-02  0.1037E-02  0.9143E-03  0.9029E-03
+  0.4808E-01  0.3866E-01  0.2068E-01  0.9710E-02  0.5584E-02  0.3640E-02  0.2563E-02  0.1857E-02  0.1152E-02  0.7486E-03  0.5029E-03  0.3686E-03  0.3572E-03  0.2343E-03  0.2343E-03
+  0.2643E-02  0.2103E-02  0.1212E-02  0.6829E-03  0.5143E-03  0.3800E-03  0.3572E-03  0.2457E-03  0.2343E-03  0.1229E-03  0.1229E-03  0.1066E-03  0.9343E-04  0.8284E-04  0.7286E-04
+  0.2495E-01  0.2055E-01  0.1211E-01  0.6735E-02  0.4566E-02  0.3466E-02  0.2749E-02  0.2323E-02  0.1686E-02  0.1417E-02  0.1171E-02  0.1037E-02  0.9143E-03  0.8029E-03  0.6915E-03
+   1.000       1.000       1.000       1.000       1.000       1.000       1.000       1.000       1.000       1.000       1.000       1.000       1.000       1.000       1.000    
+   0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000    
+   0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000       0.000    
+ Doing Water Body: USEPA Reservoir
  ********************************************************************
  **** Start Scheme Loop *********************************************
  ********************************************************************
@@ -61,19 +61,18 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testScenario.scn2
  Inside set_chemical_applications
  number of apps            2
      day  rate  method   depth   Tband   Eff   drft#  driftValue  repeat  lag
-           6  0.5000000    
- *** * * * *  OUTPUT SPRAY =           15  0.0000000E+00
-      -5  1.12       1   4.000   0.000   1.000  14      0.000        1     5
-           8  3.9999999E-02
- *** * * * *  OUTPUT SPRAY =           16   7.040000    
-      10  1.12       2   3.000   0.000   0.392  15      6.080        1     0
+ Interrpolated Spray Drift =    1.000000    
+      -5  1.12       1   4.000   0.000   0.970  14      1.000        1     5
+           9  3.9999999E-02
+ Interrpolated Spray Drift =   0.0000000E+00
+      10  1.12       2   3.000   0.000   1.000  15      0.000        1     0
  Any Foliar Applications?  T
  ********************************************************************
  ********** Start Scenario Loop *************************************
  ********************************************************************
  ********** Doing Scenario No.            1
  **********  Start Reading Scenario Values ************************
- C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testScenario.scn2
+ C:\Users\dyoung03\source\repos\PWC-2022\Test\scenario\testScenario.scn2
  is scenario open  F
  weather: 12661_grid.wea
  Crop Cycles per year:            1
@@ -87,13 +86,13 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testScenario.scn2
  cpu time scenario start    0.0000000E+00
  ###################################################
  weather path and file to open: 
- C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\WeatherFiles\12661_
- grid.wea
+ C:\Users\dyoung03\source\repos\PWC-2022\Test\scenario\WeatherFiles\12661_grid.w
+ ea
  Weather file total days =        19723
  End Weather allocation
  Finished reading weather file
  ###################################################
- cpu time read weather   3.1250000E-02
+ cpu time read weather   6.2500000E-02
  ###################################################
  Do autoprofile ?  F
  Water capacity exceeds saturation.
@@ -219,17 +218,19 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testScenario.scn2
  Adjust applications for rain? F
  Enter chemical transport
  ###################################################
- cpu time chen xport   0.5312500    
+ cpu time chen xport   0.8125000    
  ###################################################
  ###################################################
- cpu time gw    0.5312500    
+ cpu time gw    0.8125000    
  ###################################################
  enter VVWM
- parent runoff mass delivered    6.541344    
- parent erosion mass   2.4280234E-03
+ parent runoff mass delivered    126.0726    
+ parent erosion mass   3.4132279E-02
  total_applications =          108
- Spray mass =    367.7184    
- simulation type =            1
+ Spray mass =    288.6689    
+ simulation type =            3
+ Constant Waterbody Volume  =    144124.0    
+ depth   =    2.740000    
  Main VVWM Loop 
  batch output file summary_output.txt
  Calling output_processing
@@ -238,23 +239,23 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testScenario.scn2
  Doing output process
  done output batch 
  ###################################################
- cpu time vvwm   0.5468750    
+ cpu time vvwm   0.8281250    
  ###################################################
  ###################################################
- cpu time deallocate    0.5468750    
+ cpu time deallocate    0.8593750    
  ###################################################
  ###################################################
- cpu time vvwm done        0.5468750    
+ cpu time vvwm done        0.8593750    
  ###################################################
  *****************************Done with scheme            1
  ###################################################
- cpu time, scheme     0.5468750               2
+ cpu time, scheme     0.8593750               2
  ###################################################
  ###################################################
- cpu time, waterbody     0.5468750               1
+ cpu time, waterbody     0.8593750               1
  ###################################################
  ###################################################
- End Proram cpu time     0.5468750    
+ End Proram cpu time     0.8593750    
  ###################################################
- Total clock time =   0.5478516    
- tridiag  0.1250000    
+ Total clock time =   0.9687500    
+ tridiag  4.6875000E-02

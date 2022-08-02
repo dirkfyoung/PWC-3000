@@ -23,11 +23,13 @@ implicit none
     integer:: flow_averaging
     real   :: hydro_length
 	
-	integer :: rows_spray, columns_spray !spray table dimensions
+
 	
 	real,dimension(14):: spray_values  !default or read-in values for spray drift, their order should corresponds to the menu in the application table
-	real,allocatable,dimension(:,:)	  :: spraytable !holds all the spraydrift and buffer values
-	
+
+    real,allocatable,dimension(:,:)	  :: spraytable !holds all the spraydrift and buffer values
+	integer :: rows_spraytable
+    integer :: columns_spraytable
     
     logical  itsapond, itsareservoir, itsother
     character(len=512), allocatable, dimension(:) :: waterbody_names  !this holds the info for looping waterbodies (position 1 and 2 are often Pond and reservoir)
@@ -83,7 +85,7 @@ implicit none
     real,parameter :: baseflow_R          = 0.0   
     integer,parameter :: flow_averaging_R = 0
     real,parameter :: hydro_length_R      = 600. 
-    !real,dimension(14),parameter :: spray_R = (/0.258, 0.135, 0.097, 0.076, 0.066,0.027,0.017,0.011, 0.048, 0.017,0.0003,0.025, 1.0, 0.0 /)
+    real,dimension(14),parameter :: spray_R = (/0.258, 0.135, 0.097, 0.076, 0.066,0.027,0.017,0.011, 0.048, 0.017,0.0003,0.025, 1.0, 0.0 /)
 	
 !"Method \  Buffer (ft)",
 !"Aerial (VF-F)"        ,
@@ -102,9 +104,11 @@ implicit none
 !full
 !none
 !you define
-	
-	
-real,dimension(15,17),parameter :: spray_table_R = transpose(reshape((/&	
+
+integer,parameter :: rows_spraytable_R = 17
+integer,parameter :: columns_spraytable_R =15
+
+real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&	
 	
 0.0000E+00,1.0000E+01,2.5000E+01,5.0000E+01,7.5000E+01,1.0000E+02,1.2500E+02,1.5000E+02,2.0000E+02,2.5000E+02,3.0000E+02,3.5000E+02,4.0000E+02,4.5000E+02,5.0000E+02 ,&
 2.5828E-01,2.4692E-01,2.2550E-01,1.9757E-01,1.7616E-01,1.5725E-01,1.4289E-01,1.3039E-01,1.1162E-01,9.8045E-02,8.7796E-02,7.9781E-02,7.3386E-02,6.8186E-02,6.3946E-02 ,&
@@ -123,31 +127,11 @@ real,dimension(15,17),parameter :: spray_table_R = transpose(reshape((/&
 1.0       ,1.0       ,1.0       ,1.0       ,1.0       ,1.0       ,1.0       ,1.0       ,1.0       ,1.0       ,1.0       ,1.0       ,1.0       ,1.0       ,1.0        ,&
 0.0       ,0.0       ,0.0	    ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0        ,&
 0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0         &
-/),(/17,15/)))
+/),(/15,17/)))
 
 
 
 
- 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
     
     contains
     subroutine get_pond_parameters
@@ -177,6 +161,8 @@ real,dimension(15,17),parameter :: spray_table_R = transpose(reshape((/&
     end subroutine get_pond_parameters
     
     subroutine get_reservoir_parameters
+        integer :: i,j
+        
         simtypeflag = waterbodytype_R
         afield              = afield_R  
         area_waterbody      = area_waterbody_R
@@ -199,6 +185,18 @@ real,dimension(15,17),parameter :: spray_table_R = transpose(reshape((/&
         flow_averaging      = flow_averaging_R
         hydro_length        = hydro_length_R
        ! spray_values        = spray_R
+        
+        rows_spraytable = rows_spraytable_R
+        columns_spraytable = columns_spraytable_R
+        
+       allocate (spraytable (rows_spraytable, columns_spraytable))	
+	   spraytable = spray_table_R 
+        
+       write(*,*) 'Default Reservoir Spraydrift Table'
+       do i = 1, rows_spraytable
+            write(*,'(17G12.4)') (spraytable(i,j),j=1, columns_spraytable)
+       end do
+       
         
     end subroutine get_reservoir_parameters
 
@@ -231,18 +229,18 @@ real,dimension(15,17),parameter :: spray_table_R = transpose(reshape((/&
         read(waterbody_file_unit, *) depth_max          
         read(waterbody_file_unit, *) baseflow           
         read(waterbody_file_unit, *) hydro_length
-		read(waterbody_file_unit, *) rows_spray, columns_spray ! data is 1 less column, col 0 is a text description in the vb interface, row 1 is length header
+		read(waterbody_file_unit, *) rows_spraytable, columns_spraytable ! data is 1 less column, col 0 is a text description in the vb interface, row 1 is length header
 		
 		
-		allocate (spraytable (rows_spray, columns_spray-1))
+		allocate (spraytable (rows_spraytable, columns_spraytable-1))
 		
-		do i =1, rows_spray
-			read(waterbody_file_unit, *) (spraytable(i,j),j=1, columns_spray-1)
+		do i =1, rows_spraytable
+			read(waterbody_file_unit, *) (spraytable(i,j),j=1, columns_spraytable-1)
 		end do
 		
 		write(*, *) 'spray table'
-		do i =1, rows_spray
-			write(*,'(20G12.4)' ) (spraytable(i,j),j=1, columns_spray-1)
+		do i =1, rows_spraytable
+			write(*,'(20G12.4)' ) (spraytable(i,j),j=1, columns_spraytable-1)
 		end do
 		
 		
