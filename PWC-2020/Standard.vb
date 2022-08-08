@@ -13,24 +13,25 @@
 
     Public Const sprayterm0 As String = "Method \  Buffer (ft)"
     Public Const sprayterm1 As String = "Aerial (VF-F)"
-    Public Const sprayterm2 As String = "Aerial (F-M) default"
+    Public Const sprayterm2 As String = "Aerial (F-M) D"
     Public Const sprayterm3 As String = "Aerial (M-C)"
     Public Const sprayterm4 As String = "Aerial (C-VC)"
 
-    Public Const sprayterm5 As String = "Ground (High, VF-F) default"
+    Public Const sprayterm5 As String = "Ground (High, VF-F) D"
     Public Const sprayterm6 As String = "Ground (High, F-MC)"
 
     Public Const sprayterm7 As String = "Ground (Low, VF-F)"
     Public Const sprayterm8 As String = "Ground (Low, F-MC)"
-    Public Const sprayterm9 As String = "Airblast (sparse) default"
+
+    Public Const sprayterm9 As String = "Airblast (normal)"
     Public Const sprayterm10 As String = "Airblast (dense)"
-    Public Const sprayterm11 As String = "Airblast (vinyard)"
-    Public Const sprayterm12 As String = "Airblast (orchard)"
+    Public Const sprayterm11 As String = "Airblast (sparse) D"
+    Public Const sprayterm12 As String = "Airblast (vinyard)"
+    Public Const sprayterm13 As String = "Airblast (orchard)"
 
-    Public Const sprayterm13 As String = "Directly applied to waterbody"
-    Public Const sprayterm14 As String = "None"
-    Public Const sprayterm15 As String = "You Specify"
-
+    Public Const sprayterm14 As String = "Directly applied to waterbody"
+    Public Const sprayterm15 As String = "None"
+    Public Const sprayterm16 As String = "You Specify"
 
 End Class
 

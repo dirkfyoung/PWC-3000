@@ -61,7 +61,7 @@ Public Class Form1
         SprayGridView.Rows.Add(Standard.sprayterm13)
         SprayGridView.Rows.Add(Standard.sprayterm14)
         SprayGridView.Rows.Add(Standard.sprayterm15)
-
+        SprayGridView.Rows.Add(Standard.sprayterm16)
 
         SprayGridView.Rows(0).DefaultCellStyle = New DataGridViewCellStyle With {.Font = New System.Drawing.Font("Arial", 10.0!, FontStyle.Bold)}
         SprayGridView.Rows(0).DefaultCellStyle.ForeColor = Color.Purple
@@ -132,7 +132,7 @@ Public Class Form1
         driftcombo.Items.Add(Standard.sprayterm13)
         driftcombo.Items.Add(Standard.sprayterm14)
         driftcombo.Items.Add(Standard.sprayterm15)
-
+        driftcombo.Items.Add(Standard.sprayterm16)
 
         AppTableDisplay.Columns.Add(driftcombo)
 
