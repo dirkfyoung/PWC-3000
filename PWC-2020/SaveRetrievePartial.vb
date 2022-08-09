@@ -850,23 +850,13 @@
             For i As Integer = 0 To rowcount - 1
                 currentRow = MyReader.ReadFields
 
-                SprayGridView.Item(1, i).Value = currentRow(0)
-                SprayGridView.Item(2, i).Value = currentRow(1)
-                SprayGridView.Item(3, i).Value = currentRow(2)
-                SprayGridView.Item(4, i).Value = currentRow(3)
-                SprayGridView.Item(5, i).Value = currentRow(4)
-                SprayGridView.Item(6, i).Value = currentRow(5)
-                SprayGridView.Item(7, i).Value = currentRow(6)
-                SprayGridView.Item(8, i).Value = currentRow(7)
-                SprayGridView.Item(9, i).Value = currentRow(8)
-                SprayGridView.Item(10, i).Value = currentRow(9)
-                SprayGridView.Item(11, i).Value = currentRow(10)
-                SprayGridView.Item(12, i).Value = currentRow(11)
-                SprayGridView.Item(13, i).Value = currentRow(12)
+                For j As Integer = 1 To colcount
+                    SprayGridView.Item(j, i).Value = currentRow(j - 1)
+
+                Next
+
             Next
 
-
-            For i As Integer = 0 To rowcount - 1
 
 
 
@@ -899,15 +889,20 @@
         msg = msg & vbNewLine & BaseFlow.Text
         msg = msg & vbNewLine & FlowLength.Text
 
+        Dim column_count As Integer
+        'determine column count
+        column_count = 0
+        For i As Integer = 1 To SprayGridView.ColumnCount - 1
 
-        msg = msg & vbNewLine & SprayGridView.RowCount & "," & SprayGridView.ColumnCount
-        'For i As Integer = 0 To SprayGridView.RowCount - 1
-        '    msg = msg & String.Format("{0}{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}", vbNewLine,
-        '                      SprayGridView.Item(1, i).Value, SprayGridView.Item(2, i).Value, SprayGridView.Item(3, i).Value, SprayGridView.Item(4, i).Value, SprayGridView.Item(5, i).Value,
-        '                      SprayGridView.Item(6, i).Value, SprayGridView.Item(7, i).Value, SprayGridView.Item(8, i).Value, SprayGridView.Item(9, i).Value, SprayGridView.Item(10, i).Value,
-        '                      SprayGridView.Item(11, i).Value, SprayGridView.Item(12, i).Value, SprayGridView.Item(13, i).Value)
+            If IsNumeric(SprayGridView.Item(i, 0).Value) Then
+                column_count = column_count + 1
+            Else
+                Exit For
+            End If
+        Next
 
-        'Next
+        msg = msg & vbNewLine & SprayGridView.RowCount & "," & column_count
+
         Dim submsg As String
 
         For i As Integer = 0 To SprayGridView.RowCount - 1
@@ -918,9 +913,6 @@
             msg = msg & vbNewLine & submsg
 
         Next
-
-
-
 
         CreateWaterbodyString = msg
     End Function

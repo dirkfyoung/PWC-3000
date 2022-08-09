@@ -880,7 +880,7 @@ Public Class Form1
 
         Dim result As System.Windows.Forms.DialogResult
 
-        SaveWaterbodyFile.Filter = "Waterbody Files (*.WAT)|*.WAT"
+        SaveWaterbodyFile.Filter = "Waterbody Files (*.WAT)|*.WAT|ALL Files (*.*)|*.*"
         SaveWaterbodyFile.InitialDirectory = FileNames.PreviousWaterBodyPath
 
         'make the file default to be the last file retrieved

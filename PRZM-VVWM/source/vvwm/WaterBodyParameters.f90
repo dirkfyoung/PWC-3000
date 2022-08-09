@@ -89,25 +89,7 @@ real,dimension(17,15),parameter :: spray_table_P = transpose(reshape((/&
 /),(/15,17/)))  
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     !*** RESERVOIR ****************
     integer, parameter :: waterbodytype_R = 3
@@ -177,8 +159,6 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 
 
 
-
-    
     contains
     subroutine get_pond_parameters
         simtypeflag         = waterbodytype_P 
@@ -204,8 +184,21 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         hydro_length        = hydro_length_P
         spray_values        =spray_p
 
-    end subroutine get_pond_parameters
-    
+	    rows_spraytable = rows_spraytable_P
+        columns_spraytable = columns_spraytable_P
+        
+        allocate (spraytable (rows_spraytable, columns_spraytable))	
+	    spraytable = spray_table_P 
+        
+        write(*,*) 'Default Pond Spraydrift Table'
+        do i = 1, rows_spraytable
+            write(*,'(17G12.4)') (spraytable(i,j),j=1, columns_spraytable)
+        end do	
+		
+	end subroutine get_pond_parameters
+   
+	
+	
     subroutine get_reservoir_parameters
         integer :: i,j
         
@@ -289,11 +282,7 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 			write(*,'(20G12.4)' ) (spraytable(i,j),j=1, columns_spraytable-1)
 		end do
 		
-		
-		
-		
-		
-		
+
     end subroutine read_waterbodyfile
     
     

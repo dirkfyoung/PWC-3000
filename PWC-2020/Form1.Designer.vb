@@ -326,6 +326,14 @@ Partial Class Form1
         Me.ItsaPond = New System.Windows.Forms.CheckBox()
         Me.Label95 = New System.Windows.Forms.Label()
         Me.SchemeApplications = New System.Windows.Forms.TabPage()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.AbsoluteDaysButton = New System.Windows.Forms.RadioButton()
+        Me.removal = New System.Windows.Forms.RadioButton()
+        Me.maturity = New System.Windows.Forms.RadioButton()
+        Me.emerge = New System.Windows.Forms.RadioButton()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.UseApplicationWindow = New System.Windows.Forms.CheckBox()
         Me.Label113 = New System.Windows.Forms.Label()
@@ -344,11 +352,6 @@ Partial Class Form1
         Me.UseRainFast = New System.Windows.Forms.CheckBox()
         Me.Label88 = New System.Windows.Forms.Label()
         Me.Label86 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.removal = New System.Windows.Forms.RadioButton()
-        Me.maturity = New System.Windows.Forms.RadioButton()
-        Me.emerge = New System.Windows.Forms.RadioButton()
-        Me.AbsoluteDaysButton = New System.Windows.Forms.RadioButton()
         Me.AppTableDisplay = New System.Windows.Forms.DataGridView()
         Me.Schemes = New System.Windows.Forms.TabPage()
         Me.Label101 = New System.Windows.Forms.Label()
@@ -505,6 +508,16 @@ Partial Class Form1
         Me.WaterbodyExaminerTab = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.SprayGridView = New System.Windows.Forms.DataGridView()
+        Me.Label111 = New System.Windows.Forms.Label()
+        Me.Label94 = New System.Windows.Forms.Label()
+        Me.OpenSingleScenarioFile = New System.Windows.Forms.OpenFileDialog()
+        Me.SaveSingleScenarioFile = New System.Windows.Forms.SaveFileDialog()
+        Me.OpenWaterbodyFile = New System.Windows.Forms.OpenFileDialog()
+        Me.SaveWaterbodyFile = New System.Windows.Forms.SaveFileDialog()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.Label129 = New System.Windows.Forms.Label()
+        Me.Label130 = New System.Windows.Forms.Label()
         Me.Column14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column32 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -519,16 +532,10 @@ Partial Class Form1
         Me.Column29 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column30 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column31 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Label111 = New System.Windows.Forms.Label()
-        Me.Label94 = New System.Windows.Forms.Label()
-        Me.OpenSingleScenarioFile = New System.Windows.Forms.OpenFileDialog()
-        Me.SaveSingleScenarioFile = New System.Windows.Forms.SaveFileDialog()
-        Me.OpenWaterbodyFile = New System.Windows.Forms.OpenFileDialog()
-        Me.SaveWaterbodyFile = New System.Windows.Forms.SaveFileDialog()
-        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.Label129 = New System.Windows.Forms.Label()
-        Me.Label130 = New System.Windows.Forms.Label()
+        Me.Column33 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column34 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column35 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Column36 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MenuStrip1.SuspendLayout()
         Me.AdvancedTab.SuspendLayout()
         Me.ScenarioExaminerTab.SuspendLayout()
@@ -544,6 +551,8 @@ Partial Class Form1
         Me.SchemeScenarios.SuspendLayout()
         Me.waterbodypanel.SuspendLayout()
         Me.SchemeApplications.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.Panel5.SuspendLayout()
         Me.Panel4.SuspendLayout()
         CType(Me.AppTableDisplay, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -570,7 +579,7 @@ Partial Class Form1
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 2, 0, 2)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1070, 28)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1014, 28)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -1482,7 +1491,7 @@ Partial Class Form1
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.50237!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 97.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 167.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 169.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.Label170, 4, 6)
         Me.TableLayoutPanel3.Controls.Add(Me.Label169, 3, 6)
         Me.TableLayoutPanel3.Controls.Add(Me.Label168, 2, 6)
@@ -1534,7 +1543,7 @@ Partial Class Form1
         'Label170
         '
         Me.Label170.AutoSize = True
-        Me.Label170.Location = New System.Drawing.Point(326, 150)
+        Me.Label170.Location = New System.Drawing.Point(324, 150)
         Me.Label170.Name = "Label170"
         Me.Label170.Size = New System.Drawing.Size(32, 17)
         Me.Label170.TabIndex = 237
@@ -1543,7 +1552,7 @@ Partial Class Form1
         'Label169
         '
         Me.Label169.AutoSize = True
-        Me.Label169.Location = New System.Drawing.Point(229, 150)
+        Me.Label169.Location = New System.Drawing.Point(227, 150)
         Me.Label169.Name = "Label169"
         Me.Label169.Size = New System.Drawing.Size(32, 17)
         Me.Label169.TabIndex = 236
@@ -1552,7 +1561,7 @@ Partial Class Form1
         'Label168
         '
         Me.Label168.AutoSize = True
-        Me.Label168.Location = New System.Drawing.Point(129, 150)
+        Me.Label168.Location = New System.Drawing.Point(127, 150)
         Me.Label168.Name = "Label168"
         Me.Label168.Size = New System.Drawing.Size(24, 17)
         Me.Label168.TabIndex = 235
@@ -1561,7 +1570,7 @@ Partial Class Form1
         'Label167
         '
         Me.Label167.AutoSize = True
-        Me.Label167.Location = New System.Drawing.Point(60, 150)
+        Me.Label167.Location = New System.Drawing.Point(59, 150)
         Me.Label167.Name = "Label167"
         Me.Label167.Size = New System.Drawing.Size(16, 17)
         Me.Label167.TabIndex = 234
@@ -1579,7 +1588,7 @@ Partial Class Form1
         'Label165
         '
         Me.Label165.AutoSize = True
-        Me.Label165.Location = New System.Drawing.Point(326, 130)
+        Me.Label165.Location = New System.Drawing.Point(324, 130)
         Me.Label165.Name = "Label165"
         Me.Label165.Size = New System.Drawing.Size(32, 17)
         Me.Label165.TabIndex = 232
@@ -1588,7 +1597,7 @@ Partial Class Form1
         'Label164
         '
         Me.Label164.AutoSize = True
-        Me.Label164.Location = New System.Drawing.Point(229, 130)
+        Me.Label164.Location = New System.Drawing.Point(227, 130)
         Me.Label164.Name = "Label164"
         Me.Label164.Size = New System.Drawing.Size(32, 17)
         Me.Label164.TabIndex = 231
@@ -1597,7 +1606,7 @@ Partial Class Form1
         'Label163
         '
         Me.Label163.AutoSize = True
-        Me.Label163.Location = New System.Drawing.Point(129, 130)
+        Me.Label163.Location = New System.Drawing.Point(127, 130)
         Me.Label163.Name = "Label163"
         Me.Label163.Size = New System.Drawing.Size(24, 17)
         Me.Label163.TabIndex = 230
@@ -1606,7 +1615,7 @@ Partial Class Form1
         'Label162
         '
         Me.Label162.AutoSize = True
-        Me.Label162.Location = New System.Drawing.Point(60, 130)
+        Me.Label162.Location = New System.Drawing.Point(59, 130)
         Me.Label162.Name = "Label162"
         Me.Label162.Size = New System.Drawing.Size(16, 17)
         Me.Label162.TabIndex = 229
@@ -1624,7 +1633,7 @@ Partial Class Form1
         'Label160
         '
         Me.Label160.AutoSize = True
-        Me.Label160.Location = New System.Drawing.Point(326, 110)
+        Me.Label160.Location = New System.Drawing.Point(324, 110)
         Me.Label160.Name = "Label160"
         Me.Label160.Size = New System.Drawing.Size(32, 17)
         Me.Label160.TabIndex = 227
@@ -1633,7 +1642,7 @@ Partial Class Form1
         'Label159
         '
         Me.Label159.AutoSize = True
-        Me.Label159.Location = New System.Drawing.Point(229, 110)
+        Me.Label159.Location = New System.Drawing.Point(227, 110)
         Me.Label159.Name = "Label159"
         Me.Label159.Size = New System.Drawing.Size(24, 17)
         Me.Label159.TabIndex = 226
@@ -1642,7 +1651,7 @@ Partial Class Form1
         'Label158
         '
         Me.Label158.AutoSize = True
-        Me.Label158.Location = New System.Drawing.Point(129, 110)
+        Me.Label158.Location = New System.Drawing.Point(127, 110)
         Me.Label158.Name = "Label158"
         Me.Label158.Size = New System.Drawing.Size(24, 17)
         Me.Label158.TabIndex = 225
@@ -1651,7 +1660,7 @@ Partial Class Form1
         'Label157
         '
         Me.Label157.AutoSize = True
-        Me.Label157.Location = New System.Drawing.Point(60, 110)
+        Me.Label157.Location = New System.Drawing.Point(59, 110)
         Me.Label157.Name = "Label157"
         Me.Label157.Size = New System.Drawing.Size(16, 17)
         Me.Label157.TabIndex = 224
@@ -1669,7 +1678,7 @@ Partial Class Form1
         'Label155
         '
         Me.Label155.AutoSize = True
-        Me.Label155.Location = New System.Drawing.Point(326, 90)
+        Me.Label155.Location = New System.Drawing.Point(324, 90)
         Me.Label155.Name = "Label155"
         Me.Label155.Size = New System.Drawing.Size(24, 17)
         Me.Label155.TabIndex = 222
@@ -1678,7 +1687,7 @@ Partial Class Form1
         'Label154
         '
         Me.Label154.AutoSize = True
-        Me.Label154.Location = New System.Drawing.Point(229, 90)
+        Me.Label154.Location = New System.Drawing.Point(227, 90)
         Me.Label154.Name = "Label154"
         Me.Label154.Size = New System.Drawing.Size(24, 17)
         Me.Label154.TabIndex = 221
@@ -1696,7 +1705,7 @@ Partial Class Form1
         'Label150
         '
         Me.Label150.AutoSize = True
-        Me.Label150.Location = New System.Drawing.Point(326, 70)
+        Me.Label150.Location = New System.Drawing.Point(324, 70)
         Me.Label150.Name = "Label150"
         Me.Label150.Size = New System.Drawing.Size(24, 17)
         Me.Label150.TabIndex = 217
@@ -1705,7 +1714,7 @@ Partial Class Form1
         'Label149
         '
         Me.Label149.AutoSize = True
-        Me.Label149.Location = New System.Drawing.Point(229, 70)
+        Me.Label149.Location = New System.Drawing.Point(227, 70)
         Me.Label149.Name = "Label149"
         Me.Label149.Size = New System.Drawing.Size(16, 17)
         Me.Label149.TabIndex = 216
@@ -1714,7 +1723,7 @@ Partial Class Form1
         'Label146
         '
         Me.Label146.AutoSize = True
-        Me.Label146.Location = New System.Drawing.Point(326, 50)
+        Me.Label146.Location = New System.Drawing.Point(324, 50)
         Me.Label146.Name = "Label146"
         Me.Label146.Size = New System.Drawing.Size(16, 17)
         Me.Label146.TabIndex = 213
@@ -1732,7 +1741,7 @@ Partial Class Form1
         'Label144
         '
         Me.Label144.AutoSize = True
-        Me.Label144.Location = New System.Drawing.Point(229, 50)
+        Me.Label144.Location = New System.Drawing.Point(227, 50)
         Me.Label144.Name = "Label144"
         Me.Label144.Size = New System.Drawing.Size(16, 17)
         Me.Label144.TabIndex = 8
@@ -1741,7 +1750,7 @@ Partial Class Form1
         'Label140
         '
         Me.Label140.AutoSize = True
-        Me.Label140.Location = New System.Drawing.Point(326, 0)
+        Me.Label140.Location = New System.Drawing.Point(324, 0)
         Me.Label140.Name = "Label140"
         Me.Label140.Size = New System.Drawing.Size(44, 34)
         Me.Label140.TabIndex = 4
@@ -1750,7 +1759,7 @@ Partial Class Form1
         'Label138
         '
         Me.Label138.AutoSize = True
-        Me.Label138.Location = New System.Drawing.Point(129, 0)
+        Me.Label138.Location = New System.Drawing.Point(127, 0)
         Me.Label138.Name = "Label138"
         Me.Label138.Size = New System.Drawing.Size(74, 34)
         Me.Label138.TabIndex = 2
@@ -1759,7 +1768,7 @@ Partial Class Form1
         'Label137
         '
         Me.Label137.AutoSize = True
-        Me.Label137.Location = New System.Drawing.Point(60, 0)
+        Me.Label137.Location = New System.Drawing.Point(59, 0)
         Me.Label137.Name = "Label137"
         Me.Label137.Size = New System.Drawing.Size(62, 50)
         Me.Label137.TabIndex = 1
@@ -1777,7 +1786,7 @@ Partial Class Form1
         'Label153
         '
         Me.Label153.AutoSize = True
-        Me.Label153.Location = New System.Drawing.Point(60, 90)
+        Me.Label153.Location = New System.Drawing.Point(59, 90)
         Me.Label153.Name = "Label153"
         Me.Label153.Size = New System.Drawing.Size(16, 17)
         Me.Label153.TabIndex = 220
@@ -1786,7 +1795,7 @@ Partial Class Form1
         'Label152
         '
         Me.Label152.AutoSize = True
-        Me.Label152.Location = New System.Drawing.Point(129, 90)
+        Me.Label152.Location = New System.Drawing.Point(127, 90)
         Me.Label152.Name = "Label152"
         Me.Label152.Size = New System.Drawing.Size(28, 17)
         Me.Label152.TabIndex = 219
@@ -1795,7 +1804,7 @@ Partial Class Form1
         'Label148
         '
         Me.Label148.AutoSize = True
-        Me.Label148.Location = New System.Drawing.Point(60, 70)
+        Me.Label148.Location = New System.Drawing.Point(59, 70)
         Me.Label148.Name = "Label148"
         Me.Label148.Size = New System.Drawing.Size(16, 17)
         Me.Label148.TabIndex = 215
@@ -1804,7 +1813,7 @@ Partial Class Form1
         'Label147
         '
         Me.Label147.AutoSize = True
-        Me.Label147.Location = New System.Drawing.Point(129, 70)
+        Me.Label147.Location = New System.Drawing.Point(127, 70)
         Me.Label147.Name = "Label147"
         Me.Label147.Size = New System.Drawing.Size(28, 17)
         Me.Label147.TabIndex = 214
@@ -1813,7 +1822,7 @@ Partial Class Form1
         'Label143
         '
         Me.Label143.AutoSize = True
-        Me.Label143.Location = New System.Drawing.Point(60, 50)
+        Me.Label143.Location = New System.Drawing.Point(59, 50)
         Me.Label143.Name = "Label143"
         Me.Label143.Size = New System.Drawing.Size(24, 17)
         Me.Label143.TabIndex = 7
@@ -1822,7 +1831,7 @@ Partial Class Form1
         'Label142
         '
         Me.Label142.AutoSize = True
-        Me.Label142.Location = New System.Drawing.Point(129, 50)
+        Me.Label142.Location = New System.Drawing.Point(127, 50)
         Me.Label142.Name = "Label142"
         Me.Label142.Size = New System.Drawing.Size(28, 17)
         Me.Label142.TabIndex = 6
@@ -1840,7 +1849,7 @@ Partial Class Form1
         'Label139
         '
         Me.Label139.AutoSize = True
-        Me.Label139.Location = New System.Drawing.Point(229, 0)
+        Me.Label139.Location = New System.Drawing.Point(227, 0)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(44, 34)
         Me.Label139.TabIndex = 3
@@ -3483,15 +3492,12 @@ Partial Class Form1
         '
         'SchemeApplications
         '
+        Me.SchemeApplications.Controls.Add(Me.GroupBox2)
+        Me.SchemeApplications.Controls.Add(Me.GroupBox1)
         Me.SchemeApplications.Controls.Add(Me.Panel5)
         Me.SchemeApplications.Controls.Add(Me.Panel4)
         Me.SchemeApplications.Controls.Add(Me.Label88)
         Me.SchemeApplications.Controls.Add(Me.Label86)
-        Me.SchemeApplications.Controls.Add(Me.Label9)
-        Me.SchemeApplications.Controls.Add(Me.removal)
-        Me.SchemeApplications.Controls.Add(Me.maturity)
-        Me.SchemeApplications.Controls.Add(Me.emerge)
-        Me.SchemeApplications.Controls.Add(Me.AbsoluteDaysButton)
         Me.SchemeApplications.Controls.Add(Me.AppTableDisplay)
         Me.SchemeApplications.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.SchemeApplications.Location = New System.Drawing.Point(4, 25)
@@ -3502,6 +3508,99 @@ Partial Class Form1
         Me.SchemeApplications.TabIndex = 1
         Me.SchemeApplications.Text = "Applications"
         Me.SchemeApplications.UseVisualStyleBackColor = True
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.AbsoluteDaysButton)
+        Me.GroupBox2.Controls.Add(Me.removal)
+        Me.GroupBox2.Controls.Add(Me.maturity)
+        Me.GroupBox2.Controls.Add(Me.emerge)
+        Me.GroupBox2.Location = New System.Drawing.Point(316, 34)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(455, 93)
+        Me.GroupBox2.TabIndex = 26
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Dates Relative to:"
+        '
+        'AbsoluteDaysButton
+        '
+        Me.AbsoluteDaysButton.AutoSize = True
+        Me.AbsoluteDaysButton.Location = New System.Drawing.Point(178, 35)
+        Me.AbsoluteDaysButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.AbsoluteDaysButton.Name = "AbsoluteDaysButton"
+        Me.AbsoluteDaysButton.Size = New System.Drawing.Size(224, 22)
+        Me.AbsoluteDaysButton.TabIndex = 1
+        Me.AbsoluteDaysButton.Text = "Dates are absolute (mon/day)"
+        Me.AbsoluteDaysButton.UseVisualStyleBackColor = True
+        '
+        'removal
+        '
+        Me.removal.AutoSize = True
+        Me.removal.Location = New System.Drawing.Point(0, 65)
+        Me.removal.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.removal.Name = "removal"
+        Me.removal.Size = New System.Drawing.Size(88, 22)
+        Me.removal.TabIndex = 5
+        Me.removal.Text = "Removal"
+        Me.removal.UseVisualStyleBackColor = True
+        '
+        'maturity
+        '
+        Me.maturity.AutoSize = True
+        Me.maturity.Location = New System.Drawing.Point(0, 41)
+        Me.maturity.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.maturity.Name = "maturity"
+        Me.maturity.Size = New System.Drawing.Size(81, 22)
+        Me.maturity.TabIndex = 4
+        Me.maturity.Text = "Maturity"
+        Me.maturity.UseVisualStyleBackColor = True
+        '
+        'emerge
+        '
+        Me.emerge.AutoSize = True
+        Me.emerge.Checked = True
+        Me.emerge.Location = New System.Drawing.Point(0, 21)
+        Me.emerge.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.emerge.Name = "emerge"
+        Me.emerge.Size = New System.Drawing.Size(105, 22)
+        Me.emerge.TabIndex = 3
+        Me.emerge.TabStop = True
+        Me.emerge.Text = "Emergence"
+        Me.emerge.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.RadioButton2)
+        Me.GroupBox1.Controls.Add(Me.RadioButton1)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 48)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(159, 72)
+        Me.GroupBox1.TabIndex = 25
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Applcation Units"
+        '
+        'RadioButton2
+        '
+        Me.RadioButton2.AutoSize = True
+        Me.RadioButton2.Location = New System.Drawing.Point(6, 44)
+        Me.RadioButton2.Name = "RadioButton2"
+        Me.RadioButton2.Size = New System.Drawing.Size(65, 22)
+        Me.RadioButton2.TabIndex = 1
+        Me.RadioButton2.TabStop = True
+        Me.RadioButton2.Text = "kg/ha"
+        Me.RadioButton2.UseVisualStyleBackColor = True
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Location = New System.Drawing.Point(6, 23)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(53, 22)
+        Me.RadioButton1.TabIndex = 0
+        Me.RadioButton1.TabStop = True
+        Me.RadioButton1.Tag = ""
+        Me.RadioButton1.Text = "lb/A"
+        Me.RadioButton1.UseVisualStyleBackColor = True
         '
         'Panel5
         '
@@ -3651,7 +3750,7 @@ Partial Class Form1
         '
         Me.Label88.AutoSize = True
         Me.Label88.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label88.Location = New System.Drawing.Point(203, 15)
+        Me.Label88.Location = New System.Drawing.Point(233, 2)
         Me.Label88.Name = "Label88"
         Me.Label88.Size = New System.Drawing.Size(146, 20)
         Me.Label88.TabIndex = 10
@@ -3661,77 +3760,22 @@ Partial Class Form1
         '
         Me.Label86.AutoSize = True
         Me.Label86.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label86.Location = New System.Drawing.Point(8, 15)
+        Me.Label86.Location = New System.Drawing.Point(8, 0)
         Me.Label86.Name = "Label86"
         Me.Label86.Size = New System.Drawing.Size(136, 20)
         Me.Label86.TabIndex = 9
         Me.Label86.Text = "Editing Scheme: "
         '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(9, 72)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(143, 18)
-        Me.Label9.TabIndex = 8
-        Me.Label9.Text = "Dates are relative to:"
-        '
-        'removal
-        '
-        Me.removal.AutoSize = True
-        Me.removal.Location = New System.Drawing.Point(384, 71)
-        Me.removal.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.removal.Name = "removal"
-        Me.removal.Size = New System.Drawing.Size(88, 22)
-        Me.removal.TabIndex = 5
-        Me.removal.Text = "Removal"
-        Me.removal.UseVisualStyleBackColor = True
-        '
-        'maturity
-        '
-        Me.maturity.AutoSize = True
-        Me.maturity.Location = New System.Drawing.Point(286, 71)
-        Me.maturity.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.maturity.Name = "maturity"
-        Me.maturity.Size = New System.Drawing.Size(81, 22)
-        Me.maturity.TabIndex = 4
-        Me.maturity.Text = "Maturity"
-        Me.maturity.UseVisualStyleBackColor = True
-        '
-        'emerge
-        '
-        Me.emerge.AutoSize = True
-        Me.emerge.Checked = True
-        Me.emerge.Location = New System.Drawing.Point(170, 71)
-        Me.emerge.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.emerge.Name = "emerge"
-        Me.emerge.Size = New System.Drawing.Size(105, 22)
-        Me.emerge.TabIndex = 3
-        Me.emerge.TabStop = True
-        Me.emerge.Text = "Emergence"
-        Me.emerge.UseVisualStyleBackColor = True
-        '
-        'AbsoluteDaysButton
-        '
-        Me.AbsoluteDaysButton.AutoSize = True
-        Me.AbsoluteDaysButton.Location = New System.Drawing.Point(606, 72)
-        Me.AbsoluteDaysButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.AbsoluteDaysButton.Name = "AbsoluteDaysButton"
-        Me.AbsoluteDaysButton.Size = New System.Drawing.Size(224, 22)
-        Me.AbsoluteDaysButton.TabIndex = 1
-        Me.AbsoluteDaysButton.Text = "Dates are absolute (mon/day)"
-        Me.AbsoluteDaysButton.UseVisualStyleBackColor = True
-        '
         'AppTableDisplay
         '
         Me.AppTableDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.AppTableDisplay.Location = New System.Drawing.Point(9, 110)
+        Me.AppTableDisplay.Location = New System.Drawing.Point(9, 132)
         Me.AppTableDisplay.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.AppTableDisplay.Name = "AppTableDisplay"
         Me.AppTableDisplay.RowHeadersVisible = False
         Me.AppTableDisplay.RowHeadersWidth = 51
         Me.AppTableDisplay.RowTemplate.Height = 24
-        Me.AppTableDisplay.Size = New System.Drawing.Size(896, 283)
+        Me.AppTableDisplay.Size = New System.Drawing.Size(896, 261)
         Me.AppTableDisplay.TabIndex = 0
         '
         'Schemes
@@ -5060,7 +5104,7 @@ Partial Class Form1
         Me.TabControl1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(987, 620)
+        Me.TabControl1.Size = New System.Drawing.Size(1002, 620)
         Me.TabControl1.TabIndex = 0
         '
         'WatershedTab
@@ -5575,7 +5619,7 @@ Partial Class Form1
         Me.WaterbodyExaminerTab.Location = New System.Drawing.Point(4, 25)
         Me.WaterbodyExaminerTab.Name = "WaterbodyExaminerTab"
         Me.WaterbodyExaminerTab.Padding = New System.Windows.Forms.Padding(3)
-        Me.WaterbodyExaminerTab.Size = New System.Drawing.Size(979, 591)
+        Me.WaterbodyExaminerTab.Size = New System.Drawing.Size(994, 591)
         Me.WaterbodyExaminerTab.TabIndex = 11
         Me.WaterbodyExaminerTab.Text = "Waterbody Examiner"
         '
@@ -5632,7 +5676,7 @@ Partial Class Form1
         Me.Panel1.Controls.Add(Me.Label80)
         Me.Panel1.Location = New System.Drawing.Point(12, 69)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(959, 471)
+        Me.Panel1.Size = New System.Drawing.Size(940, 765)
         Me.Panel1.TabIndex = 210
         '
         'SprayGridView
@@ -5644,7 +5688,7 @@ Partial Class Form1
         DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.SprayGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.SprayGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
-        Me.SprayGridView.BackgroundColor = System.Drawing.Color.Black
+        Me.SprayGridView.BackgroundColor = System.Drawing.Color.Aqua
         DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
         DataGridViewCellStyle5.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -5655,7 +5699,7 @@ Partial Class Form1
         Me.SprayGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.SprayGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.SprayGridView.ColumnHeadersVisible = False
-        Me.SprayGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column14, Me.Column32, Me.Column15, Me.Column16, Me.Column17, Me.Column18, Me.Column19, Me.Column25, Me.Column26, Me.Column27, Me.Column28, Me.Column29, Me.Column30, Me.Column31})
+        Me.SprayGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column14, Me.Column32, Me.Column15, Me.Column16, Me.Column17, Me.Column18, Me.Column19, Me.Column25, Me.Column26, Me.Column27, Me.Column28, Me.Column29, Me.Column30, Me.Column31, Me.Column33, Me.Column34, Me.Column35, Me.Column36})
         Me.SprayGridView.Cursor = System.Windows.Forms.Cursors.IBeam
         DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
@@ -5665,123 +5709,14 @@ Partial Class Form1
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.SprayGridView.DefaultCellStyle = DataGridViewCellStyle6
-        Me.SprayGridView.Location = New System.Drawing.Point(13, 235)
+        Me.SprayGridView.Location = New System.Drawing.Point(3, 245)
         Me.SprayGridView.Margin = New System.Windows.Forms.Padding(1)
         Me.SprayGridView.Name = "SprayGridView"
         Me.SprayGridView.RowHeadersVisible = False
         Me.SprayGridView.RowHeadersWidth = 51
         Me.SprayGridView.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.SprayGridView.Size = New System.Drawing.Size(907, 422)
+        Me.SprayGridView.Size = New System.Drawing.Size(907, 466)
         Me.SprayGridView.TabIndex = 209
-        '
-        'Column14
-        '
-        Me.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Column14.HeaderText = "Method \ Buffer"
-        Me.Column14.MinimumWidth = 6
-        Me.Column14.Name = "Column14"
-        '
-        'Column32
-        '
-        Me.Column32.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.Column32.HeaderText = "0"
-        Me.Column32.MinimumWidth = 6
-        Me.Column32.Name = "Column32"
-        Me.Column32.Width = 40
-        '
-        'Column15
-        '
-        Me.Column15.HeaderText = "5"
-        Me.Column15.MinimumWidth = 6
-        Me.Column15.Name = "Column15"
-        Me.Column15.Width = 40
-        '
-        'Column16
-        '
-        Me.Column16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.Column16.HeaderText = "10"
-        Me.Column16.MinimumWidth = 6
-        Me.Column16.Name = "Column16"
-        Me.Column16.Width = 40
-        '
-        'Column17
-        '
-        Me.Column17.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.Column17.HeaderText = "25"
-        Me.Column17.MinimumWidth = 6
-        Me.Column17.Name = "Column17"
-        Me.Column17.Width = 40
-        '
-        'Column18
-        '
-        Me.Column18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.Column18.HeaderText = "50"
-        Me.Column18.MinimumWidth = 6
-        Me.Column18.Name = "Column18"
-        Me.Column18.Width = 40
-        '
-        'Column19
-        '
-        Me.Column19.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.Column19.HeaderText = "100"
-        Me.Column19.MinimumWidth = 6
-        Me.Column19.Name = "Column19"
-        Me.Column19.Width = 40
-        '
-        'Column25
-        '
-        Me.Column25.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.Column25.HeaderText = "150"
-        Me.Column25.MinimumWidth = 6
-        Me.Column25.Name = "Column25"
-        Me.Column25.Width = 40
-        '
-        'Column26
-        '
-        Me.Column26.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.Column26.HeaderText = "200"
-        Me.Column26.MinimumWidth = 6
-        Me.Column26.Name = "Column26"
-        Me.Column26.Width = 40
-        '
-        'Column27
-        '
-        Me.Column27.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.Column27.HeaderText = "250"
-        Me.Column27.MinimumWidth = 6
-        Me.Column27.Name = "Column27"
-        Me.Column27.Width = 40
-        '
-        'Column28
-        '
-        Me.Column28.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.Column28.HeaderText = "300"
-        Me.Column28.MinimumWidth = 6
-        Me.Column28.Name = "Column28"
-        Me.Column28.Width = 40
-        '
-        'Column29
-        '
-        Me.Column29.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.Column29.HeaderText = "350"
-        Me.Column29.MinimumWidth = 6
-        Me.Column29.Name = "Column29"
-        Me.Column29.Width = 40
-        '
-        'Column30
-        '
-        Me.Column30.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
-        Me.Column30.HeaderText = "400"
-        Me.Column30.MinimumWidth = 6
-        Me.Column30.Name = "Column30"
-        Me.Column30.Width = 40
-        '
-        'Column31
-        '
-        Me.Column31.HeaderText = "500"
-        Me.Column31.MinimumWidth = 6
-        Me.Column31.Name = "Column31"
-        Me.Column31.Width = 40
         '
         'Label111
         '
@@ -5796,7 +5731,7 @@ Partial Class Form1
         'Label94
         '
         Me.Label94.AutoSize = True
-        Me.Label94.Location = New System.Drawing.Point(306, 561)
+        Me.Label94.Location = New System.Drawing.Point(306, 823)
         Me.Label94.Name = "Label94"
         Me.Label94.Size = New System.Drawing.Size(288, 17)
         Me.Label94.TabIndex = 207
@@ -5832,11 +5767,155 @@ Partial Class Form1
         Me.Label130.TabIndex = 6
         Me.Label130.Text = "Family Name:"
         '
+        'Column14
+        '
+        Me.Column14.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column14.Frozen = True
+        Me.Column14.HeaderText = "0"
+        Me.Column14.MinimumWidth = 100
+        Me.Column14.Name = "Column14"
+        Me.Column14.Width = 160
+        '
+        'Column32
+        '
+        Me.Column32.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column32.HeaderText = "1"
+        Me.Column32.MinimumWidth = 6
+        Me.Column32.Name = "Column32"
+        Me.Column32.Width = 40
+        '
+        'Column15
+        '
+        Me.Column15.HeaderText = "2"
+        Me.Column15.MinimumWidth = 6
+        Me.Column15.Name = "Column15"
+        Me.Column15.Width = 40
+        '
+        'Column16
+        '
+        Me.Column16.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column16.HeaderText = "3"
+        Me.Column16.MinimumWidth = 6
+        Me.Column16.Name = "Column16"
+        Me.Column16.Width = 40
+        '
+        'Column17
+        '
+        Me.Column17.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column17.HeaderText = "4"
+        Me.Column17.MinimumWidth = 6
+        Me.Column17.Name = "Column17"
+        Me.Column17.Width = 40
+        '
+        'Column18
+        '
+        Me.Column18.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column18.HeaderText = "5"
+        Me.Column18.MinimumWidth = 6
+        Me.Column18.Name = "Column18"
+        Me.Column18.Width = 40
+        '
+        'Column19
+        '
+        Me.Column19.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column19.HeaderText = "6"
+        Me.Column19.MinimumWidth = 6
+        Me.Column19.Name = "Column19"
+        Me.Column19.Width = 40
+        '
+        'Column25
+        '
+        Me.Column25.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column25.HeaderText = "7"
+        Me.Column25.MinimumWidth = 6
+        Me.Column25.Name = "Column25"
+        Me.Column25.Width = 40
+        '
+        'Column26
+        '
+        Me.Column26.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column26.HeaderText = "8"
+        Me.Column26.MinimumWidth = 6
+        Me.Column26.Name = "Column26"
+        Me.Column26.Width = 40
+        '
+        'Column27
+        '
+        Me.Column27.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column27.HeaderText = "9"
+        Me.Column27.MinimumWidth = 6
+        Me.Column27.Name = "Column27"
+        Me.Column27.Width = 40
+        '
+        'Column28
+        '
+        Me.Column28.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column28.HeaderText = "10"
+        Me.Column28.MinimumWidth = 6
+        Me.Column28.Name = "Column28"
+        Me.Column28.Width = 40
+        '
+        'Column29
+        '
+        Me.Column29.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column29.HeaderText = "11"
+        Me.Column29.MinimumWidth = 6
+        Me.Column29.Name = "Column29"
+        Me.Column29.Width = 40
+        '
+        'Column30
+        '
+        Me.Column30.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column30.HeaderText = "13"
+        Me.Column30.MinimumWidth = 6
+        Me.Column30.Name = "Column30"
+        Me.Column30.Width = 40
+        '
+        'Column31
+        '
+        Me.Column31.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column31.HeaderText = "14"
+        Me.Column31.MinimumWidth = 6
+        Me.Column31.Name = "Column31"
+        Me.Column31.Width = 40
+        '
+        'Column33
+        '
+        Me.Column33.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column33.HeaderText = "15"
+        Me.Column33.MinimumWidth = 6
+        Me.Column33.Name = "Column33"
+        Me.Column33.Width = 40
+        '
+        'Column34
+        '
+        Me.Column34.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column34.HeaderText = "16"
+        Me.Column34.MinimumWidth = 6
+        Me.Column34.Name = "Column34"
+        Me.Column34.Width = 40
+        '
+        'Column35
+        '
+        Me.Column35.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column35.HeaderText = "17"
+        Me.Column35.MinimumWidth = 6
+        Me.Column35.Name = "Column35"
+        Me.Column35.Width = 40
+        '
+        'Column36
+        '
+        Me.Column36.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None
+        Me.Column36.HeaderText = "18"
+        Me.Column36.MinimumWidth = 6
+        Me.Column36.Name = "Column36"
+        Me.Column36.Width = 40
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1070, 714)
+        Me.ClientSize = New System.Drawing.Size(1014, 714)
         Me.Controls.Add(Me.Label130)
         Me.Controls.Add(Me.Label129)
         Me.Controls.Add(Me.CalculateButton)
@@ -5875,6 +5954,10 @@ Partial Class Form1
         Me.waterbodypanel.ResumeLayout(False)
         Me.SchemeApplications.ResumeLayout(False)
         Me.SchemeApplications.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.Panel5.ResumeLayout(False)
         Me.Panel5.PerformLayout()
         Me.Panel4.ResumeLayout(False)
@@ -6010,7 +6093,6 @@ Partial Class Form1
     Friend WithEvents SchemeApplications As TabPage
     Friend WithEvents Label88 As Label
     Friend WithEvents Label86 As Label
-    Friend WithEvents Label9 As Label
     Friend WithEvents removal As RadioButton
     Friend WithEvents maturity As RadioButton
     Friend WithEvents emerge As RadioButton
@@ -6392,6 +6474,10 @@ Partial Class Form1
     Friend WithEvents SprayGridView As DataGridView
     Friend WithEvents Label111 As Label
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents RadioButton2 As RadioButton
+    Friend WithEvents RadioButton1 As RadioButton
     Friend WithEvents Column14 As DataGridViewTextBoxColumn
     Friend WithEvents Column32 As DataGridViewTextBoxColumn
     Friend WithEvents Column15 As DataGridViewTextBoxColumn
@@ -6406,4 +6492,8 @@ Partial Class Form1
     Friend WithEvents Column29 As DataGridViewTextBoxColumn
     Friend WithEvents Column30 As DataGridViewTextBoxColumn
     Friend WithEvents Column31 As DataGridViewTextBoxColumn
+    Friend WithEvents Column33 As DataGridViewTextBoxColumn
+    Friend WithEvents Column34 As DataGridViewTextBoxColumn
+    Friend WithEvents Column35 As DataGridViewTextBoxColumn
+    Friend WithEvents Column36 As DataGridViewTextBoxColumn
 End Class
