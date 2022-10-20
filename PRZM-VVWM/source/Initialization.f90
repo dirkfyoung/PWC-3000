@@ -90,7 +90,11 @@ use waterbody_parameters, ONLY: afield
 	real :: sumofsn
 	real :: sumofcl
 	
-	
+    
+    real :: aq_rate_corrected(3)  !degradation inputs corrected for implicit routine
+    real :: sorb_rate_corrected(3)
+    real :: gas_rate_corrected(3) 
+
 	horiz_indx_tracker=0
 	track_thickness = 0.0
 	
@@ -393,11 +397,18 @@ end if
 	else
 	    top_node_last_horizon =sum( Num_delx(1:nhoriz-1))+1
 		bottom_node_last_horizon = sum(Num_delx(1:nhoriz))
-	end if
+    end if
 
-	
-	
-     
+  !***************************************************************************************************  
+    !Implicit routine corection for degradation: insures perfect degradation at high rates    
+             aq_rate_corrected =     exp(aq_rate_input)   -1.  
+             sorb_rate_corrected =   exp(sorb_rate_input) -1.
+             gas_rate_corrected =    exp(gas_rate_input)  -1.
+    !******************************************************************************************
+    !
+	! TO DO 10/20/2022 ---put these corrected values as substitute for input values below
+	!
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
     do k = 1, nchem       
         previous_depth = 0.0
         running_depth  = 0.0
@@ -467,9 +478,12 @@ end if
  
         else  !is_constant_profile
              do i = 1, ncom2
-                dwrate_atRefTemp(k,i) =  aq_rate_input(K)
-                dsrate_atRefTemp(k,i) =  sorb_rate_input(K)
-                dgrate_atRefTemp(k,i) =  gas_rate_input(K)     
+                dwrate_atRefTemp(k,i) =  aq_rate_corrected(K)
+                dsrate_atRefTemp(k,i) =  sorb_rate_corrected(K)
+                dgrate_atRefTemp(k,i) =  gas_rate_corrected(K)   
+                
+
+                
              end do   
         end if
         
