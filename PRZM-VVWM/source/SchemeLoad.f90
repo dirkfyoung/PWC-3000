@@ -15,8 +15,7 @@ module schemeload
         
         
         
-        
-        app_in      )   
+
 	end Subroutine deallocate_application_parameters
 
 
@@ -51,7 +50,7 @@ module schemeload
         
         allocate(days_until_applied (num_applications_input))
 
-        !pest_app_method = 1 "Below Crop"
+        !pest_app_method = 1 "Below Crop" 
         !pest_app_method = 2 "Above Crop"
         !pest_app_method = 3 "Uniform"
         !pest_app_method = 4 "At Specific Depth"

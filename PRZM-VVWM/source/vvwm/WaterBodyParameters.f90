@@ -161,6 +161,7 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 
     contains
     subroutine get_pond_parameters
+    integer :: i,j
         simtypeflag         = waterbodytype_P 
         flow_averaging      = flow_averaging_P  
         afield              = afield_P       

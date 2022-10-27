@@ -847,10 +847,12 @@
             rowcount = currentRow(0)
             colcount = currentRow(1)
 
+
             For i As Integer = 0 To rowcount - 1
                 currentRow = MyReader.ReadFields
 
-                For j As Integer = 1 To colcount
+                For j As Integer = 1 To colcount - 1
+
                     SprayGridView.Item(j, i).Value = currentRow(j - 1)
 
                 Next
