@@ -1,7 +1,7 @@
 PWC 2021 Input File, Version 1
-C:\Users\dyoung03\source\repos\PWC-2022\Test\
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\
 testWork
-C:\Users\dyoung03\source\repos\PWC-2022\Test\scenario\WeatherFiles\
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\WeatherFiles\
 True, False, False,
 1,
 5,12,,
@@ -31,16 +31,25 @@ True, False, False,
 True,
 False,,,,
 False,,,
-1,
+2,
 1,"one",
 1,
 2,
--5,1.12,1,4,0,11,0,1,0,
-10,1.12,2,3,0,4,152,1,0,
+-5,1.12,1,4,0,14,75,1,5,
+10,1.12,2,3,0,15,152,1,0,
 False,5,1,
 False,2,2,10,7,
 1
-C:\Users\dyoung03\source\repos\PWC-2022\Test\scenario\testScenario.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testScenario.scn2
+2,"two",
+1,
+2,
+-5,1.12,1,4,0,14,75,1,5,
+10,1.12,2,3,0,15,152,1,0,
+False,5,1,
+False,2,2,10,7,
+1
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testScenario.scn2
 3,
 ,
 ,
@@ -48,9 +57,9 @@ C:\Users\dyoung03\source\repos\PWC-2022\Test\scenario\testScenario.scn2
 ,
 ,
 True,
-False,True,True
+False,False,True
 1,
-"C:\Users\dyoung03\source\repos\PWC-2022\Test\waterbodies\xtest.WAT"
+"C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\waterbodies\xtest.WAT"
 False,
 False,
 False,

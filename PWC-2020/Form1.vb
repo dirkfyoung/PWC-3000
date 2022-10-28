@@ -253,7 +253,7 @@ Public Class Form1
         If System.IO.Directory.Exists(FileNames.WorkingDirectory) Then
             RetrieveMainInput.InitialDirectory = FileNames.WorkingDirectory
         Else
-            '           RetrieveMainInput.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+            '  RetrieveMainInput.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
         End If
 
         RetrieveMainInput.FileName = ""
@@ -1094,6 +1094,8 @@ Public Class Form1
     Private Sub DataGridView1_CellContentClick_1(sender As Object, e As DataGridViewCellEventArgs) Handles SprayGridView.CellContentClick
 
     End Sub
+
+
 End Class
 
 

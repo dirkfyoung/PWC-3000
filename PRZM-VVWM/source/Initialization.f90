@@ -186,10 +186,10 @@ if (is_auto_profile) then  ! create the discretization based on iput profile ins
        soil_depth(i) = soil_depth(i-1) + delx(i) 
 	end do
 
-	write(*,*) "Profile Depths: "
-	do i  = 1, ncom2
-		write(*,*) i , soil_depth(i) 
-	end do
+	!write(*,*) "Profile Depths: "
+	!do i  = 1, ncom2
+	!	write(*,*) i , soil_depth(i) 
+	!end do
 	
 	!Find depths of input horizons these are "target depths" where changes occur
 	
@@ -215,7 +215,7 @@ if (is_auto_profile) then  ! create the discretization based on iput profile ins
 	   
 	   
 	
-	   
+	   write(*,*)"incremnt depth    bd  theta_fc theta_wp   oc    sand    clay"
 	   j = 1  ! tracker for data horizons
 	   do i = 1, ncom2   !check each fixed compartment depth against the horizon depth to determine its location
 		   
@@ -308,7 +308,7 @@ if (is_auto_profile) then  ! create the discretization based on iput profile ins
 			end if
 			
 	
-			write (*,*) i,soil_depth(i), bulkdensity(i),theta_fc(i)
+			write (*,'(I5,1X, F9.2, 6F8.3)') i,soil_depth(i), bulkdensity(i),theta_fc(i), theta_wp(i), orgcarb(i), sand(i), clay(i)
 			
 			
 			
