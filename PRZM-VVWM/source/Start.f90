@@ -93,26 +93,28 @@ program PRZMVVWM
             
            if( is_batch_scenario(i)) then
                write(*,*)  trim(scenario_batchfile(i))
+               
+               
               open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus )
-              
+
               
               write(*,*) 'open batch scenario file status =' , iostatus
            end if
            
        
             kk=0
-            do 
+            do !scenatrio do loop
+               !Loop controled by eithger the number of files in the batch or by the number of scenarios read in from input file
                kk=kk+1
+               write(*,*) 'Doing scenario ', KK
                if( is_batch_scenario(i)) then
-                     Write(*,*) 'this is a batch run'
-                 !  read_batchscenario
+                   read(BatchFileUnit, IOSTAT= iostatus) !enter the long string of values
+                   if(IS_IOSTAT_END (iostatus)) exit !end of batch read, exit do loop
                    
-                  !if end of file exit  eof
-                  ! otherwise read the next scenario from file
-               else
+                   
+                   
+               else  !use scenarios directly read into input
                    if (kk == number_of_scenarios(i) + 1) exit
-              
-                   Write(*,*) '********** Doing Scenario No. ', kk
                   call read_scenario_file(i,kk, error)
                end if  
                 
