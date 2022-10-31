@@ -24,22 +24,25 @@
     Public Property OptimumApplicationWindow As String
     Public Property MinDaysBetweenApps As String
 
+    Public Property UseBatchScenarioFile As Boolean
+    Public Property ScenarioBatchFileName As String
 
-    Public Sub ClearAll()
-        Days.Clear()
-        Amount.Clear()
-        Method.Clear()
-        Depth.Clear()
-        Split.Clear()
-        'Efficiency.Clear()
-        Drift.Clear()
-        DriftBuffer.Clear()
-        Lag.Clear()
-        Periodicity.Clear()
-        Scenarios.Clear()
-        AbsoluteRelative = False
-        Emerge = False
-        Maturity = False
-        Removal = False
-    End Sub
+
+    'Public Sub ClearAll()
+    '    Days.Clear()
+    '    Amount.Clear()
+    '    Method.Clear()
+    '    Depth.Clear()
+    '    Split.Clear()
+    '    'Efficiency.Clear()
+    '    Drift.Clear()
+    '    DriftBuffer.Clear()
+    '    Lag.Clear()
+    '    Periodicity.Clear()
+    '    Scenarios.Clear()
+    '    AbsoluteRelative = False
+    '    Emerge = False
+    '    Maturity = False
+    '    Removal = False
+    'End Sub
 End Class

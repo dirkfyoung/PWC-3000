@@ -551,8 +551,8 @@ Public Class Form1
                 IntolerableRainWindow.Text = ApplicationTable.IntolerableRainWindow
                 OptimumApplicationWindow.Text = ApplicationTable.OptimumApplicationWindow
                 MinDaysBetweenApps.Text = ApplicationTable.MinDaysBetweenApps
-
-
+                GetScenariosBatchCheckBox.Checked = ApplicationTable.UseBatchScenarioFile
+                ScenarioBatchFileName.Text = ApplicationTable.ScenarioBatchFileName
 
                 ScenarioListBox.Items.Clear()
                 For Each ee As String In ApplicationTable.Scenarios
@@ -1126,7 +1126,7 @@ Public Class Form1
         End If
 
         FileNames.PreviousScenarioPath = System.IO.Path.GetDirectoryName(OpenSelectScenarioBatchFile.FileName)
-        ScenarioBatchFileBox.Text = OpenSelectScenarioBatchFile.FileName
+        ScenarioBatchFileName.Text = OpenSelectScenarioBatchFile.FileName
 
         FileNames.PreviousScenarioPath = System.IO.Path.GetDirectoryName(OpenSelectScenarioBatchFile.FileName)
 

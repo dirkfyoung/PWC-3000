@@ -110,7 +110,8 @@
             For j As Integer = 0 To NumberOfScenarios - 1
                 msg = msg & vbNewLine & ApplicationTable.Scenarios(j)
             Next
-
+            msg = msg & vbNewLine & ApplicationTable.UseBatchScenarioFile
+            msg = msg & vbNewLine & ApplicationTable.ScenarioBatchFileName
         Next
 
         msg &= String.Format("{0}{1},", vbNewLine, ErosionFlag.Text)
@@ -698,6 +699,12 @@
                     ApplicationTable.Scenarios.Add(MyReader.ReadLine())
 
                 Next
+                currentrow = MyReader.ReadFields
+                ApplicationTable.UseBatchScenarioFile = currentrow(0)
+
+                currentrow = MyReader.ReadFields
+                ApplicationTable.ScenarioBatchFileName = currentrow(0)
+
                 SchemeInfoList.Add(ApplicationTable)
             Next
 
@@ -1263,6 +1270,9 @@
 
 
         AppData.Scenarios = ScenarioListBox.Items.Cast(Of String).ToList
+
+        AppData.UseBatchScenarioFile = GetScenariosBatchCheckBox.Checked
+        AppData.ScenarioBatchFileName = ScenarioBatchFileName.Text
 
         If SchemeInfoList.Count - 1 < SchemeNumber Then
             'if application scheme does not exist, then add it

@@ -31,7 +31,7 @@ True, False, False,
 True,
 False,,,,
 False,,,
-1,
+2,
 1,"one",
 1,
 2,
@@ -40,7 +40,20 @@ False,,,
 False,5,1,
 False,2,2,10,7,
 1
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testX.SCN2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testScenario.scn2
+True
+opppppppppppppppppppppppppppppppppppppppppppppppppppppppppp lll
+2,"two",
+1,
+2,
+-5,1.12,1,4,0,14,75,1,5,
+10,1.12,2,3,0,15,152,1,0,
+False,5,1,
+False,2,2,10,7,
+1
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testScenario.scn2
+False
+alphaset.cvs
 3,
 ,
 ,
