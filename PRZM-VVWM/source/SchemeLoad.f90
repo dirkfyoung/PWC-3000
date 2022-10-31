@@ -29,7 +29,7 @@ module schemeload
            drift_schemes,lag_schemes,periodicity_schemes,driftfactor_schemes,&
            app_reference_point, app_reference_point_schemes, is_adjust_for_rain_schemes, & 	
            rain_limit_schemes,optimum_application_window_schemes,intolerable_rain_window_schemes,min_days_between_apps_schemes, & 
-	       is_adjust_for_rain, rain_limit,optimum_application_window,intolerable_rain_window,min_days_between_apps  
+	       is_adjust_for_rain, rain_limit,optimum_application_window,intolerable_rain_window,min_days_between_apps , is_batch_scenario 
       
        use waterbody_parameters, ONLY: afield,   area_waterbody, spray_values
            integer,intent(in):: scheme_number
@@ -111,10 +111,6 @@ module schemeload
     write(*,*) 'Any Foliar Applications? ', some_applications_were_foliar
 	end subroutine set_chemical_applications
     
-	
-	
-	
-	
 	
 	subroutine lookup_drift(row, column, output)
 	   use waterbody_parameters, only: spraytable

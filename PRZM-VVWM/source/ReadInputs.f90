@@ -32,8 +32,7 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     is_constant_profile, is_ramp_profile, ramp1, ramp2, ramp3, is_exp_profile , exp_profile1, exp_profile2, is_total_degradation, &
     is_app_window, app_window_span, app_window_step, is_timeseriesfile, &
 	is_waterbody_info_output , is_adjust_for_rain_schemes,rain_limit_schemes,optimum_application_window_schemes, &
-	intolerable_rain_window_schemes, min_days_between_apps_schemes
-
+	intolerable_rain_window_schemes, min_days_between_apps_schemes,  is_batch_scenario , scenario_batchfile 
 
 
 
@@ -141,6 +140,9 @@ use utilities
     allocate (intolerable_rain_window_schemes(number_of_schemes))
     allocate (min_days_between_apps_schemes(number_of_schemes))
 
+    allocate (is_batch_scenario(number_of_schemes))    
+    allocate (scenario_batchfile(number_of_schemes))
+    
 	
     do i=1, number_of_schemes
         read(inputfile_unit_number,*) scheme_number, scheme_name 
@@ -221,7 +223,13 @@ use utilities
             read(inputfile_unit_number,'(A512)')  scenario_names(i,j) !(i,j) i is scheme #, j is scenario #
              write(*,'(A)') trim(scenario_names(i,j))
         end do 
-            
+        
+        read(inputfile_unit_number,*) is_batch_scenario(i)   
+        read(inputfile_unit_number,'(A)') scenario_batchfile(i) 
+       
+        write(*,*)       is_batch_scenario(i)  
+        write (*,'(A)') scenario_batchfile(i)
+        
 	enddo
 	
 	

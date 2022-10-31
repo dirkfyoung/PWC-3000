@@ -60,6 +60,7 @@
 		<File RelativePath=".\source\Plant_Pesticide_Processes.f90"/>
 		<File RelativePath=".\source\PlantGrowth.f90"/>
 		<File RelativePath=".\source\PRZM_Version.f90"/>
+		<File RelativePath=".\ReadBatchScenarioFile.f90"/>
 		<File RelativePath=".\source\Temperature_Calcs.f90"/>
 		<File RelativePath=".\source\Tridiagonal.f90"/>
 		<File RelativePath=".\source\volatilization.f90"/></Filter>

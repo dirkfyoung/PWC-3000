@@ -3,7 +3,8 @@ program PRZMVVWM
     use readinputs
     use constants_and_variables, ONLY: maxFileLength, inputfile,number_of_schemes, &
                                        number_of_scenarios,  First_time_through, &
-                                       app_window_span, app_window_step, application_date, application_date_original, is_adjust_for_rain
+                                       app_window_span, app_window_step, application_date, application_date_original, is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit
+    
     use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond , spraytable
     use clock_variables
 	
@@ -18,10 +19,13 @@ program PRZMVVWM
     use chemical_transport
 	use Output_From_Field
 	use Pesticide_Applications
-	
+	use readbatchscenario
+    
+    
+    
     implicit none
     integer :: length !length of input file characters
-    integer :: hh, i ,jj, kk
+    integer :: hh, i ,jj, kk,  iostatus
     logical error
 
     !################################################ 
@@ -86,15 +90,41 @@ program PRZMVVWM
 	        write(*,*) '********** Start Scenario Loop *************************************'
 	        Write(*,*) '********************************************************************'	
 				
-            do kk=1, number_of_scenarios(i)
+            
+           if( is_batch_scenario(i)) then
+               write(*,*)  trim(scenario_batchfile(i))
+              open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus )
+              
+              
+              write(*,*) 'open batch scenario file status =' , iostatus
+           end if
+           
+       
+            kk=0
+            do 
+               kk=kk+1
+               if( is_batch_scenario(i)) then
+                     Write(*,*) 'this is a batch run'
+                 !  read_batchscenario
+                   
+                  !if end of file exit  eof
+                  ! otherwise read the next scenario from file
+               else
+                   if (kk == number_of_scenarios(i) + 1) exit
+              
+                   Write(*,*) '********** Doing Scenario No. ', kk
+                  call read_scenario_file(i,kk, error)
+               end if  
+                
+            
 			   Write(*,*) '********** Doing Scenario No. ', kk
                call read_scenario_file(i,kk, error)
 			   
                if (error) then 
 				   Write(*,*) 'exiting scenario loop due to scenario open problem'
 				   cycle   !error, try next scenario in scheme
-			   end if
-			   
+               end if
+
 write (*,*) '###################################################'	 
 CALL CPU_TIME (time_1)
 write (*,*) 'cpu time scenario start  ',time_1- cputime_begin
@@ -192,7 +222,7 @@ CALL CPU_TIME (time_1)
 write (*,*) 'cpu time, scheme   ',time_1- cputime_begin, kk
 write (*,*) '###################################################'			
 			
-			
+			close(BatchFileUnit)  !scenario batch file if open
 		 end do  !End scheme Loop, i
 		 
 write (*,*) '###################################################'	 

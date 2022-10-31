@@ -23,13 +23,15 @@ module constants_and_variables
       integer, parameter ::  PRZMinputUnit          = 51
       integer, parameter ::  MetFileUnit            = 52
       integer, parameter ::  ScenarioFileUnit       = 53
+      integer, parameter ::  BatchFileUnit          = 54
 
       integer, parameter ::  TimeSeriesUnit2         = 55
-      integer, parameter ::  waterbody_file_unit    = 57
+      integer, parameter ::  waterbody_file_unit     = 57
       
       integer, parameter ::  summary_output_unit      = 44
       integer, parameter ::  summary_output_unit_deg1 = 45
       integer, parameter ::  summary_output_unit_deg2 = 46
+      
       
       character(len= 500), parameter :: summary_outputfile =  "summary_output.txt"
       character(len= 500), parameter :: summary_outputfile_deg1 =  "summary_output_Deg1.txt"
@@ -92,8 +94,8 @@ module constants_and_variables
       character (len=512),allocatable, dimension(:,:) :: scenario_names !(i,j) i is scheme #, j is scenario #
 
       
-      
-      
+      character(len = 512), allocatable, dimension(:) :: scenario_batchfile  !name of batch scenario file if used
+      logical, allocatable, dimension(:)              :: is_batch_scenario
       
       
       !*********************************************************************
@@ -191,9 +193,11 @@ module constants_and_variables
       integer, parameter :: max_number_plots = 100
 
     
-      Character(Len = maxFileLength) :: working_directory
-      Character(Len = maxFileLength) :: family_name
-      Character(Len = maxFileLength) :: weatherFile_directory
+      character(Len = maxFileLength) :: working_directory
+      character(Len = maxFileLength) :: family_name
+      character(Len = maxFileLength) :: weatherFile_directory
+
+      
       
       
       !Scenario Parameters
