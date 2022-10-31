@@ -310,6 +310,9 @@ Partial Class Form1
         Me.WeatherDirectoryBox = New System.Windows.Forms.TextBox()
         Me.GetWeatherFileDirectory = New System.Windows.Forms.Button()
         Me.SchemeScenarios = New System.Windows.Forms.TabPage()
+        Me.SelectScenarioBatchFile = New System.Windows.Forms.Button()
+        Me.GetScenariosCheckBox = New System.Windows.Forms.CheckBox()
+        Me.ScenarioBatchFileBox = New System.Windows.Forms.TextBox()
         Me.ClearAllScenarios = New System.Windows.Forms.Button()
         Me.ClearSelectedScenarios = New System.Windows.Forms.Button()
         Me.SelectScenarios = New System.Windows.Forms.Button()
@@ -536,6 +539,7 @@ Partial Class Form1
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.Label129 = New System.Windows.Forms.Label()
         Me.Label130 = New System.Windows.Forms.Label()
+        Me.OpenSelectScenarioBatchFile = New System.Windows.Forms.OpenFileDialog()
         Me.MenuStrip1.SuspendLayout()
         Me.AdvancedTab.SuspendLayout()
         Me.ScenarioExaminerTab.SuspendLayout()
@@ -1491,7 +1495,7 @@ Partial Class Form1
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.50237!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 97.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 171.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 174.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.Label170, 4, 6)
         Me.TableLayoutPanel3.Controls.Add(Me.Label169, 3, 6)
         Me.TableLayoutPanel3.Controls.Add(Me.Label168, 2, 6)
@@ -1543,7 +1547,7 @@ Partial Class Form1
         'Label170
         '
         Me.Label170.AutoSize = True
-        Me.Label170.Location = New System.Drawing.Point(322, 150)
+        Me.Label170.Location = New System.Drawing.Point(319, 150)
         Me.Label170.Name = "Label170"
         Me.Label170.Size = New System.Drawing.Size(32, 17)
         Me.Label170.TabIndex = 237
@@ -1552,7 +1556,7 @@ Partial Class Form1
         'Label169
         '
         Me.Label169.AutoSize = True
-        Me.Label169.Location = New System.Drawing.Point(225, 150)
+        Me.Label169.Location = New System.Drawing.Point(222, 150)
         Me.Label169.Name = "Label169"
         Me.Label169.Size = New System.Drawing.Size(32, 17)
         Me.Label169.TabIndex = 236
@@ -1561,7 +1565,7 @@ Partial Class Form1
         'Label168
         '
         Me.Label168.AutoSize = True
-        Me.Label168.Location = New System.Drawing.Point(125, 150)
+        Me.Label168.Location = New System.Drawing.Point(122, 150)
         Me.Label168.Name = "Label168"
         Me.Label168.Size = New System.Drawing.Size(24, 17)
         Me.Label168.TabIndex = 235
@@ -1570,7 +1574,7 @@ Partial Class Form1
         'Label167
         '
         Me.Label167.AutoSize = True
-        Me.Label167.Location = New System.Drawing.Point(58, 150)
+        Me.Label167.Location = New System.Drawing.Point(57, 150)
         Me.Label167.Name = "Label167"
         Me.Label167.Size = New System.Drawing.Size(16, 17)
         Me.Label167.TabIndex = 234
@@ -1588,7 +1592,7 @@ Partial Class Form1
         'Label165
         '
         Me.Label165.AutoSize = True
-        Me.Label165.Location = New System.Drawing.Point(322, 130)
+        Me.Label165.Location = New System.Drawing.Point(319, 130)
         Me.Label165.Name = "Label165"
         Me.Label165.Size = New System.Drawing.Size(32, 17)
         Me.Label165.TabIndex = 232
@@ -1597,7 +1601,7 @@ Partial Class Form1
         'Label164
         '
         Me.Label164.AutoSize = True
-        Me.Label164.Location = New System.Drawing.Point(225, 130)
+        Me.Label164.Location = New System.Drawing.Point(222, 130)
         Me.Label164.Name = "Label164"
         Me.Label164.Size = New System.Drawing.Size(32, 17)
         Me.Label164.TabIndex = 231
@@ -1606,7 +1610,7 @@ Partial Class Form1
         'Label163
         '
         Me.Label163.AutoSize = True
-        Me.Label163.Location = New System.Drawing.Point(125, 130)
+        Me.Label163.Location = New System.Drawing.Point(122, 130)
         Me.Label163.Name = "Label163"
         Me.Label163.Size = New System.Drawing.Size(24, 17)
         Me.Label163.TabIndex = 230
@@ -1615,7 +1619,7 @@ Partial Class Form1
         'Label162
         '
         Me.Label162.AutoSize = True
-        Me.Label162.Location = New System.Drawing.Point(58, 130)
+        Me.Label162.Location = New System.Drawing.Point(57, 130)
         Me.Label162.Name = "Label162"
         Me.Label162.Size = New System.Drawing.Size(16, 17)
         Me.Label162.TabIndex = 229
@@ -1633,7 +1637,7 @@ Partial Class Form1
         'Label160
         '
         Me.Label160.AutoSize = True
-        Me.Label160.Location = New System.Drawing.Point(322, 110)
+        Me.Label160.Location = New System.Drawing.Point(319, 110)
         Me.Label160.Name = "Label160"
         Me.Label160.Size = New System.Drawing.Size(32, 17)
         Me.Label160.TabIndex = 227
@@ -1642,7 +1646,7 @@ Partial Class Form1
         'Label159
         '
         Me.Label159.AutoSize = True
-        Me.Label159.Location = New System.Drawing.Point(225, 110)
+        Me.Label159.Location = New System.Drawing.Point(222, 110)
         Me.Label159.Name = "Label159"
         Me.Label159.Size = New System.Drawing.Size(24, 17)
         Me.Label159.TabIndex = 226
@@ -1651,7 +1655,7 @@ Partial Class Form1
         'Label158
         '
         Me.Label158.AutoSize = True
-        Me.Label158.Location = New System.Drawing.Point(125, 110)
+        Me.Label158.Location = New System.Drawing.Point(122, 110)
         Me.Label158.Name = "Label158"
         Me.Label158.Size = New System.Drawing.Size(24, 17)
         Me.Label158.TabIndex = 225
@@ -1660,7 +1664,7 @@ Partial Class Form1
         'Label157
         '
         Me.Label157.AutoSize = True
-        Me.Label157.Location = New System.Drawing.Point(58, 110)
+        Me.Label157.Location = New System.Drawing.Point(57, 110)
         Me.Label157.Name = "Label157"
         Me.Label157.Size = New System.Drawing.Size(16, 17)
         Me.Label157.TabIndex = 224
@@ -1678,7 +1682,7 @@ Partial Class Form1
         'Label155
         '
         Me.Label155.AutoSize = True
-        Me.Label155.Location = New System.Drawing.Point(322, 90)
+        Me.Label155.Location = New System.Drawing.Point(319, 90)
         Me.Label155.Name = "Label155"
         Me.Label155.Size = New System.Drawing.Size(24, 17)
         Me.Label155.TabIndex = 222
@@ -1687,7 +1691,7 @@ Partial Class Form1
         'Label154
         '
         Me.Label154.AutoSize = True
-        Me.Label154.Location = New System.Drawing.Point(225, 90)
+        Me.Label154.Location = New System.Drawing.Point(222, 90)
         Me.Label154.Name = "Label154"
         Me.Label154.Size = New System.Drawing.Size(24, 17)
         Me.Label154.TabIndex = 221
@@ -1705,7 +1709,7 @@ Partial Class Form1
         'Label150
         '
         Me.Label150.AutoSize = True
-        Me.Label150.Location = New System.Drawing.Point(322, 70)
+        Me.Label150.Location = New System.Drawing.Point(319, 70)
         Me.Label150.Name = "Label150"
         Me.Label150.Size = New System.Drawing.Size(24, 17)
         Me.Label150.TabIndex = 217
@@ -1714,7 +1718,7 @@ Partial Class Form1
         'Label149
         '
         Me.Label149.AutoSize = True
-        Me.Label149.Location = New System.Drawing.Point(225, 70)
+        Me.Label149.Location = New System.Drawing.Point(222, 70)
         Me.Label149.Name = "Label149"
         Me.Label149.Size = New System.Drawing.Size(16, 17)
         Me.Label149.TabIndex = 216
@@ -1723,7 +1727,7 @@ Partial Class Form1
         'Label146
         '
         Me.Label146.AutoSize = True
-        Me.Label146.Location = New System.Drawing.Point(322, 50)
+        Me.Label146.Location = New System.Drawing.Point(319, 50)
         Me.Label146.Name = "Label146"
         Me.Label146.Size = New System.Drawing.Size(16, 17)
         Me.Label146.TabIndex = 213
@@ -1741,7 +1745,7 @@ Partial Class Form1
         'Label144
         '
         Me.Label144.AutoSize = True
-        Me.Label144.Location = New System.Drawing.Point(225, 50)
+        Me.Label144.Location = New System.Drawing.Point(222, 50)
         Me.Label144.Name = "Label144"
         Me.Label144.Size = New System.Drawing.Size(16, 17)
         Me.Label144.TabIndex = 8
@@ -1750,7 +1754,7 @@ Partial Class Form1
         'Label140
         '
         Me.Label140.AutoSize = True
-        Me.Label140.Location = New System.Drawing.Point(322, 0)
+        Me.Label140.Location = New System.Drawing.Point(319, 0)
         Me.Label140.Name = "Label140"
         Me.Label140.Size = New System.Drawing.Size(44, 34)
         Me.Label140.TabIndex = 4
@@ -1759,7 +1763,7 @@ Partial Class Form1
         'Label138
         '
         Me.Label138.AutoSize = True
-        Me.Label138.Location = New System.Drawing.Point(125, 0)
+        Me.Label138.Location = New System.Drawing.Point(122, 0)
         Me.Label138.Name = "Label138"
         Me.Label138.Size = New System.Drawing.Size(74, 34)
         Me.Label138.TabIndex = 2
@@ -1768,7 +1772,7 @@ Partial Class Form1
         'Label137
         '
         Me.Label137.AutoSize = True
-        Me.Label137.Location = New System.Drawing.Point(58, 0)
+        Me.Label137.Location = New System.Drawing.Point(57, 0)
         Me.Label137.Name = "Label137"
         Me.Label137.Size = New System.Drawing.Size(58, 50)
         Me.Label137.TabIndex = 1
@@ -1786,7 +1790,7 @@ Partial Class Form1
         'Label153
         '
         Me.Label153.AutoSize = True
-        Me.Label153.Location = New System.Drawing.Point(58, 90)
+        Me.Label153.Location = New System.Drawing.Point(57, 90)
         Me.Label153.Name = "Label153"
         Me.Label153.Size = New System.Drawing.Size(16, 17)
         Me.Label153.TabIndex = 220
@@ -1795,7 +1799,7 @@ Partial Class Form1
         'Label152
         '
         Me.Label152.AutoSize = True
-        Me.Label152.Location = New System.Drawing.Point(125, 90)
+        Me.Label152.Location = New System.Drawing.Point(122, 90)
         Me.Label152.Name = "Label152"
         Me.Label152.Size = New System.Drawing.Size(28, 17)
         Me.Label152.TabIndex = 219
@@ -1804,7 +1808,7 @@ Partial Class Form1
         'Label148
         '
         Me.Label148.AutoSize = True
-        Me.Label148.Location = New System.Drawing.Point(58, 70)
+        Me.Label148.Location = New System.Drawing.Point(57, 70)
         Me.Label148.Name = "Label148"
         Me.Label148.Size = New System.Drawing.Size(16, 17)
         Me.Label148.TabIndex = 215
@@ -1813,7 +1817,7 @@ Partial Class Form1
         'Label147
         '
         Me.Label147.AutoSize = True
-        Me.Label147.Location = New System.Drawing.Point(125, 70)
+        Me.Label147.Location = New System.Drawing.Point(122, 70)
         Me.Label147.Name = "Label147"
         Me.Label147.Size = New System.Drawing.Size(28, 17)
         Me.Label147.TabIndex = 214
@@ -1822,7 +1826,7 @@ Partial Class Form1
         'Label143
         '
         Me.Label143.AutoSize = True
-        Me.Label143.Location = New System.Drawing.Point(58, 50)
+        Me.Label143.Location = New System.Drawing.Point(57, 50)
         Me.Label143.Name = "Label143"
         Me.Label143.Size = New System.Drawing.Size(24, 17)
         Me.Label143.TabIndex = 7
@@ -1831,7 +1835,7 @@ Partial Class Form1
         'Label142
         '
         Me.Label142.AutoSize = True
-        Me.Label142.Location = New System.Drawing.Point(125, 50)
+        Me.Label142.Location = New System.Drawing.Point(122, 50)
         Me.Label142.Name = "Label142"
         Me.Label142.Size = New System.Drawing.Size(28, 17)
         Me.Label142.TabIndex = 6
@@ -1849,7 +1853,7 @@ Partial Class Form1
         'Label139
         '
         Me.Label139.AutoSize = True
-        Me.Label139.Location = New System.Drawing.Point(225, 0)
+        Me.Label139.Location = New System.Drawing.Point(222, 0)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(44, 34)
         Me.Label139.TabIndex = 3
@@ -3283,7 +3287,7 @@ Partial Class Form1
         Me.WeatherDirectoryBox.Location = New System.Drawing.Point(146, 48)
         Me.WeatherDirectoryBox.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.WeatherDirectoryBox.Name = "WeatherDirectoryBox"
-        Me.WeatherDirectoryBox.Size = New System.Drawing.Size(723, 22)
+        Me.WeatherDirectoryBox.Size = New System.Drawing.Size(806, 22)
         Me.WeatherDirectoryBox.TabIndex = 89
         '
         'GetWeatherFileDirectory
@@ -3298,6 +3302,9 @@ Partial Class Form1
         '
         'SchemeScenarios
         '
+        Me.SchemeScenarios.Controls.Add(Me.SelectScenarioBatchFile)
+        Me.SchemeScenarios.Controls.Add(Me.GetScenariosCheckBox)
+        Me.SchemeScenarios.Controls.Add(Me.ScenarioBatchFileBox)
         Me.SchemeScenarios.Controls.Add(Me.ClearAllScenarios)
         Me.SchemeScenarios.Controls.Add(Me.ClearSelectedScenarios)
         Me.SchemeScenarios.Controls.Add(Me.SelectScenarios)
@@ -3314,6 +3321,34 @@ Partial Class Form1
         Me.SchemeScenarios.TabIndex = 8
         Me.SchemeScenarios.Text = "Scenarios"
         Me.SchemeScenarios.UseVisualStyleBackColor = True
+        '
+        'SelectScenarioBatchFile
+        '
+        Me.SelectScenarioBatchFile.Location = New System.Drawing.Point(19, 432)
+        Me.SelectScenarioBatchFile.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.SelectScenarioBatchFile.Name = "SelectScenarioBatchFile"
+        Me.SelectScenarioBatchFile.Size = New System.Drawing.Size(109, 52)
+        Me.SelectScenarioBatchFile.TabIndex = 93
+        Me.SelectScenarioBatchFile.Text = "Find Scenario File"
+        Me.SelectScenarioBatchFile.UseVisualStyleBackColor = True
+        '
+        'GetScenariosCheckBox
+        '
+        Me.GetScenariosCheckBox.AutoSize = True
+        Me.GetScenariosCheckBox.Location = New System.Drawing.Point(19, 406)
+        Me.GetScenariosCheckBox.Name = "GetScenariosCheckBox"
+        Me.GetScenariosCheckBox.Size = New System.Drawing.Size(209, 21)
+        Me.GetScenariosCheckBox.TabIndex = 92
+        Me.GetScenariosCheckBox.Text = "Get scenarios from a csv file"
+        Me.GetScenariosCheckBox.UseVisualStyleBackColor = True
+        '
+        'ScenarioBatchFileBox
+        '
+        Me.ScenarioBatchFileBox.Location = New System.Drawing.Point(146, 432)
+        Me.ScenarioBatchFileBox.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ScenarioBatchFileBox.Name = "ScenarioBatchFileBox"
+        Me.ScenarioBatchFileBox.Size = New System.Drawing.Size(806, 22)
+        Me.ScenarioBatchFileBox.TabIndex = 90
         '
         'ClearAllScenarios
         '
@@ -3358,7 +3393,7 @@ Partial Class Form1
         Me.ScenarioListBox.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ScenarioListBox.Name = "ScenarioListBox"
         Me.ScenarioListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended
-        Me.ScenarioListBox.Size = New System.Drawing.Size(723, 244)
+        Me.ScenarioListBox.Size = New System.Drawing.Size(806, 244)
         Me.ScenarioListBox.TabIndex = 12
         '
         'Label87
@@ -5881,10 +5916,6 @@ Partial Class Form1
         Me.Label94.TabIndex = 207
         Me.Label94.Text = "...........,.........................................................."
         '
-        'OpenSingleScenarioFile
-        '
-        Me.OpenSingleScenarioFile.FileName = "OpenFileDialog1"
-        '
         'OpenWaterbodyFile
         '
         Me.OpenWaterbodyFile.FileName = "OpenFileDialog1"
@@ -6496,4 +6527,8 @@ Partial Class Form1
     Friend WithEvents Column34 As DataGridViewTextBoxColumn
     Friend WithEvents Column35 As DataGridViewTextBoxColumn
     Friend WithEvents Column36 As DataGridViewTextBoxColumn
+    Friend WithEvents SelectScenarioBatchFile As Button
+    Friend WithEvents GetScenariosCheckBox As CheckBox
+    Friend WithEvents ScenarioBatchFileBox As TextBox
+    Friend WithEvents OpenSelectScenarioBatchFile As OpenFileDialog
 End Class

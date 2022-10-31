@@ -402,16 +402,18 @@ Public Class Form1
             .Scenarios = New List(Of String)
         } 'local for picking up schem inforation
 
+
+        Dim Description As String
+        Dim SchemeLabels As String
+        Dim DisplayedSchemeNumber As Integer
+
+
         If e.RowIndex < 0 Then
             Exit Sub
         End If
 
         Select Case SchemeTableDisplay.Columns(e.ColumnIndex).Name
             Case "Edit"
-
-                Dim Description As String
-                Dim SchemeLabels As String
-                Dim DisplayedSchemeNumber As Integer
 
                 'clear all got it
                 For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
@@ -564,6 +566,21 @@ Public Class Form1
                 If SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = False Then
                     Exit Select
                 End If
+
+
+                'same set of lines as in EDIT above, but needed because if you change scheme description
+                'without unchecking and rechecking EDIT, then the labvels will not be loaded
+                Description = SchemeTableDisplay.Rows(e.RowIndex).Cells(3).Value
+
+                DisplayedSchemeNumber = e.RowIndex + 1
+                SchemeLabels = DisplayedSchemeNumber & " " & Description
+
+                Label88.Text = SchemeLabels
+                Label87.Text = SchemeLabels
+
+
+
+
 
 
                 For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
@@ -1091,11 +1108,29 @@ Public Class Form1
 
     End Sub
 
-    Private Sub DataGridView1_CellContentClick_1(sender As Object, e As DataGridViewCellEventArgs) Handles SprayGridView.CellContentClick
+    Private Sub SelectScenarioBatchFile_Click(sender As Object, e As EventArgs) Handles SelectScenarioBatchFile.Click
+        Dim result As System.Windows.Forms.DialogResult
+
+        OpenSelectScenarioBatchFile.Filter = "Scenario Batch Files (*.CSV)|*.CSV| All files (*.*)|*.*"
+
+        OpenSelectScenarioBatchFile.InitialDirectory = FileNames.DefaultScenarioDirectory
+
+        If System.IO.Directory.Exists(FileNames.PreviousScenarioPath) Then
+            OpenSelectScenarioBatchFile.InitialDirectory = FileNames.PreviousScenarioPath
+        End If
+
+        result = OpenSelectScenarioBatchFile.ShowDialog() 'display Open dialog box
+        'Cancel button will cuase return without further execution
+        If result = Windows.Forms.DialogResult.Cancel Then
+            Return
+        End If
+
+        FileNames.PreviousScenarioPath = System.IO.Path.GetDirectoryName(OpenSelectScenarioBatchFile.FileName)
+        ScenarioBatchFileBox.Text = OpenSelectScenarioBatchFile.FileName
+
+        FileNames.PreviousScenarioPath = System.IO.Path.GetDirectoryName(OpenSelectScenarioBatchFile.FileName)
 
     End Sub
-
-
 End Class
 
 
