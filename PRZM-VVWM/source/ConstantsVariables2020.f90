@@ -201,7 +201,8 @@ module constants_and_variables
       
       
       !Scenario Parameters
-     ! Character(Len = 100)              :: scenario_id  use run_id
+      Character(Len = 100)              :: scenario_id  ! used in batch scenario file
+      
       Character(Len = maxFileLength)    :: weatherfilename
       Character(Len = maxFileLength)    :: weatherfiledirectory
       real                              :: latitude

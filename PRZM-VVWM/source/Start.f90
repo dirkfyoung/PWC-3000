@@ -28,6 +28,8 @@ program PRZMVVWM
     integer :: hh, i ,jj, kk,  iostatus
     logical error
 
+    
+    character :: dummy
     !################################################ 
     CALL CPU_TIME (cputime_begin)
     write (*,*) 'Start CPU Time',  cputime_begin
@@ -82,45 +84,42 @@ program PRZMVVWM
 	     Write(*,*) '********************************************************************'
 		 
          do i = 1, number_of_schemes
-			Write(*,*) '**** Doing Scheme No. ', i
+			 Write(*,*) '**** Doing Scheme No. ', i
 			 
-            call set_chemical_applications(i) !gets the individual application scheme from the whole scheme table, non scenario specfic 
+             call set_chemical_applications(i) !gets the individual application scheme from the whole scheme table, non scenario specfic 
 							
-			write(*,*) '********************************************************************'
-	        write(*,*) '********** Start Scenario Loop *************************************'
-	        Write(*,*) '********************************************************************'	
-				
-            
-           if( is_batch_scenario(i)) then
-               write(*,*)  trim(scenario_batchfile(i))
+		  	 write(*,*) '********************************************************************'
+	         write(*,*) '********** Start Scenario Loop *************************************'
+	         Write(*,*) '********************************************************************'	
+				           
+            if(is_batch_scenario(i)) then
+               write(*,*) 'Batch Scenario File ',  trim(scenario_batchfile(i))
+               open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus )
                
+               write(92,*) iostatus
                
-              open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus )
+               read(BatchFileUnit,*) dummy
+               write(92,*) 'DUMMY' , dummy
 
-              
-              write(*,*) 'open batch scenario file status =' , iostatus
-           end if
-           
+            end if    
        
             kk=0
-            do !scenatrio do loop
-               !Loop controled by eithger the number of files in the batch or by the number of scenarios read in from input file
+            do !scenario do loop
+               !Loop controled by either the number of files in the batch or by the number of scenarios read in from input file
                kk=kk+1
                write(*,*) 'Doing scenario ', KK
                if( is_batch_scenario(i)) then
-                   read(BatchFileUnit, IOSTAT= iostatus) !enter the long string of values
-                   if(IS_IOSTAT_END (iostatus)) exit !end of batch read, exit do loop
                    
                    
-                   
+                   call read_batch_scenarios(iostatus,BatchFileUnit )
+
+                   if(IS_IOSTAT_END (iostatus)) exit           !end of batch read, exit do loop                  
                else  !use scenarios directly read into input
-                   if (kk == number_of_scenarios(i) + 1) exit
-                  call read_scenario_file(i,kk, error)
-               end if  
-                
+                   Write(*,*) '********** Doing Scenario No. ', kk
+                   if (kk == number_of_scenarios(i) + 1) exit  !end of scenario list fronm gui inputs
+                   call read_scenario_file(i,kk, error)
+               end if                 
             
-			   Write(*,*) '********** Doing Scenario No. ', kk
-               call read_scenario_file(i,kk, error)
 			   
                if (error) then 
 				   Write(*,*) 'exiting scenario loop due to scenario open problem'
@@ -189,18 +188,12 @@ write (*,*) '###################################################'
 					 
 			   end do    
 			   
-			   
-			   
-			   
-			   
                call deallocate_scenario_parameters
 			   
 write (*,*) '###################################################'	 
 CALL CPU_TIME (time_1)
 write (*,*) 'cpu time deallocate  ',time_1- cputime_begin
 write (*,*) '###################################################'			   
-			   
-			   
 			   
 			   
 			end do  !END SCENARIO LOOP  kk           

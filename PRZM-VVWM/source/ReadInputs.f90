@@ -574,13 +574,16 @@ end subroutine read_inputfile
   
 
     
-       !************************************************************
+    !************************************************************
     subroutine Read_Weatherfile
     !open weather file, count file, allocate the weather variables, read in dat and place in vectors to store in constant/variable mod.  
     use utilities_1
     use constants_and_Variables, ONLY:precip, pet_evap,air_temperature, wind_speed, solar_radiation, num_records, &
                                       metfileunit,weatherfilename, weatherfiledirectory, &
-                                      startday, first_year, last_year, num_years,first_mon, first_day     
+                                      startday, first_year, last_year, num_years,first_mon, first_day 
+    
+    integer:: julian_emerg, julian_matur, julian_harv
+    
         integer :: dummy, status,i, year
         character(Len=1024) :: weatherfile_pathandname
         weatherfile_pathandname = trim(adjustl(weatherfiledirectory)) // trim(adjustl(weatherfilename))
@@ -648,6 +651,37 @@ end subroutine read_inputfile
 	logical, intent(out) :: error
           WRITE(*,*) 'Problem reading scenario file, skipping scenario ?????????????????????????????'
           error = .TRUE.
-	end subroutine  scenario_error
+    end subroutine  scenario_error
+    
+    
+    
+    
+    
+    subroutine read_batch_scenarios(iostatus, batchfileunit)
+         use constants_and_variables, ONLY: scenario_id, latitude, min_evap_depth, IREG, irtype,max_irrig
+         integer, intent(out) :: iostatus
+         integer, intent(in) :: batchfileunit
+
+         character(LEN=5) :: dummy
+         
+         read(BatchFileUnit, *, IOSTAT=iostatus)   scenario_id, dummy, dummy, dummy ,dummy, dummy, dummy, dummy, dummy, &  !enter the long string of values
+            latitude, dummy, min_evap_depth , IREG, irtype, max_irrig,  PCDEPL, FLEACH,dummy, julian_emerg, julian_matur, julian_harv, &
+             dummy, dummy, dummy, dummy, 
+         
+         write(92,*) 
+         write(92,*) trim(scenario_id), latitude, min_evap_depth, IREG, irtype,max_irrig, PCDEPL, FLEACH,dummy, julian_emerg, julian_matur, julian_harv
+    
+    end subroutine read_batch_scenarios
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 end module readinputs
