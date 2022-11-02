@@ -654,19 +654,34 @@ end subroutine read_inputfile
     end subroutine  scenario_error
     
     
-    
-    
+
     
     subroutine read_batch_scenarios(iostatus, batchfileunit)
-         use constants_and_variables, ONLY: scenario_id, latitude, min_evap_depth, IREG, irtype,max_irrig
+         use constants_and_variables, ONLY: scenario_id, latitude, min_evap_depth, IREG, irtype,max_irrig, PCDEPL, fleach
          integer, intent(out) :: iostatus
          integer, intent(in) :: batchfileunit
 
          character(LEN=5) :: dummy
+         integer :: julian_emerg, julian_matur, julian_harv  !need conversion to days & months and put into emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i
+         real :: canopy_holdup      !needs to be put into array max_canopy_holdup(i)
+         real :: canopy_coverage    !needs to be put into array max_canopy_cover(i)
+         real :: root_depth 
          
          read(BatchFileUnit, *, IOSTAT=iostatus)   scenario_id, dummy, dummy, dummy ,dummy, dummy, dummy, dummy, dummy, &  !enter the long string of values
             latitude, dummy, min_evap_depth , IREG, irtype, max_irrig,  PCDEPL, FLEACH,dummy, julian_emerg, julian_matur, julian_harv, &
-             dummy, dummy, dummy, dummy, 
+             dummy, dummy, dummy, dummy, canopy_holdup, canopy_coverage, root_depth
+         
+         !**************************************************
+         !Foliar Disposition seems to be undefined in the batch file
+         !canopy height is undefined, set to 1 meter by default
+         !crop lag and crop periodicity should be set to 0 and 1 
+         
+         !only one crop period so
+         !crop parameters will be arrays but only of size 1 for this case 
+         !read(ScenarioFileUnit,*, IOSTAT = status) emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i),max_root_depth(i),max_canopy_cover(i),  &
+         ! max_canopy_height(i), max_canopy_holdup(i),foliar_disposition(i), crop_periodicity(i),  crop_lag(i) 
+         
+         !***************************************************
          
          write(92,*) 
          write(92,*) trim(scenario_id), latitude, min_evap_depth, IREG, irtype,max_irrig, PCDEPL, FLEACH,dummy, julian_emerg, julian_matur, julian_harv
