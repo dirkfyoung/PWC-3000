@@ -96,10 +96,8 @@ program PRZMVVWM
                write(*,*) 'Batch Scenario File ',  trim(scenario_batchfile(i))
                open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus )
                
-               write(92,*) iostatus
-               
                read(BatchFileUnit,*) dummy
-               write(92,*) 'DUMMY' , dummy
+
 
             end if    
        

@@ -358,29 +358,22 @@ end subroutine read_inputfile
         nhoriz,thickness,bd_input,fc_input, wp_input, oc_input, bd_input, Num_delx,sand_input,clay_input,dispersion_input, &
         is_temperature_simulated , albedo, emmiss, NUSLEC,GDUSLEC,GMUSLEC,cn_2, uslec, &
         runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth, erosion_decline, erosion_effic,use_usleyears,Height_stagnant_air_layer_cm, &
-		is_auto_profile,number_of_discrete_layers,  profile_thick, profile_number_increments
+		is_auto_profile,number_of_discrete_layers,  profile_thick, profile_number_increments,  evergreen
     
-	
-
-	  
-	  
-	  integer :: eof
-
-	
-    logical, intent(out) :: error
+        integer :: eof
+        logical, intent(out) :: error
         integer, intent(in) :: schemenumber,scenarionumber
         character (len=512) filename
         integer :: i,status
  
         !local that will likely need to go to module
-        logical :: lessThanAnnualGrowth, evergreen, greaterThanAnualGrowth
+        !logical :: evergreen
         
         character(len= 50) ::dummy
         real :: scalar_albedo
 		
 		logical :: checkopen
-		
-                                
+            
         write(*,*)  '**********  Start Reading Scenario Values ************************'  
         error = .FALSE.      
         filename = trim(scenario_names(schemenumber,scenarionumber))  
@@ -434,7 +427,9 @@ end subroutine read_inputfile
                
         read(ScenarioFileUnit,'(A)') dummy !   msg = "******** start of PRZM information ******************" & vbNewLine
         
-        read(ScenarioFileUnit,*, IOSTAT=status) lessThanAnnualGrowth, evergreen, greaterThanAnualGrowth
+        read(ScenarioFileUnit,*, IOSTAT=status) dummy, evergreen
+        
+        ! need to add evergreen routine, Shoulkd delete greater than annual growth as not used
     			IF (status .NE. 0) then
 				  call scenario_error(error)
 				  return
@@ -657,36 +652,89 @@ end subroutine read_inputfile
 
     
     subroutine read_batch_scenarios(iostatus, batchfileunit)
-         use constants_and_variables, ONLY: scenario_id, latitude, min_evap_depth, IREG, irtype,max_irrig, PCDEPL, fleach
+         use utilities_1
+         use constants_and_variables, ONLY: scenario_id, latitude, min_evap_depth, IREG, irtype,max_irrig, PCDEPL, fleach, USLEP, USLEK,USLELS,SLP, &
+             num_crop_periods_input,NHORIZ, thickness,bd_input,fc_input,wp_input,oc_input,sand_input,clay_input, evergreen,emm, emd, mad, mam, had, ham, &
+             PFAC,SFAC, max_canopy_cover, max_canopy_holdup, max_root_depth, crop_periodicity, crop_lag,UserSpecifiesDepth, is_temperature_simulated, &
+             EMMISS , ALBEDO , soil_temp_input
+         
+        
          integer, intent(out) :: iostatus
-         integer, intent(in) :: batchfileunit
+         integer, intent(in)  :: batchfileunit
 
          character(LEN=5) :: dummy
          integer :: julian_emerg, julian_matur, julian_harv  !need conversion to days & months and put into emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i
          real :: canopy_holdup      !needs to be put into array max_canopy_holdup(i)
          real :: canopy_coverage    !needs to be put into array max_canopy_cover(i)
-         real :: root_depth 
+         real :: root_depth         !needs to be put into array max_root_depth(i)
+         real :: cn_cov, cn_fal, usle_c_cov, usle_c_fal
+         integer year !dummy not used but for sub op
          
          read(BatchFileUnit, *, IOSTAT=iostatus)   scenario_id, dummy, dummy, dummy ,dummy, dummy, dummy, dummy, dummy, &  !enter the long string of values
-            latitude, dummy, min_evap_depth , IREG, irtype, max_irrig,  PCDEPL, FLEACH,dummy, julian_emerg, julian_matur, julian_harv, &
-             dummy, dummy, dummy, dummy, canopy_holdup, canopy_coverage, root_depth
-         
+             latitude, dummy, min_evap_depth , IREG, irtype, max_irrig,  PCDEPL, FLEACH,dummy, julian_emerg, julian_matur, julian_harv, &
+             dummy, dummy, dummy, dummy, canopy_holdup, canopy_coverage, root_depth, cn_cov, cn_fal, usle_c_cov, usle_c_fal, USLEP, USLEK,USLELS,SLP, &
+             NHORIZ, thickness(1), thickness(2), thickness(3), thickness(4), thickness(5), thickness(6), thickness(7), thickness(8), &
+             bd_input(1),bd_input(2),bd_input(3),bd_input(4),bd_input(5),bd_input(6),bd_input(7),bd_input(8), &
+             fc_input(1),fc_input(2),fc_input(3),fc_input(4),fc_input(5),fc_input(6),fc_input(7),fc_input(8), &
+             wp_input(1),wp_input(2),wp_input(3),wp_input(4),wp_input(5),wp_input(6),wp_input(7),wp_input(8), &
+             oc_input(1),oc_input(2),oc_input(3),oc_input(4),oc_input(5),oc_input(6),oc_input(7),oc_input(8), &
+             sand_input(1),sand_input(2),sand_input(3),sand_input(4),sand_input(5),sand_input(6),sand_input(7),sand_input(8), &
+             clay_input(1),clay_input(2),clay_input(3),clay_input(4),clay_input(5),clay_input(6),clay_input(7),clay_input(8)
+             
+             
          !**************************************************
          !Foliar Disposition seems to be undefined in the batch file
-         !canopy height is undefined, set to 1 meter by default
-         !crop lag and crop periodicity should be set to 0 and 1 
+         !canopy height is undefined, set to 1 meter by default put into: max_canopy_height(i)
+         
+          
+          crop_periodicity(1) =1
+          crop_lag(1) = 0
+          
+         num_crop_periods_input = 1
+         if (julian_emerg==0 .AND.  julian_matur==1 .AND. julian_harv==364) then
+             evergreen = .TRUE. 
+         end if
+         
+         max_canopy_cover(1) = canopy_coverage/100.  ! read in as percent
+         max_canopy_holdup(1)   = canopy_holdup
+         max_root_depth(1)      = root_depth
+         UserSpecifiesDepth = .FALSE.
+         
+         call get_date(julian_emerg, year,emm(1), emd(1) )
+         call get_date(julian_matur, year,mam(1), mad(1) )
+         call get_date(julian_harv, year, ham(1), mad(1) )
+         
+         PFAC = 1.0    !always using PET files now, No need to adjust
+         SFAC = 0.274  !USDA value
+         
+         ALBEDO = 0.2  !albedo is monthly in przm       
+         EMMISS = 0.97           !0.97 is emmisivity fixed
+        
+         is_temperature_simulated = .TRUE. 
+         soil_temp_input = 15  !array for horizons, set as constant for all horizons as initial condition.  May want to make this a varying input
+         
+         
+         
+         
          
          !only one crop period so
          !crop parameters will be arrays but only of size 1 for this case 
          !read(ScenarioFileUnit,*, IOSTAT = status) emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i),max_root_depth(i),max_canopy_cover(i),  &
          ! max_canopy_height(i), max_canopy_holdup(i),foliar_disposition(i), crop_periodicity(i),  crop_lag(i) 
-         
+         !put into size 2 arrays: cn_cov, cn_fal, usle_c_cov, usle_c_fal
+        !         read(ScenarioFileUnit,*) NHORIZ        
+        !read(ScenarioFileUnit,*) (thickness(i), i=1, nhoriz)
+        !read(ScenarioFileUnit,*) (bd_input(i), i=1, nhoriz) 
+        !read(ScenarioFileUnit,*) (fc_input(i), i=1, nhoriz)
+        !read(ScenarioFileUnit,*) (wp_input(i), i=1, nhoriz)
+        !read(ScenarioFileUnit,*) (oc_input(i), i=1, nhoriz)      
+        !read(ScenarioFileUnit,*) (Num_delx(i), i=1, nhoriz)
+        !read(ScenarioFileUnit,*) (sand_input(i), i=1, nhoriz)        
+        !read(ScenarioFileUnit,*) (clay_input(i), i=1, nhoriz)
+        ! 
          !***************************************************
          
-         write(92,*) 
-         write(92,*) trim(scenario_id), latitude, min_evap_depth, IREG, irtype,max_irrig, PCDEPL, FLEACH,dummy, julian_emerg, julian_matur, julian_harv
-    
-    end subroutine read_batch_scenarios
+           end subroutine read_batch_scenarios
     
     
     

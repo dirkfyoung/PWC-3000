@@ -628,7 +628,7 @@ module constants_and_variables
         integer,allocatable,dimension(:,:) :: emergence_date  !(Crop#), these are the processed julian1900 dates
         integer,allocatable,dimension(:,:) :: maturity_date 
         integer,allocatable,dimension(:,:) :: harvest_date    
-      
+        logical :: evergreen
       
       
       !Scalers for core przm run

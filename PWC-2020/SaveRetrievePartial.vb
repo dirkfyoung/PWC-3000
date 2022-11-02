@@ -216,7 +216,7 @@
         msg = msg & vbNewLine
 
         msg = msg & "******** start of PRZM information ******************" & vbNewLine 'line 28
-        msg = msg & String.Format("{0},{1},{2},", "False", Evergreen.Checked, "False")
+        msg = msg & String.Format("False, {0}, False", Evergreen.Checked)  'to be compatible with old scenarios, now only evergreen is needed
 
         Dim numberOfCrops As Integer
 
@@ -968,7 +968,7 @@
 
             currentRow = MyReader.ReadFields
             '  SingleCropAnnual.Checked = currentRow(0)
-            Evergreen.Checked = currentRow(1)
+            Evergreen.Checked = currentRow(1) 'there are unused parameters on this line
 
             Dim croprows As Integer
 
