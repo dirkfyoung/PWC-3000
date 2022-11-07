@@ -76,7 +76,10 @@
             BETA(I) = C(I)/ALPHA(I)
             Y(I) = (F(I)-A(I)*Y(I-1))/ALPHA(I)
         end do
-  
+        
+
+        
+        
         X(N) = Y(N)
         NU=N-1
 
@@ -84,6 +87,9 @@
             J=N-I
             X(J) = Y(J) - BETA(J)*X(J+1)          
         end do
+        
+
+        
     end subroutine tridiagonal_solution
     
 

@@ -94,11 +94,8 @@ program PRZMVVWM
 				           
             if(is_batch_scenario(i)) then
                write(*,*) 'Batch Scenario File ',  trim(scenario_batchfile(i))
-               open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus )
-               
-               read(BatchFileUnit,*) dummy
-
-
+               open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus ) 
+               read(BatchFileUnit,*) dummy  ! skip header
             end if    
        
             kk=0
@@ -107,23 +104,28 @@ program PRZMVVWM
                kk=kk+1
                write(*,*) 'Doing scenario ', KK
                if( is_batch_scenario(i)) then
-                   
-                   
                    call read_batch_scenarios(iostatus,BatchFileUnit )
-
-                   if(IS_IOSTAT_END (iostatus)) exit           !end of batch read, exit do loop                  
+                   WRITE (*,*) IOSTATUS
+                   if(IS_IOSTAT_END (iostatus)) then
+                         write(*,*) 'end of batch scenario read '
+                         exit           !end of batch read, exit do loop  
+                   else if (iostatus==0) then   
+                          write(*,*) 'susscessful scenario read ', kk
+                   else   
+                          write(*,*) 'bad scenario read ', kk
+                   end if   
                else  !use scenarios directly read into input
                    Write(*,*) '********** Doing Scenario No. ', kk
                    if (kk == number_of_scenarios(i) + 1) exit  !end of scenario list fronm gui inputs
                    call read_scenario_file(i,kk, error)
-               end if                 
-            
-			   
+                   
                if (error) then 
 				   Write(*,*) 'exiting scenario loop due to scenario open problem'
 				   cycle   !error, try next scenario in scheme
-               end if
-
+               end if   
+                   
+               end if                 
+            
 write (*,*) '###################################################'	 
 CALL CPU_TIME (time_1)
 write (*,*) 'cpu time scenario start  ',time_1- cputime_begin

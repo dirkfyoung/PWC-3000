@@ -356,7 +356,7 @@ end subroutine read_inputfile
         max_canopy_height, max_canopy_holdup,foliar_disposition, crop_lag, crop_periodicity  , PFAC,SFAC, min_evap_depth,& 
         FLEACH,PCDEPL,max_irrig ,UserSpecifiesDepth, user_irrig_depth,irtype, USLEK,USLELS,USLEP, IREG,SLP, &
         nhoriz,thickness,bd_input,fc_input, wp_input, oc_input, bd_input, Num_delx,sand_input,clay_input,dispersion_input, &
-        is_temperature_simulated , albedo, emmiss, NUSLEC,GDUSLEC,GMUSLEC,cn_2, uslec, &
+        is_temperature_simulated , albedo, NUSLEC,GDUSLEC,GMUSLEC,cn_2, uslec, &
         runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth, erosion_decline, erosion_effic,use_usleyears,Height_stagnant_air_layer_cm, &
 		is_auto_profile,number_of_discrete_layers,  profile_thick, profile_number_increments,  evergreen
     
@@ -429,7 +429,7 @@ end subroutine read_inputfile
         
         read(ScenarioFileUnit,*, IOSTAT=status) dummy, evergreen
         
-        ! need to add evergreen routine, Shoulkd delete greater than annual growth as not used
+        ! need to add evergreen routine, Should delete greater than annual growth as not used
     			IF (status .NE. 0) then
 				  call scenario_error(error)
 				  return
@@ -445,7 +445,7 @@ end subroutine read_inputfile
 
         do  i=1,num_crop_periods_input
             read(ScenarioFileUnit,*, IOSTAT = status) emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i),max_root_depth(i),max_canopy_cover(i),  &
-                max_canopy_height(i), max_canopy_holdup(i),foliar_disposition(i), crop_periodicity(i),  crop_lag(i) 
+                max_canopy_height(i), max_canopy_holdup(i),foliar_disposition(i), crop_periodicity(i), crop_lag(i) 
 			    IF (status .NE. 0) then
 				  call scenario_error(error)
 				  return
@@ -454,7 +454,7 @@ end subroutine read_inputfile
             !PWC saves canopy cover it as a percent, but przm needs fraction
             max_canopy_cover(i)=max_canopy_cover(i)/100.
             
-            write(*,'(8I6)') emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i), crop_periodicity(i),  crop_lag(i) 
+            write(*,'(8I6)') emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i), crop_periodicity(i), crop_lag(i) 
         end do
   
         do i=1, max_number_crop_periods - num_crop_periods_input
@@ -517,8 +517,7 @@ end subroutine read_inputfile
         read(ScenarioFileUnit,*)!msg = msg & vbNewLine & "*** Horizon End, Temperature Start ********"
         !
         read(ScenarioFileUnit,*) scalar_albedo !msg = msg & String.Format("{0}{1},{2}", vbNewLine, albedoBox.Text, bcTemp.Text)
-        ALBEDO = scalar_albedo  !albedo is monthly in przm       
-        EMMISS = 0.97           !0.97 is emmisivity fixed
+        ALBEDO = scalar_albedo                 !albedo is monthly in przm       
         
         read(ScenarioFileUnit,*) is_temperature_simulated !msg = msg & vbNewLine & simTemperature.Checked
 
@@ -649,19 +648,19 @@ end subroutine read_inputfile
     end subroutine  scenario_error
     
     
-
     
     subroutine read_batch_scenarios(iostatus, batchfileunit)
          use utilities_1
-         use constants_and_variables, ONLY: scenario_id, latitude, min_evap_depth, IREG, irtype,max_irrig, PCDEPL, fleach, USLEP, USLEK,USLELS,SLP, &
+         use constants_and_variables, ONLY: scenario_id, weatherfilename,latitude, min_evap_depth, IREG, irtype,max_irrig, PCDEPL, fleach, USLEP, USLEK,USLELS,SLP, &
              num_crop_periods_input,NHORIZ, thickness,bd_input,fc_input,wp_input,oc_input,sand_input,clay_input, evergreen,emm, emd, mad, mam, had, ham, &
              PFAC,SFAC, max_canopy_cover, max_canopy_holdup, max_root_depth, crop_periodicity, crop_lag,UserSpecifiesDepth, is_temperature_simulated, &
-             EMMISS , ALBEDO , soil_temp_input
-         
-        
-         integer, intent(out) :: iostatus
-         integer, intent(in)  :: batchfileunit
-
+             ALBEDO, soil_temp_input, dispersion_input, nuslec,cn_2, USLEC, gmuslec, gduslec, use_usleyears, &
+             runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth,erosion_decline,erosion_effic, Height_stagnant_air_layer_cm, &
+             gw_depth, profile_thick, profile_number_increments, is_auto_profile,  number_of_discrete_layers
+                                                                          
+         integer, intent(out) :: iostatus                                   
+         integer, intent(in)  :: batchfileunit                            
+                                                                            
          character(LEN=5) :: dummy
          integer :: julian_emerg, julian_matur, julian_harv  !need conversion to days & months and put into emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i
          real :: canopy_holdup      !needs to be put into array max_canopy_holdup(i)
@@ -669,8 +668,9 @@ end subroutine read_inputfile
          real :: root_depth         !needs to be put into array max_root_depth(i)
          real :: cn_cov, cn_fal, usle_c_cov, usle_c_fal
          integer year !dummy not used but for sub op
+         character(LEN=10) :: weather_grid
          
-         read(BatchFileUnit, *, IOSTAT=iostatus)   scenario_id, dummy, dummy, dummy ,dummy, dummy, dummy, dummy, dummy, &  !enter the long string of values
+         read(BatchFileUnit, *, IOSTAT=iostatus)   scenario_id, dummy, weather_grid, dummy ,dummy, dummy, dummy, dummy, dummy, &  !enter the long string of values
              latitude, dummy, min_evap_depth , IREG, irtype, max_irrig,  PCDEPL, FLEACH,dummy, julian_emerg, julian_matur, julian_harv, &
              dummy, dummy, dummy, dummy, canopy_holdup, canopy_coverage, root_depth, cn_cov, cn_fal, usle_c_cov, usle_c_fal, USLEP, USLEK,USLELS,SLP, &
              NHORIZ, thickness(1), thickness(2), thickness(3), thickness(4), thickness(5), thickness(6), thickness(7), thickness(8), &
@@ -680,13 +680,15 @@ end subroutine read_inputfile
              oc_input(1),oc_input(2),oc_input(3),oc_input(4),oc_input(5),oc_input(6),oc_input(7),oc_input(8), &
              sand_input(1),sand_input(2),sand_input(3),sand_input(4),sand_input(5),sand_input(6),sand_input(7),sand_input(8), &
              clay_input(1),clay_input(2),clay_input(3),clay_input(4),clay_input(5),clay_input(6),clay_input(7),clay_input(8)
-             
-             
+                          
+         
+         if (iostatus /= 0) return
          !**************************************************
          !Foliar Disposition seems to be undefined in the batch file
          !canopy height is undefined, set to 1 meter by default put into: max_canopy_height(i)
-         
-          
+                  
+         weatherfilename = trim(adjustl(weather_grid)) // '_grid.wea'
+         write(*,*) trim(weatherfilename)
           crop_periodicity(1) =1
           crop_lag(1) = 0
           
@@ -700,51 +702,68 @@ end subroutine read_inputfile
          max_root_depth(1)      = root_depth
          UserSpecifiesDepth = .FALSE.
          
-         call get_date(julian_emerg, year,emm(1), emd(1) )
-         call get_date(julian_matur, year,mam(1), mad(1) )
-         call get_date(julian_harv, year, ham(1), mad(1) )
+         call get_date(julian_emerg, year, emm(1), emd(1) )
+         call get_date(julian_matur, year, mam(1), mad(1) )
+         call get_date(julian_harv , year, ham(1), mad(1) )
          
          PFAC = 1.0    !always using PET files now, No need to adjust
          SFAC = 0.274  !USDA value
          
          ALBEDO = 0.2  !albedo is monthly in przm       
-         EMMISS = 0.97           !0.97 is emmisivity fixed
         
          is_temperature_simulated = .TRUE. 
-         soil_temp_input = 15  !array for horizons, set as constant for all horizons as initial condition.  May want to make this a varying input
-         
-         
-         
-         
-         
-         !only one crop period so
-         !crop parameters will be arrays but only of size 1 for this case 
-         !read(ScenarioFileUnit,*, IOSTAT = status) emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i),max_root_depth(i),max_canopy_cover(i),  &
-         ! max_canopy_height(i), max_canopy_holdup(i),foliar_disposition(i), crop_periodicity(i),  crop_lag(i) 
-         !put into size 2 arrays: cn_cov, cn_fal, usle_c_cov, usle_c_fal
-        !         read(ScenarioFileUnit,*) NHORIZ        
-        !read(ScenarioFileUnit,*) (thickness(i), i=1, nhoriz)
-        !read(ScenarioFileUnit,*) (bd_input(i), i=1, nhoriz) 
-        !read(ScenarioFileUnit,*) (fc_input(i), i=1, nhoriz)
-        !read(ScenarioFileUnit,*) (wp_input(i), i=1, nhoriz)
-        !read(ScenarioFileUnit,*) (oc_input(i), i=1, nhoriz)      
-        !read(ScenarioFileUnit,*) (Num_delx(i), i=1, nhoriz)
-        !read(ScenarioFileUnit,*) (sand_input(i), i=1, nhoriz)        
-        !read(ScenarioFileUnit,*) (clay_input(i), i=1, nhoriz)
-        ! 
-         !***************************************************
-         
-           end subroutine read_batch_scenarios
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
+         
+         soil_temp_input  = 15.  !array for horizons, set as constant for all horizons as initial condition.  May want to make this a varying input
+         dispersion_input = 0.0
+         
+         nuslec = 2
+         CN_2(1)  = cn_cov
+         CN_2(2)  = cn_fal 
+         USLEC(1) = usle_c_cov
+         USLEC(2) = usle_c_fal
+         
+         GDUSLEC(1) = emd(1)  !emergence 
+         GMUSLEC(1) = emm(1)
+         
+         GDUSLEC(2) = had(1)  !harvest
+         GMUSLEC(2) = ham(1)
+         use_usleyears = .FALSE.
+         
+        runoff_extr_depth = 8.0
+        runoff_decline    = 1.4
+        runoff_effic      = 0.19
+        erosion_depth     = 0.1
+        erosion_decline   = 0.0
+        erosion_effic     = 1.0
+         
+        Height_stagnant_air_layer_cm = 5.0
+        
+        is_auto_profile = .TRUE.
+        gw_depth = 1000.
+        
+        !Define aautoproifile here
+        
+        number_of_discrete_layers	=   6
+        profile_thick(1) =  3.0
+        profile_thick(2) =  7.0
+        profile_thick(3) = 10.0
+        profile_thick(4) = 80.0      
+        profile_thick(5) = gw_depth - 100.  ! gw_depth is depth to aquifer surface, subtract the 1 meter from above
+        profile_thick(6) = 100.       
+      
+        
+        profile_number_increments(1) = 30
+	    profile_number_increments(2) =  7
+        profile_number_increments(3) =  2
+        profile_number_increments(4) =  4 
+        profile_number_increments(5) = int(gw_depth)/50 -2
+        profile_number_increments(6) = 2
+        
+        write(*,'(6I8)') profile_number_increments(1:6)
+         write(*,*) 'end batch reaD'
+    end subroutine read_batch_scenarios
+    
+    
+    
 end module readinputs

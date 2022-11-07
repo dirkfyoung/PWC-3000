@@ -285,7 +285,7 @@ use clock_variables
       
     INTEGER ::   I
     real    ::   A(ncom2),B(ncom2),C(ncom2),F(ncom2)
-
+integer mm
 
     SRCFLX(1,:)=0.0  !Parent production is always zero. For degradate, this variable gets populated after corrrector run
     ! Set up coefficients for surface layer
@@ -336,9 +336,16 @@ use clock_variables
          
         F(I)=(theta_old(I) + Kd_old(K,I)*bulkdensity(I)  +  theta_air_old(I)*old_Henry(K,I) )* old_conc(I)  +  &
                (soil_applied_washoff(K,I)*DELT/DELX(I)) +     SRCFLX(K,I)/DELX(I)*DELT
+        
+      
+
+ 
+        
+        
     end do
         
-  
+
+
 
 	
     !Runoff and Erosion are not included in the last layer
@@ -356,8 +363,11 @@ use clock_variables
     F(NCOM2)= (theta_old(NCOM2)+Kd_old(K,NCOM2)*bulkdensity(NCOM2)+ theta_air_old(NCOM2)*old_Henry(K,NCOM2))* old_conc(NCOM2)  &
                +(soil_applied_washoff(K,NCOM2)*DELT/DELX(NCOM2))    +  SRCFLX(K,NCOM2)/DELX(NCOM2)*DELT
   
-CALL CPU_TIME (time_5)					
+CALL CPU_TIME (time_5)	
 
+
+
+  
     CALL TRIDIAGONAL_Solution (A,B,C, new_conc,F,NCOM2)        
 
 	

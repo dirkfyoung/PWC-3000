@@ -13,7 +13,7 @@
  Working Directory is: C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\
  Family Name is: testnew
  weather directory is 
- C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\WeatherFiles\
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\
  Sorption coeff.    5.00000000000000        12.0000000000000     
   0.000000000000000E+000
  Freundlich exponents    1.00000000000000        1.00000000000000     
@@ -30,21 +30,13 @@
  hydrol halflife:   0.000000000000000E+000   44.0000000000000     
   0.000000000000000E+000
  soil conversions   1.00000000000000       0.000000000000000E+000
- Number of schemes =                      2
+ Number of schemes =                      1
  Scheme Number & Name                      1 one
  Rain fast F   2.00000000000000                          2                    10
                      7
- Number of Scenarios =                      1
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testScenario.scn2
+ Number of Scenarios =                      0
  T
 C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv                                                                                                                                                                                                                                                                                                                                                                                                                                                
- Scheme Number & Name                      2 two
- Rain fast F   2.00000000000000                          2                    10
-                     7
- Number of Scenarios =                      1
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testScenario.scn2
- F
-alphaset.cvs                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
  Total Number of waterbodies                     1
  C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\waterbodies\xtest.WAT
  reading extra time series if any
@@ -93,15 +85,145 @@ alphaset.cvs
  C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.cs
  v
  Doing scenario                      1
-forrtl: severe (194): Run-Time Check Failure. The variable \'_PRZMVVWM$ERROR\' is being used in \'C:\Users\dfy97\Documents\My Programs\PWC-2022\PRZM-VVWM\source\Start.f90(122,20)\' without being defined
-Image              PC        Routine            Line        Source             
-PRZM-VVWM.exe      00D37199  Unknown               Unknown  Unknown
-PRZM-VVWM.exe      00D31B0C  _MAIN__                   122  Start.f90
-PRZM-VVWM.exe      00DD75A3  Unknown               Unknown  Unknown
-PRZM-VVWM.exe      00DD8783  Unknown               Unknown  Unknown
-PRZM-VVWM.exe      00DD8657  Unknown               Unknown  Unknown
-PRZM-VVWM.exe      00DD84FD  Unknown               Unknown  Unknown
-PRZM-VVWM.exe      00DD87E8  Unknown               Unknown  Unknown
-KERNEL32.DLL       75E5FA29  Unknown               Unknown  Unknown
-ntdll.dll          770A7BBE  Unknown               Unknown  Unknown
-ntdll.dll          770A7B8E  Unknown               Unknown  Unknown
+ 77_grid.wea
+      30       7       2       4      18       2
+ end batch reaD
+                     0
+ susscessful scenario read                      1
+ ###################################################
+ cpu time scenario start    0.000000000000000E+000
+ ###################################################
+ weather path and file to open: 
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\77_grid.wea
+ Weather file total days =                    365
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather   0.000000000000000E+000
+ ###################################################
+ Do autoprofile ?  T
+ target    10.0000000000000     
+ target    152.000000000000     
+ incremnt depth    bd  theta_fc theta_wp   oc    sand    clay
+    1      0.10   1.650   0.068   0.022   0.435  96.000   2.500
+    2      0.20   1.650   0.068   0.022   0.435  96.000   2.500
+    3      0.30   1.650   0.068   0.022   0.435  96.000   2.500
+    4      0.40   1.650   0.068   0.022   0.435  96.000   2.500
+    5      0.50   1.650   0.068   0.022   0.435  96.000   2.500
+    6      0.60   1.650   0.068   0.022   0.435  96.000   2.500
+    7      0.70   1.650   0.068   0.022   0.435  96.000   2.500
+    8      0.80   1.650   0.068   0.022   0.435  96.000   2.500
+    9      0.90   1.650   0.068   0.022   0.435  96.000   2.500
+   10      1.00   1.650   0.068   0.022   0.435  96.000   2.500
+   11      1.10   1.650   0.068   0.022   0.435  96.000   2.500
+   12      1.20   1.650   0.068   0.022   0.435  96.000   2.500
+   13      1.30   1.650   0.068   0.022   0.435  96.000   2.500
+   14      1.40   1.650   0.068   0.022   0.435  96.000   2.500
+   15      1.50   1.650   0.068   0.022   0.435  96.000   2.500
+   16      1.60   1.650   0.068   0.022   0.435  96.000   2.500
+   17      1.70   1.650   0.068   0.022   0.435  96.000   2.500
+   18      1.80   1.650   0.068   0.022   0.435  96.000   2.500
+   19      1.90   1.650   0.068   0.022   0.435  96.000   2.500
+   20      2.00   1.650   0.068   0.022   0.435  96.000   2.500
+   21      2.10   1.650   0.068   0.022   0.435  96.000   2.500
+   22      2.20   1.650   0.068   0.022   0.435  96.000   2.500
+   23      2.30   1.650   0.068   0.022   0.435  96.000   2.500
+   24      2.40   1.650   0.068   0.022   0.435  96.000   2.500
+   25      2.50   1.650   0.068   0.022   0.435  96.000   2.500
+   26      2.60   1.650   0.068   0.022   0.435  96.000   2.500
+   27      2.70   1.650   0.068   0.022   0.435  96.000   2.500
+   28      2.80   1.650   0.068   0.022   0.435  96.000   2.500
+   29      2.90   1.650   0.068   0.022   0.435  96.000   2.500
+   30      3.00   1.650   0.068   0.022   0.435  96.000   2.500
+   31      4.00   1.650   0.068   0.022   0.435  96.000   2.500
+   32      5.00   1.650   0.068   0.022   0.435  96.000   2.500
+   33      6.00   1.650   0.068   0.022   0.435  96.000   2.500
+   34      7.00   1.650   0.068   0.022   0.435  96.000   2.500
+   35      8.00   1.650   0.068   0.022   0.435  96.000   2.500
+   36      9.00   1.650   0.068   0.022   0.435  96.000   2.500
+   37     10.00   1.650   0.068   0.022   0.435  96.000   2.500
+   38     15.00   1.650   0.059   0.016   0.145  96.000   2.500
+   39     20.00   1.650   0.059   0.016   0.145  96.000   2.500
+   40     40.00   1.650   0.059   0.016   0.145  96.000   2.500
+   41     60.00   1.650   0.059   0.016   0.145  96.000   2.500
+   42     80.00   1.650   0.059   0.016   0.145  96.000   2.500
+   43    100.00   1.650   0.059   0.016   0.145  96.000   2.500
+   44    150.00   1.650   0.059   0.016   0.145  96.000   2.500
+   45    200.00   1.650   0.059   0.016   0.145  96.000   2.500
+   46    250.00   1.650   0.059   0.016   0.145  96.000   2.500
+   47    300.00   1.650   0.059   0.016   0.145  96.000   2.500
+   48    350.00   1.650   0.059   0.016   0.145  96.000   2.500
+   49    400.00   1.650   0.059   0.016   0.145  96.000   2.500
+   50    450.00   1.650   0.059   0.016   0.145  96.000   2.500
+   51    500.00   1.650   0.059   0.016   0.145  96.000   2.500
+   52    550.00   1.650   0.059   0.016   0.145  96.000   2.500
+   53    600.00   1.650   0.059   0.016   0.145  96.000   2.500
+   54    650.00   1.650   0.059   0.016   0.145  96.000   2.500
+   55    700.00   1.650   0.059   0.016   0.145  96.000   2.500
+   56    750.00   1.650   0.059   0.016   0.145  96.000   2.500
+   57    800.00   1.650   0.059   0.016   0.145  96.000   2.500
+   58    850.00   1.650   0.059   0.016   0.145  96.000   2.500
+   59    900.00   1.650   0.059   0.016   0.145  96.000   2.500
+   60    950.00   1.650   0.059   0.016   0.145  96.000   2.500
+   61   1000.00   1.650   0.059   0.016   0.145  96.000   2.500
+   62   1050.00   1.650   0.059   0.016   0.145  96.000   2.500
+   63   1100.00   1.650   0.059   0.016   0.145  96.000   2.500
+ crop periods                      1
+ Total Applications =                      2
+                     1                 22320  1.120000000000000E-005
+                     2             100000000  0.000000000000000E+000
+ Done setting application dates, Total applications in sim = 
+                     1
+ Retardation Factor =  -1.753442553522964E+068
+ maxcap_volume (effective pore volume) =    64.9900000000000     
+ End of Initialization
+ crop period                     1
+ Start allocations
+ ********************************************************************
+ ****************** Start App Loop **********************************
+ ********************************************************************
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport   0.140625000000000     
+ ###################################################
+ ###################################################
+ cpu time gw    0.140625000000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered                      NaN
+ parent erosion mass                      NaN
+ total_applications =                      2
+ Spray mass =   4.280192000000001E-002
+ simulation type =                      1
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Calling output_processing
+ Start Window averaging
+ Start picking max
+ Doing output process
+ done output batch 
+ ###################################################
+ cpu time vvwm   0.156250000000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate    0.156250000000000     
+ ###################################################
+ Doing scenario                      2
+                    -1
+ end of batch scenario read 
+ ###################################################
+ cpu time vvwm done        0.156250000000000     
+ ###################################################
+ *****************************Done with scheme                      1
+ ###################################################
+ cpu time, scheme     0.156250000000000                          2
+ ###################################################
+ ###################################################
+ cpu time, waterbody     0.156250000000000                          1
+ ###################################################
+ ###################################################
+ End Proram cpu time     0.156250000000000     
+ ###################################################
+ Total clock time =   0.157999992370605     
+ tridiag  1.562500000000000E-002

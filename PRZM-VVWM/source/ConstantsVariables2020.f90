@@ -54,7 +54,11 @@ module constants_and_variables
       character(len= 256) :: run_id
       character(len= 512) :: full_run_identification  !run id plus all path information
 	  
-	  
+	  !GW--------------------------------------
+      real :: gw_depth !depth to ground water in cm
+      
+      
+      
       !output
       real :: effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2
 
@@ -527,7 +531,7 @@ module constants_and_variables
 
    
       !*******Heat transfer variables*********************
-      real    :: emmiss   
+      real,parameter    :: emmiss =0.97  
       real    :: UBT                            !used in volatilization and heat routines
       real    :: Albedo(13), bbt(13)
       logical :: is_temperature_simulated
@@ -754,11 +758,7 @@ module constants_and_variables
       integer           :: extra_plots                      !number of user-specified extra plots
       logical           :: is_timeseriesfile                !create a time series file
       
-      
-      
-      
-      
-      
+
       
       
       REAL   ::  curve_number_daily   !holds curve number for plotting

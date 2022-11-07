@@ -165,7 +165,7 @@ use waterbody_parameters, ONLY: afield
 	
 	 write (*,*) "Do autoprofile ? " , is_auto_profile
 	
-if (is_auto_profile) then  ! create the discretization based on iput profile instead of delx
+if (is_auto_profile) then  ! create the discretization based on input profile instead of delx
 	!get thicknesses for each compartment
 			start = 1
 		    xend = 0
@@ -311,6 +311,12 @@ if (is_auto_profile) then  ! create the discretization based on iput profile ins
 			write (*,'(I5,1X, F9.2, 6F8.3)') i,soil_depth(i), bulkdensity(i),theta_fc(i), theta_wp(i), orgcarb(i), sand(i), clay(i)
 			
 			
+     !************** TO DO 11/7/2022 ****************************************8       
+            
+           NEED to add in Kd calculations here 
+      !**********************************************************************      
+            
+            
 			
 			
 	   end do
@@ -371,8 +377,12 @@ else 	!No auto discretization
             
         end do    
          start = xend+1
-	end do
+         
+    end do
 
+    
+
+    
 
     !*** Populate Soil Depth Vector *********
     soil_depth = 0.0
@@ -661,6 +671,15 @@ end if
     
     write(*,*) "End of Initialization"
 
+
+    
+    
+    
+    
+    
+    
+    
+    
 end subroutine INITL
     
 !**********************************************************************

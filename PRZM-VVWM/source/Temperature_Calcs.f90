@@ -29,7 +29,7 @@ module Temperatue_Calcs
   !*******************************************************************************************************  
   SUBROUTINE SLTEMP()
       use  constants_and_Variables, ONLY: ncom2, SOLRAD, air_TEMP, wind,sttdet,bbt,albedo,              &
-       emmiss,soil_temp,ubt,COVER,HEIGHT,bulkdensity,theta_zero,DELX,sand,clay,theta_wp,theta_fc,theta_sat,ncom2,snow,    &
+       emmiss, soil_temp,ubt,COVER,HEIGHT,bulkdensity,theta_zero,DELX,sand,clay,theta_wp,theta_fc,theta_sat,ncom2,snow,    &
        orgcarb,vonKarman,uWind_Reference_Height,julday1900
      
       use utilities_1
@@ -73,7 +73,7 @@ module Temperatue_Calcs
       
       integer :: current_day,current_month, current_year
       
-      
+
       
       call get_date (julday1900, current_year, current_month, current_day)
       
@@ -338,10 +338,15 @@ module Temperatue_Calcs
          TC(NCOM2) = 0.0
          TF(NCOM2) =soil_temp(NCOM2)+DIFFCO(NCOM2)/(DELX(NCOM2)**2)*LBTEMP
 
-         CALL tridiagonal_solution (TA,TB,TC,soil_temp,TF,NCOM2)
+       CALL tridiagonal_solution (TA,TB,TC,soil_temp,TF,NCOM2)
          
          where (soil_temp <0.0) soil_temp = 0.0    !minimum soil temperature is 0.0 degrees
-       
+
+         
+         
+         
+         
+         
   END SUBROUTINE SLTEMP
     
 

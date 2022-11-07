@@ -62,7 +62,6 @@
 		<File RelativePath=".\source\PRZM_Version.f90"/>
 		<File RelativePath=".\ReadBatchScenarioFile.f90"/>
 		<File RelativePath=".\source\Temperature_Calcs.f90"/>
-		<File RelativePath=".\source\Tridiagonal.f90"/>
 		<File RelativePath=".\source\volatilization.f90"/></Filter>
 		<Filter Name="vvwm">
 		<File RelativePath=".\source\vvwm\CoreCalculations.F90"/>
