@@ -104,7 +104,7 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  Number of compartments =                     63
  Do autoprofile ?  T
  Done loading autoprofile
-    #     depth   bd       max_water      min_wat    orgcarb       sand       clay         kd          dwrate
+    #     depth     bd       max_water     min_wat    orgcarb      sand        clay         kd         dwrate
     1      0.10    1.60       0.100       0.100E-01    1.00        96.0        1.00       0.100E-01   0.140E-01
     2      0.20    1.60       0.100       0.100E-01    1.00        96.0        1.00       0.100E-01   0.140E-01
     3      0.30    1.60       0.100       0.100E-01    1.00        96.0        1.00       0.100E-01   0.140E-01
@@ -185,14 +185,14 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  Adjust applications for rain? F
  Enter chemical transport
  ###################################################
- cpu time chen xport   0.140625000000000     
+ cpu time chen xport   0.156250000000000     
  ###################################################
  ###################################################
- cpu time gw    0.140625000000000     
+ cpu time gw    0.156250000000000     
  ###################################################
  enter VVWM
- parent runoff mass delivered                      NaN
- parent erosion mass                      NaN
+ parent runoff mass delivered   9.625729012467476E-004
+ parent erosion mass   1.651615960120876E-009
  total_applications =                      2
  Spray mass =   4.280192000000001E-002
  simulation type =                      1
@@ -225,5 +225,5 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  ###################################################
  End Proram cpu time     0.156250000000000     
  ###################################################
- Total clock time =   0.156000137329102     
- tridiag  0.000000000000000E+000
+ Total clock time =   0.154999971389771     
+ tridiag  3.125000000000000E-002

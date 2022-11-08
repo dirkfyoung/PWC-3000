@@ -91,6 +91,23 @@ use waterbody_parameters, ONLY: afield
 	real :: sumofcl
 	
     
+   real :: sumoftheta_zero 
+   real :: sumofdispersion         
+   real :: sumofsoil_temp  
+   real :: sumofMolarConvert_aq12
+   real :: sumofMolarConvert_aq13
+   real :: sumofMolarConvert_aq23
+   real :: sumofMolarConvert_s12 
+   real :: sumofMolarConvert_s13 
+   real :: sumofMolarConvert_s23 
+    
+    
+    
+    
+    
+    
+    
+    
     real :: aq_rate_corrected(3)  !degradation inputs corrected for implicit routine
     real :: sorb_rate_corrected(3)
     real :: gas_rate_corrected(3) 
@@ -195,12 +212,12 @@ use waterbody_parameters, ONLY: afield
 
 	        bulkdensity   = 0.0
             clay          = 0.0
-            sand       	 = 0.0
+            sand       	  = 0.0
             orgcarb       = 0.0
             theta_fc      = 0.0
             theta_wp      = 0.0
             theta_zero    = 0.0
-            dispersion 	 = 0.0
+            dispersion 	  = 0.0
             soil_temp     = 0.0
 	   
 	        j = 1  ! tracker for data horizons
@@ -211,12 +228,12 @@ use waterbody_parameters, ONLY: afield
                      
 	                 bulkdensity(i)       = bd_input  (j)
                      clay       (i)       = clay_input(j)
-                     sand       (i)		 = sand_input(j)
+                     sand       (i)		  = sand_input(j)
                      orgcarb    (i)       = oc_input  (j)                                          
                      theta_fc   (i)       = fc_input  (j)
                      theta_wp   (i)       = wp_input  (j)    
                      theta_zero (i)       = fc_input  (j)  !Set the iniitial Water content to field capacity 
-                     dispersion (i)		 = dispersion_input(j)	            
+                     dispersion (i)		  = dispersion_input(j)	            
                      soil_temp  (i)       = soil_temp_input (j)
 	                 		
                      MolarConvert_aq12(i) = MolarConvert_aq12_input(j)
@@ -232,14 +249,23 @@ use waterbody_parameters, ONLY: afield
 				
     
 			         if ( lowerdepth >= target_depth(nhoriz)) then  !we've run out of horizons, so every thing is the last horizon
-			         	bulkdensity(i) = bd_input  (nhoriz)
+			             bulkdensity(i) = bd_input  (nhoriz)
                          theta_fc   (i) = fc_input  (nhoriz)
                          theta_wp   (i) = wp_input  (nhoriz)
                          orgcarb    (i) = oc_input  (nhoriz)
                          sand       (i) = sand_input(nhoriz)
                          clay       (i) = clay_input(nhoriz)
+                         theta_zero (i) = fc_input(nhoriz)
+                         dispersion (i)	= dispersion_input(nhoriz)           
+                         soil_temp  (i) = soil_temp_input (nhoriz)
                          
-                         
+                        MolarConvert_aq12(i) = MolarConvert_aq12_input(nhoriz)
+                        MolarConvert_aq13(i) = MolarConvert_aq13_input(nhoriz)
+                        MolarConvert_aq23(i) = MolarConvert_aq23_input(nhoriz)
+                        MolarConvert_s12 (i)  = MolarConvert_s12_input(nhoriz)
+                        MolarConvert_s13 (i)  = MolarConvert_s13_input(nhoriz)
+                        MolarConvert_s23 (i)  = MolarConvert_s23_input(nhoriz)	  
+                           
 			         else	
 			        	 !find out how many data horizons this compartment straddles (typically will be 2, but keep possibilitiy open for many)
 			        	 count_straddled = 0
@@ -257,8 +283,7 @@ use waterbody_parameters, ONLY: afield
 			        		end if
 			        	end do
 
-                         
-                         
+
 			        	!Do Averaging
 			        	sumofdp =  0.0
 			        	sumofbd =  0.0
@@ -267,6 +292,17 @@ use waterbody_parameters, ONLY: afield
                         sumofoc =  0.0
                         sumofsn =  0.0
                         sumofcl =  0.0
+                                           
+                        sumoftheta_zero        = 0.0
+                        sumofdispersion        = 0.0
+                        sumofsoil_temp         = 0.0
+                        sumofMolarConvert_aq12 = 0.0
+                        sumofMolarConvert_aq13 = 0.0
+                        sumofMolarConvert_aq23 = 0.0
+                        sumofMolarConvert_s12  = 0.0
+                        sumofMolarConvert_s13  = 0.0
+                        sumofMolarConvert_s23  = 0.0
+                        
                     
 			        	do m = 1, count_straddled
 			        		sumofdp = sumofdp + track_thickness(m)
@@ -276,6 +312,17 @@ use waterbody_parameters, ONLY: afield
                             sumofoc = sumofoc + oc_input  (horiz_indx_tracker(m)) *   track_thickness(m)
                             sumofsn = sumofsn + sand_input(horiz_indx_tracker(m)) *   track_thickness(m)
                             sumofcl = sumofcl + clay_input(horiz_indx_tracker(m)) *   track_thickness(m)
+                            
+                            sumoftheta_zero          =sumoftheta_zero          +  fc_input                 (horiz_indx_tracker(m)) *   track_thickness(m)
+                            sumofdispersion          =sumofdispersion          +  dispersion_input         (horiz_indx_tracker(m)) *   track_thickness(m)
+                            sumofsoil_temp           =sumofsoil_temp           +  soil_temp_input          (horiz_indx_tracker(m)) *   track_thickness(m)
+                            sumofMolarConvert_aq12   =sumofMolarConvert_aq12   +   MolarConvert_aq12_input (horiz_indx_tracker(m)) *   track_thickness(m)
+                            sumofMolarConvert_aq13   =sumofMolarConvert_aq13   +   MolarConvert_aq13_input (horiz_indx_tracker(m)) *   track_thickness(m)
+                            sumofMolarConvert_aq23   =sumofMolarConvert_aq23   +   MolarConvert_aq23_input (horiz_indx_tracker(m)) *   track_thickness(m)
+                            sumofMolarConvert_s12    =sumofMolarConvert_s12    +   MolarConvert_s12_input  (horiz_indx_tracker(m)) *   track_thickness(m)
+                            sumofMolarConvert_s13    =sumofMolarConvert_s13    +   MolarConvert_s13_input  (horiz_indx_tracker(m)) *   track_thickness(m)
+                            sumofMolarConvert_s23    =sumofMolarConvert_s23    +   MolarConvert_s23_input  (horiz_indx_tracker(m)) *   track_thickness(m)
+                                                                            
 			        	end do                     
 			        	    bulkdensity(i) = sumofbd /sumofdp	
                             theta_fc   (i) = sumofmx /sumofdp	
@@ -284,9 +331,17 @@ use waterbody_parameters, ONLY: afield
                             sand       (i)	= sumofsn /sumofdp	 
 			        	    clay       (i) = sumofcl /sumofdp	
 			        	 
-                            ! theta_zero (i) 
-                            ! dispersion (i)	
-                            ! soil_temp  (i) 
+                            theta_zero       (i) =sumoftheta_zero          /sumofdp
+                            dispersion       (i) =sumofdispersion          /sumofdp
+                            soil_temp        (i) =sumofsoil_temp           /sumofdp
+                            MolarConvert_aq12(i) = sumofMolarConvert_aq12  /sumofdp
+                            MolarConvert_aq13(i) = sumofMolarConvert_aq13  /sumofdp
+                            MolarConvert_aq23(i) = sumofMolarConvert_aq23  /sumofdp
+                            MolarConvert_s12 (i) = sumofMolarConvert_s12   /sumofdp
+                            MolarConvert_s13 (i) = sumofMolarConvert_s13   /sumofdp
+                            MolarConvert_s23 (i) = sumofMolarConvert_s23   /sumofdp
+                            
+         
 				endif 
                end if
             end do          
@@ -532,6 +587,7 @@ end do
     !initialize the water content in the profile to the THETO (previously initailized in SUBROUTINE INIACC)
     theta_end = theta_zero 
  
+    
     OUTPUJ=0.0   !output accumulators, only used in output, could be initialzed with save attribute there
     OUTPJJ=0.0
 

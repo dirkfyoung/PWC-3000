@@ -487,7 +487,7 @@ SUBROUTINE Runoff_cn(day)
                 theta_end(I) = theta_fc(I)
 			ENDIF
 
-	
+
 			
 			
             VEL(I)= AINF(I+1)/theta_end(I)

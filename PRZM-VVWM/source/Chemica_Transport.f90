@@ -321,6 +321,9 @@ integer mm
         A(I)= (-(dispersion(I-1)*theta_new(I-1)+new_henry(K,I-1)*DGAIR(I-1))/(DELX(I)*0.5*(DELX(I-1)+DELX(I)))        &
               -VEL(I-1)*theta_new(I-1)/DELX(I) )*DELT
 
+            write (81, '(i5, 60G12.3)') i,VEL(I-1)
+
+        
         B(I)= ( (dispersion(I)*theta_new(I)  +  new_henry(K,I)*DGAIR(I))  /   (DELX(I)*0.5*(DELX(I-1)+DELX(I)))            &
               + (dispersion(I)*theta_new(I)  +  new_henry(K,I)*DGAIR(I))  /   (DELX(I)*0.5*(DELX(I)+DELX(I+1)))            &
               + VEL(I)*theta_new(I)/DELX(I)                                 &
@@ -367,6 +370,7 @@ CALL CPU_TIME (time_5)
 
 
 
+    
   
     CALL TRIDIAGONAL_Solution (A,B,C, new_conc,F,NCOM2)        
 
