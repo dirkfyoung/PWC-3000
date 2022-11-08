@@ -148,8 +148,9 @@ use waterbody_parameters, ONLY: afield
 		ncom2 = sum(profile_number_increments(1:number_of_discrete_layers))  !New way
 	else
         NCOM2 = sum(num_delx(1:nhoriz))  !Total Number of Compartments       !old way
-	end if
+    end if
 	
+    write(*,*) 'Number of compartments = ' , ncom2
 !******************************************************	
 	!delete this line once its working
 	!NCOM2 = sum(num_delx(1:nhoriz))  !Total Number of Compartments
@@ -163,115 +164,101 @@ use waterbody_parameters, ONLY: afield
     vel = 0.0
     !************************************************
 	
-	 write (*,*) "Do autoprofile ? " , is_auto_profile
+	write (*,*) "Do autoprofile ? " , is_auto_profile
 	
-if (is_auto_profile) then  ! create the discretization based on input profile instead of delx
-	!get thicknesses for each compartment
+    if (is_auto_profile) then  ! create the discretization based on input profile instead of delx
+        
+	        !get thicknesses for each compartment
 			start = 1
 		    xend = 0
-
-	do i = 1, number_of_discrete_layers
-		xend = xend + profile_number_increments(i)
-		do j = start, xend
-			delx(j)  = profile_thick(i)/ real(profile_number_increments(i))
-		end do
-        start =xend +1
-	end do
+	        do i = 1, number_of_discrete_layers
+	        	xend = xend + profile_number_increments(i)
+	        	do j = start, xend
+	        		delx(j)  = profile_thick(i)/ real(profile_number_increments(i))
+	        	end do
+                start =xend +1
+	        end do
 	
-    !*** Populate Soil Depth Vector *********
-    soil_depth = 0.0
-    soil_depth(1) = delx(1)
+            !*** Populate Soil Depth Vector *********
+            soil_depth = 0.0
+            soil_depth(1) = delx(1)
     
-    do i=2, NCOM2
-       soil_depth(i) = soil_depth(i-1) + delx(i) 
-	end do
+            do i=2, NCOM2
+               soil_depth(i) = soil_depth(i-1) + delx(i) 
+	        end do
 
-	!write(*,*) "Profile Depths: "
-	!do i  = 1, ncom2
-	!	write(*,*) i , soil_depth(i) 
-	!end do
-	
-	!Find depths of input horizons these are "target depths" where changes occur
-	
-	target_depth(1) = thickness(1)
-	   do i=2, nhoriz
-		   target_depth(i) =target_depth(i-1) + thickness(i) 
-	   end do
-	   
-	   
-	   do i= 1, nhoriz
-	        write(*,*)"target ", target_depth(i)
-	   end do
-	
-	   bulkdensity   = 0.0
-       clay          = 0.0
-       sand       	 = 0.0
-       orgcarb       = 0.0
-       theta_fc      = 0.0
-       theta_wp      = 0.0
-       theta_zero    = 0.0
-       dispersion 	 = 0.0
-       soil_temp     = 0.0
-	   
-	   
-	
-	   write(*,*)"incremnt depth    bd  theta_fc theta_wp   oc    sand    clay"
-	   j = 1  ! tracker for data horizons
-	   do i = 1, ncom2   !check each fixed compartment depth against the horizon depth to determine its location
-		   
-	        if (soil_depth(i) <= target_depth(j)) then 
-	            bulkdensity(i)       = bd_input  (j)
-                clay       (i)       = clay_input(j)
-                sand       (i)		 = sand_input(j)
-                orgcarb    (i)       = oc_input  (j)                                          
-                theta_fc   (i)       = fc_input  (j)
-                theta_wp   (i)       = wp_input  (j)    
-				theta_zero (i)       = fc_input  (j)  !Set the iniitial Water content to field capacity 
-                dispersion (i)		 = dispersion_input(j)	            
-                soil_temp  (i)       = soil_temp_input (j)
-	            		
-                MolarConvert_aq12(i) = MolarConvert_aq12_input(j)
-                MolarConvert_aq13(i) = MolarConvert_aq13_input(j)
-                MolarConvert_aq23(i) = MolarConvert_aq23_input(j)
-                MolarConvert_s12 (i)  = MolarConvert_s12_input(j)
-                MolarConvert_s13 (i)  = MolarConvert_s13_input(j)
-                MolarConvert_s23 (i)  = MolarConvert_s23_input(j)	   
-			else !compartment depth is greater than horizon
+	        !Find depths of input horizons these are "target depths" where changes occur
+	        target_depth(1) = thickness(1)
+	        do i=2, nhoriz
+	           target_depth(i) =target_depth(i-1) + thickness(i) 
+	        end do
 
-				lowerdepth = soil_depth(i-1)  !capture the lower depth of the compartment that straddles
+	        bulkdensity   = 0.0
+            clay          = 0.0
+            sand       	 = 0.0
+            orgcarb       = 0.0
+            theta_fc      = 0.0
+            theta_wp      = 0.0
+            theta_zero    = 0.0
+            dispersion 	 = 0.0
+            soil_temp     = 0.0
+	   
+	        j = 1  ! tracker for data horizons
+	        do i = 1, ncom2   !check each fixed compartment depth against the horizon depth to determine its location
+
+	             if (soil_depth(i) <= target_depth(j)) then 
+
+                     
+	                 bulkdensity(i)       = bd_input  (j)
+                     clay       (i)       = clay_input(j)
+                     sand       (i)		 = sand_input(j)
+                     orgcarb    (i)       = oc_input  (j)                                          
+                     theta_fc   (i)       = fc_input  (j)
+                     theta_wp   (i)       = wp_input  (j)    
+                     theta_zero (i)       = fc_input  (j)  !Set the iniitial Water content to field capacity 
+                     dispersion (i)		 = dispersion_input(j)	            
+                     soil_temp  (i)       = soil_temp_input (j)
+	                 		
+                     MolarConvert_aq12(i) = MolarConvert_aq12_input(j)
+                     MolarConvert_aq13(i) = MolarConvert_aq13_input(j)
+                     MolarConvert_aq23(i) = MolarConvert_aq23_input(j)
+                     MolarConvert_s12 (i)  = MolarConvert_s12_input(j)
+                     MolarConvert_s13 (i)  = MolarConvert_s13_input(j)
+                     MolarConvert_s23 (i)  = MolarConvert_s23_input(j)	   
+                 else !compartment depth is greater than horizon
+                     
+                     
+				     lowerdepth = soil_depth(i-1)  !capture the lower depth of the compartment that straddles
 				
-				if ( lowerdepth > target_depth(nhoriz)) then  !we've run out of horizons, so every thing is the last horizon
-					bulkdensity(i) = bd_input  (nhoriz)
-                    theta_fc   (i) = fc_input  (nhoriz)
-                    theta_wp   (i) = wp_input  (nhoriz)
-                    orgcarb    (i) = oc_input  (nhoriz)
-                    sand       (i) = sand_input(nhoriz)
-                    clay       (i) = clay_input(nhoriz)
-				else	
-				
-		
-			        	!find out how many data horizons this compartment straddles (typically will be 2, but keep possibilitiy open for many)
-			        	count_straddled = 0
-			        	do k= j, nhoriz
-                    
+    
+			         if ( lowerdepth >= target_depth(nhoriz)) then  !we've run out of horizons, so every thing is the last horizon
+			         	bulkdensity(i) = bd_input  (nhoriz)
+                         theta_fc   (i) = fc_input  (nhoriz)
+                         theta_wp   (i) = wp_input  (nhoriz)
+                         orgcarb    (i) = oc_input  (nhoriz)
+                         sand       (i) = sand_input(nhoriz)
+                         clay       (i) = clay_input(nhoriz)
+                         
+                         
+			         else	
+			        	 !find out how many data horizons this compartment straddles (typically will be 2, but keep possibilitiy open for many)
+			        	 count_straddled = 0
+			        	 do k= j, nhoriz
                             count_straddled = count_straddled +1
 			        		horiz_indx_tracker(count_straddled) = k
 			        		
 			        		if (soil_depth(i) > target_depth(k)) then 
                                 track_thickness(count_straddled) = target_depth(k)-lowerdepth
 			        			lowerdepth = target_depth(k)
-			        			
 			        		else	
 			        			track_thickness(count_straddled) = soil_depth(i) - target_depth(k-1)			        			
 			        			j = j + count_straddled -1
 			        		    exit 
 			        		end if
-			        		
-
 			        	end do
-			        	
-			        	
-			        	
+
+                         
+                         
 			        	!Do Averaging
 			        	sumofdp =  0.0
 			        	sumofbd =  0.0
@@ -290,50 +277,26 @@ if (is_auto_profile) then  ! create the discretization based on input profile in
                             sumofsn = sumofsn + sand_input(horiz_indx_tracker(m)) *   track_thickness(m)
                             sumofcl = sumofcl + clay_input(horiz_indx_tracker(m)) *   track_thickness(m)
 			        	end do                     
-			        	
-			        	
-			        	 bulkdensity(i) = sumofbd /sumofdp	
-                         theta_fc   (i) = sumofmx /sumofdp	
-                         theta_wp   (i) = sumofmn /sumofdp	
-                         orgcarb    (i) = sumofoc /sumofdp	
-                         sand       (i)	= sumofsn /sumofdp	 
-			        	 clay       (i) = sumofcl /sumofdp	
+			        	    bulkdensity(i) = sumofbd /sumofdp	
+                            theta_fc   (i) = sumofmx /sumofdp	
+                            theta_wp   (i) = sumofmn /sumofdp	
+                            orgcarb    (i) = sumofoc /sumofdp	
+                            sand       (i)	= sumofsn /sumofdp	 
+			        	    clay       (i) = sumofcl /sumofdp	
 			        	 
-                        ! theta_zero (i) 
-                        ! dispersion (i)	
-                        ! soil_temp  (i) 
-
+                            ! theta_zero (i) 
+                            ! dispersion (i)	
+                            ! soil_temp  (i) 
 				endif 
-
-			end if
-			
+               end if
+            end do          
+            write(*,*) 'Done loading autoprofile'
+    else 	!No auto discretization  START OF  OLD WAY -- Possibly eliminate
 	
-			write (*,'(I5,1X, F9.2, 6F8.3)') i,soil_depth(i), bulkdensity(i),theta_fc(i), theta_wp(i), orgcarb(i), sand(i), clay(i)
-			
-			
-     !************** TO DO 11/7/2022 ****************************************8       
-            
-           NEED to add in Kd calculations here 
-      !**********************************************************************      
-            
-            
-			
-			
-	   end do
-	   
-	   
-	   
-
-
-
-else 	!No auto discretization
-!&&&&&&&&&&&&&&&&&&&&&&&&&&& START OF  OLD WAY -- Possibly eliminate &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&		
-    ! *** Populate the Delx Vector and Kf & N *******
-    start = 1
-    Xend = 0
-  
-
-    do i=1, nhoriz
+      ! *** Populate the Delx Vector and Kf & N *******
+      start = 1
+      Xend  = 0
+      do i=1, nhoriz
         xend = start +num_delx(i)-1      
         delx(start:xend)           = thickness(i)/num_delx(i) 
         bulkdensity(start:xend)    = bd_input(i)
@@ -356,50 +319,59 @@ else 	!No auto discretization
         MolarConvert_s13(start:xend)   = MolarConvert_s13_input(i)
         MolarConvert_s23(start:xend)   = MolarConvert_s23_input(i)
         
-        do K=1, NCHEM
-            if (is_koc) then
-                k_freundlich(k, start:xend)   = k_f_input(k)*oc_input(i)*.01  !oc is in percent
-                k_freundlich_2(k, start:xend) = k_f_2_input(k)*oc_input(i)*.01
-            else
-                k_freundlich(k, start:xend)   = k_f_input(k)
-                k_freundlich_2(k, start:xend) = k_f_2_input(k)   
-            end if
-            
-            N_freundlich(k, start:xend) = N_f_input(k)   
-            N_freundlich_2(k, start:xend) = N_f_2_input(k)                       
-            !KD(k, start:xend)= k_f_input(k,i)                !Used in Freundlich linearization for tridiagonal    
-             
-          !NEED TO COMMENT OUT THESE LINES after done below  
-          !  dwrate_atRefTemp(k,start:xend) =     aq_rate_input(K)
-          !  dsrate_atRefTemp(k,start:xend) =     sorb_rate_input(K)
-          !  dgrate_atRefTemp(k,start:xend) =     gas_rate_input(K)      
-          !  **************************************************
-            
-        end do    
+        !do K=1, NCHEM
+        !    if (is_koc) then
+        !        k_freundlich(k, start:xend)   = k_f_input(k)*oc_input(i)*.01  !oc is in percent
+        !        k_freundlich_2(k, start:xend) = k_f_2_input(k)*oc_input(i)*.01
+        !    else
+        !        k_freundlich(k, start:xend)   = k_f_input(k)
+        !        k_freundlich_2(k, start:xend) = k_f_2_input(k)   
+        !    end if
+        !    
+        !    N_freundlich(k, start:xend) = N_f_input(k)   
+        !    N_freundlich_2(k, start:xend) = N_f_2_input(k)                       
+        !    !KD(k, start:xend)= k_f_input(k,i)                !Used in Freundlich linearization for tridiagonal    
+        !     
+        !  !NEED TO COMMENT OUT THESE LINES after done below  
+        !  !  dwrate_atRefTemp(k,start:xend) =     aq_rate_input(K)
+        !  !  dsrate_atRefTemp(k,start:xend) =     sorb_rate_input(K)
+        !  !  dgrate_atRefTemp(k,start:xend) =     gas_rate_input(K)      
+        !  !  **************************************************
+        !    
+        !end do    
          start = xend+1
          
-    end do
-
+      end do
+      
+        !*** Populate Soil Depth Vector *********
+        soil_depth = 0.0
+        soil_depth(1) = delx(1)
+        
+        do i=2, NCOM2
+           soil_depth(i) = soil_depth(i-1) + delx(i) 
+       end do
+       !&&&&&&&&&&&&&&&&&&&&&&&&&&& END OF  OLD WAY &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&	
+    end if	
     
+	
+    !****** Calculate Kd for each compartment ******************************
+    do K=1, NCHEM
+        do i = 1, ncom2
+            if (is_koc) then
+                k_freundlich(k, i)   = k_f_input(k)*orgcarb(i)*.01  !oc is in percent
+                k_freundlich_2(k, i) = k_f_2_input(k)*orgcarb(i)*.01
+            else
+                k_freundlich(k,i)   = k_f_input(k)
+                k_freundlich_2(k,i) = k_f_2_input(k)   
+            end if
+            
+            N_freundlich(k, i) = N_f_input(k)   
+            N_freundlich_2(k, i) = N_f_2_input(k)                         
+        end do
+        
+    end do   	
 
-    
 
-    !*** Populate Soil Depth Vector *********
-    soil_depth = 0.0
-    soil_depth(1) = delx(1)
-    
-    do i=2, NCOM2
-       soil_depth(i) = soil_depth(i-1) + delx(i) 
-	end do
-
-!&&&&&&&&&&&&&&&&&&&&&&&&&&& END OF  OLD WAY &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&	
-end if	
-	
-	
-	
-	
-	
-	
     !Find nodes of last horizon, this will be used for groundwater calculations
 	if (nhoriz==1) then
 		top_node_last_horizon = 1
@@ -500,6 +472,15 @@ end if
     end do
     
    !!SECTION FOR OUTPUT IN RUN STATUS FILE ONLY ****************************    
+    
+  write (*,'(A)')   '    #     depth     bd       max_water     min_wat    orgcarb      sand        clay         kd         dwrate'
+do i = 1, ncom2
+    write (*,'(I5,1X, F9.2, 8G12.3)') i,soil_depth(i), bulkdensity(i),theta_fc(i), theta_wp(i), orgcarb(i), sand(i), clay(i), k_freundlich(1,i),dwrate_atRefTemp(1,i)
+end do	
+    
+
+    
+    
    ! write (*,*) 'Degradation profile with depth'
    ! write(*,*)  'Compartment, End Depth, Reduction Factor'
    ! running_depth  = 0.0
