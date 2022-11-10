@@ -423,6 +423,8 @@ SUBROUTINE Runoff_cn(day)
             !Water amount in top 10 cm used for CN manipulation
             TWLVL = sum(SoilWater(1:cn_moist_node)) / soil_depth(cn_moist_node)  !average water content per depth in top 10 cm
 
+ 
+            
             !Interpolation
             i= int (CN_2(CN_index)) !integer portion of CN_2
             curve_number2  =  CN_2(CN_index)
@@ -434,8 +436,7 @@ SUBROUTINE Runoff_cn(day)
         else
             CURVN =  CN_2(CN_index)
         end if
-               
-     
+
     End Subroutine Curve_Number_Adjustment
     
      
@@ -456,8 +457,9 @@ SUBROUTINE Runoff_cn(day)
            runoff_on_day= (Effective_Rain-INABS)**2/ (Effective_Rain + (4.0* INABS))  !OK the 4 is from 0.8 = 4 * 0.2
        else 
            runoff_on_day = 0.0
-	   end if
+       end if
 
+       
     end  Subroutine Calculate_Runoff_PRZM5  
      
      
@@ -475,6 +477,8 @@ SUBROUTINE Runoff_cn(day)
         integer, intent(in) :: day
         INTEGER      I
 
+        
+        
         do I=1,NCOM2
             theta_zero(I) = soilwater(I)/DELX(I)
             theta_end(I) = (soilwater(I)+ AINF(I)- EvapoTran(I))/ DELX(I)
@@ -492,6 +496,8 @@ SUBROUTINE Runoff_cn(day)
 			
             VEL(I)= AINF(I+1)/theta_end(I)
             soilwater(I) = theta_end(I)*DELX(I)
+            
+            
 		end do	
 
 		

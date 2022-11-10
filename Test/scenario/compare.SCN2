@@ -1,0 +1,85 @@
+compare
+77_grid.wea
+36.625
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+******** start of PRZM information ******************
+False, True, False
+1
+True,
+1,4,1,5,18,9,122,100,1.0,0.25,1,1,0 
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,
+,,,
+1.0,0.274,5
+*** irrigation information start ***
+1
+0.1,0.5,2.875
+False,
+*** spare line for expansion
+*** spare line for expansion
+*** Soil Information ***
+0.02,0.863155,0.5
+2,5
+*** Horizon Info *******
+4
+10,25,15,100,
+1.6,1.8,1.4,1.5,
+0.1,0.2,0.23,0.19,
+0.01,0.02,0.03,0.01,
+1,2,1,0.5,
+180,53,81,7,
+96,90,80,95,
+1,2,3,1,
+*** Horizon End, Temperature Start ********
+0.2,15
+True
+***spare line for expansion
+***spare line for expansion
+*** Erosion & Curve Number Info **********
+2
+1,18,
+4,9,
+80,90,
+0.2,0.348,
+Spare, old mannings
+8.0,1.40,0.19,
+0.1,0,1.0,
+False
+,,,,,
+5.0
+True
+6
+3, 30
+7, 7
+10, 2
+80, 4
+900, 18
+100, 2

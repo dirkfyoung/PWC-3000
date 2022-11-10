@@ -546,14 +546,12 @@ module constants_and_variables
 	  real :: post_bt_avg 
 	  real :: throughputs
 	  real :: simulation_avg
-	  
-	  
-	  
+
       !******Weather Related Variables******************       
       real :: precip_rain     !rain-only component, minus snow
-      real :: PFAC,SFAC
+      real,parameter :: SFAC = 2.74  !USDA value
       real :: SNOWFL
-      
+      real :: PFAC
       
 
       integer :: num_records  !number of records in weather file

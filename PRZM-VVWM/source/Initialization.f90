@@ -239,15 +239,12 @@ use waterbody_parameters, ONLY: afield
                      MolarConvert_aq12(i) = MolarConvert_aq12_input(j)
                      MolarConvert_aq13(i) = MolarConvert_aq13_input(j)
                      MolarConvert_aq23(i) = MolarConvert_aq23_input(j)
-                     MolarConvert_s12 (i)  = MolarConvert_s12_input(j)
-                     MolarConvert_s13 (i)  = MolarConvert_s13_input(j)
-                     MolarConvert_s23 (i)  = MolarConvert_s23_input(j)	   
+                     MolarConvert_s12 (i) = MolarConvert_s12_input(j)
+                     MolarConvert_s13 (i) = MolarConvert_s13_input(j)
+                     MolarConvert_s23 (i) = MolarConvert_s23_input(j)	   
                  else !compartment depth is greater than horizon
-                     
-                     
 				     lowerdepth = soil_depth(i-1)  !capture the lower depth of the compartment that straddles
-				
-    
+				  
 			         if ( lowerdepth >= target_depth(nhoriz)) then  !we've run out of horizons, so every thing is the last horizon
 			             bulkdensity(i) = bd_input  (nhoriz)
                          theta_fc   (i) = fc_input  (nhoriz)
@@ -259,12 +256,12 @@ use waterbody_parameters, ONLY: afield
                          dispersion (i)	= dispersion_input(nhoriz)           
                          soil_temp  (i) = soil_temp_input (nhoriz)
                          
-                        MolarConvert_aq12(i) = MolarConvert_aq12_input(nhoriz)
-                        MolarConvert_aq13(i) = MolarConvert_aq13_input(nhoriz)
-                        MolarConvert_aq23(i) = MolarConvert_aq23_input(nhoriz)
-                        MolarConvert_s12 (i)  = MolarConvert_s12_input(nhoriz)
-                        MolarConvert_s13 (i)  = MolarConvert_s13_input(nhoriz)
-                        MolarConvert_s23 (i)  = MolarConvert_s23_input(nhoriz)	  
+                         MolarConvert_aq12(i) = MolarConvert_aq12_input(nhoriz)
+                         MolarConvert_aq13(i) = MolarConvert_aq13_input(nhoriz)
+                         MolarConvert_aq23(i) = MolarConvert_aq23_input(nhoriz)
+                         MolarConvert_s12 (i)  = MolarConvert_s12_input(nhoriz)
+                         MolarConvert_s13 (i)  = MolarConvert_s13_input(nhoriz)
+                         MolarConvert_s23 (i)  = MolarConvert_s23_input(nhoriz)	  
                            
 			         else	
 			        	 !find out how many data horizons this compartment straddles (typically will be 2, but keep possibilitiy open for many)
@@ -282,7 +279,6 @@ use waterbody_parameters, ONLY: afield
 			        		    exit 
 			        		end if
 			        	end do
-
 
 			        	!Do Averaging
 			        	sumofdp =  0.0
@@ -302,8 +298,7 @@ use waterbody_parameters, ONLY: afield
                         sumofMolarConvert_s12  = 0.0
                         sumofMolarConvert_s13  = 0.0
                         sumofMolarConvert_s23  = 0.0
-                        
-                    
+
 			        	do m = 1, count_straddled
 			        		sumofdp = sumofdp + track_thickness(m)
 			        		sumofbd = sumofbd + bd_input  (horiz_indx_tracker(m)) *   track_thickness(m)
@@ -339,13 +334,14 @@ use waterbody_parameters, ONLY: afield
                             MolarConvert_aq23(i) = sumofMolarConvert_aq23  /sumofdp
                             MolarConvert_s12 (i) = sumofMolarConvert_s12   /sumofdp
                             MolarConvert_s13 (i) = sumofMolarConvert_s13   /sumofdp
-                            MolarConvert_s23 (i) = sumofMolarConvert_s23   /sumofdp
-                            
-         
-				endif 
-               end if
+                            MolarConvert_s23 (i) = sumofMolarConvert_s23   /sumofdp                         
+                     endif 
+                 end if
             end do          
             write(*,*) 'Done loading autoprofile'
+            
+            
+            
     else 	!No auto discretization  START OF  OLD WAY -- Possibly eliminate
 	
       ! *** Populate the Delx Vector and Kf & N *******
@@ -355,6 +351,7 @@ use waterbody_parameters, ONLY: afield
         xend = start +num_delx(i)-1      
         delx(start:xend)           = thickness(i)/num_delx(i) 
         bulkdensity(start:xend)    = bd_input(i)
+        
         clay(start:xend)           = clay_input(i)
         sand(start:xend)           = sand_input(i)
         orgcarb(start:xend)        = oc_input(i)           
@@ -409,6 +406,9 @@ use waterbody_parameters, ONLY: afield
     end if	
     
 	
+    
+    
+    
     !****** Calculate Kd for each compartment ******************************
     do K=1, NCHEM
         do i = 1, ncom2
@@ -426,16 +426,22 @@ use waterbody_parameters, ONLY: afield
         
     end do   	
 
+    !WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW  look
+    !****************************needs repair for autoprofile
 
     !Find nodes of last horizon, this will be used for groundwater calculations
 	if (nhoriz==1) then
 		top_node_last_horizon = 1
 		bottom_node_last_horizon = num_delx(1) 
-	else
-	    top_node_last_horizon =sum( Num_delx(1:nhoriz-1))+1
-		bottom_node_last_horizon = sum(Num_delx(1:nhoriz))
+	else                                           ! groundwater aquifer is taken as the last two compartments
+	    top_node_last_horizon    = ncom2-1
+		bottom_node_last_horizon = ncom2
     end if
 
+    write(*,*) 'compartments for aquifer: ', ncom2-1, 'to', ncom2
+    
+    
+    
   !***************************************************************************************************  
     !Implicit routine corection for degradation: insures perfect degradation at high rates    
              aq_rate_corrected =     exp(aq_rate_input)   -1.  
@@ -637,10 +643,18 @@ end do
                    smallest_difference = day_difference  
                    CN_index = i   !This sets the index for initial CN and erosion parameters
                end if
+               
+                  write(*,*) 'usle month day  ' , GMUSLEC(I),GDUSLEC(I)
+               
         enddo      
     end if
     cfac = USLEC(CN_index)
       
+    
+    
+ 
+    
+    
     !****************************************
     !Calculate Average Soil moisture in moisture zone (spec'd as a parameter) 
     !altered on 8/24/17 to average over depth rather than nodes so that it is consitent
@@ -658,6 +672,9 @@ end do
     soilwater       = theta_zero*DELX
     fieldcap_water  = theta_fc*  DELX
     wiltpoint_water = theta_wp*  DELX
+
+    
+    
     
 
     !!***  Find the Maximum Root Node **********

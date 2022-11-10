@@ -33,7 +33,7 @@ module chemical_transport
 	write(*,*) "Enter chemical transport"
 	
     do i=1, num_records   !day loop driven by metfile only   
-       
+
        day_number_chemtrans = i
        !Vectors determined outside of loop transfered as scalers (or smaller arrays) to loop
        precipitation           = precip(i) 
@@ -121,7 +121,7 @@ module chemical_transport
      call get_date (julday1900, current_year, current_month, current_day) 
      julday = julday1900 -jd(current_year,1,1) +1
 	 
-
+        
 
      ! Application of Pesticide into System
      do i = 1,  total_applications   !check to see if this is an application day     
@@ -142,7 +142,6 @@ module chemical_transport
         if (harvest_day ) CALL plant_pesticide_harvest_application        
         CALL plant_pesticide_degradation
 	 end if   
-
 
 	 
      do K=1, NCHEM   !******Pesticide Simulation ********************    
@@ -169,7 +168,7 @@ module chemical_transport
         theta_old_subday = theta_zero
         theta_air_old_subday = THAIR_old
         delta_aircontent = (thair_new- thair_old)/number_subdelt
-        
+              
         do j = 1, number_subdelt  !********  Start sub daily time step here           
             !This creeps water & air contents through the subdaily steps*****                     
             theta_new_subday = theta_old_subday + delta_watercontent              
@@ -228,7 +227,7 @@ module chemical_transport
             theta_air_old_subday = theta_air_new_subday
                 
 		end do    !*******end sub daily here
-		
+
 
         !Store new total mass
         do concurrent (i=1:NCOM2)
@@ -240,7 +239,7 @@ module chemical_transport
  
 		
 		
-		
+
 		
        !*****END PREDICTOR CORRECTOR ********************************************************************************************
 
@@ -253,8 +252,10 @@ module chemical_transport
 
     !probably could/should take this out of this subroutine	, but would require more arrays saves
 	 call get_inputs_from_field_for_vvwm	
+     
+
      CALL write_outputfile_2    
-	
+	           
 	
    end subroutine chemical_transport_oneday
    

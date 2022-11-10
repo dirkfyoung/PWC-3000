@@ -272,7 +272,7 @@
         msg = msg & vbNewLine & ",,,"
         msg = msg & vbNewLine & ",,,"
 
-        msg = msg & String.Format("{0}{1},{2},{3}", vbNewLine, PETadjustment.Text, snowMelt.Text, evapDepth.Text)
+        msg = msg & String.Format("{0}{1},{2},{3}", vbNewLine, PETadjustment.Text, 0.00000, evapDepth.Text)
 
 
         msg = msg & vbNewLine & "*** irrigation information start ***"
@@ -1019,7 +1019,7 @@
 
             currentRow = MyReader.ReadFields  'Line 41
             PETadjustment.Text = currentRow(0)
-            snowMelt.Text = currentRow(1)  'For FDA, we will keep snowmelt factor constant
+            'snowMelt.Text = currentRow(1)  'For FDA, we will keep snowmelt factor constant
             evapDepth.Text = currentRow(2)
 
             MyReader.ReadLine() 'Line 42 *** irrigation information start ***

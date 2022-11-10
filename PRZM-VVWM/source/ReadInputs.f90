@@ -358,7 +358,7 @@ end subroutine read_inputfile
         nhoriz,thickness,bd_input,fc_input, wp_input, oc_input, bd_input, Num_delx,sand_input,clay_input,dispersion_input, &
         is_temperature_simulated , albedo, NUSLEC,GDUSLEC,GMUSLEC,cn_2, uslec, &
         runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth, erosion_decline, erosion_effic,use_usleyears,Height_stagnant_air_layer_cm, &
-		is_auto_profile,number_of_discrete_layers,  profile_thick, profile_number_increments,  evergreen
+		is_auto_profile,number_of_discrete_layers,  profile_thick, profile_number_increments,  evergreen,soil_temp_input
     
         integer :: eof
         logical, intent(out) :: error
@@ -370,10 +370,31 @@ end subroutine read_inputfile
         !logical :: evergreen
         
         character(len= 50) ::dummy
-        real :: scalar_albedo
+        real :: scalar_albedo, scaler_soil_temp  !these values are arrays in the program, but they are initialesd with constants
 		
 		logical :: checkopen
             
+        
+thickness  = 0.0
+bd_input   = 0.0
+fc_input   = 0.0
+wp_input   = 0.0
+oc_input   = 0.0
+sand_input = 0.0
+clay_input = 0.0
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         write(*,*)  '**********  Start Reading Scenario Values ************************'  
         error = .FALSE.      
         filename = trim(scenario_names(schemenumber,scenarionumber))  
@@ -457,18 +478,23 @@ end subroutine read_inputfile
             write(*,'(8I6)') emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i), crop_periodicity(i), crop_lag(i) 
         end do
   
+
+
+  foliar_disposition = 1       
+        
+        
         do i=1, max_number_crop_periods - num_crop_periods_input
             read(ScenarioFileUnit,'(A)') dummy
 		end do
 		     
         read(ScenarioFileUnit,*)     !msg = msg & String.Format("{0}{1},{2},{3},{4}", vbNewLine, altRootDepth.Text, altCanopyCover.Text, altCanopyHeight.Text, altCanopyHoldup.Text)     
         read(ScenarioFileUnit,*)     !msg = msg & String.Format("{0}{1},{2},{3},{4}", vbNewLine, altEmergeDay.Text, altEmergeMon.Text, altDaysToMaturity.Text, altDaysToHarvest.Text)
-        read(ScenarioFileUnit,*, IOSTAT= status)  PFAC,SFAC, min_evap_depth 
+        read(ScenarioFileUnit,*, IOSTAT= status)  PFAC,dummy, min_evap_depth 
 			    IF (status .NE. 0) then
 				  call scenario_error(error)
 				  return
 				end if		
-	
+
         
         read(ScenarioFileUnit,*) ! msg = msg & vbNewLine & "*** irrigation information start ***"        
         read(ScenarioFileUnit,*) irtype !0 = none, 1 flood, 2 undefined 3 = overcanopy 4 = under canopy 5 = undefined, 6 over canopy       
@@ -477,14 +503,18 @@ end subroutine read_inputfile
         write(*,*) 'Irrigation Type ', irtype
         write(*,*) 'FLEACH,PCDEPL,max_irrig', FLEACH,PCDEPL,max_irrig
         
+        
+     
+        
+        
         read(ScenarioFileUnit,*) UserSpecifiesDepth !, user_irrig_depth  ! UserSpecifiesIrrigDepth.Checked, IrrigationDepthUserSpec.Text)
 
         if (UserSpecifiesDepth) then
             backspace(ScenarioFileUnit)  !if true the userirrig depth will be blankl sometinmes
             read(ScenarioFileUnit,*) UserSpecifiesDepth, user_irrig_depth        
         endif
-        
-        
+ 
+  
         read(ScenarioFileUnit,'(A)')  !msg = msg & vbNewLine & "*** spare line for expansion"        
         read(ScenarioFileUnit,'(A)') !msg = msg & vbNewLine & "*** spare line for expansion"       
         read(ScenarioFileUnit,'(A)')  !msg = msg & vbNewLine & "*** spare line for expansion"         
@@ -500,8 +530,15 @@ end subroutine read_inputfile
         read(ScenarioFileUnit,*) (Num_delx(i), i=1, nhoriz)
         read(ScenarioFileUnit,*) (sand_input(i), i=1, nhoriz)        
         read(ScenarioFileUnit,*) (clay_input(i), i=1, nhoriz)
-    
         
+      
+do i= 1, nhoriz
+         write(73, '(7G12.3)')  thickness(i), bd_input(i), fc_input(i), wp_input(i), oc_input(i), sand_input(i), clay_input(i)
+end do
+
+
+    
+    
         !write(*,*) 'Nhori', NHORIZ        
         !write(*,*) 'THCK ', (thickness(i), i=1, nhoriz)
         !write(*,*) 'BD   ', (bd_input(i), i=1, nhoriz) 
@@ -516,9 +553,10 @@ end subroutine read_inputfile
 
         read(ScenarioFileUnit,*)!msg = msg & vbNewLine & "*** Horizon End, Temperature Start ********"
         !
-        read(ScenarioFileUnit,*) scalar_albedo !msg = msg & String.Format("{0}{1},{2}", vbNewLine, albedoBox.Text, bcTemp.Text)
-        ALBEDO = scalar_albedo                 !albedo is monthly in przm       
-        
+        read(ScenarioFileUnit,*) scalar_albedo,scaler_soil_temp  !msg = msg & String.Format("{0}{1},{2}", vbNewLine, albedoBox.Text, bcTemp.Text)
+        ALBEDO = scalar_albedo                 !albedo is monthly in przm      
+        soil_temp_input = scaler_soil_temp
+    
         read(ScenarioFileUnit,*) is_temperature_simulated !msg = msg & vbNewLine & simTemperature.Checked
 
         read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "***spare line for expansion"
@@ -656,7 +694,8 @@ end subroutine read_inputfile
              PFAC,SFAC, max_canopy_cover, max_canopy_holdup, max_root_depth, crop_periodicity, crop_lag,UserSpecifiesDepth, is_temperature_simulated, &
              ALBEDO, soil_temp_input, dispersion_input, nuslec,cn_2, USLEC, gmuslec, gduslec, use_usleyears, &
              runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth,erosion_decline,erosion_effic, Height_stagnant_air_layer_cm, &
-             gw_depth, profile_thick, profile_number_increments, is_auto_profile,  number_of_discrete_layers
+             gw_depth, profile_thick, profile_number_increments, is_auto_profile,  number_of_discrete_layers, foliar_disposition, UserSpecifiesDepth,  &
+             user_irrig_depth 
                                                                           
          integer, intent(out) :: iostatus                                   
          integer, intent(in)  :: batchfileunit                            
@@ -669,6 +708,27 @@ end subroutine read_inputfile
          real :: cn_cov, cn_fal, usle_c_cov, usle_c_fal
          integer year !dummy not used but for sub op
          character(LEN=10) :: weather_grid
+         
+         integer :: i
+         foliar_disposition = 1
+         UserSpecifiesDepth = .false.
+         user_irrig_depth = 0.0
+
+thickness  = 0.0
+bd_input   = 0.0
+fc_input   = 0.0
+wp_input   = 0.0
+oc_input   = 0.0
+sand_input = 0.0
+clay_input = 0.0
+
+
+
+         
+         
+         
+         
+         
          
          read(BatchFileUnit, *, IOSTAT=iostatus)   scenario_id, dummy, weather_grid, dummy ,dummy, dummy, dummy, dummy, dummy, &  !enter the long string of values
              latitude, dummy, min_evap_depth , IREG, irtype, max_irrig,  PCDEPL, FLEACH,dummy, julian_emerg, julian_matur, julian_harv, &
@@ -701,20 +761,23 @@ end subroutine read_inputfile
          max_canopy_holdup(1)   = canopy_holdup
          max_root_depth(1)      = root_depth
          UserSpecifiesDepth = .FALSE.
-         
-         call get_date(julian_emerg, year, emm(1), emd(1) )
-         call get_date(julian_matur, year, mam(1), mad(1) )
-         call get_date(julian_harv , year, ham(1), mad(1) )
-         
-         PFAC = 1.0    !always using PET files now, No need to adjust
-         SFAC = 0.274  !USDA value
-         
-         ALBEDO = 0.2  !albedo is monthly in przm       
-        
-         is_temperature_simulated = .TRUE. 
 
+         call get_date(julian_emerg, year, emm(1), emd(1) )
+         write(*,    '("Emerge", 4I12)' ) julian_emerg, year, emm(1), emd(1)
          
+         call get_date(julian_matur, year, mam(1), mad(1) )
+         write(*,    '("Mature", 4I12)' )  julian_matur,year, mam(1), mad(1)
+         
+         call get_date(julian_harv , year,  ham(1), had(1) )
+          write(*,    '("Harves", 4I12)' )julian_harv, year, ham(1), had(1)
+                
+         PFAC = 1.0    !always using PET files now, No need to adjust
+         !SFAC = 0.274  !USDA value  now a parameter        
+         ALBEDO = 0.2  !albedo is monthly in przm  
+                  
+         is_temperature_simulated = .TRUE. 
          soil_temp_input  = 15.  !array for horizons, set as constant for all horizons as initial condition.  May want to make this a varying input
+
          dispersion_input = 0.0
          
          nuslec = 2
@@ -728,6 +791,9 @@ end subroutine read_inputfile
          
          GDUSLEC(2) = had(1)  !harvest
          GMUSLEC(2) = ham(1)
+         
+        write(*,*) 'juslec = ' , GMUSLEC(1),GDUSLEC(1)
+        
          use_usleyears = .FALSE.
          
         runoff_extr_depth = 8.0
@@ -761,7 +827,8 @@ end subroutine read_inputfile
         profile_number_increments(6) = 2
         
         write(*,'(6I8)') profile_number_increments(1:6)
-         write(*,*) 'end batch reaD'
+        write(*,*) 'end batch reaD'
+
     end subroutine read_batch_scenarios
     
     

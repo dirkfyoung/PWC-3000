@@ -172,12 +172,10 @@ Partial Class Form1
         Me.GetWeatherFile = New System.Windows.Forms.Button()
         Me.albedo = New System.Windows.Forms.TextBox()
         Me.Label37 = New System.Windows.Forms.Label()
-        Me.Label36 = New System.Windows.Forms.Label()
         Me.evapDepth = New System.Windows.Forms.TextBox()
         Me.Label35 = New System.Windows.Forms.Label()
         Me.PETadjustment = New System.Windows.Forms.TextBox()
         Me.Evergreen = New System.Windows.Forms.CheckBox()
-        Me.snowMelt = New System.Windows.Forms.TextBox()
         Me.WeatherFileName = New System.Windows.Forms.TextBox()
         Me.EvergreenPanel = New System.Windows.Forms.Panel()
         Me.Label43 = New System.Windows.Forms.Label()
@@ -1430,12 +1428,10 @@ Partial Class Form1
         Me.Panel2.Controls.Add(Me.GetWeatherFile)
         Me.Panel2.Controls.Add(Me.albedo)
         Me.Panel2.Controls.Add(Me.Label37)
-        Me.Panel2.Controls.Add(Me.Label36)
         Me.Panel2.Controls.Add(Me.evapDepth)
         Me.Panel2.Controls.Add(Me.Label35)
         Me.Panel2.Controls.Add(Me.PETadjustment)
         Me.Panel2.Controls.Add(Me.Evergreen)
-        Me.Panel2.Controls.Add(Me.snowMelt)
         Me.Panel2.Controls.Add(Me.WeatherFileName)
         Me.Panel2.Controls.Add(Me.EvergreenPanel)
         Me.Panel2.Controls.Add(Me.bcTemp)
@@ -1495,7 +1491,7 @@ Partial Class Form1
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.50237!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 97.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 177.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 178.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.Label170, 4, 6)
         Me.TableLayoutPanel3.Controls.Add(Me.Label169, 3, 6)
         Me.TableLayoutPanel3.Controls.Add(Me.Label168, 2, 6)
@@ -1547,7 +1543,7 @@ Partial Class Form1
         'Label170
         '
         Me.Label170.AutoSize = True
-        Me.Label170.Location = New System.Drawing.Point(316, 150)
+        Me.Label170.Location = New System.Drawing.Point(315, 150)
         Me.Label170.Name = "Label170"
         Me.Label170.Size = New System.Drawing.Size(32, 17)
         Me.Label170.TabIndex = 237
@@ -1556,7 +1552,7 @@ Partial Class Form1
         'Label169
         '
         Me.Label169.AutoSize = True
-        Me.Label169.Location = New System.Drawing.Point(219, 150)
+        Me.Label169.Location = New System.Drawing.Point(218, 150)
         Me.Label169.Name = "Label169"
         Me.Label169.Size = New System.Drawing.Size(32, 17)
         Me.Label169.TabIndex = 236
@@ -1565,7 +1561,7 @@ Partial Class Form1
         'Label168
         '
         Me.Label168.AutoSize = True
-        Me.Label168.Location = New System.Drawing.Point(119, 150)
+        Me.Label168.Location = New System.Drawing.Point(118, 150)
         Me.Label168.Name = "Label168"
         Me.Label168.Size = New System.Drawing.Size(24, 17)
         Me.Label168.TabIndex = 235
@@ -1574,7 +1570,7 @@ Partial Class Form1
         'Label167
         '
         Me.Label167.AutoSize = True
-        Me.Label167.Location = New System.Drawing.Point(56, 150)
+        Me.Label167.Location = New System.Drawing.Point(55, 150)
         Me.Label167.Name = "Label167"
         Me.Label167.Size = New System.Drawing.Size(16, 17)
         Me.Label167.TabIndex = 234
@@ -1592,7 +1588,7 @@ Partial Class Form1
         'Label165
         '
         Me.Label165.AutoSize = True
-        Me.Label165.Location = New System.Drawing.Point(316, 130)
+        Me.Label165.Location = New System.Drawing.Point(315, 130)
         Me.Label165.Name = "Label165"
         Me.Label165.Size = New System.Drawing.Size(32, 17)
         Me.Label165.TabIndex = 232
@@ -1601,7 +1597,7 @@ Partial Class Form1
         'Label164
         '
         Me.Label164.AutoSize = True
-        Me.Label164.Location = New System.Drawing.Point(219, 130)
+        Me.Label164.Location = New System.Drawing.Point(218, 130)
         Me.Label164.Name = "Label164"
         Me.Label164.Size = New System.Drawing.Size(32, 17)
         Me.Label164.TabIndex = 231
@@ -1610,7 +1606,7 @@ Partial Class Form1
         'Label163
         '
         Me.Label163.AutoSize = True
-        Me.Label163.Location = New System.Drawing.Point(119, 130)
+        Me.Label163.Location = New System.Drawing.Point(118, 130)
         Me.Label163.Name = "Label163"
         Me.Label163.Size = New System.Drawing.Size(24, 17)
         Me.Label163.TabIndex = 230
@@ -1619,7 +1615,7 @@ Partial Class Form1
         'Label162
         '
         Me.Label162.AutoSize = True
-        Me.Label162.Location = New System.Drawing.Point(56, 130)
+        Me.Label162.Location = New System.Drawing.Point(55, 130)
         Me.Label162.Name = "Label162"
         Me.Label162.Size = New System.Drawing.Size(16, 17)
         Me.Label162.TabIndex = 229
@@ -1637,7 +1633,7 @@ Partial Class Form1
         'Label160
         '
         Me.Label160.AutoSize = True
-        Me.Label160.Location = New System.Drawing.Point(316, 110)
+        Me.Label160.Location = New System.Drawing.Point(315, 110)
         Me.Label160.Name = "Label160"
         Me.Label160.Size = New System.Drawing.Size(32, 17)
         Me.Label160.TabIndex = 227
@@ -1646,7 +1642,7 @@ Partial Class Form1
         'Label159
         '
         Me.Label159.AutoSize = True
-        Me.Label159.Location = New System.Drawing.Point(219, 110)
+        Me.Label159.Location = New System.Drawing.Point(218, 110)
         Me.Label159.Name = "Label159"
         Me.Label159.Size = New System.Drawing.Size(24, 17)
         Me.Label159.TabIndex = 226
@@ -1655,7 +1651,7 @@ Partial Class Form1
         'Label158
         '
         Me.Label158.AutoSize = True
-        Me.Label158.Location = New System.Drawing.Point(119, 110)
+        Me.Label158.Location = New System.Drawing.Point(118, 110)
         Me.Label158.Name = "Label158"
         Me.Label158.Size = New System.Drawing.Size(24, 17)
         Me.Label158.TabIndex = 225
@@ -1664,7 +1660,7 @@ Partial Class Form1
         'Label157
         '
         Me.Label157.AutoSize = True
-        Me.Label157.Location = New System.Drawing.Point(56, 110)
+        Me.Label157.Location = New System.Drawing.Point(55, 110)
         Me.Label157.Name = "Label157"
         Me.Label157.Size = New System.Drawing.Size(16, 17)
         Me.Label157.TabIndex = 224
@@ -1682,7 +1678,7 @@ Partial Class Form1
         'Label155
         '
         Me.Label155.AutoSize = True
-        Me.Label155.Location = New System.Drawing.Point(316, 90)
+        Me.Label155.Location = New System.Drawing.Point(315, 90)
         Me.Label155.Name = "Label155"
         Me.Label155.Size = New System.Drawing.Size(24, 17)
         Me.Label155.TabIndex = 222
@@ -1691,7 +1687,7 @@ Partial Class Form1
         'Label154
         '
         Me.Label154.AutoSize = True
-        Me.Label154.Location = New System.Drawing.Point(219, 90)
+        Me.Label154.Location = New System.Drawing.Point(218, 90)
         Me.Label154.Name = "Label154"
         Me.Label154.Size = New System.Drawing.Size(24, 17)
         Me.Label154.TabIndex = 221
@@ -1709,7 +1705,7 @@ Partial Class Form1
         'Label150
         '
         Me.Label150.AutoSize = True
-        Me.Label150.Location = New System.Drawing.Point(316, 70)
+        Me.Label150.Location = New System.Drawing.Point(315, 70)
         Me.Label150.Name = "Label150"
         Me.Label150.Size = New System.Drawing.Size(24, 17)
         Me.Label150.TabIndex = 217
@@ -1718,7 +1714,7 @@ Partial Class Form1
         'Label149
         '
         Me.Label149.AutoSize = True
-        Me.Label149.Location = New System.Drawing.Point(219, 70)
+        Me.Label149.Location = New System.Drawing.Point(218, 70)
         Me.Label149.Name = "Label149"
         Me.Label149.Size = New System.Drawing.Size(16, 17)
         Me.Label149.TabIndex = 216
@@ -1727,7 +1723,7 @@ Partial Class Form1
         'Label146
         '
         Me.Label146.AutoSize = True
-        Me.Label146.Location = New System.Drawing.Point(316, 50)
+        Me.Label146.Location = New System.Drawing.Point(315, 50)
         Me.Label146.Name = "Label146"
         Me.Label146.Size = New System.Drawing.Size(16, 17)
         Me.Label146.TabIndex = 213
@@ -1745,7 +1741,7 @@ Partial Class Form1
         'Label144
         '
         Me.Label144.AutoSize = True
-        Me.Label144.Location = New System.Drawing.Point(219, 50)
+        Me.Label144.Location = New System.Drawing.Point(218, 50)
         Me.Label144.Name = "Label144"
         Me.Label144.Size = New System.Drawing.Size(16, 17)
         Me.Label144.TabIndex = 8
@@ -1754,7 +1750,7 @@ Partial Class Form1
         'Label140
         '
         Me.Label140.AutoSize = True
-        Me.Label140.Location = New System.Drawing.Point(316, 0)
+        Me.Label140.Location = New System.Drawing.Point(315, 0)
         Me.Label140.Name = "Label140"
         Me.Label140.Size = New System.Drawing.Size(44, 34)
         Me.Label140.TabIndex = 4
@@ -1763,7 +1759,7 @@ Partial Class Form1
         'Label138
         '
         Me.Label138.AutoSize = True
-        Me.Label138.Location = New System.Drawing.Point(119, 0)
+        Me.Label138.Location = New System.Drawing.Point(118, 0)
         Me.Label138.Name = "Label138"
         Me.Label138.Size = New System.Drawing.Size(74, 34)
         Me.Label138.TabIndex = 2
@@ -1772,7 +1768,7 @@ Partial Class Form1
         'Label137
         '
         Me.Label137.AutoSize = True
-        Me.Label137.Location = New System.Drawing.Point(56, 0)
+        Me.Label137.Location = New System.Drawing.Point(55, 0)
         Me.Label137.Name = "Label137"
         Me.Label137.Size = New System.Drawing.Size(53, 50)
         Me.Label137.TabIndex = 1
@@ -1790,7 +1786,7 @@ Partial Class Form1
         'Label153
         '
         Me.Label153.AutoSize = True
-        Me.Label153.Location = New System.Drawing.Point(56, 90)
+        Me.Label153.Location = New System.Drawing.Point(55, 90)
         Me.Label153.Name = "Label153"
         Me.Label153.Size = New System.Drawing.Size(16, 17)
         Me.Label153.TabIndex = 220
@@ -1799,7 +1795,7 @@ Partial Class Form1
         'Label152
         '
         Me.Label152.AutoSize = True
-        Me.Label152.Location = New System.Drawing.Point(119, 90)
+        Me.Label152.Location = New System.Drawing.Point(118, 90)
         Me.Label152.Name = "Label152"
         Me.Label152.Size = New System.Drawing.Size(28, 17)
         Me.Label152.TabIndex = 219
@@ -1808,7 +1804,7 @@ Partial Class Form1
         'Label148
         '
         Me.Label148.AutoSize = True
-        Me.Label148.Location = New System.Drawing.Point(56, 70)
+        Me.Label148.Location = New System.Drawing.Point(55, 70)
         Me.Label148.Name = "Label148"
         Me.Label148.Size = New System.Drawing.Size(16, 17)
         Me.Label148.TabIndex = 215
@@ -1817,7 +1813,7 @@ Partial Class Form1
         'Label147
         '
         Me.Label147.AutoSize = True
-        Me.Label147.Location = New System.Drawing.Point(119, 70)
+        Me.Label147.Location = New System.Drawing.Point(118, 70)
         Me.Label147.Name = "Label147"
         Me.Label147.Size = New System.Drawing.Size(28, 17)
         Me.Label147.TabIndex = 214
@@ -1826,7 +1822,7 @@ Partial Class Form1
         'Label143
         '
         Me.Label143.AutoSize = True
-        Me.Label143.Location = New System.Drawing.Point(56, 50)
+        Me.Label143.Location = New System.Drawing.Point(55, 50)
         Me.Label143.Name = "Label143"
         Me.Label143.Size = New System.Drawing.Size(24, 17)
         Me.Label143.TabIndex = 7
@@ -1835,7 +1831,7 @@ Partial Class Form1
         'Label142
         '
         Me.Label142.AutoSize = True
-        Me.Label142.Location = New System.Drawing.Point(119, 50)
+        Me.Label142.Location = New System.Drawing.Point(118, 50)
         Me.Label142.Name = "Label142"
         Me.Label142.Size = New System.Drawing.Size(28, 17)
         Me.Label142.TabIndex = 6
@@ -1853,7 +1849,7 @@ Partial Class Form1
         'Label139
         '
         Me.Label139.AutoSize = True
-        Me.Label139.Location = New System.Drawing.Point(219, 0)
+        Me.Label139.Location = New System.Drawing.Point(218, 0)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(44, 34)
         Me.Label139.TabIndex = 3
@@ -1991,20 +1987,11 @@ Partial Class Form1
         'Label37
         '
         Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(251, 91)
+        Me.Label37.Location = New System.Drawing.Point(155, 91)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(118, 17)
         Me.Label37.TabIndex = 138
         Me.Label37.Text = "Adjust PET factor"
-        '
-        'Label36
-        '
-        Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(5, 91)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(112, 17)
-        Me.Label36.TabIndex = 136
-        Me.Label36.Text = "Snowmelt Factor"
         '
         'evapDepth
         '
@@ -2026,7 +2013,7 @@ Partial Class Form1
         '
         'PETadjustment
         '
-        Me.PETadjustment.Location = New System.Drawing.Point(375, 88)
+        Me.PETadjustment.Location = New System.Drawing.Point(279, 88)
         Me.PETadjustment.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.PETadjustment.Name = "PETadjustment"
         Me.PETadjustment.Size = New System.Drawing.Size(52, 22)
@@ -2045,15 +2032,6 @@ Partial Class Form1
         Me.Evergreen.Text = "Evergreen"
         Me.Evergreen.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Evergreen.UseVisualStyleBackColor = True
-        '
-        'snowMelt
-        '
-        Me.snowMelt.Location = New System.Drawing.Point(123, 91)
-        Me.snowMelt.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.snowMelt.Name = "snowMelt"
-        Me.snowMelt.Size = New System.Drawing.Size(73, 22)
-        Me.snowMelt.TabIndex = 135
-        Me.snowMelt.Text = "0.274"
         '
         'WeatherFileName
         '
@@ -6291,11 +6269,9 @@ Partial Class Form1
     Friend WithEvents Label64 As Label
     Friend WithEvents VolatilizationBounday As TextBox
     Friend WithEvents PETadjustment As TextBox
-    Friend WithEvents snowMelt As TextBox
     Friend WithEvents evapDepth As TextBox
     Friend WithEvents Label44 As Label
     Friend WithEvents Label37 As Label
-    Friend WithEvents Label36 As Label
     Friend WithEvents Label35 As Label
     Friend WithEvents Q10 As TextBox
     Friend WithEvents eInteracting As TextBox
