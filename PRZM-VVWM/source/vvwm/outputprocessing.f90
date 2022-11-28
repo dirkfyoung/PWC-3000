@@ -495,7 +495,7 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
         end if
         if ( NCHEM >2) then
             Open(unit=summary_output_unit_deg2,FILE= trim(summary_outputfile_deg2),Status='unknown')  
-            Write(summary_output_unit_deg1, '(A322)') header
+            Write(summary_output_unit_deg2, '(A322)') header
         end if
         
         First_time_through= .FALSE.

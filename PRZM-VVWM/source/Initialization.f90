@@ -1280,7 +1280,7 @@ end subroutine SetupFieldOutputOptions
 		end do
 			
 		write(*,*) 'Retardation Factor = ' , retardation_factor
-        write(*,*) 'maxcap_volume (effective pore volume) = ', maxcap_volume
+        write(*,*) 'maxcap_volume (effective pore volume (depth), cm) = ', maxcap_volume
 		
   end   subroutine Calculate_Retardation_Factor
   

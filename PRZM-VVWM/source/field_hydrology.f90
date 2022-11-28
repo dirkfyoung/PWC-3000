@@ -4,9 +4,9 @@ module field_hydrology
 	
 	subroutine hydrology_only
 	use constants_and_Variables, ONLY:precip, pet_evap,air_temperature ,wind_speed, solar_radiation, &
-                                  precipitation,PEVP,air_TEMP,WIND, SOLRAD ,harvest_day, &
-                                  startday, num_records,is_harvest_day,canopy_holdup, &
-                                  canopy_height, canopy_cover  , cover, height, harvest_placement, &
+                                  precipitation,PEVP,air_TEMP,WIND, SOLRAD , &
+                                  startday, num_records,canopy_holdup, &
+                                  canopy_height, canopy_cover  , cover, height, &
                                   potential_canopy_holdup,evapo_root_node_daily, &
                                   evapo_root_node,root_node ,root_node_daily, julday1900 ,startday
 	  integer :: i
@@ -36,10 +36,10 @@ module field_hydrology
 	
     !*******************************************************************************************************
     SUBROUTINE runoff_leaching_and_heat(day)
-	use constants_and_Variables, ONLY: is_temperature_simulated,soil_temp, is_nonequilibrium,              & 
-        THRUFL,really_not_thrufl,COVER, USLEC,cfac,theta_end,bulkdensity,runoff_on_day,  & 
-        ainf,juslec,nuslec,ncom2,sedl,CN_index, under_canopy_irrig,over_canopy_irrig,julday1900, &
-        use_usleyears,enriched_eroded_solids,delx,theta_zero, delt,harvest_day, mass_in_compartment, irtype,is_timeseriesfile, irrigation_save
+	use constants_and_Variables, ONLY: is_temperature_simulated,            & 
+        THRUFL,really_not_thrufl,COVER, USLEC,cfac, & 
+        ainf,juslec,nuslec,CN_index, under_canopy_irrig,over_canopy_irrig,julday1900, &
+        use_usleyears, delt, irtype, irrigation_save
 
     use Temperatue_Calcs
     use Output_From_Field
@@ -50,16 +50,9 @@ module field_hydrology
     implicit none
     integer, intent(in) :: day !day tracker
 	
-    integer  :: I,K, J
+    integer  :: I
     integer  :: julday                   !this is the day of the year starting with Jan 1
     integer  :: current_year, current_month, current_day    
-
-    real     :: theta_new_subday(NCOM2)
-    real     :: theta_old_subday(NCOM2)
-    real     :: delta_watercontent(NCOM2)  !local water contents for use with subdaily time steps
-    real     :: theta_air_new_subday(NCOM2)
-    real     :: theta_air_old_subday(NCOM2)
-    real     :: delta_aircontent(NCOM2)    !local water contents for use with subdaily time steps  
 
     !************************************************************************************************
     AINF   = 0.0
@@ -80,9 +73,7 @@ module field_hydrology
    !this version of julian day is needed for the curve number and erosion routines
    call get_date (julday1900, current_year, current_month, current_day) 
    julday = julday1900 -jd(current_year,1,1) +1
-   
 
-   
    if (use_usleyears) then
       do i = 1, nuslec
          if (julday1900  ==juslec(i))then
@@ -332,8 +323,8 @@ SUBROUTINE Runoff_cn(day)
       use constants_and_Variables, ONLY: precipitation, precip_rain, air_TEMP,sfac,snowfl,THRUFL, &
         cint,smelt,runoff_on_day, curve_number_daily,ainf,potential_canopy_holdup,snow, &
         under_canopy_irrig, over_canopy_irrig,  canopy_flow_save, &
-        effective_rain , julday1900, data_date,  &
-        SoilWater,cn_moist_node,soil_depth,cn_moisture, runoff_save
+        effective_rain ,  runoff_save
+        
         
       implicit none
 !     This subroutine calculates snowmelt, crop interception, runoff, and infiltration from the soil surface
@@ -468,7 +459,7 @@ SUBROUTINE Runoff_cn(day)
     SUBROUTINE Leaching(day)
     use constants_and_Variables, ONLY: soilwater,EvapoTran,theta_zero,DELX,theta_end,ainf,ncom2, & 
          vel, thair_old, THAIR_new,theta_sat,theta_fc, &
-		THAIR_save,theta_end_save,soilwater_save, velocity_save,theta_zero_save, thair_old_save, infiltration_save, xx
+		THAIR_save,theta_end_save,soilwater_save, velocity_save,theta_zero_save, thair_old_save, infiltration_save
 	
         implicit none
         !Performs hydraulic calculations assuming a uniform soil profile with unrestricted drainage

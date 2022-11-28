@@ -502,11 +502,7 @@ clay_input = 0.0
         
         write(*,*) 'Irrigation Type ', irtype
         write(*,*) 'FLEACH,PCDEPL,max_irrig', FLEACH,PCDEPL,max_irrig
-        
-        
-     
-        
-        
+
         read(ScenarioFileUnit,*) UserSpecifiesDepth !, user_irrig_depth  ! UserSpecifiesIrrigDepth.Checked, IrrigationDepthUserSpec.Text)
 
         if (UserSpecifiesDepth) then
@@ -533,7 +529,7 @@ clay_input = 0.0
         
       
 do i= 1, nhoriz
-         write(73, '(7G12.3)')  thickness(i), bd_input(i), fc_input(i), wp_input(i), oc_input(i), sand_input(i), clay_input(i)
+         write(*, '(7G12.3)')  thickness(i), bd_input(i), fc_input(i), wp_input(i), oc_input(i), sand_input(i), clay_input(i)
 end do
 
 
@@ -614,7 +610,7 @@ end do
                                       metfileunit,weatherfilename, weatherfiledirectory, &
                                       startday, first_year, last_year, num_years,first_mon, first_day 
     
-    integer:: julian_emerg, julian_matur, julian_harv
+
     
         integer :: dummy, status,i, year
         character(Len=1024) :: weatherfile_pathandname

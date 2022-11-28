@@ -1,5 +1,5 @@
 module chemical_transport
-	implicit none
+    implicit none
 	contains
 
 	subroutine chem_transport_onfield
@@ -81,10 +81,9 @@ module chemical_transport
       theta_end,bulkdensity, ncom2,&
       conc_total_per_water, mass_in_compartment,mass_in_compartment2, conc_porewater,    &
       ENPY,new_henry, old_Henry,NCHEM, some_applications_were_foliar,                         & 
-      application_date,application_date_original, julday1900, total_applications,is_Freundlich,Henry_unitless, henry_ref_temp, &
+      application_date, julday1900, total_applications,is_Freundlich,Henry_unitless, henry_ref_temp, &
       Kd_old,	kd_new, delx,  thair_old, thair_new, & 
-      theta_zero, delt, number_subdelt, subdelt, Sorbed2, harvest_day, mass_in_compartment, &
-      is_timeseriesfile
+      theta_zero, delt, number_subdelt, subdelt, Sorbed2, harvest_day, mass_in_compartment
  
      use Pesticide_Applications  
      use Temperatue_Calcs
@@ -321,8 +320,6 @@ integer mm
     do I=2,NCOM2- 1
         A(I)= (-(dispersion(I-1)*theta_new(I-1)+new_henry(K,I-1)*DGAIR(I-1))/(DELX(I)*0.5*(DELX(I-1)+DELX(I)))        &
               -VEL(I-1)*theta_new(I-1)/DELX(I) )*DELT
-
-            write (81, '(i5, 60G12.3)') i,VEL(I-1)
 
         
         B(I)= ( (dispersion(I)*theta_new(I)  +  new_henry(K,I)*DGAIR(I))  /   (DELX(I)*0.5*(DELX(I-1)+DELX(I)))            &
