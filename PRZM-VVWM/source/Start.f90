@@ -27,7 +27,7 @@ program PRZMVVWM
     integer :: length !length of input file characters
     integer :: hh, i ,jj, kk,  iostatus
     logical error
-
+    logical :: end_of_file, error_on_read
     
     character :: dummy
     !################################################ 
@@ -96,39 +96,46 @@ program PRZMVVWM
                write(*,'("Batch Scenario File: ", A100) ')   scenario_batchfile(i)
                open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus ) 
                read(BatchFileUnit,*) dummy  ! skip header
+               end_of_file = .FALSE. !reset the batch scenario reading
+               error_on_read = .FALSE.
             end if    
        
             kk=0
+            
             do !scenario do loop
                !Loop controled by either the number of files in the batch or by the number of scenarios read in from input file
                kk=kk+1
                write(*,*) 'Doing scenario ', KK
                if( is_batch_scenario(i)) then
-                   call read_batch_scenarios(iostatus,BatchFileUnit )
-                   WRITE (*,*) IOSTATUS
-                   if(IS_IOSTAT_END (iostatus)) then
-                         write(*,*) 'end of batch scenario read '
-                         exit           !end of batch read, exit do loop  
-                   else if (iostatus==0) then   
-                          write(*,*) 'susscessful scenario read ', kk
-                   else   
-                          write(*,*) 'bad scenario read ', kk
-                   end if   
+                       call read_batch_scenarios(BatchFileUnit, end_of_file, error_on_read)
+     WRITE(*,*) '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',error_on_read
+                       
+                       
+                        !*****ERROR and EOF CHECKING ON SCENARIO BATCH FILE ****************
+                        if(end_of_file) then
+                           close(BatchFileUnit)
+                           write(*,*) 'end of batch scenario read, exit after completing the run'
+                           exit  !exit scenario loop
+                        end if
+                                                 
+                        if (error_on_read)  then  
+                               write(88,*) 'bad scenario # ', kk
+                               cycle                       
+                        end if 
+                        !*****END ERROR CHECKING ON SCENARIO BATCH FILE ****************   
+                             
+               else    !*******use scenarios directly read into input
+                       if (kk == number_of_scenarios(i) + 1) exit  !end of scenario list from gui inputs
+                       call read_scenario_file(i,kk, error)
+                       
+                       if (error) then 
+				           Write(*,*) 'exiting scenario loop due to scenario open problem'
+				           cycle   !error, try next scenario in scheme
+                       end if   
                    
-! need to get scenario id                   
-                   
-                   
-               else  !use scenarios directly read into input
-                   Write(*,*) '********** Doing Scenario No. ', kk
-                   if (kk == number_of_scenarios(i) + 1) exit  !end of scenario list fronm gui inputs
-                   call read_scenario_file(i,kk, error)
-                   
-               if (error) then 
-				   Write(*,*) 'exiting scenario loop due to scenario open problem'
-				   cycle   !error, try next scenario in scheme
-               end if   
-                   
-               end if                 
+               end if 
+               
+               
             
 write (*,*) '###################################################'	 
 CALL CPU_TIME (time_1)
@@ -200,6 +207,9 @@ write (*,*) 'cpu time deallocate  ',time_1- cputime_begin
 write (*,*) '###################################################'			   
 			   
 			   
+
+                if (end_of_file ) exit  !quit scenario loop
+
 			end do  !END SCENARIO LOOP  kk           
 
 write (*,*) '###################################################'	 
@@ -221,7 +231,7 @@ CALL CPU_TIME (time_1)
 write (*,*) 'cpu time, scheme   ',time_1- cputime_begin, kk
 write (*,*) '###################################################'			
 			
-			close(BatchFileUnit)  !scenario batch file if open
+
 		 end do  !End scheme Loop, i
 		 
 write (*,*) '###################################################'	 

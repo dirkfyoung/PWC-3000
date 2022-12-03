@@ -12,8 +12,8 @@
         p.StartInfo.UseShellExecute = False
         p.StartInfo.RedirectStandardOutput = True
         p.StartInfo.RedirectStandardError = True
-        p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
-        p.StartInfo.CreateNoWindow = True
+        '   p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+        '   p.StartInfo.CreateNoWindow = True
         p.Start()
 
         Dim output As String = p.StandardOutput.ReadToEnd

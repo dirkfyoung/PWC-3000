@@ -676,7 +676,7 @@ end do
     
     
     
-    subroutine read_batch_scenarios(iostatus, batchfileunit)
+    subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
          use utilities_1
          use constants_and_variables, ONLY: scenario_id, weatherfilename,latitude, min_evap_depth, IREG, irtype,max_irrig, PCDEPL, fleach, USLEP, USLEK,USLELS,SLP, &
              num_crop_periods_input,NHORIZ, thickness,bd_input,fc_input,wp_input,oc_input,sand_input,clay_input, evergreen,emm, emd, mad, mam, had, ham, &
@@ -686,7 +686,7 @@ end do
              profile_thick, profile_number_increments, is_auto_profile,  number_of_discrete_layers, foliar_disposition, UserSpecifiesDepth,  &
              user_irrig_depth 
                                                                           
-         integer, intent(out) :: iostatus                                   
+         logical, intent(out) :: end_of_file, error_on_read                                 
          integer, intent(in)  :: batchfileunit                            
                                                                             
          character(LEN=5) :: dummy
@@ -697,10 +697,10 @@ end do
          real :: cn_cov, cn_fal, usle_c_cov, usle_c_fal
          integer year !dummy not used but for sub op
          character(LEN=10) :: weather_grid
-         
+         integer :: iostatus
          integer :: i
          real ::  gw_depth, gw_temp
-
+         character(LEN=1000) :: input_string
 
          thickness  = 0.0
          bd_input   = 0.0
@@ -749,13 +749,22 @@ end do
         !  profile_number_increments(5) = int(gw_depth)/50 -2
         profile_number_increments(6) = 2
         
-    
+          end_of_file    = .FALSE.
+          error_on_read  = .FALSE.
         
-
-        
-        
+         read(BatchFileUnit, '(A)',IOSTAT=iostatus ) input_string
+         !Check for end of file
          
-         read(BatchFileUnit, *, IOSTAT=iostatus)   scenario_id, dummy, weather_grid, dummy ,dummy, dummy, dummy, dummy, dummy, &  !enter the long string of values
+         write(*,*) 'READ END OF FILE STATUS ' , IS_IOSTAT_END(iostatus)
+         if(IS_IOSTAT_END(iostatus)) then
+             end_of_file = .TRUE.
+             return
+         else 
+            write(*,'(A)') input_string 
+         end if
+        
+ 
+         read(input_string, *, IOSTAT=iostatus)   scenario_id, dummy, weather_grid, dummy ,dummy, dummy, dummy, dummy, dummy, &  !enter the long string of values
              latitude, dummy, min_evap_depth , IREG, irtype, max_irrig,  PCDEPL, FLEACH,dummy, julian_emerg, julian_matur, julian_harv, &
              dummy, dummy, dummy, dummy, canopy_holdup, canopy_coverage, root_depth, cn_cov, cn_fal, usle_c_cov, usle_c_fal, USLEP, USLEK,USLELS,SLP, &
              NHORIZ, thickness(1), thickness(2), thickness(3), thickness(4), thickness(5), thickness(6), thickness(7), thickness(8), &
@@ -764,10 +773,18 @@ end do
              wp_input(1),wp_input(2),wp_input(3),wp_input(4),wp_input(5),wp_input(6),wp_input(7),wp_input(8), &
              oc_input(1),oc_input(2),oc_input(3),oc_input(4),oc_input(5),oc_input(6),oc_input(7),oc_input(8), &
              sand_input(1),sand_input(2),sand_input(3),sand_input(4),sand_input(5),sand_input(6),sand_input(7),sand_input(8), &
-             clay_input(1),clay_input(2),clay_input(3),clay_input(4),clay_input(5),clay_input(6),clay_input(7),clay_input(8),dummy,dummy,dummy, gw_depth, gw_temp
-                          
+             clay_input(1),clay_input(2),clay_input(3),clay_input(4),clay_input(5),clay_input(6),clay_input(7),clay_input(8),dummy,dummy,dummy, gw_depth, gw_temp               
          
-         if (iostatus /= 0) return
+         write (*,*) '^^^^^^^^^^^^^^^^^^^', iostatus, IS_IOSTAT_EOR(iostatus), IS_IOSTAT_END(iostatus)
+         
+         if (iostatus /= 0 ) then  !there is a problem
+             error_on_read = .TRUE.
+             
+             write (*,*) '^^^^^^^^RERROR DETECTED^^^^^^^^',  error_on_read
+             
+             return
+         end if
+         
          !**************************************************
          !Foliar Disposition seems to be undefined in the batch file
          !canopy height is undefined, set to 1 meter by default put into: max_canopy_height(i)
@@ -808,17 +825,10 @@ end do
          GDUSLEC(2) = had(1)  !harvest
          GMUSLEC(2) = ham(1)
          
-         write(*,*) 'juslec = ' , GMUSLEC(1),GDUSLEC(1)
-  
         soil_temp_input  = gw_temp         !array for horizons, set as constant for all horizons as initial condition.    
         profile_thick(5) = gw_depth - 100.  ! gw_depth is depth to aquifer surface, subtract the 1 meter (thickness of the horizons 1 to 4)
         profile_number_increments(5) = int(gw_depth)/50 -2
         
-
-        
-        write(*,'(6I8)') profile_number_increments(1:6)
-        write(*,*) 'end batch reaD'
-
     end subroutine read_batch_scenarios
     
     
