@@ -217,7 +217,7 @@ use utilities
 
 		 
 		read(inputfile_unit_number,*) number_of_scenarios(i) 
-        write(*,*)"Number of Scenarios = ", number_of_scenarios(i)
+        write(*,*)"Number of scn files = ", number_of_scenarios(i)
            
         do j=1, number_of_scenarios(i)
             read(inputfile_unit_number,'(A512)')  scenario_names(i,j) !(i,j) i is scheme #, j is scenario #
@@ -358,7 +358,7 @@ end subroutine read_inputfile
         nhoriz,thickness,bd_input,fc_input, wp_input, oc_input, bd_input, Num_delx,sand_input,clay_input,dispersion_input, &
         is_temperature_simulated , albedo, NUSLEC,GDUSLEC,GMUSLEC,cn_2, uslec, &
         runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth, erosion_decline, erosion_effic,use_usleyears,Height_stagnant_air_layer_cm, &
-		is_auto_profile,number_of_discrete_layers,  profile_thick, profile_number_increments,  evergreen,soil_temp_input
+		is_auto_profile,number_of_discrete_layers,  profile_thick, profile_number_increments,  evergreen,soil_temp_input, scenario_id
     
         integer :: eof
         logical, intent(out) :: error
@@ -375,23 +375,16 @@ end subroutine read_inputfile
 		logical :: checkopen
             
         
-thickness  = 0.0
-bd_input   = 0.0
-fc_input   = 0.0
-wp_input   = 0.0
-oc_input   = 0.0
-sand_input = 0.0
-clay_input = 0.0
+        thickness  = 0.0
+        bd_input   = 0.0
+        fc_input   = 0.0
+        wp_input   = 0.0
+        oc_input   = 0.0
+        sand_input = 0.0
+        clay_input = 0.0
         
         
-        
-        
-        
-        
-        
-        
-        
-        
+
         
         
         
@@ -411,7 +404,7 @@ clay_input = 0.0
             return
         ENDIF 
         
-        read(ScenarioFileUnit,'(A)') !scenario_id
+        read(ScenarioFileUnit,'(A)') scenario_id
         read(ScenarioFileUnit,'(A)') weatherfilename 
         write(*,*)  'weather: ', trim(weatherfilename )
         read(ScenarioFileUnit,*,  IOSTAT=status ) latitude	
@@ -690,7 +683,7 @@ end do
              PFAC,SFAC, max_canopy_cover, max_canopy_holdup, max_root_depth, crop_periodicity, crop_lag,UserSpecifiesDepth, is_temperature_simulated, &
              ALBEDO, soil_temp_input, dispersion_input, nuslec,cn_2, USLEC, gmuslec, gduslec, use_usleyears, &
              runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth,erosion_decline,erosion_effic, Height_stagnant_air_layer_cm, &
-             gw_depth, profile_thick, profile_number_increments, is_auto_profile,  number_of_discrete_layers, foliar_disposition, UserSpecifiesDepth,  &
+             profile_thick, profile_number_increments, is_auto_profile,  number_of_discrete_layers, foliar_disposition, UserSpecifiesDepth,  &
              user_irrig_depth 
                                                                           
          integer, intent(out) :: iostatus                                   
@@ -706,25 +699,61 @@ end do
          character(LEN=10) :: weather_grid
          
          integer :: i
-         foliar_disposition = 1
-         UserSpecifiesDepth = .false.
-         user_irrig_depth = 0.0
-
-thickness  = 0.0
-bd_input   = 0.0
-fc_input   = 0.0
-wp_input   = 0.0
-oc_input   = 0.0
-sand_input = 0.0
-clay_input = 0.0
+         real ::  gw_depth, gw_temp
 
 
+         thickness  = 0.0
+         bd_input   = 0.0
+         fc_input   = 0.0
+         wp_input   = 0.0
+         oc_input   = 0.0
+         sand_input = 0.0
+         clay_input = 0.0
 
-         
-         
-         
-         
-         
+
+        !Presets
+        foliar_disposition = 1
+        UserSpecifiesDepth = .false.
+        user_irrig_depth = 0.0
+        crop_periodicity(1) =1
+        crop_lag(1) = 0
+        PFAC = 1.0                    !always using PET files now, No need to adjust
+        !SFAC = 0.274                 !USDA value  now a parameter        
+        ALBEDO = 0.2                  !albedo is monthly in przm  
+        UserSpecifiesDepth = .FALSE.  !only root irrigation
+        is_temperature_simulated = .TRUE. 
+        dispersion_input = 0.0
+        nuslec = 2
+        use_usleyears = .FALSE.
+        runoff_extr_depth = 8.0
+        runoff_decline    = 1.4
+        runoff_effic      = 0.19
+        erosion_depth     = 0.1
+        erosion_decline   = 0.0
+        erosion_effic     = 1.0
+        Height_stagnant_air_layer_cm = 5.0
+        
+        is_auto_profile = .TRUE.  !we will use discretizations specified independent of horizon info
+        number_of_discrete_layers	=   6
+        profile_thick(1) =  3.0
+        profile_thick(2) =  7.0
+        profile_thick(3) = 10.0
+        profile_thick(4) = 80.0      
+       ! profile_thick(5) = gw_depth - 100.  ! gw_depth is depth to aquifer surface, subtract the 1 meter from above
+        profile_thick(6) = 100.       
+      
+        profile_number_increments(1) = 30
+	    profile_number_increments(2) =  7
+        profile_number_increments(3) =  2
+        profile_number_increments(4) =  4 
+        !  profile_number_increments(5) = int(gw_depth)/50 -2
+        profile_number_increments(6) = 2
+        
+    
+        
+
+        
+        
          
          read(BatchFileUnit, *, IOSTAT=iostatus)   scenario_id, dummy, weather_grid, dummy ,dummy, dummy, dummy, dummy, dummy, &  !enter the long string of values
              latitude, dummy, min_evap_depth , IREG, irtype, max_irrig,  PCDEPL, FLEACH,dummy, julian_emerg, julian_matur, julian_harv, &
@@ -735,7 +764,7 @@ clay_input = 0.0
              wp_input(1),wp_input(2),wp_input(3),wp_input(4),wp_input(5),wp_input(6),wp_input(7),wp_input(8), &
              oc_input(1),oc_input(2),oc_input(3),oc_input(4),oc_input(5),oc_input(6),oc_input(7),oc_input(8), &
              sand_input(1),sand_input(2),sand_input(3),sand_input(4),sand_input(5),sand_input(6),sand_input(7),sand_input(8), &
-             clay_input(1),clay_input(2),clay_input(3),clay_input(4),clay_input(5),clay_input(6),clay_input(7),clay_input(8)
+             clay_input(1),clay_input(2),clay_input(3),clay_input(4),clay_input(5),clay_input(6),clay_input(7),clay_input(8),dummy,dummy,dummy, gw_depth, gw_temp
                           
          
          if (iostatus /= 0) return
@@ -745,9 +774,7 @@ clay_input = 0.0
                   
          weatherfilename = trim(adjustl(weather_grid)) // '_grid.wea'
          write(*,*) trim(weatherfilename)
-          crop_periodicity(1) =1
-          crop_lag(1) = 0
-          
+
          num_crop_periods_input = 1
          if (julian_emerg==0 .AND.  julian_matur==1 .AND. julian_harv==364) then
              evergreen = .TRUE. 
@@ -756,7 +783,7 @@ clay_input = 0.0
          max_canopy_cover(1) = canopy_coverage/100.  ! read in as percent
          max_canopy_holdup(1)   = canopy_holdup
          max_root_depth(1)      = root_depth
-         UserSpecifiesDepth = .FALSE.
+
 
          call get_date(julian_emerg, year, emm(1), emd(1) )
          write(*,    '("Emerge", 4I12)' ) julian_emerg, year, emm(1), emd(1)
@@ -767,60 +794,27 @@ clay_input = 0.0
          call get_date(julian_harv , year,  ham(1), had(1) )
           write(*,    '("Harves", 4I12)' )julian_harv, year, ham(1), had(1)
                 
-         PFAC = 1.0    !always using PET files now, No need to adjust
-         !SFAC = 0.274  !USDA value  now a parameter        
-         ALBEDO = 0.2  !albedo is monthly in przm  
-                  
-         is_temperature_simulated = .TRUE. 
-         soil_temp_input  = 15.  !array for horizons, set as constant for all horizons as initial condition.  May want to make this a varying input
-
-         dispersion_input = 0.0
          
-         nuslec = 2
+         !nuscle = 2 so only 2 curve numbers
          CN_2(1)  = cn_cov
          CN_2(2)  = cn_fal 
          USLEC(1) = usle_c_cov
          USLEC(2) = usle_c_fal
          
+         !only 1 crop
          GDUSLEC(1) = emd(1)  !emergence 
          GMUSLEC(1) = emm(1)
          
          GDUSLEC(2) = had(1)  !harvest
          GMUSLEC(2) = ham(1)
          
-        write(*,*) 'juslec = ' , GMUSLEC(1),GDUSLEC(1)
-        
-         use_usleyears = .FALSE.
-         
-        runoff_extr_depth = 8.0
-        runoff_decline    = 1.4
-        runoff_effic      = 0.19
-        erosion_depth     = 0.1
-        erosion_decline   = 0.0
-        erosion_effic     = 1.0
-         
-        Height_stagnant_air_layer_cm = 5.0
-        
-        is_auto_profile = .TRUE.
-        gw_depth = 1000.
-        
-        !Define aautoproifile here
-        
-        number_of_discrete_layers	=   6
-        profile_thick(1) =  3.0
-        profile_thick(2) =  7.0
-        profile_thick(3) = 10.0
-        profile_thick(4) = 80.0      
-        profile_thick(5) = gw_depth - 100.  ! gw_depth is depth to aquifer surface, subtract the 1 meter from above
-        profile_thick(6) = 100.       
-      
-        
-        profile_number_increments(1) = 30
-	    profile_number_increments(2) =  7
-        profile_number_increments(3) =  2
-        profile_number_increments(4) =  4 
+         write(*,*) 'juslec = ' , GMUSLEC(1),GDUSLEC(1)
+  
+        soil_temp_input  = gw_temp         !array for horizons, set as constant for all horizons as initial condition.    
+        profile_thick(5) = gw_depth - 100.  ! gw_depth is depth to aquifer surface, subtract the 1 meter (thickness of the horizons 1 to 4)
         profile_number_increments(5) = int(gw_depth)/50 -2
-        profile_number_increments(6) = 2
+        
+
         
         write(*,'(6I8)') profile_number_increments(1:6)
         write(*,*) 'end batch reaD'

@@ -920,8 +920,6 @@ subroutine SetupApplications
    integer ::   yr_tracker
    
  !  total_crop_periods=0
-    
-   write (*,*) 'crop periods ', num_crop_periods_input 
    !do i=1, num_crop_periods_input        
    !   total_crop_periods = total_crop_periods+((last_year- first_year)- crop_lag(i) + crop_periodicity(i))/crop_periodicity(i)
    !end do

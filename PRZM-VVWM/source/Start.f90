@@ -93,7 +93,7 @@ program PRZMVVWM
 	         Write(*,*) '********************************************************************'	
 				           
             if(is_batch_scenario(i)) then
-               write(*,*) 'Batch Scenario File ',  trim(scenario_batchfile(i))
+               write(*,'("Batch Scenario File: ", A100) ')   scenario_batchfile(i)
                open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus ) 
                read(BatchFileUnit,*) dummy  ! skip header
             end if    
@@ -114,6 +114,10 @@ program PRZMVVWM
                    else   
                           write(*,*) 'bad scenario read ', kk
                    end if   
+                   
+! need to get scenario id                   
+                   
+                   
                else  !use scenarios directly read into input
                    Write(*,*) '********** Doing Scenario No. ', kk
                    if (kk == number_of_scenarios(i) + 1) exit  !end of scenario list fronm gui inputs

@@ -55,7 +55,7 @@ module constants_and_variables
       character(len= 512) :: full_run_identification  !run id plus all path information
 	  
 	  !GW--------------------------------------
-      real :: gw_depth !depth to ground water in cm
+
       
       
       

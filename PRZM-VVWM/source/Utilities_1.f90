@@ -24,7 +24,7 @@
     subroutine make_run_id (i,j, ii,mm)
     !makes a string that can be used for identifying output: Scheme#_Scenario#_ScenarioFileName (eg., 2_3_NDpumpkins)
     
-    USE constants_and_variables, ONLY: scenario_names, run_id
+    USE constants_and_variables, ONLY: run_id ,  scenario_id      !scenario_names
     USE waterbody_parameters, ONLY: waterbody_names
     implicit none
     integer, intent(in) :: i,j, ii,mm
@@ -36,8 +36,8 @@
     write(schemnumber, *) i
     write(scenarionumber, *) j
     
-    last_slash = index(scenario_names(i,j), '\', .TRUE.)
-    last_dot   = index(scenario_names(i,j), '.', .TRUE.)
+    !last_slash = index(scenario_names(i,j), '\', .TRUE.)
+    !last_dot   = index(scenario_names(i,j), '.', .TRUE.)
     
     last_slash2 = index(waterbody_names(ii), '\', .TRUE.)
     last_dot2   = index(waterbody_names(ii), '.', .TRUE.)
@@ -47,14 +47,29 @@
     else
          local_name= (waterbody_names(ii)((last_slash2+1):(last_dot2-1)))         
     end if
-    write(appnumber, '(I4.4)') mm
+    
+    write(appnumber, '(I4.4)') mm  !app window
     
     ! scheme_number_ScenarioName_WaterbodyName
-    run_ID =  trim(adjustl(schemnumber)) // '_' //&
-    trim(adjustl(scenario_names(i,j)((last_slash+1):(last_dot-1))))  &
+    
+    run_ID =  trim(adjustl(schemnumber)) // '_' //& 
+    trim(scenario_id)  &
         // '_' // trim(adjustl(local_name)) // '_' // trim(adjustl(appnumber))
     
     
+    
+    
+    !run_ID =  trim(adjustl(schemnumber)) // '_' //&
+    !trim(adjustl(scenario_names(i,j)((last_slash+1):(last_dot-1))))  &
+    !    // '_' // trim(adjustl(local_name)) // '_' // trim(adjustl(appnumber))
+    
+    write(*,*) '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
+    write(*,*)  i,j, ii,mm
+    
+    write(*,*) run_ID
+     write(*,*) '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
+     
+     
     end subroutine make_run_id 
     
     
