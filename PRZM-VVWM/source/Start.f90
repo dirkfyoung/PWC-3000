@@ -108,9 +108,7 @@ program PRZMVVWM
                write(*,*) 'Doing scenario ', KK
                if( is_batch_scenario(i)) then
                        call read_batch_scenarios(BatchFileUnit, end_of_file, error_on_read)
-     WRITE(*,*) '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',error_on_read
-                       
-                       
+
                         !*****ERROR and EOF CHECKING ON SCENARIO BATCH FILE ****************
                         if(end_of_file) then
                            close(BatchFileUnit)
@@ -206,9 +204,7 @@ CALL CPU_TIME (time_1)
 write (*,*) 'cpu time deallocate  ',time_1- cputime_begin
 write (*,*) '###################################################'			   
 			   
-			   
 
-                if (end_of_file ) exit  !quit scenario loop
 
 			end do  !END SCENARIO LOOP  kk           
 

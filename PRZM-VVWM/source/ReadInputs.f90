@@ -752,6 +752,8 @@ end do
           end_of_file    = .FALSE.
           error_on_read  = .FALSE.
         
+          
+         !read in as string for better list directed error checking. Prevents reads to subsequent lines in the event of missing data
          read(BatchFileUnit, '(A)',IOSTAT=iostatus ) input_string
          !Check for end of file
          
@@ -775,13 +777,9 @@ end do
              sand_input(1),sand_input(2),sand_input(3),sand_input(4),sand_input(5),sand_input(6),sand_input(7),sand_input(8), &
              clay_input(1),clay_input(2),clay_input(3),clay_input(4),clay_input(5),clay_input(6),clay_input(7),clay_input(8),dummy,dummy,dummy, gw_depth, gw_temp               
          
-         write (*,*) '^^^^^^^^^^^^^^^^^^^', iostatus, IS_IOSTAT_EOR(iostatus), IS_IOSTAT_END(iostatus)
-         
          if (iostatus /= 0 ) then  !there is a problem
              error_on_read = .TRUE.
-             
-             write (*,*) '^^^^^^^^RERROR DETECTED^^^^^^^^',  error_on_read
-             
+             write (*,*) '^^^^^^^^^^ ERROR DETECTED IN THIS SCENARIO ^^^^^^^^'
              return
          end if
          
