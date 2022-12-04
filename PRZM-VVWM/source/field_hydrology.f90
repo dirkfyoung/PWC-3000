@@ -99,8 +99,7 @@ module field_hydrology
        CALL Leaching(day)        !determine water content of soil and air content (old and new)
        CALL EROSN(day, JULDAY)  !calc loss of chem due to erosion
 
-     write(82,*) is_temperature_simulated
-   
+
         ! ****** Soil Temperature Calculations ************** 
        IF (is_temperature_simulated) CALL SLTEMP()    
   

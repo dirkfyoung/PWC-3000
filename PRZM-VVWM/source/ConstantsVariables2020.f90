@@ -345,8 +345,8 @@ module constants_and_variables
       real,allocatable,dimension(:) :: soil_temp   !soil temperature
       real,allocatable,dimension(:) :: soilwater
       
-      real,allocatable,dimension(:,:) :: dwrate, dsrate, dgrate
-      real,allocatable,dimension(:,:) :: dwrate_atRefTemp, dsrate_atRefTemp, dgrate_atRefTemp
+      real,allocatable,dimension(:,:) :: dwrate, dsrate, dgrate          !current soil degradation rates for water solid gas
+      real,allocatable,dimension(:,:) :: dwrate_atRefTemp, dsrate_atRefTemp, dgrate_atRefTemp !input degradation rates at ref temp
       
       real,allocatable,dimension(:) :: MolarConvert_aq12,MolarConvert_aq13,MolarConvert_aq23
       real,allocatable,dimension(:) :: MolarConvert_s12, MolarConvert_s13, MolarConvert_s23

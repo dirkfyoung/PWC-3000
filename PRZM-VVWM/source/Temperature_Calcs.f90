@@ -2,7 +2,24 @@ module Temperatue_Calcs
     implicit none
     contains
     
+     SUBROUTINE Q10DK
+      !converts degradation rate by Q10
+      use  constants_and_Variables, ONLY:  soil_temp, &
+                                           dwrate_atRefTemp, dsrate_atRefTemp, dgrate_atRefTemp, & 
+                                           dwrate,dsrate,dgrate, &
+                                           Q_10,TBASE,nchem
+      implicit none
+       integer :: k
 
+      do k=1,NCHEM   
+           dwrate(k,:) = dwrate_atRefTemp(k,:)*Q_10**((soil_temp-TBASE)/10.)
+           dsrate(k,:) = dsrate_atRefTemp(k,:)*Q_10**((soil_temp-TBASE)/10.)
+           dgrate(k,:) = dgrate_atRefTemp(k,:)*Q_10**((soil_temp-TBASE)/10.)         
+      end do  
+
+     END SUBROUTINE Q10DK
+     
+     
       
       SUBROUTINE  Henry_Temp_Correction(Soil_temp,HENRY,ENP, henry_ref_temp,NUMB, NEWK)
            implicit none
@@ -205,12 +222,7 @@ module Temperatue_Calcs
 
       
          
-      
-     
-      
-      
-      
-      
+
       
       
 !     This portion of the subroutine estimates the Upper
@@ -342,13 +354,12 @@ module Temperatue_Calcs
          
          where (soil_temp <0.0) soil_temp = 0.0    !minimum soil temperature is 0.0 degrees
 
-         
-         
-         
-         
-         
+  
   END SUBROUTINE SLTEMP
     
+  
+
+   
 
 end module Temperatue_Calcs
     

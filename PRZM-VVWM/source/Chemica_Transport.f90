@@ -152,10 +152,14 @@ module chemical_transport
         end do
  
         ! ****** HENRY LAW COEFFICIENT CALCULATION Temperature Adjustments**************   
-        IF (is_temperature_simulated) THEN   
-            !Now calculate a new Henry's Constant
+        IF (is_temperature_simulated) THEN  
+
+            !adjust Henry's Constant for temperature
             CALL Henry_Temp_Correction (soil_temp, Henry_unitless(K),ENPY(K), henry_ref_temp, NCOM2,OLDKH)  !move to volatilization PLEASE
             new_henry(K,:) = OLDKH
+            
+            call Q10DK  !adjust degradation rates for temperature
+            
         ENDIF
 
         call volatilization_setup(k)  !calculates boundary layer conductance and dair
@@ -367,8 +371,6 @@ integer mm
 CALL CPU_TIME (time_5)	
 
 
-
-    
   
     CALL TRIDIAGONAL_Solution (A,B,C, new_conc,F,NCOM2)        
 
@@ -489,23 +491,7 @@ subroutine flux_calculations(k, concentration)
 	
 	
 !**************************************************************************************************		
-   SUBROUTINE Q10DK
-      !converts degradation rate by Q10
-      use  constants_and_Variables, ONLY:  soil_temp, &
-                                           dwrate_atRefTemp, dsrate_atRefTemp, dgrate_atRefTemp, & 
-                                           dwrate,dsrate,dgrate, &
-                                           Q_10,TBASE,nchem
-      implicit none
-       integer :: k
 
-      do k=1,NCHEM   
-           dwrate(k,:) = dwrate_atRefTemp(k,:)*Q_10**((soil_temp-TBASE)/10.)
-           dsrate(k,:) = dsrate_atRefTemp(k,:)*Q_10**((soil_temp-TBASE)/10.)
-           dgrate(k,:) = dgrate_atRefTemp(k,:)*Q_10**((soil_temp-TBASE)/10.)         
-       end do  
-   
-   END SUBROUTINE Q10DK
-    		
 
    
    

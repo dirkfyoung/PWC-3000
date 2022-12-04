@@ -449,7 +449,8 @@ use waterbody_parameters, ONLY: afield
              gas_rate_corrected =    exp(gas_rate_input)  -1.
     !******************************************************************************************
     !
-	! TO DO 10/20/2022 ---put these corrected values as substitute for input values below
+	! changed---put these corrected values as substitute for input values below, 
+             !done as of 12-4-2022  but check
 	!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
     do k = 1, nchem       
@@ -463,41 +464,41 @@ use waterbody_parameters, ONLY: afield
             do i = 1, ncom2
                 running_depth   = running_depth +delx(i)
                 if (running_depth <= ramp1) then                                      !cell is totally in first plateau
-                   dwrate_atRefTemp(k,i) =  aq_rate_input(K)
-                   dsrate_atRefTemp(k,i) =  sorb_rate_input(K)
-                   dgrate_atRefTemp(k,i) =  gas_rate_input(K)     
+                   dwrate_atRefTemp(k,i) =  aq_rate_corrected(K)
+                   dsrate_atRefTemp(k,i) =  sorb_rate_corrected(K)
+                   dgrate_atRefTemp(k,i) =  gas_rate_corrected(K)     
                                      
                 else if (previous_depth < ramp1 .AND. running_depth > ramp1 )then     !cell staddles corner of first plateau
                    value1 = (ramp1-previous_depth)  !*1.0
                    value2 = (running_depth-ramp1)* (0.5*slope_ramp*(running_depth-ramp1) + 1.0 )                   
                    value_integrated = (value1 + value2)/ delx(i)
                    
-                   dwrate_atRefTemp(k,i) =  value_integrated *aq_rate_input(K)
-                   dsrate_atRefTemp(k,i) =  value_integrated *sorb_rate_input(K)
-                   dgrate_atRefTemp(k,i) =  value_integrated *gas_rate_input(K) 
+                   dwrate_atRefTemp(k,i) =  value_integrated * aq_rate_corrected(K)
+                   dsrate_atRefTemp(k,i) =  value_integrated * sorb_rate_corrected(K)
+                   dgrate_atRefTemp(k,i) =  value_integrated * gas_rate_corrected(K) 
                    
                 else if (previous_depth >= ramp1 .AND. running_depth <= ramp2 )then   !cell is completely on the ramp
                     value1 = slope_ramp*(previous_depth-ramp1) + 1   ! y=mx+b
                     value2 = slope_ramp*(running_depth-ramp1) + 1 
                     value_integrated = 0.5 * (value1 + value2)
                     
-                    dwrate_atRefTemp(k,i) =   value_integrated * aq_rate_input(K)
-                    dsrate_atRefTemp(k,i) =   value_integrated * sorb_rate_input(K)
-                    dgrate_atRefTemp(k,i) =   value_integrated * gas_rate_input(K)  
+                    dwrate_atRefTemp(k,i) =   value_integrated * aq_rate_corrected(K)
+                    dsrate_atRefTemp(k,i) =   value_integrated * sorb_rate_corrected(K)
+                    dgrate_atRefTemp(k,i) =   value_integrated * gas_rate_corrected(K)  
 
                 else if (previous_depth <  ramp2 .AND. running_depth > ramp2 )then    !cell straddles corner of second plateau                                  
                    value1 = (running_depth-ramp2)*ramp3 
                    value2 = (ramp2-previous_depth)*0.5 *((previous_depth-ramp1)* slope_ramp +1.0 + ramp3 )                  
                    value_integrated = (value1 + value2)/delx(i)
                    
-                   dwrate_atRefTemp(k,i) =  value_integrated *aq_rate_input(K)
-                   dsrate_atRefTemp(k,i) =  value_integrated *sorb_rate_input(K)
-                   dgrate_atRefTemp(k,i) =  value_integrated *gas_rate_input(K) 
+                   dwrate_atRefTemp(k,i) =  value_integrated * aq_rate_corrected(K)
+                   dsrate_atRefTemp(k,i) =  value_integrated * sorb_rate_corrected(K)
+                   dgrate_atRefTemp(k,i) =  value_integrated * gas_rate_corrected(K) 
                                                                   
                 else if (previous_depth >= ramp2 )then    !cell is completely in second plateau                       
-                    dwrate_atRefTemp(k,i) =  ramp3*aq_rate_input(K)
-                    dsrate_atRefTemp(k,i) =  ramp3*sorb_rate_input(K)
-                    dgrate_atRefTemp(k,i) =  ramp3*gas_rate_input(K)  
+                    dwrate_atRefTemp(k,i) =  ramp3 * aq_rate_corrected(K)
+                    dsrate_atRefTemp(k,i) =  ramp3 * sorb_rate_corrected(K)
+                    dgrate_atRefTemp(k,i) =  ramp3 * gas_rate_corrected(K) 
                 else
                    write(*,*) "message to developer: check degradation ramp logic"  !This should not happen
                 end if                
@@ -511,9 +512,9 @@ use waterbody_parameters, ONLY: afield
                value2 = (1-exp_profile2)/(-exp_profile1)*exp(-exp_profile1*running_depth) + exp_profile2*running_depth
                value_integrated = (value2-value1)/delx(i)
            
-               dwrate_atRefTemp(k,i) =  value_integrated *aq_rate_input(K)
-               dsrate_atRefTemp(k,i) =  value_integrated *sorb_rate_input(K)
-               dgrate_atRefTemp(k,i) =  value_integrated *gas_rate_input(K) 
+               dwrate_atRefTemp(k,i) =  value_integrated * aq_rate_corrected(K)
+               dsrate_atRefTemp(k,i) =  value_integrated * sorb_rate_corrected(K)
+               dgrate_atRefTemp(k,i) =  value_integrated * gas_rate_corrected(K) 
                
                previous_depth = running_depth
             end do
@@ -524,8 +525,6 @@ use waterbody_parameters, ONLY: afield
                 dwrate_atRefTemp(k,i) =  aq_rate_corrected(K)
                 dsrate_atRefTemp(k,i) =  sorb_rate_corrected(K)
                 dgrate_atRefTemp(k,i) =  gas_rate_corrected(K)   
-                
-
                 
              end do   
         end if
