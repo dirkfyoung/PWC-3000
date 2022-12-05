@@ -6,7 +6,7 @@ module allocations
      use constants_and_variables, ONLY:num_records, erosion_save, mass_off_field , &
 		 irrigation_save,  canopy_flow_save, THAIR_save, ncom2, theta_end_save, &
 		 runoff_save,soilwater_save, velocity_save,theta_zero_save,thair_old_save, &
-	     enriched_erosion_save, et_save, infiltration_save,conc_last_horizon_save
+	     enriched_erosion_save, et_save, infiltration_save,conc_last_horizon_save, soil_temp_save
      implicit none
             allocate (erosion_save(num_records))            
             allocate (mass_off_field(num_records,2,3))  
@@ -26,7 +26,11 @@ module allocations
 			allocate (velocity_save  (ncom2,num_records ))
 			allocate (theta_zero_save(ncom2,num_records ))
 			allocate (infiltration_save(ncom2+1,num_records ))
-			
+            
+			allocate (soil_temp_save(ncom2,num_records ))
+  
+
+            
      end subroutine allocate_time_series
     
     
@@ -207,7 +211,7 @@ end subroutine allocation_for_VVWM
         theta,capacity_1,fw1,m1_input,m2_input,m1_store,m2_store,mavg1_store, &
         aqconc_avg1,aqconc_avg2,aq1_store,aq2_store, irrigation_save, canopy_flow_save, THAIR_save, &
 		theta_end_save, runoff_save,soilwater_save,velocity_save, theta_zero_save,thair_old_save, &
-       	erosion_save, enriched_erosion_save,et_save, infiltration_save,conc_last_horizon_save
+       	erosion_save, enriched_erosion_save,et_save, infiltration_save,conc_last_horizon_save, soil_temp_save
   
         deallocate (emergence_date )        
         deallocate (maturity_date  )
@@ -236,7 +240,8 @@ end subroutine allocation_for_VVWM
 		deallocate (enriched_erosion_save)
 		deallocate (infiltration_save)
 		deallocate (conc_last_horizon_save)
-		
+        
+		deallocate (soil_temp_save)
 		
 		
         deallocate (soil_depth)

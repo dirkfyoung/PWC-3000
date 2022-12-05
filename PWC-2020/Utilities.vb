@@ -242,11 +242,21 @@
             Return
         End If
 
-        If name.Contains(",") Then
-            msg = "No commas allowed for " & name
-            TrueOrFalse = False
-            Return
-        End If
+        Try
+
+
+            If name.Contains(",") Then
+                msg = "No commas allowed for " & name
+                TrueOrFalse = False
+                Return
+            End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+
+
     End Sub
 
 

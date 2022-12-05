@@ -313,6 +313,7 @@ Module Output_From_Field
         IF (PLNAME(I) == 'INFL') PNBRN(I)= AINF(start_compartment)
         IF (PLNAME(I) == 'SLET') PNBRN(I)= EvapoTran(start_compartment)
         IF (PLNAME(I) == 'STMP') PNBRN(I)= soil_temp(start_compartment)         !     Soil temperature (oC)
+
                  
         ! Pesticide storages (units of GRAMS/(CM**2)
         IF (PLNAME(I) == 'TPST') PNBRN(I)= conc_total_per_water(chem_id(i),start_compartment)*   &

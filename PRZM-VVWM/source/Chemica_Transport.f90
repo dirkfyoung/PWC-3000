@@ -14,7 +14,7 @@ module chemical_transport
         canopy_flow, canopy_flow_save, &
         First_time_through_PRZM, THAIR_new ,THAIR_save, theta_end_save,theta_end,runoff_on_day , runoff_save, & 
 		soilwater, soilwater_save,velocity_save, vel,velocity_save, theta_zero,theta_zero_save,thair_old_save, thair_old, &
-		erosion_save, enriched_erosion_save, sedl, enriched_eroded_solids, tdet ,et_save ,ainf,infiltration_save
+		erosion_save, enriched_erosion_save, sedl, enriched_eroded_solids, tdet ,et_save ,ainf,infiltration_save, soil_temp_save, soil_temp
 	
 
     use utilities_1
@@ -65,7 +65,8 @@ module chemical_transport
 	   thair_old               = thair_old_save(:,i)
 	   ainf				       = infiltration_save(:,i)   !only needed for output
 	   
-	   	   
+       soil_temp               = soil_temp_save(:,i)
+       
       CALL chemical_transport_oneday
 
 

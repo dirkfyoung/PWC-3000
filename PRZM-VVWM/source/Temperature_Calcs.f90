@@ -12,10 +12,12 @@ module Temperatue_Calcs
        integer :: k
 
       do k=1,NCHEM   
-           dwrate(k,:) = dwrate_atRefTemp(k,:)*Q_10**((soil_temp-TBASE)/10.)
-           dsrate(k,:) = dsrate_atRefTemp(k,:)*Q_10**((soil_temp-TBASE)/10.)
-           dgrate(k,:) = dgrate_atRefTemp(k,:)*Q_10**((soil_temp-TBASE)/10.)         
+           dwrate(k,:) = dwrate_atRefTemp(k,:)*Q_10**((soil_temp(:)-TBASE)/10.)
+           dsrate(k,:) = dsrate_atRefTemp(k,:)*Q_10**((soil_temp(:)-TBASE)/10.)
+           dgrate(k,:) = dgrate_atRefTemp(k,:)*Q_10**((soil_temp(:)-TBASE)/10.)         
       end do  
+      
+
 
      END SUBROUTINE Q10DK
      
@@ -44,10 +46,10 @@ module Temperatue_Calcs
       
 
   !*******************************************************************************************************  
-  SUBROUTINE SLTEMP()
-      use  constants_and_Variables, ONLY: ncom2, SOLRAD, air_TEMP, wind,sttdet,bbt,albedo,              &
+  SUBROUTINE SLTEMP(day)
+      use  constants_and_Variables, ONLY: ncom2, SOLRAD, air_TEMP, wind,sttdet,bottom_bc,albedo,              &
        emmiss, soil_temp,ubt,COVER,HEIGHT,bulkdensity,theta_zero,DELX,sand,clay,theta_wp,theta_fc,theta_sat,ncom2,snow,    &
-       orgcarb,vonKarman,uWind_Reference_Height,julday1900
+       orgcarb,vonKarman,uWind_Reference_Height,julday1900, soil_temp_save
      
       use utilities_1
       use volatilization
@@ -64,7 +66,7 @@ module Temperatue_Calcs
       
       
       implicit none
-
+      integer, intent(in) :: day
       INTEGER  I,J,K,L,N,NUMDYS
       REAL     AIRDEN,Z0,D,ZCH,HTC,QC1,QEVF,QLW1,QLW2,QSWR
       real     QGHF,TEMPK,STK,FX1,FX2,DELTA,EVAP,AAA,BBB
@@ -98,10 +100,10 @@ module Temperatue_Calcs
 !     Interpolation of daily values from neighboring monthly values of
 !     soil surface albedo and bottom boundary temperature
 
-      BBT(13) = BBT(1)
+      bottom_bc(13) = bottom_bc(1)
       numdys = jd(current_year, current_month+1, current_day) - jd(current_year, current_month, current_day)
 
-      LBTEMP = BBT(current_month) + (BBT(current_month+1)-BBT(current_month))*current_day/NUMDYS
+      LBTEMP = bottom_bc(current_month) + (bottom_bc(current_month+1)-bottom_bc(current_month))*current_day/NUMDYS
       ALBEDO(13) = ALBEDO(1)
       ABSOIL = ALBEDO(current_month)+(ALBEDO(current_month+1)-ALBEDO(current_month))*current_day/NUMDYS
 
@@ -350,11 +352,14 @@ module Temperatue_Calcs
          TC(NCOM2) = 0.0
          TF(NCOM2) =soil_temp(NCOM2)+DIFFCO(NCOM2)/(DELX(NCOM2)**2)*LBTEMP
 
-       CALL tridiagonal_solution (TA,TB,TC,soil_temp,TF,NCOM2)
+         CALL tridiagonal_solution (TA,TB,TC,soil_temp,TF,NCOM2)
          
          where (soil_temp <0.0) soil_temp = 0.0    !minimum soil temperature is 0.0 degrees
+ 
+         soil_temp_save(:,day) = soil_temp
 
-  
+         
+         
   END SUBROUTINE SLTEMP
     
   

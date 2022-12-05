@@ -117,7 +117,7 @@ program PRZMVVWM
                         end if
                                                  
                         if (error_on_read)  then  
-                               write(88,*) 'bad scenario # ', kk
+                               write(*,*) 'bad scenario # ', kk
                                cycle                       
                         end if 
                         !*****END ERROR CHECKING ON SCENARIO BATCH FILE ****************   
@@ -154,6 +154,8 @@ write (*,*) '###################################################'
                Call Crop_Growth
 			   call hydrology_only
 		   
+               !soil temp is good here
+               
                write(*,*) 'Start allocations'
                call allocation_for_VVWM
 			   			   
@@ -178,6 +180,9 @@ CALL CPU_TIME (time_1)
 write (*,*) 'cpu time chen xport ',time_1- cputime_begin
 write (*,*) '###################################################'					 
 					 
+
+
+
 					 call groundwater
 					 
 write (*,*) '###################################################'	 

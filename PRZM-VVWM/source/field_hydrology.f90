@@ -8,7 +8,7 @@ module field_hydrology
                                   startday, num_records,canopy_holdup, &
                                   canopy_height, canopy_cover  , cover, height, &
                                   potential_canopy_holdup,evapo_root_node_daily, &
-                                  evapo_root_node,root_node ,root_node_daily, julday1900 ,startday
+                                  evapo_root_node,root_node ,root_node_daily, julday1900 ,startday,soil_temp
 	  integer :: i
       julday1900 = startday
 
@@ -26,6 +26,7 @@ module field_hydrology
             root_node_daily         = root_node(i)       !only needed for irrigation
 
 			call runoff_leaching_and_heat(i)
+            
 			
 			julday1900 = julday1900  +1
 	   end do
@@ -101,7 +102,9 @@ module field_hydrology
 
 
         ! ****** Soil Temperature Calculations ************** 
-       IF (is_temperature_simulated) CALL SLTEMP()    
+
+       
+       IF (is_temperature_simulated) CALL SLTEMP(day)    
   
 
 	END Subroutine runoff_leaching_and_heat

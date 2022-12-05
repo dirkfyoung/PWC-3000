@@ -243,6 +243,9 @@ module constants_and_variables
       real    :: soil_temp_input(max_horizons)    !input of initial soil temperatures
       real    :: thickness(max_horizons)          !thickness of each horizon
       real    :: dispersion_input(max_horizons)   !dispersion
+      
+      
+      
        
 	 
 	  !Optional parameters for discretization
@@ -342,8 +345,11 @@ module constants_and_variables
       real,allocatable,dimension(:) :: theta_fc    !field capacity water content (fractional)
       real,allocatable,dimension(:) :: theta_wp    !wilting point water content (fractional)
         
-      real,allocatable,dimension(:) :: soil_temp   !soil temperature
+      real,allocatable,dimension(:) :: soil_temp          !soil temperature local day only
+      real,allocatable,dimension(:,:) :: soil_temp_save   !soil temperature all days all compartments
       real,allocatable,dimension(:) :: soilwater
+      
+      
       
       real,allocatable,dimension(:,:) :: dwrate, dsrate, dgrate          !current soil degradation rates for water solid gas
       real,allocatable,dimension(:,:) :: dwrate_atRefTemp, dsrate_atRefTemp, dgrate_atRefTemp !input degradation rates at ref temp
@@ -533,7 +539,7 @@ module constants_and_variables
       !*******Heat transfer variables*********************
       real,parameter    :: emmiss =0.97  
       real    :: UBT                            !used in volatilization and heat routines
-      real    :: Albedo(13), bbt(13)
+      real    :: Albedo(13), bottom_bc(13) ! albedo and bottom boundary condition constabt temperature
       logical :: is_temperature_simulated
       real    :: enriched_eroded_solids  !mass of eroded solids bumped up be an enrichment factor,  g/cm2, (analogous to runoff)
       real    :: TCNC(3)     !used for output only

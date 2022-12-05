@@ -1,9 +1,9 @@
 module readinputs
 implicit none
-contains
+    contains
 
-    !******************************************************************
-subroutine read_inputfile
+!******************************************************************
+subroutine read_inputfile 
 !NEW read for new input file, reading same file as the PWC Input file ******
 use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     is_koc, is_freundlich, is_nonequilibrium, &
@@ -33,8 +33,6 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     is_app_window, app_window_span, app_window_step, is_timeseriesfile, &
 	is_waterbody_info_output , is_adjust_for_rain_schemes,rain_limit_schemes,optimum_application_window_schemes, &
 	intolerable_rain_window_schemes, min_days_between_apps_schemes,  is_batch_scenario , scenario_batchfile 
-
-
 
 use waterbody_parameters, ONLY: itsapond, itsareservoir, itsother,waterbody_names,    USEPA_reservoir,USEPA_pond 
 use utilities
@@ -344,12 +342,9 @@ use utilities
     
 end subroutine read_inputfile
     
-    
-             !  xsoil -->         READ(PRZMinputUnit,*,IOSTAT = status) MolarConvert_aq12_input(i),MolarConvert_aq13_input(i),MolarConvert_aq23_input(i), &
-          !                                         MolarConvert_s12_input(i), MolarConvert_s13_input(i) ,MolarConvert_s23_input(i)
-       
-!**************************************************************************************************************    
-    subroutine read_scenario_file(schemenumber,scenarionumber, error)
+
+subroutine read_scenario_file(schemenumber,scenarionumber, error) 
+    !reads scn2x files
     use constants_and_variables, ONLY:ScenarioFileUnit, scenario_names, &
         weatherfilename, latitude, num_crop_periods_input, &
         emd,emm,mad,mam,had,ham,max_root_depth,max_canopy_cover, max_number_crop_periods, &
@@ -358,7 +353,7 @@ end subroutine read_inputfile
         nhoriz,thickness,bd_input,fc_input, wp_input, oc_input, bd_input, Num_delx,sand_input,clay_input,dispersion_input, &
         is_temperature_simulated , albedo, NUSLEC,GDUSLEC,GMUSLEC,cn_2, uslec, &
         runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth, erosion_decline, erosion_effic,use_usleyears,Height_stagnant_air_layer_cm, &
-		is_auto_profile,number_of_discrete_layers,  profile_thick, profile_number_increments,  evergreen,soil_temp_input, scenario_id
+		is_auto_profile,number_of_discrete_layers,  profile_thick, profile_number_increments,  evergreen,soil_temp_input, scenario_id, bottom_bc
     
         integer :: eof
         logical, intent(out) :: error
@@ -383,10 +378,7 @@ end subroutine read_inputfile
         sand_input = 0.0
         clay_input = 0.0
         
-        
-
-        
-        
+ 
         
         write(*,*)  '**********  Start Reading Scenario Values ************************'  
         error = .FALSE.      
@@ -470,11 +462,8 @@ end subroutine read_inputfile
             
             write(*,'(8I6)') emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i), crop_periodicity(i), crop_lag(i) 
         end do
-  
 
-
-  foliar_disposition = 1       
-        
+        foliar_disposition = 1     
         
         do i=1, max_number_crop_periods - num_crop_periods_input
             read(ScenarioFileUnit,'(A)') dummy
@@ -487,7 +476,6 @@ end subroutine read_inputfile
 				  call scenario_error(error)
 				  return
 				end if		
-
         
         read(ScenarioFileUnit,*) ! msg = msg & vbNewLine & "*** irrigation information start ***"        
         read(ScenarioFileUnit,*) irtype !0 = none, 1 flood, 2 undefined 3 = overcanopy 4 = under canopy 5 = undefined, 6 over canopy       
@@ -503,7 +491,6 @@ end subroutine read_inputfile
             read(ScenarioFileUnit,*) UserSpecifiesDepth, user_irrig_depth        
         endif
  
-  
         read(ScenarioFileUnit,'(A)')  !msg = msg & vbNewLine & "*** spare line for expansion"        
         read(ScenarioFileUnit,'(A)') !msg = msg & vbNewLine & "*** spare line for expansion"       
         read(ScenarioFileUnit,'(A)')  !msg = msg & vbNewLine & "*** spare line for expansion"         
@@ -519,15 +506,11 @@ end subroutine read_inputfile
         read(ScenarioFileUnit,*) (Num_delx(i), i=1, nhoriz)
         read(ScenarioFileUnit,*) (sand_input(i), i=1, nhoriz)        
         read(ScenarioFileUnit,*) (clay_input(i), i=1, nhoriz)
-        
-      
-do i= 1, nhoriz
-         write(*, '(7G12.3)')  thickness(i), bd_input(i), fc_input(i), wp_input(i), oc_input(i), sand_input(i), clay_input(i)
-end do
+              
+        do i= 1, nhoriz
+                 write(*, '(7G12.3)')  thickness(i), bd_input(i), fc_input(i), wp_input(i), oc_input(i), sand_input(i), clay_input(i)
+        end do
 
-
-    
-    
         !write(*,*) 'Nhori', NHORIZ        
         !write(*,*) 'THCK ', (thickness(i), i=1, nhoriz)
         !write(*,*) 'BD   ', (bd_input(i), i=1, nhoriz) 
@@ -540,21 +523,20 @@ end do
               
         dispersion_input = 0.0
 
-        read(ScenarioFileUnit,*)!msg = msg & vbNewLine & "*** Horizon End, Temperature Start ********"
-        !
+        read(ScenarioFileUnit,*)   !*** Horizon End, Temperature Start ********
         read(ScenarioFileUnit,*) scalar_albedo,scaler_soil_temp  !msg = msg & String.Format("{0}{1},{2}", vbNewLine, albedoBox.Text, bcTemp.Text)
         ALBEDO = scalar_albedo                 !albedo is monthly in przm      
         soil_temp_input = scaler_soil_temp
-    
+        
+        !need to set bottom boundary condition
+        bottom_bc= scaler_soil_temp
+        
         read(ScenarioFileUnit,*) is_temperature_simulated !msg = msg & vbNewLine & simTemperature.Checked
-
         read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "***spare line for expansion"
         read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "***spare line for expansion"
         read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "*** Erosion & Curve Number Info **********"
               
         read(ScenarioFileUnit,*) NUSLEC  !msg = msg & vbNewLine & NumberOfFactors.Text
- write (*,*) 'How many CN & USLE: ', nuslec
-        
         read(ScenarioFileUnit,*) (GDUSLEC(i), i=1,nuslec)
         read(ScenarioFileUnit,*) (GMUSLEC(i), i=1,nuslec)
         read(ScenarioFileUnit,*) (CN_2(i), i=1,nuslec)
@@ -587,87 +569,13 @@ end do
 	      end if
 	  end if
 	  
-	  
-        
         close (ScenarioFileUnit)
-    end subroutine read_scenario_file
-    
-  
+end subroutine read_scenario_file
 
     
-    !************************************************************
-    subroutine Read_Weatherfile
-    !open weather file, count file, allocate the weather variables, read in dat and place in vectors to store in constant/variable mod.  
-    use utilities_1
-    use constants_and_Variables, ONLY:precip, pet_evap,air_temperature, wind_speed, solar_radiation, num_records, &
-                                      metfileunit,weatherfilename, weatherfiledirectory, &
-                                      startday, first_year, last_year, num_years,first_mon, first_day 
-    
 
-    
-        integer :: dummy, status,i, year
-        character(Len=1024) :: weatherfile_pathandname
-        weatherfile_pathandname = trim(adjustl(weatherfiledirectory)) // trim(adjustl(weatherfilename))
-        
-        write(*,*) 'weather path and file to open: ', trim(adjustl(weatherfile_pathandname))
-        
-        OPEN(Unit = metfileunit,FILE=trim(adjustl(weatherfile_pathandname)),STATUS='OLD', IOSTAT=status)
-        IF (status .NE. 0) THEN
-            write(*,*)'Problem opening weather file. Name is ', trim(adjustl(weatherfilename))
-            stop
-        ENDIF   
-      
-      num_records = 0
-      
-      !Read first Date of Simulation
-      read (metfileunit,*, IOSTAT=status) first_mon, first_day, first_year
-      
-      if (status /= 0) then
-          write(*,*) "No data or other problem in Weather File"
-          stop
-      end if
-      
-      startday = jd(first_year, first_mon, first_day)
- 
-      !Count the records in the weather file
-      num_records=1
-      do        
-          read (metfileunit,*, IOSTAT=status) dummy
-          if (status /= 0)exit
-          num_records=num_records+1
-      end do
-      write (*,*) "Weather file total days = ",num_records
-      
-      !Allocate the weather parameters 
-      allocate (precip(num_records))
-      allocate (pet_evap(num_records))
-      allocate (air_temperature(num_records))
-      allocate (wind_speed(num_records))
-      allocate (solar_radiation(num_records))
-
-      write (*,*) "End Weather allocation"
-      
-      
-      !rewind and read in weather data
-      rewind(metfileunit)      
-      do i = 1, num_records
-          READ(MetFileUnit,*, IOSTAT=status) dummy,dummy,year,precip(i),pet_evap(i),air_temperature(i),wind_speed(i),solar_radiation(i)
-          if (status /= 0)then
-              write (*,*) "weather file problem on line ", i, status
-              exit
-          end if
-      end do
-  
-      last_year = year
-      
-      num_years = last_year-first_year+1
-      
-      close(metfileunit)
-       write (*,*) "Finished reading weather file"
-	end subroutine Read_Weatherfile 
-    
 	
-    subroutine  scenario_error(error)
+subroutine  scenario_error(error)
 	implicit none
 	logical, intent(out) :: error
           WRITE(*,*) 'Problem reading scenario file, skipping scenario ?????????????????????????????'
@@ -684,7 +592,7 @@ end do
              ALBEDO, soil_temp_input, dispersion_input, nuslec,cn_2, USLEC, gmuslec, gduslec, use_usleyears, &
              runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth,erosion_decline,erosion_effic, Height_stagnant_air_layer_cm, &
              profile_thick, profile_number_increments, is_auto_profile,  number_of_discrete_layers, foliar_disposition, UserSpecifiesDepth,  &
-             user_irrig_depth 
+             user_irrig_depth , bottom_bc
                                                                           
          logical, intent(out) :: end_of_file, error_on_read                                 
          integer, intent(in)  :: batchfileunit                            
@@ -823,12 +731,86 @@ end do
          GDUSLEC(2) = had(1)  !harvest
          GMUSLEC(2) = ham(1)
          
-        soil_temp_input  = gw_temp         !array for horizons, set as constant for all horizons as initial condition.    
+        soil_temp_input  = gw_temp         !array for horizons, set as constant for all horizons as initial condition. 
+        bottom_bc = gw_temp                !bottom boundary is constant temperature
+        
+        
         profile_thick(5) = gw_depth - 100.  ! gw_depth is depth to aquifer surface, subtract the 1 meter (thickness of the horizons 1 to 4)
         profile_number_increments(5) = int(gw_depth)/50 -2
         
+        
+        
+        
     end subroutine read_batch_scenarios
     
+    subroutine Read_Weatherfile
+    !open weather file, count file, allocate the weather variables, read in dat and place in vectors to store in constant/variable mod.  
+    use utilities_1
+    use constants_and_Variables, ONLY:precip, pet_evap,air_temperature, wind_speed, solar_radiation, num_records, &
+                                      metfileunit,weatherfilename, weatherfiledirectory, &
+                                      startday, first_year, last_year, num_years,first_mon, first_day 
     
+
+    
+        integer :: dummy, status,i, year
+        character(Len=1024) :: weatherfile_pathandname
+        weatherfile_pathandname = trim(adjustl(weatherfiledirectory)) // trim(adjustl(weatherfilename))
+        
+        write(*,*) 'weather path and file to open: ', trim(adjustl(weatherfile_pathandname))
+        
+        OPEN(Unit = metfileunit,FILE=trim(adjustl(weatherfile_pathandname)),STATUS='OLD', IOSTAT=status)
+        IF (status .NE. 0) THEN
+            write(*,*)'Problem opening weather file. Name is ', trim(adjustl(weatherfilename))
+            stop
+        ENDIF   
+      
+      num_records = 0
+      
+      !Read first Date of Simulation
+      read (metfileunit,*, IOSTAT=status) first_mon, first_day, first_year
+      
+      if (status /= 0) then
+          write(*,*) "No data or other problem in Weather File"
+          stop
+      end if
+      
+      startday = jd(first_year, first_mon, first_day)
+ 
+      !Count the records in the weather file
+      num_records=1
+      do        
+          read (metfileunit,*, IOSTAT=status) dummy
+          if (status /= 0)exit
+          num_records=num_records+1
+      end do
+      write (*,*) "Weather file total days = ",num_records
+      
+      !Allocate the weather parameters 
+      allocate (precip(num_records))
+      allocate (pet_evap(num_records))
+      allocate (air_temperature(num_records))
+      allocate (wind_speed(num_records))
+      allocate (solar_radiation(num_records))
+
+      write (*,*) "End Weather allocation"
+      
+      
+      !rewind and read in weather data
+      rewind(metfileunit)      
+      do i = 1, num_records
+          READ(MetFileUnit,*, IOSTAT=status) dummy,dummy,year,precip(i),pet_evap(i),air_temperature(i),wind_speed(i),solar_radiation(i)
+          if (status /= 0)then
+              write (*,*) "weather file problem on line ", i, status
+              exit
+          end if
+      end do
+  
+      last_year = year
+      
+      num_years = last_year-first_year+1
+      
+      close(metfileunit)
+       write (*,*) "Finished reading weather file"
+	end subroutine Read_Weatherfile  
     
 end module readinputs
