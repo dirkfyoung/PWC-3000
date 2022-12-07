@@ -43,13 +43,13 @@ module erosion
          Q=runoff_on_day*10.
          QQP=Q*QP
       
-         IF(ERFLAG.EQ.1)THEN                    ! ERFLAG=2: MUSLE
+         IF(ERFLAG.EQ.1)THEN                          ! MUSLE
            sedl=1.586*(QQP**0.56)*(AFIELD_ha**0.12)
-         ELSEIF(ERFLAG.EQ.2)THEN                ! ERFLAG=3: MUST
+         ELSEIF(ERFLAG.EQ.2)THEN                      ! MUST
            sedl=2.5*(QQP**0.5)
-         ELSEIF(ERFLAG.EQ.3)THEN                ! ERFLAG=4: MUSS
+         ELSEIF(ERFLAG.EQ.3)THEN                      ! MUSS
            SEDL=0.79*(QQP**0.65)*(AFIELD_ha**0.009)
-         else
+         else                                         ! anything else is no erosion
              sedl=0.0
          endif           
           SEDL   = (SEDL* USLEK* USLELS* CFAC* USLEP)*AFIELD_ha  !metric tons per day

@@ -355,8 +355,6 @@ Module Output_From_Field
       IF (PLNAME(I) .EQ. 'CEVP') PNBRN(I)= CEVAP
       IF (PLNAME(I) .EQ. 'TETD') PNBRN(I)= TDET
       
-      ! IF (PLNAME(I) .EQ. OUTF) PNBRN(I)= OUTFLOW
-      
       IF (PLNAME(I) .EQ. 'CURV') PNBRN(I)= curve_number_daily
       IF (PLNAME(I) .EQ. 'ESLS') PNBRN(I)= SEDL      ! Sediment flux (metric tons)
       IF (PLNAME(I) .EQ. 'CHGT') PNBRN(I)= HEIGHT    !  Crop height (CM)

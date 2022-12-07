@@ -56,63 +56,52 @@ use utilities
       stop
     ENDIF 
     
-    read(inputfile_unit_number,*) !Version info                                       !Line 1
-    
-    read(inputfile_unit_number,'(A)')  working_directory             !Line 2
-
-        write(*,*) 'Working Directory is: ', trim(working_directory) 
-    read(inputfile_unit_number,'(A)') family_name                                     !Line 3
-       write(*,*) 'Family Name is: ', trim(family_name)
-    read(inputfile_unit_number,'(A)') weatherfiledirectory                            !Line 4 
-	write(*,*) 'weather directory is ', trim(weatherfiledirectory) 
-    read(inputfile_unit_number,*) is_koc,is_freundlich , is_nonequilibrium            !Line 5
-    read(inputfile_unit_number,*) nchem                                               !Line 6
-    read(inputfile_unit_number,*) k_f_input(1),k_f_input(2),k_f_input(3)              !Line 7  
-	
-	write(*,*) 'Sorption coeff. ',  k_f_input(1),k_f_input(2),k_f_input(3)
-    read(inputfile_unit_number,*) N_f_input(1), N_f_input(2), N_f_input(3)            !Line 8
-	write(*,*) 'Freundlich exponents ' , N_f_input(1), N_f_input(2), N_f_input(3) 
-    read(inputfile_unit_number,*) k_f_2_input(1), k_f_2_input(2), k_f_2_input(3)      !Line 9
-	write(*,*) 'Sorption coeff 2: ',k_f_2_input(1), k_f_2_input(2), k_f_2_input(3)
-    read(inputfile_unit_number,*) N_f_2_input(1), N_f_2_input(2), N_f_2_input(3)      !Line 10
-	write(*,*) 'Freundlich exponents 2 ', N_f_2_input(1), N_f_2_input(2), N_f_2_input(3)
-    read(inputfile_unit_number,*) K2(1), K2(2), K2(3)                                 !Line 11
-	write(*,*) 'Mass xfer: ',  K2(1), K2(2), K2(3)
-    read(inputfile_unit_number,*) lowest_conc, number_subdelt                         !Line 12
-    write(*,*) 'lowest conc to linear:' , lowest_conc, 'subdelt', number_subdelt 
-    read(inputfile_unit_number,*) water_column_halflife_input(1),water_column_halflife_input(2),water_column_halflife_input(3), xAerobic(1),  xAerobic(2)
-    write(*,*) 'Water col halflife ', water_column_halflife_input(1),water_column_halflife_input(2),water_column_halflife_input(3)
-	read(inputfile_unit_number,*) water_column_ref_temp(1),water_column_ref_temp(2),water_column_ref_temp(3)
-    read(inputfile_unit_number,*) benthic_halflife_input(1),benthic_halflife_input(2),benthic_halflife_input(3),xBenthic(1), xbenthic(2)
-    read(inputfile_unit_number,*) benthic_ref_temp(1),benthic_ref_temp(2),benthic_ref_temp(3)
-    read(inputfile_unit_number,*) photo_halflife_input(1), photo_halflife_input(2), photo_halflife_input(3), xPhoto(1), xphoto(2) 
-    read(inputfile_unit_number,*) rflat(1), rflat(2), rflat(3)       
-    read(inputfile_unit_number,*) hydrolysis_halflife_input(1),hydrolysis_halflife_input(2),hydrolysis_halflife_input(3) , xhydro(1), xhydro(2)
-    write(*,*) 'hydrol halflife: ', hydrolysis_halflife_input(1),hydrolysis_halflife_input(2),hydrolysis_halflife_input(3)
-    read(inputfile_unit_number,*) soil_degradation_halflife_input(1), soil_degradation_halflife_input(2),soil_degradation_halflife_input(3), xsoil(1), xsoil(2), is_total_degradation
-    write(*,*) 'soil conversions',  xsoil(1), xsoil(2)
-	
-	read(inputfile_unit_number,*) soil_ref_temp(1), soil_ref_temp(2), soil_ref_temp(3)
-    read(inputfile_unit_number,*) plant_pesticide_degrade_rate(1), plant_pesticide_degrade_rate(2), plant_pesticide_degrade_rate(3),foliar_formation_ratio_12, foliar_formation_ratio_23 
-    read(inputfile_unit_number,*) plant_washoff_coeff(1),plant_washoff_coeff(2),plant_washoff_coeff(3) 
-    read(inputfile_unit_number,*) mwt(1), mwt(2), mwt(3)                                !Line 24
-    read(inputfile_unit_number,*) vapor_press(1), vapor_press(2),vapor_press(3)
-    read(inputfile_unit_number,*) solubilty(1), solubilty(2), solubilty(3)                                !Line 26
+    read(inputfile_unit_number,*) !Version info                                                                   !Line 1
+                                                                                                                  
+    read(inputfile_unit_number,'(A)')  working_directory                                                          !Line 2   
+    read(inputfile_unit_number,'(A)') family_name                                                                 !Line 3
+    read(inputfile_unit_number,'(A)') weatherfiledirectory                                                        !Line 4 
+	write(*,*) 'weather directory is ', trim(weatherfiledirectory)                                                
+    read(inputfile_unit_number,*) is_koc,is_freundlich , is_nonequilibrium                                        !Line 5
+    read(inputfile_unit_number,*) nchem                                                                           !Line 6
+    read(inputfile_unit_number,*) k_f_input(1),k_f_input(2),k_f_input(3)                                          !Line 7  
+    read(inputfile_unit_number,*) N_f_input(1), N_f_input(2), N_f_input(3)                                        !Line 8
+    read(inputfile_unit_number,*) k_f_2_input(1), k_f_2_input(2), k_f_2_input(3)                                  !Line 9
+    read(inputfile_unit_number,*) N_f_2_input(1), N_f_2_input(2), N_f_2_input(3)                                  !Line 10
+    read(inputfile_unit_number,*) K2(1), K2(2), K2(3)                                                             !Line 11
+    read(inputfile_unit_number,*) lowest_conc, number_subdelt                                                     !Line 12
+    read(inputfile_unit_number,*) water_column_halflife_input(1), &                                               !Line 13
+        water_column_halflife_input(2),water_column_halflife_input(3),xAerobic(1),  xAerobic(2)   
+	read(inputfile_unit_number,*) water_column_ref_temp(1),water_column_ref_temp(2),water_column_ref_temp(3)      !Line 14
+    read(inputfile_unit_number,*) benthic_halflife_input(1),benthic_halflife_input(2),benthic_halflife_input(3),& !Line 15
+        xBenthic(1), xbenthic(2)
+    read(inputfile_unit_number,*) benthic_ref_temp(1),benthic_ref_temp(2),benthic_ref_temp(3)                     !Line 16
+    read(inputfile_unit_number,*) photo_halflife_input(1), photo_halflife_input(2), photo_halflife_input(3),&     !Line 17
+        xPhoto(1), xphoto(2) 
+    read(inputfile_unit_number,*) rflat(1), rflat(2), rflat(3)                                                    !Line 18
+    read(inputfile_unit_number,*) hydrolysis_halflife_input(1),hydrolysis_halflife_input(2), &                    !Line 19
+        hydrolysis_halflife_input(3) , xhydro(1), xhydro(2)
+    read(inputfile_unit_number,*) soil_degradation_halflife_input(1), soil_degradation_halflife_input(2),&        !Line 20
+        soil_degradation_halflife_input(3), xsoil(1), xsoil(2), is_total_degradation	
+	read(inputfile_unit_number,*) soil_ref_temp(1), soil_ref_temp(2), soil_ref_temp(3)                            !Line 21
+    read(inputfile_unit_number,*) plant_pesticide_degrade_rate(1), plant_pesticide_degrade_rate(2),&              !Line 22
+        plant_pesticide_degrade_rate(3),foliar_formation_ratio_12, foliar_formation_ratio_23            
+    read(inputfile_unit_number,*) plant_washoff_coeff(1),plant_washoff_coeff(2),plant_washoff_coeff(3)            !Line 23  
+    read(inputfile_unit_number,*) mwt(1), mwt(2), mwt(3)                                                          !Line 24
+    read(inputfile_unit_number,*) vapor_press(1), vapor_press(2),vapor_press(3)                                   !Line 25
+    read(inputfile_unit_number,*) solubilty(1), solubilty(2), solubilty(3)                                        !Line 26
     read(inputfile_unit_number,*) Henry_unitless(1),Henry_unitless(2),Henry_unitless(3)
-    read(inputfile_unit_number,*) DAIR(1),DAIR(2),DAIR(3)                                 !Line 28
-    read(inputfile_unit_number,*) Heat_of_Henry(1),Heat_of_Henry(2),Heat_of_Henry(3)
-    read(inputfile_unit_number,*) Q_10                                                     !Line 30
-      
-    read(inputfile_unit_number,*) is_constant_profile
-    read(inputfile_unit_number,*) is_ramp_profile, ramp1, ramp2, ramp3  !ramp1 is first plateau distance, ramp2 is second plateau distance, ramp3 is second plateau value
-    read(inputfile_unit_number,*) is_exp_profile , exp_profile1, exp_profile2               !Line 33
-
-    read(inputfile_unit_number,*) number_of_schemes                                         !Line 34
-
-    write(*,*) "Number of schemes = ", number_of_schemes
-    
-    
-    allocate (num_apps_in_schemes(number_of_schemes))
+    read(inputfile_unit_number,*) DAIR(1),DAIR(2),DAIR(3)                                                         !Line 28
+    read(inputfile_unit_number,*) Heat_of_Henry(1),Heat_of_Henry(2),Heat_of_Henry(3)                              !Line 29
+    read(inputfile_unit_number,*) Q_10                                                                            !Line 30
+    read(inputfile_unit_number,*) is_constant_profile                                                             !Line 31
+    read(inputfile_unit_number,*) is_ramp_profile, ramp1, ramp2, ramp3                                            !Line 32
+    read(inputfile_unit_number,*) is_exp_profile , exp_profile1, exp_profile2                                     !Line 33
+    read(inputfile_unit_number,*) number_of_schemes                                                               !Line 34
+                                     
+    write(*,*) "Number of schemes = ", number_of_schemes                                                          
+                                                                                                                  !Lines become variable from here 
+    allocate (num_apps_in_schemes(number_of_schemes))                                                             
     allocate (app_reference_point_schemes(number_of_schemes))
     allocate (days_until_applied_schemes(number_of_schemes,366)) 
     
@@ -143,16 +132,16 @@ use utilities
     
 	
     do i=1, number_of_schemes
-        read(inputfile_unit_number,*) scheme_number, scheme_name 
+        read(inputfile_unit_number,*) scheme_number, scheme_name                                !scheme line 1
         write(*,*) "Scheme Number & Name ", scheme_number, trim(scheme_name)
          
-        read(inputfile_unit_number,*) app_reference_point_schemes(i)
-        read(inputfile_unit_number,*) num_apps_in_schemes(i)
+        read(inputfile_unit_number,*) app_reference_point_schemes(i)                            !scheme line 2
+        read(inputfile_unit_number,*) num_apps_in_schemes(i)                                    !scheme line 3
         
-        do j=1, num_apps_in_schemes(i)
+        do j=1, num_apps_in_schemes(i)                          
             select case (app_reference_point_schemes(i))
             case (0)
-                read(inputfile_unit_number,'(A)')wholeline                    
+                read(inputfile_unit_number,'(A)')wholeline                                      !Scheme Line Group 4               
                 if (index(wholeline, '/') == index(wholeline, '/', .TRUE.)) then
                    ! only a day and month are given, so this is repeating every year
                                           
@@ -199,31 +188,28 @@ use utilities
 
 !*****************************************************************
 
-        read(inputfile_unit_number,*) is_app_window(i), app_window_span(i), app_window_step(i)
+        read(inputfile_unit_number,*) is_app_window(i), app_window_span(i), app_window_step(i)                      !Scheme Line 5
         if (not(is_app_window(i) )) then 
             app_window_span(i) =0  !the stepping starts with zero, so the span iz zero for only one iteration
             app_window_step(i)= 1          
 		end if
-        
     
-		read(inputfile_unit_number,*) is_adjust_for_rain_schemes(i),rain_limit_schemes(i), &
+		read(inputfile_unit_number,*) is_adjust_for_rain_schemes(i),rain_limit_schemes(i), &                         !Scheme Line 6
 		   optimum_application_window_schemes(i),intolerable_rain_window_schemes(i),min_days_between_apps_schemes(i) 
-		
-		
-		 write(*,*) "Rain fast" , 	is_adjust_for_rain_schemes(i),rain_limit_schemes(i), &
+			
+		 write(*,*) "Rain restriction" , 	is_adjust_for_rain_schemes(i),rain_limit_schemes(i), &
 		   optimum_application_window_schemes(i),intolerable_rain_window_schemes(i),min_days_between_apps_schemes(i) 						  
-
 		 
-		read(inputfile_unit_number,*) number_of_scenarios(i) 
+		read(inputfile_unit_number,*) number_of_scenarios(i)                                                         !Scheme Line 7
         write(*,*)"Number of scn files = ", number_of_scenarios(i)
            
         do j=1, number_of_scenarios(i)
-            read(inputfile_unit_number,'(A512)')  scenario_names(i,j) !(i,j) i is scheme #, j is scenario #
+            read(inputfile_unit_number,'(A512)')  scenario_names(i,j) !(i,j) i is scheme #, j is scenario #          !Scheme Group of Lines 8
              write(*,'(A)') trim(scenario_names(i,j))
         end do 
         
-        read(inputfile_unit_number,*) is_batch_scenario(i)   
-        read(inputfile_unit_number,'(A)') scenario_batchfile(i) 
+        read(inputfile_unit_number,*) is_batch_scenario(i)                                                           !Scheme Line 9
+        read(inputfile_unit_number,'(A)') scenario_batchfile(i)                                                      !Scheme Line 10
        
         write(*,*)       is_batch_scenario(i)  
         write (*,'(A)') scenario_batchfile(i)
@@ -231,23 +217,21 @@ use utilities
 	enddo
 	
 	
-     read(inputfile_unit_number,*) erflag
-     read(inputfile_unit_number,*) 
-     read(inputfile_unit_number,*) 
-     read(inputfile_unit_number,*) 
-     read(inputfile_unit_number,*) 
-     read(inputfile_unit_number,*) 
-     read(inputfile_unit_number,*) adjust_cn
-     read(inputfile_unit_number,*) itsapond,itsareservoir,itsother
-     read(inputfile_unit_number,*) num_special_waterbodies !special water bodies
+     read(inputfile_unit_number,*) erflag                                                              !WS Line 1
+     read(inputfile_unit_number,*)                                                                     !WS Line 2
+     read(inputfile_unit_number,*)                                                                     !WS Line 3
+     read(inputfile_unit_number,*)                                                                     !WS Line 4
+     read(inputfile_unit_number,*)                                                                     !WS Line 5
+     read(inputfile_unit_number,*)                                                                     !WS Line 6
+     read(inputfile_unit_number,*) adjust_cn                                                           !WS Line 7
+     read(inputfile_unit_number,*) itsapond,itsareservoir,itsother                                     !WS Line 8
+     read(inputfile_unit_number,*) num_special_waterbodies                                             !WS Line 9
      
      If (.NOT. (itsapond .AND. itsareservoir)) start_wb = 0 
      IF (itsapond .NEQV. itsareservoir) start_wb = 1
      IF (itsapond .AND. itsareservoir) start_wb = 2
    
-     !The size of the array is the exact number of waterbodies, this SIZE is used later for setting  the run loop
-     
-    
+     !The size of the array is the exact number of waterbodies, this SIZE is used later for setting  the run loop  
      If (itsother) then
           num_waterbodies = num_special_waterbodies + start_wb
          allocate (waterbody_names( num_waterbodies )) !add possibility of USEPA reservoir and pond. 
@@ -269,75 +253,69 @@ use utilities
 
     do i = 1 + start_wB,  num_special_waterbodies + start_wB      
         if (itsother) then      
-           read(inputfile_unit_number,*) waterbody_names(i)       
+           read(inputfile_unit_number,*) waterbody_names(i)                                                  !WS Line 10
         else !skip over the special water bodies that nmight be listed, and its other not checked
-           read(inputfile_unit_number,*)  
+           read(inputfile_unit_number,*)                                                                     !WS Line 10 (alt)
         endif  
     end do
-    
-     write(*,*) 'Total Number of waterbodies',num_waterbodies
-     do i=1, num_waterbodies
-         write(*,*) trim( waterbody_names(i))
-     end do
      
     !Read in optional output to zts file
      is_timeseriesfile = .FALSE.
 	
-    read(inputfile_unit_number,*) is_runoff_output  
+    read(inputfile_unit_number,*) is_runoff_output                                                !OUTPUT Line 1
 	    if (is_runoff_output ) is_timeseriesfile = .TRUE.	
-    read(inputfile_unit_number,*) is_erosion_output  
+    read(inputfile_unit_number,*) is_erosion_output                                               !OUTPUT Line 2
 		if (is_erosion_output ) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*) is_runoff_chem_output
+    read(inputfile_unit_number,*) is_runoff_chem_output                                           !OUTPUT Line 3
 	    if (is_runoff_chem_output) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*) is_erosion_chem_output 
+    read(inputfile_unit_number,*) is_erosion_chem_output                                          !OUTPUT Line 4
          if (is_erosion_chem_output) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*) is_conc_bottom_output  
+    read(inputfile_unit_number,*) is_conc_bottom_output                                           !OUTPUT Line 5
 	    if (is_conc_bottom_output) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*) is_daily_volatilized_output   
+    read(inputfile_unit_number,*) is_daily_volatilized_output                                     !OUTPUT Line 6
         if (is_daily_volatilized_output) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*) is_daily_chem_leached_output, leachdepth
+    read(inputfile_unit_number,*) is_daily_chem_leached_output, leachdepth                        !OUTPUT Line 7
 	    if (is_daily_chem_leached_output) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*) is_chem_decayed_part_of_soil_output, decay_start, decay_end
+    read(inputfile_unit_number,*) is_chem_decayed_part_of_soil_output, decay_start, decay_end     !OUTPUT Line 8
         if (is_chem_decayed_part_of_soil_output) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*) is_chem_in_all_soil_output
+    read(inputfile_unit_number,*) is_chem_in_all_soil_output                                      !OUTPUT Line 9
 	    if (is_chem_in_all_soil_output) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*) is_chem_in_part_soil_output, fieldmass_start, fieldmass_end
+    read(inputfile_unit_number,*) is_chem_in_part_soil_output, fieldmass_start, fieldmass_end     !OUTPUT Line 10
         if (is_chem_in_part_soil_output) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*)  is_chem_on_foliage_output 
-        if (is_chem_on_foliage_output) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*)  is_precipitation_output
-	    if (is_precipitation_output) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*)  is_evapotranspiration_output
-	    if (is_evapotranspiration_output) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*)  is_soil_water_output
-	    if (is_soil_water_output) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*)  is_irrigation_output
+    read(inputfile_unit_number,*)  is_chem_on_foliage_output                                      !OUTPUT Line 11
+        if (is_chem_on_foliage_output) is_timeseriesfile = .TRUE.                               
+    read(inputfile_unit_number,*)  is_precipitation_output                                        !OUTPUT Line 12
+	    if (is_precipitation_output) is_timeseriesfile = .TRUE.                                 
+    read(inputfile_unit_number,*)  is_evapotranspiration_output                                   !OUTPUT Line 13
+	    if (is_evapotranspiration_output) is_timeseriesfile = .TRUE.                            
+    read(inputfile_unit_number,*)  is_soil_water_output                                           !OUTPUT Line 14
+	    if (is_soil_water_output) is_timeseriesfile = .TRUE.                                    
+    read(inputfile_unit_number,*)  is_irrigation_output                                           !OUTPUT Line 15
         if (is_irrigation_output) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*)  is_infiltration_at_depth_output,infiltration_point
+    read(inputfile_unit_number,*)  is_infiltration_at_depth_output,infiltration_point             !OUTPUT Line 16
         if (is_infiltration_at_depth_output) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*) is_infiltrated_bottom_output
-        if (is_infiltrated_bottom_output) is_timeseriesfile = .TRUE.
-		
+    read(inputfile_unit_number,*) is_infiltrated_bottom_output                                    !OUTPUT Line 17
+        if (is_infiltrated_bottom_output) is_timeseriesfile = .TRUE.	
 		
 	!these next 3 are for output from waterbody, this goes into a separate output file
-	read(inputfile_unit_number,*) is_waterbody_info_output   !waterbody depth, conc and benthic
+	read(inputfile_unit_number,*) is_waterbody_info_output   !waterbody depth, conc and benthic   !OUTPUT Line 18
 	
-	read(inputfile_unit_number,*)  !expansion lines
-	read(inputfile_unit_number,*)	
-	read(inputfile_unit_number,*)	
-	read(inputfile_unit_number,*)
-	read(inputfile_unit_number,*)	
-	read(inputfile_unit_number,*)	
-	read(inputfile_unit_number,*)	
+	read(inputfile_unit_number,*)  !expansion lines    ! OUTPUT Line 19
+	read(inputfile_unit_number,*)	                   ! OUTPUT Line 20
+	read(inputfile_unit_number,*)	                   ! OUTPUT Line 21
+	read(inputfile_unit_number,*)                      ! OUTPUT Line 22
+	read(inputfile_unit_number,*)	                   ! OUTPUT Line 23
+	read(inputfile_unit_number,*)	                   ! OUTPUT Line 24
+	read(inputfile_unit_number,*)	                   ! OUTPUT Line 25
 		
 		
-    read(inputfile_unit_number,*) extra_plots
+    read(inputfile_unit_number,*) extra_plots            !OUTPUT Line 26
 	    if (extra_plots > 0) is_timeseriesfile = .TRUE.
 
 		write(*,*) "reading extra time series if any"
 		
     do i = 1, extra_plots
-        read(inputfile_unit_number,*)  temp_PLNAME(i),  temp_chem_id(i), temp_MODE(i),temp_ARG(i),temp_ARG2(i),temp_CONST(i)      
+        read(inputfile_unit_number,*)  temp_PLNAME(i),  temp_chem_id(i), temp_MODE(i),temp_ARG(i),temp_ARG2(i),temp_CONST(i)   !OUTPUT Line 27   
 	end do
     
 end subroutine read_inputfile
