@@ -550,8 +550,6 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         close (ScenarioFileUnit)
 end subroutine read_scenario_file
 
-    
-
 	
 subroutine  scenario_error(error)
 	implicit none
