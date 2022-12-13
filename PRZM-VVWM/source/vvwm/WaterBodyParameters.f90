@@ -22,7 +22,9 @@ implicit none
     real :: baseflow       
     integer:: flow_averaging
     real   :: hydro_length
-	
+    
+	logical :: is_zero_depth  !post processing to zero out conc below a certain depth
+    real    :: zero_depth     !depth below which conc are zeroed during post processing
 
 	
 	real,dimension(14):: spray_values  !default or read-in values for spray drift, their order should corresponds to the menu in the application table
@@ -58,7 +60,7 @@ implicit none
     real,parameter :: depth_max_P     = 2.0
     real,parameter :: baseflow_P      = 0.0   
     integer,parameter :: flow_averaging_P = 0
-    real,parameter :: hydro_length_P      = 356.8 
+    real,parameter    :: hydro_length_P      = 356.8 
 	
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 	real,dimension(14),parameter :: spray_p = (/0.242,0.125,0.089,0.068, 0.062, 0.027, 0.017, 0.011, 0.042, 0.015, 0.002, 0.022, 1.0, 0.0 /)
@@ -113,6 +115,8 @@ real,dimension(17,15),parameter :: spray_table_P = transpose(reshape((/&
     real,parameter :: baseflow_R          = 0.0   
     integer,parameter :: flow_averaging_R = 0
     real,parameter :: hydro_length_R      = 600. 
+    
+    
     real,dimension(14),parameter :: spray_R = (/0.258, 0.135, 0.097, 0.076, 0.066,0.027,0.017,0.011, 0.048, 0.017,0.0003,0.025, 1.0, 0.0 /)
 	
 !"Method \  Buffer (ft)",
@@ -184,6 +188,10 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         baseflow            = baseflow_P        
         hydro_length        = hydro_length_P
         spray_values        =spray_p
+        
+        is_zero_depth = .FALSE.
+        zero_depth = 0.0
+        
 
 	    rows_spraytable = rows_spraytable_P
         columns_spraytable = columns_spraytable_P
@@ -224,6 +232,10 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         baseflow            = baseflow_R        
         flow_averaging      = flow_averaging_R
         hydro_length        = hydro_length_R
+        
+        is_zero_depth = .FALSE.
+        zero_depth = 0.0
+        
        ! spray_values        = spray_R
         
         rows_spraytable = rows_spraytable_R
@@ -269,6 +281,8 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         read(waterbody_file_unit, *) depth_max          
         read(waterbody_file_unit, *) baseflow           
         read(waterbody_file_unit, *) hydro_length
+        read(waterbody_file_unit, *) is_zero_depth, zero_depth
+        
 		read(waterbody_file_unit, *) rows_spraytable, columns_spraytable ! data is 1 less column, col 0 is a text description in the vb interface, row 1 is length header
 		
 		

@@ -6,7 +6,7 @@ module outputprocessing
     subroutine output_processor(chem_index)
     use utilities
   !  use variables
-    use waterbody_parameters, ONLY: baseflow,SimTypeFlag
+    use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth
     
     use constants_and_variables, ONLY:  num_records, run_id, is_hed_files_made,is_add_return_frequency, additional_return_frequency, &
                                        num_years, startday,  waterbodytext, &
@@ -74,10 +74,7 @@ module outputprocessing
     real :: Total_Mass
     integer :: YEAR,MONTH,DAY
     integer :: eliminate_year
-    
-    
-    ! No longer using first app as the first day
-    
+
     integer,dimension(num_years) ::  first_annual_dates !array of yearly first dates (absolute days).
                                     ! First date is the calendar day of start of simulation 
     first_annual_dates= 0
@@ -99,6 +96,14 @@ if (is_waterbody_info_output) then
 	
 	open (UNIT=12,FILE= trim(waterbody_outputfile),  STATUS='unknown')
 
+    
+    !For Certain water bodies, users want to exclude concentrations below a certain level
+    
+    if (is_zero_depth) then
+          where (daily_depth < zero_depth) aqconc_avg1 = 0.0
+    end if
+    
+    
     do i =1, num_records
         write(12,'(G12.4E3, "," ,ES12.4E3, "," ,ES12.4E3, "," ,ES12.4E3)')  daily_depth(i), aqconc_avg1(i), aqconc_avg2(i)
 	end do

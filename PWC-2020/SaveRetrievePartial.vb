@@ -848,8 +848,12 @@
             BaseFlow.Text = MyReader.ReadLine()
             FlowLength.Text = MyReader.ReadLine()
 
-            Dim rowcount, colcount As Integer
+            currentRow = MyReader.ReadFields
+            isZeroConc.Checked = currentRow(0)
+            ZeroConcDepth.Text = currentRow(1)
 
+
+            Dim rowcount, colcount As Integer
             currentRow = MyReader.ReadFields
             rowcount = currentRow(0)
             colcount = currentRow(1)
@@ -897,6 +901,7 @@
         msg = msg & vbNewLine & MaxDepth.Text
         msg = msg & vbNewLine & BaseFlow.Text
         msg = msg & vbNewLine & FlowLength.Text
+        msg = msg & vbNewLine & isZeroConc.Checked & "," & ZeroConcDepth.Text
 
         Dim column_count As Integer
         'determine column count

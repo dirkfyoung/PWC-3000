@@ -24,12 +24,12 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -509,6 +509,10 @@ Partial Class Form1
         Me.outputDailyFieldVolatilization = New System.Windows.Forms.CheckBox()
         Me.WaterbodyExaminerTab = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.isZeroConc = New System.Windows.Forms.CheckBox()
+        Me.ZeroConcDepth = New System.Windows.Forms.TextBox()
+        Me.Label36 = New System.Windows.Forms.Label()
         Me.SprayGridView = New System.Windows.Forms.DataGridView()
         Me.Column14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column32 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -539,10 +543,6 @@ Partial Class Form1
         Me.Label129 = New System.Windows.Forms.Label()
         Me.Label130 = New System.Windows.Forms.Label()
         Me.OpenSelectScenarioBatchFile = New System.Windows.Forms.OpenFileDialog()
-        Me.Label36 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.ZeroConc = New System.Windows.Forms.CheckBox()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.MenuStrip1.SuspendLayout()
         Me.AdvancedTab.SuspendLayout()
         Me.ScenarioExaminerTab.SuspendLayout()
@@ -576,8 +576,8 @@ Partial Class Form1
         CType(Me.AdditionalOutputGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.WaterbodyExaminerTab.SuspendLayout()
         Me.Panel1.SuspendLayout()
-        CType(Me.SprayGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
+        CType(Me.SprayGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -587,7 +587,7 @@ Partial Class Form1
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 2, 0, 2)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1014, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1014, 28)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -595,7 +595,7 @@ Partial Class Form1
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveToolStripMenuItem, Me.RetrieveToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 26)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 24)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'SaveToolStripMenuItem
@@ -614,7 +614,7 @@ Partial Class Form1
         '
         Me.MorenTabsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToggleAdvancedToolStripMenuItem, Me.ToggleMoreOutputToolStripMenuItem, Me.ToggleScenarioExaminerToolStripMenuItem, Me.ToggeWaterbodyExaminerToolStripMenuItem})
         Me.MorenTabsToolStripMenuItem.Name = "MorenTabsToolStripMenuItem"
-        Me.MorenTabsToolStripMenuItem.Size = New System.Drawing.Size(91, 26)
+        Me.MorenTabsToolStripMenuItem.Size = New System.Drawing.Size(91, 24)
         Me.MorenTabsToolStripMenuItem.Text = "More Tabs"
         '
         'ToggleAdvancedToolStripMenuItem
@@ -1497,7 +1497,7 @@ Partial Class Form1
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.50237!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 97.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 184.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 186.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.Label170, 4, 6)
         Me.TableLayoutPanel3.Controls.Add(Me.Label169, 3, 6)
         Me.TableLayoutPanel3.Controls.Add(Me.Label168, 2, 6)
@@ -1549,7 +1549,7 @@ Partial Class Form1
         'Label170
         '
         Me.Label170.AutoSize = True
-        Me.Label170.Location = New System.Drawing.Point(309, 150)
+        Me.Label170.Location = New System.Drawing.Point(307, 150)
         Me.Label170.Name = "Label170"
         Me.Label170.Size = New System.Drawing.Size(32, 17)
         Me.Label170.TabIndex = 237
@@ -1558,7 +1558,7 @@ Partial Class Form1
         'Label169
         '
         Me.Label169.AutoSize = True
-        Me.Label169.Location = New System.Drawing.Point(212, 150)
+        Me.Label169.Location = New System.Drawing.Point(210, 150)
         Me.Label169.Name = "Label169"
         Me.Label169.Size = New System.Drawing.Size(32, 17)
         Me.Label169.TabIndex = 236
@@ -1567,7 +1567,7 @@ Partial Class Form1
         'Label168
         '
         Me.Label168.AutoSize = True
-        Me.Label168.Location = New System.Drawing.Point(112, 150)
+        Me.Label168.Location = New System.Drawing.Point(110, 150)
         Me.Label168.Name = "Label168"
         Me.Label168.Size = New System.Drawing.Size(24, 17)
         Me.Label168.TabIndex = 235
@@ -1576,7 +1576,7 @@ Partial Class Form1
         'Label167
         '
         Me.Label167.AutoSize = True
-        Me.Label167.Location = New System.Drawing.Point(53, 150)
+        Me.Label167.Location = New System.Drawing.Point(52, 150)
         Me.Label167.Name = "Label167"
         Me.Label167.Size = New System.Drawing.Size(16, 17)
         Me.Label167.TabIndex = 234
@@ -1594,7 +1594,7 @@ Partial Class Form1
         'Label165
         '
         Me.Label165.AutoSize = True
-        Me.Label165.Location = New System.Drawing.Point(309, 130)
+        Me.Label165.Location = New System.Drawing.Point(307, 130)
         Me.Label165.Name = "Label165"
         Me.Label165.Size = New System.Drawing.Size(32, 17)
         Me.Label165.TabIndex = 232
@@ -1603,7 +1603,7 @@ Partial Class Form1
         'Label164
         '
         Me.Label164.AutoSize = True
-        Me.Label164.Location = New System.Drawing.Point(212, 130)
+        Me.Label164.Location = New System.Drawing.Point(210, 130)
         Me.Label164.Name = "Label164"
         Me.Label164.Size = New System.Drawing.Size(32, 17)
         Me.Label164.TabIndex = 231
@@ -1612,7 +1612,7 @@ Partial Class Form1
         'Label163
         '
         Me.Label163.AutoSize = True
-        Me.Label163.Location = New System.Drawing.Point(112, 130)
+        Me.Label163.Location = New System.Drawing.Point(110, 130)
         Me.Label163.Name = "Label163"
         Me.Label163.Size = New System.Drawing.Size(24, 17)
         Me.Label163.TabIndex = 230
@@ -1621,7 +1621,7 @@ Partial Class Form1
         'Label162
         '
         Me.Label162.AutoSize = True
-        Me.Label162.Location = New System.Drawing.Point(53, 130)
+        Me.Label162.Location = New System.Drawing.Point(52, 130)
         Me.Label162.Name = "Label162"
         Me.Label162.Size = New System.Drawing.Size(16, 17)
         Me.Label162.TabIndex = 229
@@ -1639,7 +1639,7 @@ Partial Class Form1
         'Label160
         '
         Me.Label160.AutoSize = True
-        Me.Label160.Location = New System.Drawing.Point(309, 110)
+        Me.Label160.Location = New System.Drawing.Point(307, 110)
         Me.Label160.Name = "Label160"
         Me.Label160.Size = New System.Drawing.Size(32, 17)
         Me.Label160.TabIndex = 227
@@ -1648,7 +1648,7 @@ Partial Class Form1
         'Label159
         '
         Me.Label159.AutoSize = True
-        Me.Label159.Location = New System.Drawing.Point(212, 110)
+        Me.Label159.Location = New System.Drawing.Point(210, 110)
         Me.Label159.Name = "Label159"
         Me.Label159.Size = New System.Drawing.Size(24, 17)
         Me.Label159.TabIndex = 226
@@ -1657,7 +1657,7 @@ Partial Class Form1
         'Label158
         '
         Me.Label158.AutoSize = True
-        Me.Label158.Location = New System.Drawing.Point(112, 110)
+        Me.Label158.Location = New System.Drawing.Point(110, 110)
         Me.Label158.Name = "Label158"
         Me.Label158.Size = New System.Drawing.Size(24, 17)
         Me.Label158.TabIndex = 225
@@ -1666,7 +1666,7 @@ Partial Class Form1
         'Label157
         '
         Me.Label157.AutoSize = True
-        Me.Label157.Location = New System.Drawing.Point(53, 110)
+        Me.Label157.Location = New System.Drawing.Point(52, 110)
         Me.Label157.Name = "Label157"
         Me.Label157.Size = New System.Drawing.Size(16, 17)
         Me.Label157.TabIndex = 224
@@ -1684,7 +1684,7 @@ Partial Class Form1
         'Label155
         '
         Me.Label155.AutoSize = True
-        Me.Label155.Location = New System.Drawing.Point(309, 90)
+        Me.Label155.Location = New System.Drawing.Point(307, 90)
         Me.Label155.Name = "Label155"
         Me.Label155.Size = New System.Drawing.Size(24, 17)
         Me.Label155.TabIndex = 222
@@ -1693,7 +1693,7 @@ Partial Class Form1
         'Label154
         '
         Me.Label154.AutoSize = True
-        Me.Label154.Location = New System.Drawing.Point(212, 90)
+        Me.Label154.Location = New System.Drawing.Point(210, 90)
         Me.Label154.Name = "Label154"
         Me.Label154.Size = New System.Drawing.Size(24, 17)
         Me.Label154.TabIndex = 221
@@ -1711,7 +1711,7 @@ Partial Class Form1
         'Label150
         '
         Me.Label150.AutoSize = True
-        Me.Label150.Location = New System.Drawing.Point(309, 70)
+        Me.Label150.Location = New System.Drawing.Point(307, 70)
         Me.Label150.Name = "Label150"
         Me.Label150.Size = New System.Drawing.Size(24, 17)
         Me.Label150.TabIndex = 217
@@ -1720,7 +1720,7 @@ Partial Class Form1
         'Label149
         '
         Me.Label149.AutoSize = True
-        Me.Label149.Location = New System.Drawing.Point(212, 70)
+        Me.Label149.Location = New System.Drawing.Point(210, 70)
         Me.Label149.Name = "Label149"
         Me.Label149.Size = New System.Drawing.Size(16, 17)
         Me.Label149.TabIndex = 216
@@ -1729,7 +1729,7 @@ Partial Class Form1
         'Label146
         '
         Me.Label146.AutoSize = True
-        Me.Label146.Location = New System.Drawing.Point(309, 50)
+        Me.Label146.Location = New System.Drawing.Point(307, 50)
         Me.Label146.Name = "Label146"
         Me.Label146.Size = New System.Drawing.Size(16, 17)
         Me.Label146.TabIndex = 213
@@ -1747,7 +1747,7 @@ Partial Class Form1
         'Label144
         '
         Me.Label144.AutoSize = True
-        Me.Label144.Location = New System.Drawing.Point(212, 50)
+        Me.Label144.Location = New System.Drawing.Point(210, 50)
         Me.Label144.Name = "Label144"
         Me.Label144.Size = New System.Drawing.Size(16, 17)
         Me.Label144.TabIndex = 8
@@ -1756,7 +1756,7 @@ Partial Class Form1
         'Label140
         '
         Me.Label140.AutoSize = True
-        Me.Label140.Location = New System.Drawing.Point(309, 0)
+        Me.Label140.Location = New System.Drawing.Point(307, 0)
         Me.Label140.Name = "Label140"
         Me.Label140.Size = New System.Drawing.Size(44, 34)
         Me.Label140.TabIndex = 4
@@ -1765,7 +1765,7 @@ Partial Class Form1
         'Label138
         '
         Me.Label138.AutoSize = True
-        Me.Label138.Location = New System.Drawing.Point(112, 0)
+        Me.Label138.Location = New System.Drawing.Point(110, 0)
         Me.Label138.Name = "Label138"
         Me.Label138.Size = New System.Drawing.Size(74, 34)
         Me.Label138.TabIndex = 2
@@ -1774,9 +1774,9 @@ Partial Class Form1
         'Label137
         '
         Me.Label137.AutoSize = True
-        Me.Label137.Location = New System.Drawing.Point(53, 0)
+        Me.Label137.Location = New System.Drawing.Point(52, 0)
         Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(53, 50)
+        Me.Label137.Size = New System.Drawing.Size(50, 50)
         Me.Label137.TabIndex = 1
         Me.Label137.Text = "Number of " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Increments"
         '
@@ -1792,7 +1792,7 @@ Partial Class Form1
         'Label153
         '
         Me.Label153.AutoSize = True
-        Me.Label153.Location = New System.Drawing.Point(53, 90)
+        Me.Label153.Location = New System.Drawing.Point(52, 90)
         Me.Label153.Name = "Label153"
         Me.Label153.Size = New System.Drawing.Size(16, 17)
         Me.Label153.TabIndex = 220
@@ -1801,7 +1801,7 @@ Partial Class Form1
         'Label152
         '
         Me.Label152.AutoSize = True
-        Me.Label152.Location = New System.Drawing.Point(112, 90)
+        Me.Label152.Location = New System.Drawing.Point(110, 90)
         Me.Label152.Name = "Label152"
         Me.Label152.Size = New System.Drawing.Size(28, 17)
         Me.Label152.TabIndex = 219
@@ -1810,7 +1810,7 @@ Partial Class Form1
         'Label148
         '
         Me.Label148.AutoSize = True
-        Me.Label148.Location = New System.Drawing.Point(53, 70)
+        Me.Label148.Location = New System.Drawing.Point(52, 70)
         Me.Label148.Name = "Label148"
         Me.Label148.Size = New System.Drawing.Size(16, 17)
         Me.Label148.TabIndex = 215
@@ -1819,7 +1819,7 @@ Partial Class Form1
         'Label147
         '
         Me.Label147.AutoSize = True
-        Me.Label147.Location = New System.Drawing.Point(112, 70)
+        Me.Label147.Location = New System.Drawing.Point(110, 70)
         Me.Label147.Name = "Label147"
         Me.Label147.Size = New System.Drawing.Size(28, 17)
         Me.Label147.TabIndex = 214
@@ -1828,7 +1828,7 @@ Partial Class Form1
         'Label143
         '
         Me.Label143.AutoSize = True
-        Me.Label143.Location = New System.Drawing.Point(53, 50)
+        Me.Label143.Location = New System.Drawing.Point(52, 50)
         Me.Label143.Name = "Label143"
         Me.Label143.Size = New System.Drawing.Size(24, 17)
         Me.Label143.TabIndex = 7
@@ -1837,7 +1837,7 @@ Partial Class Form1
         'Label142
         '
         Me.Label142.AutoSize = True
-        Me.Label142.Location = New System.Drawing.Point(112, 50)
+        Me.Label142.Location = New System.Drawing.Point(110, 50)
         Me.Label142.Name = "Label142"
         Me.Label142.Size = New System.Drawing.Size(28, 17)
         Me.Label142.TabIndex = 6
@@ -1855,7 +1855,7 @@ Partial Class Form1
         'Label139
         '
         Me.Label139.AutoSize = True
-        Me.Label139.Location = New System.Drawing.Point(212, 0)
+        Me.Label139.Location = New System.Drawing.Point(210, 0)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(44, 34)
         Me.Label139.TabIndex = 3
@@ -2453,8 +2453,8 @@ Partial Class Form1
         Me.HorizonGridView.Name = "HorizonGridView"
         Me.HorizonGridView.RowHeadersVisible = False
         Me.HorizonGridView.RowHeadersWidth = 51
-        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.HorizonGridView.RowsDefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.HorizonGridView.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.HorizonGridView.RowTemplate.Height = 24
         Me.HorizonGridView.Size = New System.Drawing.Size(847, 252)
         Me.HorizonGridView.TabIndex = 0
@@ -2715,14 +2715,14 @@ Partial Class Form1
         '
         'HydroDataGrid
         '
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.HydroDataGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.HydroDataGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.HydroDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.HydroDataGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column20, Me.Column22, Me.Column23})
         Me.HydroDataGrid.Location = New System.Drawing.Point(14, 1710)
@@ -3825,14 +3825,14 @@ Partial Class Form1
         '
         Me.SchemeTableDisplay.BackgroundColor = System.Drawing.SystemColors.ControlLightLight
         Me.SchemeTableDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle9.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.SchemeTableDisplay.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.SchemeTableDisplay.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.SchemeTableDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.SchemeTableDisplay.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column21, Me.Edit, Me.Commit, Me.Column24, Me.Delete})
         Me.SchemeTableDisplay.Location = New System.Drawing.Point(23, 88)
@@ -5709,36 +5709,82 @@ Partial Class Form1
         Me.Panel1.Size = New System.Drawing.Size(940, 824)
         Me.Panel1.TabIndex = 210
         '
+        'GroupBox3
+        '
+        Me.GroupBox3.BackColor = System.Drawing.Color.Aqua
+        Me.GroupBox3.Controls.Add(Me.isZeroConc)
+        Me.GroupBox3.Controls.Add(Me.ZeroConcDepth)
+        Me.GroupBox3.Controls.Add(Me.Label36)
+        Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GroupBox3.ForeColor = System.Drawing.Color.Red
+        Me.GroupBox3.Location = New System.Drawing.Point(26, 228)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(429, 75)
+        Me.GroupBox3.TabIndex = 216
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Special Condition"
+        '
+        'isZeroConc
+        '
+        Me.isZeroConc.AutoSize = True
+        Me.isZeroConc.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.isZeroConc.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.isZeroConc.ForeColor = System.Drawing.Color.Black
+        Me.isZeroConc.Location = New System.Drawing.Point(10, 21)
+        Me.isZeroConc.Name = "isZeroConc"
+        Me.isZeroConc.Size = New System.Drawing.Size(393, 21)
+        Me.isZeroConc.TabIndex = 213
+        Me.isZeroConc.Text = "Zero concentrations when water level drops below depth?"
+        Me.isZeroConc.UseVisualStyleBackColor = True
+        '
+        'ZeroConcDepth
+        '
+        Me.ZeroConcDepth.Location = New System.Drawing.Point(142, 42)
+        Me.ZeroConcDepth.Name = "ZeroConcDepth"
+        Me.ZeroConcDepth.Size = New System.Drawing.Size(63, 22)
+        Me.ZeroConcDepth.TabIndex = 214
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label36.ForeColor = System.Drawing.Color.Black
+        Me.Label36.Location = New System.Drawing.Point(10, 45)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(114, 17)
+        Me.Label36.TabIndex = 215
+        Me.Label36.Text = "What depth? (m)"
+        '
         'SprayGridView
         '
         Me.SprayGridView.AllowUserToAddRows = False
         Me.SprayGridView.AllowUserToDeleteRows = False
         Me.SprayGridView.AllowUserToResizeColumns = False
         Me.SprayGridView.AllowUserToResizeRows = False
-        DataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.SprayGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.SprayGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.SprayGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.SprayGridView.BackgroundColor = System.Drawing.Color.Aqua
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.SprayGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.SprayGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle5
         Me.SprayGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.SprayGridView.ColumnHeadersVisible = False
         Me.SprayGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column14, Me.Column32, Me.Column15, Me.Column16, Me.Column17, Me.Column18, Me.Column19, Me.Column25, Me.Column26, Me.Column27, Me.Column28, Me.Column29, Me.Column30, Me.Column31, Me.Column33, Me.Column34, Me.Column35, Me.Column36})
         Me.SprayGridView.Cursor = System.Windows.Forms.Cursors.IBeam
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle12.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.SprayGridView.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.SprayGridView.DefaultCellStyle = DataGridViewCellStyle6
         Me.SprayGridView.Location = New System.Drawing.Point(12, 392)
         Me.SprayGridView.Margin = New System.Windows.Forms.Padding(1)
         Me.SprayGridView.Name = "SprayGridView"
@@ -5937,51 +5983,6 @@ Partial Class Form1
         Me.Label130.TabIndex = 6
         Me.Label130.Text = "Family Name:"
         '
-        'Label36
-        '
-        Me.Label36.AutoSize = True
-        Me.Label36.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label36.ForeColor = System.Drawing.Color.Black
-        Me.Label36.Location = New System.Drawing.Point(10, 42)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(121, 17)
-        Me.Label36.TabIndex = 215
-        Me.Label36.Text = "What depth? (cm)"
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Location = New System.Drawing.Point(142, 39)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(63, 22)
-        Me.TextBox1.TabIndex = 214
-        '
-        'ZeroConc
-        '
-        Me.ZeroConc.AutoSize = True
-        Me.ZeroConc.CheckAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.ZeroConc.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ZeroConc.ForeColor = System.Drawing.Color.Black
-        Me.ZeroConc.Location = New System.Drawing.Point(10, 18)
-        Me.ZeroConc.Name = "ZeroConc"
-        Me.ZeroConc.Size = New System.Drawing.Size(393, 21)
-        Me.ZeroConc.TabIndex = 213
-        Me.ZeroConc.Text = "Zero concentrations when water level drops below depth?"
-        Me.ZeroConc.UseVisualStyleBackColor = True
-        '
-        'GroupBox3
-        '
-        Me.GroupBox3.Controls.Add(Me.ZeroConc)
-        Me.GroupBox3.Controls.Add(Me.TextBox1)
-        Me.GroupBox3.Controls.Add(Me.Label36)
-        Me.GroupBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GroupBox3.ForeColor = System.Drawing.Color.Red
-        Me.GroupBox3.Location = New System.Drawing.Point(26, 228)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(415, 67)
-        Me.GroupBox3.TabIndex = 216
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Special Condition"
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -6056,9 +6057,9 @@ Partial Class Form1
         Me.WaterbodyExaminerTab.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
-        CType(Me.SprayGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
+        CType(Me.SprayGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -6573,7 +6574,7 @@ Partial Class Form1
     Friend WithEvents OpenSelectScenarioBatchFile As OpenFileDialog
     Friend WithEvents Label9 As Label
     Friend WithEvents Label36 As Label
-    Friend WithEvents ZeroConc As CheckBox
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents isZeroConc As CheckBox
+    Friend WithEvents ZeroConcDepth As TextBox
     Friend WithEvents GroupBox3 As GroupBox
 End Class
