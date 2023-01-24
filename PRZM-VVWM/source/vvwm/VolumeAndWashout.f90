@@ -41,7 +41,7 @@ contains
         !This subroutine calculates volume and washout rate
         
         use constants_and_variables, ONLY: num_records, evap_m, precip_m, DELT_vvwm,minimum_depth,flowthru_the_body,&
-            daily_depth,volume1,k_flow ,Daily_avg_flow_out
+            daily_depth,volume1,k_flow ,Daily_avg_flow_out, pfac
         
         use waterbody_parameters, ONLY: depth_0, depth_max,area_waterbody
 
@@ -56,7 +56,7 @@ contains
         real,dimension(num_records)::evap_area
         real,dimension(num_records)::precip_area
         Daily_avg_flow_out = 0.0
-        
+        write(*,*) "DOING VOLUME CALCULATION and PFAC = ", PFAC
         
         v_0 = area_waterbody*depth_0
         v_max = area_waterbody*depth_max
@@ -65,7 +65,7 @@ contains
         v_previous = v_0
 
         precip_area = precip_m*area_waterbody /86400.    !m3/s
-        evap_area = evap_m*.7*area_waterbody /86400.    !m3/s, evap factor (.7) 
+        evap_area = evap_m*area_waterbody /86400.    !m3/s, evap factor pfac now calculated in convert_weatherdata_for_VVWM  
 
         vol_net = (flowthru_the_body-evap_area+precip_area)*DELT_vvwm  !volume of water added in day; whole array operations
         
