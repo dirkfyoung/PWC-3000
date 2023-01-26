@@ -585,6 +585,8 @@ subroutine  scenario_error(error)
          integer :: i
          real ::  gw_depth, gw_temp
          character(LEN=1000) :: input_string
+         character(LEN=3) ::cropgroup,region
+         
 
          thickness  = 0.0
          bd_input   = 0.0
@@ -659,13 +661,18 @@ subroutine  scenario_error(error)
              wp_input(1),wp_input(2),wp_input(3),wp_input(4),wp_input(5),wp_input(6),wp_input(7),wp_input(8), &
              oc_input(1),oc_input(2),oc_input(3),oc_input(4),oc_input(5),oc_input(6),oc_input(7),oc_input(8), &
              sand_input(1),sand_input(2),sand_input(3),sand_input(4),sand_input(5),sand_input(6),sand_input(7),sand_input(8), &
-             clay_input(1),clay_input(2),clay_input(3),clay_input(4),clay_input(5),clay_input(6),clay_input(7),clay_input(8),dummy,dummy,dummy, gw_depth, gw_temp               
+             clay_input(1),clay_input(2),clay_input(3),clay_input(4),clay_input(5),clay_input(6),clay_input(7),clay_input(8),dummy,cropgroup,region, gw_depth, gw_temp               
          
+         
+        
          if (iostatus /= 0 ) then  !there is a problem
              error_on_read = .TRUE.
              write (*,*) '^^^^^^^^^^ ERROR DETECTED IN THIS SCENARIO ^^^^^^^^'
              return
          end if
+         
+         
+          scenario_id =  trim(scenario_id) //"_" // trim(cropgroup) //"_" //trim(region)
          
          !**************************************************
          !Foliar Disposition seems to be undefined in the batch file
