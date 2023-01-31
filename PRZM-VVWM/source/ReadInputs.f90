@@ -672,7 +672,7 @@ subroutine  scenario_error(error)
          end if
          
          
-          scenario_id =  trim(scenario_id) //"_" // trim(cropgroup) //"_" //trim(region)
+          scenario_id =  trim(scenario_id) //"_C" // trim(cropgroup) //"_R" //trim(region)
          
          !**************************************************
          !Foliar Disposition seems to be undefined in the batch file
