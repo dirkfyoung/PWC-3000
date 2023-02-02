@@ -818,8 +818,6 @@
 
     Private Sub ReadwaterBodyParameters(filename As String)
 
-
-
         Using MyReader As New Microsoft.VisualBasic.FileIO.TextFieldParser(filename)
             MyReader.TextFieldType = FileIO.FieldType.Delimited
             MyReader.SetDelimiters(",")
@@ -852,6 +850,7 @@
             isZeroConc.Checked = currentRow(0)
             ZeroConcDepth.Text = currentRow(1)
 
+            isTpez.Checked = MyReader.ReadLine()
 
             Dim rowcount, colcount As Integer
             currentRow = MyReader.ReadFields
@@ -902,6 +901,7 @@
         msg = msg & vbNewLine & BaseFlow.Text
         msg = msg & vbNewLine & FlowLength.Text
         msg = msg & vbNewLine & isZeroConc.Checked & "," & ZeroConcDepth.Text
+        msg = msg & vbNewLine & isTpez.Checked
 
         Dim column_count As Integer
         'determine column count

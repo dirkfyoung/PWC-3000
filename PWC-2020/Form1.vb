@@ -880,7 +880,6 @@ Public Class Form1
 
         'Cancel button will cuase return without further execution
         If result = Windows.Forms.DialogResult.Cancel Then
-
             Return
         End If
 
