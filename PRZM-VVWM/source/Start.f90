@@ -75,8 +75,12 @@ program PRZMVVWM
               call get_pond_parameters
 			  
          case default
-              call read_waterbodyfile(hh)               
-		 end select
+              call read_waterbodyfile(hh)  
+              
+         end select
+         
+         
+         
          write(*,*) 'Doing Water Body: ', trim(waterbody_names(hh))
 		 
 		 Write(*,*) '********************************************************************'

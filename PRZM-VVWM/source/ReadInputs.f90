@@ -559,7 +559,6 @@ subroutine  scenario_error(error)
     end subroutine  scenario_error
     
     
-    
     subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
          use utilities_1
          use constants_and_variables, ONLY: scenario_id, weatherfilename,latitude, min_evap_depth, IREG, irtype,max_irrig, PCDEPL, fleach, USLEP, USLEK,USLELS,SLP, &

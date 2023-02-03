@@ -25,7 +25,7 @@ implicit none
     
 	logical :: is_zero_depth  !post processing to zero out conc below a certain depth
     real    :: zero_depth     !depth below which conc are zeroed during post processing
-
+    logical :: is_tpez
 	
 	real,dimension(14):: spray_values  !default or read-in values for spray drift, their order should corresponds to the menu in the application table
 
@@ -62,6 +62,8 @@ implicit none
     integer,parameter :: flow_averaging_P = 0
     real,parameter    :: hydro_length_P      = 356.8 
 	
+    
+    
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 	real,dimension(14),parameter :: spray_p = (/0.242,0.125,0.089,0.068, 0.062, 0.027, 0.017, 0.011, 0.042, 0.015, 0.002, 0.022, 1.0, 0.0 /)
 
@@ -191,7 +193,7 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         
         is_zero_depth = .FALSE.
         zero_depth = 0.0
-        
+        is_tpez = .FALSE.
 
 	    rows_spraytable = rows_spraytable_P
         columns_spraytable = columns_spraytable_P
@@ -235,6 +237,7 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         
         is_zero_depth = .FALSE.
         zero_depth = 0.0
+        is_tpez = .FALSE.
         
        ! spray_values        = spray_R
         
@@ -248,8 +251,6 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
        do i = 1, rows_spraytable
             write(*,'(17G12.4)') (spraytable(i,j),j=1, columns_spraytable)
        end do
-       
-        
     end subroutine get_reservoir_parameters
 
     
@@ -282,6 +283,8 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         read(waterbody_file_unit, *) baseflow           
         read(waterbody_file_unit, *) hydro_length
         read(waterbody_file_unit, *) is_zero_depth, zero_depth
+        read(waterbody_file_unit, *) is_tpez
+        
         
 		read(waterbody_file_unit, *) rows_spraytable, columns_spraytable ! data is 1 less column, col 0 is a text description in the vb interface, row 1 is length header
 		
@@ -295,8 +298,17 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 		write(*, *) 'spray table'
 		do i =1, rows_spraytable
 			write(*,'(20G12.4)' ) (spraytable(i,j),j=1, columns_spraytable-1)
-		end do
+        end do
 		
+        
+        !TPEZ Parameter Modifications
+        if (is_tpez) then
+            
+            
+            
+        end if
+        
+        
 
     end subroutine read_waterbodyfile
     
