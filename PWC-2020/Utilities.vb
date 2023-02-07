@@ -111,7 +111,7 @@
         Try
             TestNumber = name
         Catch ex As Exception
-            msg = "Not a real number."
+            msg = "Not a real number:"
 
             TrueOrFalse = False
             Return
@@ -119,7 +119,7 @@
 
         If name = "" Then Return  'blank boxes dont work with next
         If name.Contains(",") Then
-            msg = "No commas allowed."
+            msg = "No commas allowed:"
             TrueOrFalse = False
             Return
         End If

@@ -262,26 +262,45 @@ Partial Public Class Form1
                 End If
 
                 TestActualRealNumbers(TrueOrFalse, msg, ApplicationTable.Amount(j))
-                If TrueOrFalse = False Then Return
+                If TrueOrFalse = False Then
+                    msg = msg & " Application Depth" & String.Format(" for Scheme {0}, Row {1}", i + 1, j + 1)
+                    Return
+                End If
 
                 TestActualRealNumbers(TrueOrFalse, msg, ApplicationTable.Depth(j))
-                If TrueOrFalse = False Then Return
+                If TrueOrFalse = False Then
+                    msg = msg & " Application Depth" & String.Format(" for Scheme {0}, Row {1}", i + 1, j + 1)
+                    Return
+                End If
 
                 TestActualRealNumbers(TrueOrFalse, msg, ApplicationTable.Split(j))
-                If TrueOrFalse = False Then Return
+                If TrueOrFalse = False Then
+                    msg = msg & " Split Value" & String.Format(" for Scheme {0}, Row {1}", i + 1, j + 1)
+                    Return
+                End If
 
                 'TestActualRealNumbers(TrueOrFalse, msg, ApplicationTable.Efficiency(j))
                 'If TrueOrFalse = False Then Return
 
 
                 TestActualRealNumbers(TrueOrFalse, msg, ApplicationTable.Drift(j))
-                If TrueOrFalse = False Then Return
+                If TrueOrFalse = False Then
+                    msg = msg & " Drift Value"
+                    Return
+                End If
 
                 TestActualRealNumbers(TrueOrFalse, msg, ApplicationTable.DriftBuffer(j))
-                If TrueOrFalse = False Then Return
+                If TrueOrFalse = False Then
+                    msg = msg & " Buffer Distance"
+                    Return
+                End If
 
                 TestActualRealNumbers(TrueOrFalse, msg, ApplicationTable.Periodicity(j))
-                If TrueOrFalse = False Then Return
+                If TrueOrFalse = False Then
+                    msg = msg & " Application Period"
+                    Return
+                End If
+
 
                 'Periodicity must be 1 or greater
                 If ApplicationTable.Periodicity(j) < 1 Then
@@ -293,7 +312,10 @@ Partial Public Class Form1
 
 
                 TestActualRealNumbers(TrueOrFalse, msg, ApplicationTable.Lag(j))
-                If TrueOrFalse = False Then Return
+                If TrueOrFalse = False Then
+                    msg = msg & " Application Lag"
+                    Return
+                End If
 
 
 

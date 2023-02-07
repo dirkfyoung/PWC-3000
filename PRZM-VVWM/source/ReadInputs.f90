@@ -338,6 +338,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         integer, intent(in) :: schemenumber,scenarionumber
         character (len=512) filename
         integer :: i,status
+        
  
         !local that will likely need to go to module
         !logical :: evergreen
@@ -427,6 +428,8 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         write(*,*) "Crop Cycles per year: ", num_crop_periods_input
         read(ScenarioFileUnit,*) ! msg & String.Format("{0}{1},", vbNewLine, simpleRB.Checked)
 
+        
+        write(*,*) "Start reading crop info"
         do  i=1,num_crop_periods_input
             read(ScenarioFileUnit,*, IOSTAT = status) emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i),max_root_depth(i),max_canopy_cover(i),  &
                 max_canopy_height(i), max_canopy_holdup(i),foliar_disposition(i), crop_periodicity(i), crop_lag(i) 
@@ -441,6 +444,8 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
             write(*,'(8I6)') emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i), crop_periodicity(i), crop_lag(i) 
         end do
 
+        
+        write (*,*) "Foliar disposition always = 1"
         foliar_disposition = 1     
         
         do i=1, max_number_crop_periods - num_crop_periods_input
@@ -463,15 +468,19 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         write(*,*) 'FLEACH,PCDEPL,max_irrig', FLEACH,PCDEPL,max_irrig
 
         read(ScenarioFileUnit,*) UserSpecifiesDepth !, user_irrig_depth  ! UserSpecifiesIrrigDepth.Checked, IrrigationDepthUserSpec.Text)
-
+        write(*,*) "User specifies depth? " ,UserSpecifiesDepth 
         if (UserSpecifiesDepth) then
             backspace(ScenarioFileUnit)  !if true the userirrig depth will be blankl sometinmes
             read(ScenarioFileUnit,*) UserSpecifiesDepth, user_irrig_depth        
         endif
  
-        read(ScenarioFileUnit,'(A)')  !msg = msg & vbNewLine & "*** spare line for expansion"        
+        read(ScenarioFileUnit,'(A)')!msg = msg & vbNewLine & "*** spare line for expansion"     
+
         read(ScenarioFileUnit,'(A)') !msg = msg & vbNewLine & "*** spare line for expansion"       
-        read(ScenarioFileUnit,'(A)')  !msg = msg & vbNewLine & "*** spare line for expansion"         
+        
+        read(ScenarioFileUnit,'(A)')!msg = msg & vbNewLine & "*** spare line for expansion"   
+   
+        
         read(ScenarioFileUnit,*) USLEK,USLELS,USLEP        
         read(ScenarioFileUnit,*) IREG,SLP
         read(ScenarioFileUnit,*) !line 51   *** Horizon Info *******          
@@ -721,9 +730,11 @@ subroutine  scenario_error(error)
         profile_number_increments(5) = int(gw_depth)/50 -2
         
         
-        
-        
+
     end subroutine read_batch_scenarios
+    
+    
+    
     
     subroutine Read_Weatherfile
     !open weather file, count file, allocate the weather variables, read in dat and place in vectors to store in constant/variable mod.  
@@ -733,18 +744,22 @@ subroutine  scenario_error(error)
                                       startday, first_year, last_year, num_years,first_mon, first_day 
     
 
+
     
+        
         integer :: dummy, status,i, year
         character(Len=1024) :: weatherfile_pathandname
+        
+ 
         weatherfile_pathandname = trim(adjustl(weatherfiledirectory)) // trim(adjustl(weatherfilename))
         
         write(*,*) 'weather path and file to open: ', trim(adjustl(weatherfile_pathandname))
         
         OPEN(Unit = metfileunit,FILE=trim(adjustl(weatherfile_pathandname)),STATUS='OLD', IOSTAT=status)
-        IF (status .NE. 0) THEN
+        if (status .NE. 0) THEN
             write(*,*)'Problem opening weather file. Name is ', trim(adjustl(weatherfilename))
             stop
-        ENDIF   
+        endif  
       
       num_records = 0
       

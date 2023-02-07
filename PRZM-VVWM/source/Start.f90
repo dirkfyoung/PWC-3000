@@ -24,6 +24,8 @@ program PRZMVVWM
     
     
     implicit none
+
+    
     integer :: length !length of input file characters
     integer :: hh, i ,jj, kk,  iostatus
     logical error
@@ -146,7 +148,8 @@ write (*,*) '###################################################'
 			   
 			   
 			   
-               call Read_Weatherfile  !this reads the new format weather file
+               call Read_Weatherfile !this reads the new format weather file
+               
 			   
 write (*,*) '###################################################'	 
 CALL CPU_TIME (time_1)
