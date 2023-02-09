@@ -777,13 +777,18 @@ subroutine SetupApplications
                                     application_date_original,application_date, pest_app_method,DEPI,TAPP,APPEFF,Tband_top, &
                                     num_crop_periods_input, emm, emd, mam,mad, ham,had, &
                                     total_applications , drift_kg_per_m2, cam123_soil_depth, delx, &
-                                     days_until_applied,app_reference_point, application_order
-                                                       
+                                     days_until_applied,app_reference_point, application_order, is_adjust_for_rain
+   
+  
+  use clock_variables
+        
   implicit none 
   integer :: i, j, mcrop,crop_iterations
   integer :: app_counter
   integer :: MONTH,DAY
   integer :: YEAR_out,MONTH_out,DAY_out
+  
+
 
   ! (actual total apps may be less if simulation starts late in the of stops early) but that does not matter to the program,  also because of lag and periodicity
   
@@ -801,7 +806,7 @@ subroutine SetupApplications
   allocate (Tband_top(total_applications))
   allocate (drift_kg_per_m2(total_applications))
 
-  
+  write(*,*) "Done with Application Allocations"
   !initialize application date to very high (unlikely julian app date). 
   !Because allocated array may be larger than the actual number of applications (i.e. i used a simple counting scheme)
   application_date = 100000000 
@@ -819,6 +824,9 @@ subroutine SetupApplications
       crop_iterations = num_crop_periods_input
   end if
 
+  
+  write(*,*) "crop and app calcs"
+  
   !First Loop is Crop Iterations, for absolute dates there is only one iteration  
   app_counter=0       
   do mcrop = 1, crop_iterations
@@ -873,30 +881,60 @@ subroutine SetupApplications
      end  do    
   end do
     
+  
   application_date_original = application_date  !keep application_date_original the same for every scheme
   
   !Put applications in chronlogical order for use with rain-fast option. its not necessary to do this for normal runs,
-  !but whatever...
 
+  !this is a time consuming operation, lets bypass unless rainfast is checked
+  write(*,*) "Put applications in order for rain restrictions?", is_adjust_for_rain
+  
+!write (*,*) '###################################################'	 
+!CALL CPU_TIME (time_1)
+!write (*,*) 'cpu time before ordering applications   ',time_1- cputime_begin
+!write (*,*) '###################################################'		
+!
+!call date_and_time(datetime(1), datetime(2))
+!write(*,*) "clock time before order", datetime(1), datetime(2)
+  
+  !potentially very TIME CONSUMING!!!! 
+ if (is_adjust_for_rain) then
+  
   	application_order = get_order(application_date)
-
+    
     application_date = application_date(application_order)
+    
 	pest_app_method  = pest_app_method (application_order)
 	DEPI             = DEPI            (application_order)
+ 
 	TAPP             = TAPP            (application_order)
 	APPEFF           = APPEFF          (application_order)
 	Tband_top        = Tband_top       (application_order)
 	drift_kg_per_m2  = drift_kg_per_m2 (application_order)
+    
+ end if
+ 
+ 
 
+
+!not sure about this, check it it seems to alterthe original
 	application_date_original = application_date  !keep application_date_original the same for every scheme
-	
+
 	
   do i = 1, total_applications
-	 write(*,*) i, application_date(i), TAPP(i)
-	  
+	 write(*,*) i, application_date(i), TAPP(i)  
   end do
   
 
+  
+  
+ write (*,*) '###################################################'	 
+CALL CPU_TIME (time_1)
+write (*,*) 'cpu time after writing apps',time_1- cputime_begin
+write (*,*) '###################################################'		
+ 
+  
+  
   
   write(*,*) 'Done setting application dates, Total applications in sim = ', app_counter
 

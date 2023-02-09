@@ -157,7 +157,15 @@ write (*,*) 'cpu time read weather ',time_1- cputime_begin
 write (*,*) '###################################################'			   
 
                CALL INITL    !initialize and ALLOCATIONS przm variables  
-			   		   
+
+write (*,*) '###################################################'	 
+CALL CPU_TIME (time_1)
+write (*,*) 'cpu time do initialization',time_1- cputime_begin
+write (*,*) '###################################################'	               
+               
+               
+               
+               
                Call Crop_Growth
 			   call hydrology_only
 		   

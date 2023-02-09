@@ -1130,6 +1130,26 @@ Public Class Form1
         FileNames.PreviousScenarioPath = System.IO.Path.GetDirectoryName(OpenSelectScenarioBatchFile.FileName)
 
     End Sub
+
+    Private Sub ScenarioListBox_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles ScenarioListBox.MouseDoubleClick
+        Dim intIndex As Integer = ScenarioListBox.Items.IndexOf(ScenarioListBox.SelectedItem)
+        Dim objInputBox As Object = InputBox("Change Item :", "Edit", ScenarioListBox.SelectedItem)
+        If Not objInputBox = Nothing Then
+            ScenarioListBox.Items.Remove(ScenarioListBox.SelectedItem)
+            ScenarioListBox.Items.Insert(intIndex, objInputBox)
+        End If
+
+
+
+
+    End Sub
+
+    Private Sub ClearTable_Click(sender As Object, e As EventArgs) Handles ClearTable.Click
+
+        AppTableDisplay.Rows.Clear()
+
+
+    End Sub
 End Class
 
 

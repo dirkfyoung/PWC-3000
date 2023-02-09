@@ -1,5 +1,5 @@
 PWC 2021 Input File, Version 1
-C:\Users\dyoung03\source\repos\PWC-2023\Test\
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\
 test3
 ..\Test\scenario\WeatherFiles\
 True, False, False,
@@ -104,7 +104,7 @@ False,,,
 False,5,1,
 False,2,2,10,7,
 1
-C:\Users\dyoung03\source\repos\PWC-2023\Test\scenario\testScenario.scn2
+..\Test\scenario\testScenario.scn2
 False
 C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
 3,

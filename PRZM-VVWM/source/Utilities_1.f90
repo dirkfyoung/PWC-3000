@@ -12,7 +12,7 @@
     
        logical :: mask(size(x))
        integer :: i
-	    
+
        mask = .true.
        do i = 1, size(x)
              order(i) = findloc( x, value=minval(x,dim=1,mask=mask), dim=1 )
