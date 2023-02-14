@@ -22,6 +22,7 @@ subroutine gamma_one
 integer :: i 
   gamma_1 = k_flow+ (k_photo + k_hydro +k_volatile) *fw1  +k_aer_aq*fw1 + k_aer_s*(1.-fw1)
 
+ 
   
     !The following makes a minimum super low value in order to avoid numerical difficulties
     where (gamma_1 <= 1e-18) 
@@ -29,8 +30,12 @@ integer :: i
                          !Note: issues observed at 1e-20, spikey conc profile 
     end where
     
-
-
+    do i = 1, 6000
+ write(78,*) gamma_1(i)
+    end do
+    
+    
+    
 end subroutine gamma_one
 
 

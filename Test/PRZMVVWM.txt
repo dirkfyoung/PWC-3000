@@ -1,5 +1,5 @@
 PWC 2021 Input File, Version 1
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\
+C:\Users\dyoung03\source\repos\PWC-2023\Test\
 test3
 ..\Test\scenario\WeatherFiles\
 True, False, False,
@@ -114,12 +114,12 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
 ,
 ,
 True,
-False,True,False
+True,False,False
 1,
 "C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\waterbodies\xtest.WAT"
 False,
 False,
-False,
+True,
 False,
 False,
 False,
@@ -142,6 +142,4 @@ holder for future expansion,
 holder for future expansion,
 holder for future expansion,
 holder for future expansion,
-2,
-STMP,1,TSER,1,1,1,
-STMP,1,TSER,30,30,1,
+0,

@@ -121,7 +121,7 @@ use utilities
     allocate (app_window_span(number_of_schemes))
     allocate (app_window_step(number_of_schemes))
     
-	allocate (..(number_of_schemes))
+	allocate (is_adjust_for_rain_schemes(number_of_schemes))
     allocate (rain_limit_schemes(number_of_schemes))
     allocate (optimum_application_window_schemes(number_of_schemes))
     allocate (intolerable_rain_window_schemes(number_of_schemes))
