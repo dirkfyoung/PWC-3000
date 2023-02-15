@@ -29,13 +29,7 @@ integer :: i
         gamma_1 = 1e-18  !not quite zero, as this will prevent some numerical problems if all degradation is zero,
                          !Note: issues observed at 1e-20, spikey conc profile 
     end where
-    
-    do i = 1, 6000
- write(78,*) gamma_1(i)
-    end do
-    
-    
-    
+  
 end subroutine gamma_one
 
 

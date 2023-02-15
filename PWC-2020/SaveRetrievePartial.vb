@@ -342,7 +342,7 @@
 
         msg = msg & vbNewLine & "*** Horizon End, Temperature Start ********"
 
-        msg = msg & String.Format("{0}{1},{2}", vbNewLine, albedo.Text, bcTemp.Text)
+        msg = msg & String.Format("{0}{1},{2},", vbNewLine, albedo.Text, bcTemp.Text)
         msg = msg & vbNewLine & SimTemperature.Checked
         msg = msg & vbNewLine & "***spare line for expansion"
         msg = msg & vbNewLine & "***spare line for expansion"

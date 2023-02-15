@@ -511,7 +511,10 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         dispersion_input = 0.0
 
         read(ScenarioFileUnit,*)   !*** Horizon End, Temperature Start ********
+        write(*,*) "reading albedo and bc temperature:"
         read(ScenarioFileUnit,*) scalar_albedo,scaler_soil_temp  !msg = msg & String.Format("{0}{1},{2}", vbNewLine, albedoBox.Text, bcTemp.Text)
+    write(*,*) scalar_albedo,scaler_soil_temp
+        
         ALBEDO = scalar_albedo                 !albedo is monthly in przm      
         soil_temp_input = scaler_soil_temp
         
