@@ -1,4 +1,4 @@
- Start CPU Time  1.562500000000000E-002
+ Start CPU Time  0.000000000000000E+000
  PRZM5-VVWM Version  -1.000
  
      For technical support contact:
@@ -8,8 +8,8 @@
        Washington, DC 20460-0001
        E-mail: young.dirk@epa.gov
  
- Input file: C:\Users\dyoung03\source\repos\PWC-2023\Test\PRZMVVWM.txt
- C:\Users\dyoung03\source\repos\PWC-2023\Test\PRZMVVWM.txt
+ Input file: C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\PRZMVVWM.txt
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\PRZMVVWM.txt
  weather directory is ..\Test\scenario\WeatherFiles\
  Number of schemes =                      1
  Scheme Number & Name                      1 one
@@ -51,7 +51,7 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  number of apps                     66
      day  rate  method   depth   Tband   Eff   drft#  driftValue  repeat  lag
             Interrpolated Spray Drift =    0.000    
-     -15  1.00       1   4.000   0.000   1.000  15      0.000        1     0
+     -15  1.00       3   0.000   0.000   1.000  15      0.000        1     0
             Interrpolated Spray Drift =    0.000    
      -14  1.00       1   4.000   0.000   1.000  15      0.000        1     0
             Interrpolated Spray Drift =    0.000    
@@ -217,7 +217,7 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  End Weather allocation
  Finished reading weather file
  ###################################################
- cpu time read weather   0.109375000000000     
+ cpu time read weather   4.687500000000000E-002
  ###################################################
  Number of compartments =                     65
  Do autoprofile ?  T
@@ -3860,7 +3860,7 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
                   3563                 41458  1.000000000000000E-005
                   3564                 41823  1.000000000000000E-005
  ###################################################
- cpu time after writing apps  0.140625000000000     
+ cpu time after writing apps  6.250000000000000E-002
  ###################################################
  Done setting application dates, Total applications in sim = 
                   3564
@@ -3868,7 +3868,7 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  maxcap_volume (effective pore volume (depth), cm) =    278.600000000000     
  End of Initialization
  ###################################################
- cpu time do initialization  0.140625000000000     
+ cpu time do initialization  6.250000000000000E-002
  ###################################################
  crop period                     1
  Start allocations
@@ -3886,14 +3886,14 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  Adjust applications for rain? F
  Enter chemical transport
  ###################################################
- cpu time chen xport    4.14062500000000     
+ cpu time chen xport   0.484375000000000     
  ###################################################
  ###################################################
- cpu time gw     4.14062500000000     
+ cpu time gw    0.484375000000000     
  ###################################################
  enter VVWM
- parent runoff mass delivered    185.825932257711     
- parent erosion mass   4.131970785406160E-003
+ parent runoff mass delivered    184.079359142564     
+ parent erosion mass   4.067218278697158E-003
  total_applications =                   3564
  Spray mass =   0.000000000000000E+000
  simulation type =                      2
@@ -3907,24 +3907,24 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  Doing output process
  done output batch 
  ###################################################
- cpu time vvwm    4.43750000000000     
+ cpu time vvwm   0.609375000000000     
  ###################################################
  ###################################################
- cpu time deallocate     4.45312500000000     
+ cpu time deallocate    0.625000000000000     
  ###################################################
  Doing scenario                      2
  ###################################################
- cpu time vvwm done         4.45312500000000     
+ cpu time vvwm done        0.625000000000000     
  ###################################################
  *****************************Done with scheme                      1
  ###################################################
- cpu time, scheme      4.45312500000000                          2
+ cpu time, scheme     0.625000000000000                          2
  ###################################################
  ###################################################
- cpu time, waterbody      4.45312500000000                          1
+ cpu time, waterbody     0.625000000000000                          1
  ###################################################
  ###################################################
- End Proram cpu time      4.45312500000000     
+ End Proram cpu time     0.625000000000000     
  ###################################################
- Total clock time =    4.54600000381470     
+ Total clock time =   0.625000000000000     
  tridiag  6.250000000000000E-002

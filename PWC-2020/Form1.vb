@@ -162,8 +162,11 @@ Public Class Form1
         btn.HeaderText = "Delete"
         btn.Name = "Delete"
         btn.UseColumnTextForButtonValue = True
+        btn.FlatStyle = FlatStyle.Popup
+        btn.DefaultCellStyle.BackColor = Color.Orange
+
         AppTableDisplay.Columns.Add(btn)
-        AppTableDisplay.Columns(9).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+        AppTableDisplay.Columns(9).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
     End Sub
 
     Private Sub RunoffGridView_RowPostPaint(ByVal sender As Object, ByVal e As DataGridViewRowPostPaintEventArgs)
