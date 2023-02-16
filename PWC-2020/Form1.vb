@@ -1153,6 +1153,19 @@ Public Class Form1
 
 
     End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        Dim filename As String
+
+        For Each filename In ScenarioListBox.Items
+            Dim lines() As String = System.IO.File.ReadAllLines(filename)
+            lines(61) = " , ,"
+            System.IO.File.WriteAllLines(filename, lines)
+        Next
+
+
+    End Sub
 End Class
 
 

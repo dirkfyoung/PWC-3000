@@ -889,11 +889,11 @@ subroutine SetupApplications
   !this is a time consuming operation, lets bypass unless rainfast is checked
   write(*,*) "Put applications in order for rain restrictions?", is_adjust_for_rain
   
-!write (*,*) '###################################################'	 
-!CALL CPU_TIME (time_1)
-!write (*,*) 'cpu time before ordering applications   ',time_1- cputime_begin
-!write (*,*) '###################################################'		
-!
+write (*,*) '###################################################'	 
+CALL CPU_TIME (time_1)
+write (*,*) 'cpu time before ordering applications (if applicable)  ',time_1- cputime_begin
+write (*,*) '###################################################'		
+
 !call date_and_time(datetime(1), datetime(2))
 !write(*,*) "clock time before order", datetime(1), datetime(2)
   
@@ -914,7 +914,10 @@ subroutine SetupApplications
     
  end if
  
- 
+write (*,*) '###################################################'	 
+CALL CPU_TIME (time_1)
+write (*,*) 'cpu time after ordering applications (if applicable)  ',time_1- cputime_begin
+write (*,*) '###################################################'
 
 
 !not sure about this, check it it seems to alterthe original
