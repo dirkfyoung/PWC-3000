@@ -263,15 +263,7 @@ module constants_and_variables
 	  
 	  
 	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
+
 	  
 	  
 	  
@@ -280,13 +272,7 @@ module constants_and_variables
  
 	  
 	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
+	
 	  
 	  
 	  
@@ -474,7 +460,11 @@ module constants_and_variables
       
       integer,allocatable,dimension(:) :: days_until_applied          !for relative dates
 
-	  
+	  real :: applied_mass_sum  !keeps track of the cumulative mass applied, used in output characterizations, zero it for every run
+      
+      
+      
+      
 	 !*** Application Optimizing for Rainfall ********* 
      logical :: is_adjust_for_rain       !True means to adjust the applications dates
      real    :: rain_limit               !cm

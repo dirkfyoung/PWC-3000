@@ -138,34 +138,27 @@ program PRZMVVWM
                        end if   
                    
                end if 
-               
-               
-            
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time scenario start  ',time_1- cputime_begin
-write (*,*) '###################################################'			   
-			   
-			   
-			   
+                     
+                                write (*,*) '###################################################'	 
+                                CALL CPU_TIME (time_1)
+                                write (*,*) 'cpu time scenario start  ',time_1- cputime_begin
+                                write (*,*) '###################################################'			   
+
                call Read_Weatherfile !this reads the new format weather file
-               
-			   
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time read weather ',time_1- cputime_begin
-write (*,*) '###################################################'			   
+               		   
+                                write (*,*) '###################################################'	 
+                                CALL CPU_TIME (time_1)
+                                write (*,*) 'cpu time read weather ',time_1- cputime_begin
+                                write (*,*) '###################################################'			   
 
                CALL INITL    !initialize and ALLOCATIONS przm variables  
 
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time do initialization',time_1- cputime_begin
-write (*,*) '###################################################'	               
+                             write (*,*) '###################################################'	 
+                             CALL CPU_TIME (time_1)
+                             write (*,*) 'cpu time do initialization',time_1- cputime_begin
+                             write (*,*) '###################################################'	               
                
-               
-               
-               
+
                Call Crop_Growth
 			   call hydrology_only
 		   
@@ -177,7 +170,7 @@ write (*,*) '###################################################'
 			   write(*,*) '********************************************************************'
 			   write(*,*) '****************** Start App Loop **********************************'
 			   write(*,*) '********************************************************************'
-			   
+
 			   
                do jj = 0, app_window_span(i), app_window_step(i) 
 				     application_date= application_date_original + jj
@@ -187,91 +180,71 @@ write (*,*) '###################################################'
 					 write(*,*) "Adjust applications for rain?", is_adjust_for_rain
 					 if (is_adjust_for_rain) call adjust_application_dates_for_weather
 					 
-					 
 					 call chem_transport_onfield
 					 
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time chen xport ',time_1- cputime_begin
-write (*,*) '###################################################'					 
+                                write (*,*) '###################################################'	 
+                                CALL CPU_TIME (time_1)
+                                write (*,*) 'cpu time chen xport ',time_1- cputime_begin
+                                write (*,*) '###################################################'					 
 					 
-
-
-
 					 call groundwater
 					 
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time gw  ',time_1- cputime_begin
-write (*,*) '###################################################'					 
+                              write (*,*) '###################################################'	 
+                              CALL CPU_TIME (time_1)
+                              write (*,*) 'cpu time gw  ',time_1- cputime_begin
+                              write (*,*) '###################################################'					 
 					 
                      call VVWM 
-					 
-					 
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time vvwm ',time_1- cputime_begin
-
-write (*,*) '###################################################'					 
-					 
-					 
+					 					 
+                              write (*,*) '###################################################'	 
+                              CALL CPU_TIME (time_1)
+                              write (*,*) 'cpu time vvwm ',time_1- cputime_begin
+                              write (*,*) '###################################################'					 				 
 			   end do    
 			   
                call deallocate_scenario_parameters
 			   
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time deallocate  ',time_1- cputime_begin
-write (*,*) '###################################################'			   
-			   
-
-
+                             write (*,*) '###################################################'	 
+                             CALL CPU_TIME (time_1)
+                             write (*,*) 'cpu time deallocate  ',time_1- cputime_begin
+                             write (*,*) '###################################################'			   
+	
 			end do  !END SCENARIO LOOP  kk           
 
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time vvwm done      ',time_1- cputime_begin
-write (*,*) '###################################################'				
-			
-			
-			
-			
-			
-			
-			
+                            write (*,*) '###################################################'	 
+                            CALL CPU_TIME (time_1)
+                            write (*,*) 'cpu time vvwm done      ',time_1- cputime_begin
+                            write (*,*) '###################################################'				
+			            
+        
             call deallocate_application_parameters !allocations are done in set_chmical_applications, need to deallocatte for next scheme       
             write(*,*) '*****************************Done with scheme ', i    
                 
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time, scheme   ',time_1- cputime_begin, kk
-write (*,*) '###################################################'			
+                             write (*,*) '###################################################'	 
+                             CALL CPU_TIME (time_1)
+                             write (*,*) 'cpu time, scheme   ',time_1- cputime_begin, kk
+                             write (*,*) '###################################################'			
 			
-
 		 end do  !End scheme Loop, i
 		 
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time, waterbody   ',time_1- cputime_begin, hh
-write (*,*) '###################################################'
-		 
+                            write (*,*) '###################################################'	 
+                            CALL CPU_TIME (time_1)
+                            write (*,*) 'cpu time, waterbody   ',time_1- cputime_begin, hh
+                            write (*,*) '###################################################'
+		                 
 		 deallocate (spraytable )
 		 
 	 end do !End Waterbody/Watershed Loop
 
-	 
-	 
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'End Proram cpu time   ',time_1- cputime_begin
-write (*,*) '###################################################'  	 
-	 
-call SYSTEM_CLOCK(c_count, c_rate, c_max)
-clock_time = real(c_count)/real(c_rate)
-write (*,*) 'Total clock time = ',clock_time  - clock_time_0 
-
-
-write (*,*) 'tridiag', Cumulative_cpu_3
-
+                              write (*,*) '###################################################'	 
+                              CALL CPU_TIME (time_1)
+                              write (*,*) 'End Proram cpu time   ',time_1- cputime_begin
+                              write (*,*) '###################################################'  	 
+	
+                              call SYSTEM_CLOCK(c_count, c_rate, c_max)
+                              clock_time = real(c_count)/real(c_rate)
+                              write (*,*) 'Total clock time = ',clock_time  - clock_time_0 
+                              write (*,*) 'tridiag', Cumulative_cpu_3
+                              write (*,*) '###################################################'  	
 
 end program PRZMVVWM

@@ -14,7 +14,8 @@ module chemical_transport
         canopy_flow, canopy_flow_save, &
         First_time_through_PRZM, THAIR_new ,THAIR_save, theta_end_save,theta_end,runoff_on_day , runoff_save, & 
 		soilwater, soilwater_save,velocity_save, vel,velocity_save, theta_zero,theta_zero_save,thair_old_save, thair_old, &
-		erosion_save, enriched_erosion_save, sedl, enriched_eroded_solids, tdet ,et_save ,ainf,infiltration_save, soil_temp_save, soil_temp
+		erosion_save, enriched_erosion_save, sedl, enriched_eroded_solids, tdet ,et_save ,ainf,infiltration_save, &
+        soil_temp_save, soil_temp, applied_mass_sum
 	
 
     use utilities_1
@@ -29,9 +30,11 @@ module chemical_transport
   
     First_time_through_PRZM = .TRUE. 
     julday1900 = startday
-  
+    applied_mass_sum = 0.0
+    
 	write(*,*) "Enter chemical transport"
 	
+    
     do i=1, num_records   !day loop driven by metfile only   
 
        day_number_chemtrans = i
@@ -125,7 +128,9 @@ module chemical_transport
 
      ! Application of Pesticide into System
      do i = 1,  total_applications   !check to see if this is an application day     
-       if (application_date(i)==julday1900) then		   
+       if (application_date(i)==julday1900) then	
+           
+           
          CALL PESTAP(i)  
        end if
 	 end do

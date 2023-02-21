@@ -77,7 +77,7 @@ SUBROUTINE PESTAP(application_index)
       use  constants_and_Variables, ONLY: COVER,pest_app_method,  &
                                     delx,theta_zero,DEPI,TAPP,appeff, &
                                     conc_total_per_water,mass_in_compartment, &
-                                    SOILAP,FOLPST,plant_app,Tband_top, ncom2, julday1900
+                                    SOILAP,FOLPST,plant_app,Tband_top, ncom2, julday1900, applied_mass_sum
       use utilities_1
       implicit none
       
@@ -100,7 +100,9 @@ SUBROUTINE PESTAP(application_index)
       CAM_local = pest_app_method(application_index)
       distribution_of_applied = 0.0
 	  
-
+      !track the cummulative mass applied for use in output characterizations
+      applied_mass_sum = applied_mass_sum + TAPP(application_index)
+      
 
       select case (CAM_local)
       case (1)  !Soil surface pesticide application (Below Crop)
