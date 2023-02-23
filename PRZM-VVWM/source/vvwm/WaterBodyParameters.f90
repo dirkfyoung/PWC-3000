@@ -15,7 +15,7 @@ implicit none
     real :: FROC1         
     real :: DOC1          
     real :: PLMAS         
-    real :: afield      
+    real :: afield            !square meters 
     real :: area_waterbody    
     real :: depth_0    
     real :: depth_max     
@@ -54,7 +54,7 @@ implicit none
     real,parameter :: FROC1_P         = 0.04
     real,parameter :: DOC1_P          = 5.0
     real,parameter :: PLMAS_P         = 0.4    
-    real,parameter :: afield_P        = 100000.
+    real,parameter :: afield_P        = 100000.  !square meters
     real,parameter :: area_waterbody_P   = 10000.
     real,parameter :: depth_0_P       = 2.0
     real,parameter :: depth_max_P     = 2.0

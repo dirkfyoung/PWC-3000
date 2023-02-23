@@ -460,10 +460,8 @@ module constants_and_variables
       
       integer,allocatable,dimension(:) :: days_until_applied          !for relative dates
 
-	  real :: applied_mass_sum  !keeps track of the cumulative mass applied, used in output characterizations, zero it for every run
-      
-      
-      
+	  real :: applied_mass_sum_gram_per_cm2  !g/cm2, keeps track of the cumulative mass applied, used in output characterizations, zero it for every run
+      real :: fraction_off_field             !fraction of applied mass that leaves field by runoff, erosion, and drift
       
 	 !*** Application Optimizing for Rainfall ********* 
      logical :: is_adjust_for_rain       !True means to adjust the applications dates
@@ -473,10 +471,6 @@ module constants_and_variables
      integer :: min_days_between_apps
 	  
 	  
-	  
-	  
-	  
-
       
       real    :: plant_app     !store the plant applied pesticide
       logical :: some_applications_were_foliar
@@ -829,8 +823,8 @@ real, allocatable, dimension(:)    :: m1_input, m2_input               !at start
 real, allocatable, dimension(:)    :: m1_store,m2_store,mavg1_store    !array of daily peak/avg. mass in littoral and benthic
 real, allocatable, dimension(:)    :: aq1_store, aq2_store             !begining day concentrations, after mass inputs
 
-real,allocatable,dimension(:,:,:):: mass_off_field     !daily mass loading from runoff (column 1) & erosion (column 2) (kg)
-real,allocatable,dimension(:) :: aqconc_avg1 ,aqconc_avg2  ! daily average aqueous concentrations
+real,allocatable,dimension(:,:,:) :: mass_off_field            !daily mass loading from runoff (column 1) & erosion (column 2) (kg)
+real,allocatable,dimension(:)     :: aqconc_avg1 ,aqconc_avg2  ! daily average aqueous concentrations
 
 
 real:: spray_total(3)

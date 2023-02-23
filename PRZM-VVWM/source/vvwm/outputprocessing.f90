@@ -6,7 +6,7 @@ module outputprocessing
     subroutine output_processor(chem_index)
     use utilities
   !  use variables
-    use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth
+    use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth, Afield
     
     use constants_and_variables, ONLY:  num_records, run_id, is_hed_files_made,is_add_return_frequency, additional_return_frequency, &
                                        num_years, startday,  waterbodytext, &
@@ -24,7 +24,7 @@ module outputprocessing
                                  spray_total ,   &
                                  Daily_Avg_Runoff, Daily_avg_flow_out,  runoff_fraction, erosion_fraction, drift_fraction ,&
     k_burial, k_aer_aq, k_flow, k_hydro, k_photo, k_volatile,k_anaer_aq, gamma_1, gamma_2, gw_peak, post_bt_avg ,throughputs,simulation_avg, &
-		is_waterbody_info_output, full_run_identification
+	is_waterbody_info_output, full_run_identification, applied_mass_sum_gram_per_cm2 , fraction_off_field
    
                          
     implicit none
@@ -74,6 +74,8 @@ module outputprocessing
     real :: Total_Mass
     integer :: YEAR,MONTH,DAY
     integer :: eliminate_year
+    
+
 
     integer,dimension(num_years) ::  first_annual_dates !array of yearly first dates (absolute days).
                                     ! First date is the calendar day of start of simulation 
@@ -211,16 +213,27 @@ end if
 
  
  
-        Total_Mass = runoff_total(chem_index) + erosion_total(chem_index) +  spray_total(chem_index)        
+        Total_Mass = runoff_total(chem_index) + erosion_total(chem_index) +  spray_total(chem_index)        !kg i think
         If (Total_Mass <= 0.0) then
             runoff_fraction  = 0.0
             erosion_fraction = 0.0
             drift_fraction   = 0.0
+            fraction_off_field =0.0
         else
             runoff_fraction  = runoff_total(chem_index) /Total_Mass
             erosion_fraction = erosion_total(chem_index) /Total_Mass
             drift_fraction   =  spray_total(chem_index)/Total_Mass
-        end if
+            
+            if (applied_mass_sum_gram_per_cm2 > 0.0) then
+                  fraction_off_field = Total_Mass/(applied_mass_sum_gram_per_cm2*Afield*10.)  !applied mass is in kg/ha, afield is in m2
+            else
+                  fraction_off_field = 0.0
+            endif
+            
+        
+    end if
+    
+    write(*,*) "total and fraction off field" , applied_mass_sum_gram_per_cm2*Afield*10., fraction_off_field
       write(*,*) 'Doing output process'  
        call calculate_effective_halflives()
        
@@ -472,7 +485,8 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
      nchem,     runoff_fraction,erosion_fraction,drift_fraction , First_time_through,summary_outputfile,summary_output_unit, &
  effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, &
-    summary_output_unit_deg1, summary_output_unit_deg2, summary_outputfile_deg1, summary_outputfile_deg2, gw_peak, post_bt_avg ,throughputs,simulation_avg
+    summary_output_unit_deg1, summary_output_unit_deg2, summary_outputfile_deg1, summary_outputfile_deg2, &
+    gw_peak, post_bt_avg ,throughputs,simulation_avg, fraction_off_field
 
     implicit none   
    ! integer, intent(in)                       :: unit_number
@@ -490,7 +504,7 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     character(len= 257) :: local_run_id
     
     If (First_time_through) then
-        header = 'Run Information                                      1-d avg      365-d avg    Total avg    4-d avg      21-d avg     60-d avg     B 1-day      B 21-d avg   Runoff Frac  Erosn Frac   Drift Frac   col washout  col metab    col hydro    col photo    col volat    col total    ben sed rem  ben metab    ben hydro    ben total     gw_peak     post_bt_avg  throughput'
+        header = 'Run Information                                                  1-d avg      365-d avg    Total avg    4-d avg      21-d avg     60-d avg     B 1-day      B 21-d avg   Off-Field  Runoff Frac  Erosn Frac   Drift Frac   col washout  col metab    col hydro    col photo    col volat    col total    ben sed rem  ben metab    ben hydro    ben total     gw_peak     post_bt_avg  throughput'
         
         Open(unit=summary_output_unit,FILE= trim(summary_outputfile),Status='unknown')  
         Write(summary_output_unit, '(A400)') header
@@ -524,16 +538,16 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     select case (chem_index)
     case (1)
         local_run_id = trim(run_id) // '_Parent'
-        write(summary_output_unit,'(A50,1x,25ES13.4E3)') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,runoff_fraction,erosion_fraction,drift_fraction, &
+        write(summary_output_unit,'(A60,1x,26ES13.4E3)') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out, fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, gw_peak, post_bt_avg ,throughputs
 
     case (2)
         local_run_id = trim(run_id) // '_deg1'
-        write(summary_output_unit_deg1,'(A50,1x,22ES13.4E3)') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,runoff_fraction,erosion_fraction,drift_fraction, &
+        write(summary_output_unit_deg1,'(A60,1x,23ES13.4E3)') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field,runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2
     case (3)
         local_run_id = trim(run_id)  // '_deg2'
-        write(summary_output_unit_deg2,'(A50,1x,22ES13.4E3)') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,runoff_fraction,erosion_fraction,drift_fraction, &
+        write(summary_output_unit_deg2,'(A60,1x,23ES13.4E3)') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2
 
         case default
