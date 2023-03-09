@@ -4,7 +4,7 @@ test2
 ..\Test\scenario\WeatherFiles\
 True, False, False,
 1,
-1,12,11,
+1000,12,11,
 1,1,1,
 ,,,
 ,,,
@@ -32,14 +32,36 @@ True,
 False,,,,
 False,,,
 1,
-1,"one",
+1,"1 lb/acre to all corn continental United States",
 1,
-1,
-1,1,1,1,0,8,0,1,0,
-False,5,1,
+3,
+-90,1,1,10,,2,1,1,0,
+100,1,2,2,,3,100,1,0,
+11,1.5,1,2,,2,22,1,0,
+False,,,
 False,2,2,10,7,
-1
-..\Test\scenario\testScenario.scn2
+21
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r01-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r02-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r03N-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r03S-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r03W-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r04-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r05-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r06-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r07-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r08-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r09-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r10L-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r10U-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r11-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r12-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r13-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r14-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r15-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r16-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r17-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r18-B_V4.scn2
 False
 C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
 3,
@@ -69,7 +91,7 @@ False,
 False,
 False,,
 False,
-True,
+False,
 holder for future expansion,
 holder for future expansion,
 holder for future expansion,
@@ -77,6 +99,4 @@ holder for future expansion,
 holder for future expansion,
 holder for future expansion,
 holder for future expansion,
-2,
-STMP,1,TSER,1,1,1,
-STMP,1,TSER,30,30,1,
+0,
