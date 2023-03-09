@@ -2,7 +2,7 @@
 
     Sub SaveInputsAsTextFile(ByVal savefile As String)
         Dim msg As String
-        msg = "PWC 2021 Input File, Version " & VersionNumber
+        msg = "PWC 3 Input File, Version " & VersionNumber
         msg &= String.Format("{0}{1}", vbNewLine, WorkingDirectoryLabel.Text)  'Dont put commas on the end of long strings, need to leave off for fortran read
         msg &= String.Format("{0}{1}", vbNewLine, IOFamilyName.Text)
         msg &= String.Format("{0}{1}", vbNewLine, WeatherDirectoryBox.Text)

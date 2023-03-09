@@ -1,0 +1,111 @@
+PWC 3 Input File, Version 1
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\
+TemplateNotFunctionable
+Path and Name of Weather Directory
+True, True, True,
+3,
+Koc or Kd Parent,Daughter,GrandDaughter,
+Freundlich Exponent Region 1 Parent,Daughter,GrandDaughter,
+Freundlich Coefficient Region 2 Parent,Daughter,GrandDaughter,
+Freundlich Exponent Region 2Paren,Daughter,GrandDaughter,
+Mass Transfer Coefficent Parent,Daughter,GrandDaughter,
+lowest concentration fo Freundlich,1,
+Water Half Life Parent,Daughter,GrandDaughter,Ratio Parent to Daughter,Ratio Daughter to GRanddaugter,
+Water Ref Temp Parent,Daughter,GrandDaughter,
+Benthic Parent,Daughter,GrandDaughter,2,1,
+Ref Temp Parent,Daughter,GrandDaughter,
+Aq Photolysis Parent,Daughter,GrandDaughter,,2,
+Ref Ltitude Parent,Daughter,GrandDaughter,
+Hydrolysis Parent,Daughter,GrandDaughter,,,
+Soil Halflife Parent,Daughter,GrandDaughter,1,5,True,
+Ref Temp Prent,Daughter,GrandDaughter,
+Foliar Halflife Parent,Daughter,GrandDaughter,6,2,
+Foliar Washoff Parent,Daughter,GrandDaughter,
+MW Parent,Daughter,GrandDaughter,
+Vapor Pressure Parent,Daughter,GrandDaughter,
+Solubility Parent,Daughter,GrandDaughter,
+Henry Coefficient Parent,Daughter,GrandDaughter,
+Diffusion Coeff Parent,Daughter,GrandDaughter,
+Heat of Henry Parent,Daughter,GrandDaughter,
+Q10,
+True,
+False,1st PlateuDepth for Ramp,2nd Plateu Depth for Ramp,2nd Plateu Value for Ramp,
+False,Eponent for Exponential Decline,Asymptote Value,
+3,
+1,"Name of Scheme #1",
+1,
+3,
+Scheme #1 App #1 Days,Amount,1,Depth,Split,2,Drift Buffer,Period,Lag,
+Scheme #1 App #2 Days,Amount,2,Depth,Split,3,Drift Buffer,Period,Lag,
+...And so on for Scheme #1 Apps,,1,,,15,,,,
+True,Window Span,Window Step,
+False,Intolerable Rain,intolerable Rain Window,Optimum Application Window,Minimum Days Between Applicatons,
+3
+Scheme #1 Scenario #1 Path and File Name
+Scheme #1 Scenario #2 Path and File Name
+...and so on with scenario paths and names for Scheme #1
+False
+Scheme #1 Path and Name of Scenario Batch file if used
+2,"Name of Scheme #2",
+1,
+2,
+App #1 Days,Amount,1,Depth,Split,2,Drift Buffert,Period,Lag,
+and so on,,2,,,3,,,,
+True,Window Span,Window Step,
+False,Intolerablle Rain,Intolerable Rain Window,Optimum Application Window,Minimum Days Between Applications,
+3
+Scme #2 Scenario Name #1
+Scheme #1 Scenario Name #2
+and so on with scheme #2 scenarios
+False
+Scheme #2 Path and File Name of Scenario Batch File if used
+3,"...And so on with schemes",
+1,
+0,
+True,Window Span,Window Step,
+False,Intolerable Rain,intolerable Rain Window,Optimum Application Window,Minimum Days Between Applicatons,
+0
+False
+Last Line of Last Schemre: Path and File name of Batch Scenario File
+Erosion Model ID #,
+,
+,
+,
+,
+,
+True,
+True,False,False
+4,
+"Custom Water Body #1 Path and File Name"
+"Custom Water Body #2 Path and File Name"
+"Custom Water Body #3 Path and File Name"
+"And so on with  custom water bodies"
+True,
+True,
+True,
+True,
+True,
+True,
+True,Depth,
+True,Start Depth,End Depth,
+True
+True,Start Depth,End  Depth,
+True,
+True,
+True,
+True,
+True,
+True,Depth,
+True,
+True,
+holder for future expansion,
+holder for future expansion,
+holder for future expansion,
+holder for future expansion,
+holder for future expansion,
+holder for future expansion,
+holder for future expansion,
+3,
+Item #1,chem,mode,arg1,arg2,multiplier,
+Item #2,chem,mode,arg1,arg2,multiplier,
+and so on with special outputs,,,,,,
