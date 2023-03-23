@@ -571,7 +571,7 @@ subroutine  scenario_error(error)
     end subroutine  scenario_error
     
     
-    subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
+subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
          use utilities_1
          use constants_and_variables, ONLY: scenario_id, weatherfilename,latitude, min_evap_depth, IREG, irtype,max_irrig, PCDEPL, fleach, USLEP, USLEK,USLELS,SLP, &
              num_crop_periods_input,NHORIZ, thickness,bd_input,fc_input,wp_input,oc_input,sand_input,clay_input, evergreen,emm, emd, mad, mam, had, ham, &
@@ -737,9 +737,7 @@ subroutine  scenario_error(error)
     end subroutine read_batch_scenarios
     
     
-    
-    
-    subroutine Read_Weatherfile
+subroutine Read_Weatherfile
     !open weather file, count file, allocate the weather variables, read in dat and place in vectors to store in constant/variable mod.  
     use utilities_1
     use constants_and_Variables, ONLY:precip, pet_evap,air_temperature, wind_speed, solar_radiation, num_records, &

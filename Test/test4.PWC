@@ -1,4 +1,4 @@
-PWC 2021 Input File, Version 1
+PWC 3 Input File, Version 1
 C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\
 test4
 ..\Test\scenario\WeatherFiles\
@@ -17,7 +17,7 @@ True, False, False,
 ,33,,,2,
 ,44,,
 ,44,,,,
-,100,50,1,5,True,
+0.1,100,50,1,5,True,
 25,21,25,
 ,55,11,6,2,
 0.5,0.5,0.5,

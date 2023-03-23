@@ -5,7 +5,7 @@ program PRZMVVWM
                                        number_of_scenarios,  First_time_through, &
                                        app_window_span, app_window_step, application_date, application_date_original, is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit
     
-    use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond , spraytable
+    use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond, spraytable, is_tpez
     use clock_variables
 	
     use PRZM_VERSION
@@ -20,12 +20,9 @@ program PRZMVVWM
 	use Output_From_Field
 	use Pesticide_Applications
 	use readbatchscenario
-    
-    
-    
+
     implicit none
 
-    
     integer :: length !length of input file characters
     integer :: hh, i ,jj, kk,  iostatus
     logical error
@@ -80,8 +77,6 @@ program PRZMVVWM
               call read_waterbodyfile(hh)  
               
          end select
-         
-         
          
          write(*,*) 'Doing Water Body: ', trim(waterbody_names(hh))
 		 
@@ -193,9 +188,14 @@ program PRZMVVWM
                               CALL CPU_TIME (time_1)
                               write (*,*) 'cpu time gw  ',time_1- cputime_begin
                               write (*,*) '###################################################'					 
-					 
-                     call VVWM 
-					 					 
+					 if  (is_tpez) then
+                         Call TPEZ
+                     else 
+                         call VVWM 
+                     end if
+                     
+                         
+                         
                               write (*,*) '###################################################'	 
                               CALL CPU_TIME (time_1)
                               write (*,*) 'cpu time vvwm ',time_1- cputime_begin

@@ -302,11 +302,14 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 		
         
         !TPEZ Parameter Modifications
-        if (is_tpez) then
+       ! if (is_tpez) then
+            !if its TPEZ , make mass transfer faster transfer.
+            !Set water levels and density
+            !Make degradtion equal soil deg
+            !zero out other degradation
+            !Must be done for each scenario and at  the start of VVWM simulation
             
-            
-            
-        end if
+       ! end if
         
         
 
