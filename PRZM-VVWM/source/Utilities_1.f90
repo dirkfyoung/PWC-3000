@@ -56,9 +56,7 @@
     trim(scenario_id)  &
         // '_' // trim(adjustl(local_name)) // '_' // trim(adjustl(appnumber))
     
-    
-    
-    
+
     !run_ID =  trim(adjustl(schemnumber)) // '_' //&
     !trim(adjustl(scenario_names(i,j)((last_slash+1):(last_dot-1))))  &
     !    // '_' // trim(adjustl(local_name)) // '_' // trim(adjustl(appnumber))

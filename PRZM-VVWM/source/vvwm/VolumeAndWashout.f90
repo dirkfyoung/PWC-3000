@@ -70,42 +70,22 @@ contains
 
         vol_net = (flowthru_the_body-evap_area+precip_area)*DELT_vvwm  !volume of water added in day; whole array operations
         
-
         do day = 1,num_records
             check = v_previous + vol_net(day)
             if (check > v_max) then
                 volume1(day) = v_max
                 k_flow(day) = (check-v_max)/DELT_vvwm/v_max   !day # and washout VOLUME
-
             else if (check < v_min) then
                 volume1(day) = v_min
-          
             else
                 volume1(day) = check
-
             end if
-            
-            
             v_previous = volume1(day)
-            
-           
-            
-
-            !*******************************************************
-            !ADDED FOR MARK CORBIN*********************************
-              !  write(60,*)day,v(day),k_flow(day)*delt*v_max
-            !********************************************************
-            
-            
         end do
-        
-        
+               
         Daily_avg_flow_out = sum(k_flow)*v_max/num_records  !used for output characterization only
-
         daily_depth = volume1/area_waterbody !whole array operation
 
-        
-        
     end subroutine volume_calc
     !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -133,6 +113,66 @@ contains
 
 
 
+        subroutine tpez_volume_calc
+        !This subroutine calculates tpez volume and washout rate
+        !need to get soil properties
+        
+        
+        
+!!TILL NEED TO FIX THIS
+        use constants_and_variables, ONLY: num_records, evap_m, precip_m, DELT_vvwm,minimum_depth,flowthru_the_body,&
+            daily_depth,volume1,k_flow ,Daily_avg_flow_out, pfac
+        
+        
+        use waterbody_parameters, ONLY: depth_0, depth_max,area_waterbody
+
+        implicit none
+        integer:: day
+        real:: v_0                                  !initial water body volume [m3]
+        real:: v_max                                !maximum water body volume [m3]
+        real:: v_min                                !minimum water body volume [m3]
+        real:: v_previous
+        real:: check
+        real,dimension(num_records)::vol_net
+        real,dimension(num_records)::evap_area
+        real,dimension(num_records)::precip_area
+        Daily_avg_flow_out = 0.0
+        write(*,*) "DOING VOLUME CALCULATION and PFAC = ", PFAC
+        
+        v_0 = area_waterbody*depth_0
+        v_max = area_waterbody*depth_max
+        v_min = area_waterbody*minimum_depth
+        k_flow = 0.        !sets all values of the array to zero
+        v_previous = v_0
+
+        precip_area = precip_m*area_waterbody /86400.    !m3/s
+        evap_area = evap_m*area_waterbody /86400.    !m3/s, evap factor pfac now calculated in convert_weatherdata_for_VVWM  
+
+        vol_net = (flowthru_the_body-evap_area+precip_area)*DELT_vvwm  !volume of water added in day; whole array operations
+        
+        do day = 1,num_records
+            check = v_previous + vol_net(day)
+            if (check > v_max) then
+                volume1(day) = v_max
+                k_flow(day) = (check-v_max)/DELT_vvwm/v_max   !day # and washout VOLUME
+            else if (check < v_min) then
+                volume1(day) = v_min
+            else
+                volume1(day) = check
+            end if
+            v_previous = volume1(day)
+        end do
+               
+        Daily_avg_flow_out = sum(k_flow)*v_max/num_records  !used for output characterization only
+        daily_depth = volume1/area_waterbody !whole array operation
+
+    end subroutine tpez_volume_calc
+    
+    
+    
+    
+    
+    
 
 
 

@@ -1,10 +1,10 @@
-PWC 2021 Input File, Version 1
+PWC 3 Input File, Version 1
 C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\
 test2
 ..\Test\scenario\WeatherFiles\
 True, False, False,
 1,
-1000,12,11,
+1,12,11,
 1,1,1,
 ,,,
 ,,,
@@ -32,16 +32,14 @@ True,
 False,,,,
 False,,,
 1,
-1,"1 lb/acre to all corn continental United States",
+1,"one",
 1,
-2,
--90,1,1,10,0,2,1,1,0,
-100,1,2,2,0,3,100,1,0,
-False,,,
+1,
+1,1,1,1,0,14,0,1,0,
+False,5,1,
 False,2,2,10,7,
-2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r01-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r02-B_V4.scn2
+1
+..\Test\scenario\testScenario.scn2
 False
 C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
 3,
@@ -51,12 +49,12 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
 ,
 ,
 True,
-True,False,False
+True,False,False,True
 1,
 "C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\waterbodies\xtest.WAT"
 False,
 False,
-False,
+True,
 False,
 False,
 False,
@@ -79,4 +77,6 @@ holder for future expansion,
 holder for future expansion,
 holder for future expansion,
 holder for future expansion,
-0,
+2,
+STMP,1,TSER,1,1,1,
+STMP,1,TSER,30,30,1,

@@ -50,13 +50,7 @@ integer :: i
         ! Process and convert erosion for VVWM use
 		
 		
-		
-		
-		
         eroded_solids_mass= erosion_save*1000. !convert from tonnes to kg
-		
-		
-		
 		
         Burial = eroded_solids_mass/86400.  ! kg/day*(day/86400 sec)    = kg/sec
         

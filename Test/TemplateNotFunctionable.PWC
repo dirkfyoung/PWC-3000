@@ -74,7 +74,7 @@ Erosion Model ID #,
 ,
 ,
 True,
-True,False,False
+True,False,False, False
 4,
 "Custom Water Body #1 Path and File Name"
 "Custom Water Body #2 Path and File Name"

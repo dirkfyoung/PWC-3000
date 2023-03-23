@@ -3,7 +3,8 @@ program PRZMVVWM
     use readinputs
     use constants_and_variables, ONLY: maxFileLength, inputfile,number_of_schemes, &
                                        number_of_scenarios,  First_time_through, &
-                                       app_window_span, app_window_step, application_date, application_date_original, is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit
+                                       app_window_span, app_window_step, application_date, application_date_original, &
+                                       is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id
     
     use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond, spraytable,itstpezwpez
     use clock_variables
@@ -171,8 +172,10 @@ program PRZMVVWM
 			   
                do jj = 0, app_window_span(i), app_window_step(i) 
 				     application_date= application_date_original + jj
-                     call make_run_id (i,kk, hh,jj) !makes a string that can be used for identifying output scheme#_scenario#_scenarioname      
+   
+                    call make_run_id (i,kk, hh,jj) !makes a string that can be used for identifying output scheme#_scenario#_scenarioname      
                      
+
 					 !"Rain Fast" Option
 					 write(*,*) "Adjust applications for rain?", is_adjust_for_rain
 					 if (is_adjust_for_rain) call adjust_application_dates_for_weather
@@ -193,7 +196,9 @@ program PRZMVVWM
 
                       call VVWM 
                       if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
+                               run_id = trim(run_id) //"_WPEZ"
                                call WPEZ  
+                               run_id = trim(run_id) //"_TPEZ"                              
                                call TPEZ
                       end if
                       
