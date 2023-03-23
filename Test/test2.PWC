@@ -1,4 +1,4 @@
-PWC 2021 Input File, Version 1
+PWC 3 Input File, Version 1
 C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\
 test2
 ..\Test\scenario\WeatherFiles\
@@ -71,7 +71,7 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
 ,
 ,
 True,
-True,False,False
+True,False,False,True
 1,
 "C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\waterbodies\xtest.WAT"
 False,
