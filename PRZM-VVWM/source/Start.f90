@@ -5,7 +5,7 @@ program PRZMVVWM
                                        number_of_scenarios,  First_time_through, &
                                        app_window_span, app_window_step, application_date, application_date_original, is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit
     
-    use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond, spraytable, is_tpez
+    use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond, spraytable,itstpezwpez
     use clock_variables
 	
     use PRZM_VERSION
@@ -23,11 +23,11 @@ program PRZMVVWM
 
     implicit none
 
-    integer :: length !length of input file characters
+    integer :: length               !length of input file characters
     integer :: hh, i ,jj, kk,  iostatus
-    logical error
+    logical :: error
     logical :: end_of_file, error_on_read
-    
+    logical :: run_tpez_wpez  !TRUE if USEPA_pond has just been simulated AND TPEZ/WPEZ run has been requested (i.e., istpezwpez==treue)
     character :: dummy
     !################################################ 
     CALL CPU_TIME (cputime_begin)
@@ -56,7 +56,7 @@ program PRZMVVWM
     !LOOP Description
     !Outermost (ii) is for info describing watershed and waterbody, At present, there is a dependency
         !on the watershed size and the PER/AREA output from the field. This means that a field output cannot be used for multiple waterbodies
-        !A field must be run for each waterbody.  Future work should look at removing this over-parameterization of the erosion routinne, 
+        !A field must be run for each waterbody. Future work should look at removing this over-parameterization of the erosion routine, 
         !and that would allow a single PRZM run for all waterbodies
         !The dependency occurs in the hydraulic length which is area dependent AND in the MUSS, MUSL equations. 
     !Middle Loop (i) is for Application Schemes
@@ -66,16 +66,18 @@ program PRZMVVWM
 	 write(*,*) 'Start Waterbody Loop ***********************************************'
 	 Write(*,*) '********************************************************************'
      do hh = 1, size(waterbody_names)
-
+         run_tpez_wpez = .FALSE.
+         
          select case   (waterbody_names(hh))
          case (USEPA_reservoir)
              call get_reservoir_parameters
-         case (USEPA_pond )
+         case (USEPA_pond)
               call get_pond_parameters
-			  
+              If (itstpezwpez) then
+                 run_tpez_wpez = .TRUE.
+              end if
          case default
               call read_waterbodyfile(hh)  
-              
          end select
          
          write(*,*) 'Doing Water Body: ', trim(waterbody_names(hh))
@@ -188,13 +190,14 @@ program PRZMVVWM
                               CALL CPU_TIME (time_1)
                               write (*,*) 'cpu time gw  ',time_1- cputime_begin
                               write (*,*) '###################################################'					 
-					 if  (is_tpez) then
-                         Call TPEZ
-                     else 
-                         call VVWM 
-                     end if
-                     
-                         
+
+                      call VVWM 
+                      if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
+                               call WPEZ  
+                               call TPEZ
+                      end if
+                      
+               
                          
                               write (*,*) '###################################################'	 
                               CALL CPU_TIME (time_1)

@@ -33,7 +33,7 @@ implicit none
 	integer :: rows_spraytable
     integer :: columns_spraytable
     
-    logical  itsapond, itsareservoir, itsother
+    logical:: itsapond, itsareservoir, itsother, itstpezwpez
     character(len=512), allocatable, dimension(:) :: waterbody_names  !this holds the info for looping waterbodies (position 1 and 2 are often Pond and reservoir)
     character(len=512), parameter :: USEPA_pond = "USEPA Pond"  
     character(len=512), parameter :: USEPA_reservoir = "USEPA Reservoir"
@@ -67,11 +67,9 @@ implicit none
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 	real,dimension(14),parameter :: spray_p = (/0.242,0.125,0.089,0.068, 0.062, 0.027, 0.017, 0.011, 0.042, 0.015, 0.002, 0.022, 1.0, 0.0 /)
 
-integer,parameter :: rows_spraytable_P = 17
-integer,parameter :: columns_spraytable_P =15   
-    
-    
-    
+    integer,parameter :: rows_spraytable_P = 17
+    integer,parameter :: columns_spraytable_P =15   
+
 real,dimension(17,15),parameter :: spray_table_P = transpose(reshape((/&	   
 0.0000, 10.000, 25.000, 50.000, 75.000, 100.00, 125.00, 150.00, 200.00, 250.00, 300.00, 350.00, 400.00   , 450.00   , 500.00    ,&
 0.2421, 0.2266, 0.2076, 0.1821, 0.1617, 0.1446, 0.1311, 0.1196, 0.1023, 0.0899, 0.0804, 0.0730, 0.067    , 0.0622   , 0.0582    ,&
