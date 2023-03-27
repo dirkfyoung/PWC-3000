@@ -189,6 +189,8 @@ end subroutine VVWM
     
     
 subroutine wpez
+!THIS IS THE SAME ROUTINE AS VVWM BUT WITH SOME HARD CODED VALUES FOR INPUTS
+
 
     use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
         water_column_ref_temp, benthic_ref_temp, &
@@ -199,7 +201,8 @@ subroutine wpez
         outputfile_parent_calendex,outputfile_deg1_calendex,outputfile_deg2_calendex,&
         outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa,waterbodytext,summary_outputfile,  k_flow 
     
-    use waterbody_parameters, ONLY: FROC2, simtypeflag
+    use waterbody_parameters, ONLY: FROC2, simtypeflag, depth_0,depth_max,baseflow,is_zero_depth,zero_depth  
+    
     
   !  use variables, ONLY: ,Batch_outputfile
 
@@ -225,28 +228,37 @@ real    :: koc
 
     write(*,*) "enter WPEZ"
 
- ! these should alreadybe calculkated for pond
- !   call allocation_for_VVWM  moved to front
- !   call convert_weatherdata_for_VVWM      
- !   call get_mass_inputs
- !   call spraydrift
+ ! FOR WPEZ these should already be calculated AFTER pond run
+      !   call allocation_for_VVWM  moved to front
+      !   call convert_weatherdata_for_VVWM      
+      !   call get_mass_inputs
+      !   call spraydrift
     
-    !****************************************************************
-    !Washout and volume calculations for individual cases
-    
- write(*,*) "WPEZ simulation type is always Varying Volume Type 1"
-    !select case (simtypeflag)
-    !    case (3,5) !reservoir constant volume,flow
-    !            call constant_volume_calc 
-    !    case (2,4)  !pond constant volume, no flow
-    !            call constant_volume_calc 
-    !            k_flow=0.  !for this case zero out washout
-    !    case (1) !variable volume, flow
-    !            call volume_calc
-    !    end select
  
-  call volume_calc
-        
+ !***WPEZ MODIFICATION, Always varing volume **********
+ ! Set  simtypeflag = 1
+ !*******************************************************
+ write(*,*) "WPEZ simulation type is always Varying Volume Type 1"
+
+ 
+!RESET PARAMETERS for wpez      
+  simtypeflag   = 1
+  depth_0       = 0.15      
+  depth_max     = 0.15       
+  baseflow      = 0.0      
+  is_zero_depth = .TRUE. 
+  zero_depth    = 0.01  
+ 
+    select case (simtypeflag)
+        case (3,5) !reservoir constant volume,flow
+                call constant_volume_calc 
+        case (2,4)  !pond constant volume, no flow
+                call constant_volume_calc 
+                k_flow=0.  !for this case zero out washout
+        case (1) !variable volume, flow
+                call volume_calc
+        end select
+ 
 
     do chem_index= 1, nchem
           if (is_koc) then
@@ -342,7 +354,11 @@ integer :: chem_index
 real    :: koc
 
 
-    write(*,*) "enter VVWM"
+    write(*,*) "Enter TPEZ"
+    
+  !******Set TPEZ Specific parameterS  
+
+    
 
  !   call allocation_for_VVWM  moved to front
     call convert_weatherdata_for_VVWM      
@@ -367,7 +383,7 @@ real    :: koc
 !    !            call constant_volume_calc 
 !    !            k_flow=0.  !for this case zero out washout
 !    !    case (1) !variable volume, flow
-!    !            call volume_calc
+           call volume_calc
 !    !    end select
 !        
  
@@ -437,7 +453,8 @@ real    :: koc
 !write (*,*) 'Calling output_processing'
 !       call output_processor(chem_index)
 !    !**********************************************************
-  end do
+
+    end do
 
 
 end subroutine TPEZ

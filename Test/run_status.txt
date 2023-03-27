@@ -82,7 +82,7 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  CN:    81.0000000000000        88.0000000000000     
  stagnant layer    5.00000000000000     
  ###################################################
- cpu time scenario start    1.562500000000000E-002
+ cpu time scenario start    0.000000000000000E+000
  ###################################################
  weather path and file to open: ..\Test\scenario\WeatherFiles\12661_grid.wea
  Weather file total days =                  19723
@@ -254,10 +254,10 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  Adjust applications for rain? F
  Enter chemical transport
  ###################################################
- cpu time chen xport   0.375000000000000     
+ cpu time chen xport   0.390625000000000     
  ###################################################
  ###################################################
- cpu time gw    0.375000000000000     
+ cpu time gw    0.390625000000000     
  ###################################################
  enter VVWM
  parent runoff mass delivered    1.97664482729617     
@@ -298,26 +298,38 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
                     
  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  done output batch 
+ TPEZ ID 
+ 1_331522-12661-2_Cotton-r03W-B_USEPA Pond_0000_WPEZ_TPEZ                       
+                                                                                
+                                                                                
+                    
+ Enter TPEZ
+ parent runoff mass delivered    55.9766448272962     
+ parent erosion mass   2.399439369549845E-005
+ total_applications =                     54
+ Spray mass =    54.0000000000000     
+ simulation type = 1 tpez
+ DOING VOLUME CALCULATION and PFAC =    1.00000000000000     
  ###################################################
- cpu time vvwm   0.578125000000000     
+ cpu time vvwm   0.609375000000000     
  ###################################################
  ###################################################
- cpu time deallocate    0.578125000000000     
+ cpu time deallocate    0.609375000000000     
  ###################################################
  Doing scenario                      2
  ###################################################
- cpu time vvwm done        0.578125000000000     
+ cpu time vvwm done        0.609375000000000     
  ###################################################
  *****************************Done with scheme                      1
  ###################################################
- cpu time, scheme     0.578125000000000                          2
+ cpu time, scheme     0.609375000000000                          2
  ###################################################
  ###################################################
- cpu time, waterbody     0.578125000000000                          1
+ cpu time, waterbody     0.609375000000000                          1
  ###################################################
  ###################################################
- End Proram cpu time     0.578125000000000     
+ End Proram cpu time     0.609375000000000     
  ###################################################
- Total clock time =   0.578000068664551     
+ Total clock time =   0.613000154495239     
  tridiag  7.812500000000000E-002
  ###################################################

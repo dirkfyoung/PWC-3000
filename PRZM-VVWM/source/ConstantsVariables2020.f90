@@ -141,7 +141,7 @@ module constants_and_variables
 
       real, parameter :: wind_height= 6.     !height at which wind measurements are reported (m)
       real, parameter :: DELT_vvwm = 86400.  !seconds, simulation TIME INTERVAL IS ONE DAY. used for vvwm only
-      real, parameter :: minimum_depth = 0.00001     !minimum water body depth
+      real, parameter :: minimum_depth = 0.00001     !minimum water body depth for vvwm to operate stability wise
       
       logical :: is_hed_files_made
       logical :: is_add_return_frequency

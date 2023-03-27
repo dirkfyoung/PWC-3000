@@ -41,7 +41,7 @@ contains
         !This subroutine calculates volume and washout rate
         
         use constants_and_variables, ONLY: num_records, evap_m, precip_m, DELT_vvwm,minimum_depth,flowthru_the_body,&
-            daily_depth,volume1,k_flow ,Daily_avg_flow_out, pfac
+            daily_depth,volume1,k_flow ,Daily_avg_flow_out
         
         
         use waterbody_parameters, ONLY: depth_0, depth_max,area_waterbody
@@ -57,7 +57,7 @@ contains
         real,dimension(num_records)::evap_area
         real,dimension(num_records)::precip_area
         Daily_avg_flow_out = 0.0
-        write(*,*) "DOING VOLUME CALCULATION and PFAC = ", PFAC
+        write(*,*) "DOING VOLUME CALCULATION"
         
         v_0 = area_waterbody*depth_0
         v_max = area_waterbody*depth_max
@@ -113,18 +113,17 @@ contains
 
 
 
-        subroutine tpez_volume_calc
+    subroutine tpez_volume_calc
         !This subroutine calculates tpez volume and washout rate
         !need to get soil properties
         
-        
-        
-!!TILL NEED TO FIX THIS
         use constants_and_variables, ONLY: num_records, evap_m, precip_m, DELT_vvwm,minimum_depth,flowthru_the_body,&
-            daily_depth,volume1,k_flow ,Daily_avg_flow_out, pfac
+            daily_depth,volume1,k_flow ,Daily_avg_flow_out, &
+             ncom2,theta_fc,theta_wp, thickness
+        use utilities_1 
         
-        
-        use waterbody_parameters, ONLY: depth_0, depth_max,area_waterbody
+       !MAKE THESE LOCAL FOR TPEZ 
+       !  use waterbody_parameters, ONLY: depth_0, depth_max,area_waterbody
 
         implicit none
         integer:: day
@@ -136,8 +135,24 @@ contains
         real,dimension(num_records)::vol_net
         real,dimension(num_records)::evap_area
         real,dimension(num_records)::precip_area
-        Daily_avg_flow_out = 0.0
-        write(*,*) "DOING VOLUME CALCULATION and PFAC = ", PFAC
+        
+        real ::  depth_0 
+        real ::  depth_max  
+        real ::  area_waterbody   
+        real ::  TPEZ_depth_min
+        real ::  avg_property  
+         
+        !calculate average Water content properties in top 15 cm
+        call find_average_property(ncom2,15.0, thickness,  theta_fc, avg_property)
+           depth_max = avg_property
+           depth_0   = depth_max
+        call find_average_property(ncom2,15.0, thickness,  theta_wp, avg_property)
+           TPEZ_depth_min = avg_property
+        
+        area_waterbody =     10000.  !m2
+
+        Daily_avg_flow_out = 0.0 !initialization
+        write(*,*) "DOING VOLUME CALCULATION for TPEZ "
         
         v_0 = area_waterbody*depth_0
         v_max = area_waterbody*depth_max

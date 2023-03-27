@@ -181,4 +181,47 @@
 
      end function find_depth_node  
          
+     
+     
+     
+     
+     
+     subroutine find_average_property(n,target_depth, thickness, property, average)
+     !weigted average, given vector of thicknesses and vector of correspnding property, Finds the average property
+     !value of a target_depth
+     implicit none
+        integer,intent(in) :: n                      !size of input vectors for depth and prperty
+        real   ,intent(in) :: thickness(n)           !vector of thickness listed in depth order
+        real   ,intent(in) :: property(n)            !property of interest corresponding to thicknrss vector
+        real   ,intent(in) :: target_depth           ! target depth is lower depth for averaging
+        real   ,intent(out):: average                 !average property value from zero depth to target depth
+        
+        integer :: i
+        real :: cummulative_depth, previous_depth
+
+        real :: weighted_tally 
+        cummulative_depth = 0.0
+        
+        do i = 1, n
+              cummulative_depth =  cummulative_depth + thickness(i)
+              if (cummulative_depth < target_depth) then
+                  weighted_tally = weighted_tally+ property(i)*thickness(i)                   
+              elseif(cummulative_depth >= target_depth) then
+                 weighted_tally = weighted_tally + property(i)*(target_depth -  previous_depth)
+                 exit !exit do loop   
+              end if 
+              previous_depth = cummulative_depth
+        end do
+        
+       average =  weighted_tally/target_depth
+        
+        
+     end subroutine
+     
+     
+     
+     
+     
+     
+     
 end module utilities_1
