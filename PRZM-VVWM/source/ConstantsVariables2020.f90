@@ -448,7 +448,7 @@ module constants_and_variables
       real,allocatable,dimension(:)    :: Tband_top_in
 	  
 	  !$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-      real,allocatable,dimension(:)    :: drift_value  !no longer an input----to be modified onmce spray table completed
+      real,allocatable,dimension(:)    :: drift_value  !no longer an input----to be modified once spray table completed
 	  !$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 	  
 	  !spray table coordinates:
@@ -824,7 +824,8 @@ real, allocatable, dimension(:)    :: m1_store,m2_store,mavg1_store    !array of
 real, allocatable, dimension(:)    :: aq1_store, aq2_store             !begining day concentrations, after mass inputs
 
 real,allocatable,dimension(:,:,:) :: mass_off_field            !daily mass loading from runoff (column 1) & erosion (column 2) (kg)
-real,allocatable,dimension(:)     :: aqconc_avg1 ,aqconc_avg2  ! daily average aqueous concentrations
+real,allocatable,dimension(:)     :: spray_additions           !daily mass of spray to be added to water column (kg) 
+real,allocatable,dimension(:)     :: aqconc_avg1 ,aqconc_avg2  !daily average aqueous concentrations
 
 
 real:: spray_total(3)

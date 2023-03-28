@@ -224,14 +224,9 @@ module chemical_transport
             !  4. With predicted Kd the conc1_neq concentration, now calculate                
             !      the Corrected concentration for future mobile region (new_conc)
             
-
-			
             call setup_tridiagonal_for_przm(subdelt, K, theta_new_subday, theta_old_subday,theta_air_new_subday, &
                                  theta_air_old_subday, old_conc, new_conc) 
 
-	
-
-			
             theta_old_subday = theta_new_subday        !store these for use in tridiagonal
             theta_air_old_subday = theta_air_new_subday
                 
@@ -246,10 +241,6 @@ module chemical_transport
             mass_in_compartment2(K,I) = Sorbed2(k,i)*bulkdensity(i)*delx(i)                        
 		end do
  
-		
-		
-
-		
        !*****END PREDICTOR CORRECTOR ********************************************************************************************
 
        call flux_calculations(K, new_conc)   ! Fluxes should really be a summation of the subdaily--fix this
@@ -261,11 +252,8 @@ module chemical_transport
 
     !probably could/should take this out of this subroutine	, but would require more arrays saves
 	 call get_inputs_from_field_for_vvwm	
-     
-
      CALL write_outputfile_2    
 	           
-	
    end subroutine chemical_transport_oneday
    
 	

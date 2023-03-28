@@ -3,13 +3,15 @@ module allocations
     contains
     
      subroutine allocate_time_series
-     use constants_and_variables, ONLY:num_records, erosion_save, mass_off_field , &
+     use constants_and_variables, ONLY:num_records, erosion_save, mass_off_field ,spray_additions, &
 		 irrigation_save,  canopy_flow_save, THAIR_save, ncom2, theta_end_save, &
 		 runoff_save,soilwater_save, velocity_save,theta_zero_save,thair_old_save, &
 	     enriched_erosion_save, et_save, infiltration_save,conc_last_horizon_save, soil_temp_save
      implicit none
             allocate (erosion_save(num_records))            
             allocate (mass_off_field(num_records,2,3))  
+            allocate (spray_additions(num_records)) 
+            
 			allocate (irrigation_save(num_records))
 			allocate (canopy_flow_save(num_records))
 			allocate (runoff_save(num_records))
@@ -206,7 +208,7 @@ end subroutine allocation_for_VVWM
         evapo_root_node,root_depth,root_node,atharvest_pest_app,  &
         flowthru_the_body,burial,eroded_solids_mass,fraction_to_benthic, &
         precip_m,evap_m, temp_avg,wind_m, &
-        degradateProduced1,degradateProduced2, volume1,daily_depth,k_flow,k_burial, k_aer_aq ,nchem , mass_off_field, &
+        degradateProduced1,degradateProduced2, volume1,daily_depth,k_flow,k_burial, k_aer_aq ,nchem , mass_off_field, spray_additions,&
         k_anaer_aq,k_aer_s,k_anaer_s,k_volatile,k_photo,k_hydro,gamma_1, gamma_2,A,B,E,F, &
         theta,capacity_1,fw1,m1_input,m2_input,m1_store,m2_store,mavg1_store, &
         aqconc_avg1,aqconc_avg2,aq1_store,aq2_store, irrigation_save, canopy_flow_save, THAIR_save, &
@@ -332,6 +334,9 @@ end subroutine allocation_for_VVWM
       deallocate (wind_m)
           
       deallocate (mass_off_field)
+      deallocate (spray_additions)
+      
+      
       if (nchem > 1) then 
               deallocate (degradateProduced1)
               deallocate (degradateProduced2)    

@@ -10,7 +10,9 @@ contains
     
     use waterbody_parameters, ONLY: afield, baseflow    
 
-                                          
+    !       This routine no longer reads zts of course. It serves only to tie up a few things
+    
+    
     !****************************************************************
     !This subroutine reads the PRZM output file with ZTS subscript
     !It then reads in the file and puts pesticide spray drift and runoff mass into first
@@ -90,22 +92,33 @@ integer :: i
        use waterbody_parameters, ONLY:area_waterbody
        
        use constants_and_variables, ONLY: num_records, total_applications, drift_kg_per_m2 , application_date, startday, &
-                                      mass_off_field, spray_total                        
+                                      mass_off_field, spray_total, spray_additions             
        implicit none
-       integer ::  i, index_day
-       real :: sprayrate
+       integer  ::  i, index_day
+      ! real     ::  sprayrate
     !Note mass is an array refernced to day 1 of the simulation, appdate is an array of dates from 1900       
        
        spray_total= 0.0
+       spray_additions = 0.0
+       
+       !need to adjust drift here
+       ! drift_kg_per_m2(app_counter) = drift_value(i)*application_rate_in(i)/10000.
+       
+       
+       
+       
+       
        
        do i=1, total_applications
            index_day = application_date(i)-startday
            if (index_day > 0 .and. index_day <= num_records) then
-               sprayrate = drift_kg_per_m2(i) * area_waterbody              
-               mass_off_field(index_day, 1,1) =  mass_off_field(index_day, 1,1) +   sprayrate             
+            !   sprayrate = drift_kg_per_m2(i) * area_waterbody  
+               
+               spray_additions(index_day) = drift_kg_per_m2(i) * area_waterbody 
+               
+           !    mass_off_field(index_day, 1,1) =  mass_off_field(index_day, 1,1) +   sprayrate             
                spray_total(1) =  spray_total(1) +  sprayrate
-           end if
-           
+           end if          
        end do
        
        write(*,*) "total_applications = ", total_applications
@@ -148,7 +161,7 @@ end subroutine DegradateProduction
 subroutine initial_conditions(chem_index)
        !THIS SUBROUTINE RETURNS VALUES FOR input masses into each compartment 
 use constants_and_variables, ONLY: fraction_to_benthic, eroded_solids_mass, degradateProduced1, &
-                                     degradateProduced2, mass_off_field,  & 
+                                     degradateProduced2, mass_off_field, spray_additions,  & 
                                      m1_input,           & !OUTPUT mass added to littoral region (kg) 
                                      m2_input,           &       !OUTPUT mass added to bethic region (kg)
 
@@ -166,7 +179,7 @@ use constants_and_variables, ONLY: fraction_to_benthic, eroded_solids_mass, degr
 integer i
         !********************************************************************
             fraction_to_benthic = kd_sed_1*eroded_solids_mass/ (capacity_1 + kd_sed_1*eroded_solids_mass)    !used later
-            m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index)    !all mass goes to water column initially
+            m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index) + spray_additions  !all mass goes to water column initially
             m2_input = 0  
 
         !CALCULATE INPUT MASSES   

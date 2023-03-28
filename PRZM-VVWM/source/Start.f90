@@ -197,11 +197,11 @@ program PRZMVVWM
                       call VVWM 
                       if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
                                run_id = trim(run_id) //"_WPEZ"
-                               call WPEZ  
+                               call wpez  
                                run_id = trim(run_id) //"_TPEZ"    
                                
                                write(*,*) 'TPEZ ID ', run_id
-                               call TPEZ
+                               call tpez
                       end if
                       
                

@@ -43,10 +43,6 @@ real    :: koc
 
 
 
-
-
-
-
     write(*,*) "enter VVWM"
 
  !   call allocation_for_VVWM  moved to front
@@ -319,7 +315,7 @@ end subroutine wpez
     
 
 
-subroutine TPEZ
+subroutine tpez
     use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
         water_column_ref_temp, benthic_ref_temp, &
         water_column_rate,is_hed_files_made, DELT_vvwm,is_add_return_frequency, additional_return_frequency, &
@@ -363,7 +359,7 @@ real    :: koc
  !   call allocation_for_VVWM  moved to front
     call convert_weatherdata_for_VVWM      
 
-    call get_mass_inputs
+    call get_mass_inputs !this doesnt get mass inputs anymore
 
     
 !need to make drift adjustment for tpez
@@ -457,33 +453,7 @@ real    :: koc
     end do
 
 
-end subroutine TPEZ
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+end subroutine tpez
     
     
     
