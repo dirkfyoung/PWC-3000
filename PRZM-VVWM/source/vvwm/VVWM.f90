@@ -317,13 +317,7 @@ end subroutine wpez
 
 subroutine tpez(scheme_number)
     use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
-        water_column_ref_temp, benthic_ref_temp, &
-        water_column_rate,is_hed_files_made, DELT_vvwm,is_add_return_frequency, additional_return_frequency, &
-        outputfile_parent_daily,outputfile_deg1_daily,outputfile_deg2_daily,&
-        outputfile_parent_analysis,outputfile_deg1_analysis,outputfile_deg2_analysis,&
-        outputfile_parent_deem,outputfile_deg1_deem,outputfile_deg2_deem,&
-        outputfile_parent_calendex,outputfile_deg1_calendex,outputfile_deg2_calendex,&
-        outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa,waterbodytext,summary_outputfile, k_flow,&
+        water_column_rate,is_hed_files_made, DELT_vvwm, k_flow,&
         num_applications_input,application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, drift_kg_per_m2, drift_schemes
     
     use waterbody_parameters, ONLY: FROC2, simtypeflag
@@ -374,8 +368,43 @@ app_counter= 0
         do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
 
            app_counter = app_counter+1       
-     
-        
+!Aerial v-vf = 0.3271
+!Aerial m-f = 0.2029
+!Aerial c- m = 0.1557
+!Aerial c-cr = 0.1268
+!Ground HB 90th vf - f = 0.12
+!Ground HB 90th f - mc = 0.0313
+
+!Ground LB 90th vf - f = 0.053
+!Ground LB 90th f - mc = 0.0208
+
+!Airblast Normal = 0.0021
+!Airblast Dense = 0.0282
+!Airblast Sparse = 0.0895
+!Airblast Vineyard = 0.005
+!Airblast Orchard = 0.0447
+           
+    !Public Const sprayterm1 As String = "Aerial (VF-F)"
+    !Public Const sprayterm2 As String = "Aerial (F-M) D"
+    !Public Const sprayterm3 As String = "Aerial (M-C)"
+    !Public Const sprayterm4 As String = "Aerial (C-VC)"
+    !
+    !Public Const sprayterm5 As String = "Ground (High, VF-F) D"
+    !Public Const sprayterm6 As String = "Ground (High, F-MC)"
+    !
+    !Public Const sprayterm7 As String = "Ground (Low, VF-F)"
+    !Public Const sprayterm8 As String = "Ground (Low, F-MC)"
+    !
+    !Public Const sprayterm9 As String = "Airblast (normal)"
+    !Public Const sprayterm10 As String = "Airblast (dense)"
+    !Public Const sprayterm11 As String = "Airblast (sparse) D"
+    !Public Const sprayterm12 As String = "Airblast (vinyard)"
+    !Public Const sprayterm13 As String = "Airblast (orchard)"
+    !
+    !Public Const sprayterm14 As String = "Directly applied to waterbody"
+    !Public Const sprayterm15 As String = "None"
+    !Public Const sprayterm16 As String = "You Specify"     
+    !    
         select case (drift_schemes(scheme_number,i)+1)  !this is the row number in the drift table which specifiess the spray method
         case (1)
             drift_value_local = 0.1  !these are all DUMMY values---need to populate with real values
@@ -426,20 +455,13 @@ app_counter= 0
 !    
  write(*,*) "simulation type = 1 tpez"
  call  tpez_volume_calc
-!
-!    !select case (simtypeflag)
-!    !    case (3,5) !reservoir constant volume,flow
-!    !            call constant_volume_calc 
-!    !    case (2,4)  !pond constant volume, no flow
-!    !            call constant_volume_calc 
-!    !            k_flow=0.  !for this case zero out washout
-!    !    case (1) !variable volume, flow
-           call volume_calc
-!    !    end select
+
 !        
  
  !NEED TO GET OC CONTENT FROM FIELD
-
+!   find_average_property(n,target_depth, thickness, property, average)
+ 
+ 
     do chem_index= 1, nchem
           if (is_koc) then
                   koc   = k_f_input(chem_index) 
@@ -451,12 +473,7 @@ app_counter= 0
 !
 !        call solute_holding_capacity(koc)    
 !        
-!        call omega_mass_xfer             ! omega = D_over_dx/benthic_depth !(m3/hr)/(3600 s/hr)
-!        call hydrolysis(chem_index)      ! 
-!         k_hydro = 0.   
-!        call photolysis(chem_index)      ! 
-!          k_photo = 0.
-          
+
 !CHANGE METABOLISM
         call metabolism(chem_index)     
                         !k_aer_aq = water_column_rate(nchem) *Q_10**((temp_avg - water_column_ref_temp(nchem))/10.)     !k_aer_aq  = 0.69314718/aer_aq/86400.    
@@ -473,31 +490,17 @@ app_counter= 0
 !          !********************************************
 !          !process the individual degradation rates into overall parameters:
 !        call gamma_one
-        call gamma_two
+!        call gamma_two
           !gamma_2  = k_anaer_aq*fw2 +k_anaer_s*(1.-fw2)+ k_hydro*fw2 + k_burial
 !        
 !          !**************************************************************
 !        
-       call initial_conditions(chem_index)
-!        write(*,*) "Main VVWM Loop "
-!        call MainLoop       
-!       
-!        
-!        select case  (simtypeflag)
-!        case (3)  
-!            waterbodytext = "Reservoir"
-!        case (2)
-!            waterbodytext = "Pond"
-!        case (1,4,5)
-!            waterbodytext =  "Custom"
-!        end select
-!        
-!   
-!
-!   write(*,*) 'batch output file ', trim(summary_outputfile)
-!   
-!
-!
+        !call initial_conditions(chem_index)
+        !write(*,*) "Main VVWM Loop "
+        !call MainLoop       
+    
+       waterbodytext = "TPEZ"
+
 !        if (nchem > chem_index) then     
 !              call DegradateProduction(chem_index) 
 !        end if
