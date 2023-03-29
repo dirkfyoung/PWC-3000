@@ -158,7 +158,7 @@ Public Class Form1
         AppTableDisplay.Columns(8).Width = 42
 
         Dim btn As New DataGridViewButtonColumn()
-        btn.Text = "X"
+        btn.Text = "XXXXXX"
         btn.HeaderText = "Delete"
         btn.Name = "Delete"
         btn.UseColumnTextForButtonValue = True

@@ -117,7 +117,10 @@ integer :: i
                spray_additions(index_day) = drift_kg_per_m2(i) * area_waterbody 
                
            !    mass_off_field(index_day, 1,1) =  mass_off_field(index_day, 1,1) +   sprayrate             
-               spray_total(1) =  spray_total(1) +  sprayrate
+              ! spray_total(1) =  spray_total(1) +  sprayrate
+               
+                spray_total(1) =  spray_total(1) + spray_additions(index_day)
+               
            end if          
        end do
        

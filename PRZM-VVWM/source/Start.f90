@@ -201,7 +201,7 @@ program PRZMVVWM
                                run_id = trim(run_id) //"_TPEZ"    
                                
                                write(*,*) 'TPEZ ID ', run_id
-                               call tpez
+                               call tpez(i)  !need to send in scheme to find drift
                       end if
                       
                

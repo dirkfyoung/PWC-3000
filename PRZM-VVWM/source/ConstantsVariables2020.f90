@@ -44,8 +44,8 @@ module constants_and_variables
 
       !*********************************************************************
       integer :: number_of_schemes
-      character (len=512) scheme_name
-      integer :: scheme_number
+    !  character (len=512) scheme_name
+    !  integer :: scheme_number
 
       integer, parameter :: max_number_crop_periods  = 7 ! Maximum nuber of crop periods that the scenario file holds, Currently the PWC 2020 it is 7 periods oer year
      
@@ -82,7 +82,7 @@ module constants_and_variables
 
       
    !   character(LEN=10), allocatable,dimension(:,:) absolute_date_option
-      integer,allocatable,dimension(:,:)      :: drift_schemes    !this is an integer corresponding to the drift in the waterbody file
+      integer,allocatable,dimension(:,:)      :: drift_schemes        !this is an integer corresponding to the drift in the waterbody file, inexed: scheme number, app number
       real,allocatable,dimension(:,:)         :: driftfactor_schemes  !reduction factor to account for spray buffers
 	  
       real,allocatable,dimension(:,:)		  :: application_rate_schemes

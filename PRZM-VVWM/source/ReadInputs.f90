@@ -15,7 +15,7 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     soil_degradation_halflife_input, soil_ref_temp, xsoil, &
     plant_pesticide_degrade_rate,foliar_formation_ratio_12, foliar_formation_ratio_23, plant_washoff_coeff, & 
     mwt, vapor_press, solubilty, dair,Henry_unitless,Heat_of_Henry, q_10, &
-    number_of_schemes, scheme_number, scheme_name,num_apps_in_schemes, number_of_scenarios, &
+    number_of_schemes,num_apps_in_schemes, number_of_scenarios, &
     app_reference_point_schemes  ,&
     application_rate_schemes, depth_schemes, split_schemes, drift_schemes, &
     lag_schemes, periodicity_schemes,driftfactor_schemes,&
@@ -46,8 +46,11 @@ use utilities
     integer :: absolute_app_day 
     integer :: comma_1, comma_2,comma_3,comma_4,comma_5,comma_6,comma_7,comma_8
     integer :: start_wb
-
-	
+    
+    character (len=512) :: scheme_name
+	integer             :: scheme_number_readin
+    
+    
     write(*,*) trim(inputfile )
 
     OPEN(Unit = inputfile_unit_number, FILE=(inputfile),STATUS='OLD', IOSTAT=status  )
@@ -132,8 +135,8 @@ use utilities
     
 	
     do i=1, number_of_schemes
-        read(inputfile_unit_number,*) scheme_number, scheme_name                                !scheme line 1
-        write(*,*) "Scheme Number & Name ", scheme_number, trim(scheme_name)
+        read(inputfile_unit_number,*) scheme_number_readin, scheme_name                                !scheme line 1
+        write(*,*) "Scheme Number & Name ",scheme_number_readin, trim(scheme_name)
          
         read(inputfile_unit_number,*) app_reference_point_schemes(i)                            !scheme line 2
         read(inputfile_unit_number,*) num_apps_in_schemes(i)                                    !scheme line 3

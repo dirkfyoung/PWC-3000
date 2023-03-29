@@ -315,7 +315,7 @@ end subroutine wpez
     
 
 
-subroutine tpez
+subroutine tpez(scheme_number)
     use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
         water_column_ref_temp, benthic_ref_temp, &
         water_column_rate,is_hed_files_made, DELT_vvwm,is_add_return_frequency, additional_return_frequency, &
@@ -323,7 +323,8 @@ subroutine tpez
         outputfile_parent_analysis,outputfile_deg1_analysis,outputfile_deg2_analysis,&
         outputfile_parent_deem,outputfile_deg1_deem,outputfile_deg2_deem,&
         outputfile_parent_calendex,outputfile_deg1_calendex,outputfile_deg2_calendex,&
-        outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa,waterbodytext,summary_outputfile,  k_flow 
+        outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa,waterbodytext,summary_outputfile, k_flow,&
+        num_applications_input,application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, drift_kg_per_m2, drift_schemes
     
     use waterbody_parameters, ONLY: FROC2, simtypeflag
     
@@ -340,16 +341,22 @@ subroutine tpez
     use allocations
     use coreCalculations
     
-    implicit none              
-
+    implicit none   
+    
+    integer,intent(in) ::scheme_number
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 !**local chemical properties****
 integer :: chem_index
 real    :: koc
-
-
+real :: drift_value_local
+integer :: i,j
+  integer :: app_counter
+  
+  
+  drift_kg_per_m2= 0.0
+  
     write(*,*) "Enter TPEZ"
     
   !******Set TPEZ Specific parameterS  
@@ -361,8 +368,56 @@ real    :: koc
 
     call get_mass_inputs !this doesnt get mass inputs anymore
 
-    
+app_counter= 0
 !need to make drift adjustment for tpez
+ do i=1, num_applications_input
+        do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
+
+           app_counter = app_counter+1       
+     
+        
+        select case (drift_schemes(scheme_number,i)+1)  !this is the row number in the drift table which specifiess the spray method
+        case (1)
+            drift_value_local = 0.1  !these are all DUMMY values---need to populate with real values
+        case (2)
+            drift_value_local = 0.2
+        case (3)
+            drift_value_local = 0.3
+        case (4)
+            drift_value_local = 0.4
+        case (5)
+            drift_value_local = 0.5
+        case (6)
+            drift_value_local = 0.6
+        case (7)
+            drift_value_local = 0.7
+        case (8)
+            drift_value_local = 0.8
+        case (9)
+            drift_value_local = 0.9 
+        case (10)
+            drift_value_local = 0.01
+        case (11)
+            drift_value_local = 0.02
+        case (12)
+            drift_value_local = 0.03
+        case (13)
+            drift_value_local = 0.04
+        case (14)   
+            drift_value_local = 0.05
+        case (15)
+            drift_value_local = 0.0
+        case (16)     
+            drift_value_local = 0.0
+        case default
+        drift_value_local = 0.0
+        end select
+        
+         drift_kg_per_m2(app_counter) = drift_value_local * application_rate_in(i)/10000.
+    end do
+ end do
+ 
+    
     call spraydrift
     
 
