@@ -362,31 +362,31 @@ subroutine tpez(scheme_number)
 
              select case (drift_schemes(scheme_number,i)+1)  !this is the row number in the drift table which specifiess the spray method
              case (1)                         !"Aerial (VF-F)"
-                 drift_value_local = 0.3271
+                 drift_value_local = 0.3194
              case (2)                         !"Aerial (F-M) D"
-                 drift_value_local = 0.2029
+                 drift_value_local = 0.1948
              case (3)                         !"Aerial (M-C)"
-                 drift_value_local = 0.1557
+                 drift_value_local = 0.148
              case (4)                         !"Aerial (C-VC)"
-                 drift_value_local = 0.1268
+                 drift_value_local = 0.1196
              case (5)                         !"Ground (High, VF-F) D"
-                 drift_value_local = 0.12
+                 drift_value_local = 0.1123
              case (6)                         !"Ground (High, F-MC)"
-                 drift_value_local = 0.0313
+                 drift_value_local = 0.0293
              case (7)                         !"Ground (Low, VF-F)"
-                 drift_value_local = 0.053
+                 drift_value_local = 0.0495
              case (8)                         !"Ground (Low, F-MC)"
-                 drift_value_local = 0.0208
+                 drift_value_local = 0.0195
              case (9)                         !"Airblast (normal)"
-                 drift_value_local = 0.0021 
+                 drift_value_local = 0.0019 
              case (10)                        !"Airblast (dense)"
-                 drift_value_local = 0.0282
+                 drift_value_local = 0.0265
              case (11)                        !"Airblast (sparse) D"
-                 drift_value_local = 0.0895
+                 drift_value_local = 0.0831
              case (12)                        !"Airblast (vinyard)"
-                 drift_value_local = 0.005
+                 drift_value_local = 0.0047
              case (13)                        !"Airblast (orchard)"
-                 drift_value_local = 0.0447
+                 drift_value_local = 0.0417
              case (14)                        !"Directly applied to waterbody"
                  drift_value_local = 1.0
              case (15)                        !"None"
