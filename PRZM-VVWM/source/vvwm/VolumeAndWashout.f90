@@ -89,8 +89,6 @@ contains
     end subroutine volume_calc
     !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
     !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     subroutine burial_calc(koc)
 	!this is not really burial,mut a mass sediment mass balance onthe benthic zone
@@ -98,8 +96,7 @@ contains
      use waterbody_parameters, ONLY: froc2
      use constants_and_variables, ONLY:   burial,capacity_2, & 
                                           k_burial                !output(kg/sec)
-    
-                               
+                              
         implicit none
         real,intent(in) :: koc
         real :: kd_sed_2  
@@ -111,21 +108,20 @@ contains
     !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-
-    subroutine tpez_volume_calc
+    subroutine tpez_volume_calc(depth_max,TPEZ_depth_min , area_waterbody)
         !This subroutine calculates tpez volume and washout rate
         !need to get soil properties
         
-        use constants_and_variables, ONLY: num_records, evap_m, precip_m, DELT_vvwm,minimum_depth,flowthru_the_body,&
-            daily_depth,volume1,k_flow ,Daily_avg_flow_out, &
-             ncom2,theta_fc,theta_wp, thickness
+        use constants_and_variables, ONLY: num_records, evap_m, precip_m, DELT_vvwm,flowthru_the_body,&
+            daily_depth,volume1,k_flow ,Daily_avg_flow_out
         use utilities_1 
         
        !MAKE THESE LOCAL FOR TPEZ 
        !  use waterbody_parameters, ONLY: depth_0, depth_max,area_waterbody
 
         implicit none
+        real, intent(in) :: depth_max,TPEZ_depth_min, area_waterbody 
+
         integer:: day
         real:: v_0                                  !initial water body volume [m3]
         real:: v_max                                !maximum water body volume [m3]
@@ -137,26 +133,18 @@ contains
         real,dimension(num_records)::precip_area
         
         real ::  depth_0 
-        real ::  depth_max  
-        real ::  area_waterbody   
-        real ::  TPEZ_depth_min
+
         real ::  avg_property  
          
-        !calculate average Water content properties in top 15 cm
-        call find_average_property(ncom2,15.0, thickness,  theta_fc, avg_property)
-           depth_max = avg_property
-           depth_0   = depth_max
-        call find_average_property(ncom2,15.0, thickness,  theta_wp, avg_property)
-           TPEZ_depth_min = avg_property
-        
-        area_waterbody =     10000.  !m2
+        depth_0 = depth_max
 
         Daily_avg_flow_out = 0.0 !initialization
+        
         write(*,*) "DOING VOLUME CALCULATION for TPEZ "
         
         v_0 = area_waterbody*depth_0
         v_max = area_waterbody*depth_max
-        v_min = area_waterbody*minimum_depth
+        v_min = area_waterbody*TPEZ_depth_min 
         k_flow = 0.        !sets all values of the array to zero
         v_previous = v_0
 
@@ -169,26 +157,23 @@ contains
             check = v_previous + vol_net(day)
             if (check > v_max) then
                 volume1(day) = v_max
-                k_flow(day) = (check-v_max)/DELT_vvwm/v_max   !day # and washout VOLUME
+                
+                !for tpez this will need to be adjusted for sorbed component: this is done later
+                k_flow(day) = (check-v_max)/DELT_vvwm/v_max      !day # and washout VOLUME
+                               
             else if (check < v_min) then
                 volume1(day) = v_min
             else
                 volume1(day) = check
             end if
-            v_previous = volume1(day)
+            v_previous = volume1(day)             
         end do
                
         Daily_avg_flow_out = sum(k_flow)*v_max/num_records  !used for output characterization only
         daily_depth = volume1/area_waterbody !whole array operation
-
+  
     end subroutine tpez_volume_calc
     
     
-    
-    
-    
-    
-
-
 
 end module volumeAndwashout

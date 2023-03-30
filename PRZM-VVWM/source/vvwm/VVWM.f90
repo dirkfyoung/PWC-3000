@@ -314,26 +314,20 @@ write (*,*) 'Calling output_processing'
 end subroutine wpez
     
 
-
+!****************************************************************************
 subroutine tpez(scheme_number)
     use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
-        water_column_rate,is_hed_files_made, DELT_vvwm, k_flow,waterbodytext,&
-        num_applications_input,application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, drift_kg_per_m2, drift_schemes
+        DELT_vvwm, k_flow,waterbodytext,&
+        num_applications_input,application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, drift_kg_per_m2, drift_schemes,&
+        theta_fc,theta_wp, ncom2, thickness, orgcarb,bulkdensity , mavg1_store
+    use waterbody_parameters, ONLY: simtypeflag
     
-    use waterbody_parameters, ONLY: FROC2, simtypeflag
-    
-  !  use variables, ONLY: ,Batch_outputfile
-
     use degradation
-    use solute_capacity
-    use mass_transfer
     use volumeAndwashout
     use MassInputs
-    use ProcessMetfiles
     use outputprocessing
-    use nonInputVariables, only: 
-    use allocations
     use coreCalculations
+    use utilities_1
     
     implicit none   
     
@@ -341,24 +335,27 @@ subroutine tpez(scheme_number)
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-!**local chemical properties****
-integer :: chem_index
-real    :: koc
-real :: drift_value_local
-integer :: i,j
+  !**local chemical properties****
+  integer :: chem_index
+  real    :: koc
+  real :: drift_value_local
+  integer :: i,j
   integer :: app_counter
+  real    :: avg_maxwater ,avg_minwater, avg_oc, avg_bd
   
-  
+  real, parameter :: area_tpez = 10000.!m2
+  real kd
+
   drift_kg_per_m2= 0.0
   
-    write(*,*) "Enter TPEZ"
+  write(*,*) "Enter TPEZ"
     
   !******Set TPEZ Specific parameterS   
   !  call get_mass_inputs !this doesnt get mass inputs anymore
 
-app_counter= 0
-!need to make drift adjustment for tpez
- do i=1, num_applications_input
+  app_counter= 0
+! need to make drift adjustment for tpez
+  do i=1, num_applications_input
         do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
 
              app_counter = app_counter+1       
@@ -405,66 +402,54 @@ app_counter= 0
  end do
     
     call spraydrift
-    
-!    !****************************************************************
-!    !Washout and volume calculations for individual cases
-!    
- write(*,*) "simulation type = 1 tpez"
- call  tpez_volume_calc
 
- !NEED TO GET OC CONTENT FROM FIELD
-!   find_average_property(n,target_depth, thickness, property, average)
- 
+    write(*,*) "simulation type = 1 tpez"
+    call find_average_property(ncom2,15.0, thickness,  theta_fc, avg_maxwater)
+    call find_average_property(ncom2,15.0, thickness,  theta_wp, avg_minwater)
+    call find_average_property(ncom2,15.0, thickness,  orgcarb , avg_oc)
+    call find_average_property(ncom2,15.0, thickness,  bulkdensity , avg_bd)  
+    
+    write(*,*)"avg_maxwater,  avg_minwater, avg_oc as follows:"
+    write(*,*) avg_maxwater,  avg_minwater, avg_oc 
+  
+    call  tpez_volume_calc (avg_maxwater, avg_minwater, area_tpez)   !call special averaging in here
+
+    !NEED TO GET OC CONTENT FROM FIELD
+    !   find_average_property(n,target_depth, thickness, property, average)
+
  
     do chem_index= 1, nchem
           if (is_koc) then
-                  koc   = k_f_input(chem_index) 
+                  kd   = k_f_input(chem_index) * avg_oc /100.0   !ml/g , oc is in %
           else
-                  Koc = k_f_input(chem_index)/froc2
+                  Kd = k_f_input(chem_index)
           end if
-      
-!      !*******************************************
-!
-!        call solute_holding_capacity(koc)    
-!        
 
-!CHANGE METABOLISM
-        call metabolism(chem_index)     
-                        !k_aer_aq = water_column_rate(nchem) *Q_10**((temp_avg - water_column_ref_temp(nchem))/10.)     !k_aer_aq  = 0.69314718/aer_aq/86400.    
-                        !k_aer_s  = k_aer_aq        
-                        !k_anaer_aq = benthic_rate(nchem)*Q_10**((temp_avg - benthic_ref_temp(nchem))/10.) !effective aq metab rate (per sec)
-                        !k_anaer_s  = k_anaer_aq
-
-!        call burial_calc(koc)
-!                                 !kd_sed_2 = KOC*FROC2*.001       !Kd of sediment  [m3/kg]
-!                                 !k_burial=  burial* kd_sed_2/capacity_2
-!        
-!        call volatilization(chem_index )
- !        k_volatile = 0.0
-!          !********************************************
-!          !process the individual degradation rates into overall parameters:
-!        call gamma_one
-!        call gamma_two
-          !gamma_2  = k_anaer_aq*fw2 +k_anaer_s*(1.-fw2)+ k_hydro*fw2 + k_burial
-!        
-!          !**************************************************************
-!        
-    call initial_conditions(chem_index)  !just populates m1 additions: erosion runoff and drift
-        !write(*,*) "Main VVWM Loop "
-        call MainLoop       
+          write(*,* ) "KD = " , kd
+          write(*,* ) "BD = " , avg_bd
+          write(*,* ) "R = " , ( avg_maxwater+avg_bd*kd)/avg_maxwater
+          
+         call initial_conditions(chem_index)  !just populates m1 additions: erosion runoff and drift
+         call MainLoopTPEZ(avg_maxwater, kd, avg_bd)      
     
-       waterbodytext = "TPEZ"
+          waterbodytext = "TPEZ"
 
+      
 !        if (nchem > chem_index) then     
 !              call DegradateProduction(chem_index) 
 !        end if
 !write (*,*) 'Calling output_processing'
 !       call output_processor(chem_index)
+          
+         do i = 1,  size(mavg1_store)
+            write(77,*)   mavg1_store(i)
+         end do 
+          
 !    !**********************************************************
-
     end do
 
 
+          
 end subroutine tpez
     
     
