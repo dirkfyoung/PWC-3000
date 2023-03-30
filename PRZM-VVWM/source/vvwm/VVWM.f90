@@ -317,7 +317,7 @@ end subroutine wpez
 
 subroutine tpez(scheme_number)
     use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
-        water_column_rate,is_hed_files_made, DELT_vvwm, k_flow,&
+        water_column_rate,is_hed_files_made, DELT_vvwm, k_flow,waterbodytext,&
         num_applications_input,application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, drift_kg_per_m2, drift_schemes
     
     use waterbody_parameters, ONLY: FROC2, simtypeflag
@@ -353,111 +353,65 @@ integer :: i,j
   
     write(*,*) "Enter TPEZ"
     
-  !******Set TPEZ Specific parameterS  
-
-    
-
- !   call allocation_for_VVWM  moved to front
-    call convert_weatherdata_for_VVWM      
-
-    call get_mass_inputs !this doesnt get mass inputs anymore
+  !******Set TPEZ Specific parameterS   
+  !  call get_mass_inputs !this doesnt get mass inputs anymore
 
 app_counter= 0
 !need to make drift adjustment for tpez
  do i=1, num_applications_input
         do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
 
-           app_counter = app_counter+1       
-!Aerial v-vf = 0.3271
-!Aerial m-f = 0.2029
-!Aerial c- m = 0.1557
-!Aerial c-cr = 0.1268
-!Ground HB 90th vf - f = 0.12
-!Ground HB 90th f - mc = 0.0313
+             app_counter = app_counter+1       
 
-!Ground LB 90th vf - f = 0.053
-!Ground LB 90th f - mc = 0.0208
-
-!Airblast Normal = 0.0021
-!Airblast Dense = 0.0282
-!Airblast Sparse = 0.0895
-!Airblast Vineyard = 0.005
-!Airblast Orchard = 0.0447
-           
-    !Public Const sprayterm1 As String = "Aerial (VF-F)"
-    !Public Const sprayterm2 As String = "Aerial (F-M) D"
-    !Public Const sprayterm3 As String = "Aerial (M-C)"
-    !Public Const sprayterm4 As String = "Aerial (C-VC)"
-    !
-    !Public Const sprayterm5 As String = "Ground (High, VF-F) D"
-    !Public Const sprayterm6 As String = "Ground (High, F-MC)"
-    !
-    !Public Const sprayterm7 As String = "Ground (Low, VF-F)"
-    !Public Const sprayterm8 As String = "Ground (Low, F-MC)"
-    !
-    !Public Const sprayterm9 As String = "Airblast (normal)"
-    !Public Const sprayterm10 As String = "Airblast (dense)"
-    !Public Const sprayterm11 As String = "Airblast (sparse) D"
-    !Public Const sprayterm12 As String = "Airblast (vinyard)"
-    !Public Const sprayterm13 As String = "Airblast (orchard)"
-    !
-    !Public Const sprayterm14 As String = "Directly applied to waterbody"
-    !Public Const sprayterm15 As String = "None"
-    !Public Const sprayterm16 As String = "You Specify"     
-    !    
-        select case (drift_schemes(scheme_number,i)+1)  !this is the row number in the drift table which specifiess the spray method
-        case (1)
-            drift_value_local = 0.1  !these are all DUMMY values---need to populate with real values
-        case (2)
-            drift_value_local = 0.2
-        case (3)
-            drift_value_local = 0.3
-        case (4)
-            drift_value_local = 0.4
-        case (5)
-            drift_value_local = 0.5
-        case (6)
-            drift_value_local = 0.6
-        case (7)
-            drift_value_local = 0.7
-        case (8)
-            drift_value_local = 0.8
-        case (9)
-            drift_value_local = 0.9 
-        case (10)
-            drift_value_local = 0.01
-        case (11)
-            drift_value_local = 0.02
-        case (12)
-            drift_value_local = 0.03
-        case (13)
-            drift_value_local = 0.04
-        case (14)   
-            drift_value_local = 0.05
-        case (15)
-            drift_value_local = 0.0
-        case (16)     
-            drift_value_local = 0.0
-        case default
-        drift_value_local = 0.0
-        end select
+             select case (drift_schemes(scheme_number,i)+1)  !this is the row number in the drift table which specifiess the spray method
+             case (1)                         !"Aerial (VF-F)"
+                 drift_value_local = 0.3271
+             case (2)                         !"Aerial (F-M) D"
+                 drift_value_local = 0.2029
+             case (3)                         !"Aerial (M-C)"
+                 drift_value_local = 0.1557
+             case (4)                         !"Aerial (C-VC)"
+                 drift_value_local = 0.1268
+             case (5)                         !"Ground (High, VF-F) D"
+                 drift_value_local = 0.12
+             case (6)                         !"Ground (High, F-MC)"
+                 drift_value_local = 0.0313
+             case (7)                         !"Ground (Low, VF-F)"
+                 drift_value_local = 0.053
+             case (8)                         !"Ground (Low, F-MC)"
+                 drift_value_local = 0.0208
+             case (9)                         !"Airblast (normal)"
+                 drift_value_local = 0.0021 
+             case (10)                        !"Airblast (dense)"
+                 drift_value_local = 0.0282
+             case (11)                        !"Airblast (sparse) D"
+                 drift_value_local = 0.0895
+             case (12)                        !"Airblast (vinyard)"
+                 drift_value_local = 0.005
+             case (13)                        !"Airblast (orchard)"
+                 drift_value_local = 0.0447
+             case (14)                        !"Directly applied to waterbody"
+                 drift_value_local = 1.0
+             case (15)                        !"None"
+                 drift_value_local = 0.0
+             case (16)                        !"You Specify"  
+                 drift_value_local = 0.0
+             case default
+             drift_value_local = 0.0
+             end select
         
          drift_kg_per_m2(app_counter) = drift_value_local * application_rate_in(i)/10000.
     end do
  end do
- 
     
     call spraydrift
     
-
 !    !****************************************************************
 !    !Washout and volume calculations for individual cases
 !    
  write(*,*) "simulation type = 1 tpez"
  call  tpez_volume_calc
 
-!        
- 
  !NEED TO GET OC CONTENT FROM FIELD
 !   find_average_property(n,target_depth, thickness, property, average)
  
@@ -495,9 +449,9 @@ app_counter= 0
 !        
 !          !**************************************************************
 !        
-        !call initial_conditions(chem_index)
+    call initial_conditions(chem_index)  !just populates m1 additions: erosion runoff and drift
         !write(*,*) "Main VVWM Loop "
-        !call MainLoop       
+        call MainLoop       
     
        waterbodytext = "TPEZ"
 

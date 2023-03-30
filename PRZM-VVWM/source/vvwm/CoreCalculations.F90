@@ -195,7 +195,60 @@ end subroutine simuldiff2
 !########################################################################################
 
 
+subroutine MainLoopTPEZ
 
+use constants_and_variables, ONLY: num_records , DELT_vvwm, fraction_to_benthic,&
+                                   daily_depth,fw1,fw2,aqconc_avg1,aqconc_avg2, A,B,E,F, &
+                                   m1_input,m1_store,m2_store,mavg1_store,aq1_store, aq2_store, m2_input, &
+                                   k_flow,soil_degradation_halflife_input
+
+use waterbody_parameters, ONLY: benthic_depth ,porosity,area_waterbody 
+use initialization, ONLY: Convert_halflife_to_rate_per_sec                        
+                                  
+    implicit none
+    integer :: day_count
+
+    real:: m1,m2    !daily peak/average mass
+    real:: mn1, mn2        !mass at end of time step
+    real:: aqconc1, aqconc2  !aqueous concentrations for regions 1 and 2
+    real:: new_aqconc1, new_aqconc2  !aqueous concentrations for regions 1 and 2
+    real:: k_total,k_soil
+    
+    m1=0.
+    mn1=0.
+
+
+    !***** Daily Loop Calculations ************************
+    do day_count = 1,num_records    
+
+        m1 = mn1 + m1_input(day_count)       
+        m1_store(day_count)=m1
+
+
+                
+        !******************************************************
+        !store these beginning day aquatic concentrations
+        !these variables are only used for delivery to output routines
+        aq1_store(day_count)=aqconc1
+        !************************thank you ******************************
+       
+        call Convert_halflife_to_rate_per_sec(soil_degradation_halflife_input(1), k_soil )
+        
+        
+        k_total = (k_flow(day_count) +  k_soil )
+        
+        mn1 = m1*exp(-DELT_vvwm * k_total)
+        mavg1_store(day_count)=(1.-exp(-DELT_vvwm * k_total))/k_total/DELT_vvwm 
+        !convert to per area
+        
+     !   TPEZ_mass_per_area = mavg1_store/area
+
+		
+    end do 
+
+   
+    
+end subroutine MainLoopTPEZ
 
 
 end Module coreCalculations
