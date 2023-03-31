@@ -845,7 +845,7 @@
             isZeroConc.Checked = currentRow(0)
             ZeroConcDepth.Text = currentRow(1)
 
-            isTpez.Checked = MyReader.ReadLine()
+            MyReader.ReadLine() 'blank line
 
             Dim rowcount, colcount As Integer
             currentRow = MyReader.ReadFields
@@ -896,7 +896,7 @@
         msg = msg & vbNewLine & BaseFlow.Text
         msg = msg & vbNewLine & FlowLength.Text
         msg = msg & vbNewLine & isZeroConc.Checked & "," & ZeroConcDepth.Text
-        msg = msg & vbNewLine & isTpez.Checked
+        msg = msg & vbNewLine & "unused line for future expansion"
 
         Dim column_count As Integer
         'determine column count

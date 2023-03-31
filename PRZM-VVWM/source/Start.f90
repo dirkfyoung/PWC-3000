@@ -2,7 +2,7 @@ program PRZMVVWM
     use allocations
     use readinputs
     use constants_and_variables, ONLY: maxFileLength, inputfile,number_of_schemes, &
-                                       number_of_scenarios,  First_time_through, &
+                                       number_of_scenarios,  First_time_through, First_time_through_tpez, &
                                        app_window_span, app_window_step, application_date, application_date_original, &
                                        is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id
     
@@ -42,7 +42,8 @@ program PRZMVVWM
    !################################################ 
 	
     First_time_through = .TRUE.  !used to write output file headers, so can keep all output writes in one place
-
+    First_time_through_tpez = .TRUE.
+    
     call get_command_argument(1,inputfile,length)
     call przm_id                                     !Stamp the runstatus file 
 	

@@ -82,7 +82,7 @@ Public Class Form1
 
         Dim combo As New DataGridViewComboBoxColumn With {
             .HeaderText = "Application Method",
-            .AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
+            .Width = 135
         }
 
         combo.Items.Add(Standard.method1)
@@ -113,7 +113,7 @@ Public Class Form1
 
         Dim driftcombo As New DataGridViewComboBoxColumn With {
             .HeaderText = "Drift Type",
-            .DropDownWidth = 170,
+            .DropDownWidth = 220,
             .Width = 160
         }
 
@@ -145,7 +145,7 @@ Public Class Form1
         AppTableDisplay.Columns.Add("Buffer", "Drift Buffer (ft)")
         'AppTableDisplay.Columns(5).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
         AppTableDisplay.Columns(6).SortMode = DataGridViewColumnSortMode.NotSortable
-        AppTableDisplay.Columns(6).Width = 54
+        AppTableDisplay.Columns(6).Width = 64
 
         AppTableDisplay.Columns.Add("Periodicity", "Period")
         'AppTableDisplay.Columns(6).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader

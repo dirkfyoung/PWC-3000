@@ -332,35 +332,34 @@ subroutine tpez(scheme_number)
     implicit none   
     
     integer,intent(in) ::scheme_number
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-  !**local chemical properties****
-  integer :: chem_index
-  real    :: koc
-  real :: drift_value_local
-  integer :: i,j
-  integer :: app_counter
-  real    :: avg_maxwater ,avg_minwater, avg_oc, avg_bd
-  
-  real, parameter :: area_tpez = 10000.!m2
-  real kd
-
-  drift_kg_per_m2= 0.0
-  
-  write(*,*) "Enter TPEZ"
     
-  !******Set TPEZ Specific parameterS   
-  !  call get_mass_inputs !this doesnt get mass inputs anymore
-
-  app_counter= 0
-! need to make drift adjustment for tpez
-  do i=1, num_applications_input
+    !**local chemical properties****
+    integer :: chem_index
+    real    :: koc
+    real    :: drift_value_local
+    integer :: i,j
+    integer :: app_counter
+    real    :: avg_maxwater ,avg_minwater, avg_oc, avg_bd
+    
+    real, parameter :: area_tpez = 10000.!m2
+    real kd
+    write(*,*) "Enter TPEZ"
+     
+     
+    drift_kg_per_m2= 0.0
+    
+   
+    
+   !******Set TPEZ Specific parameters  
+ 
+   app_counter= 0
+   do i=1, num_applications_input
         do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
 
              app_counter = app_counter+1       
 
-             select case (drift_schemes(scheme_number,i)+1)  !this is the row number in the drift table which specifiess the spray method
+             select case (drift_schemes(scheme_number,i))  !this is the row number in the drift table which specifiess the spray method
              case (1)                         !"Aerial (VF-F)"
                  drift_value_local = 0.3194
              case (2)                         !"Aerial (F-M) D"
@@ -391,15 +390,16 @@ subroutine tpez(scheme_number)
                  drift_value_local = 1.0
              case (15)                        !"None"
                  drift_value_local = 0.0
-             case (16)                        !"You Specify"  
+             case (16)                        !"advanced user"  
                  drift_value_local = 0.0
              case default
              drift_value_local = 0.0
              end select
         
-         drift_kg_per_m2(app_counter) = drift_value_local * application_rate_in(i)/10000.
-    end do
- end do
+             drift_kg_per_m2(app_counter) = drift_value_local * application_rate_in(i)/10000.
+        end do
+   end do
+   
     
     call spraydrift
 
@@ -439,10 +439,10 @@ subroutine tpez(scheme_number)
 !              call DegradateProduction(chem_index) 
 !        end if
 !write (*,*) 'Calling output_processing'
-!       call output_processor(chem_index)
+       call tpez_output_processor(chem_index)
           
          do i = 1,  size(mavg1_store)
-            write(77,*)   mavg1_store(i)
+            write(77,*)   mavg1_store(i)  !tpez is 1 ha so effectively kg/ha
          end do 
           
 !    !**********************************************************
