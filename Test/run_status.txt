@@ -1,4 +1,4 @@
- Start CPU Time  0.000000000000000E+000
+ Start CPU Time  1.562500000000000E-002
  PRZM5-VVWM Version  -1.000
  
      For technical support contact:
@@ -51,7 +51,7 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  number of apps                      1
      day  rate  method   depth   Tband   Eff   drft#  driftValue  repeat  lag
             Interrpolated Spray Drift =    1.000    
-       1  2.00       1   1.000   0.000   0.900  14      1.000        1     0
+       1  1.00       1   1.000   0.000   0.900  14      1.000        1     0
  Any Foliar Applications?  F
  ********************************************************************
  ********** Start Scenario Loop *************************************
@@ -89,7 +89,7 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  End Weather allocation
  Finished reading weather file
  ###################################################
- cpu time read weather   1.562500000000000E-002
+ cpu time read weather   0.000000000000000E+000
  ###################################################
  Number of compartments =                     65
  Do autoprofile ?  T
@@ -168,16 +168,16 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  crop and app calcs
  Put applications in order for rain restrictions? F
  ###################################################
- cpu time before ordering applications (if applicable)    1.562500000000000E-002
+ cpu time before ordering applications (if applicable)    0.000000000000000E+000
  ###################################################
  ###################################################
- cpu time after ordering applications (if applicable)    1.562500000000000E-002
+ cpu time after ordering applications (if applicable)    0.000000000000000E+000
  ###################################################
-                     1                 22281  2.000000000000000E-005
-                     2                 22646  2.000000000000000E-005
-                     3                 23011  2.000000000000000E-005
+                     1                 22281  1.000000000000000E-005
+                     2                 22646  1.000000000000000E-005
+                     3                 23011  1.000000000000000E-005
  ###################################################
- cpu time after writing apps  1.562500000000000E-002
+ cpu time after writing apps  0.000000000000000E+000
  ###################################################
  Done setting application dates, Total applications in sim = 
                      3
@@ -185,7 +185,7 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  maxcap_volume (effective pore volume (depth), cm) =    278.600000000000     
  End of Initialization
  ###################################################
- cpu time do initialization  1.562500000000000E-002
+ cpu time do initialization  0.000000000000000E+000
  ###################################################
  crop period                     1
  Start allocations
@@ -209,10 +209,10 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  cpu time gw    3.125000000000000E-002
  ###################################################
  enter VVWM
- parent runoff mass delivered    26.8794908668186     
- parent erosion mass   1.050199574142254E-003
+ parent runoff mass delivered    13.4397454334093     
+ parent erosion mass   5.250997870711271E-004
  total_applications =                      3
- Spray mass =    6.00000000000000     
+ Spray mass =    3.00000000000000     
  simulation type =                      2
  Constant Waterbody Volume  =    20000.0000000000     
  depth   =    2.00000000000000     
@@ -221,7 +221,7 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  Calling output_processing
  Start Window averaging
  Start picking max
- total and fraction off field   60.0000000000000       0.548009017773212     
+ total and fraction off field   30.0000000000000       0.548009017773212     
  Doing output process
  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  1_331522-12661-2_Cotton-r03W-B_USEPA Pond_0000                                 
@@ -238,7 +238,7 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  Calling output_processing
  Start Window averaging
  Start picking max
- total and fraction off field   60.0000000000000       0.548009017773212     
+ total and fraction off field   30.0000000000000       0.548009017773212     
  Doing output process
  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  1_331522-12661-2_Cotton-r03W-B_USEPA Pond_0000_WPEZ                            
@@ -254,7 +254,7 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
                     
  Enter TPEZ
  total_applications =                      3
- Spray mass =    6.00000000000000     
+ Spray mass =    3.00000000000000     
  simulation type = 1 tpez
  avg_maxwater,  avg_minwater, avg_oc as follows:
   0.250000000000000       9.200000000000000E-002   1.45011600000000     
@@ -262,6 +262,7 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  KD =   1.450116000000000E-002
  BD =    1.30000000000000     
  R =    1.07540603200000     
+ Calling tpez output_processing
  Start picking max tpez
  ^^^^^^^^^^    TPEZ             ^^^^^^^^^^^^^^^^^^^^^
  1_331522-12661-2_Cotton-r03W-B_USEPA Pond_0000_WPEZ_TPEZ                       
@@ -271,25 +272,25 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  done output batch 
  ###################################################
- cpu time vvwm   7.812500000000000E-002
+ cpu time vvwm   3.125000000000000E-002
  ###################################################
  ###################################################
- cpu time deallocate    7.812500000000000E-002
+ cpu time deallocate    3.125000000000000E-002
  ###################################################
  Doing scenario                      2
  ###################################################
- cpu time vvwm done        7.812500000000000E-002
+ cpu time vvwm done        3.125000000000000E-002
  ###################################################
  *****************************Done with scheme                      1
  ###################################################
- cpu time, scheme     7.812500000000000E-002                     2
+ cpu time, scheme     3.125000000000000E-002                     2
  ###################################################
  ###################################################
- cpu time, waterbody     7.812500000000000E-002                     1
+ cpu time, waterbody     3.125000000000000E-002                     1
  ###################################################
  ###################################################
- End Proram cpu time     7.812500000000000E-002
+ End Proram cpu time     3.125000000000000E-002
  ###################################################
- Total clock time =   6.599998474121094E-002
- tridiag  0.000000000000000E+000
+ Total clock time =   3.700017929077148E-002
+ tridiag  1.562500000000000E-002
  ###################################################

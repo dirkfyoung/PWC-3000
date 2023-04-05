@@ -42,7 +42,7 @@ module allocations
         volume1, daily_depth,k_flow,k_burial, k_aer_aq, k_volatile,k_photo,k_hydro, &
         k_anaer_aq, k_anaer_s, degradateProduced1,degradateProduced2, A,B,E, F, fw1, &
         k_aer_s, gamma_2, k_aer_s, k_flow, theta, mavg1_store, &
-        capacity_1,gamma_1,m1_input,aqconc_avg1,aqconc_avg2,m1_store,m2_store,aq1_store, aq2_store, m2_input
+        capacity_1,gamma_1,m1_input,aqconc_avg1,aqconc_avg2,m1_store,m2_store,aq1_store, aq2_store, m2_input,  edge_of_field
                                                                      
 
         allocate (flowthru_the_body(num_records))
@@ -50,7 +50,8 @@ module allocations
         allocate (eroded_solids_mass(num_records))
         allocate (fraction_to_benthic(num_records))
         
-
+        allocate (edge_of_field(num_records))
+ 
         allocate (precip_m(num_records))  !VVWM parameters which have  different units
         allocate (evap_m(num_records)) 
         allocate (temp_avg(num_records)) 
@@ -213,7 +214,7 @@ end subroutine allocation_for_VVWM
         theta,capacity_1,fw1,m1_input,m2_input,m1_store,m2_store,mavg1_store, &
         aqconc_avg1,aqconc_avg2,aq1_store,aq2_store, irrigation_save, canopy_flow_save, THAIR_save, &
 		theta_end_save, runoff_save,soilwater_save,velocity_save, theta_zero_save,thair_old_save, &
-       	erosion_save, enriched_erosion_save,et_save, infiltration_save,conc_last_horizon_save, soil_temp_save
+       	erosion_save, enriched_erosion_save,et_save, infiltration_save,conc_last_horizon_save, soil_temp_save, edge_of_field
   
         deallocate (emergence_date )        
         deallocate (maturity_date  )
@@ -325,6 +326,8 @@ end subroutine allocation_for_VVWM
       deallocate (atharvest_pest_app   ) 
         
       deallocate (flowthru_the_body)
+      deallocate (edge_of_field)  
+    
       deallocate (burial)
       deallocate (eroded_solids_mass)
       deallocate (fraction_to_benthic)

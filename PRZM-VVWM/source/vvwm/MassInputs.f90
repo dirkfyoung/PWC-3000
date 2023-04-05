@@ -6,7 +6,7 @@ contains
 
     use constants_and_variables, ONLY: nchem ,num_records, runoff_save,erosion_save,&
                                  eroded_solids_mass, burial,flowthru_the_body, mass_off_field,&   !OUTPUT array to hold runoff & erosion & spraydrift events
-                                 runoff_total,erosion_total,  Daily_Avg_Runoff, runoff_save
+                                 runoff_total,erosion_total,  Daily_Avg_Runoff, runoff_save, edge_of_field
     
     use waterbody_parameters, ONLY: afield, baseflow    
 
@@ -48,10 +48,11 @@ integer :: i
         flowthru_the_body = runoff_save*afield/8640000.    !m3/s :(cm/day) *(m2)* (m/100cm)* (day/86400s)  
         Daily_Avg_Runoff  = sum(flowthru_the_body)/num_records
         flowthru_the_body = flowthru_the_body+ baseflow  !add in baseflow
-    
+       
+        edge_of_field  = 0.0
+        where (flowthru_the_body> 0.0) edge_of_field = mass_off_field(:,1,nchem) /(flowthru_the_body*86400.) !kg/m3
+        
         ! Process and convert erosion for VVWM use
-		
-		
         eroded_solids_mass= erosion_save*1000. !convert from tonnes to kg
 		
         Burial = eroded_solids_mass/86400.  ! kg/day*(day/86400 sec)    = kg/sec

@@ -333,7 +333,6 @@ subroutine tpez(scheme_number)
     
     integer,intent(in) ::scheme_number
 
-    
     !**local chemical properties****
     integer :: chem_index
     real    :: koc
@@ -418,7 +417,8 @@ subroutine tpez(scheme_number)
     !   find_average_property(n,target_depth, thickness, property, average)
 
  
-    do chem_index= 1, nchem
+  do chem_index= 1, nchem
+     
           if (is_koc) then
                   kd   = k_f_input(chem_index) * avg_oc /100.0   !ml/g , oc is in %
           else
@@ -433,20 +433,27 @@ subroutine tpez(scheme_number)
          call MainLoopTPEZ(avg_maxwater, kd, avg_bd)      
     
           waterbodytext = "TPEZ"
-
-      
+  
 !        if (nchem > chem_index) then     
-!              call DegradateProduction(chem_index) 
+!              call DegradateProduction(chem_index)  !not available for tpez
 !        end if
-!write (*,*) 'Calling output_processing'
+       write (*,*) 'Calling tpez output_processing'
        call tpez_output_processor(chem_index)
-          
+       
+       
+       
+       !Calculate Edge of Field
+      ! flowthru_the_body = runoff_save*afield/8640000.    !m3/s :(cm/day) *(m2)* (m/100cm)* (day/86400s)  
+      ! mass_off_field(day_number_chemtrans,1,1) =   ROFLUX(1)* afield*10.  !converts to kg
+       
+   
          do i = 1,  size(mavg1_store)
-            write(77,*)   mavg1_store(i)  !tpez is 1 ha so effectively kg/ha
+            write(77,*)   mavg1_store(i)         !tpez is 1 ha so effectively kg/ha
          end do 
           
-!    !**********************************************************
-    end do
+    !**********************************************************
+  end do
+  
 
 
           

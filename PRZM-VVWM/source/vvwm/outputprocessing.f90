@@ -171,7 +171,7 @@ end if
 	
 
 	 
-    call pick_max(num_years,num_records, first_annual_dates,aqconc_avg1,c1_max) !NEW FIND DAILY AVERAGE CONCENTRATION RETURN   
+    call pick_max(num_years,num_records, first_annual_dates,aqconc_avg1,c1_max)     !NEW FIND DAILY AVERAGE CONCENTRATION RETURN   
     call pick_max(num_years,num_records, first_annual_dates,c4,c4_max)
     call pick_max(num_years,num_records, first_annual_dates,c21,c21_max)
     call pick_max(num_years,num_records, first_annual_dates,c60,c60_max)
@@ -190,7 +190,11 @@ end if
 
     !****Calculate Acute values *******************
     call pick_max(num_years,num_records, first_annual_dates,aq1_store, peak)    
-    call pick_max(num_years,num_records, first_annual_dates,aq2_store, benthic_peak)
+   ! call pick_max(num_years,num_records, first_annual_dates,aq2_store, benthic_peak)
+    
+    call pick_max(num_years,num_records, first_annual_dates,aqconc_avg2, benthic_peak) !new 4/5/2023 Changed to daily average for benthin acute
+    
+
     
     !*****************************************
 
@@ -495,7 +499,7 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     real, intent(in), dimension(num_years)    :: peak,c1_max,c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max
     real, intent(in)                          :: Simulation_average
     integer, intent(in) ::chem_index
-    character (len=400) :: header
+    character (len=433) :: header
     
     
     !****LOCAL*********************
@@ -504,17 +508,17 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     character(len= 257) :: local_run_id
     
     If (First_time_through) then
-        header = 'Run Information                                                  1-d avg      365-d avg    Total avg    4-d avg      21-d avg     60-d avg     B 1-day      B 21-d avg   Off-Field  Runoff Frac  Erosn Frac   Drift Frac   col washout  col metab    col hydro    col photo    col volat    col total    ben sed rem  ben metab    ben hydro    ben total     gw_peak     post_bt_avg  throughput'
+        header = 'Run Information                                                                  ,      1-d avg,    365-d avg,    Total avg,      4-d avg,     21-d avg,     60-d avg,      B 1-day,   B 21-d avg,    Off-Field,  Runoff Frac,   Erosn Frac,   Drift Frac,  col washout,    col metab,    col hydro,    col photo,    col volat,    col total,  ben sed rem,    ben metab,    ben hydro,    ben total,      gw_peak,  post_bt_avg,   throughput,'
         
         Open(unit=summary_output_unit,FILE= trim(summary_outputfile),Status='unknown')  
-        Write(summary_output_unit, '(A400)') header
+        Write(summary_output_unit, '(A433)') header
         if ( NCHEM>1) then
             Open(unit=summary_output_unit_deg1,FILE= trim(summary_outputfile_deg1),Status='unknown')  
-            Write(summary_output_unit_deg1, '(A322)') header
+            Write(summary_output_unit_deg1, '(A433)') header
         end if
         if ( NCHEM >2) then
             Open(unit=summary_output_unit_deg2,FILE= trim(summary_outputfile_deg2),Status='unknown')  
-            Write(summary_output_unit_deg2, '(A322)') header
+            Write(summary_output_unit_deg2, '(A433)') header
         end if
         
         First_time_through= .FALSE.
@@ -542,16 +546,16 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     select case (chem_index)
     case (1)
         local_run_id = trim(run_id) // '_Parent'
-        write(summary_output_unit,'(A80,1x,26ES13.4E3)') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out, fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
+        write(summary_output_unit,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out, fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, gw_peak, post_bt_avg ,throughputs
 
     case (2)
         local_run_id = trim(run_id) // '_deg1'
-        write(summary_output_unit_deg1,'(A80,1x,23ES13.4E3)') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field,runoff_fraction,erosion_fraction,drift_fraction, &
+        write(summary_output_unit_deg1,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field,runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2
     case (3)
         local_run_id = trim(run_id)  // '_deg2'
-        write(summary_output_unit_deg2,'(A60,1x,23ES13.4E3)') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
+        write(summary_output_unit_deg2,'(A80,1x,26(",", ES13.4E3))')(adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2
 
         case default
@@ -569,7 +573,7 @@ end subroutine write_simple_batch_data
 
 
 
-subroutine  tpez_write_simple_batch_data(chem_index, return_frequency,num_years, tpez_max)
+subroutine  tpez_write_simple_batch_data(chem_index, return_frequency,num_years, tpez_max, edge_of_field_max)
 
 use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     nchem, runoff_fraction,erosion_fraction,drift_fraction , First_time_through_tpez,summary_outputfile_tpez,summary_output_unit_tpez, &
@@ -581,18 +585,20 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     implicit none   
     integer, intent(in)                     :: num_years
     real, intent(in)                        :: return_frequency
-    real, intent(in), dimension(num_years)  :: tpez_max
+    real, intent(in), dimension(num_years)  :: tpez_max, edge_of_field_max
     integer, intent(in)                     :: chem_index
     
     character (len=400) :: header
         
     !****LOCAL*********************
-    real      ::  tpez_max_out  
+    real      ::  tpez_max_out 
+    real      ::  edge_of_field_max_out
+    
     logical   :: lowyearflag
     character(len= 257) :: local_run_id
     
     If (First_time_through_tpez) then
-        header = 'Run Information                                                  tpez kg/ha'
+        header = 'Run Information                                                                    TPEZ (kg/ha),   EoF (ug/L),'
         
         Open(unit=summary_output_unit_tpez,FILE= trim(summary_outputfile_tpez),Status='unknown')  
         Write(summary_output_unit_tpez, '(A400)') header
@@ -611,8 +617,8 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
 
 
     !**find values corresponding to  percentiles
-    call Return_Frequency_Value(return_frequency, tpez_max,   num_years, tpez_max_out,         lowyearflag)   
-
+    call Return_Frequency_Value(return_frequency, tpez_max,          num_years, tpez_max_out,          lowyearflag)   
+    call Return_Frequency_Value(return_frequency, edge_of_field_max, num_years, edge_of_field_max_out, lowyearflag)   
 
    write(*,*) "^^^^^^^^^^    TPEZ             ^^^^^^^^^^^^^^^^^^^^^" 
    write (*,*) run_id
@@ -621,7 +627,7 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     select case (chem_index)
     case (1)
         local_run_id = trim(run_id) // '_Parent'
-        write(summary_output_unit_tpez,'(A80,1x,26ES13.4E3)') (adjustl(local_run_id)),  tpez_max_out
+        write(summary_output_unit_tpez,'(A80,1x,26(",",ES13.4E3))') (adjustl(local_run_id)),  tpez_max_out, edge_of_field_max_out*1000000.0  !convert to ug/L  from kg/m3
     !case (2)
     !    local_run_id = trim(run_id) // '_deg1'
     !    write(summary_output_unit_deg1,'(A80,1x,23ES13.4E3)') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field,runoff_fraction,erosion_fraction,drift_fraction, &
@@ -762,7 +768,7 @@ end Subroutine calculate_effective_halflives
                                  spray_total ,   &
                                  Daily_Avg_Runoff, Daily_avg_flow_out,  runoff_fraction, erosion_fraction, drift_fraction ,&
     k_burial, k_aer_aq, k_flow, k_hydro, k_photo, k_volatile,k_anaer_aq, gamma_1, gamma_2, gw_peak, post_bt_avg ,throughputs,simulation_avg, &
-	is_waterbody_info_output, full_run_identification, applied_mass_sum_gram_per_cm2 , fraction_off_field, mavg1_store
+	is_waterbody_info_output, full_run_identification, applied_mass_sum_gram_per_cm2 , fraction_off_field, mavg1_store, edge_of_field
    
                          
     implicit none
@@ -782,8 +788,8 @@ end Subroutine calculate_effective_halflives
  !   real(8),dimension(num_records)::cavgw
 
 
-    real,dimension(num_years):: tpez_max !peak year to year daily average
-
+    real,dimension(num_years):: tpez_max               !peak year to year daily average
+    real,dimension(num_years):: edge_of_field_max
 
     integer :: i    
     integer ::date_time(8)
@@ -831,14 +837,15 @@ end if
 
 	 write(*,*) 'Start picking max tpez'
 	
-    call pick_max(num_years,num_records, first_annual_dates,mavg1_store,tpez_max) !NEW FIND DAILY AVERAGE CONCENTRATION RETURN   
+    call pick_max(num_years,num_records, first_annual_dates,mavg1_store,tpez_max)             !NEW FIND DAILY AVERAGE CONCENTRATION RETURN  
+    call pick_max(num_years,num_records, first_annual_dates,edge_of_field ,edge_of_field_max) !NEW FIND DAILY AVERAGE CONCENTRATION RETURN   
+    
+    
 
  !   if (is_output_all== .false.) then  !append an output file for a reduced output batch run
        return_frequency = 10.0
        
-
-
-       call tpez_write_simple_batch_data(chem_index, return_frequency,num_years, tpez_max)      
+       call tpez_write_simple_batch_data(chem_index, return_frequency,num_years, tpez_max, edge_of_field_max)      
 
 
     end subroutine tpez_output_processor

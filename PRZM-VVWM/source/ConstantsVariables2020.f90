@@ -793,6 +793,9 @@ module constants_and_variables
     real,allocatable,dimension(:) :: eroded_solids_mass   !read in from PRZMV output as tonnes/day but immediately converted to kg/day
     real,allocatable,dimension(:) :: burial               !(kg/sec) array of daily burial rate
     real,allocatable,dimension(:) :: flowthru_the_body    !(m3/sec) array of daily flow
+    real,allocatable,dimension(:) :: edge_of_field        !(kg/m3) array of daily runoff concentrations (zero if no runoff) includes base flow dilution if any
+    
+    
    
     real,allocatable,dimension(:) :: k_aer_aq     !aqueous-phase aerobic rate (per sec)
     real,allocatable,dimension(:) :: k_anaer_aq   !aqueous-phase anaerobic rate (per sec)
