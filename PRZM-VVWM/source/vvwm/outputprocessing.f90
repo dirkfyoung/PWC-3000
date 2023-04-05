@@ -572,8 +572,8 @@ end subroutine write_simple_batch_data
 subroutine  tpez_write_simple_batch_data(chem_index, return_frequency,num_years, tpez_max)
 
 use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
-     nchem,     runoff_fraction,erosion_fraction,drift_fraction , First_time_through_tpez,summary_outputfile_tpez,summary_output_unit_tpez, &
- effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
+    nchem, runoff_fraction,erosion_fraction,drift_fraction , First_time_through_tpez,summary_outputfile_tpez,summary_output_unit_tpez, &
+    effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, &
     summary_output_unit_deg1, summary_output_unit_deg2, summary_outputfile_deg1, summary_outputfile_deg2, &
     gw_peak, post_bt_avg ,throughputs,simulation_avg, fraction_off_field
@@ -583,11 +583,9 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     real, intent(in)                        :: return_frequency
     real, intent(in), dimension(num_years)  :: tpez_max
     integer, intent(in)                     :: chem_index
-
     
     character (len=400) :: header
-    
-    
+        
     !****LOCAL*********************
     real      ::  tpez_max_out  
     logical   :: lowyearflag

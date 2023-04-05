@@ -163,43 +163,22 @@ end subroutine DegradateProduction
 !######################################################################################
 subroutine initial_conditions(chem_index)
        !THIS SUBROUTINE RETURNS VALUES FOR input masses into each compartment 
-use constants_and_variables, ONLY: fraction_to_benthic, eroded_solids_mass, degradateProduced1, &
+       use constants_and_variables, ONLY: fraction_to_benthic, eroded_solids_mass, degradateProduced1, &
                                      degradateProduced2, mass_off_field, spray_additions,  & 
                                      m1_input,           & !OUTPUT mass added to littoral region (kg) 
-                                     m2_input,           &       !OUTPUT mass added to bethic region (kg)
-
-                                     capacity_1,         &
-                                     kd_sed_1
-                                    
-        
-                                     !INPUT !mass(:,2)mass coming in by runoff and spraydrift (kg) 
-                                     !INPUT mass(:,2) mass coming in on sediment (kg)
-        !Local Variables
-       
-        
+                                     m2_input,           & !OUTPUT mass added to bethic region (kg) --now always zero for parent
+                                     capacity_1, kd_sed_1
+                                                       
         implicit none      
         integer,intent(in) :: chem_index
-integer i
+
         !********************************************************************
-            fraction_to_benthic = kd_sed_1*eroded_solids_mass/ (capacity_1 + kd_sed_1*eroded_solids_mass)    !used later
-            m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index) + spray_additions  !all mass goes to water column initially
-            m2_input = 0  
-
-        !CALCULATE INPUT MASSES   
-        !if (is_calc_prben) then
-            !fraction_to_benthic = kd_sed_1*eroded_solids_mass/ (capacity_1 + kd_sed_1*eroded_solids_mass)    !used later
-            !m1_input = mass(:,1,chem_index) +  mass(:,2,chem_index)    !all mass goes to water column initially
-            !m2_input = 0  
-
-        !else 
-        !    fraction_to_benthic = prben
-        !    m1_input = mass(:,1,chem_index) +(1.-fraction_to_benthic)*mass(:,2,chem_index)    !note: rfx includes spraydrift and runoff
-        !    m2_input = fraction_to_benthic*mass(:,2,chem_index)
-        !              
-        !end if
+        fraction_to_benthic = kd_sed_1*eroded_solids_mass/ (capacity_1 + kd_sed_1*eroded_solids_mass)    !used later in core calc routine
+        m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index) + spray_additions  !all mass goes to water column initially
+        m2_input = 0.0  
 
         !******* Add in any degradate mass produced by parent from subsequent parent run******
-        if (chem_index>1) then                 !j=1 is the parent.  The following call is for the manual pesticide applications.
+        if (chem_index>1) then                 !j=1 is the parent.
           m1_input = m1_input + degradateProduced1   
           m2_input = m2_input + degradateProduced2
         end if
