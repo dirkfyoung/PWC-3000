@@ -53,6 +53,7 @@ module plantgrowth
                    canopy_height(m) = crop_fraction_of_max(m)*max_canopy_height(i)
                    canopy_holdup(m) = canopy_cover(m)*max_canopy_holdup(i)
                    root_depth(m)    = crop_fraction_of_max(m)*max_root_depth(i)
+                   
                    root_node(m) =  find_depth_node(ncom2,soil_depth,root_depth(m))              
                 end do
                 
@@ -65,6 +66,7 @@ module plantgrowth
                    canopy_height(m) = max_canopy_height(i)
                    canopy_holdup(m) = max_canopy_holdup(i)*canopy_cover(m)
                    root_depth(m)    = max_root_depth(i)
+                   
                    root_node(m) =  find_depth_node(ncom2,soil_depth,root_depth(m))
                 end do       
                                

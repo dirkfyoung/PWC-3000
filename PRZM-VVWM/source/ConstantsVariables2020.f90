@@ -19,24 +19,44 @@ module constants_and_variables
 
       
       ! File Unit Numbers****************************************************
-      integer, parameter ::  inputfile_unit_number  = 50    
-      integer, parameter ::  PRZMinputUnit          = 51
-      integer, parameter ::  MetFileUnit            = 52
-      integer, parameter ::  ScenarioFileUnit       = 53
-      integer, parameter ::  BatchFileUnit          = 54
-
-      integer, parameter ::  TimeSeriesUnit2         = 55
-      integer, parameter ::  waterbody_file_unit     = 57
+      
+      integer, parameter ::  waterbody_timeseries_unit  = 12
+      integer, parameter ::  wpez_timeseries_unit       = 13
       
       integer, parameter ::  summary_output_unit      = 44
       integer, parameter ::  summary_output_unit_deg1 = 45
       integer, parameter ::  summary_output_unit_deg2 = 46
+      
       integer, parameter ::  summary_output_unit_tpez = 47
       
-      character(len= 500), parameter :: summary_outputfile =  "summary_output.txt"
-      character(len= 500), parameter :: summary_outputfile_tpez =  "summary_output_tpez.txt"
+      integer, parameter ::  summary_wpez_unit      = 48
+      integer, parameter ::  summary_wpez_unit_deg1 = 49
+      integer, parameter ::  summary_wpez_unit_deg2 = 50
+      
+      integer, parameter ::  inputfile_unit_number  = 51    
+      integer, parameter ::  PRZMinputUnit          = 52
+      integer, parameter ::  MetFileUnit            = 53
+      integer, parameter ::  ScenarioFileUnit       = 54
+      integer, parameter ::  BatchFileUnit          = 55
+      
+      integer, parameter ::  TimeSeriesUnit2         = 56
+      integer, parameter ::  waterbody_file_unit     = 57
+      
+      
+      
+          
+      character(len= 500), parameter :: summary_outputfile      =  "summary_output.txt"
       character(len= 500), parameter :: summary_outputfile_deg1 =  "summary_output_Deg1.txt"
       character(len= 500), parameter :: summary_outputfile_deg2 =  "summary_output_Deg2.txt"
+      
+      character(len= 500), parameter :: summary_outputfile_tpez =  "summary_output_tpez.txt"    
+     
+      character(len= 500), parameter :: summary_WPEZoutputfile      =  "summary_WPEZ.txt"
+      character(len= 500), parameter :: summary_WPEZoutputfile_deg1 =  "summary_WPEZ_Deg1.txt"
+      character(len= 500), parameter :: summary_WPEZoutputfile_deg2 =  "summary_WPEZ_Deg2.txt"
+      
+      
+      
       
       
       
@@ -771,8 +791,8 @@ module constants_and_variables
    character(len= 256) :: outputfile_deg1_daily
    character(len= 256) :: outputfile_deg2_daily
             
-   character(len= 256) :: outputfile_parent_analysis
-   character(len= 256) :: outputfile_deg1_analysis
+ !  character(len= 256) :: outputfile_parent_analysis
+ !  character(len= 256) :: outputfile_deg1_analysis
    character(len= 256) :: outputfile_deg2_analysis
                
    character(len= 256) :: outputfile_parent_deem
@@ -844,7 +864,8 @@ real :: Daily_avg_flow_out
 real :: runoff_fraction  !fraction of chemical transport due to runoff
 real :: erosion_fraction
 real :: drift_fraction 
-logical :: First_time_through         !used for batch reader
+logical :: First_time_through_wb        !used for batch reader
+logical :: First_time_through_wpez         !used for batch reader
 logical :: First_time_through_tpez         !used for batch reader
 logical :: First_time_through_PRZM    !used to write output przm time series file headers, so can keep all output writes in one place
 

@@ -453,6 +453,9 @@ use waterbody_parameters, ONLY: afield
              !done as of 12-4-2022  but check
 	!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+             
+    write(*,*) 'start GW profile'         
+             
     do k = 1, nchem       
         previous_depth = 0.0
         running_depth  = 0.0
@@ -530,13 +533,13 @@ use waterbody_parameters, ONLY: afield
         end if
         
     end do
-    
+     write(*,*) 'end GW profile' 
    !!SECTION FOR OUTPUT IN RUN STATUS FILE ONLY ****************************    
     
-  write (*,'(A)')   '    #     depth     bd       max_water     min_wat    orgcarb      sand        clay         kd         dwrate'
-do i = 1, ncom2
-    write (*,'(I5,1X, F9.2, 8G12.3)') i,soil_depth(i), bulkdensity(i),theta_fc(i), theta_wp(i), orgcarb(i), sand(i), clay(i), k_freundlich(1,i),dwrate_atRefTemp(1,i)
-end do	
+!  write (*,'(A)')   '    #     depth     bd       max_water     min_wat    orgcarb      sand        clay         kd         dwrate'
+!do i = 1, ncom2
+!    write (*,'(I5,1X, F9.2, 8G12.3)') i,soil_depth(i), bulkdensity(i),theta_fc(i), theta_wp(i), orgcarb(i), sand(i), clay(i), k_freundlich(1,i),dwrate_atRefTemp(1,i)
+!end do	
     
 
     
@@ -579,9 +582,13 @@ end do
 	
 	
     !*** Calculate Runoff Depth   ****************
+     write(*,*) 'ncom2 = ' , ncom2,soil_depth,CN_moisture_depth
+
     cn_moist_node = find_depth_node(ncom2,soil_depth,CN_moisture_depth)
     
     !*** Find the node for the  min_evap_depth (formerly) ANETD***************
+    
+
     Min_Evap_node =  find_depth_node(ncom2,soil_depth,min_evap_depth)
     
     !Find the node for user-specified irrigation depth
@@ -606,7 +613,6 @@ end do
     !Setup  Crop Growth 
     Call setup_crops
     
-
     !**** Initialization of Curve Number and Erosion parameters*****  
     if (use_usleyears) then  !Erosion Parameters and Curve Numbers are Year Specific
         CN_index = 1  
@@ -682,6 +688,7 @@ end do
     !NCOMRZ = find_depth_node(ncom2,soil_depth,rzd)
 
     !Calculate number of compartments which make upwashoff incorporation
+
     number_washoff_nodes =  find_depth_node(ncom2,soil_depth,washoff_incorp_depth) 
     
     !*** EXTRACTION of RUNOFF AND EROSION FROM SOIL ****************************
@@ -699,6 +706,7 @@ end do
     end if
      
     !** Erosion Extraction Intensity    
+
     erosion_compt =  find_depth_node(ncom2,soil_depth,erosion_depth) !Calculate number of compartments which make up runoff
     erosion_intensity=0.0  
     
@@ -924,9 +932,9 @@ write (*,*) '###################################################'
 	application_date_original = application_date  !keep application_date_original the same for every scheme
 
 	
-  do i = 1, total_applications
-	 write(*,*) i, application_date(i), TAPP(i)  
-  end do
+  !do i = 1, total_applications
+	 !write(*,*) i, application_date(i), TAPP(i)  
+  !end do
   
 
   
@@ -1117,6 +1125,7 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
          ARG(i) = 1
 		 
 		 depth2 = sum(thickness)
+    
          ARG2(i) = find_depth_node(ncom2,soil_depth,depth2)
          CONST(i) = 1.
 
@@ -1137,7 +1146,8 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
         i=i+1
          PLNAME(i) = 'INFL'
          chem_id(i) = 1
-         MODE(i) = 'TSER'   
+         MODE(i) = 'TSER'  
+         
          ARG(i)  = find_depth_node(ncom2,soil_depth,infiltration_point)
          ARG2(i) = 0
          CONST(i) = 1.
@@ -1149,6 +1159,7 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
          chem_id(i) = 1
          MODE(i) = 'TSER'   
          depth2 = sum(thickness)
+
          ARG(i) = find_depth_node(ncom2,soil_depth,depth2)
          ARG2(i) = 2
          CONST(i) = 1.
@@ -1191,7 +1202,7 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
                 If (Arg(i) > 1) then    !Forthe unusual case where the last node is the first node
                     ARG(i)  = ARG(i) +1 !need to add node because depth is countedat bottom of node
                 end if
-                
+   
                 ARG2(i) = find_depth_node(ncom2,soil_depth,depth2)
                 CONST(i) = 1000.     
            end if
@@ -1211,6 +1222,7 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
                 PLNAME(i) = 'COFX'
                 chem_id(i) = j
                 MODE(i) = 'TSER'
+                
                 ARG(i)  = find_depth_node(ncom2,soil_depth,leachdepth)
                 ARG2(i) = 0
                 CONST(i) = 100000. !kg/ha
@@ -1221,12 +1233,12 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
                 PLNAME(i) = 'DKFX'
                 chem_id(I) = j
                 MODE(i) = 'TSUM'
+                
                 ARG(i)  = find_depth_node(ncom2,soil_depth,decay_start)
                 !because depth is determined at bottom of compartment need to add 1 (except fdor case of 1, where find_node already considers this)
                 If (Arg(i) > 1) then             
                     ARG(i)  = ARG(i) +1
                 end if
-                        
                 ARG2(i) = find_depth_node(ncom2,soil_depth,decay_end)
                 CONST(i) = 100000. !kg/ha
            end if
@@ -1236,13 +1248,13 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
                 PLNAME(i) = 'TPST'
                 chem_id(i) = j
                 MODE(i) = 'TSUM'
-                
+
                 ARG(i)  = find_depth_node(ncom2,soil_depth,fieldmass_start)
                 !because depth is determined at bottom of compartment need to add 1 (except fdor case of 1, where find_node already considers this)
                 If (Arg(i) > 1) then             
                     ARG(i)  = ARG(i) +1
                 end if
-                
+
                 ARG2(i) = find_depth_node(ncom2,soil_depth, fieldmass_end )
                 
                 CONST(i) = 100000. !kg/ha

@@ -151,7 +151,7 @@
       
  
   
-
+!
      pure integer function find_depth_node(n,depth,desired) 
      !Given an array "depth" of size "n" that is ordered from low to high values, this 
      !function will give the index of "depth" that is closest to the value "desired"
@@ -163,6 +163,11 @@
       
       integer :: i, index
 
+      !write(*,*) "CHECK for N herree:   n, depth, desired"
+      !write(*,*) n,depth,desired
+      
+      
+      
 
       do i=1, n 
           index = i  !store value for the case where we go to the max n and i would be incremented another 1 value
@@ -181,10 +186,7 @@
 
      end function find_depth_node  
          
-     
-     
-     
-     
+
      
      subroutine find_average_property(n,target_depth, thickness, property, average)
      !weigted average, given vector of thicknesses and vector of correspnding property, Finds the average property
@@ -201,13 +203,28 @@
 
         real :: weighted_tally 
         cummulative_depth = 0.0
+        weighted_tally = 0.0
+        previous_depth = 0.0
         
+        
+        write(*,*)weighted_tally
         do i = 1, n
+                 
+            
               cummulative_depth =  cummulative_depth + thickness(i)
+              
+              
               if (cummulative_depth < target_depth) then
-                  weighted_tally = weighted_tally+ property(i)*thickness(i)                   
+                  
+            
+                  weighted_tally = weighted_tally+ property(i)*thickness(i) 
+                  
+     
+                  
               elseif(cummulative_depth >= target_depth) then
+      
                  weighted_tally = weighted_tally + property(i)*(target_depth -  previous_depth)
+
                  exit !exit do loop   
               end if 
               previous_depth = cummulative_depth

@@ -8,14 +8,14 @@ module VVWM_solution_setup
 !___________________________________________________________________________
     contains
     subroutine VVWM
-    use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
-        water_column_ref_temp, benthic_ref_temp, &
+    use constants_and_variables, ONLY: nchem, waterbody_timeseries_unit,summary_output_unit,summary_output_unit_deg1, summary_output_unit_deg2,&
+        summary_outputfile , summary_outputfile_deg1, summary_outputfile_deg2 , &
+        is_koc, k_f_input, water_column_ref_temp, benthic_ref_temp, &
         water_column_rate,is_hed_files_made, DELT_vvwm,is_add_return_frequency, additional_return_frequency, &
         outputfile_parent_daily,outputfile_deg1_daily,outputfile_deg2_daily,&
-        outputfile_parent_analysis,outputfile_deg1_analysis,outputfile_deg2_analysis,&
         outputfile_parent_deem,outputfile_deg1_deem,outputfile_deg2_deem,&
         outputfile_parent_calendex,outputfile_deg1_calendex,outputfile_deg2_calendex,&
-        outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa,waterbodytext,summary_outputfile,  k_flow 
+        outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa,waterbodytext,summary_outputfile,  k_flow, First_time_through_wb
     
     use waterbody_parameters, ONLY: FROC2, simtypeflag
     
@@ -118,66 +118,19 @@ real    :: koc
    
 
    
-   
 
-   !write(echofileunit, *) "Chemical Index", chem_index     
-   !
-   !select case (chem_index)
-   !case (1)
-   !    
-   !   open (UNIT=11, FILE= trim(outputfile_parent_analysis), STATUS ='unknown')
-   !   open (UNIT=12,FILE= trim(outputfile_parent_daily),  STATUS='unknown')
-   !   
-   !   
-   !    if (SimTypeFlag /=2 .and. is_hed_files_made  ) then  !No need for Calendex and DEEM for Pond
-   !       open (UNIT=22,FILE=trim(outputfile_parent_deem), STATUS='unknown')
-   !       open (UNIT=23,FILE=trim(outputfile_parent_calendex), STATUS='unknown')
-   !    end if
-   !        
-   !    if (is_add_return_frequency) then  !make additional return files
-   !        write(stringreturn, '(I3)')  int(additional_return_frequency)
-   !         open (UNIT=33, FILE=outputfile_parent_esa, STATUS ='unknown')
-   !    end if
-   !
-   !case (2)  
-   !   open (UNIT = 11, FILE = trim(outputfile_deg1_analysis), STATUS = 'unknown')
-   !   open (UNIT = 12, FILE=  trim(outputfile_deg1_daily), STATUS = 'unknown')
-   !   
-   !   if (SimTypeFlag /=2 .and. is_hed_files_made ) then  !No need for Calendex and DEEM for Pond
-   !       open (UNIT= 22, FILE= trim(outputfile_deg1_deem),  STATUS = 'unknown')
-   !       open (UNIT= 23, FILE= trim(outputfile_deg1_calendex), STATUS = 'unknown')
-   !   end if
-   !   
-   !   if (is_add_return_frequency) then  !make additional return files
-   !       
-   !        write(stringreturn, '(I3)')  int(additional_return_frequency)
-   !         open (UNIT=33, FILE=trim( outputfile_deg1_esa), STATUS ='unknown')
-   !   end if
-   !
-   !case (3)
-   !   open (UNIT = 11, FILE = trim(outputfile_deg2_analysis), STATUS = 'unknown')
-   !   open (UNIT= 12,FILE = trim(outputfile_deg2_daily),  STATUS = 'unknown')
-   !   
-   !   if (SimTypeFlag /=2 .and. is_hed_files_made ) then  !No need for Calendex and DEEM for Pond
-   !       open (UNIT= 22,FILE = trim(outputfile_deg2_deem),  STATUS = 'unknown')      
-   !       open (UNIT= 23,FILE = trim(outputfile_deg2_calendex), STATUS = 'unknown')   
-   !   end if
-   !   
-   !  if (is_add_return_frequency) then  !make additional return files
-   !        write(stringreturn, '(I3)') int(additional_return_frequency)
-   !         open (UNIT=33, FILE=trim(outputfile_deg2_esa),   STATUS ='unknown')
-   !  end if  
-   !   
-   !
-   !end select 
-   !
         if (nchem > chem_index) then     
               call DegradateProduction(chem_index) 
         end if
-write (*,*) 'Calling output_processing'
-       call output_processor(chem_index)
-    !**********************************************************
-  end do
+
+
+    !**********************************************************          
+
+
+       call output_processor(chem_index,First_time_through_wb, waterbody_timeseries_unit,  summary_output_unit, summary_output_unit_deg1, summary_output_unit_deg2, &
+           summary_outputfile, summary_outputfile_deg1, summary_outputfile_deg2)
+    !**********************************************************          
+  end do                                                                 
 
 
 end subroutine VVWM
@@ -188,14 +141,16 @@ subroutine wpez
 !THIS IS THE SAME ROUTINE AS VVWM BUT WITH SOME HARD CODED VALUES FOR INPUTS
 
 
-    use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
-        water_column_ref_temp, benthic_ref_temp, &
+    use constants_and_variables, ONLY: nchem, wpez_timeseries_unit,  summary_wpez_unit,summary_wpez_unit_deg1,summary_wpez_unit_deg2, &
+        is_koc, k_f_input, water_column_ref_temp, benthic_ref_temp, &
         water_column_rate,is_hed_files_made, DELT_vvwm,is_add_return_frequency, additional_return_frequency, &
         outputfile_parent_daily,outputfile_deg1_daily,outputfile_deg2_daily,&
-        outputfile_parent_analysis,outputfile_deg1_analysis,outputfile_deg2_analysis,&
         outputfile_parent_deem,outputfile_deg1_deem,outputfile_deg2_deem,&
         outputfile_parent_calendex,outputfile_deg1_calendex,outputfile_deg2_calendex,&
-        outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa,waterbodytext,summary_outputfile,  k_flow 
+        outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa,waterbodytext , k_flow , &
+        summary_WPEZoutputfile , summary_WPEZoutputfile_deg1 , summary_WPEZoutputfile_deg2,First_time_through_wpez
+    
+    
     
     use waterbody_parameters, ONLY: FROC2, simtypeflag, depth_0,depth_max,baseflow,is_zero_depth,zero_depth  
     
@@ -237,14 +192,18 @@ real    :: koc
  write(*,*) "WPEZ simulation type is always Varying Volume Type 1"
 
  
-!RESET PARAMETERS for wpez      
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ !AT END OF RUN RESET THESE PARAMETERS TO VVWM STANDARDS
+ !RESET PARAMETERS for wpez      
   simtypeflag   = 1
   depth_0       = 0.15      
   depth_max     = 0.15       
   baseflow      = 0.0      
   is_zero_depth = .TRUE. 
   zero_depth    = 0.01  
- 
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  
+  
     select case (simtypeflag)
         case (3,5) !reservoir constant volume,flow
                 call constant_volume_calc 
@@ -297,19 +256,45 @@ real    :: koc
         waterbodytext =  "WPEZ"
    
 
-   write(*,*) 'batch output file ', trim(summary_outputfile)
+   write(*,*) 'wpez batch output file ', trim(summary_WPEZoutputfile)
    
 
    
         if (nchem > chem_index) then     
               call DegradateProduction(chem_index) 
         end if
-write (*,*) 'Calling output_processing'
-       call output_processor(chem_index)
+
+
+
+       call output_processor(chem_index,First_time_through_wpez, wpez_timeseries_unit, summary_wpez_unit,summary_wpez_unit_deg1,summary_wpez_unit_deg2, &
+                             summary_WPEZoutputfile , summary_WPEZoutputfile_deg1 , summary_WPEZoutputfile_deg2)
+       
+       
+       
     !**********************************************************
-  end do
+    end do
 
 
+    
+    
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ !AT END OF RUN RESET THESE PARAMETERS TO VVWM STANDARDS
+    
+  simtypeflag   = 2
+  depth_0       = 2.0     
+  depth_max     = 2.0       
+  baseflow      = 0.0      
+  is_zero_depth = .FALSE. 
+  zero_depth    = 0.00  
+ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
+
+    
+    
+    
+    
+    
+    
 
 end subroutine wpez
     
@@ -447,10 +432,7 @@ subroutine tpez(scheme_number)
       ! mass_off_field(day_number_chemtrans,1,1) =   ROFLUX(1)* afield*10.  !converts to kg
        
    
-         do i = 1,  size(mavg1_store)
-            write(77,*)   mavg1_store(i)         !tpez is 1 ha so effectively kg/ha
-         end do 
-          
+
     !**********************************************************
   end do
   

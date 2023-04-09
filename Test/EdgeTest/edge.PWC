@@ -103,37 +103,10 @@ False,,,
 50,1,1,4,0,15,0,1,0,
 False,5,1,
 False,2,2,10,7,
-30
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r01-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r02-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r03N-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r03S-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r03W-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r04-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r05-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r06-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r07-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r08-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r09-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r10L-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r10U-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r11-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r12-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r13-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r14-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r15-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r16-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r17-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r18-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cotton-r03N-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cotton-r03S-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cotton-r03W-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cotton-r08-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cotton-r11-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cotton-r12-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cotton-r13-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cotton-r15-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cotton-r18-B_V4.scn2
+3
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Sugarcane-r08-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Sugarcane-r11-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Sugarcane-r12-B_V4.scn2
 False
 C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
 3,
@@ -143,13 +116,13 @@ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
 ,
 ,
 True,
-True,False,False,False
+True,False,False,True
 1,
 "C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\waterbodies\xtest.WAT"
-True,
-True,
-True,
-True,
+False,
+False,
+False,
+False,
 False,
 False,
 False,,
@@ -163,7 +136,7 @@ False,
 False,
 False,,
 False,
-True,
+False,
 holder for future expansion,
 holder for future expansion,
 holder for future expansion,

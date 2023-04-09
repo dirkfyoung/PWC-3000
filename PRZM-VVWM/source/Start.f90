@@ -2,7 +2,7 @@ program PRZMVVWM
     use allocations
     use readinputs
     use constants_and_variables, ONLY: maxFileLength, inputfile,number_of_schemes, &
-                                       number_of_scenarios,  First_time_through, First_time_through_tpez, &
+                                       number_of_scenarios,  First_time_through_wb, First_time_through_wpez,First_time_through_tpez, &
                                        app_window_span, app_window_step, application_date, application_date_original, &
                                        is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id
     
@@ -30,6 +30,8 @@ program PRZMVVWM
     logical :: end_of_file, error_on_read
     logical :: run_tpez_wpez  !TRUE if USEPA_pond has just been simulated AND TPEZ/WPEZ run has been requested (i.e., istpezwpez==treue)
     character :: dummy
+    character(len= 256) :: hold_run_id
+    
     !################################################ 
     CALL CPU_TIME (cputime_begin)
     write (*,*) 'Start CPU Time',  cputime_begin
@@ -41,8 +43,11 @@ program PRZMVVWM
 	
    !################################################ 
 	
-    First_time_through = .TRUE.  !used to write output file headers, so can keep all output writes in one place
+    First_time_through_wb   = .TRUE.  !used to write output file headers, so can keep all output writes in one place
     First_time_through_tpez = .TRUE.
+    First_time_through_wpez = .TRUE.
+    
+    
     
     call get_command_argument(1,inputfile,length)
     call przm_id                                     !Stamp the runstatus file 
@@ -196,10 +201,14 @@ program PRZMVVWM
                               write (*,*) '###################################################'					 
 
                       call VVWM 
+                      
+                      
                       if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
-                               run_id = trim(run_id) //"_WPEZ"
+                               hold_run_id = run_id
+                          
+                               run_id = trim(hold_run_id) //"_WPEZ"
                                call wpez  
-                               run_id = trim(run_id) //"_TPEZ"    
+                               run_id = trim(hold_run_id) //"_TPEZ"    
                                
                                write(*,*) 'TPEZ ID ', run_id
                                call tpez(i)  !need to send in scheme to find drift

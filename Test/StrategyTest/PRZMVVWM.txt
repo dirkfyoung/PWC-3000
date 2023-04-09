@@ -1,0 +1,172 @@
+PWC 3 Input File, Version 1
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\StrategyTest\
+CornTest
+C:\Models\Inputs\scenarios_and weather_V4\WeatherFiles\
+True, False, False,
+1,
+1,12,11,
+1,1,1,
+,,,
+,,,
+,,,
+,1,
+20,60,111,1,2,
+25,33,12,
+,33,111,2,1,
+25,33,11,
+,33,,,2,
+,44,,
+,44,,,,
+0.1,100,50,1,5,True,
+25,21,25,
+,55,11,6,2,
+0.5,0.5,0.5,
+123,100,111,
+5e-12,1e-9,11e-8,
+5000,6,11,
+6.61E-15,8.96E-10,5.97E-08,
+0,,0,
+0,,0,
+2,
+True,
+False,,,,
+False,,,
+1,
+1,"all corn",
+1,
+66,
+-15,1,1,4,0,15,0,1,0,
+-14,1,1,4,0,15,0,1,0,
+-13,1,1,4,0,15,0,1,0,
+-12,1,1,4,0,15,0,1,0,
+-11,1,1,4,0,15,0,1,0,
+-10,1,1,4,0,15,0,1,0,
+-9,1,1,4,0,15,0,1,0,
+-8,1,1,4,0,15,0,1,0,
+-7,1,1,4,0,15,0,1,0,
+-6,1,1,4,0,15,0,1,0,
+-5,1,1,4,0,15,0,1,0,
+-4,1,1,4,0,15,0,1,0,
+-3,1,1,4,0,15,0,1,0,
+-2,1,1,4,0,15,0,1,0,
+-1,1,1,4,0,15,0,1,0,
+0,1,1,4,0,15,0,1,0,
+1,1,1,4,0,15,0,1,0,
+2,1,1,4,0,15,0,1,0,
+3,1,1,4,0,15,0,1,0,
+4,1,1,4,0,15,0,1,0,
+5,1,1,4,0,15,0,1,0,
+6,1,1,4,0,15,0,1,0,
+7,1,1,4,0,15,0,1,0,
+8,1,1,4,0,15,0,1,0,
+9,1,1,4,0,15,0,1,0,
+10,1,1,4,0,15,0,1,0,
+11,1,1,4,0,15,0,1,0,
+12,1,1,4,0,15,0,1,0,
+13,1,1,4,0,15,0,1,0,
+14,1,1,4,0,15,0,1,0,
+15,1,1,4,0,15,0,1,0,
+16,1,1,4,0,15,0,1,0,
+17,1,1,4,0,15,0,1,0,
+18,1,1,4,0,15,0,1,0,
+19,1,1,4,0,15,0,1,0,
+20,1,1,4,0,15,0,1,0,
+21,1,1,4,0,15,0,1,0,
+22,1,1,4,0,15,0,1,0,
+23,1,1,4,0,15,0,1,0,
+24,1,1,4,0,15,0,1,0,
+25,1,1,4,0,15,0,1,0,
+26,1,1,4,0,15,0,1,0,
+27,1,1,4,0,15,0,1,0,
+28,1,1,4,0,15,0,1,0,
+29,1,1,4,0,15,0,1,0,
+30,1,1,4,0,15,0,1,0,
+31,1,1,4,0,15,0,1,0,
+32,1,1,4,0,15,0,1,0,
+33,1,1,4,0,15,0,1,0,
+34,1,1,4,0,15,0,1,0,
+35,1,1,4,0,15,0,1,0,
+36,1,1,4,0,15,0,1,0,
+37,1,1,4,0,15,0,1,0,
+38,1,1,4,0,15,0,1,0,
+39,1,1,4,0,15,0,1,0,
+40,1,1,4,0,15,0,1,0,
+41,1,1,4,0,15,0,1,0,
+42,1,1,4,0,15,0,1,0,
+43,1,1,4,0,15,0,1,0,
+44,1,1,4,0,15,0,1,0,
+45,1,1,4,0,15,0,1,0,
+46,1,1,4,0,15,0,1,0,
+47,1,1,4,0,15,0,1,0,
+48,1,1,4,0,15,0,1,0,
+49,1,1,4,0,15,0,1,0,
+50,1,1,4,0,15,0,1,0,
+True,50,1,
+False,2,2,10,7,
+28
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Soybean-r17-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Sugarcane-r03S-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Sugarcane-r03W-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Sugarcane-r08-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Sugarcane-r11-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Sugarcane-r12-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Sugarcane-r13-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r01-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r02-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r03N-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r03S-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r03W-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r04-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r05-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r06-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r07-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r08-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r09-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r10L-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r10U-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r11-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r12-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r13-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r14-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r15-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r16-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r17-B_V4.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r18-B_V4.scn2
+False
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
+3,
+,
+,
+,
+,
+,
+True,
+True,False,False,True
+1,
+"C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\waterbodies\xtest.WAT"
+False,
+False,
+False,
+False,
+False,
+False,
+False,,
+False,0,5,
+False
+False,,,
+False,
+False,
+False,
+False,
+False,
+False,,
+False,
+False,
+holder for future expansion,
+holder for future expansion,
+holder for future expansion,
+holder for future expansion,
+holder for future expansion,
+holder for future expansion,
+holder for future expansion,
+0,

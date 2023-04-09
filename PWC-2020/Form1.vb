@@ -158,7 +158,7 @@ Public Class Form1
         AppTableDisplay.Columns(8).Width = 42
 
         Dim btn As New DataGridViewButtonColumn()
-        btn.Text = "XXXXXX"
+        btn.Text = "XXXX"
         btn.HeaderText = "Delete"
         btn.Name = "Delete"
         btn.UseColumnTextForButtonValue = True
@@ -206,9 +206,6 @@ Public Class Form1
         SaveInputsAsTextFile(SaveFileDialogMain.FileName)
 
     End Sub
-
-
-
 
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
@@ -1154,7 +1151,14 @@ Public Class Form1
 
     End Sub
 
-
+    Private Sub ItsaPond_CheckedChanged(sender As Object, e As EventArgs) Handles ItsaPond.CheckedChanged
+        If ItsaPond.Checked Then
+            ItsTPEZWPEZ.Enabled = True
+        Else
+            ItsTPEZWPEZ.Enabled = False
+            ItsTPEZWPEZ.Checked = False
+        End If
+    End Sub
 End Class
 
 
