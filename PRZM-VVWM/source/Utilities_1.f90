@@ -62,11 +62,7 @@
     !    // '_' // trim(adjustl(local_name)) // '_' // trim(adjustl(appnumber))
     
     write(*,*) '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
-    write(*,*)  i,j, ii,mm
-    
-    write(*,*) run_ID
-     write(*,*) '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
-     
+    write(*,*) "run id ", trim(run_ID)
      
     end subroutine make_run_id 
     
@@ -206,8 +202,7 @@
         weighted_tally = 0.0
         previous_depth = 0.0
         
-        
-        write(*,*)weighted_tally
+    
         do i = 1, n
                  
             

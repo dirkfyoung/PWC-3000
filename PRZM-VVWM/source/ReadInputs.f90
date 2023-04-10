@@ -497,9 +497,9 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         read(ScenarioFileUnit,*) (sand_input(i), i=1, nhoriz)        
         read(ScenarioFileUnit,*) (clay_input(i), i=1, nhoriz)
               
-        do i= 1, nhoriz
-                 write(*, '(7G12.3)')  thickness(i), bd_input(i), fc_input(i), wp_input(i), oc_input(i), sand_input(i), clay_input(i)
-        end do
+        !do i= 1, nhoriz
+        !         write(*, '(7G12.3)')  thickness(i), bd_input(i), fc_input(i), wp_input(i), oc_input(i), sand_input(i), clay_input(i)
+        !end do
 
         !write(*,*) 'Nhori', NHORIZ        
         !write(*,*) 'THCK ', (thickness(i), i=1, nhoriz)
@@ -546,8 +546,6 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
      
         
       write (*,*) 'read in stagnant layer ',Height_stagnant_air_layer_cm
-
-      write (*,*) 'is_auto_profile',Height_stagnant_air_layer_cm
  
       
       profile_thick= 0.0

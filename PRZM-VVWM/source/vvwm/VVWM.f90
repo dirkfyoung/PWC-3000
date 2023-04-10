@@ -386,14 +386,11 @@ subroutine tpez(scheme_number)
    
     
     call spraydrift
-
-    write(*,*) "simulation type = 1 tpez"
-    call find_average_property(ncom2,15.0, thickness,  theta_fc, avg_maxwater)
+    call find_average_property(ncom2,15.0, thickness,  theta_fc, avg_maxwater)    
     call find_average_property(ncom2,15.0, thickness,  theta_wp, avg_minwater)
-    call find_average_property(ncom2,15.0, thickness,  orgcarb , avg_oc)
     call find_average_property(ncom2,15.0, thickness,  bulkdensity , avg_bd)  
     
-    write(*,*)"avg_maxwater,  avg_minwater, avg_oc as follows:"
+    write(*,*)"For TPEZ, avg_maxwater, avg_minwater, avg_oc as follows:"
     write(*,*) avg_maxwater,  avg_minwater, avg_oc 
   
     call  tpez_volume_calc (avg_maxwater, avg_minwater, area_tpez)   !call special averaging in here

@@ -627,7 +627,7 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     call Return_Frequency_Value(return_frequency, edge_of_field_max, num_years, edge_of_field_max_out, lowyearflag)   
 
    write(*,*) "^^^^^^^^^^    TPEZ             ^^^^^^^^^^^^^^^^^^^^^" 
-   write (*,*) run_id
+   write (*,*) trim(run_id)
    write(*,*) "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" 
     
     select case (chem_index)
