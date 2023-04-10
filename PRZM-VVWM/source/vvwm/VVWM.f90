@@ -302,9 +302,9 @@ end subroutine wpez
 !****************************************************************************
 subroutine tpez(scheme_number)
     use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
-        DELT_vvwm, k_flow,waterbodytext,&
+        DELT_vvwm, k_flow,waterbodytext,soil_depth, &
         num_applications_input,application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, drift_kg_per_m2, drift_schemes,&
-        theta_fc,theta_wp, ncom2, thickness, orgcarb,bulkdensity , mavg1_store
+        theta_fc,theta_wp, ncom2,  orgcarb,bulkdensity , mavg1_store
     use waterbody_parameters, ONLY: simtypeflag
     
     use degradation
@@ -386,12 +386,16 @@ subroutine tpez(scheme_number)
    
     
     call spraydrift
-    call find_average_property(ncom2,15.0, thickness,  theta_fc, avg_maxwater)    
-    call find_average_property(ncom2,15.0, thickness,  theta_wp, avg_minwater)
-    call find_average_property(ncom2,15.0, thickness,  bulkdensity , avg_bd)  
+
+   
+   
+    call find_average_property(ncom2,soil_depth, 15.0,  theta_fc, avg_maxwater)    
+    call find_average_property(ncom2,soil_depth,15.0, theta_wp, avg_minwater)
+    call find_average_property(ncom2,soil_depth,15.0, bulkdensity , avg_bd)  
+    call find_average_property(ncom2,soil_depth,15.0, orgcarb     , avg_oc) 
     
-    write(*,*)"For TPEZ, avg_maxwater, avg_minwater, avg_oc as follows:"
-    write(*,*) avg_maxwater,  avg_minwater, avg_oc 
+    write(*,*)"For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:"
+    write(*,*) avg_maxwater,  avg_minwater, avg_bd, avg_oc 
   
     call  tpez_volume_calc (avg_maxwater, avg_minwater, area_tpez)   !call special averaging in here
 

@@ -103,10 +103,9 @@ False,,,
 50,1,1,4,0,15,0,1,0,
 False,5,1,
 False,2,2,10,7,
-3
+2
 C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r01-B_V4.scn2
 C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r02-B_V4.scn2
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Corn-r03N-B_V4.scn2
 False
 C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
 3,
