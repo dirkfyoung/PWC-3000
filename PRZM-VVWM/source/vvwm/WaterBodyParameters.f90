@@ -200,9 +200,9 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 	    spraytable = spray_table_P 
         
         write(*,*) 'Default Pond Spraydrift Table'
-        do i = 1, rows_spraytable
-            write(*,'(17G12.4)') (spraytable(i,j),j=1, columns_spraytable)
-        end do	
+        !do i = 1, rows_spraytable
+        !    write(*,'(17G12.4)') (spraytable(i,j),j=1, columns_spraytable)
+        !end do	
 		
 	end subroutine get_pond_parameters
    

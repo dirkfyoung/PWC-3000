@@ -545,21 +545,27 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
       read(ScenarioFileUnit,*) Height_stagnant_air_layer_cm !msg = msg & vbNewLine & volatilizationBoundaryBox.Text
      
         
-      write (*,*) 'stagnant layer ',Height_stagnant_air_layer_cm
+      write (*,*) 'read in stagnant layer ',Height_stagnant_air_layer_cm
 
-
-	  read(ScenarioFileUnit,*, IOSTAT=eof)  is_auto_profile
-	  profile_thick= 0.0
+      write (*,*) 'is_auto_profile',Height_stagnant_air_layer_cm
+ 
+      
+      profile_thick= 0.0
 	  profile_number_increments=0
+	  read(ScenarioFileUnit,*, IOSTAT=eof)  is_auto_profile
+      
+	  write (*,*) "eof   ?", eof, is_auto_profile
 
-	  
+      
 	  if (eof >= 0) then             !provides for the possibilty of older scenarios without this feature
 		  if (is_auto_profile) then 
 		     read(ScenarioFileUnit,*) number_of_discrete_layers
 		     do i = 1,  number_of_discrete_layers
 		       read(ScenarioFileUnit,*) profile_thick(i), profile_number_increments(i)
 		     end do
-	      end if
+          end if
+      else 
+          is_auto_profile= .FALSE.  !for older files set default to No aurto profile    
 	  end if
 	  
         close (ScenarioFileUnit)

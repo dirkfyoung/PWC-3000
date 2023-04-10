@@ -160,14 +160,19 @@ use waterbody_parameters, ONLY: afield
     ENPY = Heat_of_Henry/ 4184.0   
     
     !********Allocations of Soil Profile Variables**********************
-	
+	    write(*,*) 'Nxxxxxxxxxxxxxxxxxxxxxxxxx ' , ncom2
 	if (is_auto_profile) then
+         write(*,*) ' auto profile in side ' 
+        
+       write(*,*)  sum(profile_number_increments(1:number_of_discrete_layers))
+        write(*,*) profile_number_increments(1:number_of_discrete_layers)
 		ncom2 = sum(profile_number_increments(1:number_of_discrete_layers))  !New way
-	else
+    else
+        
         NCOM2 = sum(num_delx(1:nhoriz))  !Total Number of Compartments       !old way
     end if
 	
-    write(*,*) 'Number of compartments = ' , ncom2
+
 !******************************************************	
 	!delete this line once its working
 	!NCOM2 = sum(num_delx(1:nhoriz))  !Total Number of Compartments
@@ -182,7 +187,11 @@ use waterbody_parameters, ONLY: afield
     !************************************************
 	
 	write (*,*) "Do autoprofile ? " , is_auto_profile
-	
+	write (*,*) "NCOM2" , NCOM2
+    
+    
+    
+    
     if (is_auto_profile) then  ! create the discretization based on input profile instead of delx
         
 	        !get thicknesses for each compartment
@@ -578,11 +587,8 @@ use waterbody_parameters, ONLY: afield
     Sorbed2 = 0.0   !nonequilibrium phase concentration
 
 	
-
-	
 	
     !*** Calculate Runoff Depth   ****************
-     write(*,*) 'ncom2 = ' , ncom2,soil_depth,CN_moisture_depth
 
     cn_moist_node = find_depth_node(ncom2,soil_depth,CN_moisture_depth)
     

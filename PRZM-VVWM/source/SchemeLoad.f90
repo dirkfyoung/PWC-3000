@@ -88,7 +88,7 @@ module schemeload
 			!calclautaed based on losses to the waterbody subtracted from fields applied pesticide
 			APPEFF_in(i)           = 1.0 - drift_value(i) * area_waterbody/afield
 
-           write(*,'(I8,G10.3, I4, 3F8.3, I4, 3x, F8.3,3x, 2I6)')days_until_applied(i),application_rate_in(i), pest_app_method_in(i), DEPI_in(i),Tband_top_in(i), APPEFF_in(i),drift_schemes(scheme_number,i), drift_value(i) , repeat_app_in(i),lag_app_in(i) 
+       !    write(*,'(I8,G10.3, I4, 3F8.3, I4, 3x, F8.3,3x, 2I6)')days_until_applied(i),application_rate_in(i), pest_app_method_in(i), DEPI_in(i),Tband_top_in(i), APPEFF_in(i),drift_schemes(scheme_number,i), drift_value(i) , repeat_app_in(i),lag_app_in(i) 
 
 		end do 
 
@@ -136,7 +136,7 @@ module schemeload
 		 end if	 
 	   end do
 
-	   write(*,'("            Interrpolated Spray Drift = ", G12.4)')  , output
+!	   write(*,'("            Interrpolated Spray Drift = ", G12.4)')  , output
 	
 	end subroutine lookup_drift
 	

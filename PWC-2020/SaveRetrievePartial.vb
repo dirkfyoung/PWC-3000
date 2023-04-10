@@ -394,15 +394,16 @@
 
 
         msg = msg & vbNewLine & useAutoGWprofile.Checked
-        Dim numberofdiscreterows As Integer
-        numberofdiscreterows = DiscretizationGridView.RowCount - 1
-        msg = msg & vbNewLine & numberofdiscreterows
 
-        For i As Integer = 0 To numberofdiscreterows - 1
-            msg = msg & String.Format("{0}{1}, {2}", vbNewLine, DiscretizationGridView.Item(0, i).Value, DiscretizationGridView.Item(1, i).Value)
+        If useAutoGWprofile.Checked Then
+            Dim numberofdiscreterows As Integer
+            numberofdiscreterows = DiscretizationGridView.RowCount - 1
+            msg = msg & vbNewLine & numberofdiscreterows
 
-        Next
-
+            For i As Integer = 0 To numberofdiscreterows - 1
+                msg = msg & String.Format("{0}{1}, {2}", vbNewLine, DiscretizationGridView.Item(0, i).Value, DiscretizationGridView.Item(1, i).Value)
+            Next
+        End If
 
 
         Return msg
@@ -1140,6 +1141,7 @@
 
             'adding in the new discretization routine
             If MyReader.EndOfData Then
+                useAutoGWprofile.Checked = False
             Else
                 Dim numberofdiscreterows As Integer
                 useAutoGWprofile.Checked = MyReader.ReadLine()

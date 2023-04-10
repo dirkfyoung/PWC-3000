@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PWC-3interface", "PWC-2020\PWC-3interface.vbproj", "{9AC70682-B083-4124-8B13-8099846EAE54}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0F05B786-C684-4D95-8B9B-FA77FC41DA5D} = {0F05B786-C684-4D95-8B9B-FA77FC41DA5D}
+	EndProjectSection
 EndProject
 Project("{6989167D-11E4-40FE-8C1A-2192A86A7E90}") = "PRZM-VVWM", "PRZM-VVWM\PRZM-VVWM.vfproj", "{0F05B786-C684-4D95-8B9B-FA77FC41DA5D}"
 EndProject

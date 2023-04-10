@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <StartupObject>PWC_2020.My.MyApplication</StartupObject>
     <RootNamespace>PWC_2020</RootNamespace>
-    <AssemblyName>PWC-2020</AssemblyName>
+    <AssemblyName>PWC-3</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -22,7 +22,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>..\CommonOutput\</OutputPath>
-    <DocumentationFile>PWC-2020.xml</DocumentationFile>
+    <DocumentationFile>PWC-3.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -33,7 +33,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>..\CommonOutput\</OutputPath>
-    <DocumentationFile>PWC-2020.xml</DocumentationFile>
+    <DocumentationFile>PWC-3.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -91,6 +91,7 @@
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="My Project\Resources.Designer.vb">
       <AutoGen>True</AutoGen>
