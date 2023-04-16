@@ -626,10 +626,7 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     call Return_Frequency_Value(return_frequency, tpez_max,          num_years, tpez_max_out,          lowyearflag)   
     call Return_Frequency_Value(return_frequency, edge_of_field_max, num_years, edge_of_field_max_out, lowyearflag)   
 
-   write(*,*) "^^^^^^^^^^    TPEZ             ^^^^^^^^^^^^^^^^^^^^^" 
-   write (*,*) trim(run_id)
-   write(*,*) "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^" 
-    
+
     select case (chem_index)
     case (1)
         local_run_id = trim(run_id) // '_Parent'
@@ -648,7 +645,7 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
 
 
     
- write(*,*)'done output batch '
+ write(*,*)'done tpez output batch '
      
  end subroutine tpez_write_simple_batch_data
 

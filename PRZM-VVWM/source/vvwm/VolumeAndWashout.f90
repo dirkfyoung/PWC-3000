@@ -20,8 +20,6 @@ contains
         Daily_avg_flow_out = 0.0
                
         v_0 = area_waterbody*depth_0
-              write(*, *) "Constant Waterbody Volume  = ", v_0
-              write(*, *) "depth   = ", depth_0
 
         if (flow_averaging ==0) then
               q_avg = sum(flowthru_the_body)/num_records 

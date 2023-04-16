@@ -1,0 +1,2319 @@
+ Start CPU Time  0.000000000000000E+000
+ PRZM5-VVWM Version  -1.000
+ 
+     For technical support contact:
+            Dirk F. Young 
+       Office of Pesticide Programs 
+ United States Environmental Protection Agency
+       Washington, DC 20460-0001
+       E-mail: young.dirk@epa.gov
+ 
+ Input file: 
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\edge appday\PRZMVVWM.txt
+ Inside read_inputfile
+ weather directory is ..\..\Test\scenario\WeatherFiles\
+ Number of schemes =                      1
+ Scheme Number & Name                      1 one
+ Rain restriction F   2.00000000000000                          2
+                    10                     7
+ Number of scn files =                     21
+ Read a batch scenario file? F
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
+ reading tabulated output requests, if any
+ ************* Start PRZM-VVWM Scheme Loop *******************
+ ******************** Start Waterbody Loop ***************************
+ Default Pond Spraydrift Table
+ Doing Water Body: USEPA Pond
+ **** Start Scheme Loop *********************************************
+ Doing Scheme No.                      1
+ Inside set_chemical_applications
+ number of apps                      1
+     day  rate  method   depth   Tband   Eff   drft#  driftValue  repeat  lag
+ Any Foliar Applications?  F
+ ********** Start Scenario Loop *************************************
+ Doing scenario                      1
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r01-B_V4.scn2
+ is scenario open  F
+ weather: 20516_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+     2     6     1     8    30     9     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   1.11512195100000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  2.129573864037873E-307  0.000000000000000E+000
+ CN:    82.0000000000000        91.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                     0 T
+ ###################################################
+ cpu time scenario start    0.000000000000000E+000
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\20516_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather   3.125000000000000E-002
+ ###################################################
+ Use Autoprofile for soil? T
+ Number Soil Compartments (ncom2)=                    65
+ Done loading autoprofile
+ compartments for aquifer:                     64 to                    65
+ start GW degradation profile
+ end GW profile
+ usle month day                       6                     2
+ usle month day                       9                    30
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)    3.125000000000000E-002
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)    3.125000000000000E-002
+ ###################################################
+ ###################################################
+ cpu time after writing apps  3.125000000000000E-002
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    11.6702266400513     
+ maxcap_volume (effective pore volume (depth), cm) =    166.981000000000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization  3.125000000000000E-002
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_286257-20516-1_Corn-r01-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport   0.406250000000000     
+ ###################################################
+ ###################################################
+ cpu time gw    0.406250000000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered    1.65666022100749     
+ parent erosion mass   0.514678165575437     
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       4.020997012190592E-003
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       4.020997012190592E-003
+ Doing output process
+ done output batch 
+ TPEZ ID 1_286257-20516-1_Corn-r01-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.200000000000000       1.000000000000012E-002   1.50000000000000     
+   3.00000000000000     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm   0.406250000000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate    0.406250000000000     
+ ###################################################
+ Doing scenario                      2
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r02-B_V4.scn2
+ is scenario open  F
+ weather: 18138_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    15     5    24     7     2    10     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   1.11512195100000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    82.0000000000000        91.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 T
+ ###################################################
+ cpu time scenario start    0.406250000000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\18138_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather   0.453125000000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   301
+ compartments for aquifer:                    300 to                   301
+ start GW degradation profile
+ end GW profile
+ usle month day                       5                    15
+ usle month day                      10                     2
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)    0.453125000000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)    0.453125000000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps  0.453125000000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    32.7422060334363     
+ maxcap_volume (effective pore volume (depth), cm) =    29.9230001700000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization  0.453125000000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_1606034-18138-1_Corn-r02-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    1.23437500000000     
+ ###################################################
+ ###################################################
+ cpu time gw     1.23437500000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered    2.16111239478226     
+ parent erosion mass   9.247846134449578E-002
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       4.173316400234735E-003
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       4.173316400234735E-003
+ Doing output process
+ done output batch 
+ TPEZ ID 1_1606034-18138-1_Corn-r02-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.175000000000000       8.100001000000018E-002   1.65000000000000     
+   1.01508120000000     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    1.25000000000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     1.28125000000000     
+ ###################################################
+ Doing scenario                      3
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r03N-B_V4.scn2
+ is scenario open  F
+ weather: 14832_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    24     4    10     7    25     9     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   1.78486486500000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    74.0000000000000        83.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     1.28125000000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\14832_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    1.32812500000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   464
+ compartments for aquifer:                    463 to                   464
+ start GW degradation profile
+ end GW profile
+ usle month day                       4                    24
+ usle month day                       9                    25
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     1.32812500000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     1.32812500000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   1.32812500000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    207.314317256888     
+ maxcap_volume (effective pore volume (depth), cm) =    45.2520002500000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   1.32812500000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_113293-14832-1_Corn-r03N-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    2.45312500000000     
+ ###################################################
+ ###################################################
+ cpu time gw     2.45312500000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered   0.400263526517639     
+ parent erosion mass   0.583514596777073     
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       1.821811339434651E-003
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       1.821811339434651E-003
+ Doing output process
+ done output batch 
+ TPEZ ID 1_113293-14832-1_Corn-r03N-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.482999980000001       0.214000000000000       0.580000000000000     
+   23.2018570000000     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    2.46875000000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     2.51562500000000     
+ ###################################################
+ Doing scenario                      4
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r03S-B_V4.scn2
+ is scenario open  F
+ weather: 10082_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    11     4    16     6    21     8     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   1.19160493800000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    81.0000000000000        88.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     2.51562500000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\10082_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    2.56250000000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   288
+ compartments for aquifer:                    287 to                   288
+ start GW degradation profile
+ end GW profile
+ usle month day                       4                    11
+ usle month day                       8                    21
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     2.56250000000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     2.56250000000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   2.56250000000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    15.2610414241061     
+ maxcap_volume (effective pore volume (depth), cm) =    59.7029999999999     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   2.56250000000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_1380323-10082-1_Corn-r03S-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    3.35937500000000     
+ ###################################################
+ ###################################################
+ cpu time gw     3.35937500000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered    2.71632220733293     
+ parent erosion mass   0.122950819806492     
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       5.257913013221143E-003
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       5.257913013221143E-003
+ Doing output process
+ done output batch 
+ TPEZ ID 1_1380323-10082-1_Corn-r03S-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.154000000000000       8.100001000000027E-002   1.50000000000000     
+  0.870069600000001     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    3.37500000000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     3.39062500000000     
+ ###################################################
+ Doing scenario                      5
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r03W-B_V4.scn2
+ is scenario open  F
+ weather: 13130_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    17     4    27     6     7     9     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      2
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+  0.896470588000000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    85.0000000000000        90.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     3.39062500000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\13130_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    3.42187500000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   304
+ compartments for aquifer:                    303 to                   304
+ start GW degradation profile
+ end GW profile
+ usle month day                       4                    17
+ usle month day                       9                     7
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     3.42187500000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     3.42187500000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   3.42187500000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    15.8217328991103     
+ maxcap_volume (effective pore volume (depth), cm) =    74.3900000000000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   3.42187500000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_333176-13130-1_Corn-r03W-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    4.21875000000000     
+ ###################################################
+ ###################################################
+ cpu time gw     4.21875000000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered    4.36205263517055     
+ parent erosion mass   0.597106482866013     
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       9.183627996363988E-003
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       9.183627996363988E-003
+ Doing output process
+ done output batch 
+ TPEZ ID 1_333176-13130-1_Corn-r03W-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.322000000000000       0.248000000000000        1.40000000000000     
+   1.45011600000000     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    4.23437500000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     4.26562500000000     
+ ###################################################
+ Doing scenario                      6
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r04-B_V4.scn2
+ is scenario open  F
+ weather: 19753_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    23     5     6     8    21    10     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   1.11512195100000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    82.0000000000000        91.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     4.26562500000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\19753_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    4.29687500000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   380
+ compartments for aquifer:                    379 to                   380
+ start GW degradation profile
+ end GW profile
+ usle month day                       5                    23
+ usle month day                      10                    21
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     4.29687500000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     4.29687500000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   4.29687500000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    40.7900949837191     
+ maxcap_volume (effective pore volume (depth), cm) =    62.6639998800000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   4.29687500000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_163442-19753-1_Corn-r04-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    5.21875000000000     
+ ###################################################
+ ###################################################
+ cpu time gw     5.21875000000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered    1.24459925842345     
+ parent erosion mass   0.118545908473202     
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.524342901660467E-003
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.524342901660467E-003
+ Doing output process
+ done output batch 
+ TPEZ ID 1_163442-19753-1_Corn-r04-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.327000019999999       0.190000000000000        1.49999999999999     
+   2.32018569999999     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    5.23437500000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     5.26562500000000     
+ ###################################################
+ Doing scenario                      7
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r05-B_V4.scn2
+ is scenario open  F
+ weather: 19277_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    23     5     6     8    21    10     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   1.19160493800000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    81.0000000000000        88.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     5.26562500000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\19277_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    5.29687500000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   411
+ compartments for aquifer:                    410 to                   411
+ start GW degradation profile
+ end GW profile
+ usle month day                       5                    23
+ usle month day                      10                    21
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     5.29687500000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     5.29687500000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   5.29687500000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    30.9663490024105     
+ maxcap_volume (effective pore volume (depth), cm) =    49.2040002400000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   5.29687500000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_162135-19277-1_Corn-r05-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    6.31250000000000     
+ ###################################################
+ ###################################################
+ cpu time gw     6.31250000000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered    1.30419383329911     
+ parent erosion mass   5.926722477570687E-002
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.524927885323728E-003
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.524927885323728E-003
+ Doing output process
+ done output batch 
+ TPEZ ID 1_162135-19277-1_Corn-r05-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.292000000000000       0.143000000000000        1.45000000000000     
+   1.45011600000000     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    6.32812500000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     6.37500000000000     
+ ###################################################
+ Doing scenario                      8
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r06-B_V4.scn2
+ is scenario open  F
+ weather: 14551_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    29     4     2     7     5     9     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   1.19160493800000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    81.0000000000000        88.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     6.37500000000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\14551_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    6.40625000000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   902
+ compartments for aquifer:                    901 to                   902
+ start GW degradation profile
+ end GW profile
+ usle month day                       4                    29
+ usle month day                       9                     5
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     6.42187500000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     6.42187500000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   6.42187500000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    11.9481100102861     
+ maxcap_volume (effective pore volume (depth), cm) =    50.5710018400000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   6.42187500000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_527646-14551-1_Corn-r06-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    8.46875000000000     
+ ###################################################
+ ###################################################
+ cpu time gw     8.46875000000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered    2.83373919193986     
+ parent erosion mass   0.205206200374466     
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       5.627676652433923E-003
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       5.627676652433923E-003
+ Doing output process
+ done output batch 
+ TPEZ ID 1_527646-14551-1_Corn-r06-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.286999999999999       0.134999999999999        1.47333333333333     
+  0.841067280000000     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    8.48437500000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     8.57812500000000     
+ ###################################################
+ Doing scenario                      9
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r07-B_V4.scn2
+ is scenario open  F
+ weather: 21840_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    13     5     2     8    22    10     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   1.19160493800000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    81.0000000000000        88.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     8.57812500000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\21840_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    8.64062500000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   407
+ compartments for aquifer:                    406 to                   407
+ start GW degradation profile
+ end GW profile
+ usle month day                       5                    13
+ usle month day                      10                    22
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     8.64062500000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     8.64062500000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   8.64062500000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    43.2726389485070     
+ maxcap_volume (effective pore volume (depth), cm) =    58.7770000000000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   8.64062500000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_408382-21840-1_Corn-r07-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    9.60937500000000     
+ ###################################################
+ ###################################################
+ cpu time gw     9.60937500000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered    1.01216280927160     
+ parent erosion mass   0.114084967991699     
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.085644031969071E-003
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.085644031969071E-003
+ Doing output process
+ done output batch 
+ TPEZ ID 1_408382-21840-1_Corn-r07-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.315000000000001       0.193999990000000        1.05000000000000     
+   4.06032470000001     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    9.64062500000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     9.68750000000000     
+ ###################################################
+ Doing scenario                     10
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r08-B_V4.scn2
+ is scenario open  F
+ weather: 11231_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+     5     4    13     6    22     8     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      2
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+  0.896470588000000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    85.0000000000000        90.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     9.68750000000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\11231_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    9.71875000000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   363
+ compartments for aquifer:                    362 to                   363
+ start GW degradation profile
+ end GW profile
+ usle month day                       4                     5
+ usle month day                       8                    22
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     9.71875000000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     9.71875000000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   9.71875000000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    12.0642076527507     
+ maxcap_volume (effective pore volume (depth), cm) =    39.3439995600000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   9.71875000000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_577263-11231-1_Corn-r08-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    10.6562500000000     
+ ###################################################
+ ###################################################
+ cpu time gw     10.6562500000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered    5.24828651343152     
+ parent erosion mass   0.141180923928837     
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       9.980495254371013E-003
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       9.980495254371013E-003
+ Doing output process
+ done output batch 
+ TPEZ ID 1_577263-11231-1_Corn-r08-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.318333333333333       0.228666670000001        1.35333333333333     
+  0.839133773333333     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    10.6718750000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     10.7031250000000     
+ ###################################################
+ Doing scenario                     11
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r09-B_V4.scn2
+ is scenario open  F
+ weather: 25606_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    14     5     3     8    23    10     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   1.11512195100000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    82.0000000000000        91.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     10.7031250000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\25606_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    10.7500000000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   407
+ compartments for aquifer:                    406 to                   407
+ start GW degradation profile
+ end GW profile
+ usle month day                       5                    14
+ usle month day                      10                    23
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     10.7500000000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     10.7500000000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   10.7500000000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    37.4656392298516     
+ maxcap_volume (effective pore volume (depth), cm) =    60.9030004599998     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   10.7500000000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_2798086-25606-1_Corn-r09-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    11.7031250000000     
+ ###################################################
+ ###################################################
+ cpu time gw     11.7031250000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered    1.23527155648934     
+ parent erosion mass   0.163323730557538     
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.589991272309037E-003
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.589991272309037E-003
+ Doing output process
+ done output batch 
+ TPEZ ID 1_2798086-25606-1_Corn-r09-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.302000020000000       0.157000000000000        1.30000000000000     
+   2.32018569999999     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    11.7187500000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     11.7656250000000     
+ ###################################################
+ Doing scenario                     12
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r10L-B_V4.scn2
+ is scenario open  F
+ weather: 18986_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    13     5     2     8    22    10     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   1.19160493800000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    81.0000000000000        88.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     11.7656250000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\18986_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    11.7968750000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   335
+ compartments for aquifer:                    334 to                   335
+ start GW degradation profile
+ end GW profile
+ usle month day                       5                    13
+ usle month day                      10                    22
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     11.7968750000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     11.7968750000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   11.7968750000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    19.7356861801250     
+ maxcap_volume (effective pore volume (depth), cm) =    54.1520000200000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   11.7968750000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_2745907-18986-1_Corn-r10L-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    12.6875000000000     
+ ###################################################
+ ###################################################
+ cpu time gw     12.6875000000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered    1.37060149507279     
+ parent erosion mass   8.349457323917818E-002
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.692770496874013E-003
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.692770496874013E-003
+ Doing output process
+ done output batch 
+ TPEZ ID 1_2745907-18986-1_Corn-r10L-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.267000020000001       0.118999995000000        1.40000000000000     
+   1.16009280000000     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    12.7031250000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     12.7343750000000     
+ ###################################################
+ Doing scenario                     13
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r10U-B_V4.scn2
+ is scenario open  F
+ weather: 21828_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    21     5     8     8    26    10     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   1.19160493800000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    81.0000000000000        88.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     12.7500000000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\21828_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    12.7812500000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   332
+ compartments for aquifer:                    331 to                   332
+ start GW degradation profile
+ end GW profile
+ usle month day                       5                    21
+ usle month day                      10                    26
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     12.7812500000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     12.7812500000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   12.7812500000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    29.3220477604650     
+ maxcap_volume (effective pore volume (depth), cm) =    46.8860004000000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   12.7812500000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_418229-21828-1_Corn-r10U-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    13.6406250000000     
+ ###################################################
+ ###################################################
+ cpu time gw     13.6406250000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered   0.934117022480473     
+ parent erosion mass   8.185668346757985E-002
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       1.881432788792689E-003
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       1.881432788792689E-003
+ Doing output process
+ done output batch 
+ TPEZ ID 1_418229-21828-1_Corn-r10U-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.327000019999999       0.196000010000001        1.20000000000000     
+   2.61020870000000     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    13.6562500000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     13.6875000000000     
+ ###################################################
+ Doing scenario                     14
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r11-B_V4.scn2
+ is scenario open  F
+ weather: 15909_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    27     4     8     7    18     9     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   1.19160493800000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    81.0000000000000        88.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     13.6875000000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\15909_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    13.7187500000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   301
+ compartments for aquifer:                    300 to                   301
+ start GW degradation profile
+ end GW profile
+ usle month day                       4                    27
+ usle month day                       9                    18
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     13.7187500000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     13.7187500000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   13.7187500000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    11.9134089215187     
+ maxcap_volume (effective pore volume (depth), cm) =    70.5590000000000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   13.7187500000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_384919-15909-1_Corn-r11-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    14.5156250000000     
+ ###################################################
+ ###################################################
+ cpu time gw     14.5312500000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered   0.473230322211689     
+ parent erosion mass   8.102860020877962E-003
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       8.913577448751227E-004
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       8.913577448751227E-004
+ Doing output process
+ done output batch 
+ TPEZ ID 1_384919-15909-1_Corn-r11-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.332999999999999       0.206999999999999        1.40000000000000     
+   1.16009280000000     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    14.5312500000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     14.5625000000000     
+ ###################################################
+ Doing scenario                     15
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r12-B_V4.scn2
+ is scenario open  F
+ weather: 8379_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    14     4    25     6     5     9     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+  0.896470588000000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    85.0000000000000        90.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     14.5625000000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\8379_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    14.6093750000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   499
+ compartments for aquifer:                    498 to                   499
+ start GW degradation profile
+ end GW profile
+ usle month day                       4                    14
+ usle month day                       9                     5
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     14.6093750000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     14.6093750000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   14.6093750000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    31.0776236085563     
+ maxcap_volume (effective pore volume (depth), cm) =    83.9299997400001     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   14.6093750000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_375442-8379-1_Corn-r12-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    15.7968750000000     
+ ###################################################
+ ###################################################
+ cpu time gw     15.7968750000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered    2.66602914664773     
+ parent erosion mass   0.119975422325642     
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       5.159267720321060E-003
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       5.159267720321060E-003
+ Doing output process
+ done output batch 
+ TPEZ ID 1_375442-8379-1_Corn-r12-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.432999999999999       0.288999999999999        1.18000000000000     
+   2.32018569999999     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    15.8125000000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     15.8750000000000     
+ ###################################################
+ Doing scenario                     16
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r13-B_V4.scn2
+ is scenario open  F
+ weather: 12594_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+     7     5    26     7    15    10     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+  0.896470588000000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    85.0000000000000        90.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     15.8750000000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\12594_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    15.9218750000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   359
+ compartments for aquifer:                    358 to                   359
+ start GW degradation profile
+ end GW profile
+ usle month day                       5                     7
+ usle month day                      10                    15
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     15.9218750000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     15.9218750000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   15.9218750000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    24.8946122669676     
+ maxcap_volume (effective pore volume (depth), cm) =    49.1690000000000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   15.9218750000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_55981-12594-1_Corn-r13-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    16.8125000000000     
+ ###################################################
+ ###################################################
+ cpu time gw     16.8125000000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered   0.486802839017941     
+ parent erosion mass   2.376758697208963E-002
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       9.455007888704262E-004
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       9.455007888704262E-004
+ Doing output process
+ done output batch 
+ TPEZ ID 1_55981-12594-1_Corn-r13-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.343000000000001       0.231000000000000        1.40000000000000     
+   1.16009280000000     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    16.8281250000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     16.8750000000000     
+ ###################################################
+ Doing scenario                     17
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r14-B_V4.scn2
+ is scenario open  F
+ weather: 18006_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    16     5     5     8    26    10     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+  0.896470588000000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    85.0000000000000        90.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     16.8750000000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\18006_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    16.9218750000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   232
+ compartments for aquifer:                    231 to                   232
+ start GW degradation profile
+ end GW profile
+ usle month day                       5                    16
+ usle month day                      10                    26
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     16.9218750000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     16.9218750000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   16.9218750000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    24.9740574202258     
+ maxcap_volume (effective pore volume (depth), cm) =    29.8370000000000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   16.9218750000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_506808-18006-1_Corn-r14-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    17.5937500000000     
+ ###################################################
+ ###################################################
+ cpu time gw     17.5937500000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered   0.135832689938799     
+ parent erosion mass   2.010301057240230E-002
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.887698157614830E-004
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.887698157614830E-004
+ Doing output process
+ done output batch 
+ TPEZ ID 1_506808-18006-1_Corn-r14-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.305000000000000       0.229000000000000        1.38000000000000     
+   1.16009280000000     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    17.6093750000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     17.6406250000000     
+ ###################################################
+ Doing scenario                     18
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r15-B_V4.scn2
+ is scenario open  F
+ weather: 11629_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    14     6    15     8    16    10     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   1.19160493800000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    81.0000000000000        88.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     17.6406250000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\11629_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    17.6875000000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   476
+ compartments for aquifer:                    475 to                   476
+ start GW degradation profile
+ end GW profile
+ usle month day                       6                    14
+ usle month day                      10                    16
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     17.6875000000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     17.6875000000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   17.6875000000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    12.7970914904783     
+ maxcap_volume (effective pore volume (depth), cm) =    43.9679976699999     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   17.6875000000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_53735-11629-226_Corn-r15-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    18.7656250000000     
+ ###################################################
+ ###################################################
+ cpu time gw     18.7656250000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered   0.111843626833003     
+ parent erosion mass   9.054598491838536E-004
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.087946049670120E-004
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.087946049670120E-004
+ Doing output process
+ done output batch 
+ TPEZ ID 1_53735-11629-226_Corn-r15-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.236999999999999       0.157000000000000        1.32000000000000     
+  0.435034800000001     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    18.7812500000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     18.8281250000000     
+ ###################################################
+ Doing scenario                     19
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r16-B_V4.scn2
+ is scenario open  F
+ weather: 18226_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    17     5     3     8    20    10     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      2
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   1.19160493800000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    81.0000000000000        88.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     18.8281250000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\18226_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    18.8593750000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   271
+ compartments for aquifer:                    270 to                   271
+ start GW degradation profile
+ end GW profile
+ usle month day                       5                    17
+ usle month day                      10                    20
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     18.8593750000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     18.8593750000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   18.8593750000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    20.5748904988109     
+ maxcap_volume (effective pore volume (depth), cm) =    42.4390000000000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   18.8593750000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_482381-18226-1_Corn-r16-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    19.6093750000000     
+ ###################################################
+ ###################################################
+ cpu time gw     19.6093750000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered   0.134863395836259     
+ parent erosion mass   1.039836496245606E-002
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.690032607383616E-004
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       2.690032607383616E-004
+ Doing output process
+ done output batch 
+ TPEZ ID 1_482381-18226-1_Corn-r16-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.305999999999999       0.162999990000000        1.15000000000000     
+   1.16009280000000     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    19.6250000000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     19.6562500000000     
+ ###################################################
+ Doing scenario                     20
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r17-B_V4.scn2
+ is scenario open  F
+ weather: 24803_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    12     5     3     8    25    10     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      1
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   1.78486486500000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    74.0000000000000        83.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     19.6718750000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\24803_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    19.7031250000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   269
+ compartments for aquifer:                    268 to                   269
+ start GW degradation profile
+ end GW profile
+ usle month day                       5                    12
+ usle month day                      10                    25
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     19.7031250000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     19.7031250000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   19.7031250000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    14.6186098049855     
+ maxcap_volume (effective pore volume (depth), cm) =    33.9949989600000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   19.7031250000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_68967-24803-1_Corn-r17-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    20.4843750000000     
+ ###################################################
+ ###################################################
+ cpu time gw     20.4843750000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered   1.966860123062733E-002
+ parent erosion mass   8.282128894687379E-004
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       3.795706318536304E-005
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       3.795706318536304E-005
+ Doing output process
+ done output batch 
+ TPEZ ID 1_68967-24803-1_Corn-r17-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.234000000000000       7.726666666666684E-002   1.25000000000000     
+   1.02474864000000     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    20.5000000000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     20.5312500000000     
+ ###################################################
+ Doing scenario                     21
+ **********  Start Reading Scenario Values ************************
+ C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\Koc 100 to 3000\Cor
+ n-r18-B_V4.scn2
+ is scenario open  F
+ weather: 17011_grid.wea
+ Crop Cycles per year:                      1
+ Start reading crop info
+    23     5     4     8    16    10     1     0
+ Foliar disposition always = 1, pesticide on foliage removed at harvest
+ Irrigation Type                      2
+ FLEACH,PCDEPL,max_irrig  0.100000000000000       0.500000000000000     
+   2.85750000000000     
+ User specifies depth?  F
+ reading albedo and bc temperature:
+  0.000000000000000E+000  0.000000000000000E+000
+ CN:    64.0000000000000        74.0000000000000     
+ read in stagnant layer    5.00000000000000     
+ eof   ?                    -1 F
+ ###################################################
+ cpu time scenario start     20.5312500000000     
+ ###################################################
+ weather path and file to open: ..\..\Test\scenario\WeatherFiles\17011_grid.wea
+ Weather file total days =                  19723
+ End Weather allocation
+ Finished reading weather file
+ ###################################################
+ cpu time read weather    20.5625000000000     
+ ###################################################
+ Use Autoprofile for soil? F
+ Number Soil Compartments (ncom2)=                   407
+ compartments for aquifer:                    406 to                   407
+ start GW degradation profile
+ end GW profile
+ usle month day                       5                    23
+ usle month day                      10                    16
+ Total Applications =                     54
+ Done with Application Allocations
+ crop and app calcs
+ Put applications in order for rain restrictions? F
+ ###################################################
+ cpu time before ordering applications (if applicable)     20.5625000000000     
+ ###################################################
+ ###################################################
+ cpu time after ordering applications (if applicable)     20.5625000000000     
+ ###################################################
+ ###################################################
+ cpu time after writing apps   20.5625000000000     
+ ###################################################
+ Done setting application dates, Total applications in sim = 
+                    54
+ Retardation Factor =    180.025939081529     
+ maxcap_volume (effective pore volume (depth), cm) =    96.1000001000000     
+ End of Initialization
+ ###################################################
+ cpu time do initialization   20.5625000000000     
+ ###################################################
+ crop period                     1
+ Start allocations
+ ****************** Start App Loop **********************************
+ run id 1_462117-17011-1_Corn-r18-B_USEPA Pond_0000
+ Adjust applications for rain? F
+ Enter chemical transport
+ ###################################################
+ cpu time chen xport    21.5625000000000     
+ ###################################################
+ ###################################################
+ cpu time gw     21.5625000000000     
+ ###################################################
+ enter VVWM
+ parent runoff mass delivered   4.870757619535072E-003
+ parent erosion mass   3.317240813067652E-004
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ simulation type =                      2
+ Main VVWM Loop 
+ batch output file summary_output.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       9.634225371929316E-006
+ Doing output process
+ done output batch 
+ enter WPEZ
+ WPEZ simulation type is always Varying Volume Type 1
+ DOING VOLUME CALCULATION
+ Main VVWM Loop 
+ wpez batch output file summary_WPEZ.txt
+ Start Window averaging
+ Start picking max
+ total and fraction off field   540.000000000001       9.634225371929316E-006
+ Doing output process
+ done output batch 
+ TPEZ ID 1_462117-17011-1_Corn-r18-B_USEPA Pond_0000_TPEZ
+ Enter TPEZ
+ total_applications =                     54
+ Spray mass =   0.000000000000000E+000
+ For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:
+  0.457000020000002       0.222000000000000       0.800000000000002     
+   16.2412990000000     
+ DOING VOLUME CALCULATION for TPEZ 
+ Start picking max tpez
+ done tpez output batch 
+ ###################################################
+ cpu time vvwm    21.5781250000000     
+ ###################################################
+ ###################################################
+ cpu time deallocate     21.6250000000000     
+ ###################################################
+ Doing scenario                     22
+ ###################################################
+ cpu time vvwm done         21.6250000000000     
+ ###################################################
+ *****************************Done with scheme                      1
+ ###################################################
+ cpu time, scheme      21.6250000000000                         22
+ ###################################################
+ ###################################################
+ cpu time, waterbody      21.6250000000000                          1
+ ###################################################
+ ###################################################
+ End Proram cpu time      21.6250000000000     
+ ###################################################
+ Total clock time =    23.3939998149872     
+ tridiag   2.12500000000000     
+ ###################################################

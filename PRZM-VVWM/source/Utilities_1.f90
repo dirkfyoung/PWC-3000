@@ -61,7 +61,6 @@
     !trim(adjustl(scenario_names(i,j)((last_slash+1):(last_dot-1))))  &
     !    // '_' // trim(adjustl(local_name)) // '_' // trim(adjustl(appnumber))
     
-    write(*,*) '&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&'
     write(*,*) "run id ", trim(run_ID)
      
     end subroutine make_run_id 

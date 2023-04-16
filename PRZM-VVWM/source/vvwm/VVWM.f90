@@ -411,9 +411,9 @@ subroutine tpez(scheme_number)
                   Kd = k_f_input(chem_index)
           end if
 
-          write(*,* ) "KD = " , kd
-          write(*,* ) "BD = " , avg_bd
-          write(*,* ) "R = " , ( avg_maxwater+avg_bd*kd)/avg_maxwater
+          !write(*,* ) "KD = " , kd
+          !write(*,* ) "BD = " , avg_bd
+          !write(*,* ) "R = " , ( avg_maxwater+avg_bd*kd)/avg_maxwater
           
          call initial_conditions(chem_index)  !just populates m1 additions: erosion runoff and drift
          call MainLoopTPEZ(avg_maxwater, kd, avg_bd)      
@@ -423,7 +423,7 @@ subroutine tpez(scheme_number)
 !        if (nchem > chem_index) then     
 !              call DegradateProduction(chem_index)  !not available for tpez
 !        end if
-       write (*,*) 'Calling tpez output_processing'
+!       write (*,*) 'Calling tpez output_processing'
        call tpez_output_processor(chem_index)
        
        

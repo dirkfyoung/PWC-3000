@@ -160,19 +160,14 @@ use waterbody_parameters, ONLY: afield
     ENPY = Heat_of_Henry/ 4184.0   
     
     !********Allocations of Soil Profile Variables**********************
-	    write(*,*) 'Nxxxxxxxxxxxxxxxxxxxxxxxxx ' , ncom2
+    write(*,*) 'Use Autoprofile for soil?', is_auto_profile
 	if (is_auto_profile) then
-         write(*,*) ' auto profile in side ' 
-        
-       write(*,*)  sum(profile_number_increments(1:number_of_discrete_layers))
-        write(*,*) profile_number_increments(1:number_of_discrete_layers)
 		ncom2 = sum(profile_number_increments(1:number_of_discrete_layers))  !New way
-    else
-        
+    else     
         NCOM2 = sum(num_delx(1:nhoriz))  !Total Number of Compartments       !old way
     end if
 	
-
+	write(*,*) 'Number Soil Compartments (ncom2)=' , ncom2
 !******************************************************	
 	!delete this line once its working
 	!NCOM2 = sum(num_delx(1:nhoriz))  !Total Number of Compartments
@@ -185,15 +180,9 @@ use waterbody_parameters, ONLY: afield
     GAMMA1  = 0.0
     vel = 0.0
     !************************************************
-	
-	write (*,*) "Do autoprofile ? " , is_auto_profile
-	write (*,*) "NCOM2" , NCOM2
+
     
-    
-    
-    
-    if (is_auto_profile) then  ! create the discretization based on input profile instead of delx
-        
+    if (is_auto_profile) then  ! create the discretization based on input profile instead of delx      
 	        !get thicknesses for each compartment
 			start = 1
 		    xend = 0
@@ -463,7 +452,7 @@ use waterbody_parameters, ONLY: afield
 	!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
              
-    write(*,*) 'start GW profile'         
+    write(*,*) 'start GW degradation profile'         
              
     do k = 1, nchem       
         previous_depth = 0.0

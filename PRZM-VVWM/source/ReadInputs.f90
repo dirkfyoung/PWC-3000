@@ -51,7 +51,7 @@ use utilities
 	integer             :: scheme_number_readin
     
     
-    write(*,*) trim(inputfile )
+    write(*,*) "Inside read_inputfile"
 
     OPEN(Unit = inputfile_unit_number, FILE=(inputfile),STATUS='OLD', IOSTAT=status  )
     IF (status .NE. 0) THEN
@@ -208,14 +208,14 @@ use utilities
            
         do j=1, number_of_scenarios(i)
             read(inputfile_unit_number,'(A512)')  scenario_names(i,j) !(i,j) i is scheme #, j is scenario #          !Scheme Group of Lines 8
-             write(*,'(A)') trim(scenario_names(i,j))
+           !  write(*,'(A)') trim(scenario_names(i,j))
         end do 
         
         read(inputfile_unit_number,*) is_batch_scenario(i)                                                           !Scheme Line 9
         read(inputfile_unit_number,'(A)') scenario_batchfile(i)                                                      !Scheme Line 10
        
-        write(*,*)       is_batch_scenario(i)  
-        write (*,'(A)') scenario_batchfile(i)
+        write(*,*)  "Read a batch scenario file?" ,  is_batch_scenario(i)  
+        write (*,'(A)') trim(scenario_batchfile(i))
         
 	enddo
 	
@@ -315,7 +315,7 @@ use utilities
     read(inputfile_unit_number,*) extra_plots            !OUTPUT Line 26
 	    if (extra_plots > 0) is_timeseriesfile = .TRUE.
 
-		write(*,*) "reading extra time series if any"
+	write(*,*) "reading tabulated output requests, if any"
 		
     do i = 1, extra_plots
         read(inputfile_unit_number,*)  temp_PLNAME(i),  temp_chem_id(i), temp_MODE(i),temp_ARG(i),temp_ARG2(i),temp_CONST(i)   !OUTPUT Line 27   
@@ -448,7 +448,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         end do
 
         
-        write (*,*) "Foliar disposition always = 1"
+        write (*,*) "Foliar disposition always = 1, pesticide on foliage removed at harvest"
         foliar_disposition = 1     
         
         do i=1, max_number_crop_periods - num_crop_periods_input

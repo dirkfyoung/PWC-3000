@@ -69,9 +69,8 @@ program PRZMVVWM
     !Middle Loop (i) is for Application Schemes
     !Inner Loop (j) is for scenarios
      
-	 Write(*,*) '********************************************************************'
-	 write(*,*) 'Start Waterbody Loop ***********************************************'
-	 Write(*,*) '********************************************************************'
+	 write(*,*) '******************** Start Waterbody Loop ***************************'
+
      do hh = 1, size(waterbody_names)
          run_tpez_wpez = .FALSE.
          
@@ -89,18 +88,15 @@ program PRZMVVWM
          
          write(*,*) 'Doing Water Body: ', trim(waterbody_names(hh))
 		 
-		 Write(*,*) '********************************************************************'
+
 	     write(*,*) '**** Start Scheme Loop *********************************************'
-	     Write(*,*) '********************************************************************'
 		 
          do i = 1, number_of_schemes
-			 Write(*,*) '**** Doing Scheme No. ', i
+			 Write(*,*) 'Doing Scheme No. ', i
 			 
              call set_chemical_applications(i) !gets the individual application scheme from the whole scheme table, non scenario specfic 
 							
-		  	 write(*,*) '********************************************************************'
 	         write(*,*) '********** Start Scenario Loop *************************************'
-	         Write(*,*) '********************************************************************'	
 				           
             if(is_batch_scenario(i)) then
                write(*,'("Batch Scenario File: ", A100) ')   scenario_batchfile(i)
@@ -171,9 +167,7 @@ program PRZMVVWM
                write(*,*) 'Start allocations'
                call allocation_for_VVWM
 			   			   
-			   write(*,*) '********************************************************************'
 			   write(*,*) '****************** Start App Loop **********************************'
-			   write(*,*) '********************************************************************'
 
 			   
                do jj = 0, app_window_span(i), app_window_step(i) 
