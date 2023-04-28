@@ -45,12 +45,15 @@ integer :: i
  
 
         ! Process and convert runoff for VVWM use
-        flowthru_the_body = runoff_save*afield/8640000.    !m3/s :(cm/day) *(m2)* (m/100cm)* (day/86400s)  
+        flowthru_the_body = runoff_save*afield/8640000.    !m3/s :(cm/day) *(m2)* (m/100cm)* (day/806400s)  
         Daily_Avg_Runoff  = sum(flowthru_the_body)/num_records
         flowthru_the_body = flowthru_the_body+ baseflow  !add in baseflow
        
         edge_of_field  = 0.0
         where (flowthru_the_body> 0.0) edge_of_field = mass_off_field(:,1,nchem) /(flowthru_the_body*86400.) !kg/m3
+        
+        
+ !       either For the case showb implying more mechanistic meaning to tpez depth a  
         
         ! Process and convert erosion for VVWM use
         eroded_solids_mass= erosion_save*1000. !convert from tonnes to kg
@@ -188,5 +191,8 @@ end subroutine initial_conditions
 
 
 end module MassInputs
+
+
+
 
 

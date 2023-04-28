@@ -1,6 +1,6 @@
 PWC 3 Input File, Version 1
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\
-test2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\New folder\
+unk
 ..\Test\scenario\WeatherFiles\
 True, False, False,
 1,
@@ -52,11 +52,11 @@ True,
 True,False,False,True
 1,
 "C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\waterbodies\xtest.WAT"
-False,
-False,
-False,
-False,
 True,
+False,
+False,
+False,
+False,
 False,
 False,,
 False,0,5,
@@ -77,7 +77,4 @@ holder for future expansion,
 holder for future expansion,
 holder for future expansion,
 holder for future expansion,
-3,
-STMP,1,TSER,1,1,,
-STMP,1,TSER,33,33,,
-STMP,1,TSER,60,60,,
+0,

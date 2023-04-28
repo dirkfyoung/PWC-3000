@@ -78,7 +78,7 @@ module Temperatue_Calcs
 
       real ::  vhtcap(ncom2),THCOND(ncom2)
       
-
+      real :: mineral_fraction, organic_fraction  !soil composition for thermal capacity calcs  no longer using sand and clay
       
       
 !     + + + DATA INITIALIZATIONS + + +
@@ -146,6 +146,13 @@ module Temperatue_Calcs
         XVOL(3,L) = orgcarb(L)*1.724*bulkdensity(L)/1.30*VOLCOR
         XVOL(2,L) = 1.0-theta_sat(L)-XVOL(1,L)-XVOL(3,L)
 
+        !Volume fractions
+        organic_fraction = orgcarb(L)*1.724*bulkdensity(L)/130.          !orgcarb in percent, hence 130 vs. 1.30
+        mineral_fraction =  (1. -organic_fraction)*bulkdensity(L)/2.65
+        
+        
+        
+        
 !       Defining water content and air in the soil pores
 
         XVOL(4,L) = theta_zero(L)
@@ -209,7 +216,10 @@ module Temperatue_Calcs
          END IF
 
          !Volumetric Heat Capacity of the soil layer, cal/cm3-C
-         VHTCAP(L)=0.46*(XVOL(1,L)+XVOL(2,L)) + 0.6*XVOL(3,L) + theta_zero(L)
+ !        VHTCAP(L)=0.46*(XVOL(1,L)+XVOL(2,L)) + 0.6*XVOL(3,L) + theta_zero(L)
+         
+         VHTCAP(L)=0.46*mineral_fraction + 0.6*organic_fraction + theta_zero(L)
+         
          end do
          
 
