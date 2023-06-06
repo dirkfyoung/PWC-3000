@@ -255,8 +255,6 @@ module constants_and_variables
       integer :: NHORIZ                           !input value, number of data horizons
       integer :: Num_delx(max_horizons)           !Input Number of discretizations in horizon
       real    :: bd_input(max_horizons)           !bulk density of each horizon input
-      real    :: clay_input(max_horizons)         !clay of each horizon input
-      real    :: sand_input(max_horizons)         !clay of each horizon input
       real    :: oc_input(max_horizons)           !organic carbon fraction input
  
       real    :: fc_input(max_horizons)           !field capacity input
@@ -343,8 +341,6 @@ module constants_and_variables
       real,allocatable,dimension(:) :: delx
       real,allocatable,dimension(:) :: bulkdensity
       
-      real,allocatable,dimension(:) :: clay
-      real,allocatable,dimension(:) :: sand
       real,allocatable,dimension(:) :: orgcarb
       real,allocatable,dimension(:) :: theta_zero  !beginning day water content
       real,allocatable,dimension(:) :: theta_end   !end day water content

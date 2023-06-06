@@ -48,7 +48,7 @@ module Temperatue_Calcs
   !*******************************************************************************************************  
   SUBROUTINE SLTEMP(day)
       use  constants_and_Variables, ONLY: ncom2, SOLRAD, air_TEMP, wind,sttdet,bottom_bc,albedo,              &
-       emmiss, soil_temp,ubt,COVER,HEIGHT,bulkdensity,theta_zero,DELX,sand,clay,theta_wp,theta_fc,theta_sat,ncom2,snow,    &
+       emmiss, soil_temp,ubt,COVER,HEIGHT,bulkdensity,theta_zero,DELX,theta_wp,theta_fc,theta_sat,ncom2,snow,    &
        orgcarb,vonKarman,uWind_Reference_Height,julday1900, soil_temp_save
      
       use utilities_1
@@ -133,46 +133,46 @@ module Temperatue_Calcs
 !     soil compartment as the soil water content changes with time and
 !     depth, using the procedure of de Vries (1963).
  
-         do L =1,NCOM2
+     do L =1,NCOM2
 
          !The vol fractions of sand,clay,and OM are adjusted so that their
          !total value equals to (1-porosity)
 
-          VOLCOR=(1.0-theta_sat(L))/((SAND(L)/2.65+CLAY(L)/2.65+orgcarb(L)*1.724/1.3)*bulkdensity(L))
+        !  VOLCOR=(1.0-theta_sat(L))/((SAND(L)/2.65+CLAY(L)/2.65+orgcarb(L)*1.724/1.3)*bulkdensity(L))
 
-!       Conversion of Wt percents of soil constituents to vol fractions
+!        Conversion of Wt percents of soil constituents to vol fractions
 
-        XVOL(1,L) = SAND(L)*bulkdensity(L)/2.65*VOLCOR
-        XVOL(3,L) = orgcarb(L)*1.724*bulkdensity(L)/1.30*VOLCOR
-        XVOL(2,L) = 1.0-theta_sat(L)-XVOL(1,L)-XVOL(3,L)
-
+!        XVOL(1,L) = SAND(L)*bulkdensity(L)/2.65*VOLCOR
+!        XVOL(3,L) = orgcarb(L)*1.724*bulkdensity(L)/1.30*VOLCOR
+!        XVOL(2,L) = 1.0-theta_sat(L)-XVOL(1,L)-XVOL(3,L)
+          
         !Volume fractions
-        organic_fraction = orgcarb(L)*1.724*bulkdensity(L)/130.          !orgcarb in percent, hence 130 vs. 1.30
-        mineral_fraction =  (1. -organic_fraction)*bulkdensity(L)/2.65
+        organic_fraction = orgcarb(L)*1.724*bulkdensity(L)/130.         !org matter volume fraction. oc in percent, hence 130 vs. 1.30
+        mineral_fraction =  (1. -organic_fraction)*bulkdensity(L)/2.65  !mineral volume fractoion
         
-        
-        
+        XVOL(1,L) = mineral_fraction 
+        XVOL(3,L) = organic_fraction
+        XVOL(2,L) = 0.0  !now incuding all silt in mineral fraction
         
 !       Defining water content and air in the soil pores
 
-        XVOL(4,L) = theta_zero(L)
+        XVOL(4,L) = theta_zero(L)  !water content
+        
         IF(theta_zero(L) .LT. theta_wp(L))  XVOL(4,L)=theta_wp(L)
         IF(theta_zero(L) .GT. theta_sat(L)) XVOL(4,L)=theta_sat(L)
-        XVOL(5,L) = theta_sat(L) - XVOL(4,L)
+        XVOL(5,L) = theta_sat(L) - XVOL(4,L)  !air content
 
 !       Estimation of 'G' parameter when W.C is greater than F.C.
 
         IF (XVOL(4,L) .GT. theta_fc(L))THEN
-          GEE(5,1) = 0.333 - XVOL(5,L)/theta_sat(L)*(0.333-0.035)
-          ALAMDA(5) = AIRLMD + VAPLMD
-
-!       Estimation of 'G' parameter when water content is less than F.C.
-
-        ELSE
-          GFLD = 0.333 - (theta_sat(L)-theta_fc(L))/theta_sat(L)*(0.333-0.035)
-          GEE(5,1) = 0.013 + XVOL(4,L)/theta_fc(L)*(GFLD-0.013)
-          ALAMDA(5) = AIRLMD + XVOL(4,L)/theta_fc(L)*VAPLMD
+            GEE(5,1) = 0.333 - XVOL(5,L)/theta_sat(L)*(0.333-0.035)
+            ALAMDA(5) = AIRLMD + VAPLMD
+        ELSE ! Estimation of 'G' parameter when water content is less than F.C.
+            GFLD = 0.333 - (theta_sat(L)-theta_fc(L))/theta_sat(L)*(0.333-0.035)
+            GEE(5,1) = 0.013 + XVOL(4,L)/theta_fc(L)*(GFLD-0.013)
+            ALAMDA(5) = AIRLMD + XVOL(4,L)/theta_fc(L)*VAPLMD
         END IF
+        
         GEE(5,2)=GEE(5,1)
         GEE(5,3)=1.-2*GEE(5,1)
         ALAMDA(0) = ALAMDA(4)
@@ -183,27 +183,30 @@ module Temperatue_Calcs
  10     K = K+1
         SIGMA1 = 0.0
         SIGMA2 = 0.0
+        
+        
          do I = 1,5
-           SIGMA0 = 0.0
-
-!          Estimation of 'K' parameter
-
-           do J = 1, 3
-             SIGMA0 = SIGMA0+1./(1.+(ALAMDA(I)/ALAMDA(0)-1.)*GEE(I,J))
-           end do
-           AKAY(I) = SIGMA0/3.
-           SIGMA1 = SIGMA1 + AKAY(I)*XVOL(I,L)*ALAMDA(I)
-           SIGMA2 = SIGMA2 + AKAY(I)*XVOL(I,L)
+                SIGMA0 = 0.0            
+!               Estimation of 'K' parameter
+               
+                do J = 1, 3
+                  SIGMA0 = SIGMA0+1./(1.+(ALAMDA(I)/ALAMDA(0)-1.)*GEE(I,J))
+                end do
+                AKAY(I) = SIGMA0/3.
+                
+                SIGMA1 = SIGMA1 + AKAY(I)*XVOL(I,L)*ALAMDA(I)
+                SIGMA2 = SIGMA2 + AKAY(I)*XVOL(I,L)
          end do
 
          !Thermal Conductivity in cal/cm-day-C
          THZERO(K) =SIGMA1/SIGMA2
+         
          IF (theta_zero(L) .LT. theta_wp(L) .AND. K .LT. 2)THEN
-          XVOL(4,L) = 0.0
-          XVOL(5,L) = theta_sat(L)
-          ALAMDA(5) = AIRLMD
-          ALAMDA(0) = ALAMDA(5)
-          GOTO 10
+              XVOL(4,L) = 0.0
+              XVOL(5,L) = theta_sat(L)  
+              ALAMDA(5) = AIRLMD
+              ALAMDA(0) = ALAMDA(5)
+              GOTO 10
          END IF
  
          !Interpolation of thermal cond. when W.C. is less than critical point
@@ -215,24 +218,21 @@ module Temperatue_Calcs
           THCOND(L)=THZERO(1)
          END IF
 
+         
+         ! dfy 4/28/2023:
          !Volumetric Heat Capacity of the soil layer, cal/cm3-C
- !        VHTCAP(L)=0.46*(XVOL(1,L)+XVOL(2,L)) + 0.6*XVOL(3,L) + theta_zero(L)
+          VHTCAP(L)=0.46*(XVOL(1,L)+XVOL(2,L)) + 0.6*XVOL(3,L) + theta_zero(L)
          
-         VHTCAP(L)=0.46*mineral_fraction + 0.6*organic_fraction + theta_zero(L)
-         
-         end do
-         
+         !VHTCAP(L)=0.46*mineral_fraction + 0.6*organic_fraction + theta_zero(L)
+          
+     end do
+     
+!      do L = 1, NCOM2
+!!       Diffusion coefficient, cm2/day
+!        DIFFCO(L) = THCOND(L)/VHTCAP(L)
+!      end do
 
-         
-   !   end if  !end of calc for IDFLAG=1
-
-
-      do L = 1, NCOM2
-!       Diffusion coefficient, cm2/day
-        DIFFCO(L) = THCOND(L)/VHTCAP(L)
-      end do
-
-      
+      DIFFCO = THCOND/VHTCAP  !Diffusion coefficient, cm2/day
          
 
       

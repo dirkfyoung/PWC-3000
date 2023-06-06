@@ -27,11 +27,9 @@ end subroutine chemical_manipulations
 SUBROUTINE INITL
 use utilities_1
 use allocations
-use constants_and_Variables, ONLY: min_evap_depth,                                    &
+use constants_and_Variables, ONLY: min_evap_depth,                             &
         SoilWater,fieldcap_water, wiltpoint_water,delx,                        &
         theta_zero,                                                            &
-        sand_input,            sand,                                           &
-        clay_input,            clay,                                           &
         bd_input,              bulkdensity,                                    &
         N_f_2_input,           N_freundlich_2,                                 &
         k_f_2_input,           k_freundlich_2,                                 & 
@@ -209,8 +207,6 @@ use waterbody_parameters, ONLY: afield
 	        end do
 
 	        bulkdensity   = 0.0
-            clay          = 0.0
-            sand       	  = 0.0
             orgcarb       = 0.0
             theta_fc      = 0.0
             theta_wp      = 0.0
@@ -225,8 +221,6 @@ use waterbody_parameters, ONLY: afield
 
                      
 	                 bulkdensity(i)       = bd_input  (j)
-                     clay       (i)       = clay_input(j)
-                     sand       (i)		  = sand_input(j)
                      orgcarb    (i)       = oc_input  (j)                                          
                      theta_fc   (i)       = fc_input  (j)
                      theta_wp   (i)       = wp_input  (j)    
@@ -248,8 +242,6 @@ use waterbody_parameters, ONLY: afield
                          theta_fc   (i) = fc_input  (nhoriz)
                          theta_wp   (i) = wp_input  (nhoriz)
                          orgcarb    (i) = oc_input  (nhoriz)
-                         sand       (i) = sand_input(nhoriz)
-                         clay       (i) = clay_input(nhoriz)
                          theta_zero (i) = fc_input(nhoriz)
                          dispersion (i)	= dispersion_input(nhoriz)           
                          soil_temp  (i) = soil_temp_input (nhoriz)
@@ -302,10 +294,7 @@ use waterbody_parameters, ONLY: afield
 			        		sumofbd = sumofbd + bd_input  (horiz_indx_tracker(m)) *   track_thickness(m)
                             sumofmx = sumofmx + fc_input  (horiz_indx_tracker(m)) *   track_thickness(m)
                             sumofmn = sumofmn + wp_input  (horiz_indx_tracker(m)) *   track_thickness(m)
-                            sumofoc = sumofoc + oc_input  (horiz_indx_tracker(m)) *   track_thickness(m)
-                            sumofsn = sumofsn + sand_input(horiz_indx_tracker(m)) *   track_thickness(m)
-                            sumofcl = sumofcl + clay_input(horiz_indx_tracker(m)) *   track_thickness(m)
-                            
+                            sumofoc = sumofoc + oc_input  (horiz_indx_tracker(m)) *   track_thickness(m)                            
                             sumoftheta_zero          =sumoftheta_zero          +  fc_input                 (horiz_indx_tracker(m)) *   track_thickness(m)
                             sumofdispersion          =sumofdispersion          +  dispersion_input         (horiz_indx_tracker(m)) *   track_thickness(m)
                             sumofsoil_temp           =sumofsoil_temp           +  soil_temp_input          (horiz_indx_tracker(m)) *   track_thickness(m)
@@ -321,8 +310,6 @@ use waterbody_parameters, ONLY: afield
                             theta_fc   (i) = sumofmx /sumofdp	
                             theta_wp   (i) = sumofmn /sumofdp	
                             orgcarb    (i) = sumofoc /sumofdp	
-                            sand       (i)	= sumofsn /sumofdp	 
-			        	    clay       (i) = sumofcl /sumofdp	
 			        	 
                             theta_zero       (i) =sumoftheta_zero          /sumofdp
                             dispersion       (i) =sumofdispersion          /sumofdp
@@ -350,8 +337,6 @@ use waterbody_parameters, ONLY: afield
         delx(start:xend)           = thickness(i)/num_delx(i) 
         bulkdensity(start:xend)    = bd_input(i)
         
-        clay(start:xend)           = clay_input(i)
-        sand(start:xend)           = sand_input(i)
         orgcarb(start:xend)        = oc_input(i)           
                         
         theta_fc(start:xend)       = fc_input(i)

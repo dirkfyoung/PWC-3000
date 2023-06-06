@@ -331,7 +331,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         emd,emm,mad,mam,had,ham,max_root_depth,max_canopy_cover, max_number_crop_periods, &
         max_canopy_height, max_canopy_holdup,foliar_disposition, crop_lag, crop_periodicity  , PFAC,SFAC, min_evap_depth,& 
         FLEACH,PCDEPL,max_irrig ,UserSpecifiesDepth, user_irrig_depth,irtype, USLEK,USLELS,USLEP, IREG,SLP, &
-        nhoriz,thickness,bd_input,fc_input, wp_input, oc_input, bd_input, Num_delx,sand_input,clay_input,dispersion_input, &
+        nhoriz,thickness,bd_input,fc_input, wp_input, oc_input, bd_input, Num_delx,dispersion_input, &
         is_temperature_simulated , albedo, NUSLEC,GDUSLEC,GMUSLEC,cn_2, uslec, &
         runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth, erosion_decline, erosion_effic,use_usleyears,Height_stagnant_air_layer_cm, &
 		is_auto_profile,number_of_discrete_layers,  profile_thick, profile_number_increments,  evergreen,soil_temp_input, scenario_id, bottom_bc
@@ -357,8 +357,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         fc_input   = 0.0
         wp_input   = 0.0
         oc_input   = 0.0
-        sand_input = 0.0
-        clay_input = 0.0
+
         
  
         
@@ -494,8 +493,8 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         read(ScenarioFileUnit,*) (wp_input(i), i=1, nhoriz)
         read(ScenarioFileUnit,*) (oc_input(i), i=1, nhoriz)      
         read(ScenarioFileUnit,*) (Num_delx(i), i=1, nhoriz)
-        read(ScenarioFileUnit,*) (sand_input(i), i=1, nhoriz)        
-        read(ScenarioFileUnit,*) (clay_input(i), i=1, nhoriz)
+        read(ScenarioFileUnit,*) !(sand_input(i), i=1, nhoriz)        
+        read(ScenarioFileUnit,*) !(clay_input(i), i=1, nhoriz)
               
         !do i= 1, nhoriz
         !         write(*, '(7G12.3)')  thickness(i), bd_input(i), fc_input(i), wp_input(i), oc_input(i), sand_input(i), clay_input(i)
@@ -581,7 +580,7 @@ subroutine  scenario_error(error)
 subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
          use utilities_1
          use constants_and_variables, ONLY: scenario_id, weatherfilename,latitude, min_evap_depth, IREG, irtype,max_irrig, PCDEPL, fleach, USLEP, USLEK,USLELS,SLP, &
-             num_crop_periods_input,NHORIZ, thickness,bd_input,fc_input,wp_input,oc_input,sand_input,clay_input, evergreen,emm, emd, mad, mam, had, ham, &
+             num_crop_periods_input,NHORIZ, thickness,bd_input,fc_input,wp_input,oc_input, evergreen,emm, emd, mad, mam, had, ham, &
              PFAC,SFAC, max_canopy_cover, max_canopy_holdup, max_root_depth, crop_periodicity, crop_lag,UserSpecifiesDepth, is_temperature_simulated, &
              ALBEDO, soil_temp_input, dispersion_input, nuslec,cn_2, USLEC, gmuslec, gduslec, use_usleyears, &
              runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth,erosion_decline,erosion_effic, Height_stagnant_air_layer_cm, &
@@ -611,8 +610,6 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
          fc_input   = 0.0
          wp_input   = 0.0
          oc_input   = 0.0
-         sand_input = 0.0
-         clay_input = 0.0
 
 
         !Presets
@@ -678,8 +675,8 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
              fc_input(1),fc_input(2),fc_input(3),fc_input(4),fc_input(5),fc_input(6),fc_input(7),fc_input(8), &
              wp_input(1),wp_input(2),wp_input(3),wp_input(4),wp_input(5),wp_input(6),wp_input(7),wp_input(8), &
              oc_input(1),oc_input(2),oc_input(3),oc_input(4),oc_input(5),oc_input(6),oc_input(7),oc_input(8), &
-             sand_input(1),sand_input(2),sand_input(3),sand_input(4),sand_input(5),sand_input(6),sand_input(7),sand_input(8), &
-             clay_input(1),clay_input(2),clay_input(3),clay_input(4),clay_input(5),clay_input(6),clay_input(7),clay_input(8),dummy,cropgroup,region, gw_depth, gw_temp               
+             dummy,dummy,dummy,dummy,dummy,dummy,dummy,dummy, &
+             dummy,dummy,dummy,dummy,dummy,dummy,dummy,dummy,dummy,cropgroup,region, gw_depth, gw_temp               
          
          
         

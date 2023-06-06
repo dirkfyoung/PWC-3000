@@ -102,7 +102,7 @@ end subroutine allocation_for_VVWM
  
 
     subroutine allocate_soil_compartments
-    use constants_and_variables, ONLY: ncom2,soil_depth,wiltpoint_water,fieldcap_water,delx,bulkdensity,clay,sand,orgcarb,theta_zero, &
+    use constants_and_variables, ONLY: ncom2,soil_depth,wiltpoint_water,fieldcap_water,delx,bulkdensity,orgcarb,theta_zero, &
         theta_end,theta_sat, theta_fc, theta_wp,soil_temp,soilwater, dwrate, dsrate, dgrate, dwrate_atRefTemp,dsrate_atRefTemp,dgrate_atRefTemp,  &
         MolarConvert_aq12, MolarConvert_aq13, MolarConvert_aq23, MolarConvert_s12 ,MolarConvert_s13 , MolarConvert_s23 ,dispersion,thair_old,thair_new,  &
         Kd_new,Kd_old, k_freundlich,  N_freundlich, k_freundlich_2, N_freundlich_2, conc_total_per_water, &
@@ -117,8 +117,7 @@ end subroutine allocation_for_VVWM
         allocate (fieldcap_water(ncom2))
         allocate (bulkdensity(ncom2))
         allocate (delx(ncom2))
-        allocate (clay(ncom2))
-        allocate (sand(ncom2))
+
         allocate (orgcarb(ncom2))
         allocate (theta_zero(ncom2))
         allocate (theta_end(ncom2))
@@ -196,7 +195,7 @@ end subroutine allocation_for_VVWM
     subroutine  deallocate_scenario_parameters
         use constants_and_variables, ONLY: emergence_date ,maturity_date,harvest_date ,&
         precip,pet_evap,air_temperature,wind_speed,solar_radiation,&
-        erosion_save,soil_depth,wiltpoint_water,fieldcap_water,delx,bulkdensity,clay,sand,orgcarb,theta_zero, &
+        erosion_save,soil_depth,wiltpoint_water,fieldcap_water,delx,bulkdensity,orgcarb,theta_zero, &
         theta_end,theta_sat, theta_fc, theta_wp,soil_temp,soilwater, dwrate, dsrate, dgrate, dwrate_atRefTemp,dsrate_atRefTemp,dgrate_atRefTemp,  &
         MolarConvert_aq12, MolarConvert_aq13, MolarConvert_aq23, MolarConvert_s12 ,MolarConvert_s13 , MolarConvert_s23 ,dispersion,thair_old,thair_new,  &
         Kd_new,Kd_old, k_freundlich,  N_freundlich, k_freundlich_2, N_freundlich_2, conc_total_per_water, &
@@ -252,8 +251,7 @@ end subroutine allocation_for_VVWM
         deallocate (fieldcap_water)
         deallocate (bulkdensity)
         deallocate (delx)
-        deallocate (clay)
-        deallocate (sand)
+
         deallocate (orgcarb)
         deallocate (theta_zero)
         deallocate (theta_end)

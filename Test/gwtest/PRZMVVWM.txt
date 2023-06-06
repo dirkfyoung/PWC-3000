@@ -1,7 +1,7 @@
 PWC 3 Input File, Version 1
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\tempTest\
-test
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\gwtest\
+gw
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\WeatherFiles\
 True, False, False,
 1,
 1,12,11,
@@ -39,7 +39,7 @@ False,,,
 False,5,1,
 False,2,2,10,7,
 1
-C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\testScenario.scn2
+C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\gwtest\scenarios\gw_c.SCN2
 False
 C:\Users\dfy97\Documents\My Programs\PWC-2022\Test\scenario\R18_selected_all.csv
 3,

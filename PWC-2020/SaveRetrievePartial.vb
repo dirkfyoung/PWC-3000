@@ -331,13 +331,18 @@
             msg = msg & String.Format("{0},", HorizonGridView.Item(6, i).Value)
         Next
         msg = msg & vbNewLine
-        For i As Integer = 0 To numberofhorizons - 1
-            msg = msg & String.Format("{0},", HorizonGridView.Item(7, i).Value)
-        Next
+
+        'For i As Integer = 0 To numberofhorizons - 1
+        '    msg = msg & String.Format("{0},", HorizonGridView.Item(7, i).Value)
+        'Next
+        msg = msg & "Spare Line (formerly sand)"
+
+
         msg = msg & vbNewLine
-        For i As Integer = 0 To numberofhorizons - 1
-            msg = msg & String.Format("{0},", HorizonGridView.Item(8, i).Value)
-        Next
+        'For i As Integer = 0 To numberofhorizons - 1
+        '    msg = msg & String.Format("{0},", HorizonGridView.Item(8, i).Value)
+        'Next
+        msg = msg & "Spare Line (formerly clay)"
 
 
         msg = msg & vbNewLine & "*** Horizon End, Temperature Start ********"
@@ -1073,8 +1078,8 @@
             Dim mincapacityrow As String()
             Dim ocrow As String()
             Dim compartmentrow As String()
-            Dim sandrow As String()
-            Dim clayrow As String()
+            'Dim sandrow As String()
+            'Dim clayrow As String()
 
             thicknessrow = MyReader.ReadFields
             blkdensityrow = MyReader.ReadFields
@@ -1082,13 +1087,16 @@
             mincapacityrow = MyReader.ReadFields
             ocrow = MyReader.ReadFields
             compartmentrow = MyReader.ReadFields
-            sandrow = MyReader.ReadFields
-            clayrow = MyReader.ReadFields
+
+            'sandrow = MyReader.ReadFields
+            'clayrow = MyReader.ReadFields
+            MyReader.ReadLine()
+            MyReader.ReadLine()
 
             HorizonGridView.Rows.Clear()
 
             For i As Integer = 0 To numberofhorizons - 1
-                HorizonGridView.Rows.Add(i + 1, thicknessrow(i), blkdensityrow(i), maxcapacityrow(i), mincapacityrow(i), ocrow(i), compartmentrow(i), sandrow(i), clayrow(i))
+                HorizonGridView.Rows.Add(i + 1, thicknessrow(i), blkdensityrow(i), maxcapacityrow(i), mincapacityrow(i), ocrow(i), compartmentrow(i))
             Next
 
             MyReader.ReadLine() '*** Horizon End, Temperature Start ********"

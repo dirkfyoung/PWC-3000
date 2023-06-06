@@ -1,0 +1,85 @@
+286257-20516-1_Corn-r01-B
+20516_grid.wea
+41.625
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+******** start of PRZM information ******************
+False, False, False
+1
+True,
+2,6,1,8,30,9,60.5,100,1.0,0.25,1,1,0 
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,
+,,,
+1.0,0,5
+*** irrigation information start ***
+1
+0.1,0.5,1.115121951
+False,
+*** spare line for expansion
+*** spare line for expansion
+*** Soil Information ***
+0.32,0.16590999,0.6
+4,2
+*** Horizon Info *******
+4
+7.5,7.5,41,104,
+1.6,1.4,1.45,1.85,
+0.3,0.1,0.149,0.138,
+0.02,0,01,0.031,
+4,2,0.05800464,0.058,
+200,41,104,104,
+43,43,43,43,
+6,6,6,6,
+*** Horizon End, Temperature Start ********
+,,
+False
+***spare line for expansion
+***spare line for expansion
+*** Erosion & Curve Number Info **********
+2
+2,30,
+6,9,
+82,91,
+0.2,0.538,
+Spare, old mannings
+8.0,1.40,0.19,
+0.1,0,1.0,
+False
+,,,,,
+5.0
+True
+6
+3, 30
+7, 7
+10, 2
+80, 4
+1000, 20
+100, 2
