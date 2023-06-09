@@ -110,8 +110,8 @@
             For j As Integer = 0 To NumberOfScenarios - 1
                 msg = msg & vbNewLine & ApplicationTable.Scenarios(j)
             Next
-            msg = msg & vbNewLine & ApplicationTable.UseBatchScenarioFile
-            msg = msg & vbNewLine & ApplicationTable.ScenarioBatchFileName
+            msg = msg & vbNewLine & ApplicationTable.UseBatchScenarioFile & ","
+            msg = msg & vbNewLine & ApplicationTable.ScenarioBatchFileName & ","
         Next
 
         msg &= String.Format("{0}{1},", vbNewLine, ErosionFlag.Text)
@@ -272,7 +272,7 @@
         msg = msg & vbNewLine & ",,,"
         msg = msg & vbNewLine & ",,,"
 
-        msg = msg & String.Format("{0}{1},{2},{3}", vbNewLine, PETadjustment.Text, 0.00000, evapDepth.Text)
+        msg = msg & String.Format("{0}{1},{2},{3},", vbNewLine, PETadjustment.Text, 0.00000, evapDepth.Text)
 
 
         msg = msg & vbNewLine & "*** irrigation information start ***"
@@ -288,14 +288,14 @@
             msg = msg & String.Format("{0}0", vbNewLine)
         End If
 
-        msg = msg & String.Format("{0}{1},{2},{3}", vbNewLine, fleach.Text, depletion.Text, rateIrrig.Text)
-        msg = msg & String.Format("{0}{1},{2}", vbNewLine, UserSpecifiesIrrigDepth.Checked, IrrigationDepthUserSpec.Text)
+        msg = msg & String.Format("{0}{1},{2},{3},", vbNewLine, fleach.Text, depletion.Text, rateIrrig.Text)
+        msg = msg & String.Format("{0}{1},{2},", vbNewLine, UserSpecifiesIrrigDepth.Checked, IrrigationDepthUserSpec.Text)
         msg = msg & vbNewLine & "*** spare line for expansion"
         msg = msg & vbNewLine & "*** spare line for expansion"
         msg = msg & vbNewLine & "*** Soil Information ***"
 
-        msg = msg & String.Format("{0}{1},{2},{3}", vbNewLine, usleK.Text, usleLS.Text, usleP.Text)
-        msg = msg & String.Format("{0}{1},{2}", vbNewLine, ireg.Text, slope.Text)
+        msg = msg & String.Format("{0}{1},{2},{3},", vbNewLine, usleK.Text, usleLS.Text, usleP.Text)
+        msg = msg & String.Format("{0}{1},{2},", vbNewLine, ireg.Text, slope.Text)
 
 
         msg = msg & vbNewLine & "*** Horizon Info *******" '
@@ -304,7 +304,7 @@
         Dim numberofhorizons As Integer
         numberofhorizons = HorizonGridView.RowCount - 1
 
-        msg = msg & String.Format("{0}{1}{0}", vbNewLine, numberofhorizons)
+        msg = msg & String.Format("{0}{1}{0},", vbNewLine, numberofhorizons)
 
 
         For i As Integer = 0 To numberofhorizons - 1
@@ -597,7 +597,6 @@
             currentrow = MyReader.ReadFields
             Q10.Text = currentrow(0)
 
-
             currentrow = MyReader.ReadFields
             ConstantProfile.Checked = currentrow(0)
 
@@ -613,7 +612,6 @@
             ExpParameter1.Text = currentrow(1)
             ExpParameter2.Text = currentrow(2)
 
-
             currentrow = MyReader.ReadFields
             Dim NumberOfSchemes As Integer
             NumberOfSchemes = currentrow(0)
@@ -622,6 +620,7 @@
 
             Dim NumberOfScenarios As Integer
             Dim numRows As Integer
+            Dim blip As String
 
             For i As Integer = 0 To NumberOfSchemes - 1
                 'Need a new apptable for every scheme because otherwise just a reference to table will be sent to schemeinfo
@@ -676,7 +675,6 @@
                     ApplicationTable.DriftBuffer.Add(currentrow(6))
                     ApplicationTable.Periodicity.Add(currentrow(7))
                     ApplicationTable.Lag.Add(currentrow(8))
-
                 Next
 
                 currentrow = MyReader.ReadFields
@@ -691,9 +689,6 @@
                 ApplicationTable.OptimumApplicationWindow = currentrow(3)
                 ApplicationTable.MinDaysBetweenApps = currentrow(4)
 
-
-
-
                 currentrow = MyReader.ReadFields  'Read number of scenarios
 
                 NumberOfScenarios = currentrow(0)
@@ -701,16 +696,14 @@
                 For j As Integer = 0 To NumberOfScenarios - 1
                     'currentrow = MyReader.ReadFields
                     'ApplicationTable.Scenarios.Add(currentrow(0)) ' commas in name were causing problems READ Entire line instead
-
-                    ApplicationTable.Scenarios.Add(MyReader.ReadLine())
-
+                    blip = MyReader.ReadLine()
+                    ApplicationTable.Scenarios.Add(blip)
                 Next
                 currentrow = MyReader.ReadFields
                 ApplicationTable.UseBatchScenarioFile = currentrow(0)
 
                 currentrow = MyReader.ReadFields
                 ApplicationTable.ScenarioBatchFileName = currentrow(0)
-
                 SchemeInfoList.Add(ApplicationTable)
             Next
 
@@ -725,7 +718,10 @@
             currentrow = MyReader.ReadFields
             AdjustCN.Checked = currentrow(0) 'msg = msg & vbNewLine & AdjustCN.Checked
 
+
+
             currentrow = MyReader.ReadFields 'msg = msg & vbNewLine & ItsaPond.Checked & "," & ItsaReservoir.Checked & "," & ItsOther.Checked
+
             ItsaPond.Checked = currentrow(0)
             ItsaReservoir.Checked = currentrow(1)
             ItsOther.Checked = currentrow(2)
@@ -1100,7 +1096,7 @@
             Next
 
             MyReader.ReadLine() '*** Horizon End, Temperature Start ********"
-            currentRow = MyReader.ReadFields 'line 62
+            currentrow = MyReader.ReadFields 'line 62
             albedo.Text = currentRow(0)
             bcTemp.Text = currentRow(1)
 

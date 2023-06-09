@@ -614,25 +614,42 @@ use waterbody_parameters, ONLY: afield
     else  !Erosion Parameters and Curve Numbers  repeat every year
         !For default case JUSLEC is referenced to the Jan 1 of any year
         startday_doy = startday - jd(first_year,1,1)+1  
+        
+         write(*,*) 'start dat',  startday
+        
+        
         do I=1,NUSLEC              
            JUSLEC(I)= jd(1,GMUSLEC(I),GDUSLEC(I)) -jd(1,1,1) +1     
         end do 
         smallest_difference = 1000                  
         do i= 1,NUSLEC    
+            
+             write(*,*) 'JUSLEC(i) > startday_doy', JUSLEC(i) , startday_doy
+             
+             
                if (JUSLEC(i) > startday_doy) then
                  day_difference =  startday_doy - (JUSLEC(i)-365)
                else
                  day_difference =  startday_doy - JUSLEC(i)   
                end if
+               
+               write(*,*)  'day_difference ',  day_difference 
+               
+               
                if (day_difference < smallest_difference) then
                    smallest_difference = day_difference  
                    CN_index = i   !This sets the index for initial CN and erosion parameters
                end if
                
+               
+                  write(*,*)     'cn_index', CN_index
                   write(*,*) 'usle month day  ' , GMUSLEC(I),GDUSLEC(I)
                
         enddo      
     end if
+    
+    write(*,*)     'cn_index', CN_index
+
     cfac = USLEC(CN_index)
       
     

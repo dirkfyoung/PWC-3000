@@ -448,19 +448,28 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
 
         
         write (*,*) "Foliar disposition always = 1, pesticide on foliage removed at harvest"
-        foliar_disposition = 1     
+        foliar_disposition = 1 
         
+       write (*,*) "read extra lines",  max_number_crop_periods - num_crop_periods_input
+       
         do i=1, max_number_crop_periods - num_crop_periods_input
             read(ScenarioFileUnit,'(A)') dummy
-		end do
+        end do
 		     
+         
+       write (*,*) "done read extra lines"
+        
         read(ScenarioFileUnit,*)     !msg = msg & String.Format("{0}{1},{2},{3},{4}", vbNewLine, altRootDepth.Text, altCanopyCover.Text, altCanopyHeight.Text, altCanopyHoldup.Text)     
         read(ScenarioFileUnit,*)     !msg = msg & String.Format("{0}{1},{2},{3},{4}", vbNewLine, altEmergeDay.Text, altEmergeMon.Text, altDaysToMaturity.Text, altDaysToHarvest.Text)
+       
+          write(*,*)   "PFAC,dummy, min_evap_depth"
         read(ScenarioFileUnit,*, IOSTAT= status)  PFAC,dummy, min_evap_depth 
 			    IF (status .NE. 0) then
 				  call scenario_error(error)
 				  return
 				end if		
+        write(*,*)   PFAC,dummy, min_evap_depth
+        
         
         read(ScenarioFileUnit,*) ! msg = msg & vbNewLine & "*** irrigation information start ***"        
         read(ScenarioFileUnit,*) irtype !0 = none, 1 flood, 2 undefined 3 = overcanopy 4 = under canopy 5 = undefined, 6 over canopy       
@@ -777,7 +786,9 @@ subroutine Read_Weatherfile
       end if
       
       startday = jd(first_year, first_mon, first_day)
- 
+ write(*,*) '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
+      write(*,*)  'startday = ', startday, first_year, first_mon, first_day
+      
       !Count the records in the weather file
       num_records=1
       do        
@@ -796,7 +807,7 @@ subroutine Read_Weatherfile
 
       write (*,*) "End Weather allocation"
       
-      
+      !ONLY READS WEA FORMAT
       !rewind and read in weather data
       rewind(metfileunit)      
       do i = 1, num_records
