@@ -1,2 +1,0 @@
-Run Information                                                                    TPEZ (kg/ha),   EoF (ug/L),                                                                                                                                                                                                                                                                                                  
-1_331522-12661-2_Cotton-r03W-B_USEPA Pond_0000_TPEZ_Parent                       ,  2.1743E+000,  1.4349E+003,

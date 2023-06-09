@@ -341,6 +341,8 @@ Partial Public Class Form1
                 End If
             End If
 
+
+
             If DoDegradate2.Checked = False Then
                 If AdditionalOutputGridView.Item(1, i).Value > 2 Then
                     msg = String.Format("Chemical form must be less than 3. Row {0} in Optional Outputs Table. Grandaughter calculations were not selected on chemical tab.", i + 1)
@@ -355,16 +357,19 @@ Partial Public Class Form1
                 Return
             End If
 
+
             TestActualIntegers(TrueOrFalse, msg, AdditionalOutputGridView.Item(3, i).Value)
-            msg = msg & String.Format(" Row {0} in Optional Outputs Table.", i + 1)
+            msg = msg & String.Format(" Arg1 in Row {0} in Optional Outputs Table.", i + 1)
             If TrueOrFalse = False Then Return
+
 
             TestActualIntegers(TrueOrFalse, msg, AdditionalOutputGridView.Item(4, i).Value)
-            msg = msg & String.Format(" Row {0} in Optional Outputs Table.", i + 1)
+            msg = msg & String.Format(" Arg2 in Row {0} in Optional Outputs Table.", i + 1)
             If TrueOrFalse = False Then Return
 
+
             TestActualRealNumbers(TrueOrFalse, msg, AdditionalOutputGridView.Item(5, i).Value)
-            msg = msg & String.Format(" Row {0} in Optional Outputs Table.", i + 1)
+            msg = msg & String.Format(" Multiplier in Row {0} in Optional Outputs Table.", i + 1)
             If TrueOrFalse = False Then Return
 
         Next
