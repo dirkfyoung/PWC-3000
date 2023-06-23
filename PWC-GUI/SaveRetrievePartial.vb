@@ -437,21 +437,30 @@
             MyReader.SetDelimiters(",")
 
 
-            MyReader.ReadLine() 'Title Line
+            MyReader.ReadLine() 'Title Line  LINE 1
             MyReader.ReadLine() 'working directory, not retrieved here, so can alter
             MyReader.ReadLine() 'family name not retrieved, so can alter, needed for transfer to vvwm
             'Weather Path
-            WeatherDirectoryBox.Text = MyReader.ReadLine()
+
+
+
+            WeatherDirectoryBox.Text = MyReader.ReadLine()   'LINE 4
+
+
+
 
             'Chemical Proerties
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields         'LINE 5
             isKoc.Checked = currentrow(0)
             UseFreundlich.Checked = currentrow(1)
             UseNonequilibrium.Checked = currentrow(2)
 
+
+
+
             Dim nchem As Integer
             currentrow = MyReader.ReadFields
-            nchem = currentrow(0)
+            nchem = currentrow(0) 'LINE 6
             Select Case nchem
                 Case 3
                     DoDegradate1.Checked = True
@@ -466,79 +475,83 @@
             End Select
 
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields 'LINE 7
             sorption1.Text = currentrow(0)
             sorption2.Text = currentrow(1)
             sorption3.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+
+
+
+
+            currentrow = MyReader.ReadFields 'LINE 8
             Nexp1Reg1.Text = currentrow(0)
             Nexp2Reg1.Text = currentrow(1)
             Nexp3Reg1.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields 'LINE 9
             Kf1Reg2.Text = currentrow(0)
             Kf2Reg2.Text = currentrow(1)
             Kf3Reg2.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields 'LINE 10
             Nexp1Reg2.Text = currentrow(0)
             Nexp2Reg2.Text = currentrow(1)
             Nexp3Reg2.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields 'LINE 11
             MassTransferRegion2.Text = currentrow(0)
             MassTransferRegion2Daughter.Text = currentrow(1)
             MassTransferRegion2GrandDaughter.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields 'LINE 12
             FreundlichMinimumConc.Text = currentrow(0)
             SubTimeSteps.Text = currentrow(1)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields 'LINE13
             WaterColMetab1.Text = currentrow(0)
             WaterColMetab2.Text = currentrow(1)
             WaterColMetab3.Text = currentrow(2)
             WaterMolarRatio1.Text = currentrow(3)
             WaterMolarRatio2.Text = currentrow(4)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields 'LINE14
             WaterColRef1.Text = currentrow(0)
             WaterColRef2.Text = currentrow(1)
             WaterColRef3.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields 'LINE15
             BenthicMetab1.Text = currentrow(0)
             BenthicMetab2.Text = currentrow(1)
             BenthicMetab3.Text = currentrow(2)
             BenthicMolarRatio1.Text = currentrow(3)
             BenthicMolarRatio2.Text = currentrow(4)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields 'LINE16
             BenthicRef1.Text = currentrow(0)
             BenthicRef2.Text = currentrow(1)
             BenthicRef3.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields 'LINE17
             Photo1.Text = currentrow(0)
             Photo2.Text = currentrow(1)
             Photo3.Text = currentrow(2)
             PhotoMolarRatio1.Text = currentrow(3)
             PhotoMolarRatio2.Text = currentrow(4)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields 'LINE18
             PhotoLat1.Text = currentrow(0)
             PhotoLat2.Text = currentrow(1)
             PhotoLat3.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields 'LINE19
             Hydrolysis1.Text = currentrow(0)
             Hydrolysis2.Text = currentrow(1)
             Hydrolysis3.Text = currentrow(2)
             HydroMolarRatio1.Text = currentrow(3)
             HydroMolarRatio2.Text = currentrow(4)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields 'LINE20
             SoilDegradation1.Text = currentrow(0)
             SoilDegradation2.Text = currentrow(1)
             SoilDegradation3.Text = currentrow(2)
@@ -547,72 +560,71 @@
             IsAllMedia.Checked = currentrow(5)
             IsAqueousDegradation.Checked = Not IsAllMedia.Checked
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields 'LINE21
             SoilRef1.Text = currentrow(0)
             SoilRef2.Text = currentrow(1)
             SoilRef3.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields  'LINE 22
             FoliarDeg1.Text = currentrow(0)
             FoliarDeg2.Text = currentrow(1)
             FoliarDeg3.Text = currentrow(2)
             FoliarMolarRatio1.Text = currentrow(3)
             FoliarMolarRatio2.Text = currentrow(4)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields  'LINE 23
             FoliarWashoff1.Text = currentrow(0)
             FoliarWashoff2.Text = currentrow(1)
             FoliarWashoff3.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields  'LINE 24
             MWT1.Text = currentrow(0)
             MWT2.Text = currentrow(1)
             MWT3.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields   'LINE 25
             VaporPress1.Text = currentrow(0)
             VaporPress2.Text = currentrow(1)
             VaporPress3.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields 'LINE 26
             Sol1.Text = currentrow(0)
             Sol2.Text = currentrow(1)
             Sol3.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields  'LINE 27
             Henry1.Text = currentrow(0)
             Henry2.Text = currentrow(1)
             Henry3.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields         'LINE 28
             AirDiff1.Text = currentrow(0)
             AirDiff2.Text = currentrow(1)
             AirDiff3.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields         'LINE 29
             HeatHenry1.Text = currentrow(0)
             HeatHenry2.Text = currentrow(1)
             HeatHenry3.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields         'LINE 30
             Q10.Text = currentrow(0)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields         'LINE 31
             ConstantProfile.Checked = currentrow(0)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields            'LINE 32
             RampProfile.Checked = currentrow(0)
             profileDepth1.Text = currentrow(1)
             ProfileDepth2.Text = currentrow(2)
             RampEndValue.Text = currentrow(3)
 
-            currentrow = MyReader.ReadFields
-
+            currentrow = MyReader.ReadFields            'LINE 33
             ExponentialProfile.Checked = currentrow(0)
             ExpParameter1.Text = currentrow(1)
             ExpParameter2.Text = currentrow(2)
 
-            currentrow = MyReader.ReadFields
+            currentrow = MyReader.ReadFields            'LINE 34
             Dim NumberOfSchemes As Integer
             NumberOfSchemes = currentrow(0)
 
@@ -640,11 +652,11 @@
 
                 ' ApplicationTable.ClearAll()
 
-                currentrow = MyReader.ReadFields
+                currentrow = MyReader.ReadFields                   'LINE 35
 
                 SchemeTableDisplay.Rows.Add("", False, "", currentrow(1))
 
-                currentrow = MyReader.ReadFields
+                currentrow = MyReader.ReadFields                   'LINE 36
 
                 ApplicationTable.AbsoluteRelative = False
                 ApplicationTable.Emerge = False
@@ -661,11 +673,12 @@
                         ApplicationTable.Removal = True
                 End Select
 
-                currentrow = MyReader.ReadFields
+                currentrow = MyReader.ReadFields                    'LINE 37
                 numRows = currentrow(0) 'number of application (rows) in app table
 
+
                 For j As Integer = 0 To numRows - 1
-                    currentrow = MyReader.ReadFields
+                    currentrow = MyReader.ReadFields               'Not read if zero rows
                     ApplicationTable.Days.Add(currentrow(0))
                     ApplicationTable.Amount.Add(currentrow(1))
                     ApplicationTable.Method.Add(currentrow(2))
@@ -678,18 +691,18 @@
                 Next
 
                 currentrow = MyReader.ReadFields
-                ApplicationTable.UseApplicationWindow = currentrow(0)
+                ApplicationTable.UseApplicationWindow = currentrow(0)    'LINE 38
                 ApplicationTable.ApplicationWindowSpan = currentrow(1)
                 ApplicationTable.ApplicationWindowStep = currentrow(2)
 
-                currentrow = MyReader.ReadFields
+                currentrow = MyReader.ReadFields                          'LINE 39
                 ApplicationTable.UseRainFast = currentrow(0)
                 ApplicationTable.RainLimit = currentrow(1)
                 ApplicationTable.IntolerableRainWindow = currentrow(2)
                 ApplicationTable.OptimumApplicationWindow = currentrow(3)
                 ApplicationTable.MinDaysBetweenApps = currentrow(4)
 
-                currentrow = MyReader.ReadFields  'Read number of scenarios
+                currentrow = MyReader.ReadFields  'Read number of scenarios    'LINE 40
 
                 NumberOfScenarios = currentrow(0)
 
@@ -699,10 +712,13 @@
                     blip = MyReader.ReadLine()
                     ApplicationTable.Scenarios.Add(blip)
                 Next
-                currentrow = MyReader.ReadFields
+                currentrow = MyReader.ReadFields                             'LINE 41
                 ApplicationTable.UseBatchScenarioFile = currentrow(0)
 
-                currentrow = MyReader.ReadFields
+                currentrow = MyReader.ReadFields                             'LINE 42
+
+
+
                 ApplicationTable.ScenarioBatchFileName = currentrow(0)
                 SchemeInfoList.Add(ApplicationTable)
             Next
@@ -723,19 +739,27 @@
             currentrow = MyReader.ReadFields 'msg = msg & vbNewLine & ItsaPond.Checked & "," & ItsaReservoir.Checked & "," & ItsOther.Checked
 
             ItsaPond.Checked = currentrow(0)
+
+
             ItsaReservoir.Checked = currentrow(1)
             ItsOther.Checked = currentrow(2)
             ItsTPEZWPEZ.Checked = currentrow(3)
+
 
             currentrow = MyReader.ReadFields 'msg = msg & vbNewLine & WaterbodyList.Items.Count
             Dim countofspecialwaterbodies As Integer
             countofspecialwaterbodies = currentrow(0)
             WaterbodyList.Items.Clear()
 
+
+
             For i As Integer = 1 To countofspecialwaterbodies
                 currentrow = MyReader.ReadFields
                 WaterbodyList.Items.Add(currentrow(0))
             Next
+
+
+
 
             currentrow = MyReader.ReadFields
             outputRunoff.Checked = currentrow(0)
@@ -789,6 +813,9 @@
             currentrow = MyReader.ReadFields
             outputWaterConc.Checked = currentrow(0)
 
+
+
+
             MyReader.ReadLine() 'expansion lines
             MyReader.ReadLine()
             MyReader.ReadLine()
@@ -807,6 +834,9 @@
                 currentrow = MyReader.ReadFields
                 AdditionalOutputGridView.Rows.Add(currentrow(0), currentrow(1), currentrow(2), currentrow(3), currentrow(4), currentrow(5))
             Next
+
+
+
 
         End Using
 
