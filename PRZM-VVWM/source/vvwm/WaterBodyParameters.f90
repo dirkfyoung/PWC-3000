@@ -20,7 +20,7 @@ implicit none
     real :: depth_0    
     real :: depth_max     
     real :: baseflow       
-    integer:: flow_averaging
+    integer:: flow_averaging  !0 indicates full simulation average, other values are back averaged days
     real   :: hydro_length
     
 	logical :: is_zero_depth  !post processing to zero out conc below a certain depth
