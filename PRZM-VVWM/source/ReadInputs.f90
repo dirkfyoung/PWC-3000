@@ -413,7 +413,6 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         
         read(ScenarioFileUnit,*, IOSTAT=status) dummy, evergreen
         
-        ! need to add evergreen routine, Should delete greater than annual growth as not used
     			IF (status .NE. 0) then
 				  call scenario_error(error)
 				  return
