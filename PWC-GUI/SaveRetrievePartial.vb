@@ -304,7 +304,7 @@
         Dim numberofhorizons As Integer
         numberofhorizons = HorizonGridView.RowCount - 1
 
-        msg = msg & String.Format("{0}{1}{0},", vbNewLine, numberofhorizons)
+        msg = msg & String.Format("{0}{1},{0}", vbNewLine, numberofhorizons)
 
 
         For i As Integer = 0 To numberofhorizons - 1
@@ -1097,7 +1097,10 @@
             MyReader.ReadLine() 'this is: *** Horizon Info *******
 
             Dim numberofhorizons As Integer
-            numberofhorizons = MyReader.ReadLine()
+            'numberofhorizons = MyReader.ReadLine()
+            currentRow = MyReader.ReadFields
+            numberofhorizons = currentRow(0)
+
             Dim thicknessrow As String()
             Dim blkdensityrow As String()
             Dim maxcapacityrow As String()

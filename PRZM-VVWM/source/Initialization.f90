@@ -178,9 +178,10 @@ use waterbody_parameters, ONLY: afield
     GAMMA1  = 0.0
     vel = 0.0
     !************************************************
-
     
-    if (is_auto_profile) then  ! create the discretization based on input profile instead of delx      
+    if (is_auto_profile) then  ! create the discretization based on input profile instead of delx     
+        write(*,*) "Calculate Autoprofile"
+        
 	        !get thicknesses for each compartment
 			start = 1
 		    xend = 0
@@ -190,7 +191,7 @@ use waterbody_parameters, ONLY: afield
 	        		delx(j)  = profile_thick(i)/ real(profile_number_increments(i))
 	        	end do
                 start =xend +1
-	        end do
+            end do
 	
             !*** Populate Soil Depth Vector *********
             soil_depth = 0.0
@@ -214,11 +215,11 @@ use waterbody_parameters, ONLY: afield
             dispersion 	  = 0.0
             soil_temp     = 0.0
 	   
+            
 	        j = 1  ! tracker for data horizons
 	        do i = 1, ncom2   !check each fixed compartment depth against the horizon depth to determine its location
 
 	             if (soil_depth(i) <= target_depth(j)) then 
-
                      
 	                 bulkdensity(i)       = bd_input  (j)
                      orgcarb    (i)       = oc_input  (j)                                          
@@ -235,13 +236,15 @@ use waterbody_parameters, ONLY: afield
                      MolarConvert_s13 (i) = MolarConvert_s13_input(j)
                      MolarConvert_s23 (i) = MolarConvert_s23_input(j)	   
                  else !compartment depth is greater than horizon
+                                      
+                     
 				     lowerdepth = soil_depth(i-1)  !capture the lower depth of the compartment that straddles
 				  
 			         if ( lowerdepth >= target_depth(nhoriz)) then  !we've run out of horizons, so every thing is the last horizon
 			             bulkdensity(i) = bd_input  (nhoriz)
                          theta_fc   (i) = fc_input  (nhoriz)
                          theta_wp   (i) = wp_input  (nhoriz)
-                         orgcarb    (i) = oc_input  (nhoriz)
+                         orgcarb    (i) = 0.0   ! oc_input  (nhoriz)
                          theta_zero (i) = fc_input(nhoriz)
                          dispersion (i)	= dispersion_input(nhoriz)           
                          soil_temp  (i) = soil_temp_input (nhoriz)
@@ -253,7 +256,8 @@ use waterbody_parameters, ONLY: afield
                          MolarConvert_s13 (i)  = MolarConvert_s13_input(nhoriz)
                          MolarConvert_s23 (i)  = MolarConvert_s23_input(nhoriz)	  
                            
-			         else	
+                     else	           
+                         
 			        	 !find out how many data horizons this compartment straddles (typically will be 2, but keep possibilitiy open for many)
 			        	 count_straddled = 0
 			        	 do k= j, nhoriz
@@ -324,6 +328,13 @@ use waterbody_parameters, ONLY: afield
                  end if
             end do          
             write(*,*) 'Done loading autoprofile'
+            
+            
+          !saturate last 2 compartments to simulate aquifer
+            
+            theta_fc(ncom2-1) = 1.0 - bulkdensity(ncom2-1)/2.65
+            theta_fc(ncom2)   = 1.0 - bulkdensity(ncom2)/2.65
+            
             
             
             
@@ -424,6 +435,16 @@ use waterbody_parameters, ONLY: afield
     write(*,*) 'compartments for aquifer: ', ncom2-1, 'to', ncom2
     
     
+    !SHOULD last 2 compaertments be saturated?  Not sure if that is in here 7/5/2023
+    !*************************************************
+    
+    
+    
+    !***********************************************
+    
+    
+    
+    
     
   !***************************************************************************************************  
     !Implicit routine corection for degradation: insures perfect degradation at high rates    
@@ -519,10 +540,10 @@ use waterbody_parameters, ONLY: afield
      write(*,*) 'end GW profile' 
    !!SECTION FOR OUTPUT IN RUN STATUS FILE ONLY ****************************    
     
-!  write (*,'(A)')   '    #     depth     bd       max_water     min_wat    orgcarb      sand        clay         kd         dwrate'
-!do i = 1, ncom2
-!    write (*,'(I5,1X, F9.2, 8G12.3)') i,soil_depth(i), bulkdensity(i),theta_fc(i), theta_wp(i), orgcarb(i), sand(i), clay(i), k_freundlich(1,i),dwrate_atRefTemp(1,i)
-!end do	
+  write (*,'(A)')   '    #     depth     bd       max_water     min_wat    orgcarb         kd         dwrate'
+do i = 1, ncom2
+    write (*,'(I5,1X, F9.2, 8G12.3)') i,soil_depth(i), bulkdensity(i),theta_fc(i), theta_wp(i), orgcarb(i),  k_freundlich(1,i),dwrate_atRefTemp(1,i)
+end do	
     
 
     

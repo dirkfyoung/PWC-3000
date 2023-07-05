@@ -358,9 +358,6 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         wp_input   = 0.0
         oc_input   = 0.0
 
-        
- 
-        
         write(*,*)  '**********  Start Reading Scenario Values ************************'  
         error = .FALSE.      
         filename = trim(scenario_names(schemenumber,scenarionumber))  
