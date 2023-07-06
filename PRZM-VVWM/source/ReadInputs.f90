@@ -417,7 +417,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
 				  call scenario_error(error)
 				  return
 				end if				
-        read(ScenarioFileUnit,*,  IOSTAT=status ) num_crop_periods_input
+        read(ScenarioFileUnit,*,  IOSTAT=status ) num_crop_periods_input !line 30
     			IF (status .NE. 0) then
 				  call scenario_error(error)
 				  return
@@ -425,7 +425,6 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
 		
         write(*,*) "Crop Cycles per year: ", num_crop_periods_input
         read(ScenarioFileUnit,*) ! msg & String.Format("{0}{1},", vbNewLine, simpleRB.Checked)
-
         
         write(*,*) "Start reading crop info"
         do  i=1,num_crop_periods_input
@@ -439,26 +438,20 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
             !PWC saves canopy cover it as a percent, but przm needs fraction
             max_canopy_cover(i)=max_canopy_cover(i)/100.
             
-            write(*,'(8I6)') emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i), crop_periodicity(i), crop_lag(i) 
+            write(*,'(8I6)') emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i), foliar_disposition(i),crop_periodicity(i), crop_lag(i) 
         end do
-
-        
-        write (*,*) "Foliar disposition always = 1, pesticide on foliage removed at harvest"
-        foliar_disposition = 1 
-        
-       write (*,*) "read extra lines",  max_number_crop_periods - num_crop_periods_input
+      
+     !   write (*,*) "Foliar disposition always = 1, pesticide surface applied"
+     !   foliar_disposition = 1        
        
         do i=1, max_number_crop_periods - num_crop_periods_input
             read(ScenarioFileUnit,'(A)') dummy
         end do
-		     
-         
-       write (*,*) "done read extra lines"
-        
+		           
         read(ScenarioFileUnit,*)     !msg = msg & String.Format("{0}{1},{2},{3},{4}", vbNewLine, altRootDepth.Text, altCanopyCover.Text, altCanopyHeight.Text, altCanopyHoldup.Text)     
         read(ScenarioFileUnit,*)     !msg = msg & String.Format("{0}{1},{2},{3},{4}", vbNewLine, altEmergeDay.Text, altEmergeMon.Text, altDaysToMaturity.Text, altDaysToHarvest.Text)
        
-          write(*,*)   "PFAC,dummy, min_evap_depth"
+        write(*,*)   "PFAC,dummy, min_evap_depth"
         read(ScenarioFileUnit,*, IOSTAT= status)  PFAC,dummy, min_evap_depth 
 			    IF (status .NE. 0) then
 				  call scenario_error(error)
@@ -468,10 +461,10 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         
         
         read(ScenarioFileUnit,*) ! msg = msg & vbNewLine & "*** irrigation information start ***"        
-        read(ScenarioFileUnit,*) irtype !0 = none, 1 flood, 2 undefined 3 = overcanopy 4 = under canopy 5 = undefined, 6 over canopy       
-        read(ScenarioFileUnit,*) FLEACH,PCDEPL,max_irrig  !fleach.Text, depletion.Text, rateIrrig.Text)        
+        read(ScenarioFileUnit,*) irtype !0 = none, 1 flood, 2 undefined 3 = overcanopy 4 = under canopy 5 = undefined, 6 over canopy       43
+        read(ScenarioFileUnit,*) FLEACH,PCDEPL,max_irrig  !fleach.Text, depletion.Text, rateIrrig.Text)                                    44
         
-        write(*,*) 'Irrigation Type ', irtype
+        write(*,*) 'Irrigation Type ', irtype   
         write(*,*) 'FLEACH,PCDEPL,max_irrig', FLEACH,PCDEPL,max_irrig
 
         read(ScenarioFileUnit,*) UserSpecifiesDepth !, user_irrig_depth  ! UserSpecifiesIrrigDepth.Checked, IrrigationDepthUserSpec.Text)
