@@ -21,6 +21,7 @@ program PRZMVVWM
 	use Output_From_Field
 	use Pesticide_Applications
 	use readbatchscenario
+    use TPEZ_WPEZ
 
     implicit none
 
