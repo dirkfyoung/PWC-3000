@@ -172,10 +172,10 @@ subroutine tpez(scheme_number)
     use waterbody_parameters, ONLY: simtypeflag
     
     use degradation
-    use volumeAndwashout
+  !  use volumeAndwashout
     use MassInputs
     use outputprocessing
-    use coreCalculations
+ !   use coreCalculations
     use utilities_1
     
     implicit none   
@@ -279,7 +279,7 @@ subroutine tpez(scheme_number)
           !write(*,* ) "BD = " , avg_bd
           !write(*,* ) "R = " , ( avg_maxwater+avg_bd*kd)/avg_maxwater
           
-         call initial_conditions(chem_index)  !just populates m1 additions: erosion runoff and drift
+         call TPEZ_initial_conditions(chem_index)  !just populates m1 additions: erosion runoff and drift
          call MainLoopTPEZ(avg_maxwater, kd, avg_bd)      
     
           waterbodytext = "TPEZ"
@@ -305,6 +305,150 @@ subroutine tpez(scheme_number)
 
           
 end subroutine tpez
+    
+    subroutine TPEZ_initial_conditions(chem_index)
+       !THIS SUBROUTINE RETURNS VALUES FOR input masses m1_input for TPEZ 
+       use constants_and_variables, ONLY: eroded_solids_mass, degradateProduced1, mass_off_field, spray_additions,  & 
+                                     m1_input,           & !OUTPUT mass added to littoral region (kg) 
+                                     capacity_1, kd_sed_1
+                                                       
+        implicit none      
+        integer,intent(in) :: chem_index
+
+        !********************************************************************
+        
+        m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index) + spray_additions  !all mass goes to single compartment 
+
+        !******* Add in any degradate mass produced by parent from subsequent parent run******
+        if (chem_index>1) then                 !j=1 is the parent.
+          m1_input = m1_input + degradateProduced1   
+ !         m2_input = m2_input + degradateProduced2
+        end if
+        
+    end subroutine TPEZ_initial_conditions
+    
+    
+    
+    
+    
+    subroutine tpez_volume_calc(depth_max,TPEZ_depth_min , area_waterbody)
+        !This subroutine calculates tpez volume and washout rate
+        !need to get soil properties
+        
+        use constants_and_variables, ONLY: num_records, evap_m, precip_m, DELT_vvwm,flowthru_the_body,&
+            daily_depth,volume1,k_flow ,Daily_avg_flow_out
+        use utilities_1 
+        
+       !MAKE THESE LOCAL FOR TPEZ 
+       !  use waterbody_parameters, ONLY: depth_0, depth_max,area_waterbody
+
+        implicit none
+        real, intent(in) :: depth_max,TPEZ_depth_min, area_waterbody 
+
+        integer:: day
+        real:: v_0                                  !initial water body volume [m3]
+        real:: v_max                                !maximum water body volume [m3]
+        real:: v_min                                !minimum water body volume [m3]
+        real:: v_previous
+        real:: check
+        real,dimension(num_records)::vol_net
+        real,dimension(num_records)::evap_area
+        real,dimension(num_records)::precip_area
+        
+        real ::  depth_0 
+        real ::  avg_property  
+         
+        depth_0 = depth_max
+
+        Daily_avg_flow_out = 0.0 !initialization
+        
+        write(*,*) "DOING VOLUME CALCULATION for TPEZ "
+        
+        v_0 = area_waterbody*depth_0
+        v_max = area_waterbody*depth_max
+        v_min = area_waterbody*TPEZ_depth_min 
+        k_flow = 0.        !sets all values of the array to zero
+        v_previous = v_0
+
+        precip_area = precip_m*area_waterbody /86400.    !m3/s
+        evap_area = evap_m*area_waterbody /86400.    !m3/s, evap factor pfac now calculated in convert_weatherdata_for_VVWM  
+
+        vol_net = (flowthru_the_body-evap_area+precip_area)*DELT_vvwm  !volume of water added in day; whole array operations
+        
+        do day = 1,num_records
+            check = v_previous + vol_net(day)
+            if (check > v_max) then
+                volume1(day) = v_max
+                
+                !for tpez this will need to be adjusted for sorbed component: this is done later
+                k_flow(day) = (check-v_max)/DELT_vvwm/v_max      !day # and washout VOLUME
+                               
+            else if (check < v_min) then
+                volume1(day) = v_min
+            else
+                volume1(day) = check
+            end if
+            v_previous = volume1(day)             
+        end do
+               
+        Daily_avg_flow_out = sum(k_flow)*v_max/num_records  !used for output characterization only
+        daily_depth = volume1/area_waterbody !whole array operation
+  
+    end subroutine tpez_volume_calc
+    
+    
+    
+    !****************************************************************************
+    subroutine MainLoopTPEZ(vmax, kd, bd)
+       use constants_and_variables, ONLY: num_records , DELT_vvwm,&
+                                   m1_input,m1_store,mavg1_store, aq1_store,  &
+                                   k_flow,soil_degradation_halflife_input, burial
+
+       use initialization, ONLY: Convert_halflife_to_rate_per_sec                        
+                                  
+       implicit none
+       real, intent(in):: vmax, kd, bd
+    
+       integer :: day_count
+
+       real:: m1        !begin day mass
+       real:: mn1       !mass at end of time step
+       real:: k_total,k_soil
+       
+       m1=0.
+       mn1=0.
+
+
+    !***** Daily Loop Calculations ************************
+    do day_count = 1,num_records    
+
+        m1 = mn1 + m1_input(day_count)       
+        m1_store(day_count)=m1
+       
+        call Convert_halflife_to_rate_per_sec(soil_degradation_halflife_input(1), k_soil )
+
+        !kflow needs to be adjusted for tpez, in normal vvwm solid phase is not considered in water vcolumn
+        !adjustment is Vmax/(Vmax + bd Kd) this is a CONSTANT Adjustment
+
+        k_total =  k_flow(day_count)*vmax/(vmax+kd*bd)  +  k_soil + burial(day_count)*Kd/(vmax+kd*bd)
+        
+
+        mn1 = m1*exp(-DELT_vvwm * k_total) !next start day mass
+        
+        if (k_total>0.0) then
+               mavg1_store(day_count) = m1_store(day_count)*(1.-exp(-DELT_vvwm * k_total)) /k_total/DELT_vvwm 
+        else
+               mavg1_store(day_count) = m1_store(day_count)
+        end if
+		
+    end do 
+
+   
+    
+      end subroutine MainLoopTPEZ
+    
+    
+
     
     
     
