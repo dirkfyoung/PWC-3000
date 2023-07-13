@@ -400,7 +400,7 @@ end subroutine wpez
           ! exp(aq_rate_input)     = aq_rate_corrected +1.
           ! aq_rate_input          = log(aq_rate_corrected +1.)
           
-          avg_soil_deg = log(avg_soil_deg + 1.0)/86400.   ! removed implicit correction and now is in per sec,  86400 sec/day
+          avg_soil_deg = log(avg_soil_deg_implicit + 1.0)/86400.   ! removed implicit correction and now is in per sec,  86400 sec/day
           
           k_total =  k_flow(day_count)*vmax/(vmax+kd*bd) + burial(day_count)*Kd/(vmax+kd*bd) + avg_soil_deg
           
