@@ -153,58 +153,45 @@ real    :: koc
  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
 
-    
-    
-    
-    
-    
-    
-
 end subroutine wpez
     
 
 !****************************************************************************
-subroutine tpez(scheme_number)
-    use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
-        DELT_vvwm, k_flow,waterbodytext,soil_depth, &
-        num_applications_input,application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, drift_kg_per_m2, drift_schemes,&
-        theta_fc,theta_wp, ncom2,  orgcarb,bulkdensity , mavg1_store
-    use waterbody_parameters, ONLY: simtypeflag
+  subroutine tpez(scheme_number)
+      use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
+          DELT_vvwm, k_flow,waterbodytext,soil_depth, &
+          num_applications_input,application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, drift_kg_per_m2, drift_schemes,&
+          theta_fc,theta_wp, ncom2,  orgcarb,bulkdensity , mavg1_store
+      use waterbody_parameters, ONLY: simtypeflag
+      
+      use degradation
+      use MassInputs
+      use outputprocessing
+      use utilities_1
     
-    use degradation
-  !  use volumeAndwashout
-    use MassInputs
-    use outputprocessing
- !   use coreCalculations
-    use utilities_1
-    
-    implicit none   
-    
-    integer,intent(in) ::scheme_number
+      implicit none   
+      integer,intent(in) ::scheme_number
+     
+      !**local chemical properties****
+      integer :: chem_index
+      real    :: koc
+      real    :: drift_value_local
+      integer :: i,j
+      integer :: app_counter
+      real    :: avg_maxwater ,avg_minwater, avg_oc, avg_bd
+      real kd
+      
+      !******Set TPEZ Specific parameters 
+      real, parameter :: area_tpez = 10000.!m2
+      
+      write(*,*) "Enter TPEZ"
+     
+      drift_kg_per_m2= 0.0
 
-    !**local chemical properties****
-    integer :: chem_index
-    real    :: koc
-    real    :: drift_value_local
-    integer :: i,j
-    integer :: app_counter
-    real    :: avg_maxwater ,avg_minwater, avg_oc, avg_bd
-    
-    real, parameter :: area_tpez = 10000.!m2
-    real kd
-    write(*,*) "Enter TPEZ"
-     
-     
-    drift_kg_per_m2= 0.0
-    
+      app_counter= 0
+      do i=1, num_applications_input
+          do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
    
-    
-   !******Set TPEZ Specific parameters  
- 
-   app_counter= 0
-   do i=1, num_applications_input
-        do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
-
              app_counter = app_counter+1       
 
              select case (drift_schemes(scheme_number,i))  !this is the row number in the drift table which specifiess the spray method
@@ -241,97 +228,64 @@ subroutine tpez(scheme_number)
              case (16)                        !"advanced user"  
                  drift_value_local = 0.0
              case default
-             drift_value_local = 0.0
+                 drift_value_local = 0.0
              end select
         
              drift_kg_per_m2(app_counter) = drift_value_local * application_rate_in(i)/10000.
-        end do
-   end do
-   
+          end do
+      end do
     
-    call spraydrift
-
+     call spraydrift
    
-   
-    call find_average_property(ncom2,soil_depth, 15.0,  theta_fc, avg_maxwater)    
-    call find_average_property(ncom2,soil_depth,15.0, theta_wp, avg_minwater)
-    call find_average_property(ncom2,soil_depth,15.0, bulkdensity , avg_bd)  
-    call find_average_property(ncom2,soil_depth,15.0, orgcarb     , avg_oc) 
+     call find_average_property(ncom2,soil_depth,15.0, theta_fc    , avg_maxwater)    
+     call find_average_property(ncom2,soil_depth,15.0, theta_wp    , avg_minwater)
+     call find_average_property(ncom2,soil_depth,15.0, bulkdensity , avg_bd)  
+     call find_average_property(ncom2,soil_depth,15.0, orgcarb     , avg_oc) 
     
-    write(*,*)"For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:"
-    write(*,*) avg_maxwater,  avg_minwater, avg_bd, avg_oc 
+     write(*,*)"For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:"
+     write(*,*) avg_maxwater,  avg_minwater, avg_bd, avg_oc 
   
-    call  tpez_volume_calc (avg_maxwater, avg_minwater, area_tpez)   !call special averaging in here
+     call  tpez_volume_calc (avg_maxwater, avg_minwater, area_tpez)   !call special averaging in here
 
-    !NEED TO GET OC CONTENT FROM FIELD
-    !   find_average_property(n,target_depth, thickness, property, average)
-
- 
-  do chem_index= 1, nchem
-     
+     do chem_index= 1, nchem 
           if (is_koc) then
-                  kd   = k_f_input(chem_index) * avg_oc /100.0   !ml/g , oc is in %
+                  kd = k_f_input(chem_index) * avg_oc /100.0   !ml/g , oc is in %
           else
                   Kd = k_f_input(chem_index)
           end if
-
-          !write(*,* ) "KD = " , kd
-          !write(*,* ) "BD = " , avg_bd
-          !write(*,* ) "R = " , ( avg_maxwater+avg_bd*kd)/avg_maxwater
           
-         call TPEZ_initial_conditions(chem_index)  !just populates m1 additions: erosion runoff and drift
-         call MainLoopTPEZ(avg_maxwater, kd, avg_bd)      
+          call TPEZ_initial_conditions(chem_index)  !just populates m1 additions: erosion runoff and drift
+          call MainLoopTPEZ(chem_index, avg_maxwater, kd, avg_bd)      
     
           waterbodytext = "TPEZ"
-  
-!        if (nchem > chem_index) then     
-!              call DegradateProduction(chem_index)  !not available for tpez
-!        end if
-!       write (*,*) 'Calling tpez output_processing'
-       call tpez_output_processor(chem_index)
-       
-       
-       
-       !Calculate Edge of Field
-      ! flowthru_the_body = runoff_save*afield/8640000.    !m3/s :(cm/day) *(m2)* (m/100cm)* (day/86400s)  
-      ! mass_off_field(day_number_chemtrans,1,1) =   ROFLUX(1)* afield*10.  !converts to kg
-       
-   
-
-    !**********************************************************
-  end do
-  
 
 
-          
-end subroutine tpez
+          call tpez_output_processor(chem_index)
+     end do
+     
+
+  end subroutine tpez
     
+    !*******************************************************************************
     subroutine TPEZ_initial_conditions(chem_index)
        !THIS SUBROUTINE RETURNS VALUES FOR input masses m1_input for TPEZ 
-       use constants_and_variables, ONLY: eroded_solids_mass, degradateProduced1, mass_off_field, spray_additions,  & 
-                                     m1_input,           & !OUTPUT mass added to littoral region (kg) 
-                                     capacity_1, kd_sed_1
-                                                       
+       use constants_and_variables, ONLY: eroded_solids_mass, degradateProduced1, mass_off_field, spray_additions, capacity_1, kd_sed_1, & 
+                                          m1_input  !OUTPUT mass added to littoral region (kg)                                                       
         implicit none      
         integer,intent(in) :: chem_index
-
-        !********************************************************************
         
         m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index) + spray_additions  !all mass goes to single compartment 
 
         !******* Add in any degradate mass produced by parent from subsequent parent run******
-        if (chem_index>1) then                 !j=1 is the parent.
+        if (chem_index >1) then                 ! 1 is the parent.
           m1_input = m1_input + degradateProduced1   
- !         m2_input = m2_input + degradateProduced2
         end if
         
     end subroutine TPEZ_initial_conditions
     
     
-    
-    
-    
-    subroutine tpez_volume_calc(depth_max,TPEZ_depth_min , area_waterbody)
+    !***************************************************************************************
+    subroutine tpez_volume_calc(depth_max,TPEZ_depth_min, area_waterbody)
         !This subroutine calculates tpez volume and washout rate
         !need to get soil properties
         
@@ -362,8 +316,6 @@ end subroutine tpez
 
         Daily_avg_flow_out = 0.0 !initialization
         
-        write(*,*) "DOING VOLUME CALCULATION for TPEZ "
-        
         v_0 = area_waterbody*depth_0
         v_max = area_waterbody*depth_max
         v_min = area_waterbody*TPEZ_depth_min 
@@ -388,70 +340,100 @@ end subroutine tpez
             else
                 volume1(day) = check
             end if
-            v_previous = volume1(day)             
+               v_previous = volume1(day)             
         end do
                
         Daily_avg_flow_out = sum(k_flow)*v_max/num_records  !used for output characterization only
-        daily_depth = volume1/area_waterbody !whole array operation
+        daily_depth = volume1/area_waterbody                !whole array operation
   
-    end subroutine tpez_volume_calc
-    
+    end subroutine tpez_volume_calc  
     
     
     !****************************************************************************
-    subroutine MainLoopTPEZ(vmax, kd, bd)
-       use constants_and_variables, ONLY: num_records , DELT_vvwm,&
-                                   m1_input,m1_store,mavg1_store, aq1_store,  &
-                                   k_flow,soil_degradation_halflife_input, burial
+    subroutine MainLoopTPEZ(chem_index, vmax, kd, bd)
+       use constants_and_variables, ONLY: num_records , DELT_vvwm,m1_input,m1_store,mavg1_store, aq1_store,  &
+                                           k_flow,soil_degradation_halflife_input, burial, dwrate, aq_rate_corrected, ncom2, &
+           degradateProduced1, mwt, nchem,soil_depth
 
        use initialization, ONLY: Convert_halflife_to_rate_per_sec                        
-                                  
-       implicit none
-       real, intent(in):: vmax, kd, bd
-    
-       integer :: day_count
-
-       real:: m1        !begin day mass
-       real:: mn1       !mass at end of time step
-       real:: k_total,k_soil
+       use utilities_1
        
+       implicit none
+       integer, intent(in) :: chem_index
+       real, intent(in):: vmax, kd, bd
+       
+       integer :: day_count
+       real:: m1        !begin day mass
+       real:: mn1       !mass at end of time step 
+       
+       real :: avg_soil_deg_implicit !days, has an implicit correction that will be removed se below
+       real :: avg_soil_deg          !corrected to unimlpicit and to sec
+       
+       real :: k_total
+       real :: MWTRatio
+       
+       degradateProduced1 = 0.
        m1=0.
        mn1=0.
-
-
-    !***** Daily Loop Calculations ************************
-    do day_count = 1,num_records    
-
-        m1 = mn1 + m1_input(day_count)       
-        m1_store(day_count)=m1
        
-        call Convert_halflife_to_rate_per_sec(soil_degradation_halflife_input(1), k_soil )
+       !call Convert_halflife_to_rate_per_sec(soil_degradation_halflife_input(chem_index), k_soil )
 
-        !kflow needs to be adjusted for tpez, in normal vvwm solid phase is not considered in water vcolumn
-        !adjustment is Vmax/(Vmax + bd Kd) this is a CONSTANT Adjustment
+       if (nchem > chem_index) then
+              MWTRatio = MWT(chem_index+1)/MWT(chem_index)
+       end if       
+       
+       !***** Daily Loop Calculations ************************
+       do day_count = 1,num_records    
 
-        k_total =  k_flow(day_count)*vmax/(vmax+kd*bd)  +  k_soil + burial(day_count)*Kd/(vmax+kd*bd)
+          m1 = mn1 + m1_input(day_count)       
+          m1_store(day_count)=m1
+       
+          !kflow needs to be adjusted for tpez, in normal vvwm solid phase is not considered in water vcolumn
+          !adjustment is Vmax/(Vmax + bd Kd) this is a CONSTANT Adjustmen
         
+          !Adding daily temerature adjustments for soil degradation
+          !because dwrate includes a impicit correction that is not applicable to TPEZ, this needs to be uncorrected
+          call find_average_property(ncom2,soil_depth,15.0, dwrate(chem_index,:), avg_soil_deg_implicit) 
+          
+          ! aq_rate_corrected      = exp(aq_rate_input)   -1.
+          ! aq_rate_corrected +1.  = exp(aq_rate_input)
+          ! exp(aq_rate_input)     = aq_rate_corrected +1.
+          ! aq_rate_input          = log(aq_rate_corrected +1.)
+          
+          avg_soil_deg = log(avg_soil_deg + 1.0)/86400.   ! removed implicit correction and now is in per sec,  86400 sec/day
+          
+          k_total =  k_flow(day_count)*vmax/(vmax+kd*bd) + burial(day_count)*Kd/(vmax+kd*bd) + avg_soil_deg
+          
+          mn1 = m1*exp(-DELT_vvwm * k_total) !next start day mass
+          
+          
+          if (k_total>0.0) then
+                 mavg1_store(day_count) = m1_store(day_count)*(1.-exp(-DELT_vvwm * k_total)) /k_total/DELT_vvwm 
+          else
+                 mavg1_store(day_count) = m1_store(day_count)
+          end if
 
-        mn1 = m1*exp(-DELT_vvwm * k_total) !next start day mass
-        
-        if (k_total>0.0) then
-               mavg1_store(day_count) = m1_store(day_count)*(1.-exp(-DELT_vvwm * k_total)) /k_total/DELT_vvwm 
-        else
-               mavg1_store(day_count) = m1_store(day_count)
-        end if
-		
-    end do 
+          !calculate mass degraded by soil degradation alone  
+          if (nchem > chem_index) then
+             degradateProduced1(day_count) =  MWTRatio * avg_soil_deg * mavg1_store(day_count) * DELT_vvwm
+          end if
+       end do
+       
 
-   
+      
+       if (nchem > chem_index) then
+           !!Degradate production is delayed one time step to approximate the process and to maintain analytical solution for time step  
+           degradateProduced1(2:num_records)= degradateProduced1(1:num_records-1)
+           degradateProduced1(1)= 0.
+       end if
+      
+    end subroutine MainLoopTPEZ
     
-      end subroutine MainLoopTPEZ
     
     
 
     
-    
-    
+
     
 end module TPEZ_WPEZ
     

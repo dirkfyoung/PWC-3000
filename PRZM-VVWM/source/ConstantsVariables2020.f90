@@ -353,9 +353,20 @@ module constants_and_variables
       real,allocatable,dimension(:) :: soilwater
       
       
-      
-      real,allocatable,dimension(:,:) :: dwrate, dsrate, dgrate          !current soil degradation rates for water solid gas
+      !Note: the soil degradation rates below have a correction for PRZMs implicit routine, Thus they are not applicable for other routines without implict calcs
+      !this is problematic for TPEZ so TPEZ needs separate soil degradation calcs
+      real,allocatable,dimension(:,:) :: dwrate, dsrate, dgrate !current soil degradation rates for water solid gas, CORRECTED FOR IMPLICIT ROUTINE, per day
       real,allocatable,dimension(:,:) :: dwrate_atRefTemp, dsrate_atRefTemp, dgrate_atRefTemp !input degradation rates at ref temp
+      
+      !For TPEZ calculation of soil degrdataion, these will be used to "uncorrect" the implicit correction
+      !So they are now in this global module rather than local 
+      real :: aq_rate_corrected(3)  !degradation inputs corrected for implicit routine
+      real :: sorb_rate_corrected(3)
+      real :: gas_rate_corrected(3) 
+      
+      
+      
+      
       
       real,allocatable,dimension(:) :: MolarConvert_aq12,MolarConvert_aq13,MolarConvert_aq23
       real,allocatable,dimension(:) :: MolarConvert_s12, MolarConvert_s13, MolarConvert_s23

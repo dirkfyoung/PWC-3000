@@ -60,7 +60,11 @@ use constants_and_Variables, ONLY: min_evap_depth,                             &
         hydrolysis_rate, hydrolysis_halflife_input,water_column_halflife_input   ,  benthic_halflife_input , soil_degradation_halflife_input, &
         is_total_degradation,is_constant_profile, is_ramp_profile, ramp1, ramp2, ramp3,is_exp_profile , exp_profile1, exp_profile2, folpst, &
 	    top_node_last_horizon, bottom_node_last_horizon, snow, cint, foliar_degrade_loss, SUPFLX, Foliar_volatile_loss, &
-        is_auto_profile, profile_thick, profile_number_increments, number_of_discrete_layers
+        is_auto_profile, profile_thick, profile_number_increments, number_of_discrete_layers, &
+        aq_rate_corrected,sorb_rate_corrected, gas_rate_corrected
+
+
+
 
 use waterbody_parameters, ONLY: afield
      
@@ -98,17 +102,11 @@ use waterbody_parameters, ONLY: afield
    real :: sumofMolarConvert_s12 
    real :: sumofMolarConvert_s13 
    real :: sumofMolarConvert_s23 
-    
-    
-    
-    
-    
-    
-    
-    
-    real :: aq_rate_corrected(3)  !degradation inputs corrected for implicit routine
-    real :: sorb_rate_corrected(3)
-    real :: gas_rate_corrected(3) 
+        
+    !moving these to Constants and Variables because they are needed for TPEZ adjustments
+    !real :: aq_rate_corrected(3)  !degradation inputs corrected for implicit routine
+    !real :: sorb_rate_corrected(3)
+    !real :: gas_rate_corrected(3) 
 
 	horiz_indx_tracker=0
 	track_thickness = 0.0
