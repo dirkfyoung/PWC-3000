@@ -395,10 +395,11 @@ end subroutine wpez
           !because dwrate includes a impicit correction that is not applicable to TPEZ, this needs to be uncorrected
           call find_average_property(ncom2,soil_depth,15.0, dwrate(chem_index,:), avg_soil_deg_implicit) 
           
-          ! aq_rate_corrected      = exp(aq_rate_input)   -1.
+          !here is the derivation to undo the correction
+          ! aq_rate_corrected      = exp(aq_rate_input)   -1.  (this is previous correction)
           ! aq_rate_corrected +1.  = exp(aq_rate_input)
           ! exp(aq_rate_input)     = aq_rate_corrected +1.
-          ! aq_rate_input          = log(aq_rate_corrected +1.)
+          ! aq_rate_input          = log(aq_rate_corrected +1.)   (this undoes it)
           
           avg_soil_deg = log(avg_soil_deg_implicit + 1.0)/86400.   ! removed implicit correction and now is in per sec,  86400 sec/day
           
@@ -419,19 +420,14 @@ end subroutine wpez
           end if
        end do
        
-
-      
        if (nchem > chem_index) then
-           !!Degradate production is delayed one time step to approximate the process and to maintain analytical solution for time step  
+           !!Degradate production is delayed one time step, this means production is assumed at end of time step 
+ 
            degradateProduced1(2:num_records)= degradateProduced1(1:num_records-1)
-           degradateProduced1(1)= 0.
+           degradateProduced1(1)= 0.                       !no degradate in calc on first day---sent to next day 
        end if
       
     end subroutine MainLoopTPEZ
-    
-    
-    
-
     
 
     

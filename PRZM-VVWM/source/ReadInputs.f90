@@ -346,7 +346,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         !local that will likely need to go to module
         !logical :: evergreen
         
-        character(len= 50) ::dummy
+        character(len= 50) ::dummy, dummy2
         real :: scalar_albedo, scaler_soil_temp  !these values are arrays in the program, but they are initialesd with constants
 		
 		logical :: checkopen
@@ -510,10 +510,22 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
               
         dispersion_input = 0.0
 
+        
         read(ScenarioFileUnit,*)   !*** Horizon End, Temperature Start ********
         write(*,*) "reading albedo and bc temperature:"
-        read(ScenarioFileUnit,*) scalar_albedo,scaler_soil_temp  !msg = msg & String.Format("{0}{1},{2}", vbNewLine, albedoBox.Text, bcTemp.Text)
-    write(*,*) scalar_albedo,scaler_soil_temp
+        
+        read(ScenarioFileUnit,"(A50)", IOSTAT= status) dummy
+        write(*,*) "albedo and temp line reads: " , dummy    
+        
+        read(dummy,*, IOSTAT= status) scalar_albedo,scaler_soil_temp  !msg = msg & String.Format("{0}{1},{2}", vbNewLine, albedoBox.Text, bcTemp.Text)
+        IF (status .NE. 0) then  !this isn't populated for standard scnarios in 2023
+             scalar_albedo = 0.2
+             scaler_soil_temp = 15.           
+             write(*,*) "Using Default albedo and gw temperature"
+        end if
+        
+
+        write(*,*) "scalar_albedo,scaler_soil_temp ", scalar_albedo,scaler_soil_temp
         
         ALBEDO = scalar_albedo                 !albedo is monthly in przm      
         soil_temp_input = scaler_soil_temp
@@ -522,10 +534,14 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         bottom_bc= scaler_soil_temp
         
         read(ScenarioFileUnit,*) is_temperature_simulated !msg = msg & vbNewLine & simTemperature.Checked
+    
+        
         read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "***spare line for expansion"
         read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "***spare line for expansion"
         read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "*** Erosion & Curve Number Info **********"
-              
+         write(*,*)  "Temperature simulated? ",    is_temperature_simulated
+        
+        
         read(ScenarioFileUnit,*) NUSLEC  !msg = msg & vbNewLine & NumberOfFactors.Text
         read(ScenarioFileUnit,*) (GDUSLEC(i), i=1,nuslec)
         read(ScenarioFileUnit,*) (GMUSLEC(i), i=1,nuslec)
