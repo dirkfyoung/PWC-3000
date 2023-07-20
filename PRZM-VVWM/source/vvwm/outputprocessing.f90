@@ -583,7 +583,9 @@ end subroutine write_simple_batch_data
 subroutine  tpez_write_simple_batch_data(chem_index, return_frequency,num_years, tpez_max, edge_of_field_max)
 
 use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
-    nchem, runoff_fraction,erosion_fraction,drift_fraction , First_time_through_tpez,summary_outputfile_tpez,summary_output_unit_tpez, &
+    nchem, runoff_fraction,erosion_fraction,drift_fraction , &
+    First_time_through_tpez,summary_outputfile_tpez,summary_outputfile_tpez_deg1,summary_outputfile_tpez_deg2,&
+    summary_output_unit_tpez,summary_output_unit_tpez_deg1,summary_output_unit_tpez_deg2, &   
     effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2,  &
     gw_peak, post_bt_avg ,throughputs,simulation_avg, fraction_off_field
@@ -604,19 +606,19 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     character(len= 257) :: local_run_id
     
     If (First_time_through_tpez) then
-        header = 'Run Information                                                                    TPEZ (kg/ha),   EoF (ug/L),'
+        header = 'Run Information                                                                    TPEZ (kg/ha),   EoF (ug/L) parent calc only,'
         
-        Open(unit=summary_output_unit_tpez,FILE= trim(summary_outputfile_tpez),Status='unknown')  
+        Open(     unit=summary_output_unit_tpez,  FILE= trim(summary_outputfile_tpez),Status='unknown')  
         Write(summary_output_unit_tpez, '(A400)') header
         
-        !if ( NCHEM>1) then
-        !    Open(unit=summary_output_unit_deg1,FILE= trim(summary_outputfile_deg1),Status='unknown')  
-        !    Write(summary_output_unit_deg1, '(A322)') header
-        !end if
-        !if ( NCHEM >2) then
-        !    Open(unit=summary_output_unit_deg2,FILE= trim(summary_outputfile_deg2),Status='unknown')  
-        !    Write(summary_output_unit_deg2, '(A322)') header
-        !end if
+        if ( NCHEM>1) then
+            Open( unit=summary_output_unit_tpez_deg1,   FILE= trim(summary_outputfile_tpez_deg1),Status='unknown')  
+            Write(summary_output_unit_tpez_deg1, '(A322)') header
+        end if
+        if ( NCHEM >2) then
+           Open(unit=summary_output_unit_tpez_deg2,FILE= trim(summary_outputfile_tpez_deg2),Status='unknown')  
+            Write(summary_output_unit_tpez_deg2, '(A322)') header
+        end if
         
         First_time_through_tpez= .FALSE.
     end if
@@ -630,15 +632,13 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     select case (chem_index)
     case (1)
         local_run_id = trim(run_id) // '_Parent'
-        write(summary_output_unit_tpez,'(A80,1x,26(",",ES13.4E3))') (adjustl(local_run_id)),  tpez_max_out, edge_of_field_max_out*1000000.0  !convert to ug/L  from kg/m3
-    !case (2)
-    !    local_run_id = trim(run_id) // '_deg1'
-    !    write(summary_output_unit_deg1,'(A80,1x,23ES13.4E3)') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field,runoff_fraction,erosion_fraction,drift_fraction, &
-    !    effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2
-    !case (3)
-    !    local_run_id = trim(run_id)  // '_deg2'
-    !    write(summary_output_unit_deg2,'(A60,1x,23ES13.4E3)') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
-    !    effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2
+        write(summary_output_unit_tpez,     '(A80,1x,26(",",ES13.4E3))') (adjustl(local_run_id)), tpez_max_out, edge_of_field_max_out*1000000.0  !convert to ug/L  from kg/m3
+    case (2)
+        local_run_id = trim(run_id) // '_deg1'
+        write(summary_output_unit_tpez_deg1,'(A80,1x,26(",",ES13.4E3))') (adjustl(local_run_id)), tpez_max_out
+    case (3)
+        local_run_id = trim(run_id)  // '_deg2'
+        write(summary_output_unit_tpez_deg2,'(A80,1x,26(",",ES13.4E3))') (adjustl(local_run_id)), tpez_max_out
 
         case default
     end select

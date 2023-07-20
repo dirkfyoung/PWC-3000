@@ -28,19 +28,22 @@ module constants_and_variables
       integer, parameter ::  summary_output_unit_deg2 = 46
       
       integer, parameter ::  summary_output_unit_tpez = 47
+      integer, parameter ::  summary_output_unit_tpez_deg1 = 48
+      integer, parameter ::  summary_output_unit_tpez_deg2 = 49
       
-      integer, parameter ::  summary_wpez_unit      = 48
-      integer, parameter ::  summary_wpez_unit_deg1 = 49
-      integer, parameter ::  summary_wpez_unit_deg2 = 50
       
-      integer, parameter ::  inputfile_unit_number  = 51    
-      integer, parameter ::  PRZMinputUnit          = 52
-      integer, parameter ::  MetFileUnit            = 53
-      integer, parameter ::  ScenarioFileUnit       = 54
-      integer, parameter ::  BatchFileUnit          = 55
+      integer, parameter ::  summary_wpez_unit      = 50
+      integer, parameter ::  summary_wpez_unit_deg1 = 51
+      integer, parameter ::  summary_wpez_unit_deg2 = 52
       
-      integer, parameter ::  TimeSeriesUnit2         = 56
-      integer, parameter ::  waterbody_file_unit     = 57
+      integer, parameter ::  inputfile_unit_number  = 53    
+      integer, parameter ::  PRZMinputUnit          = 54
+      integer, parameter ::  MetFileUnit            = 55
+      integer, parameter ::  ScenarioFileUnit       = 56
+      integer, parameter ::  BatchFileUnit          = 57
+      
+      integer, parameter ::  TimeSeriesUnit2         = 58
+      integer, parameter ::  waterbody_file_unit     = 59
       
       
       
@@ -49,11 +52,13 @@ module constants_and_variables
       character(len= 500), parameter :: summary_outputfile_deg1 =  "summary_output_Deg1.txt"
       character(len= 500), parameter :: summary_outputfile_deg2 =  "summary_output_Deg2.txt"
       
-      character(len= 500), parameter :: summary_outputfile_tpez =  "summary_output_tpez.txt"    
+      character(len= 500), parameter :: summary_outputfile_tpez =       "summary_output_tpez.txt"    
+      character(len= 500), parameter :: summary_outputfile_tpez_deg1 =  "summary_output_tpez_deg1.txt"
+      character(len= 500), parameter :: summary_outputfile_tpez_deg2 =  "summary_output_tpez_deg2.txt"
      
-      character(len= 500), parameter :: summary_WPEZoutputfile      =  "summary_WPEZ.txt"
-      character(len= 500), parameter :: summary_WPEZoutputfile_deg1 =  "summary_WPEZ_Deg1.txt"
-      character(len= 500), parameter :: summary_WPEZoutputfile_deg2 =  "summary_WPEZ_Deg2.txt"
+      character(len= 500), parameter :: summary_WPEZoutputfile      =  "summary_output_WPEZ.txt"
+      character(len= 500), parameter :: summary_WPEZoutputfile_deg1 =  "summary_output_WPEZ_deg1.txt"
+      character(len= 500), parameter :: summary_WPEZoutputfile_deg2 =  "summary_output_WPEZ_deg2.txt"
       
       
       

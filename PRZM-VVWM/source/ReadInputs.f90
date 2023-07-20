@@ -512,20 +512,17 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
 
         
         read(ScenarioFileUnit,*)   !*** Horizon End, Temperature Start ********
-        write(*,*) "reading albedo and bc temperature:"
         
         read(ScenarioFileUnit,"(A50)", IOSTAT= status) dummy
-        write(*,*) "albedo and temp line reads: " , dummy    
-        
+
         read(dummy,*, IOSTAT= status) scalar_albedo,scaler_soil_temp  !msg = msg & String.Format("{0}{1},{2}", vbNewLine, albedoBox.Text, bcTemp.Text)
         IF (status .NE. 0) then  !this isn't populated for standard scnarios in 2023
              scalar_albedo = 0.2
              scaler_soil_temp = 15.           
              write(*,*) "Using Default albedo and gw temperature"
         end if
-        
 
-        write(*,*) "scalar_albedo,scaler_soil_temp ", scalar_albedo,scaler_soil_temp
+        write(*,*) "albedo and temp = ",  scalar_albedo,scaler_soil_temp
         
         ALBEDO = scalar_albedo                 !albedo is monthly in przm      
         soil_temp_input = scaler_soil_temp
@@ -791,7 +788,7 @@ subroutine Read_Weatherfile
       end if
       
       startday = jd(first_year, first_mon, first_day)
- write(*,*) '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'
+
       write(*,*)  'startday = ', startday, first_year, first_mon, first_day
       
       !Count the records in the weather file
