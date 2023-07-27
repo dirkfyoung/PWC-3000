@@ -4,13 +4,13 @@ module outputprocessing
     
 
     subroutine output_processor(chem_index, First_time_through, output_unit, unit_number,unit_number_deg1,unit_number_deg2,&
-                                summary_filename, summary_filename_deg1, summary_filename_deg2 )
+                                summary_filename, summary_filename_deg1, summary_filename_deg2, waterbody_name )
     use utilities
   !  use variables
     use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth, Afield
     
     use constants_and_variables, ONLY:  num_records, run_id, is_hed_files_made,is_add_return_frequency, additional_return_frequency, &
-                                       num_years, startday,  waterbodytext, &
+                                       num_years, startday, &
                                  gamma_1,        &
                                  gamma_2,        &
                                  fw1,            &
@@ -34,7 +34,7 @@ module outputprocessing
     integer,             intent(in) :: unit_number,unit_number_deg1,unit_number_deg2            ! summary files
     character(len= 500), intent(in) :: summary_filename, summary_filename_deg1, summary_filename_deg2
     logical,             intent(inout) :: First_time_through
-    
+    character(len= 20), intent(in) :: waterbody_name
     
     
     character(len=512) :: waterbody_outputfile
@@ -95,17 +95,36 @@ if (is_waterbody_info_output) then
 
 		
 	    case (1)
-		    waterbody_outputfile = trim(full_run_identification) // '_parent_wb.out'
+		    waterbody_outputfile = trim(full_run_identification) // '_parent_'       // trim(waterbody_name) // '.out'
 	    case (2)
-		    waterbody_outputfile = trim(full_run_identification) // '_daugter_wb.out'
+		    waterbody_outputfile = trim(full_run_identification) // '_daugter_'      // trim(waterbody_name) // '.out'
 	    case (3)
-		    waterbody_outputfile = trim(full_run_identification) // '_granddaugter_wb.out'		
+		    waterbody_outputfile = trim(full_run_identification) // '_granddaugter_' // trim(waterbody_name) // '.out'	
 	    case default
 		    waterbody_outputfile =trim(full_run_identification) // '_nada.out'	
-	end select
+        end select
 	
+     !   	    case (1)
+		   ! waterbody_outputfile = trim(full_run_identification) // '_parent_wb.out'
+	    !case (2)
+		   ! waterbody_outputfile = trim(full_run_identification) // '_daugter_wb.out'
+	    !case (3)
+		   ! waterbody_outputfile = trim(full_run_identification) // '_granddaugter_wb.out'		
+	    !case default
+		   ! waterbody_outputfile =trim(full_run_identification) // '_nada.out'	
+     !   end select
+        
+         
+    
+        
+        
+        
+        
 	open (UNIT=output_unit,FILE= trim(waterbody_outputfile),  STATUS='unknown')
 
+
+    
+    
     
     !For Certain water bodies, users want to exclude concentrations below a certain level
     
@@ -606,7 +625,7 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     character(len= 257) :: local_run_id
     
     If (First_time_through_tpez) then
-        header = 'Run Information                                                                    TPEZ (kg/ha),   EoF (ug/L) parent calc only,'
+        header = 'Run Information                                                                  ,  TPEZ (kg/ha),   EoF (ug/L) parent calc only,'
         
         Open(     unit=summary_output_unit_tpez,  FILE= trim(summary_outputfile_tpez),Status='unknown')  
         Write(summary_output_unit_tpez, '(A400)') header

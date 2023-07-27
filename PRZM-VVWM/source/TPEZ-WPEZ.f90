@@ -11,7 +11,7 @@ Module TPEZ_WPEZ
         outputfile_parent_daily,outputfile_deg1_daily,outputfile_deg2_daily,&
         outputfile_parent_deem,outputfile_deg1_deem,outputfile_deg2_deem,&
         outputfile_parent_calendex,outputfile_deg1_calendex,outputfile_deg2_calendex,&
-        outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa,waterbodytext , k_flow , &
+        outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa, k_flow , &
         summary_WPEZoutputfile , summary_WPEZoutputfile_deg1 , summary_WPEZoutputfile_deg2,First_time_through_wpez
     
     
@@ -40,6 +40,7 @@ Module TPEZ_WPEZ
 !**local chemical properties****
 integer :: chem_index
 real    :: koc
+character(LEN=20) :: waterbody_name
 
     write(*,*) "enter WPEZ"
 
@@ -117,7 +118,7 @@ real    :: koc
         !    waterbodytext =  "Custom"
         !end select
         
-        waterbodytext =  "WPEZ"
+        waterbody_name =  "WPEZ"
    
 
    write(*,*) 'wpez batch output file ', trim(summary_WPEZoutputfile)
@@ -131,7 +132,7 @@ real    :: koc
 
 
        call output_processor(chem_index,First_time_through_wpez, wpez_timeseries_unit, summary_wpez_unit,summary_wpez_unit_deg1,summary_wpez_unit_deg2, &
-                             summary_WPEZoutputfile , summary_WPEZoutputfile_deg1 , summary_WPEZoutputfile_deg2)
+                             summary_WPEZoutputfile , summary_WPEZoutputfile_deg1 , summary_WPEZoutputfile_deg2, waterbody_name )
        
        
        
