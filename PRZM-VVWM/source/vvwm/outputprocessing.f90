@@ -97,7 +97,7 @@ if (is_waterbody_info_output) then
 	    case (1)
 		    waterbody_outputfile = trim(full_run_identification) // '_parent_'       // trim(waterbody_name) // '.out'
 	    case (2)
-		    waterbody_outputfile = trim(full_run_identification) // '_daugter_'      // trim(waterbody_name) // '.out'
+		    waterbody_outputfile = trim(full_run_identification) // '_daughter_'      // trim(waterbody_name) // '.out'
 	    case (3)
 		    waterbody_outputfile = trim(full_run_identification) // '_granddaugter_' // trim(waterbody_name) // '.out'	
 	    case default
@@ -132,6 +132,7 @@ if (is_waterbody_info_output) then
           where (daily_depth < zero_depth) aqconc_avg1 = 0.0
     end if
     
+     write(output_unit,'(A42)') 'Depth(m), Water Col(kg/m3), Benthic(kg/m3)'
  
     do i =1, num_records
         write(output_unit,'(G12.4E3, "," ,ES12.4E3, "," ,ES12.4E3, "," ,ES12.4E3)')  daily_depth(i), aqconc_avg1(i), aqconc_avg2(i)
@@ -769,7 +770,7 @@ end Subroutine calculate_effective_halflives
 
 
 
-    subroutine tpez_output_processor(chem_index)
+    subroutine tpez_output_processor(chem_index, area_tpez)
     use utilities
 
     use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth, Afield
@@ -795,7 +796,10 @@ end Subroutine calculate_effective_halflives
                          
     implicit none
     integer, intent(in) :: chem_index
+    real, intent(in)    :: area_tpez
+     
     character(len=512) :: waterbody_outputfile
+   
     
     !temporary parameters for esa, should make this more general in the future
     real:: return_frequency
@@ -845,9 +849,9 @@ if (is_waterbody_info_output) then
 	open (UNIT=19,FILE= trim(waterbody_outputfile),  STATUS='unknown')
 
     
-    
+    write(19, *) "Mass/Area (kg/m2)"
     do i =1, num_records
-        write(19,'(ES12.4E3)')  mavg1_store(i)
+        write(19,'(ES12.4E3)')  mavg1_store(i)/area_tpez
 	end do
 	close (19)
 end if

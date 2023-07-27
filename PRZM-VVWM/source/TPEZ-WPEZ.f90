@@ -121,7 +121,7 @@ character(LEN=20) :: waterbody_name
         waterbody_name =  "WPEZ"
    
 
-   write(*,*) 'wpez batch output file ', trim(summary_WPEZoutputfile)
+        write(*,*) 'wpez batch output file ', trim(summary_WPEZoutputfile)
    
 
    
@@ -261,7 +261,7 @@ end subroutine wpez
           waterbodytext = "TPEZ"
 
 
-          call tpez_output_processor(chem_index)
+          call tpez_output_processor(chem_index,area_tpez )
      end do
      
 

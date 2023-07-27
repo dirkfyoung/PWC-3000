@@ -850,6 +850,7 @@
             MyReader.SetDelimiters(",")
             Dim currentRow As String()
 
+            WaterbodyName.Text = MyReader.ReadLine()
             WaterBodyType.Text = MyReader.ReadLine()
             FlowAveraging.Text = MyReader.ReadLine()
             FieldSize.Text = MyReader.ReadLine()
@@ -906,7 +907,9 @@
     Private Function CreateWaterbodyString() As String
         Dim msg As String
 
-        msg = WaterBodyType.Text
+
+        msg = WaterbodyName.Text
+        msg = msg & vbNewLine & WaterBodyType.Text
         msg = msg & vbNewLine & FlowAveraging.Text
         msg = msg & vbNewLine & FieldSize.Text
         msg = msg & vbNewLine & WaterBodyArea.Text

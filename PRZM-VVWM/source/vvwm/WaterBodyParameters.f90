@@ -1,6 +1,7 @@
 Module waterbody_parameters
     
 implicit none
+    character(len=20) :: this_waterbody_name  !name of specific water body, included in waterbody input file
     integer :: SimTypeFlag    !1=vvwm,2 = USepa pond, 3 = usepa reservoir, 4=constant vol w/o flow, 5 = const vol w/flow
     real :: D_over_dx     
     real :: benthic_depth 
@@ -25,7 +26,7 @@ implicit none
     
 	logical :: is_zero_depth  !post processing to zero out conc below a certain depth
     real    :: zero_depth     !depth below which conc are zeroed during post processing
-    logical :: is_tpez
+
 	
 	real,dimension(14):: spray_values  !default or read-in values for spray drift, their order should corresponds to the menu in the application table
 
@@ -38,8 +39,12 @@ implicit none
     character(len=512), parameter :: USEPA_pond = "USEPA Pond"  
     character(len=512), parameter :: USEPA_reservoir = "USEPA Reservoir"
     
+
+    
+    
  
     !**** POND ****************
+
     integer, parameter :: waterbodytype_P = 2
     real,parameter :: D_over_dx_P     = 1e-8
     real,parameter :: benthic_depth_P = 0.05
@@ -94,6 +99,7 @@ real,dimension(17,15),parameter :: spray_table_P = transpose(reshape((/&
 
     
     !*** RESERVOIR ****************
+
     integer, parameter :: waterbodytype_R = 3
     real,parameter :: D_over_dx_R     = 1e-8
     real,parameter :: benthic_depth_R = 0.05
@@ -166,6 +172,7 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
     contains
     subroutine get_pond_parameters
     integer :: i,j
+        this_waterbody_name = "Pond"
         simtypeflag         = waterbodytype_P 
         flow_averaging      = flow_averaging_P  
         afield              = afield_P       
@@ -191,7 +198,7 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         
         is_zero_depth = .FALSE.
         zero_depth = 0.0
-        is_tpez = .FALSE.
+
 
 	    rows_spraytable = rows_spraytable_P
         columns_spraytable = columns_spraytable_P
@@ -211,6 +218,7 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
     subroutine get_reservoir_parameters
         integer :: i,j
         
+        this_waterbody_name = "Reservoir"
         simtypeflag = waterbodytype_R
         afield              = afield_R  
         area_waterbody      = area_waterbody_R
@@ -235,7 +243,7 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         
         is_zero_depth = .FALSE.
         zero_depth = 0.0
-        is_tpez = .FALSE.
+
         
        ! spray_values        = spray_R
         
@@ -259,7 +267,9 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 	integer :: i,j
      
         open (UNIT=waterbody_file_unit, FILE= trim(waterbody_names(file_index)), STATUS ='old')
-        read(waterbody_file_unit, *) simtypeflag        
+
+        read(waterbody_file_unit, *) this_waterbody_name       
+        read(waterbody_file_unit, *) simtypeflag    
         read(waterbody_file_unit, *) flow_averaging     
         read(waterbody_file_unit, *) afield       
         read(waterbody_file_unit, *) area_waterbody     
@@ -269,23 +279,24 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         read(waterbody_file_unit, *) bulk_density       
         read(waterbody_file_unit, *) FROC2              
         read(waterbody_file_unit, *) DOC2               
-        read(waterbody_file_unit, *) BNMAS              
+        read(waterbody_file_unit, *) BNMAS         
         read(waterbody_file_unit, *) DFAC               
         read(waterbody_file_unit, *) SUSED              
         read(waterbody_file_unit, *) CHL                
         read(waterbody_file_unit, *) FROC1              
         read(waterbody_file_unit, *) DOC1               
-        read(waterbody_file_unit, *) PLMAS              
+        read(waterbody_file_unit, *) PLMAS         
+
         read(waterbody_file_unit, *) depth_0            
         read(waterbody_file_unit, *) depth_max          
-        read(waterbody_file_unit, *) baseflow           
+        read(waterbody_file_unit, *) baseflow       
+
         read(waterbody_file_unit, *) hydro_length
         read(waterbody_file_unit, *) is_zero_depth, zero_depth
-        read(waterbody_file_unit, *) is_tpez
-        
-        
+
+        read(waterbody_file_unit, *) 
+
 		read(waterbody_file_unit, *) rows_spraytable, columns_spraytable ! data is 1 less column, col 0 is a text description in the vb interface, row 1 is length header
-		
 		
 		allocate (spraytable (rows_spraytable, columns_spraytable-1))
 		
@@ -298,18 +309,6 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 			write(*,'(20G12.4)' ) (spraytable(i,j),j=1, columns_spraytable-1)
         end do
 		
-        
-        !TPEZ Parameter Modifications
-       ! if (is_tpez) then
-            !if its TPEZ , make mass transfer faster transfer.
-            !Set water levels and density
-            !Make degradtion equal soil deg
-            !zero out other degradation
-            !Must be done for each scenario and at  the start of VVWM simulation
-            
-       ! end if
-        
-        
 
     end subroutine read_waterbodyfile
     

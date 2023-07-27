@@ -17,7 +17,7 @@ module VVWM_solution_setup
         outputfile_parent_calendex,outputfile_deg1_calendex,outputfile_deg2_calendex,&
         outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa,summary_outputfile,  k_flow, First_time_through_wb
     
-    use waterbody_parameters, ONLY: FROC2, simtypeflag
+    use waterbody_parameters, ONLY: FROC2, simtypeflag, this_waterbody_name
     
   !  use variables, ONLY: ,Batch_outputfile
 
@@ -41,7 +41,6 @@ module VVWM_solution_setup
 integer :: chem_index
 real    :: koc
 
-character(LEN=20) :: waterbodytext
 
     write(*,*) "enter VVWM"
 
@@ -52,24 +51,18 @@ character(LEN=20) :: waterbodytext
 
     call spraydrift
     
-    
-    
-    
     !****************************************************************
     !Washout and volume calculations for individual cases
-    
- write(*,*) "simulation type = ", simtypeflag
     select case (simtypeflag)
-        case (3,5) !reservoir constant volume,flow
-                call constant_volume_calc 
-        case (2,4)  !pond constant volume, no flow
-                call constant_volume_calc 
-                k_flow=0.  !for this case zero out washout
-        case (1) !variable volume, flow
-                call volume_calc
-        end select
-        
-
+    case (3,5) !reservoir constant volume,flow
+          call constant_volume_calc 
+    case (2,4)  !pond constant volume, no flow
+          call constant_volume_calc 
+          k_flow=0.           !for this case zero out washout
+    case (1) !variable volume, flow
+          call volume_calc
+    end select
+                
     do chem_index= 1, nchem
           if (is_koc) then
                   koc   = k_f_input(chem_index) 
@@ -78,7 +71,6 @@ character(LEN=20) :: waterbodytext
           end if
       
       !*******************************************
-
         call solute_holding_capacity(koc)    
         
         call omega_mass_xfer
@@ -90,50 +82,30 @@ character(LEN=20) :: waterbodytext
         call burial_calc(koc)
         call volatilization(chem_index )
             
-          !********************************************
-          !process the individual degradation rates into overall parameters:
+        !process the individual degradation rates into overall parameters:
         call gamma_one
         call gamma_two
-        
-        
-          !**************************************************************
         
         call initial_conditions(chem_index)
         write(*,*) "Main VVWM Loop "
         call MainLoop       
        
-        
-        select case  (simtypeflag)
-        case (3)  
-            waterbodytext = "Reservoir"
-        case (2)
-            waterbodytext = "Pond"
-        case (1,4,5)
-            waterbodytext =  "Custom"
-        end select
-        
+ 
    
-
-   write(*,*) 'batch output file ', trim(summary_outputfile)
+        write(*,*) 'batch output file ', trim(summary_outputfile)
    
-
         if (nchem > chem_index) then     
               call DegradateProduction(chem_index) 
         end if
 
-
-    !**********************************************************          
-
-
-       call output_processor(chem_index,First_time_through_wb, waterbody_timeseries_unit,  summary_output_unit, summary_output_unit_deg1, summary_output_unit_deg2, &
-           summary_outputfile, summary_outputfile_deg1, summary_outputfile_deg2, waterbodytext)
-    !**********************************************************          
+      !**********************************************************          
+       call output_processor(chem_index,First_time_through_wb, waterbody_timeseries_unit, &
+           summary_output_unit, summary_output_unit_deg1, summary_output_unit_deg2,       &
+           summary_outputfile, summary_outputfile_deg1, summary_outputfile_deg2, this_waterbody_name)
+      !**********************************************************          
   end do                                                                 
 
-
 end subroutine VVWM
-    
-    
     
     
 
