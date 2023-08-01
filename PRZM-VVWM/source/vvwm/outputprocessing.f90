@@ -529,7 +529,7 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     
     
     integer, intent(in) ::chem_index
-    character (len=433) :: header
+    character (len=444) :: header
     
     
     !****LOCAL*********************
@@ -541,7 +541,7 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
         header = 'Run Information                                                                  ,      1-d avg,    365-d avg,    Total avg,      4-d avg,     21-d avg,     60-d avg,      B 1-day,   B 21-d avg,    Off-Field,  Runoff Frac,   Erosn Frac,   Drift Frac,  col washout,    col metab,    col hydro,    col photo,    col volat,    col total,  ben sed rem,    ben metab,    ben hydro,    ben total,      gw_peak,  post_bt_avg,   throughput, sim_avg_gw'
         
         Open(unit=unit_number,FILE= trim(summary_filename),Status='unknown')  
-        Write(unit_number, '(A433)') header
+        Write(unit_number, '(A444)') header
         if ( NCHEM>1) then
             Open(unit=unit_number_deg1,FILE= trim(summary_filename_deg1),Status='unknown')  
             Write(unit_number_deg1, '(A433)') header
