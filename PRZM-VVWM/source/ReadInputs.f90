@@ -494,20 +494,6 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         read(ScenarioFileUnit,*) !(sand_input(i), i=1, nhoriz)        
         read(ScenarioFileUnit,*) !(clay_input(i), i=1, nhoriz)
               
-        !do i= 1, nhoriz
-        !         write(*, '(7G12.3)')  thickness(i), bd_input(i), fc_input(i), wp_input(i), oc_input(i), sand_input(i), clay_input(i)
-        !end do
-
-        !write(*,*) 'Nhori', NHORIZ        
-        !write(*,*) 'THCK ', (thickness(i), i=1, nhoriz)
-        !write(*,*) 'BD   ', (bd_input(i), i=1, nhoriz) 
-        !write(*,*) 'FC   ', (fc_input(i), i=1, nhoriz)
-        !write(*,*) 'WP   ', (wp_input(i), i=1, nhoriz)
-        !write(*,*) 'OC   ', (oc_input(i), i=1, nhoriz)      
-        !write(*,*) 'DELX ', (Num_delx(i), i=1, nhoriz)
-        !write(*,*) 'Sand ', (sand_input(i), i=1, nhoriz)        
-        !write(*,*) 'Clay ', (clay_input(i), i=1, nhoriz)
-              
         dispersion_input = 0.0
 
         

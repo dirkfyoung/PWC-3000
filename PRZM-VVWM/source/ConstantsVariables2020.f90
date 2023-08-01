@@ -193,7 +193,7 @@ module constants_and_variables
 
 	  real, allocatable, dimension(:) :: et_save
 	  
-	  real, allocatable, dimension(:) :: conc_last_horizon_save
+	  real, allocatable, dimension(:,:) :: conc_last_horizon_save
 	  
 	  
      !*********** Parameters used for calibration Routines *********
@@ -281,23 +281,9 @@ module constants_and_variables
 	  integer :: profile_number_increments(max_discretized_layers)  !number of increments in a layer
 	  
 	  
-	  
-	  
-	  
-	  
-	  
-	  
-
-	  
-	  
-	  
       real ::  hydrolysis_halflife_input(3)       ! halflife in per days
       real ::  hydrolysis_rate(3)                 ! rate in per sec
  
-	  
-	  
-	
-	  
 	  
 	  
       real :: water_column_halflife_input(3)      ! Degradation halflife in per day
@@ -562,13 +548,13 @@ module constants_and_variables
       real    :: TCNC(3)     !used for output only
       
 	  !********* Groundwater Related Variables
-	  real :: retardation_factor   !retardation factor of entire soil profile (parent only)
+	  real :: retardation_factor(3)   !retardation factor of entire soil profile (parent, daughter, grand)
       real :: maxcap_volume        !summation of max capacities, this is the effective aqueous transport pore volume
       integer :: top_node_last_horizon, bottom_node_last_horizon
-	  real :: gw_peak
-	  real :: post_bt_avg 
-	  real :: throughputs
-	  real :: simulation_avg
+	  real :: gw_peak(3)
+	  real :: post_bt_avg(3)
+	  real :: throughputs(3)
+	  real :: simulation_avg(3)
 
       !******Weather Related Variables******************       
       real :: precip_rain     !rain-only component, minus snow

@@ -421,14 +421,10 @@ use waterbody_parameters, ONLY: afield
     !WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW  look
     !****************************needs repair for autoprofile
 
-    !Find nodes of last horizon, this will be used for groundwater calculations
-	if (nhoriz==1) then
-		top_node_last_horizon = 1
-		bottom_node_last_horizon = num_delx(1) 
-	else                                           ! groundwater aquifer is taken as the last two compartments
+    !Find index of last 2 nodes, this will be used for groundwater calculations
 	    top_node_last_horizon    = ncom2-1
 		bottom_node_last_horizon = ncom2
-    end if
+
 
     write(*,*) 'compartments for aquifer: ', ncom2-1, 'to', ncom2
     
@@ -1322,11 +1318,11 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
 end subroutine SetupFieldOutputOptions
   
   subroutine Calculate_Retardation_Factor
-  use constants_and_variables, ONLY: ncom2, delx, theta_fc, bulkdensity, Kd_new,retardation_factor,maxcap_volume 
+  use constants_and_variables, ONLY: ncom2, delx, theta_fc, bulkdensity, Kd_new,retardation_factor,maxcap_volume , nchem
         implicit none
 
 		real :: total_depth
-		integer ::i
+		integer ::i, k
         !  For i As Integer = 0 To (NumberOfHorizons - 2)
         !    depth = depth + thick(i).Text
         !Next
@@ -1335,19 +1331,28 @@ end subroutine SetupFieldOutputOptions
         !For i As Integer = 0 To (NumberOfHorizons - 2)
         !    Retardation = Retardation + thick(i).Text / depth * (maxcap(i).Text + bulkden(i).Text * kd(ChemID, i)) / maxcap(i).Text
         !Next   
-
-		
-		total_depth = sum(delx)
-		retardation_factor = 0.0
-		maxcap_volume = 0.0
-		do i = 1, ncom2
-			retardation_factor = retardation_factor + delx(i) /total_depth*	(theta_fc(i) +bulkdensity(i)*kd_new(1, i))/theta_fc(i)
+        
+       do k = 1, nchem
+	       total_depth = sum(delx)
+	       retardation_factor(k) = 0.0
+           
+	       do i = 1, ncom2
+	          	retardation_factor(k) = retardation_factor(k) + delx(i) /total_depth*	(theta_fc(i) +bulkdensity(i)*kd_new(k, i))/theta_fc(i)
+	       end do
+	       	
+	       write(*,*) 'Retardation Factor = ' , k, retardation_factor(k)
+  
+       end do       
+        
+       maxcap_volume = 0.0       
+	   do i = 1, ncom2
 			maxcap_volume = maxcap_volume + theta_fc(i) * delx(i)
-		end do
-			
-		write(*,*) 'Retardation Factor = ' , retardation_factor
-        write(*,*) 'maxcap_volume (effective pore volume (depth), cm) = ', maxcap_volume
-		
+       end do
+       write(*,*) 'maxcap_volume (effective pore volume (depth), cm) = ', maxcap_volume
+
+
+
+        
   end   subroutine Calculate_Retardation_Factor
   
 

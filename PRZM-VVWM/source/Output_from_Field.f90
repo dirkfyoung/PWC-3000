@@ -4,11 +4,11 @@ Module Output_From_Field
 		
 	subroutine groundwater
 	    use constants_and_variables, ONLY: num_records, retardation_factor,  maxcap_volume, conc_last_horizon_save, &
-	    	                               infiltration_save, ncom2,gw_peak, post_bt_avg ,throughputs,simulation_avg
+	    	                               infiltration_save, ncom2,gw_peak, post_bt_avg ,throughputs,simulation_avg, nchem
 	    implicit none
         !maxcap_volume = effective pore volume
 	    !Throughputs = infiltration/maxcap_volume/retardation_factor
-	    integer :: i
+	    integer :: i,k
 	    integer :: count
 	    real    :: adj 
 	    reaL    :: inflitration_cum
@@ -17,27 +17,34 @@ Module Output_From_Field
 	    !write(98,*) 'Water Capacity:	 ', maxcap_volume
 	    !write(98,*) 'Day    Flow(cm)  Pore Volumes  Throughputs  Conc(ppb)'
 	
-	    adj = maxcap_volume*retardation_factor
-	    inflitration_cum = 0.0              !cumulative infiltration (cm)
-	    post_bt_avg = 0.0                   !post breakthrough average, avg concentration after one thoughput in last horizon
-	    simulation_avg = 0.0				!entire simulation average concentrationin last horizon
-	    gw_peak = 0.0						!highest concentration in last horizon
+        
+        
+  do k=1,nchem         
+	    adj = maxcap_volume*retardation_factor(k)
+	    post_bt_avg(k)    = 0.0             !post breakthrough average, avg concentration after one thoughput in last horizon
+	    simulation_avg(k) = 0.0				!entire simulation average concentrationin last horizon
+	    gw_peak(k) = 0.0						!highest concentration in last horizon
 	    count = 0
-		
+ 	    inflitration_cum = 0.0              !cumulative infiltration (cm)   
+        
 	    do i = 1, num_records
-	    	simulation_avg =simulation_avg + conc_last_horizon_save(i)
+	    	simulation_avg(k) =simulation_avg(k) + conc_last_horizon_save(k, i)
 	    	inflitration_cum = inflitration_cum + infiltration_save(ncom2, i)
 	     !   write(98,'(I6, 4G12.3)') i, inflitration_cum,inflitration_cum/maxcap_volume, inflitration_cum/adj, conc_last_horizon_save(i)
 	    	if (inflitration_cum/adj >= 1.0) then
 	    		count = count + 1
-	    		post_bt_avg = post_bt_avg +conc_last_horizon_save(i)
+	    		post_bt_avg(k) = post_bt_avg(k) +conc_last_horizon_save(k,i)
 	    	end if	
 	    end do
 	    
-	    gw_peak = maxval(conc_last_horizon_save)
-	    post_bt_avg = post_bt_avg/count
-	    throughputs = inflitration_cum/adj
-	    simulation_avg = simulation_avg / num_records
+	    gw_peak(k) = maxval(conc_last_horizon_save(k,:))
+	    post_bt_avg(k) = post_bt_avg(k)/count
+	    throughputs(k) = inflitration_cum/adj
+	    simulation_avg(k) = simulation_avg(k) / num_records
+        
+end do        
+        
+        
 	end subroutine groundwater
 	
 	
@@ -114,13 +121,18 @@ Module Output_From_Field
 	
 
 	!**************************************************************
+DO K=1,NCHEM    
+    
+    
 	!always capture the average concentration in bottom horizon   
     tttot = 0.0
     do i =   top_node_last_horizon,bottom_node_last_horizon              
-           TTTOT= TTTOT  + conc_porewater(1,i)   *DELX(i) 
-	end do 
-    conc_last_horizon_save(day_number_chemtrans) =   TTTOT  * 1.0E9/sum(delx( top_node_last_horizon:bottom_node_last_horizon ))
-	
+           TTTOT= TTTOT  + conc_porewater(k,i)   *DELX(i) 
+    end do 
+    
+    
+    conc_last_horizon_save(k, day_number_chemtrans) =   TTTOT  * 1.0E9/sum(delx( top_node_last_horizon:bottom_node_last_horizon ))
+end do	
 
   !********************************************************************** 
 
