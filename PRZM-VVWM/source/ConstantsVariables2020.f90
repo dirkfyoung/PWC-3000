@@ -9,8 +9,9 @@ module constants_and_variables
       real,parameter :: Version_Number = -1.0 !using negative to denote preliminary work
       
       logical :: use_bidiagonal
+      integer :: app_window_counter  !tracks the appication widow for placement into a storage array for median calculation of concentrations
       
-
+      real :: hold_for_medians(10,366) !holds app window values for median determination 
 
       ! File Names *******************************************************************************
       character (len=512) PRZMVVWMinputfile     

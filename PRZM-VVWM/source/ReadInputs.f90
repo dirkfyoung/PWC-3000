@@ -560,6 +560,13 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
           end if
       else 
           is_auto_profile= .FALSE.  !for older files set default to No aurto profile    
+          
+          
+          
+          
+          
+          
+          
 	  end if
 	  
         close (ScenarioFileUnit)

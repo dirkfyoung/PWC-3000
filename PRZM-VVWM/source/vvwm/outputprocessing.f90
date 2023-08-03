@@ -29,12 +29,12 @@ module outputprocessing
    
                          
     implicit none
-    integer,             intent(in) :: chem_index
-    integer,             intent(in) :: output_unit                                             !time series
-    integer,             intent(in) :: unit_number,unit_number_deg1,unit_number_deg2            ! summary files
-    character(len= 500), intent(in) :: summary_filename, summary_filename_deg1, summary_filename_deg2
+    integer,             intent(in)    :: chem_index
+    integer,             intent(in)    :: output_unit                                             !time series
+    integer,             intent(in)    :: unit_number,unit_number_deg1,unit_number_deg2            ! summary files
+    character(len= 500), intent(in)    :: summary_filename, summary_filename_deg1, summary_filename_deg2
     logical,             intent(inout) :: First_time_through
-    character(len= 20), intent(in) :: waterbody_name
+    character(len= 20), intent(in)     :: waterbody_name
     
     
     character(len=512) :: waterbody_outputfile
@@ -82,9 +82,6 @@ module outputprocessing
     real :: Total_Mass
     integer :: YEAR,MONTH,DAY
     integer :: eliminate_year
-    
-
-
     integer,dimension(num_years) ::  first_annual_dates !array of yearly first dates (absolute days).
                                     ! First date is the calendar day of start of simulation 
     first_annual_dates= 0
@@ -92,7 +89,6 @@ module outputprocessing
 
 if (is_waterbody_info_output) then
 	select case (chem_index)
-
 		
 	    case (1)
 		    waterbody_outputfile = trim(full_run_identification) // '_parent_'       // trim(waterbody_name) // '.out'
@@ -114,18 +110,10 @@ if (is_waterbody_info_output) then
 		   ! waterbody_outputfile =trim(full_run_identification) // '_nada.out'	
      !   end select
         
-         
-    
-        
-        
-        
+ 
         
 	open (UNIT=output_unit,FILE= trim(waterbody_outputfile),  STATUS='unknown')
 
-
-    
-    
-    
     !For Certain water bodies, users want to exclude concentrations below a certain level
     
     if (is_zero_depth) then
@@ -139,6 +127,7 @@ if (is_waterbody_info_output) then
 	end do
 	close (output_unit)
 end if
+
 
 
 !
@@ -514,7 +503,7 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     nchem,     runoff_fraction,erosion_fraction,drift_fraction,summary_outputfile, &
     effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, &
-    gw_peak, post_bt_avg ,throughputs,simulation_avg, fraction_off_field
+    gw_peak, post_bt_avg ,throughputs,simulation_avg, fraction_off_field, family_name, app_window_counter, hold_for_medians
 
     implicit none   
     integer, intent(in)                       :: num_years
@@ -540,14 +529,14 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     If (First_time_through) then
         header = 'Run Information                                                                  ,      1-d avg,    365-d avg,    Total avg,      4-d avg,     21-d avg,     60-d avg,      B 1-day,   B 21-d avg,    Off-Field,  Runoff Frac,   Erosn Frac,   Drift Frac,  col washout,    col metab,    col hydro,    col photo,    col volat,    col total,  ben sed rem,    ben metab,    ben hydro,    ben total,      gw_peak,  post_bt_avg,   throughput, sim_avg_gw'
         
-        Open(unit=unit_number,FILE= trim(summary_filename),Status='unknown')  
+        Open(unit=unit_number,FILE=  (trim(family_name) // "_" // trim(summary_filename)),Status='unknown')  
         Write(unit_number, '(A444)') header
         if ( NCHEM>1) then
-            Open(unit=unit_number_deg1,FILE= trim(summary_filename_deg1),Status='unknown')  
+            Open(unit=unit_number_deg1,FILE= (trim(family_name) // "_" // trim(summary_filename_deg1)),Status='unknown')  
             Write(unit_number_deg1, '(A433)') header
         end if
         if ( NCHEM >2) then
-            Open(unit=unit_number_deg2,FILE= trim(summary_filename_deg2),Status='unknown')  
+            Open(unit=unit_number_deg2,FILE= (trim(family_name) // "_" // trim(summary_filename_deg2)),Status='unknown')  
             Write(unit_number_deg2, '(A433)') header
         end if
         
@@ -575,6 +564,21 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
         write(unit_number,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out, fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, gw_peak(1), post_bt_avg(1) ,throughputs(1),simulation_avg(1)    !effective_total_deg2 does not mean degradate, means benthic
 
+ !**capture data for median calculations here
+       hold_for_medians( 1, app_window_counter)= c1_out
+       hold_for_medians( 2, app_window_counter)= c365_out
+       hold_for_medians( 3, app_window_counter)= simulation_average
+       hold_for_medians( 4, app_window_counter)= c4_out
+       hold_for_medians( 5, app_window_counter)= c21_out
+       hold_for_medians( 6, app_window_counter)= c60_out
+       hold_for_medians( 7, app_window_counter)= benthic_peak_out
+       hold_for_medians( 8, app_window_counter)= benthic_c21_out
+       hold_for_medians( 9, app_window_counter)= post_bt_avg(1)
+       hold_for_medians( 10, app_window_counter)= throughputs(1)
+       
+
+       
+        
     case (2)
         local_run_id = trim(run_id) // '_deg1'
         write(unit_number_deg1,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field,runoff_fraction,erosion_fraction,drift_fraction, &
@@ -607,7 +611,7 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     summary_output_unit_tpez,summary_output_unit_tpez_deg1,summary_output_unit_tpez_deg2, &   
     effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2,  &
-     fraction_off_field
+     fraction_off_field, family_name
 
     implicit none   
     integer, intent(in)                     :: num_years
@@ -627,15 +631,18 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     If (First_time_through_tpez) then
         header = 'Run Information                                                                  ,  TPEZ (kg/ha),   EoF (ug/L) parent calc only,'
         
-        Open(     unit=summary_output_unit_tpez,  FILE= trim(summary_outputfile_tpez),Status='unknown')  
+        
+        
+
+        Open(     unit=summary_output_unit_tpez,  FILE= (trim(family_name) // "_" // trim(summary_outputfile_tpez)),Status='unknown')  
         Write(summary_output_unit_tpez, '(A400)') header
         
         if ( NCHEM>1) then
-            Open( unit=summary_output_unit_tpez_deg1,   FILE= trim(summary_outputfile_tpez_deg1),Status='unknown')  
+            Open( unit=summary_output_unit_tpez_deg1,   FILE= (trim(family_name) // "_" // trim(summary_outputfile_tpez_deg1)),Status='unknown')  
             Write(summary_output_unit_tpez_deg1, '(A322)') header
         end if
         if ( NCHEM >2) then
-           Open(unit=summary_output_unit_tpez_deg2,FILE= trim(summary_outputfile_tpez_deg2),Status='unknown')  
+           Open(unit=summary_output_unit_tpez_deg2,FILE= (trim(family_name) // "_" // trim(summary_outputfile_tpez_deg2)),Status='unknown')  
             Write(summary_output_unit_tpez_deg2, '(A322)') header
         end if
         

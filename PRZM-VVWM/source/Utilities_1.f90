@@ -213,5 +213,55 @@
        average =  weighted_tally/target_depth
      end subroutine
      
+    
+     
+     subroutine find_medians
+     USE constants_and_variables, ONLY: hold_for_medians,  app_window_counter
+     real :: median, pos_median, neg_median, test_for_median
+     integer:: i, count_above, count_below
+     logical :: got_pos, got_neg, got_median
+      got_pos = .False.
+      got_neg = .False.
+      got_median = .False.
+      
+
+     do i = 1, app_window_counter
+            test_for_median = hold_for_medians(1, i)  
+            count_above = count (hold_for_medians(1,1:app_window_counter) >= test_for_median)
+            count_below = count (hold_for_medians(1,1:app_window_counter) <= test_for_median)
+            
+  write(*,*) test_for_median, count_above, count_below, count_above - count_below
+            if (count_above == count_below) then 
+                    got_median = .TRUE.
+                    exit
+            else if (count_above - count_below == 1) then 
+                    pos_median = test_for_median
+                    got_pos = .TRUE.                  
+            else if (count_above - count_below == -1) then 
+                    neg_median = test_for_median
+                    got_neg = .TRUE.
+            end if
+            if (got_pos .AND. got_neg) exit  
+            
+     end do
+     
+     if (got_median) then
+           median = test_for_median
+     else if (got_pos .AND. got_neg) then
+           median = (pos_median + neg_median)/2.0
+           
+           
+     else 
+         write(*,*) "Can not find median"
+     end if
+     
+     write(*,*) "median = " , median
+     
+     
+     end subroutine find_medians
+     
+     
+     
+     
      
 end module utilities_1

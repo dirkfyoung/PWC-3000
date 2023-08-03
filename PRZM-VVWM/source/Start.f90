@@ -4,7 +4,7 @@ program PRZMVVWM
     use constants_and_variables, ONLY: maxFileLength, inputfile,number_of_schemes, &
                                        number_of_scenarios,  First_time_through_wb, First_time_through_wpez,First_time_through_tpez, &
                                        app_window_span, app_window_step, application_date, application_date_original, &
-                                       is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id
+                                       is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id, app_window_counter,hold_for_medians 
     
     use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond, spraytable,itstpezwpez
     use clock_variables
@@ -170,10 +170,12 @@ program PRZMVVWM
 			   			   
 			   write(*,*) '****************** Start App Loop **********************************'
 
-			   
+			   app_window_counter = 0  !use this to track app window to find medians
+               hold_for_medians = 0.0  !use this to hold data for medians
+               
                do jj = 0, app_window_span(i), app_window_step(i) 
 				     application_date= application_date_original + jj
-   
+                     app_window_counter = app_window_counter +1 
                     call make_run_id (i,kk, hh,jj) !makes a string that can be used for identifying output scheme#_scenario#_scenarioname      
                      
 
@@ -209,14 +211,15 @@ program PRZMVVWM
                                call tpez(i)  !need to send in scheme to find drift
                       end if
                       
-               
-                         
+
                               write (*,*) '###################################################'	 
                               CALL CPU_TIME (time_1)
                               write (*,*) 'cpu time vvwm ',time_1- cputime_begin
                               write (*,*) '###################################################'					 				 
-			   end do    
+               end do    
 			   
+               call find_medians    !medians of values in the app loop
+               
                call deallocate_scenario_parameters
 			   
                              write (*,*) '###################################################'	 
@@ -224,7 +227,8 @@ program PRZMVVWM
                              write (*,*) 'cpu time deallocate  ',time_1- cputime_begin
                              write (*,*) '###################################################'			   
 	
-			end do  !END SCENARIO LOOP  kk           
+            end do  !END SCENARIO LOOP  kk 
+            
 
                             write (*,*) '###################################################'	 
                             CALL CPU_TIME (time_1)
