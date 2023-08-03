@@ -215,47 +215,55 @@
      
     
      
-     subroutine find_medians
-     USE constants_and_variables, ONLY: hold_for_medians,  app_window_counter
-     real :: median, pos_median, neg_median, test_for_median
-     integer:: i, count_above, count_below
-     logical :: got_pos, got_neg, got_median
-      got_pos = .False.
-      got_neg = .False.
-      got_median = .False.
-      
-
-     do i = 1, app_window_counter
-            test_for_median = hold_for_medians(1, i)  
-            count_above = count (hold_for_medians(1,1:app_window_counter) >= test_for_median)
-            count_below = count (hold_for_medians(1,1:app_window_counter) <= test_for_median)
+     subroutine find_medians(rows, columns, hold_for_medians, medians)
+        !Find median of array with 10 columns and 
+         integer, intent(in) ::  rows, columns
+         
+         real, intent(in)    ::  hold_for_medians(columns, rows) 
+         real, intent(out)   ::  medians(columns)
+        
+         real :: pos_median, neg_median, test_for_median
+         integer:: i,j, count_above, count_below
+         logical :: got_pos, got_neg, got_median
+         
+         got_pos = .False.
+         got_neg = .False.
+         got_median = .False.
+         
+         do j = 1, columns !loop for each conc
+            do i = 1, rows
+                   test_for_median = hold_for_medians(j, i)  
+                   count_above = count (hold_for_medians(j,:) >= test_for_median)
+                   count_below = count (hold_for_medians(j,:) <= test_for_median)
+                   
+                   if (count_above == count_below) then 
+                           got_median = .TRUE.
+                           exit
+                   else if (count_above - count_below == 1) then 
+                           pos_median = test_for_median
+                           got_pos = .TRUE.                  
+                   else if (count_above - count_below == -1) then 
+                           neg_median = test_for_median
+                           got_neg = .TRUE.
+                   end if
+                   if (got_pos .AND. got_neg) exit        
+            end do
             
-  write(*,*) test_for_median, count_above, count_below, count_above - count_below
-            if (count_above == count_below) then 
-                    got_median = .TRUE.
-                    exit
-            else if (count_above - count_below == 1) then 
-                    pos_median = test_for_median
-                    got_pos = .TRUE.                  
-            else if (count_above - count_below == -1) then 
-                    neg_median = test_for_median
-                    got_neg = .TRUE.
+            
+            if (got_median) then
+                  medians(j) = test_for_median
+            else if (got_pos .AND. got_neg) then
+                  medians(j) = (pos_median + neg_median)/2.0
+            else 
+                  write(*,*) "Can not find median"
             end if
-            if (got_pos .AND. got_neg) exit  
             
-     end do
+
      
-     if (got_median) then
-           median = test_for_median
-     else if (got_pos .AND. got_neg) then
-           median = (pos_median + neg_median)/2.0
-           
-           
-     else 
-         write(*,*) "Can not find median"
-     end if
+      end do
+      
+               
      
-     write(*,*) "median = " , median
      
      
      end subroutine find_medians

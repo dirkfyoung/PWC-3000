@@ -12,7 +12,10 @@ module constants_and_variables
       integer :: app_window_counter  !tracks the appication widow for placement into a storage array for median calculation of concentrations
       
       real :: hold_for_medians(10,366) !holds app window values for median determination 
-
+      real :: medians_conc(10)              !keeps final medians
+      
+      
+      
       ! File Names *******************************************************************************
       character (len=512) PRZMVVWMinputfile     
       character (len=512) inputfile !new input file to replace przmvvwminputfile. this file is the same as the pwc input file
@@ -45,7 +48,7 @@ module constants_and_variables
       
       integer, parameter ::  TimeSeriesUnit2         = 58
       integer, parameter ::  waterbody_file_unit     = 59
-      
+      integer, parameter ::  median_output_unit      = 60
       
       
           
@@ -866,7 +869,10 @@ real :: drift_fraction
 logical :: First_time_through_wb        !used for batch reader
 logical :: First_time_through_wpez         !used for batch reader
 logical :: First_time_through_tpez         !used for batch reader
-logical :: First_time_through_PRZM    !used to write output przm time series file headers, so can keep all output writes in one place
+logical :: First_time_through_PRZM         !used to write output przm time series file headers, so can keep all output writes in one place
+logical :: First_time_through_medians      ! median output file
+
+
 
 !OUTPUT FLAGS
 logical :: is_runoff_output  

@@ -2,13 +2,14 @@ program PRZMVVWM
     use allocations
     use readinputs
     use constants_and_variables, ONLY: maxFileLength, inputfile,number_of_schemes, &
-                                       number_of_scenarios,  First_time_through_wb, First_time_through_wpez,First_time_through_tpez, &
+                                       number_of_scenarios,  First_time_through_wb, First_time_through_wpez,First_time_through_tpez,First_time_through_medians, &
                                        app_window_span, app_window_step, application_date, application_date_original, &
-                                       is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id, app_window_counter,hold_for_medians 
+                                       is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id, app_window_counter,hold_for_medians, medians_conc 
     
     use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond, spraytable,itstpezwpez
     use clock_variables
 	
+    use outputprocessing, ONLY: write_medians
     use PRZM_VERSION
    ! use PRZM_part
     use initialization
@@ -47,7 +48,7 @@ program PRZMVVWM
     First_time_through_wb   = .TRUE.  !used to write output file headers, so can keep all output writes in one place
     First_time_through_tpez = .TRUE.
     First_time_through_wpez = .TRUE.
-    
+    First_time_through_medians = .TRUE.
     
     
     call get_command_argument(1,inputfile,length)
@@ -172,7 +173,7 @@ program PRZMVVWM
 
 			   app_window_counter = 0  !use this to track app window to find medians
                hold_for_medians = 0.0  !use this to hold data for medians
-               
+               medians_conc = 0.0
                do jj = 0, app_window_span(i), app_window_step(i) 
 				     application_date= application_date_original + jj
                      app_window_counter = app_window_counter +1 
@@ -218,7 +219,9 @@ program PRZMVVWM
                               write (*,*) '###################################################'					 				 
                end do    
 			   
-               call find_medians    !medians of values in the app loop
+               call find_medians (app_window_counter, 10, hold_for_medians, medians_conc)  
+               call write_medians
+               
                
                call deallocate_scenario_parameters
 			   

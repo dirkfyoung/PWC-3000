@@ -5,6 +5,7 @@ module outputprocessing
 
     subroutine output_processor(chem_index, First_time_through, output_unit, unit_number,unit_number_deg1,unit_number_deg2,&
                                 summary_filename, summary_filename_deg1, summary_filename_deg2, waterbody_name )
+
     use utilities
   !  use variables
     use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth, Afield
@@ -881,16 +882,21 @@ end if
     end subroutine tpez_output_processor
 
 
-
-
-
-
-
-
-
-
-
-
+     subroutine write_medians
+     use constants_and_variables, only: medians_conc, median_output_unit, First_time_through_medians
+                implicit none
+                integer :: i
+                if (First_time_through_medians) then 
+                    !write header
+                    open (UNIT= median_output_unit, FILE = 'Medians.txt', STATUS = 'NEW')
+                    write(median_output_unit, *) "peak   , chronic,  cancer, ..."
+                    First_time_through_medians = .FALSE.
+                end if
+                
+                
+                write(median_output_unit, "(10G12.4)" ) (medians_conc(i), i=1,10)
+             
+     end subroutine write_medians
 
 
 end module outputprocessing
