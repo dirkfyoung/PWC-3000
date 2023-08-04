@@ -109,9 +109,10 @@ module schemeload
       end if
      
     write(*,*) 'Any Foliar Applications? ', some_applications_were_foliar
-	end subroutine set_chemical_applications
+    end subroutine set_chemical_applications
     
-	
+    
+	!************************************************************************************
 	subroutine lookup_drift(row, column, output)
 	   use waterbody_parameters, only: spraytable
 	   integer, intent(in) :: row  

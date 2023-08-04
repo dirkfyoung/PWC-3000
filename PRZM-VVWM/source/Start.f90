@@ -76,7 +76,7 @@ program PRZMVVWM
      do hh = 1, size(waterbody_names)
          run_tpez_wpez = .FALSE.
          
-         select case   (waterbody_names(hh))
+         select case   (waterbody_names(hh))       !note:   waterbody spray drift table is loaded here (tpez will need different table)
          case (USEPA_reservoir)
              call get_reservoir_parameters
          case (USEPA_pond)
@@ -96,6 +96,8 @@ program PRZMVVWM
          do i = 1, number_of_schemes
 			 Write(*,*) 'Doing Scheme No. ', i
 			 
+             
+             !will use spray table in here --need to make spray table correct if changed by tpez
              call set_chemical_applications(i) !gets the individual application scheme from the whole scheme table, non scenario specfic 
 							
 	         write(*,*) '********** Start Scenario Loop *************************************'

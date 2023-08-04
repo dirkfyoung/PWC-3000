@@ -207,6 +207,10 @@ end subroutine wpez
 /),(/13,17/)))        
       
       
+      !need to reload new spray table for tpez  
+      !(but check when main water body table was loaded, my need to rework this by sending in spray table rather than with global mofdule) 
+      !dont want to override regular table in the water body loop aug 2023
+      
       
       write(*,*) "Enter TPEZ"
      
