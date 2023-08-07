@@ -203,6 +203,8 @@ program PRZMVVWM
                       call VVWM 
                       
                       
+                      
+                      
                       if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
                                hold_run_id = run_id
                           
@@ -224,6 +226,10 @@ program PRZMVVWM
                call find_medians (app_window_counter, 10, hold_for_medians, medians_conc)  
                call write_medians
                
+               if (run_tpez_wpez) then
+                              call find_medians (app_window_counter, 10, hold_for_medians_wpez, medians_conc_wpez)  
+                              call write_medians
+               end if
                
                call deallocate_scenario_parameters
 			   

@@ -270,6 +270,139 @@
      
      
      
+     subroutine pick_max (num_years,num_records,bounds,c, output)
+!    !this subroutine choses the maximum values of subsets of the vector c
+!    !the subsets are defined by the vector "bounds"
+!    !maximum values of "c" are chosen from within the c indices defined by "bounds"
+!    !output is delivered in the vector "output"
+    implicit none
+    integer, intent(in) :: num_records
+    integer, intent(in) :: num_years
+    integer, intent(in) :: bounds(num_years)
+    real, intent(in), dimension(num_records) :: c
+    real, intent(out),dimension(num_years) :: output
+
+    integer :: i
+
+    !forall (i = 1: num_years-1) output(i) = maxval( c(bounds(i):bounds(i+1)-1) ) changed 2/5/2020
+    
+    
+    
+    do concurrent(i = 1: num_years-1)
+        output(i) = maxval( c(bounds(i):bounds(i+1)-1) )
+    end do
+    
+    output(num_years)= maxval( c(bounds(num_years):num_records) )
+
+    
+     end subroutine pick_max
+
      
      
+     
+ !***************************************************************
+subroutine Return_Frequency_Value(returnfrequency, c_in, n, c_out, lowYearFlag)
+    !CALCULATES THE Concentration at the given yearly return frequency
+    implicit none
+    
+    real,intent(in) :: returnfrequency             !Example 1 in 10 years would be 10.0
+    integer,intent(in) :: n                        !number of items in list
+    real, intent(in), dimension(n):: c_in          !list of items
+    
+    real,intent(out):: c_out                       !output of 90th centile of peaks
+    real:: f,DEC      
+    integer:: m    
+    real,dimension(n):: c_sorted
+    logical, intent(out) :: LowYearFlag  !if n is less than 10, returns max value and LowYearFlag =1
+    LowYearFlag = .false.
+
+    call hpsort(n,c_sorted, c_in)  !returns a sorted array
+    
+    f = (1.0 -1.0/returnfrequency )*(n+1)
+    m=int(f)
+    DEC = f-m      
+    
+   if (n < returnfrequency)then
+      c_out = c_sorted(n)
+      LowYearFlag = .true.
+   else 
+    c_out = c_sorted(m)+DEC*(c_sorted(m+1)-c_sorted(m))
+   end if
+
+end subroutine Return_Frequency_Value    
+     
+!****************************************************************
+subroutine hpsort(n,ra,b)
+!  from numerical recipes  (should be upgraded to new f90 routine)
+    implicit none
+    integer,intent(in):: n
+    real,intent(out),dimension(n)::ra !ordered output array
+    real,intent(in),dimension(n):: b  !original unordered input array
+
+    integer i,ir,j,l
+    real rra
+    
+    ra=b    ! this added to conserve original order
+
+    if (n.lt.2) return
+
+    l=n/2+1
+    ir=n
+10    continue
+    if(l.gt.1)then 
+    l=l-1
+    rra=ra(l)
+    else 
+    rra=ra(ir)    
+    ra(ir)=ra(1)
+    ir=ir-1
+    if(ir.eq.1)then 
+    ra(1)=rra 
+    return
+    endif
+    endif
+    i=l 
+    j=l+l
+20    if(j.le.ir)then 
+        if(j.lt.ir)then
+            if(ra(j).lt.ra(j+1))j=j+1 
+        endif
+        if(rra.lt.ra(j))then 
+            ra(i)=ra(j)
+            i=j
+            j=j+j
+        else 
+            j=ir+1
+        endif
+        goto 20
+        endif
+    ra(i)=rra
+    goto 10
+end subroutine hpsort
+!*******************************************************************************     
+     
+!*******************************************************************************
+subroutine find_first_annual_dates(num_years, first_annual_dates )
+   use constants_and_variables, ONLY: first_year, first_mon, first_day, startday
+   use utilities
+   implicit none
+   
+   integer,intent(in) :: num_years
+   integer,intent(out),dimension(num_years) :: first_annual_dates
+   integer i
+
+   do i = 1,num_years
+      first_annual_dates(i) =  jd(first_year+(i-1), first_mon,first_day )    
+   end do
+
+   first_annual_dates = first_annual_dates - startday+1
+
+end subroutine find_first_annual_dates
+!********************************************************************************
+
+
+
+
+
+
 end module utilities_1

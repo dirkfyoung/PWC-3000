@@ -7,7 +7,7 @@ module outputprocessing
                                 summary_filename, summary_filename_deg1, summary_filename_deg2, waterbody_name )
 
     use utilities
-  !  use variables
+    use utilities_1, ONLY: pick_max, find_first_annual_dates
     use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth, Afield
     
     use constants_and_variables, ONLY:  num_records, run_id, is_hed_files_made,is_add_return_frequency, additional_return_frequency, &
@@ -257,164 +257,68 @@ end if
                                      summary_filename, summary_filename_deg1, summary_filename_deg2, &
                                      return_frequency,num_years, peak,Simulation_average,c1_max,c4_max, &
                                      c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max )      
-  !  else        
-       !
-       ! if (is_add_return_frequency) then 
-       !return_frequency = additional_return_frequency
-       !unit_number = 33
-       !call write_returnfrequency_data(return_frequency, unit_number,num_years, peak,Simulation_average,c1_max,c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max )
-       ! end if
-       ! 
-       ! return_frequency = 10.0
-       ! unit_number = 11
-       !
-       ! call write_returnfrequency_data(return_frequency, unit_number,num_years, peak,Simulation_average,c1_max,c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max )
-     
- 
-       ! write (11,*) "***********************************************************************"
-       ! write (11,*)  "Flow in/out Characteristics of Waterbody:"
-       ! Write (11,*)  "Average Daily Runoff Into Waterbody (m3/s) = " , Daily_Avg_Runoff
-       ! Write (11,*)  "Baseflow Into Waterbody (m3/s)             = " , baseflow
-       ! Write (11,*)  "Average Daily Flow Out of Waterbody (m3/s) = " , Daily_avg_flow_out
- !   end if 
+
 
     end subroutine output_processor
 
 
 
 !***************************************************************
-subroutine pick_max (num_years,num_records,bounds,c, output)
-!    !this subroutine choses the maximum values of subsets of the vector c
-!    !the subsets are defined by the vector "bounds"
-!    !maximum values of "c" are chosen from within the c indices defined by "bounds"
-!    !output is delivered in the vector "output"
-    implicit none
-    integer, intent(in) :: num_records
-    integer, intent(in) :: num_years
-    integer, intent(in) :: bounds(num_years)
-    real, intent(in), dimension(num_records) :: c
-    real, intent(out),dimension(num_years) :: output
+!subroutine pick_max (num_years,num_records,bounds,c, output)
+!!    !this subroutine choses the maximum values of subsets of the vector c
+!!    !the subsets are defined by the vector "bounds"
+!!    !maximum values of "c" are chosen from within the c indices defined by "bounds"
+!!    !output is delivered in the vector "output"
+!    implicit none
+!    integer, intent(in) :: num_records
+!    integer, intent(in) :: num_years
+!    integer, intent(in) :: bounds(num_years)
+!    real, intent(in), dimension(num_records) :: c
+!    real, intent(out),dimension(num_years) :: output
+!
+!    integer :: i
+!
+!    !forall (i = 1: num_years-1) output(i) = maxval( c(bounds(i):bounds(i+1)-1) ) changed 2/5/2020
+!    
+!    
+!    
+!    do concurrent(i = 1: num_years-1)
+!        output(i) = maxval( c(bounds(i):bounds(i+1)-1) )
+!    end do
+!    
+!    output(num_years)= maxval( c(bounds(num_years):num_records) )
+!
+!    
+!end subroutine pick_max
 
-    integer :: i
-
-    !forall (i = 1: num_years-1) output(i) = maxval( c(bounds(i):bounds(i+1)-1) ) changed 2/5/2020
-    
-    
-    
-    do concurrent(i = 1: num_years-1)
-        output(i) = maxval( c(bounds(i):bounds(i+1)-1) )
-    end do
-    
-    output(num_years)= maxval( c(bounds(num_years):num_records) )
-
-    
-    
-end subroutine pick_max
 
 !***************************************************************
-subroutine Return_Frequency_Value(returnfrequency, c_in, n, c_out, lowYearFlag)
-    !CALCULATES THE Concentration at the given yearly return frequency
-    implicit none
-    
-    real,intent(in) :: returnfrequency             !Example 1 in 10 years would be 10.0
-    integer,intent(in) :: n                        !number of items in list
-    real, intent(in), dimension(n):: c_in          !list of items
-    
-    real,intent(out):: c_out                       !output of 90th centile of peaks
-    real:: f,DEC      
-    integer:: m    
-    real,dimension(n):: c_sorted
-    logical, intent(out) :: LowYearFlag  !if n is less than 10, returns max value and LowYearFlag =1
-    LowYearFlag = .false.
 
-    call hpsort(n,c_sorted, c_in)  !returns a sorted array
-    
-    f = (1.0 -1.0/returnfrequency )*(n+1)
-    m=int(f)
-    DEC = f-m      
-    
-   if (n < returnfrequency)then
-      c_out = c_sorted(n)
-      LowYearFlag = .true.
-   else 
-    c_out = c_sorted(m)+DEC*(c_sorted(m+1)-c_sorted(m))
-   end if
-
-end subroutine Return_Frequency_Value
-!***************************************************************
-!****************************************************************
-subroutine hpsort(n,ra,b)
-!  from numerical recipes  (should be upgraded to new f90 routine)
-    implicit none
-    integer,intent(in):: n
-    real,intent(out),dimension(n)::ra !ordered output array
-    real,intent(in),dimension(n):: b  !original unordered input array
-
-    integer i,ir,j,l
-    real rra
-    
-    ra=b    ! this added to conserve original order
-
-    if (n.lt.2) return
-
-    l=n/2+1
-    ir=n
-10    continue
-    if(l.gt.1)then 
-    l=l-1
-    rra=ra(l)
-    else 
-    rra=ra(ir)    
-    ra(ir)=ra(1)
-    ir=ir-1
-    if(ir.eq.1)then 
-    ra(1)=rra 
-    return
-    endif
-    endif
-    i=l 
-    j=l+l
-20    if(j.le.ir)then 
-        if(j.lt.ir)then
-            if(ra(j).lt.ra(j+1))j=j+1 
-        endif
-        if(rra.lt.ra(j))then 
-            ra(i)=ra(j)
-            i=j
-            j=j+j
-        else 
-            j=ir+1
-        endif
-        goto 20
-        endif
-    ra(i)=rra
-    goto 10
-end subroutine hpsort
-!*******************************************************************************
-!*******************************************************************************
-subroutine find_first_annual_dates(num_years, first_annual_dates )
-   use constants_and_variables, ONLY: first_year, first_mon, first_day, startday
-   use utilities
-   implicit none
-   
-   integer,intent(in) :: num_years
-   integer,intent(out),dimension(num_years) :: first_annual_dates
-   integer i
-
-   do i = 1,num_years
-      first_annual_dates(i) =  jd(first_year+(i-1), first_mon,first_day )    
-   end do
-
-   first_annual_dates = first_annual_dates - startday+1
-
-end subroutine find_first_annual_dates
-!********************************************************************************
+!!*******************************************************************************
+!subroutine find_first_annual_dates(num_years, first_annual_dates )
+!   use constants_and_variables, ONLY: first_year, first_mon, first_day, startday
+!   use utilities
+!   implicit none
+!   
+!   integer,intent(in) :: num_years
+!   integer,intent(out),dimension(num_years) :: first_annual_dates
+!   integer i
+!
+!   do i = 1,num_years
+!      first_annual_dates(i) =  jd(first_year+(i-1), first_mon,first_day )    
+!   end do
+!
+!   first_annual_dates = first_annual_dates - startday+1
+!
+!end subroutine find_first_annual_dates
+!!********************************************************************************
 
 
 
  subroutine write_returnfrequency_data(return_frequency, unit_number,num_years, peak,Simulation_average,c1_max,c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max   )
    use constants_and_variables, Only : version_number,Sediment_conversion_factor,fw2 
-
+   use utilities_1, ONLY: Return_Frequency_Value
+   
    implicit none
   
      real, intent(in)                         :: return_frequency
@@ -505,6 +409,9 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, &
     gw_peak, post_bt_avg ,throughputs,simulation_avg, fraction_off_field, family_name, app_window_counter, hold_for_medians
+
+use utilities_1, ONLY: Return_Frequency_Value
+
 
     implicit none   
     integer, intent(in)                       :: num_years
@@ -613,6 +520,8 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2,  &
      fraction_off_field, family_name
+
+use utilities_1, ONLY: Return_Frequency_Value
 
     implicit none   
     integer, intent(in)                     :: num_years
@@ -781,7 +690,7 @@ end Subroutine calculate_effective_halflives
     use utilities
 
     use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth, Afield
-    
+    use utilities_1, ONLY: pick_max, find_first_annual_dates
     use constants_and_variables, ONLY:  num_records, run_id, is_hed_files_made,is_add_return_frequency, additional_return_frequency, &
                                        num_years, startday,  waterbodytext, &
                                  gamma_1,        &
@@ -882,8 +791,8 @@ end if
     end subroutine tpez_output_processor
 
 
-     subroutine write_medians
-     use constants_and_variables, only: medians_conc, median_output_unit, First_time_through_medians
+     subroutine write_medians(medians_conc)
+     use constants_and_variables, only: median_output_unit, First_time_through_medians
                 implicit none
                 integer :: i
                 if (First_time_through_medians) then 

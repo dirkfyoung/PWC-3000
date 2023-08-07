@@ -12,8 +12,10 @@ module constants_and_variables
       integer :: app_window_counter  !tracks the appication widow for placement into a storage array for median calculation of concentrations
       
       real :: hold_for_medians(10,366) !holds app window values for median determination 
-      real :: medians_conc(10)              !keeps final medians
+      real :: hold_for_medians_WPEZ(10,366) !holds app window values for median determination 
       
+      real :: medians_conc(10)                   !keeps final medians
+      real :: medians_conc_wpez(10)              !keeps final medians
       
       
       ! File Names *******************************************************************************
