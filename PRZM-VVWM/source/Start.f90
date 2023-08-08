@@ -4,7 +4,8 @@ program PRZMVVWM
     use constants_and_variables, ONLY: maxFileLength, inputfile,number_of_schemes, &
                                        number_of_scenarios,  First_time_through_wb, First_time_through_wpez,First_time_through_tpez,First_time_through_medians, &
                                        app_window_span, app_window_step, application_date, application_date_original, &
-                                       is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id, app_window_counter,hold_for_medians, medians_conc 
+                                       is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id, app_window_counter,hold_for_medians, medians_conc, &
+                                       First_time_through_medians_wpez, hold_for_medians_wpez, First_time_through_medians_tpez,  hold_for_medians_tpez
     
     use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond, spraytable,itstpezwpez
     use clock_variables
@@ -32,7 +33,12 @@ program PRZMVVWM
     logical :: end_of_file, error_on_read
     logical :: run_tpez_wpez  !TRUE if USEPA_pond has just been simulated AND TPEZ/WPEZ run has been requested (i.e., istpezwpez==treue)
     character :: dummy
-    character(len= 256) :: hold_run_id
+
+    
+    
+    integer, parameter :: number_medians = 10
+    real::medians_conc_wpez(number_medians)
+    real:: medians_conc_tpez(1)
     
     !################################################ 
     CALL CPU_TIME (cputime_begin)
@@ -48,8 +54,9 @@ program PRZMVVWM
     First_time_through_wb   = .TRUE.  !used to write output file headers, so can keep all output writes in one place
     First_time_through_tpez = .TRUE.
     First_time_through_wpez = .TRUE.
-    First_time_through_medians = .TRUE.
-    
+
+    First_time_through_medians_wpez = .TRUE. 
+    First_time_through_medians_tpez = .TRUE.
     
     call get_command_argument(1,inputfile,length)
     call przm_id                                     !Stamp the runstatus file 
@@ -75,6 +82,7 @@ program PRZMVVWM
 
      do hh = 1, size(waterbody_names)
          run_tpez_wpez = .FALSE.
+         First_time_through_medians = .TRUE.     !we want a separate file for each median (move this uop if alll in one file, but file has watrerbody name
          
          select case   (waterbody_names(hh))       !note:   waterbody spray drift table is loaded here (tpez will need different table)
          case (USEPA_reservoir)
@@ -179,7 +187,7 @@ program PRZMVVWM
                do jj = 0, app_window_span(i), app_window_step(i) 
 				     application_date= application_date_original + jj
                      app_window_counter = app_window_counter +1 
-                    call make_run_id (i,kk, hh,jj) !makes a string that can be used for identifying output scheme#_scenario#_scenarioname      
+                     call make_run_id (i,kk, hh,jj) !makes a string that can be used for identifying output scheme#_scenario#_scenarioname      
                      
 
 					 !"Rain Fast" Option
@@ -193,26 +201,13 @@ program PRZMVVWM
                                 write (*,*) 'cpu time chen xport ',time_1- cputime_begin
                                 write (*,*) '###################################################'					 
 					 
-					 call groundwater
-					 
-                              write (*,*) '###################################################'	 
-                              CALL CPU_TIME (time_1)
-                              write (*,*) 'cpu time gw  ',time_1- cputime_begin
-                              write (*,*) '###################################################'					 
+					 call groundwater				 
 
                       call VVWM 
                       
-                      
-                      
-                      
+                    
                       if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
-                               hold_run_id = run_id
-                          
-                               run_id = trim(hold_run_id) //"_WPEZ"
-                               call wpez  
-                               run_id = trim(hold_run_id) //"_TPEZ"    
-                               
-                               write(*,*) 'TPEZ ID ', trim(run_id)
+                               call wpez   
                                call tpez(i)  !need to send in scheme to find drift
                       end if
                       
@@ -223,13 +218,19 @@ program PRZMVVWM
                               write (*,*) '###################################################'					 				 
                end do    
 			   
-               call find_medians (app_window_counter, 10, hold_for_medians, medians_conc)  
-               call write_medians
                
-               if (run_tpez_wpez) then
-                              call find_medians (app_window_counter, 10, hold_for_medians_wpez, medians_conc_wpez)  
-                              call write_medians
+               !******process application date widow into medians****************
+               call find_medians (app_window_counter, number_medians, hold_for_medians, medians_conc)  
+               call write_medians(medians_conc, number_medians)
+               
+               if (run_tpez_wpez) then  !wpez needs its own call due to different capture also because its scenario run is same as pond
+                              call find_medians (app_window_counter, number_medians, hold_for_medians_wpez, medians_conc_wpez)  
+                              call write_medians_wpez(medians_conc_wpez, number_medians)
+                              
+                              call find_medians (app_window_counter, 1, hold_for_medians_tpez, medians_conc_tpez) 
+                              call write_medians_tpez(medians_conc_tpez(1))
                end if
+               !****************************************************************
                
                call deallocate_scenario_parameters
 			   

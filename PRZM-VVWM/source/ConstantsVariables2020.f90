@@ -11,13 +11,13 @@ module constants_and_variables
       logical :: use_bidiagonal
       integer :: app_window_counter  !tracks the appication widow for placement into a storage array for median calculation of concentrations
       
-      real :: hold_for_medians(10,366) !holds app window values for median determination 
+      real :: hold_for_medians(10,366)      !holds app window values for median determination 
       real :: hold_for_medians_WPEZ(10,366) !holds app window values for median determination 
+      real :: hold_for_medians_TPEZ(366)     !Holds TPEZ acute value
+      
       
       real :: medians_conc(10)                   !keeps final medians
-      real :: medians_conc_wpez(10)              !keeps final medians
-      
-      
+
       ! File Names *******************************************************************************
       character (len=512) PRZMVVWMinputfile     
       character (len=512) inputfile !new input file to replace przmvvwminputfile. this file is the same as the pwc input file
@@ -51,8 +51,8 @@ module constants_and_variables
       integer, parameter ::  TimeSeriesUnit2         = 58
       integer, parameter ::  waterbody_file_unit     = 59
       integer, parameter ::  median_output_unit      = 60
-      
-      
+      integer, parameter ::  median_output_unit_wpez = 61
+      integer, parameter ::  median_output_unit_tpez = 62
           
       character(len= 500), parameter :: summary_outputfile      =  "summary_output.txt"
       character(len= 500), parameter :: summary_outputfile_deg1 =  "summary_output_Deg1.txt"
@@ -85,7 +85,7 @@ module constants_and_variables
 
       character(len= 256) :: run_id
       character(len= 512) :: full_run_identification  !run id plus all path information
-	  
+
 	  !GW--------------------------------------
 
       
@@ -873,6 +873,8 @@ logical :: First_time_through_wpez         !used for batch reader
 logical :: First_time_through_tpez         !used for batch reader
 logical :: First_time_through_PRZM         !used to write output przm time series file headers, so can keep all output writes in one place
 logical :: First_time_through_medians      ! median output file
+logical :: First_time_through_medians_wpez
+logical :: First_time_through_medians_tpez
 
 
 

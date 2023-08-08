@@ -56,7 +56,7 @@
     trim(scenario_id)  &
         // '_' // trim(adjustl(local_name)) // '_' // trim(adjustl(appnumber))
     
-
+    
     !run_ID =  trim(adjustl(schemnumber)) // '_' //&
     !trim(adjustl(scenario_names(i,j)((last_slash+1):(last_dot-1))))  &
     !    // '_' // trim(adjustl(local_name)) // '_' // trim(adjustl(appnumber))
@@ -226,12 +226,14 @@
          integer:: i,j, count_above, count_below
          logical :: got_pos, got_neg, got_median
          
-         got_pos = .False.
-         got_neg = .False.
-         got_median = .False.
+         test_for_median = 0.0
          
          do j = 1, columns !loop for each conc
-            do i = 1, rows
+              got_pos = .False.
+              got_neg = .False.
+              got_median = .False.    
+               
+              do i = 1, rows !days
                    test_for_median = hold_for_medians(j, i)  
                    count_above = count (hold_for_medians(j,:) >= test_for_median)
                    count_below = count (hold_for_medians(j,:) <= test_for_median)
@@ -247,25 +249,16 @@
                            got_neg = .TRUE.
                    end if
                    if (got_pos .AND. got_neg) exit        
-            end do
-            
-            
-            if (got_median) then
+              end do
+                                     
+              if (got_median) then
                   medians(j) = test_for_median
-            else if (got_pos .AND. got_neg) then
+              else if (got_pos .AND. got_neg) then
                   medians(j) = (pos_median + neg_median)/2.0
-            else 
+              else 
                   write(*,*) "Can not find median"
-            end if
-            
-
-     
-      end do
-      
-               
-     
-     
-     
+              end if
+         end do
      end subroutine find_medians
      
      
