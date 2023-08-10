@@ -87,6 +87,8 @@ module outputprocessing
                                     ! First date is the calendar day of start of simulation 
     first_annual_dates= 0
     
+write(*,*)  "is_waterbody_info_output",   is_waterbody_info_output, output_unit
+
 
 if (is_waterbody_info_output) then
 	select case (chem_index)
@@ -111,9 +113,15 @@ if (is_waterbody_info_output) then
 		   ! waterbody_outputfile =trim(full_run_identification) // '_nada.out'	
      !   end select
         
- 
-        
+  write(*,*)  "id "   ,   trim(full_run_identification)
+  write(*,*)   " waterfile " ,   waterbody_outputfile 
+    write(*,*)  "trimmed"    ,      trim(waterbody_outputfile)
+    
+    
+    
 	open (UNIT=output_unit,FILE= trim(waterbody_outputfile),  STATUS='unknown')
+    
+    
 
     !For Certain water bodies, users want to exclude concentrations below a certain level
     

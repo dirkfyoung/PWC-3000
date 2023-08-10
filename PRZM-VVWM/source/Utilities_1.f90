@@ -24,7 +24,7 @@
     subroutine make_run_id (i,j, ii,mm)
     !makes a string that can be used for identifying output: Scheme#_Scenario#_ScenarioFileName (eg., 2_3_NDpumpkins)
     
-    USE constants_and_variables, ONLY: run_id ,  scenario_id      !scenario_names
+    USE constants_and_variables, ONLY: run_id ,  scenario_id ,  full_run_identification, working_directory, family_name   
     USE waterbody_parameters, ONLY: waterbody_names
     implicit none
     integer, intent(in) :: i,j, ii,mm
@@ -60,6 +60,9 @@
     !run_ID =  trim(adjustl(schemnumber)) // '_' //&
     !trim(adjustl(scenario_names(i,j)((last_slash+1):(last_dot-1))))  &
     !    // '_' // trim(adjustl(local_name)) // '_' // trim(adjustl(appnumber))
+    
+    full_run_identification = trim(working_directory) // trim(family_name) // "_" // trim(run_id)
+    
     
     write(*,*) "run id ", trim(run_ID)
      

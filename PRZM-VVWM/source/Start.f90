@@ -188,8 +188,10 @@ program PRZMVVWM
 				     application_date= application_date_original + jj
                      app_window_counter = app_window_counter +1 
                      call make_run_id (i,kk, hh,jj) !makes a string that can be used for identifying output scheme#_scenario#_scenarioname      
-                     
+                    
 
+        
+        
 					 !"Rain Fast" Option
 					 write(*,*) "Adjust applications for rain?", is_adjust_for_rain
 					 if (is_adjust_for_rain) call adjust_application_dates_for_weather

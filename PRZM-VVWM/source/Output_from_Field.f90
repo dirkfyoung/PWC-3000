@@ -140,8 +140,11 @@ end do
 	if (is_timeseriesfile .eqv. .FALSE. ) return  !if time series file is not specified, then leave
 	
     if (First_time_through_PRZM) then 
-		full_run_identification = trim(working_directory) // trim(family_name) // "_" // trim(run_id)
-		filename = trim(working_directory) // trim(family_name) // "_" // trim(run_id) // ".out"
+        
+	!	full_run_identification = trim(working_directory) // trim(family_name) // "_" // trim(run_id)
+        
+		filename = full_run_identification // ".out"  !field output name
+        
 	    OPEN(Unit=TimeSeriesUnit2,FILE=trim(adjustl(filename)), STATUS='UNKNOWN') 
         call  write_outputfile_header_2
         First_time_through_PRZM = .FALSE.

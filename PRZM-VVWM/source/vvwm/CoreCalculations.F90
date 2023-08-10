@@ -33,27 +33,15 @@ use waterbody_parameters, ONLY: benthic_depth ,porosity,area_waterbody
     do day_count = 1,num_records    
  
 
-       m1 = (1-   fraction_to_benthic(day_count))*(mn1 + m1_input(day_count))  !re-equilibration with incoming sediment and then redistribution
-       m2 = mn2 + fraction_to_benthic(day_count) *(mn1 + m1_input(day_count))   + m2_input(day_count)
-
-		
-		
-        !
-        !if (is_calc_prben) then
-        !    m1 = (1-   fraction_to_benthic(day_count))*(mn1 + m1_input(day_count))  !re-equilibration with incoming sediment and then redistribution
-        !    m2 = mn2 + fraction_to_benthic(day_count) *(mn1 + m1_input(day_count))              
-        !else    
-        !    m1 = mn1 + m1_input(day_count)    !This is the old prben method
-        !    m2 = mn2 + m2_input(day_count)  
-        !endif
+        m1 = (1-   fraction_to_benthic(day_count))*(mn1 + m1_input(day_count))  !re-equilibration with incoming sediment and then redistribution
+        m2 = mn2 + fraction_to_benthic(day_count) *(mn1 + m1_input(day_count))   + m2_input(day_count)
         
         m1_store(day_count)=m1
         m2_store(day_count)=m2
 
         !convert to aqueous concentration
         aqconc1 = m1*fw1(day_count)/daily_depth(day_count)/area_waterbody
-        aqconc2 = m2*fw2/(benthic_depth*area_waterbody*porosity )
-        
+        aqconc2 = m2*fw2/(benthic_depth*area_waterbody*porosity )       
         
         !******************************************************
         !store these beginning day aquatic concentrations
@@ -61,22 +49,21 @@ use waterbody_parameters, ONLY: benthic_depth ,porosity,area_waterbody
         aq1_store(day_count)=aqconc1
         aq2_store(day_count)=aqconc2
         !******************************************************
-		
 
-
-		
         call simuldiff2 (A(day_count),B(day_count),E(day_count),F(day_count), & 
              aqconc1,aqconc2,DELT_vvwm,new_aqconc1,new_aqconc2,aqconc_avg1(day_count),aqconc_avg2(day_count)) 
         
-
         !convert back to masses
         mn1 = new_aqconc1/fw1(day_count)*daily_depth(day_count)*area_waterbody
         mn2 = new_aqconc2/fw2*benthic_depth*area_waterbody*porosity 
 
         mavg1_store(day_count)= aqconc_avg1(day_count)/fw1(day_count)*daily_depth(day_count)*area_waterbody   
 
-
-		
+!Find Total System Mass Here
+		!m_total(day_count) = mavg1_store(day_count) + aqconc_avg2(day_count) * Pore Volume / frac of mass in aqueos
+        
+        
+        
     end do 
 
    

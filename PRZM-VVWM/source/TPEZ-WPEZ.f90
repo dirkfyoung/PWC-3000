@@ -1,166 +1,127 @@
 Module TPEZ_WPEZ
     implicit none
     contains
+    
+    
     subroutine wpez
-!THIS IS THE SAME ROUTINE AS VVWM BUT WITH SOME HARD CODED VALUES FOR INPUTS
+    !THIS IS THE SAME ROUTINE AS VVWM BUT WITH SOME HARD CODED VALUES FOR INPUTS
 
+        use constants_and_variables, ONLY: nchem, wpez_timeseries_unit,  summary_wpez_unit,summary_wpez_unit_deg1,summary_wpez_unit_deg2, &
+            is_koc, k_f_input, water_column_ref_temp, benthic_ref_temp, &
+            water_column_rate,is_hed_files_made, DELT_vvwm,is_add_return_frequency, additional_return_frequency, &
+            outputfile_parent_daily,outputfile_deg1_daily,outputfile_deg2_daily,&
+            outputfile_parent_deem,outputfile_deg1_deem,outputfile_deg2_deem,&
+            outputfile_parent_calendex,outputfile_deg1_calendex,outputfile_deg2_calendex,&
+            outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa, k_flow , &
+            summary_WPEZoutputfile , summary_WPEZoutputfile_deg1 , summary_WPEZoutputfile_deg2,First_time_through_wpez
+       use waterbody_parameters, ONLY: FROC2, simtypeflag, depth_0,depth_max,baseflow,is_zero_depth,zero_depth  
 
-    use constants_and_variables, ONLY: nchem, wpez_timeseries_unit,  summary_wpez_unit,summary_wpez_unit_deg1,summary_wpez_unit_deg2, &
-        is_koc, k_f_input, water_column_ref_temp, benthic_ref_temp, &
-        water_column_rate,is_hed_files_made, DELT_vvwm,is_add_return_frequency, additional_return_frequency, &
-        outputfile_parent_daily,outputfile_deg1_daily,outputfile_deg2_daily,&
-        outputfile_parent_deem,outputfile_deg1_deem,outputfile_deg2_deem,&
-        outputfile_parent_calendex,outputfile_deg1_calendex,outputfile_deg2_calendex,&
-        outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa, k_flow , &
-        summary_WPEZoutputfile , summary_WPEZoutputfile_deg1 , summary_WPEZoutputfile_deg2,First_time_through_wpez
+       use degradation
+       use solute_capacity
+       use mass_transfer
+       use volumeAndwashout
+       use MassInputs
+       use ProcessMetfiles
+     !  use outputprocessing
+       use nonInputVariables, only: 
+       use allocations
+       use coreCalculations
     
-    
-    
-    use waterbody_parameters, ONLY: FROC2, simtypeflag, depth_0,depth_max,baseflow,is_zero_depth,zero_depth  
-    
-    
-  !  use variables, ONLY: ,Batch_outputfile
+       implicit none              
 
-    use degradation
-    use solute_capacity
-    use mass_transfer
-    use volumeAndwashout
-    use MassInputs
-    use ProcessMetfiles
-  !  use outputprocessing
-    use nonInputVariables, only: 
-    use allocations
-    use coreCalculations
-    
-    implicit none              
+       !**local chemical properties****
+       integer :: chem_index
+       real    :: koc
+       character(LEN=20) :: waterbody_name
 
-!%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+       write(*,*) "enter WPEZ"
 
-
-!**local chemical properties****
-integer :: chem_index
-real    :: koc
-character(LEN=20) :: waterbody_name
-
-    write(*,*) "enter WPEZ"
-
- ! FOR WPEZ these should already be calculated AFTER pond run
+      ! FOR WPEZ these should already be calculated AFTER pond run
       !   call allocation_for_VVWM  moved to front
       !   call convert_weatherdata_for_VVWM      
       !   call get_mass_inputs
       !   call spraydrift
-    
  
- !***WPEZ MODIFICATION, Always varing volume **********
- ! Set  simtypeflag = 1
- !*******************************************************
- write(*,*) "WPEZ simulation type is always Varying Volume Type 1"
-
- 
- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- !AT END OF RUN RESET THESE PARAMETERS TO VVWM STANDARDS
- !RESET PARAMETERS for wpez      
-  simtypeflag   = 1
-  depth_0       = 0.15      
-  depth_max     = 0.15       
-  baseflow      = 0.0      
-  is_zero_depth = .TRUE. 
-  zero_depth    = 0.01  
- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !AT END OF RUN RESET THESE PARAMETERS TO VVWM STANDARDS
+      !RESET PARAMETERS for wpez      
+       simtypeflag   = 1     !***WPEZ MODIFICATION, Always varing volume **********
+       depth_0       = 0.15      
+       depth_max     = 0.15       
+       baseflow      = 0.0      
+       is_zero_depth = .TRUE. 
+       zero_depth    = 0.01  
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   
-  
-    select case (simtypeflag)
-        case (3,5) !reservoir constant volume,flow
-                call constant_volume_calc 
-        case (2,4)  !pond constant volume, no flow
-                call constant_volume_calc 
-                k_flow=0.  !for this case zero out washout
-        case (1) !variable volume, flow
-                call volume_calc
-        end select
- 
+      select case (simtypeflag)
+          case (3,5) !reservoir constant volume,flow
+                  call constant_volume_calc 
+          case (2,4)  !pond constant volume, no flow
+                  call constant_volume_calc 
+                  k_flow=0.  !for this case zero out washout
+          case (1) !variable volume, flow
+                  call volume_calc
+      end select
 
-    do chem_index= 1, nchem
+      do chem_index= 1, nchem
           if (is_koc) then
                   koc   = k_f_input(chem_index) 
           else
                   Koc = k_f_input(chem_index)/froc2
           end if
       
-      !*******************************************
-
-        call solute_holding_capacity(koc)    
+          call solute_holding_capacity(koc)    
+          
+          call omega_mass_xfer             !probably doesnt need recalculation
+          call hydrolysis(chem_index) 
+          call photolysis(chem_index)
         
-        call omega_mass_xfer             !probably doesnt need recalculation
-        call hydrolysis(chem_index) 
-        call photolysis(chem_index)
-
-        call metabolism(chem_index)      !probably doesnt need recalculation
-        call burial_calc(koc)            !probably doesnt need recalculation
-        call volatilization(chem_index )
-            
-        !process the individual degradation rates into overall parameters:
-        call gamma_one
-        call gamma_two                   !probably doesnt need recalculation
+          call metabolism(chem_index)      !probably doesnt need recalculation
+          call burial_calc(koc)            !probably doesnt need recalculation
+          call volatilization(chem_index )
+              
+          !process the individual degradation rates into overall parameters:
+          call gamma_one
+          call gamma_two                   !probably doesnt need recalculation
+          
+          call initial_conditions(chem_index)
+          write(*,*) "Main VVWM Loop "
+          call MainLoop             
+          
+          waterbody_name =  "WPEZ"
         
-        !**************************************************************
+          write(*,*) 'wpez batch output file ', trim(summary_WPEZoutputfile)
         
-        call initial_conditions(chem_index)
-        write(*,*) "Main VVWM Loop "
-        call MainLoop             
-        
-        !select case  (simtypeflag)
-        !case (3)  
-        !    waterbodytext = "Reservoir"
-        !case (2)
-        !    waterbodytext = "Pond"
-        !case (1,4,5)
-        !    waterbodytext =  "Custom"
-        !end select
-        
-        waterbody_name =  "WPEZ"
-   
+          if (nchem > chem_index) then     
+                call DegradateProduction(chem_index) 
+          end if
 
-        write(*,*) 'wpez batch output file ', trim(summary_WPEZoutputfile)
-   
-
-   
-        if (nchem > chem_index) then     
-              call DegradateProduction(chem_index) 
-        end if
-
-       call output_processor_WPEZ(chem_index,First_time_through_wpez, wpez_timeseries_unit, summary_wpez_unit,summary_wpez_unit_deg1,summary_wpez_unit_deg2, &
+          call output_processor_WPEZ(chem_index,First_time_through_wpez, wpez_timeseries_unit, summary_wpez_unit,summary_wpez_unit_deg1,summary_wpez_unit_deg2, &
                              summary_WPEZoutputfile , summary_WPEZoutputfile_deg1 , summary_WPEZoutputfile_deg2, waterbody_name )
-       
+      end do
+      
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !AT END OF RUN RESET THESE PARAMETERS TO VVWM STANDARDS
+         
+         !to do:  should make wpez completely independent so reset not necessary
+         
+       simtypeflag   = 2
+       depth_0       = 2.0     
+       depth_max     = 2.0       
+       baseflow      = 0.0      
+       is_zero_depth = .FALSE. 
+       zero_depth    = 0.00  
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
-    !**********************************************************
-    end do
-
-
-    
-    
- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- !AT END OF RUN RESET THESE PARAMETERS TO VVWM STANDARDS
-    
-  simtypeflag   = 2
-  depth_0       = 2.0     
-  depth_max     = 2.0       
-  baseflow      = 0.0      
-  is_zero_depth = .FALSE. 
-  zero_depth    = 0.00  
- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    
-
     end subroutine wpez
     
     
     
     
-  subroutine output_processor_WPEZ(chem_index, First_time_through, output_unit, unit_number,unit_number_deg1,unit_number_deg2,&
+    subroutine output_processor_WPEZ(chem_index, First_time_through, output_unit, unit_number,unit_number_deg1,unit_number_deg2,&
                                 summary_filename, summary_filename_deg1, summary_filename_deg2, waterbody_name )
 
     use utilities
-  !  use variables
     use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth, Afield
     
     use constants_and_variables, ONLY:  num_records, run_id, is_hed_files_made,is_add_return_frequency, additional_return_frequency, &
@@ -197,10 +158,7 @@ character(LEN=20) :: waterbody_name
     !temporary parameters for esa, should make this more general in the future
     real:: return_frequency
 
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    
-    real:: simulation_average
-    
+    real:: simulation_average  
     real :: xxx  !local variable
 
  !   real(8),dimension(num_records)::c1
@@ -242,37 +200,39 @@ character(LEN=20) :: waterbody_name
     first_annual_dates= 0
     
 
-if (is_waterbody_info_output) then
-	select case (chem_index)
-		
-	    case (1)
-		    waterbody_outputfile = trim(full_run_identification) // '_parent_'       // trim(waterbody_name) // '.out'
-	    case (2)
-		    waterbody_outputfile = trim(full_run_identification) // '_daughter_'      // trim(waterbody_name) // '.out'
-	    case (3)
-		    waterbody_outputfile = trim(full_run_identification) // '_granddaugter_' // trim(waterbody_name) // '.out'	
-	    case default
-		    waterbody_outputfile =trim(full_run_identification) // '_nada.out'	
-        end select
-	
-
- 
-        
-	open (UNIT=output_unit,FILE= trim(waterbody_outputfile),  STATUS='unknown')
-
-    !For Certain water bodies, users want to exclude concentrations below a certain level
-    
-    if (is_zero_depth) then
-          where (daily_depth < zero_depth) aqconc_avg1 = 0.0
-    end if
-    
-     write(output_unit,'(A42)') 'Depth(m), Water Col(kg/m3), Benthic(kg/m3)'
- 
-    do i =1, num_records
-        write(output_unit,'(G12.4E3, "," ,ES12.4E3, "," ,ES12.4E3, "," ,ES12.4E3)')  daily_depth(i), aqconc_avg1(i), aqconc_avg2(i)
-	end do
-	close (output_unit)
-end if
+     if (is_waterbody_info_output) then
+     	select case (chem_index)
+     	    case (1)
+     		    waterbody_outputfile = trim(full_run_identification) // '_parent_'       // trim(waterbody_name) // '.out'
+     	    case (2)
+     		    waterbody_outputfile = trim(full_run_identification) // '_daughter_'      // trim(waterbody_name) // '.out'
+     	    case (3)
+     		    waterbody_outputfile = trim(full_run_identification) // '_granddaugter_' // trim(waterbody_name) // '.out'	
+     	    case default
+     		    waterbody_outputfile =trim(full_run_identification) // '_nada.out'	
+         end select
+     	
+         open (UNIT=output_unit,FILE= trim(waterbody_outputfile),  STATUS='unknown')
+     
+         !For Certain water bodies, users want to exclude concentrations below a certain level
+         
+         if (is_zero_depth) then
+               where (daily_depth < zero_depth) aqconc_avg1 = 0.0
+         end if
+         
+         write(output_unit,'(A42)') 'Depth(m), Water Col(kg/m3), Benthic(kg/m3)'
+      
+         do i =1, num_records
+             write(output_unit,'(G12.4E3, "," ,ES12.4E3, "," ,ES12.4E3, "," ,ES12.4E3)')  daily_depth(i), aqconc_avg1(i), aqconc_avg2(i)
+         end do
+         
+         
+         
+         
+         
+         
+     	 close (output_unit)
+     end if
 
 
     write(*,*) 'Start Window averaging'
@@ -368,23 +328,21 @@ end if
     end subroutine output_processor_WPEZ  
                                 
     
-                                
-                                
+   
     
     
-    
-subroutine write_simple_batch_data_WPEZ(chem_index,First_time_through, unit_number,unit_number_deg1,unit_number_deg2, &
+   subroutine write_simple_batch_data_WPEZ(chem_index,First_time_through, unit_number,unit_number_deg1,unit_number_deg2, &
                                         summary_filename, summary_filename_deg1, summary_filename_deg2, &
                                         return_frequency,num_years, peak,Simulation_average,c1_max, &
                                         c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max   )
 
-use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
+    use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     nchem,     runoff_fraction,erosion_fraction,drift_fraction,summary_outputfile, &
     effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, &
     gw_peak, post_bt_avg ,throughputs,simulation_avg, fraction_off_field, family_name, app_window_counter, hold_for_medians_WPEZ
 
-use utilities_1, ONLY: Return_Frequency_Value
+    use utilities_1, ONLY: Return_Frequency_Value
 
 
     implicit none   
@@ -444,18 +402,20 @@ use utilities_1, ONLY: Return_Frequency_Value
         write(unit_number,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out, fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, gw_peak(1), post_bt_avg(1) ,throughputs(1),simulation_avg(1)    !effective_total_deg2 does not mean degradate, means benthic
 
- !**capture data for median calculations here
-       hold_for_medians_WPEZ( 1, app_window_counter)= c1_out
-       hold_for_medians_WPEZ( 2, app_window_counter)= c365_out
-       hold_for_medians_WPEZ( 3, app_window_counter)= simulation_average
-       hold_for_medians_WPEZ( 4, app_window_counter)= c4_out
-       hold_for_medians_WPEZ( 5, app_window_counter)= c21_out
-       hold_for_medians_WPEZ( 6, app_window_counter)= c60_out
-       hold_for_medians_WPEZ( 7, app_window_counter)= benthic_peak_out
-       hold_for_medians_WPEZ( 8, app_window_counter)= benthic_c21_out
- !      hold_for_medians_WPEZ( 9, app_window_counter)= post_bt_avg(1)
- !      hold_for_medians_WPEZ( 10, app_window_counter)= throughputs(1)
+    !**capture data for median calculations here
+          hold_for_medians_WPEZ( 1, app_window_counter)= c1_out
+          hold_for_medians_WPEZ( 2, app_window_counter)= c365_out
+          hold_for_medians_WPEZ( 3, app_window_counter)= simulation_average
+          hold_for_medians_WPEZ( 4, app_window_counter)= c4_out
+          hold_for_medians_WPEZ( 5, app_window_counter)= c21_out
+          hold_for_medians_WPEZ( 6, app_window_counter)= c60_out
+          hold_for_medians_WPEZ( 7, app_window_counter)= benthic_peak_out
+          hold_for_medians_WPEZ( 8, app_window_counter)= benthic_c21_out
+    !      hold_for_medians_WPEZ( 9, app_window_counter)= post_bt_avg(1)
+    !      hold_for_medians_WPEZ( 10, app_window_counter)= throughputs(1)
        
+  
+   
     case (2)
         local_run_id = trim(run_id)//"_WPEZ" // '_deg1'
         write(unit_number_deg1,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field,runoff_fraction,erosion_fraction,drift_fraction, &
@@ -470,9 +430,10 @@ use utilities_1, ONLY: Return_Frequency_Value
 
 
     
- write(*,*)'done output batch '
+      write(*,*)'done output batch '
      
-end subroutine write_simple_batch_data_WPEZ
+   end subroutine write_simple_batch_data_WPEZ
+                                        
 
     
 
@@ -775,7 +736,6 @@ end subroutine write_simple_batch_data_WPEZ
       
     end subroutine MainLoopTPEZ
     
-
     
     subroutine tpez_output_processor(chem_index, area_tpez)
     use utilities
@@ -865,11 +825,6 @@ end subroutine write_simple_batch_data_WPEZ
 
     end subroutine tpez_output_processor
     
-    
-    
-    
-
-
 
 subroutine  tpez_write_simple_batch_data(chem_index, return_frequency,num_years, tpez_max, edge_of_field_max)
 
@@ -953,7 +908,7 @@ end subroutine tpez_write_simple_batch_data
                 if (First_time_through_medians_wpez) then 
                     !write header
                     open (UNIT= median_output_unit_wpez, FILE = 'Medians_wpez.txt', STATUS = 'UNKNOWN')
-                    write(median_output_unit_wpez,  '(A190)') "Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg"
+                    write(median_output_unit_wpez,  '(A213)') "Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg,  Total System (kg/ha)"
       
                     First_time_through_medians_wpez = .FALSE.
                 end if
