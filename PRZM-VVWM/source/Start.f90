@@ -40,7 +40,7 @@ program PRZMVVWM
     
     !################################################ 
     CALL CPU_TIME (cputime_begin)
-     write(*,*)    '************* Start PRZM-VVWM  *******************'
+    write(*,*)    '************* Start PRZM-VVWM  *******************'
     write (*,*) 'Start CPU Time',  cputime_begin
 	
     call SYSTEM_CLOCK(c_count, c_rate, c_max)
@@ -118,38 +118,33 @@ program PRZMVVWM
                kk=kk+1
                write(*,*) 'Doing scenario ', KK
                if( is_batch_scenario(i)) then
-                       call read_batch_scenarios(BatchFileUnit, end_of_file, error_on_read)
+                    call read_batch_scenarios(BatchFileUnit, end_of_file, error_on_read)
 
-                        !*****ERROR and EOF CHECKING ON SCENARIO BATCH FILE ****************
-                        if(end_of_file) then
-                           close(BatchFileUnit)
-                           write(*,*) 'end of batch scenario read, exit after completing the run'
-                           exit  !exit scenario loop
-                        end if
-                                                 
-                        if (error_on_read)  then  
-                               write(*,*) 'bad scenario # ', kk
-                               cycle                       
-                        end if 
-                        !*****END ERROR CHECKING ON SCENARIO BATCH FILE ****************   
-                             
+                     !*****ERROR and EOF CHECKING ON SCENARIO BATCH FILE ****************
+                     if(end_of_file) then
+                        close(BatchFileUnit)
+                        write(*,*) 'end of batch scenario read, exit after completing the run'
+                        exit  !exit scenario loop
+                     end if
+                                              
+                     if (error_on_read)  then  
+                            write(*,*) 'bad scenario # ', kk
+                            cycle                       
+                     end if 
+                     !*****END ERROR CHECKING ON SCENARIO BATCH FILE ****************                             
                else    !*******use scenarios directly read into input
-                       if (kk == number_of_scenarios(i) + 1) exit  !end of scenario list from gui inputs
-                       call read_scenario_file(i,kk, error)
-                       
-                       if (error) then 
-				           Write(*,*) 'exiting scenario loop due to scenario open problem'
-				           cycle   !error, try next scenario in scheme
-                       end if   
-                   
+                     if (kk == number_of_scenarios(i) + 1) exit  !end of scenario list from gui inputs
+                     call read_scenario_file(i,kk, error)
+                     
+                     if (error) then 
+				         Write(*,*) 'exiting scenario loop due to scenario open problem'
+				         cycle   !error, try next scenario in scheme
+                     end if                    
                end if 
 
                call Read_Weatherfile !this reads the new format weather file	   
-               CALL INITL    !initialize and ALLOCATIONS przm variables  
-
-call time_check('cpu time do initialization')
-
-               Call Crop_Growth
+               call INITL    !initialize and ALLOCATIONS przm variables  
+               call Crop_Growth
 			   call hydrology_only
 		   
                !soil temp is good here
@@ -173,7 +168,7 @@ call time_check('cpu time do initialization')
 					 
 					 call chem_transport_onfield
 					 
-call time_check("cpu time chem xport ")
+   call time_check("cpu time chem xport ")
                      
 					 call groundwater				 
                      call VVWM 
@@ -183,7 +178,7 @@ call time_check("cpu time chem xport ")
                          call tpez(i)  !need to send in scheme to find drift
                      end if
                                             
-call time_check("VVWM finish")
+   call time_check("VVWM finish")
                       
                end do    
 			   
@@ -201,30 +196,30 @@ call time_check("VVWM finish")
                end if
                !****************************************************************
                
-               call deallocate_scenario_parameters
-call time_check('cpu time deallocate  ')			   
+               call deallocate_scenario_parameters		   
 
             end do  !END SCENARIO LOOP  kk 
             
-call time_check('cpu time vvwm done ')
+ call time_check('cpu time vvwm done ')
 
         
             call deallocate_application_parameters !allocations are done in set_chmical_applications, need to deallocatte for next scheme       
             write(*,*) '*****************************Done with scheme ', i    
-call time_check('cpu time, scheme    ')                
+ call time_check('cpu time, scheme    ')                
 
 		 end do  !End scheme Loop, i
-call time_check('cpu time, waterbody')   		 
+ call time_check('cpu time, waterbody')   		 
 
 		 deallocate (spraytable )
 		 
-	 end do !End Waterbody/Watershed Loop
-call time_check('End Proram cpu time ')   	
+     end do !End Waterbody/Watershed Loop
+     
+ !*******************************************    
+ call time_check('End Proram cpu time ')   	
+ call SYSTEM_CLOCK(c_count, c_rate, c_max)
+ clock_time = real(c_count)/real(c_rate)
+ write (*,*) 'Total clock time = ',clock_time  - clock_time_0 
+ write (*,*) 'tridiag', Cumulative_cpu_3
+ write (*,*) '###################################################'  	
  
-               call SYSTEM_CLOCK(c_count, c_rate, c_max)
-               clock_time = real(c_count)/real(c_rate)
-               write (*,*) 'Total clock time = ',clock_time  - clock_time_0 
-               write (*,*) 'tridiag', Cumulative_cpu_3
-               write (*,*) '###################################################'  	
-
 end program PRZMVVWM
