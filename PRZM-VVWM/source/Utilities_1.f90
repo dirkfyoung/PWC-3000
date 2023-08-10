@@ -33,9 +33,6 @@
     
     character(len=512) :: local_name
     
-    write(schemnumber, *) i
-    write(scenarionumber, *) j
-    
     !last_slash = index(scenario_names(i,j), '\', .TRUE.)
     !last_dot   = index(scenario_names(i,j), '.', .TRUE.)
     

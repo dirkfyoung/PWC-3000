@@ -20,5 +20,16 @@ real :: Cumulative_cpu_5
 real :: Cumulative_cpu_6 
 real :: Cumulative_cpu_7 ,  Cumulative_cpu_8, Cumulative_cpu_9
 
+contains
+      subroutine time_check(message)
+         implicit none                         
+         character(Len = *) :: message
+         write (*,*) '###################################################'	 
+         CALL CPU_TIME (time_1)
+         write (*,*) message, time_1- cputime_begin
+         write (*,*) '###################################################'	  
+      end subroutine 
+
+
 
 end module clock_variables

@@ -113,11 +113,7 @@ if (is_waterbody_info_output) then
 		   ! waterbody_outputfile =trim(full_run_identification) // '_nada.out'	
      !   end select
         
-  write(*,*)  "id "   ,   trim(full_run_identification)
-  write(*,*)   " waterfile " ,   waterbody_outputfile 
-    write(*,*)  "trimmed"    ,      trim(waterbody_outputfile)
-    
-    
+
     
 	open (UNIT=output_unit,FILE= trim(waterbody_outputfile),  STATUS='unknown')
     

@@ -118,33 +118,22 @@ end do
     character(len = maxFileLength) :: filename
     integer :: current_year,current_month,current_day
     
-	
 
 	!**************************************************************
-DO K=1,NCHEM    
-    
-    
-	!always capture the average concentration in bottom horizon   
-    tttot = 0.0
-    do i =   top_node_last_horizon,bottom_node_last_horizon              
-           TTTOT= TTTOT  + conc_porewater(k,i)   *DELX(i) 
-    end do 
-    
-    
-    conc_last_horizon_save(k, day_number_chemtrans) =   TTTOT  * 1.0E9/sum(delx( top_node_last_horizon:bottom_node_last_horizon ))
-end do	
+     DO K=1,NCHEM    !always capture the average concentration in last two compartments for use in gw       
+         tttot = 0.0
+         do i =   top_node_last_horizon,bottom_node_last_horizon              
+                TTTOT= TTTOT  + conc_porewater(k,i)   *DELX(i) 
+         end do 
+         !top_node_last_horizon = next to last node and bottom_node_last_horizon = last node, now set this way
+         conc_last_horizon_save(k, day_number_chemtrans) =   TTTOT  * 1.0E9/sum(delx( top_node_last_horizon:bottom_node_last_horizon ))
+     end do	
 
-  !********************************************************************** 
-
-	
+    !********************************************************************** 
 	if (is_timeseriesfile .eqv. .FALSE. ) return  !if time series file is not specified, then leave
 	
     if (First_time_through_PRZM) then 
-        
-	!	full_run_identification = trim(working_directory) // trim(family_name) // "_" // trim(run_id)
-        
-		filename = full_run_identification // ".out"  !field output name
-        
+		filename = full_run_identification // ".out"  !field output name    
 	    OPEN(Unit=TimeSeriesUnit2,FILE=trim(adjustl(filename)), STATUS='UNKNOWN') 
         call  write_outputfile_header_2
         First_time_through_PRZM = .FALSE.
@@ -328,8 +317,7 @@ end do
         IF (PLNAME(I) == 'INFL') PNBRN(I)= AINF(start_compartment)
         IF (PLNAME(I) == 'SLET') PNBRN(I)= EvapoTran(start_compartment)
         IF (PLNAME(I) == 'STMP') PNBRN(I)= soil_temp(start_compartment)         !     Soil temperature (oC)
-
-                 
+   
         ! Pesticide storages (units of GRAMS/(CM**2)
         IF (PLNAME(I) == 'TPST') PNBRN(I)= conc_total_per_water(chem_id(i),start_compartment)*   &
                                            DELX(start_compartment)*theta_end(start_compartment) 
@@ -354,8 +342,6 @@ end do
                                         (theta_sat(start_compartment)-theta_end(start_compartment))
       ENDIF   
         
- 
-      
       ! Water storages  (units of CM)
       IF (PLNAME(I) .EQ. 'INTS') PNBRN(I)= CINT
       IF (PLNAME(I) .EQ. 'SNOP') PNBRN(I)= SNOW
@@ -395,8 +381,7 @@ end do
       !Change units of output using user supplied constant
       RMULT= CONST(I)
       
-      PNBRN(I)= PNBRN(I)* RMULT
-          
+      PNBRN(I)= PNBRN(I)* RMULT 
       
       IF((MODE(I).EQ.TSER).OR.(MODE(I).EQ.TSUM))THEN
           OUTPUT(I)= PNBRN(I)
@@ -417,19 +402,12 @@ end do
     
    call get_date(julday1900, current_year,current_month,current_day)
   
-     
-
-   WRITE(TimeSeriesUnit2,18) current_year,current_month,current_day,(PRTBUF(I),I=1,NPLOTS)  
+   WRITE(TimeSeriesUnit2,'(I4,I3,I3, 4X,100(2X,ES12.4E3))') current_year,current_month,current_day,(PRTBUF(I),I=1,NPLOTS)  
 !         !E3 format cuz program was leaving out the "E" on number <  E-99
-18       FORMAT (I4,I3,I3, 4X,100(2X,ES12.4E3))  
-
+!18       FORMAT (I4,I3,I3, 4X,100(2X,ES12.4E3))  
 
   END SUBROUTINE write_outputfile_2
 	
-	
-	
-  
-      
 end Module Output_From_Field
       
 	

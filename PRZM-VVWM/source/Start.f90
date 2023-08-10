@@ -2,10 +2,10 @@ program PRZMVVWM
     use allocations
     use readinputs
     use constants_and_variables, ONLY: maxFileLength, inputfile,number_of_schemes, &
-                                       number_of_scenarios,  First_time_through_wb, First_time_through_wpez,First_time_through_tpez,First_time_through_medians, &
-                                       app_window_span, app_window_step, application_date, application_date_original, &
-                                       is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id, app_window_counter,hold_for_medians, medians_conc, &
-                                       First_time_through_medians_wpez, hold_for_medians_wpez, First_time_through_medians_tpez,  hold_for_medians_tpez
+             number_of_scenarios,  First_time_through_wb, First_time_through_wpez,First_time_through_tpez,First_time_through_medians, &
+             app_window_span, app_window_step, application_date, application_date_original, &
+             is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id, app_window_counter,hold_for_medians, medians_conc, &
+             First_time_through_medians_wpez, hold_for_medians_wpez, First_time_through_medians_tpez,  hold_for_medians_tpez
     
     use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond, spraytable,itstpezwpez
     use clock_variables
@@ -34,14 +34,13 @@ program PRZMVVWM
     logical :: run_tpez_wpez  !TRUE if USEPA_pond has just been simulated AND TPEZ/WPEZ run has been requested (i.e., istpezwpez==treue)
     character :: dummy
 
-    
-    
     integer, parameter :: number_medians = 10
     real::medians_conc_wpez(number_medians)
     real:: medians_conc_tpez(1)
     
     !################################################ 
     CALL CPU_TIME (cputime_begin)
+     write(*,*)    '************* Start PRZM-VVWM  *******************'
     write (*,*) 'Start CPU Time',  cputime_begin
 	
     call SYSTEM_CLOCK(c_count, c_rate, c_max)
@@ -60,15 +59,11 @@ program PRZMVVWM
     
     call get_command_argument(1,inputfile,length)
     call przm_id                                     !Stamp the runstatus file 
-	
-	
+		
     write(*,*) "Input file: ", trim(inputfile)
     call read_inputfile
     call chemical_manipulations
 	
-	
-    write(*,*)    '************* Start PRZM-VVWM Scheme Loop *******************'
-
     !LOOP Description
     !Outermost (ii) is for info describing watershed and waterbody, At present, there is a dependency
         !on the watershed size and the PER/AREA output from the field. This means that a field output cannot be used for multiple waterbodies
@@ -98,25 +93,23 @@ program PRZMVVWM
          
          write(*,*) 'Doing Water Body: ', trim(waterbody_names(hh))
 		 
-
 	     write(*,*) '**** Start Scheme Loop *********************************************'
 		 
          do i = 1, number_of_schemes
 			 Write(*,*) 'Doing Scheme No. ', i
 			 
-             
              !will use spray table in here --need to make spray table correct if changed by tpez
              call set_chemical_applications(i) !gets the individual application scheme from the whole scheme table, non scenario specfic 
 							
 	         write(*,*) '********** Start Scenario Loop *************************************'
 				           
-            if(is_batch_scenario(i)) then
-               write(*,'("Batch Scenario File: ", A100) ')   scenario_batchfile(i)
-               open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus ) 
-               read(BatchFileUnit,*) dummy  ! skip header
-               end_of_file = .FALSE. !reset the batch scenario reading
-               error_on_read = .FALSE.
-            end if    
+             if(is_batch_scenario(i)) then
+                write(*,'("Batch Scenario File: ", A100) ')   scenario_batchfile(i)
+                open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus ) 
+                read(BatchFileUnit,*) dummy  ! skip header
+                end_of_file = .FALSE. !reset the batch scenario reading
+                error_on_read = .FALSE.
+             end if    
        
             kk=0
             
@@ -150,26 +143,11 @@ program PRZMVVWM
                        end if   
                    
                end if 
-                     
-                                write (*,*) '###################################################'	 
-                                CALL CPU_TIME (time_1)
-                                write (*,*) 'cpu time scenario start  ',time_1- cputime_begin
-                                write (*,*) '###################################################'			   
 
-               call Read_Weatherfile !this reads the new format weather file
-               		   
-                                write (*,*) '###################################################'	 
-                                CALL CPU_TIME (time_1)
-                                write (*,*) 'cpu time read weather ',time_1- cputime_begin
-                                write (*,*) '###################################################'			   
-
+               call Read_Weatherfile !this reads the new format weather file	   
                CALL INITL    !initialize and ALLOCATIONS przm variables  
 
-                             write (*,*) '###################################################'	 
-                             CALL CPU_TIME (time_1)
-                             write (*,*) 'cpu time do initialization',time_1- cputime_begin
-                             write (*,*) '###################################################'	               
-               
+call time_check('cpu time do initialization')
 
                Call Crop_Growth
 			   call hydrology_only
@@ -189,35 +167,24 @@ program PRZMVVWM
                      app_window_counter = app_window_counter +1 
                      call make_run_id (i,kk, hh,jj) !makes a string that can be used for identifying output scheme#_scenario#_scenarioname      
                     
-
-        
-        
 					 !"Rain Fast" Option
 					 write(*,*) "Adjust applications for rain?", is_adjust_for_rain
 					 if (is_adjust_for_rain) call adjust_application_dates_for_weather
 					 
 					 call chem_transport_onfield
 					 
-                                write (*,*) '###################################################'	 
-                                CALL CPU_TIME (time_1)
-                                write (*,*) 'cpu time chen xport ',time_1- cputime_begin
-                                write (*,*) '###################################################'					 
-					 
+call time_check("cpu time chem xport ")
+                     
 					 call groundwater				 
-
-                      call VVWM 
+                     call VVWM 
+                        
+                     if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
+                         call wpez   
+                         call tpez(i)  !need to send in scheme to find drift
+                     end if
+                                            
+call time_check("VVWM finish")
                       
-                    
-                      if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
-                               call wpez   
-                               call tpez(i)  !need to send in scheme to find drift
-                      end if
-                      
-
-                              write (*,*) '###################################################'	 
-                              CALL CPU_TIME (time_1)
-                              write (*,*) 'cpu time vvwm ',time_1- cputime_begin
-                              write (*,*) '###################################################'					 				 
                end do    
 			   
                
@@ -226,58 +193,38 @@ program PRZMVVWM
                call write_medians(medians_conc, number_medians)
                
                if (run_tpez_wpez) then  !wpez needs its own call due to different capture also because its scenario run is same as pond
-                              call find_medians (app_window_counter, number_medians, hold_for_medians_wpez, medians_conc_wpez)  
-                              call write_medians_wpez(medians_conc_wpez, number_medians)
-                              
-                              call find_medians (app_window_counter, 1, hold_for_medians_tpez, medians_conc_tpez) 
-                              call write_medians_tpez(medians_conc_tpez(1))
+                     call find_medians (app_window_counter, number_medians, hold_for_medians_wpez, medians_conc_wpez)  
+                     call write_medians_wpez(medians_conc_wpez, number_medians)
+                     
+                     call find_medians (app_window_counter, 1, hold_for_medians_tpez, medians_conc_tpez) 
+                     call write_medians_tpez(medians_conc_tpez(1))
                end if
                !****************************************************************
                
                call deallocate_scenario_parameters
-			   
-                             write (*,*) '###################################################'	 
-                             CALL CPU_TIME (time_1)
-                             write (*,*) 'cpu time deallocate  ',time_1- cputime_begin
-                             write (*,*) '###################################################'			   
-	
+call time_check('cpu time deallocate  ')			   
+
             end do  !END SCENARIO LOOP  kk 
             
+call time_check('cpu time vvwm done ')
 
-                            write (*,*) '###################################################'	 
-                            CALL CPU_TIME (time_1)
-                            write (*,*) 'cpu time vvwm done      ',time_1- cputime_begin
-                            write (*,*) '###################################################'				
-			            
         
             call deallocate_application_parameters !allocations are done in set_chmical_applications, need to deallocatte for next scheme       
             write(*,*) '*****************************Done with scheme ', i    
-                
-                             write (*,*) '###################################################'	 
-                             CALL CPU_TIME (time_1)
-                             write (*,*) 'cpu time, scheme   ',time_1- cputime_begin, kk
-                             write (*,*) '###################################################'			
-			
+call time_check('cpu time, scheme    ')                
+
 		 end do  !End scheme Loop, i
-		 
-                            write (*,*) '###################################################'	 
-                            CALL CPU_TIME (time_1)
-                            write (*,*) 'cpu time, waterbody   ',time_1- cputime_begin, hh
-                            write (*,*) '###################################################'
-		                 
+call time_check('cpu time, waterbody')   		 
+
 		 deallocate (spraytable )
 		 
 	 end do !End Waterbody/Watershed Loop
-
-                              write (*,*) '###################################################'	 
-                              CALL CPU_TIME (time_1)
-                              write (*,*) 'End Proram cpu time   ',time_1- cputime_begin
-                              write (*,*) '###################################################'  	 
-	
-                              call SYSTEM_CLOCK(c_count, c_rate, c_max)
-                              clock_time = real(c_count)/real(c_rate)
-                              write (*,*) 'Total clock time = ',clock_time  - clock_time_0 
-                              write (*,*) 'tridiag', Cumulative_cpu_3
-                              write (*,*) '###################################################'  	
+call time_check('End Proram cpu time ')   	
+ 
+               call SYSTEM_CLOCK(c_count, c_rate, c_max)
+               clock_time = real(c_count)/real(c_rate)
+               write (*,*) 'Total clock time = ',clock_time  - clock_time_0 
+               write (*,*) 'tridiag', Cumulative_cpu_3
+               write (*,*) '###################################################'  	
 
 end program PRZMVVWM
