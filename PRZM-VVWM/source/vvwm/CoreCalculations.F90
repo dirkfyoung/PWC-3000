@@ -8,7 +8,7 @@ subroutine MainLoop
 
 use constants_and_variables, ONLY: num_records , DELT_vvwm, fraction_to_benthic,&
                                    daily_depth,fw1,fw2,aqconc_avg1,aqconc_avg2, A,B,E,F, &
-                                   m1_input,m1_store,m2_store,mavg1_store,aq1_store, aq2_store, m2_input
+                                   m1_input,m1_store,m2_store,mavg1_store,aq1_store, aq2_store, m2_input, m_total, v2 
 
 
 use waterbody_parameters, ONLY: benthic_depth ,porosity,area_waterbody 
@@ -60,7 +60,7 @@ use waterbody_parameters, ONLY: benthic_depth ,porosity,area_waterbody
         mavg1_store(day_count)= aqconc_avg1(day_count)/fw1(day_count)*daily_depth(day_count)*area_waterbody   
 
 !Find Total System Mass Here
-		!m_total(day_count) = mavg1_store(day_count) + aqconc_avg2(day_count) * Pore Volume / frac of mass in aqueos
+		m_total(day_count) = mavg1_store(day_count) + aqconc_avg2(day_count) * v2 / fw2
         
         
         

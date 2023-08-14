@@ -42,7 +42,7 @@ module allocations
         burial,eroded_solids_mass,flowthru_the_body, fraction_to_benthic, &
         volume1, daily_depth,k_flow,k_burial, k_aer_aq, k_volatile,k_photo,k_hydro, &
         k_anaer_aq, k_anaer_s, degradateProduced1,degradateProduced2, A,B,E, F, fw1, &
-        k_aer_s, gamma_2, k_aer_s, k_flow, theta, mavg1_store, &
+        k_aer_s, gamma_2, k_aer_s, k_flow, theta, mavg1_store,m_total, &
         capacity_1,gamma_1,m1_input,aqconc_avg1,aqconc_avg2,m1_store,m2_store,aq1_store, aq2_store, m2_input,  edge_of_field
                                                                      
 
@@ -90,7 +90,8 @@ module allocations
         allocate (m2_input(num_records))
         allocate (m1_store(num_records))
         allocate (m2_store(num_records))
-        allocate (mavg1_store(num_records))     
+        allocate (mavg1_store(num_records))   
+        allocate (m_total(num_records))  
 
  !       allocate (v1(num_records), STAT=status)
         allocate (aqconc_avg1(num_records))        
@@ -211,7 +212,7 @@ end subroutine allocation_for_VVWM
         precip_m,evap_m, temp_avg,wind_m, &
         degradateProduced1,degradateProduced2, volume1,daily_depth,k_flow,k_burial, k_aer_aq ,nchem , mass_off_field, spray_additions,&
         k_anaer_aq,k_aer_s,k_anaer_s,k_volatile,k_photo,k_hydro,gamma_1, gamma_2,A,B,E,F, &
-        theta,capacity_1,fw1,m1_input,m2_input,m1_store,m2_store,mavg1_store, &
+        theta,capacity_1,fw1,m1_input,m2_input,m1_store,m2_store,mavg1_store, m_total, &
         aqconc_avg1,aqconc_avg2,aq1_store,aq2_store, irrigation_save, canopy_flow_save, THAIR_save, &
 		theta_end_save, runoff_save,soilwater_save,velocity_save, theta_zero_save,thair_old_save, &
        	erosion_save, enriched_erosion_save,et_save, infiltration_save,conc_last_horizon_save, soil_temp_save, edge_of_field
@@ -370,7 +371,9 @@ end subroutine allocation_for_VVWM
      deallocate (m1_store)
      deallocate (m2_store)
      deallocate (mavg1_store)  
-
+     deallocate (m_total)
+     
+     
      deallocate (aqconc_avg1)        
      deallocate (aqconc_avg2)    
      deallocate (aq1_store)        
@@ -392,17 +395,11 @@ end subroutine allocation_for_VVWM
     
     
     
+
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    subroutine allocate_vvwm
+    !subroutine allocate_vvwm
 !USE noninputvariables
 !use variables, ONLY: nchem
 !integer :: status            !array allocation status,  0=success
@@ -467,7 +464,7 @@ end subroutine allocation_for_VVWM
 !    
 !        
         
-end subroutine allocate_vvwm
+!end subroutine allocate_vvwm
     
     
     

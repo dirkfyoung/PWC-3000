@@ -60,9 +60,9 @@ integer :: i
 		
         Burial = eroded_solids_mass/86400.  ! kg/day*(day/86400 sec)    = kg/sec
         
-        write(*,*) 'parent runoff mass delivered ',     sum(mass_off_field(:,1,1))
-        write(*,*)  'parent erosion mass ',             sum(mass_off_field(:,2,1))
-        
+        !write(*,*) 'parent runoff mass delivered ',     sum(mass_off_field(:,1,1))
+        !write(*,*)  'parent erosion mass ',             sum(mass_off_field(:,2,1))
+        !
         !proocess mass inputs
     !    mass_off_field= mass_off_field* afield*10.  !converts to kg
 
@@ -82,10 +82,6 @@ integer :: i
         runoff_total(1:nchem) = sum(mass_off_field(:,1,1:nchem),1)
         erosion_total(1:nchem)= sum(mass_off_field(:,2,1:nchem),1)
 
-
-        
-        
-        
     end subroutine get_mass_inputs
 
     
@@ -128,8 +124,8 @@ integer :: i
            end if          
        end do
        
-       write(*,*) "total_applications = ", total_applications
-       write(*,*) "Spray mass = ", spray_total(1)
+       !write(*,*) "total_applications = ", total_applications
+       !write(*,*) "Spray mass = ", spray_total(1)
        
     end subroutine spraydrift
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    

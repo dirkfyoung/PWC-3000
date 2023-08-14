@@ -41,11 +41,9 @@ program PRZMVVWM
     !################################################ 
     CALL CPU_TIME (cputime_begin)
     write(*,*)    '************* Start PRZM-VVWM  *******************'
-    write (*,*) 'Start CPU Time',  cputime_begin
-	
+    
     call SYSTEM_CLOCK(c_count, c_rate, c_max)
     clock_time_0 = real(c_count)/real(c_rate)
-
 	Cumulative_cpu_3 = 0.0
 	
    !################################################ 
@@ -60,7 +58,7 @@ program PRZMVVWM
     call get_command_argument(1,inputfile,length)
     call przm_id                                     !Stamp the runstatus file 
 		
-    write(*,*) "Input file: ", trim(inputfile)
+    write(*,'(A13, A512)') " Input file: ", adjustl(inputfile)
     call read_inputfile
     call chemical_manipulations
 	
@@ -104,7 +102,7 @@ program PRZMVVWM
 	         write(*,*) '********** Start Scenario Loop *************************************'
 				           
              if(is_batch_scenario(i)) then
-                write(*,'("Batch Scenario File: ", A100) ')   scenario_batchfile(i)
+                write(*,'("Batch Scenario File: ", A100) ')  adjustl( scenario_batchfile(i))
                 open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus ) 
                 read(BatchFileUnit,*) dummy  ! skip header
                 end_of_file = .FALSE. !reset the batch scenario reading
@@ -148,11 +146,10 @@ program PRZMVVWM
 			   call hydrology_only
 		   
                !soil temp is good here
-               
-               write(*,*) 'Start allocations'
+
                call allocation_for_VVWM
 			   			   
-			   write(*,*) '****************** Start App Loop **********************************'
+			   write(*,*) '****************** Start Applicaion Loop **********************************'
 
 			   app_window_counter = 0  !use this to track app window to find medians
                hold_for_medians = 0.0  !use this to hold data for medians
@@ -163,12 +160,11 @@ program PRZMVVWM
                      call make_run_id (i,kk, hh,jj) !makes a string that can be used for identifying output scheme#_scenario#_scenarioname      
                     
 					 !"Rain Fast" Option
-					 write(*,*) "Adjust applications for rain?", is_adjust_for_rain
 					 if (is_adjust_for_rain) call adjust_application_dates_for_weather
 					 
 					 call chem_transport_onfield
 					 
-   call time_check("cpu time chem xport ")
+                     call time_check("cpu time chem xport ")
                      
 					 call groundwater				 
                      call VVWM 

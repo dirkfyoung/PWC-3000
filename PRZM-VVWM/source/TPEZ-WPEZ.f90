@@ -85,7 +85,7 @@ Module TPEZ_WPEZ
           call gamma_two                   !probably doesnt need recalculation
           
           call initial_conditions(chem_index)
-          write(*,*) "Main VVWM Loop "
+          write(*,*) "Call Main wpez loop"
           call MainLoop             
           
           waterbody_name =  "WPEZ"
@@ -122,7 +122,7 @@ Module TPEZ_WPEZ
                                 summary_filename, summary_filename_deg1, summary_filename_deg2, waterbody_name )
 
     use utilities
-    use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth, Afield
+    use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth, Afield, area_waterbody
     
     use constants_and_variables, ONLY:  num_records, run_id, is_hed_files_made,is_add_return_frequency, additional_return_frequency, &
                                        num_years, startday, &
@@ -138,6 +138,7 @@ Module TPEZ_WPEZ
                                  runoff_total ,  &
                                  erosion_total,  &
                                  spray_total ,   &
+                                 m_total,        &  !total system average daily mass
                                  Daily_Avg_Runoff, Daily_avg_flow_out,  runoff_fraction, erosion_fraction, drift_fraction ,&
     k_burial, k_aer_aq, k_flow, k_hydro, k_photo, k_volatile,k_anaer_aq, gamma_1, gamma_2, gw_peak, post_bt_avg ,throughputs,simulation_avg, &
 	is_waterbody_info_output, full_run_identification, applied_mass_sum_gram_per_cm2 , fraction_off_field
@@ -177,7 +178,9 @@ Module TPEZ_WPEZ
     real,dimension(num_years):: benthic_peak  !now it 1-day average
     
     
-    real,dimension(num_years):: c1_max  !peak year to year daily average
+    real,dimension(num_years):: c1_max      !peak year to year daily average
+    real,dimension(num_years):: total_max   !total mass in system  converted to lb/acre below
+    
     
     real,dimension(num_years):: c4_max  !the peak 4-day average within the 365 days after application
     real,dimension(num_years):: c21_max
@@ -220,22 +223,15 @@ Module TPEZ_WPEZ
                where (daily_depth < zero_depth) aqconc_avg1 = 0.0
          end if
          
-         write(output_unit,'(A42)') 'Depth(m), Water Col(kg/m3), Benthic(kg/m3)'
+         write(output_unit,*) 'Depth(m)   ,  Water Col(kg/m3), Benthic(kg/m3), total mass (kg)'
       
          do i =1, num_records
-             write(output_unit,'(G12.4E3, "," ,ES12.4E3, "," ,ES12.4E3, "," ,ES12.4E3)')  daily_depth(i), aqconc_avg1(i), aqconc_avg2(i)
+             write(output_unit,'(G12.4E3, "," ,ES12.4E3, "      ," ,ES12.4E3, "   ," ,ES12.4E3)')  daily_depth(i), aqconc_avg1(i), aqconc_avg2(i), m_total(i)
          end do
-         
-         
-         
-         
-         
-         
+
      	 close (output_unit)
      end if
 
-
-    write(*,*) 'Start Window averaging'
     !Calculate chronic values *******************
     !The following returns the n-day running averages for each day in simulation
    
@@ -254,11 +250,15 @@ Module TPEZ_WPEZ
 	 write(*,*) 'Start picking max'
 	 
     call pick_max(num_years,num_records, first_annual_dates,aqconc_avg1,c1_max)     !NEW FIND DAILY AVERAGE CONCENTRATION RETURN   
+    call pick_max(num_years,num_records, first_annual_dates,m_total,total_max)     !total mass 
+    
     call pick_max(num_years,num_records, first_annual_dates,c4,c4_max)
     call pick_max(num_years,num_records, first_annual_dates,c21,c21_max)
     call pick_max(num_years,num_records, first_annual_dates,c60,c60_max)
     call pick_max(num_years,num_records, first_annual_dates,c90,c90_max)
     call pick_max(num_years,num_records, first_annual_dates,benthic_c21,benthic_c21_max)
+    
+    
 
     !treat the 365 day average somewhat differently:
     !In this case, we simply are calculating the average for the 365 day forward from the
@@ -290,6 +290,8 @@ Module TPEZ_WPEZ
         benthic_peak       = benthic_peak*convert
         benthic_c21_max    = benthic_c21_max*convert
         Simulation_average = Simulation_average*convert
+        
+        total_max = total_max/area_waterbody*8921.79         !convert from kg/m2 to lb/Acre
 
 
        return_frequency = 10.0
@@ -322,7 +324,7 @@ Module TPEZ_WPEZ
        call write_simple_batch_data_WPEZ(chem_index, First_time_through, unit_number,unit_number_deg1,unit_number_deg2,&
                                      summary_filename, summary_filename_deg1, summary_filename_deg2, &
                                      return_frequency,num_years, peak,Simulation_average,c1_max,c4_max, &
-                                     c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max )      
+                                     c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max, total_max )      
 
 
     end subroutine output_processor_WPEZ  
@@ -334,7 +336,7 @@ Module TPEZ_WPEZ
    subroutine write_simple_batch_data_WPEZ(chem_index,First_time_through, unit_number,unit_number_deg1,unit_number_deg2, &
                                         summary_filename, summary_filename_deg1, summary_filename_deg2, &
                                         return_frequency,num_years, peak,Simulation_average,c1_max, &
-                                        c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max   )
+                                        c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max, total_max  )
 
     use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     nchem,     runoff_fraction,erosion_fraction,drift_fraction,summary_outputfile, &
@@ -348,7 +350,7 @@ Module TPEZ_WPEZ
     implicit none   
     integer, intent(in)                       :: num_years
     real, intent(in)                          :: return_frequency
-    real, intent(in), dimension(num_years)    :: peak,c1_max,c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max
+    real, intent(in), dimension(num_years)    :: peak,c1_max,c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max, total_max
     real, intent(in)                          :: Simulation_average
     logical, intent(inout)                    :: First_time_through
     
@@ -362,12 +364,12 @@ Module TPEZ_WPEZ
     
     
     !****LOCAL*********************
-    real      :: peak_out,c1_out, c4_out,c21_out,c60_out,c90_out,c365_out,benthic_peak_out,benthic_c21_out    
+    real      :: peak_out,c1_out, c4_out,c21_out,c60_out,c90_out,c365_out,benthic_peak_out,benthic_c21_out, total_out  
     logical   :: lowyearflag
     character(len= 257) :: local_run_id
     
     If (First_time_through) then
-        header = 'Run Information                                                                  ,      1-d avg,    365-d avg,    Total avg,      4-d avg,     21-d avg,     60-d avg,      B 1-day,   B 21-d avg,    Off-Field,  Runoff Frac,   Erosn Frac,   Drift Frac,  col washout,    col metab,    col hydro,    col photo,    col volat,    col total,  ben sed rem,    ben metab,    ben hydro,    ben total,      gw_peak,  post_bt_avg,   throughput, sim_avg_gw'
+        header = 'Run Information                                                                  ,      1-d avg,    365-d avg,    Total avg,      4-d avg,     21-d avg,     60-d avg,      B 1-day,   B 21-d avg,    Off-Field,  Runoff Frac,   Erosn Frac,   Drift Frac,  col washout,    col metab,    col hydro,    col photo,    col volat,    col total,  ben sed rem,    ben metab,    ben hydro,    ben total,  total_out(lb/A) '
         
         Open(unit=unit_number,FILE=  (trim(family_name) // "_" // trim(summary_filename)),Status='unknown')  
         Write(unit_number, '(A444)') header
@@ -387,6 +389,10 @@ Module TPEZ_WPEZ
     call Return_Frequency_Value(return_frequency, peak,           num_years, peak_out,         lowyearflag)   
     call Return_Frequency_Value(return_frequency, c1_max,         num_years, c1_out,           lowyearflag)
     
+    call Return_Frequency_Value(return_frequency, total_max,      num_years, total_out,           lowyearflag)
+    
+    
+    
     call Return_Frequency_Value(return_frequency, c4_max,         num_years, c4_out,           lowyearflag)
     call Return_Frequency_Value(return_frequency, c21_max,        num_years, c21_out,          lowyearflag)
     call Return_Frequency_Value(return_frequency, c60_max,        num_years, c60_out,          lowyearflag)
@@ -400,8 +406,10 @@ Module TPEZ_WPEZ
     case (1)
         local_run_id = trim(run_id)//"_WPEZ" // '_Parent'
         write(unit_number,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out, fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
-        effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, gw_peak(1), post_bt_avg(1) ,throughputs(1),simulation_avg(1)    !effective_total_deg2 does not mean degradate, means benthic
+        effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, total_out    !effective_total_deg2 does not mean degradate, means benthic
 
+        
+          
     !**capture data for median calculations here
           hold_for_medians_WPEZ( 1, app_window_counter)= c1_out
           hold_for_medians_WPEZ( 2, app_window_counter)= c365_out
@@ -411,19 +419,21 @@ Module TPEZ_WPEZ
           hold_for_medians_WPEZ( 6, app_window_counter)= c60_out
           hold_for_medians_WPEZ( 7, app_window_counter)= benthic_peak_out
           hold_for_medians_WPEZ( 8, app_window_counter)= benthic_c21_out
+          
+          hold_for_medians_WPEZ( 9, app_window_counter)= total_out
+          hold_for_medians_WPEZ( 10, app_window_counter)= 0.0  !spare
+          
     !      hold_for_medians_WPEZ( 9, app_window_counter)= post_bt_avg(1)
     !      hold_for_medians_WPEZ( 10, app_window_counter)= throughputs(1)
-       
-  
-   
+
     case (2)
         local_run_id = trim(run_id)//"_WPEZ" // '_deg1'
         write(unit_number_deg1,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field,runoff_fraction,erosion_fraction,drift_fraction, &
-        effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, gw_peak(2), post_bt_avg(2) ,throughputs(2) ,simulation_avg(2)
+        effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, total_out  !, gw_peak(2), post_bt_avg(2) ,throughputs(2) ,simulation_avg(2)
     case (3)
         local_run_id = trim(run_id) //"_WPEZ" // '_deg2'
         write(unit_number_deg2,'(A80,1x,26(",", ES13.4E3))')(adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
-        effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, gw_peak(3), post_bt_avg(3) ,throughputs(3) ,simulation_avg(3)
+        effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, total_out   !, gw_peak(3), post_bt_avg(3) ,throughputs(3) ,simulation_avg(3)
 
         case default
     end select
@@ -908,12 +918,12 @@ end subroutine tpez_write_simple_batch_data
                 if (First_time_through_medians_wpez) then 
                     !write header
                     open (UNIT= median_output_unit_wpez, FILE = 'Medians_wpez.txt', STATUS = 'UNKNOWN')
-                    write(median_output_unit_wpez,  '(A213)') "Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg,  Total System (kg/ha)"
+                    write(median_output_unit_wpez,  '(A213)') "Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg,  Total System (lb/A)"
       
                     First_time_through_medians_wpez = .FALSE.
                 end if
                 
-                write(median_output_unit_wpez, '(A86, 10(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_input(i), i=1, 8) 
+                write(median_output_unit_wpez, '(A86, 10(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_input(i), i=1, 9) 
                 
              
      end subroutine write_medians_wpez

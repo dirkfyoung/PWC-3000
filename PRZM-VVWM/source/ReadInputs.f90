@@ -47,11 +47,8 @@ use utilities
     integer :: comma_1, comma_2,comma_3,comma_4,comma_5,comma_6,comma_7,comma_8
     integer :: start_wb
     
-    character (len=512) :: scheme_name
+    character (len=256) :: scheme_name
 	integer             :: scheme_number_readin
-    
-    
-    write(*,*) "Inside read_inputfile"
 
     OPEN(Unit = inputfile_unit_number, FILE=(inputfile),STATUS='OLD', IOSTAT=status  )
     IF (status .NE. 0) THEN
@@ -61,10 +58,12 @@ use utilities
     
     read(inputfile_unit_number,*) !Version info                                                                   !Line 1
                                                                                                                   
-    read(inputfile_unit_number,'(A)')  working_directory                                                          !Line 2   
+    read(inputfile_unit_number,'(A)')  working_directory                                                          !Line 2 
+    write(*,'(A23, A300)') ' working directory is: ', adjustl(working_directory) 
     read(inputfile_unit_number,'(A)') family_name                                                                 !Line 3
     read(inputfile_unit_number,'(A)') weatherfiledirectory                                                        !Line 4 
-	write(*,*) 'weather directory is ', trim(weatherfiledirectory)                                                
+	write(*,'(A23, A300)') ' weather directory is: ', adjustl(weatherfiledirectory)  
+
     read(inputfile_unit_number,*) is_koc,is_freundlich , is_nonequilibrium                                        !Line 5
     read(inputfile_unit_number,*) nchem                                                                           !Line 6
     read(inputfile_unit_number,*) k_f_input(1),k_f_input(2),k_f_input(3)                                          !Line 7  
@@ -136,7 +135,7 @@ use utilities
 	
     do i=1, number_of_schemes
         read(inputfile_unit_number,*) scheme_number_readin, scheme_name                                !scheme line 1
-        write(*,*) "Scheme Number & Name ",scheme_number_readin, trim(scheme_name)
+        write(*,'(A22,I5,1X,A256)') " Scheme Number & Name ",scheme_number_readin, adjustl(scheme_name)
          
         read(inputfile_unit_number,*) app_reference_point_schemes(i)                            !scheme line 2
         read(inputfile_unit_number,*) num_apps_in_schemes(i)                                    !scheme line 3
@@ -185,11 +184,6 @@ use utilities
             end select                
 		end do
 
-		
-!**********************************************************
-!no longer reading in efficiency , Calculate it later....in scheme load routine      
-
-!*****************************************************************
 
         read(inputfile_unit_number,*) is_app_window(i), app_window_span(i), app_window_step(i)                      !Scheme Line 5
         if (not(is_app_window(i) )) then 
@@ -200,9 +194,6 @@ use utilities
 		read(inputfile_unit_number,*) is_adjust_for_rain_schemes(i),rain_limit_schemes(i), &                         !Scheme Line 6
 		   optimum_application_window_schemes(i),intolerable_rain_window_schemes(i),min_days_between_apps_schemes(i) 
 			
-		 write(*,*) "Rain restriction" , 	is_adjust_for_rain_schemes(i),rain_limit_schemes(i), &
-		   optimum_application_window_schemes(i),intolerable_rain_window_schemes(i),min_days_between_apps_schemes(i) 						  
-		 
 		read(inputfile_unit_number,*) number_of_scenarios(i)                                                         !Scheme Line 7
         write(*,*)"Number of scn files = ", number_of_scenarios(i)
            
@@ -215,10 +206,7 @@ use utilities
         read(inputfile_unit_number,'(A)') scenario_batchfile(i)                                                      !Scheme Line 10
        
         write(*,*)  "Read a batch scenario file?" ,  is_batch_scenario(i)  
-        write (*,'(A)') trim(scenario_batchfile(i))
-        
 	enddo
-	
 	
      read(inputfile_unit_number,*) erflag                                                              !WS Line 1
      read(inputfile_unit_number,*)                                                                     !WS Line 2
@@ -315,8 +303,6 @@ use utilities
     read(inputfile_unit_number,*) extra_plots            !OUTPUT Line 26
 	    if (extra_plots > 0) is_timeseriesfile = .TRUE.
 
-	write(*,*) "reading tabulated output requests, if any"
-		
     do i = 1, extra_plots
         read(inputfile_unit_number,*)  temp_PLNAME(i),  temp_chem_id(i), temp_MODE(i),temp_ARG(i),temp_ARG2(i),temp_CONST(i)   !OUTPUT Line 27   
 	end do
@@ -361,11 +347,9 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         write(*,*)  '**********  Start Reading Scenario Values ************************'  
         error = .FALSE.      
         filename = trim(scenario_names(schemenumber,scenarionumber))  
-        write(*,*) trim(filename)   
+        write(*,'(A512)') adjustl(filename)   
 		
 		inquire(53, OPENED=checkopen)
-		write(*,*) 'is scenario open ', checkopen
-
 		
         OPEN(Unit = ScenarioFileUnit, FILE=(filename),STATUS='OLD', IOSTAT=status  )
         IF (status .NE. 0) THEN
@@ -423,10 +407,8 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
 				  return
 				end if		
 		
-        write(*,*) "Crop Cycles per year: ", num_crop_periods_input
         read(ScenarioFileUnit,*) ! msg & String.Format("{0}{1},", vbNewLine, simpleRB.Checked)
         
-        write(*,*) "Start reading crop info"
         do  i=1,num_crop_periods_input
             read(ScenarioFileUnit,*, IOSTAT = status) emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i),max_root_depth(i),max_canopy_cover(i),  &
                 max_canopy_height(i), max_canopy_holdup(i),foliar_disposition(i), crop_periodicity(i), crop_lag(i) 
@@ -438,7 +420,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
             !PWC saves canopy cover it as a percent, but przm needs fraction
             max_canopy_cover(i)=max_canopy_cover(i)/100.
             
-            write(*,'(8I6)') emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i), foliar_disposition(i),crop_periodicity(i), crop_lag(i) 
+            !write(*,'(8I6)') emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i), foliar_disposition(i),crop_periodicity(i), crop_lag(i) 
         end do
       
      !   write (*,*) "Foliar disposition always = 1, pesticide surface applied"
@@ -451,24 +433,18 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         read(ScenarioFileUnit,*)     !msg = msg & String.Format("{0}{1},{2},{3},{4}", vbNewLine, altRootDepth.Text, altCanopyCover.Text, altCanopyHeight.Text, altCanopyHoldup.Text)     
         read(ScenarioFileUnit,*)     !msg = msg & String.Format("{0}{1},{2},{3},{4}", vbNewLine, altEmergeDay.Text, altEmergeMon.Text, altDaysToMaturity.Text, altDaysToHarvest.Text)
        
-        write(*,*)   "PFAC,dummy, min_evap_depth"
         read(ScenarioFileUnit,*, IOSTAT= status)  PFAC,dummy, min_evap_depth 
 			    IF (status .NE. 0) then
 				  call scenario_error(error)
 				  return
 				end if		
-        write(*,*)   PFAC,dummy, min_evap_depth
-        
-        
+   
         read(ScenarioFileUnit,*) ! msg = msg & vbNewLine & "*** irrigation information start ***"        
         read(ScenarioFileUnit,*) irtype !0 = none, 1 flood, 2 undefined 3 = overcanopy 4 = under canopy 5 = undefined, 6 over canopy       43
         read(ScenarioFileUnit,*) FLEACH,PCDEPL,max_irrig  !fleach.Text, depletion.Text, rateIrrig.Text)                                    44
-        
-        write(*,*) 'Irrigation Type ', irtype   
-        write(*,*) 'FLEACH,PCDEPL,max_irrig', FLEACH,PCDEPL,max_irrig
 
         read(ScenarioFileUnit,*) UserSpecifiesDepth !, user_irrig_depth  ! UserSpecifiesIrrigDepth.Checked, IrrigationDepthUserSpec.Text)
-        write(*,*) "User specifies depth? " ,UserSpecifiesDepth 
+
         if (UserSpecifiesDepth) then
             backspace(ScenarioFileUnit)  !if true the userirrig depth will be blankl sometinmes
             read(ScenarioFileUnit,*) UserSpecifiesDepth, user_irrig_depth        
@@ -518,12 +494,10 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         
         read(ScenarioFileUnit,*) is_temperature_simulated !msg = msg & vbNewLine & simTemperature.Checked
     
-        
         read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "***spare line for expansion"
         read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "***spare line for expansion"
         read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "*** Erosion & Curve Number Info **********"
-         write(*,*)  "Temperature simulated? ",    is_temperature_simulated
-        
+        write(*,*)  "Temperature simulated? ",    is_temperature_simulated
         
         read(ScenarioFileUnit,*) NUSLEC  !msg = msg & vbNewLine & NumberOfFactors.Text
         read(ScenarioFileUnit,*) (GDUSLEC(i), i=1,nuslec)
@@ -531,7 +505,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         read(ScenarioFileUnit,*) (CN_2(i), i=1,nuslec)
         read(ScenarioFileUnit,*) (USLEC(i), i=1,nuslec)
         read(ScenarioFileUnit,*) !no longer use manning n mngn
-      write (*,*) 'CN: ', (CN_2(i), i=1,nuslec)
+
       READ(ScenarioFileUnit,*) runoff_extr_depth,runoff_decline,runoff_effic     
       READ(ScenarioFileUnit,*)  erosion_depth, erosion_decline, erosion_effic
 
@@ -540,17 +514,12 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
       read(ScenarioFileUnit,*) !years of uslec need to add later if we want years
       read(ScenarioFileUnit,*) Height_stagnant_air_layer_cm !msg = msg & vbNewLine & volatilizationBoundaryBox.Text
      
-        
-      write (*,*) 'read in stagnant layer ',Height_stagnant_air_layer_cm
- 
-      
       profile_thick= 0.0
 	  profile_number_increments=0
 	  read(ScenarioFileUnit,*, IOSTAT=eof)  is_auto_profile
       
-	  write (*,*) "eof   ?", eof, is_auto_profile
-
-      
+	  write (*,*) "eof (autoprofile status) ?", eof, is_auto_profile
+    
 	  if (eof >= 0) then             !provides for the possibilty of older scenarios without this feature
 		  if (is_auto_profile) then 
 		     read(ScenarioFileUnit,*) number_of_discrete_layers
@@ -559,17 +528,10 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
 		     end do
           end if
       else 
-          is_auto_profile= .FALSE.  !for older files set default to No aurto profile    
-          
-          
-          
-          
-          
-          
-          
+          is_auto_profile= .FALSE.  !for older files set default to No aurto profile           
 	  end if
 	  
-        close (ScenarioFileUnit)
+      close (ScenarioFileUnit)
 end subroutine read_scenario_file
 
 	
@@ -762,7 +724,7 @@ subroutine Read_Weatherfile
  
         weatherfile_pathandname = trim(adjustl(weatherfiledirectory)) // trim(adjustl(weatherfilename))
         
-        write(*,*) 'weather path and file to open: ', trim(adjustl(weatherfile_pathandname))
+        write(*,'(A24,A1024)') ' weather path and file: ', adjustl(weatherfile_pathandname)
         
         OPEN(Unit = metfileunit,FILE=trim(adjustl(weatherfile_pathandname)),STATUS='OLD', IOSTAT=status)
         if (status .NE. 0) THEN
@@ -782,8 +744,6 @@ subroutine Read_Weatherfile
       
       startday = jd(first_year, first_mon, first_day)
 
-      write(*,*)  'startday = ', startday, first_year, first_mon, first_day
-      
       !Count the records in the weather file
       num_records=1
       do        
@@ -791,8 +751,7 @@ subroutine Read_Weatherfile
           if (status /= 0)exit
           num_records=num_records+1
       end do
-      write (*,*) "Weather file total days = ",num_records
-      
+
       !Allocate the weather parameters 
       allocate (precip(num_records))
       allocate (pet_evap(num_records))
@@ -800,8 +759,6 @@ subroutine Read_Weatherfile
       allocate (wind_speed(num_records))
       allocate (solar_radiation(num_records))
 
-      write (*,*) "End Weather allocation"
-      
       !ONLY READS WEA FORMAT
       !rewind and read in weather data
       rewind(metfileunit)      
@@ -818,7 +775,6 @@ subroutine Read_Weatherfile
       num_years = last_year-first_year+1
       
       close(metfileunit)
-       write (*,*) "Finished reading weather file"
 	end subroutine Read_Weatherfile  
     
 end module readinputs

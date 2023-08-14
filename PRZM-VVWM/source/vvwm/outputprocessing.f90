@@ -86,9 +86,6 @@ module outputprocessing
     integer,dimension(num_years) ::  first_annual_dates !array of yearly first dates (absolute days).
                                     ! First date is the calendar day of start of simulation 
     first_annual_dates= 0
-    
-write(*,*)  "is_waterbody_info_output",   is_waterbody_info_output, output_unit
-
 
 if (is_waterbody_info_output) then
 	select case (chem_index)
@@ -172,7 +169,6 @@ end if
 !    !**************************************************************************
 !end if
 
-    write(*,*) 'Start Window averaging'
     !Calculate chronic values *******************
     !The following returns the n-day running averages for each day in simulation
    

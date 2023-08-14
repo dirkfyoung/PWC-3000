@@ -841,14 +841,15 @@ module constants_and_variables
     real                          :: capacity_2   !solute holding capacity of region 2 [m3]
     real                          :: fw2          !fraction of region 2 solute in aqueous phase
     real                          :: kd_sed_1     !local Kd of ss (m3/kg)
-    real                          :: omega                !mass transfer coefficient
+    real                          :: omega        !mass transfer coefficient
 
-real                          :: m_sed_1      !base amount of suspended solids mass (kg)    
-real,allocatable,dimension(:) :: volume1              !array of daily water column volumes  [m3]    
-real:: v2                                          !aqueous volume of pore water in sediment
-real, allocatable, dimension(:)    :: A,B,E,F          !final coefficients for the 2 simultaneous equations
+real                              :: m_sed_1                           !base amount of suspended solids mass (kg)    
+real,allocatable,dimension(:)     :: volume1                           !array of daily water column volumes  [m3]    
+real:: v2                                                              !aqueous volume of pore water in sediment
+real, allocatable, dimension(:)    :: A,B,E,F                          !final coefficients for the 2 simultaneous equations
 real, allocatable, dimension(:)    :: m1_input, m2_input               !at start of time step: the mass input in litt and benthic
-real, allocatable, dimension(:)    :: m1_store,m2_store,mavg1_store    !array of daily peak/avg. mass in littoral and benthic
+real, allocatable, dimension(:)    :: m1_store,m2_store,mavg1_store    !array of daily peak/avg
+real, allocatable, dimension(:)    :: m_total                          !total average daily mass in system: mavg1 + mavg2
 real, allocatable, dimension(:)    :: aq1_store, aq2_store             !begining day concentrations, after mass inputs
 
 real,allocatable,dimension(:,:,:) :: mass_off_field            !daily mass loading from runoff (column 1) & erosion (column 2) (kg)

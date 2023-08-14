@@ -89,10 +89,6 @@ real    :: koc
         call initial_conditions(chem_index)
         write(*,*) "Main VVWM Loop "
         call MainLoop       
-       
- 
-   
-        write(*,*) 'batch output file ', trim(summary_outputfile)
    
         if (nchem > chem_index) then     
               call DegradateProduction(chem_index) 

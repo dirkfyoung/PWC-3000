@@ -33,6 +33,10 @@
     
     character(len=512) :: local_name
     
+    !*****turn numbers into text*****
+    write(schemnumber,*) i
+    write(scenarionumber,*) j
+    
     !last_slash = index(scenario_names(i,j), '\', .TRUE.)
     !last_dot   = index(scenario_names(i,j), '.', .TRUE.)
     
@@ -53,6 +57,9 @@
     trim(scenario_id)  &
         // '_' // trim(adjustl(local_name)) // '_' // trim(adjustl(appnumber))
     
+    write(*,'(A8, A256)') 'Run ID:', adjustl(run_ID )
+
+
     
     !run_ID =  trim(adjustl(schemnumber)) // '_' //&
     !trim(adjustl(scenario_names(i,j)((last_slash+1):(last_dot-1))))  &
@@ -60,8 +67,7 @@
     
     full_run_identification = trim(working_directory) // trim(family_name) // "_" // trim(run_id)
     
-    
-    write(*,*) "run id ", trim(run_ID)
+
      
     end subroutine make_run_id 
     

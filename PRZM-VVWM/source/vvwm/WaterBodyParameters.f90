@@ -206,7 +206,7 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         allocate (spraytable (rows_spraytable, columns_spraytable))	
 	    spraytable = spray_table_P 
         
-        write(*,*) 'Default Pond Spraydrift Table'
+
         !do i = 1, rows_spraytable
         !    write(*,'(17G12.4)') (spraytable(i,j),j=1, columns_spraytable)
         !end do	
@@ -253,10 +253,10 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
        allocate (spraytable (rows_spraytable, columns_spraytable))	
 	   spraytable = spray_table_R 
         
-       write(*,*) 'Default Reservoir Spraydrift Table'
-       do i = 1, rows_spraytable
-            write(*,'(17G12.4)') (spraytable(i,j),j=1, columns_spraytable)
-       end do
+       !write(*,*) 'Default Reservoir Spraydrift Table'
+       !do i = 1, rows_spraytable
+       !     write(*,'(17G12.4)') (spraytable(i,j),j=1, columns_spraytable)
+       !end do
     end subroutine get_reservoir_parameters
 
     
@@ -304,10 +304,10 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 			read(waterbody_file_unit, *) (spraytable(i,j),j=1, columns_spraytable-1)
 		end do
 		
-		write(*, *) 'spray table'
-		do i =1, rows_spraytable
-			write(*,'(20G12.4)' ) (spraytable(i,j),j=1, columns_spraytable-1)
-        end do
+		!write(*, *) 'spray table'
+		!do i =1, rows_spraytable
+		!	write(*,'(20G12.4)' ) (spraytable(i,j),j=1, columns_spraytable-1)
+  !      end do
 		
 
     end subroutine read_waterbodyfile

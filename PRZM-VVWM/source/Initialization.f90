@@ -24,10 +24,10 @@ end subroutine chemical_manipulations
 	
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!     
-SUBROUTINE INITL
-use utilities_1
-use allocations
-use constants_and_Variables, ONLY: min_evap_depth,                             &
+  SUBROUTINE INITL
+  use utilities_1
+  use allocations
+  use constants_and_Variables, ONLY: min_evap_depth,                             &
         SoilWater,fieldcap_water, wiltpoint_water,delx,                        &
         theta_zero,                                                            &
         bd_input,              bulkdensity,                                    &
@@ -66,7 +66,7 @@ use constants_and_Variables, ONLY: min_evap_depth,                             &
 
 
 
-use waterbody_parameters, ONLY: afield
+  use waterbody_parameters, ONLY: afield
      
     implicit none
     INTEGER         :: i,j,k,m   
@@ -91,17 +91,16 @@ use waterbody_parameters, ONLY: afield
 	real :: sumofoc
 	real :: sumofsn
 	real :: sumofcl
-	
-    
-   real :: sumoftheta_zero 
-   real :: sumofdispersion         
-   real :: sumofsoil_temp  
-   real :: sumofMolarConvert_aq12
-   real :: sumofMolarConvert_aq13
-   real :: sumofMolarConvert_aq23
-   real :: sumofMolarConvert_s12 
-   real :: sumofMolarConvert_s13 
-   real :: sumofMolarConvert_s23 
+
+    real :: sumoftheta_zero 
+    real :: sumofdispersion         
+    real :: sumofsoil_temp  
+    real :: sumofMolarConvert_aq12
+    real :: sumofMolarConvert_aq13
+    real :: sumofMolarConvert_aq23
+    real :: sumofMolarConvert_s12 
+    real :: sumofMolarConvert_s13 
+    real :: sumofMolarConvert_s23 
         
     !moving these to Constants and Variables because they are needed for TPEZ adjustments
     !real :: aq_rate_corrected(3)  !degradation inputs corrected for implicit routine
@@ -110,9 +109,7 @@ use waterbody_parameters, ONLY: afield
 
 	horiz_indx_tracker=0
 	track_thickness = 0.0
-	
-	
-	
+
 	!please move these to chem manipulations, no need to repeat them
     
     call Convert_halflife_to_rate_per_sec(water_column_halflife_input(1), water_column_rate(1)) 
@@ -162,13 +159,7 @@ use waterbody_parameters, ONLY: afield
     else     
         NCOM2 = sum(num_delx(1:nhoriz))  !Total Number of Compartments       !old way
     end if
-	
-	write(*,*) 'Number Soil Compartments (ncom2)=' , ncom2
-!******************************************************	
-	!delete this line once its working
-	!NCOM2 = sum(num_delx(1:nhoriz))  !Total Number of Compartments
-!****************************************************
-	
+
 	!***********  allocate and initialize ***********
     call  allocate_soil_compartments
 	call  allocate_time_series       !some time series also have soil components, so ncom2 must be defined previoyusly before this call
@@ -178,8 +169,7 @@ use waterbody_parameters, ONLY: afield
     !************************************************
     
     if (is_auto_profile) then  ! create the discretization based on input profile instead of delx     
-        write(*,*) "Calculate Autoprofile"
-        
+
 	        !get thicknesses for each compartment
 			start = 1
 		    xend = 0
@@ -213,7 +203,6 @@ use waterbody_parameters, ONLY: afield
             dispersion 	  = 0.0
             soil_temp     = 0.0
 	   
-            
 	        j = 1  ! tracker for data horizons
 	        do i = 1, ncom2   !check each fixed compartment depth against the horizon depth to determine its location
 
@@ -325,16 +314,11 @@ use waterbody_parameters, ONLY: afield
                      endif 
                  end if
             end do          
-            write(*,*) 'Done loading autoprofile'
-            
-            
+
           !saturate last 2 compartments to simulate aquifer
             
             theta_fc(ncom2-1) = 1.0 - bulkdensity(ncom2-1)/2.65
             theta_fc(ncom2)   = 1.0 - bulkdensity(ncom2)/2.65
-            
-            
-            
             
     else 	!No auto discretization  START OF  OLD WAY -- Possibly eliminate
 	
@@ -397,10 +381,6 @@ use waterbody_parameters, ONLY: afield
        !&&&&&&&&&&&&&&&&&&&&&&&&&&& END OF  OLD WAY &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&	
     end if	
     
-	
-
-    
-    
     !****** Calculate Kd for each compartment ******************************
     do K=1, NCHEM
         do i = 1, ncom2
@@ -424,23 +404,10 @@ use waterbody_parameters, ONLY: afield
     !Find index of last 2 nodes, this will be used for groundwater calculations
 	    top_node_last_horizon    = ncom2-1
 		bottom_node_last_horizon = ncom2
-
-
-    write(*,*) 'compartments for aquifer: ', ncom2-1, 'to', ncom2
-    
     
     !SHOULD last 2 compaertments be saturated?  Not sure if that is in here 7/5/2023
     !*************************************************
-    
-    
-    
-    !***********************************************
-    
-    
-    
-    
-    
-  !***************************************************************************************************  
+
     !Implicit routine corection for degradation: insures perfect degradation at high rates    
              aq_rate_corrected =     exp(aq_rate_input)   -1.  
              sorb_rate_corrected =   exp(sorb_rate_input) -1.
@@ -451,8 +418,6 @@ use waterbody_parameters, ONLY: afield
              !done as of 12-4-2022  but check
 	!
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-             
-    write(*,*) 'start GW degradation profile'         
              
     do k = 1, nchem       
         previous_depth = 0.0
@@ -531,26 +496,12 @@ use waterbody_parameters, ONLY: afield
         end if
         
     end do
-     write(*,*) 'end GW profile' 
-   !!SECTION FOR OUTPUT IN RUN STATUS FILE ONLY ****************************    
     
-  write (*,'(A)')   '    #     depth     bd       max_water     min_wat    orgcarb         kd         dwrate'
-do i = 1, ncom2
-    write (*,'(I5,1X, F9.2, 8G12.3)') i,soil_depth(i), bulkdensity(i),theta_fc(i), theta_wp(i), orgcarb(i),  k_freundlich(1,i),dwrate_atRefTemp(1,i)
-end do	
-    
-
-    
-    
-   ! write (*,*) 'Degradation profile with depth'
-   ! write(*,*)  'Compartment, End Depth, Reduction Factor'
-   ! running_depth  = 0.0
-   ! do i= 1, ncom2
-   !    running_depth  = running_depth  + delx(i)
-   !   write(*,*) i, running_depth,  dwrate_atRefTemp(1,i)/ aq_rate_input(1)
-   ! end do
-   ! !**********************************************************************
-
+    write(*,*) 'GW profile:' 
+    write (*,'(A)')   '    #     depth     bd       max_water     min_wat    orgcarb         kd         dwrate'
+    do i = 1, ncom2
+       write (*,'(I5,1X, F9.2, 8G12.3)') i,soil_depth(i), bulkdensity(i),theta_fc(i), theta_wp(i), orgcarb(i),  k_freundlich(1,i),dwrate_atRefTemp(1,i)
+    end do	
     
     !As a default set the degradation rate to equal the input values
     dwrate = dwrate_atRefTemp
@@ -559,7 +510,7 @@ end do
 
     theta_sat = 1.0 - bulkdensity/2.65
     if (any(theta_fc > theta_sat)) then
-          WRITE(*,* ) 'Water capacity exceeds saturation.'
+          WRITE(*,* ) 'Note: water capacity exceeds saturation; assuming no user error'
     end if
     
     !If Linear Isotherms are used the reading Freundlich coefficient are used as Kd
@@ -630,48 +581,28 @@ end do
         !For default case JUSLEC is referenced to the Jan 1 of any year
         startday_doy = startday - jd(first_year,1,1)+1  
         
-         write(*,*) 'start dat',  startday
-        
-        
         do I=1,NUSLEC              
            JUSLEC(I)= jd(1,GMUSLEC(I),GDUSLEC(I)) -jd(1,1,1) +1     
         end do 
         smallest_difference = 1000                  
         do i= 1,NUSLEC    
             
-             write(*,*) 'JUSLEC(i) > startday_doy', JUSLEC(i) , startday_doy
-             
-             
                if (JUSLEC(i) > startday_doy) then
                  day_difference =  startday_doy - (JUSLEC(i)-365)
                else
                  day_difference =  startday_doy - JUSLEC(i)   
                end if
                
-               write(*,*)  'day_difference ',  day_difference 
-               
-               
                if (day_difference < smallest_difference) then
                    smallest_difference = day_difference  
                    CN_index = i   !This sets the index for initial CN and erosion parameters
                end if
                
-               
-                  write(*,*)     'cn_index', CN_index
-                  write(*,*) 'usle month day  ' , GMUSLEC(I),GDUSLEC(I)
-               
         enddo      
     end if
-    
-    write(*,*)     'cn_index', CN_index
 
     cfac = USLEC(CN_index)
       
-    
-    
- 
-    
-    
     !****************************************
     !Calculate Average Soil moisture in moisture zone (spec'd as a parameter) 
     !altered on 8/24/17 to average over depth rather than nodes so that it is consitent
@@ -690,9 +621,6 @@ end do
     fieldcap_water  = theta_fc*  DELX
     wiltpoint_water = theta_wp*  DELX
 
-    
-    
-    
 
     !!***  Find the Maximum Root Node **********
     !rzd = maxval(max_root_depth(1:num_crops))
@@ -742,17 +670,6 @@ end do
     call SetupFieldOutputOptions
 	call calculate_retardation_factor
     
-    write(*,*) "End of Initialization"
-
-
-    
-    
-    
-    
-    
-    
-    
-    
 end subroutine INITL
     
 !**********************************************************************
@@ -788,179 +705,147 @@ end subroutine INITL
 !**********************************************************************
 
 subroutine SetupApplications
-  !Gets a scheme application set and 
-  !sets the application days in julian days referenced to 1/1/1900 and puts them in application_date array
-  ! Application_date is the entire
-  use utilities_1
-  use constants_and_Variables, ONLY:num_applications_input,pest_app_method_in,DEPI_in,application_rate_in,APPEFF_in, &
+    !Gets a scheme application set and 
+    !sets the application days in julian days referenced to 1/1/1900 and puts them in application_date array
+    ! Application_date is the entire
+    use utilities_1
+    use constants_and_Variables, ONLY:num_applications_input,pest_app_method_in,DEPI_in,application_rate_in,APPEFF_in, &
                                     Tband_top_in,drift_value,lag_app_in,repeat_app_in, first_year, last_year,  &
                                     application_date_original,application_date, pest_app_method,DEPI,TAPP,APPEFF,Tband_top, &
                                     num_crop_periods_input, emm, emd, mam,mad, ham,had, &
                                     total_applications , drift_kg_per_m2, cam123_soil_depth, delx, &
                                      days_until_applied,app_reference_point, application_order, is_adjust_for_rain
    
-  
-  use clock_variables
-        
-  implicit none 
-  integer :: i, j, mcrop,crop_iterations
-  integer :: app_counter
-  integer :: MONTH,DAY
-  integer :: YEAR_out,MONTH_out,DAY_out
-  
+    use clock_variables
+          
+    implicit none 
+    integer :: i, j, mcrop,crop_iterations
+    integer :: app_counter
+    integer :: MONTH,DAY
+    integer :: YEAR_out,MONTH_out,DAY_out
 
-
-  ! (actual total apps may be less if simulation starts late in the of stops early) but that does not matter to the program,  also because of lag and periodicity
+    ! (actual total apps may be less if simulation starts late in the of stops early) but that does not matter to the program,  also because of lag and periodicity
   
-  total_applications = (last_year - first_year + 1)*num_applications_input*num_crop_periods_input
-  write(*,*)"Total Applications = ",   total_applications
+    total_applications = (last_year - first_year + 1)*num_applications_input*num_crop_periods_input
 
-  allocate (application_date(total_applications))
-  allocate (application_order(total_applications))
-  allocate (application_date_original(total_applications))
-  
-  allocate (pest_app_method(total_applications))
-  allocate (DEPI(total_applications))    
-  allocate (TAPP(total_applications))             
-  allocate (APPEFF(total_applications))
-  allocate (Tband_top(total_applications))
-  allocate (drift_kg_per_m2(total_applications))
+    allocate (application_date(total_applications))
+    allocate (application_order(total_applications))
+    allocate (application_date_original(total_applications))
+    
+    allocate (pest_app_method(total_applications))
+    allocate (DEPI(total_applications))    
+    allocate (TAPP(total_applications))             
+    allocate (APPEFF(total_applications))
+    allocate (Tband_top(total_applications))
+    allocate (drift_kg_per_m2(total_applications))
 
-  write(*,*) "Done with Application Allocations"
-  !initialize application date to very high (unlikely julian app date). 
-  !Because allocated array may be larger than the actual number of applications (i.e. i used a simple counting scheme)
-  application_date = 100000000 
-  pest_app_method = 1
-  DEPI = 0.0
-  TAPP= 0.0
-  APPEFF= 0.0
-  Tband_top= 0.0
-  drift_kg_per_m2 = 0.0
+    !initialize application date to very high (unlikely julian app date). 
+    !Because allocated array may be larger than the actual number of applications (i.e. i used a simple counting scheme)
+    application_date = 100000000 
+    pest_app_method = 1
+    DEPI = 0.0
+    TAPP= 0.0
+    APPEFF= 0.0
+    Tband_top= 0.0
+    drift_kg_per_m2 = 0.0
  
-  
-  if (app_reference_point== 0) then
-      crop_iterations = 1
-  else
-      crop_iterations = num_crop_periods_input
-  end if
+    if (app_reference_point== 0) then
+        crop_iterations = 1
+    else
+        crop_iterations = num_crop_periods_input
+    end if
 
-  
-  write(*,*) "crop and app calcs"
-  
-  !First Loop is Crop Iterations, for absolute dates there is only one iteration  
-  app_counter=0       
-  do mcrop = 1, crop_iterations
+    !First Loop is Crop Iterations, for absolute dates there is only one iteration  
+    app_counter=0       
+    do mcrop = 1, crop_iterations
             !first get  the month and day of the realtive reference (years will be tacked on later)   
-     select case (app_reference_point)
-         case (0) !absolute        
-                 month = 1
-                 day = 1
-         case (1) !relative to emergenge
-                 month = emm(mcrop)
-                 day = emd(mcrop)
-         case (2) !relative to maturity
-                 month = mam(mcrop)
-                 day = mad(mcrop)   
-         case (3) !relative to harvest 
-                 month = ham(mcrop)
-                 day = had(mcrop)     
-		 end select
-     
-		 
-	!The following does not put apps in chrono order, rather by app number, then chrono.
-	! this is because each app may be lagged and stepped independent of others
-	!For rain fast option, will need chrono order.
-     do i=1, num_applications_input
+        select case (app_reference_point)
+             case (0) !absolute        
+                  month = 1
+                  day = 1
+             case (1) !relative to emergenge
+                  month = emm(mcrop)
+                  day = emd(mcrop)
+             case (2) !relative to maturity
+                  month = mam(mcrop)
+                  day = mad(mcrop)   
+             case (3) !relative to harvest 
+                  month = ham(mcrop)
+                  day = had(mcrop)     
+         end select
+         
+        !The following does not put apps in chrono order, rather by app number, then chrono.
+        ! this is because each app may be lagged and stepped independent of others
+        !For rain fast option, will need chrono order.
+         do i=1, num_applications_input
+              do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
 
-        do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
-
-           app_counter = app_counter+1  
+                    app_counter = app_counter+1  
+                    
+                    application_date(app_counter)=   jd(j,month,day) + days_until_applied(i)       
+                    pest_app_method(app_counter) = pest_app_method_in(i)
+                    DEPI(app_counter) =  DEPI_in(i)
+                    !make some Depth corrections if necessary
 		   
-           application_date(app_counter)=   jd(j,month,day) + days_until_applied(i)       
-           pest_app_method(app_counter) = pest_app_method_in(i)
-           DEPI(app_counter) =  DEPI_in(i)
-           !make some Depth corrections if necessary
-		   
-           Select Case(pest_app_method(app_counter))
-             Case(1:3)
-                 DEPI(app_counter) = cam123_soil_depth  !default for genaeral unspecified applications
-             Case(4:10)                            
-                If (DEPI(app_counter) < delx(1)) Then
-                    DEPI(app_counter) = delx(1)
-                    write (*,*) 'Note: Specified depth is less than compartment size, so used minimum incorporation = ', Delx(1)
-                End If
-             End Select         
-                         
-             TAPP(app_counter) = application_rate_in(i)/1.0E5  !     TAPP... kg/ha ---> g/cm**2
-             APPEFF(app_counter) = APPEFF_in(i)
-             Tband_top(app_counter) = Tband_top_in(i)                                   
-             drift_kg_per_m2(app_counter) = drift_value(i)*application_rate_in(i)/10000.    !Kg/m2 drift application to waterbody         
-             call get_date (application_date(app_counter), YEAR_out,MONTH_out,DAY_out)
+                   Select Case(pest_app_method(app_counter))
+                      Case(1:3)
+                          DEPI(app_counter) = cam123_soil_depth  !default for genaeral unspecified applications
+                      Case(4:10)                            
+                          If (DEPI(app_counter) < delx(1)) Then
+                             DEPI(app_counter) = delx(1)
+                             write (*,*) 'Note: Specified depth is less than compartment size, so used minimum incorporation = ', Delx(1)
+                          End If
+                   End Select
 
-        end do      
-     end  do    
-  end do
+                   TAPP(app_counter) = application_rate_in(i)/1.0E5  !     TAPP... kg/ha ---> g/cm**2
+                   APPEFF(app_counter) = APPEFF_in(i)
+                   Tband_top(app_counter) = Tband_top_in(i)                                   
+                   drift_kg_per_m2(app_counter) = drift_value(i)*application_rate_in(i)/10000.    !Kg/m2 drift application to waterbody         
+                   call get_date (application_date(app_counter), YEAR_out,MONTH_out,DAY_out)
+
+              end do    
+         end  do    
+    end do
     
+    application_date_original = application_date  !keep application_date_original the same for every scheme
   
-  application_date_original = application_date  !keep application_date_original the same for every scheme
-  
-  !Put applications in chronlogical order for use with rain-fast option. its not necessary to do this for normal runs,
+    !Put applications in chronlogical order for use with rain-fast option. its not necessary to do this for normal runs,
 
-  !this is a time consuming operation, lets bypass unless rainfast is checked
-  write(*,*) "Put applications in order for rain restrictions?", is_adjust_for_rain
-  
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time before ordering applications (if applicable)  ',time_1- cputime_begin
-write (*,*) '###################################################'		
+    !this is a time consuming operation, lets bypass unless rainfast is checked
 
-!call date_and_time(datetime(1), datetime(2))
-!write(*,*) "clock time before order", datetime(1), datetime(2)
-  
-  !potentially very TIME CONSUMING!!!! 
- if (is_adjust_for_rain) then
-  
-  	application_order = get_order(application_date)
     
-    application_date = application_date(application_order)
+    if (is_adjust_for_rain) then
+        write(*,*) "Put applications in order for rain restrictions?", is_adjust_for_rain
+        write(*,*) "To developer:"
+        write(*,*) "For rain restrictions, the program uses a sort routine that is very slow."
+        write(*,*) "Consider modifications, Or require user to input applications in chrono order"
+        write(*,*) "to avoid sorting requirement"
+        
+        write (*,*) '###################################################'	 
+        CALL CPU_TIME (time_1)
+        write (*,*) 'cpu time before ordering applications (if applicable)  ',time_1- cputime_begin
+        write (*,*) '###################################################'		
+   
+        !potentially very TIME CONSUMING!!!! 
+        
+        application_order = get_order(application_date)
+        application_date = application_date(application_order)
+        pest_app_method  = pest_app_method (application_order)
+        DEPI             = DEPI            (application_order)
+        TAPP             = TAPP            (application_order)
+        APPEFF           = APPEFF          (application_order)
+        Tband_top        = Tband_top       (application_order)
+        drift_kg_per_m2  = drift_kg_per_m2 (application_order)
+       
+        write (*,*) '###################################################'	 
+        CALL CPU_TIME (time_1)
+        write (*,*) 'cpu time after ordering applications (if applicable)  ',time_1- cputime_begin
+        write (*,*) '###################################################'
+    end if
+
+    !not sure about this, check it it seems to alter the original
+    application_date_original = application_date  !keep application_date_original the same for every scheme
     
-	pest_app_method  = pest_app_method (application_order)
-	DEPI             = DEPI            (application_order)
- 
-	TAPP             = TAPP            (application_order)
-	APPEFF           = APPEFF          (application_order)
-	Tband_top        = Tband_top       (application_order)
-	drift_kg_per_m2  = drift_kg_per_m2 (application_order)
-    
- end if
- 
-write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time after ordering applications (if applicable)  ',time_1- cputime_begin
-write (*,*) '###################################################'
-
-
-!not sure about this, check it it seems to alterthe original
-	application_date_original = application_date  !keep application_date_original the same for every scheme
-
-	
-  !do i = 1, total_applications
-	 !write(*,*) i, application_date(i), TAPP(i)  
-  !end do
-  
-
-  
-  
- write (*,*) '###################################################'	 
-CALL CPU_TIME (time_1)
-write (*,*) 'cpu time after writing apps',time_1- cputime_begin
-write (*,*) '###################################################'		
- 
-  
-  
-  
-  write(*,*) 'Done setting application dates, Total applications in sim = ', app_counter
-
   end subroutine SetupApplications
 
 !**********************************************************************  
@@ -1085,7 +970,6 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
     integer :: num_std_plots  !counter for the number of standard plots that were requested 
                               !("extra plots" as in the variables module are those that the user specified with the traditional przm nomenclature)
 
-	
     i=0
     if (is_runoff_output) then
         i=i+1
@@ -1293,13 +1177,10 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
                 CONST(i) = 100000. !kg/ha
            end if
 
-	end do
-	
-
-    num_std_plots= i 
-	
-
+    end do
     
+    num_std_plots= i 
+
     do i =  1, extra_plots       
         PLNAME(num_std_plots +i)  = temp_PLNAME(i)
         chem_id(num_std_plots +i) = temp_chem_id(i)
@@ -1309,13 +1190,10 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
         CONST(num_std_plots +i)   = temp_CONST(i)
 	end do
 
-	
-	
     NPLOTS= num_std_plots + extra_plots
 	
+  end subroutine SetupFieldOutputOptions
 
-
-end subroutine SetupFieldOutputOptions
   
   subroutine Calculate_Retardation_Factor
   use constants_and_variables, ONLY: ncom2, delx, theta_fc, bulkdensity, Kd_new,retardation_factor,maxcap_volume , nchem
@@ -1335,13 +1213,10 @@ end subroutine SetupFieldOutputOptions
        do k = 1, nchem
 	       total_depth = sum(delx)
 	       retardation_factor(k) = 0.0
-           
 	       do i = 1, ncom2
 	          	retardation_factor(k) = retardation_factor(k) + delx(i) /total_depth*	(theta_fc(i) +bulkdensity(i)*kd_new(k, i))/theta_fc(i)
 	       end do
-	       	
 	       write(*,*) 'Retardation Factor = ' , k, retardation_factor(k)
-  
        end do       
         
        maxcap_volume = 0.0       
@@ -1349,14 +1224,7 @@ end subroutine SetupFieldOutputOptions
 			maxcap_volume = maxcap_volume + theta_fc(i) * delx(i)
        end do
        write(*,*) 'maxcap_volume (effective pore volume (depth), cm) = ', maxcap_volume
-
-
-
-        
-  end   subroutine Calculate_Retardation_Factor
+  end subroutine Calculate_Retardation_Factor
   
-
-
-
 
 end module initialization   
