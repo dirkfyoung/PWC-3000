@@ -844,7 +844,7 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     summary_output_unit_tpez,summary_output_unit_tpez_deg1,summary_output_unit_tpez_deg2, &   
     effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2,  &
-     fraction_off_field, family_name, hold_for_medians_TPEZ, app_window_counter
+     fraction_off_field, family_name, hold_for_medians_TPEZ, app_window_counter,hold_for_medians_TPEZ_daughter,hold_for_medians_TPEZ_grandaughter
 
 use utilities_1, ONLY: Return_Frequency_Value
 
@@ -897,10 +897,13 @@ use utilities_1, ONLY: Return_Frequency_Value
     case (2)
         local_run_id = trim(run_id)//"_TPEZ"  // '_deg1'
         write(summary_output_unit_tpez_deg1,'(A80,1x,26(",",ES13.4E3))') (adjustl(local_run_id)), tpez_max_out
+        hold_for_medians_TPEZ_daughter(app_window_counter) = tpez_max_out
+        
+        
     case (3)
         local_run_id = trim(run_id)//"_TPEZ"   // '_deg2'
         write(summary_output_unit_tpez_deg2,'(A80,1x,26(",",ES13.4E3))') (adjustl(local_run_id)), tpez_max_out
-
+        hold_for_medians_TPEZ_grandaughter(app_window_counter) = tpez_max_out
         case default
     end select
  
@@ -918,7 +921,7 @@ end subroutine tpez_write_simple_batch_data
                 if (First_time_through_medians_wpez) then 
                     !write header
                     open (UNIT= median_output_unit_wpez, FILE = 'Medians_wpez.txt', STATUS = 'UNKNOWN')
-                    write(median_output_unit_wpez,  '(A213)') "Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg,  Total System (lb/A)"
+                    write(median_output_unit_wpez,  '(A212)') "Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg,  Total System (lb/A)"
       
                     First_time_through_medians_wpez = .FALSE.
                 end if
@@ -930,18 +933,18 @@ end subroutine tpez_write_simple_batch_data
      
      
      subroutine write_medians_tpez(medians_input)
-     use constants_and_variables, only: median_output_unit_tpez, First_time_through_medians_tpez
+     use constants_and_variables, only: median_output_unit_tpez, First_time_through_medians_tpez, run_id
                 implicit none
                 real, intent(in) :: medians_input
                 integer :: i
                 if (First_time_through_medians_tpez) then 
                     !write header
                     open (UNIT= median_output_unit_tpez, FILE = 'Medians_tpez.txt', STATUS = 'UNKNOWN')
-                    write(median_output_unit_tpez,  '(A70)') "Run Information                                                                  ,      1-d avg,  "
+                    write(median_output_unit_tpez,  '(A93)') "Run Information                                                                       ,  lb/A"
                     First_time_through_medians_tpez = .FALSE.
                 end if
                 
-                write(median_output_unit_tpez, "(G12.4)" ) medians_input
+                write(median_output_unit_tpez, '(A86, ",", G12.4 )') adjustl((adjustr(run_id)//"_median")), medians_input*0.892179
              
      end subroutine write_medians_tpez
      

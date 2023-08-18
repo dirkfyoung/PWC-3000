@@ -221,11 +221,11 @@
      
     
      
-     subroutine find_medians(rows, columns, hold_for_medians, medians)
+     subroutine find_medians(rows, columns, local_hold_for_medians, medians)
         !Find median of array with 10 columns and 
          integer, intent(in) ::  rows, columns
          
-         real, intent(in)    ::  hold_for_medians(columns, rows) 
+         real, intent(in)    ::  local_hold_for_medians(columns, rows) 
          real, intent(out)   ::  medians(columns)
         
          real :: pos_median, neg_median, test_for_median
@@ -240,9 +240,9 @@
               got_median = .False.    
                
               do i = 1, rows !days
-                   test_for_median = hold_for_medians(j, i)  
-                   count_above = count (hold_for_medians(j,:) >= test_for_median)
-                   count_below = count (hold_for_medians(j,:) <= test_for_median)
+                   test_for_median = local_hold_for_medians(j, i)  
+                   count_above = count (local_hold_for_medians(j,:) >= test_for_median)
+                   count_below = count (local_hold_for_medians(j,:) <= test_for_median)
                    
                    if (count_above == count_below) then 
                            got_median = .TRUE.

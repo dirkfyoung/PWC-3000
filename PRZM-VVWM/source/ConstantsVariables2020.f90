@@ -11,12 +11,21 @@ module constants_and_variables
       logical :: use_bidiagonal
       integer :: app_window_counter  !tracks the appication widow for placement into a storage array for median calculation of concentrations
       
-      real :: hold_for_medians(10,366)      !holds app window values for median determination 
-      real :: hold_for_medians_WPEZ(10,366) !holds app window values for median determination 
+      integer, parameter :: number_medians = 10
+      
+      real :: hold_for_medians(number_medians,366)      !holds app window values for median determination 
+      real :: hold_for_medians_WPEZ(number_medians,366) !holds app window values for median determination 
       real :: hold_for_medians_TPEZ(366)     !Holds TPEZ acute value
       
+      real :: hold_for_medians_daughter(number_medians,366)      !holds app window values for median determination 
+      real :: hold_for_medians_WPEZ_daughter(number_medians,366) !holds app window values for median determination 
+      real :: hold_for_medians_TPEZ_daughter(366)     !Holds TPEZ acute value
       
-      real :: medians_conc(10)                   !keeps final medians
+      real :: hold_for_medians_granddaughter(number_medians,366)      !holds app window values for median determination 
+      real :: hold_for_medians_WPEZ_grandaughter(number_medians,366) !holds app window values for median determination 
+      real :: hold_for_medians_TPEZ_grandaughter(366)     !Holds TPEZ acute value     
+    
+    !  real :: medians_conc(number_medians)  !keeps final medians for main (current) waterbody simulations
 
       ! File Names *******************************************************************************
       character (len=512) PRZMVVWMinputfile     

@@ -4,7 +4,7 @@ program PRZMVVWM
     use constants_and_variables, ONLY: maxFileLength, inputfile,number_of_schemes, &
              number_of_scenarios,  First_time_through_wb, First_time_through_wpez,First_time_through_tpez,First_time_through_medians, &
              app_window_span, app_window_step, application_date, application_date_original, &
-             is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id, app_window_counter,hold_for_medians, medians_conc, &
+             is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id, app_window_counter,hold_for_medians, &
              First_time_through_medians_wpez, hold_for_medians_wpez, First_time_through_medians_tpez,  hold_for_medians_tpez
     
     use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond, spraytable,itstpezwpez
@@ -24,6 +24,7 @@ program PRZMVVWM
 	use Pesticide_Applications
 	use readbatchscenario
     use TPEZ_WPEZ
+    use process_medians, ONLY: calculate_medians
 
     implicit none
 
@@ -34,9 +35,9 @@ program PRZMVVWM
     logical :: run_tpez_wpez  !TRUE if USEPA_pond has just been simulated AND TPEZ/WPEZ run has been requested (i.e., istpezwpez==treue)
     character :: dummy
 
-    integer, parameter :: number_medians = 10
-    real::medians_conc_wpez(number_medians)
-    real:: medians_conc_tpez(1)
+!    integer, parameter :: number_medians = 10
+    !real::medians_conc_wpez(number_medians)
+    !real:: medians_conc_tpez(1)
     
     !################################################ 
     CALL CPU_TIME (cputime_begin)
@@ -153,7 +154,12 @@ program PRZMVVWM
 
 			   app_window_counter = 0  !use this to track app window to find medians
                hold_for_medians = 0.0  !use this to hold data for medians
-               medians_conc = 0.0
+               
+               ! zero other hold fior mediuans here (maybe not needed)
+               
+               
+
+               
                do jj = 0, app_window_span(i), app_window_step(i) 
 				     application_date= application_date_original + jj
                      app_window_counter = app_window_counter +1 
@@ -172,39 +178,37 @@ program PRZMVVWM
                      if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
                          call wpez   
                          call tpez(i)  !need to send in scheme to find drift
-                     end if
-                                            
-   call time_check("VVWM finish")
-                      
+                     end if                     
                end do    
-			   
-               
+			                 
                !******process application date widow into medians****************
-               call find_medians (app_window_counter, number_medians, hold_for_medians, medians_conc)  
-               call write_medians(medians_conc, number_medians)
+               call calculate_medians(app_window_counter,run_tpez_wpez )
                
-               if (run_tpez_wpez) then  !wpez needs its own call due to different capture also because its scenario run is same as pond
-                     call find_medians (app_window_counter, number_medians, hold_for_medians_wpez, medians_conc_wpez)  
-                     call write_medians_wpez(medians_conc_wpez, number_medians)
-                     
-                     call find_medians (app_window_counter, 1, hold_for_medians_tpez, medians_conc_tpez) 
-                     call write_medians_tpez(medians_conc_tpez(1))
-               end if
+ !              call find_medians (app_window_counter, number_medians, hold_for_medians, medians_conc)  
+ !              call write_medians(medians_conc, number_medians)
+               
+               !if (run_tpez_wpez) then  !wpez needs its own call due to different capture also because its scenario run is same as pond
+               !    
+               !      call find_medians (app_window_counter, number_medians, hold_for_medians_wpez, medians_conc_wpez)  
+               !      call write_medians_wpez(medians_conc_wpez, number_medians)
+               !      
+               !      call find_medians (app_window_counter, 1, hold_for_medians_tpez, medians_conc_tpez) 
+               !      call write_medians_tpez(medians_conc_tpez(1))
+               !                       
+               !end if
                !****************************************************************
                
                call deallocate_scenario_parameters		   
 
             end do  !END SCENARIO LOOP  kk 
             
- call time_check('cpu time vvwm done ')
-
-        
-            call deallocate_application_parameters !allocations are done in set_chmical_applications, need to deallocatte for next scheme       
+            call deallocate_application_parameters !allocations are done in set_chmical_applications, need to deallocatte for next scheme 
+            
             write(*,*) '*****************************Done with scheme ', i    
- call time_check('cpu time, scheme    ')                
+            call time_check('cpu time, scheme    ')                
 
 		 end do  !End scheme Loop, i
- call time_check('cpu time, waterbody')   		 
+		 
 
 		 deallocate (spraytable )
 		 
@@ -215,7 +219,6 @@ program PRZMVVWM
  call SYSTEM_CLOCK(c_count, c_rate, c_max)
  clock_time = real(c_count)/real(c_rate)
  write (*,*) 'Total clock time = ',clock_time  - clock_time_0 
- write (*,*) 'tridiag', Cumulative_cpu_3
  write (*,*) '###################################################'  	
  
 end program PRZMVVWM
