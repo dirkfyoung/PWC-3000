@@ -21,7 +21,7 @@ module constants_and_variables
       real :: hold_for_medians_WPEZ_daughter(number_medians,366) !holds app window values for median determination 
       real :: hold_for_medians_TPEZ_daughter(366)     !Holds TPEZ acute value
       
-      real :: hold_for_medians_granddaughter(number_medians,366)      !holds app window values for median determination 
+      real :: hold_for_medians_grandaughter(number_medians,366)      !holds app window values for median determination 
       real :: hold_for_medians_WPEZ_grandaughter(number_medians,366) !holds app window values for median determination 
       real :: hold_for_medians_TPEZ_grandaughter(366)     !Holds TPEZ acute value     
     
@@ -59,21 +59,31 @@ module constants_and_variables
       
       integer, parameter ::  TimeSeriesUnit2         = 58
       integer, parameter ::  waterbody_file_unit     = 59
-      integer, parameter ::  median_output_unit      = 60
-      integer, parameter ::  median_output_unit_wpez = 61
-      integer, parameter ::  median_output_unit_tpez = 62
-          
-      character(len= 500), parameter :: summary_outputfile      =  "summary_output.txt"
-      character(len= 500), parameter :: summary_outputfile_deg1 =  "summary_output_Deg1.txt"
-      character(len= 500), parameter :: summary_outputfile_deg2 =  "summary_output_Deg2.txt"
       
-      character(len= 500), parameter :: summary_outputfile_tpez =       "summary_output_tpez.txt"    
-      character(len= 500), parameter :: summary_outputfile_tpez_deg1 =  "summary_output_tpez_deg1.txt"
-      character(len= 500), parameter :: summary_outputfile_tpez_deg2 =  "summary_output_tpez_deg2.txt"
+      integer, parameter ::  median_unit                   = 60
+      integer, parameter ::  median_daughter_unit          = 61
+      integer, parameter ::  median_grandaughter_unit      = 62      
+      
+      integer, parameter ::  median_unit_wpez              = 63
+      integer, parameter ::  median_daughter_unit_wpez     = 64
+      integer, parameter ::  median_grandaughter_unit_wpez = 65
+          
+      integer, parameter ::  median_unit_tpez              = 66
+      integer, parameter ::  median_daughter_unit_tpez     = 67
+      integer, parameter ::  median_grandaughter_unit_tpez = 68
+      
+
+      character(len= 500), parameter :: summary_outputfile      =  "summary.txt"
+      character(len= 500), parameter :: summary_outputfile_deg1 =  "summary_Deg1.txt"
+      character(len= 500), parameter :: summary_outputfile_deg2 =  "summary_Deg2.txt"
+      
+      character(len= 500), parameter :: summary_outputfile_tpez =       "summary_tpez.txt"    
+      character(len= 500), parameter :: summary_outputfile_tpez_deg1 =  "summary_tpez_deg1.txt"
+      character(len= 500), parameter :: summary_outputfile_tpez_deg2 =  "summary_tpez_deg2.txt"
      
-      character(len= 500), parameter :: summary_WPEZoutputfile      =  "summary_output_WPEZ.txt"
-      character(len= 500), parameter :: summary_WPEZoutputfile_deg1 =  "summary_output_WPEZ_deg1.txt"
-      character(len= 500), parameter :: summary_WPEZoutputfile_deg2 =  "summary_output_WPEZ_deg2.txt"
+      character(len= 500), parameter :: summary_WPEZoutputfile      =  "summary_WPEZ.txt"
+      character(len= 500), parameter :: summary_WPEZoutputfile_deg1 =  "summary_WPEZ_deg1.txt"
+      character(len= 500), parameter :: summary_WPEZoutputfile_deg2 =  "summary_WPEZ_deg2.txt"
       
       
       

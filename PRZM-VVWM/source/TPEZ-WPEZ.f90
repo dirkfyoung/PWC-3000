@@ -912,41 +912,6 @@ use utilities_1, ONLY: Return_Frequency_Value
 end subroutine tpez_write_simple_batch_data
     
 !***************************************************************************
-     subroutine write_medians_wpez(medians_input,number)
-     use constants_and_variables, only: median_output_unit_wpez, First_time_through_medians_wpez, run_id
-                implicit none
-                integer, intent(in) :: number
-                real, intent(in) :: medians_input(number)
-                integer :: i
-                if (First_time_through_medians_wpez) then 
-                    !write header
-                    open (UNIT= median_output_unit_wpez, FILE = 'Medians_wpez.txt', STATUS = 'UNKNOWN')
-                    write(median_output_unit_wpez,  '(A212)') "Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg,  Total System (lb/A)"
-      
-                    First_time_through_medians_wpez = .FALSE.
-                end if
-                
-                write(median_output_unit_wpez, '(A86, 10(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_input(i), i=1, 9) 
-                
-             
-     end subroutine write_medians_wpez
-     
-     
-     subroutine write_medians_tpez(medians_input)
-     use constants_and_variables, only: median_output_unit_tpez, First_time_through_medians_tpez, run_id
-                implicit none
-                real, intent(in) :: medians_input
-                integer :: i
-                if (First_time_through_medians_tpez) then 
-                    !write header
-                    open (UNIT= median_output_unit_tpez, FILE = 'Medians_tpez.txt', STATUS = 'UNKNOWN')
-                    write(median_output_unit_tpez,  '(A93)') "Run Information                                                                       ,  lb/A"
-                    First_time_through_medians_tpez = .FALSE.
-                end if
-                
-                write(median_output_unit_tpez, '(A86, ",", G12.4 )') adjustl((adjustr(run_id)//"_median")), medians_input*0.892179
-             
-     end subroutine write_medians_tpez
-     
+  
  
 end module TPEZ_WPEZ

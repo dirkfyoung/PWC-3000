@@ -408,7 +408,8 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     nchem,     runoff_fraction,erosion_fraction,drift_fraction,summary_outputfile, &
     effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, &
-    gw_peak, post_bt_avg ,throughputs,simulation_avg, fraction_off_field, family_name, app_window_counter, hold_for_medians
+    gw_peak, post_bt_avg ,throughputs,simulation_avg, fraction_off_field, family_name, app_window_counter, &
+    hold_for_medians, hold_for_medians_daughter,hold_for_medians_grandaughter
 
 use utilities_1, ONLY: Return_Frequency_Value
 
@@ -426,7 +427,7 @@ use utilities_1, ONLY: Return_Frequency_Value
     
     
     integer, intent(in) ::chem_index
-    character (len=444) :: header
+    character (len=457) :: header
     
     
     !****LOCAL*********************
@@ -435,17 +436,17 @@ use utilities_1, ONLY: Return_Frequency_Value
     character(len= 257) :: local_run_id
     
     If (First_time_through) then
-        header = 'Run Information                                                                  ,      1-d avg,    365-d avg,    Total avg,      4-d avg,     21-d avg,     60-d avg,      B 1-day,   B 21-d avg,    Off-Field,  Runoff Frac,   Erosn Frac,   Drift Frac,  col washout,    col metab,    col hydro,    col photo,    col volat,    col total,  ben sed rem,    ben metab,    ben hydro,    ben total,      gw_peak,  post_bt_avg,   throughput, sim_avg_gw'
+        header = 'Run Information                                                                  ,      1-d avg,    365-d avg,    Total avg,      4-d avg,     21-d avg,     60-d avg,      B 1-day,   B 21-d avg,    Off-Field,  Runoff Frac,   Erosn Frac,   Drift Frac,  col washout,    col metab,    col hydro,    col photo,    col volat,    col total,  ben sed rem,    ben metab,    ben hydro,    ben total,      gw_peak,  post_bt_avg,   throughput,   sim_avg_gw'
         
         Open(unit=unit_number,FILE=  (trim(family_name) // "_" // trim(summary_filename)),Status='unknown')  
-        Write(unit_number, '(A444)') header
+        Write(unit_number, '(A457)') header
         if ( NCHEM>1) then
             Open(unit=unit_number_deg1,FILE= (trim(family_name) // "_" // trim(summary_filename_deg1)),Status='unknown')  
-            Write(unit_number_deg1, '(A433)') header
+            Write(unit_number_deg1, '(A457)') header
         end if
         if ( NCHEM >2) then
             Open(unit=unit_number_deg2,FILE= (trim(family_name) // "_" // trim(summary_filename_deg2)),Status='unknown')  
-            Write(unit_number_deg2, '(A433)') header
+            Write(unit_number_deg2, '(A457)') header
         end if
         
         First_time_through= .FALSE.
@@ -484,17 +485,37 @@ use utilities_1, ONLY: Return_Frequency_Value
        hold_for_medians( 9, app_window_counter)= post_bt_avg(1)
        hold_for_medians( 10, app_window_counter)= throughputs(1)
        
-
-       
-        
     case (2)
         local_run_id = trim(run_id) // '_deg1'
         write(unit_number_deg1,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field,runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, gw_peak(2), post_bt_avg(2) ,throughputs(2) ,simulation_avg(2)
+
+       hold_for_medians_daughter( 1, app_window_counter)= c1_out
+       hold_for_medians_daughter( 2, app_window_counter)= c365_out
+       hold_for_medians_daughter( 3, app_window_counter)= simulation_average
+       hold_for_medians_daughter( 4, app_window_counter)= c4_out
+       hold_for_medians_daughter( 5, app_window_counter)= c21_out
+       hold_for_medians_daughter( 6, app_window_counter)= c60_out
+       hold_for_medians_daughter( 7, app_window_counter)= benthic_peak_out
+       hold_for_medians_daughter( 8, app_window_counter)= benthic_c21_out
+       hold_for_medians_daughter( 9, app_window_counter)= post_bt_avg(2)
+       hold_for_medians_daughter( 10, app_window_counter)= throughputs(2)  
+    
     case (3)
         local_run_id = trim(run_id)  // '_deg2'
         write(unit_number_deg2,'(A80,1x,26(",", ES13.4E3))')(adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, gw_peak(3), post_bt_avg(3) ,throughputs(3) ,simulation_avg(3)
+
+        hold_for_medians_grandaughter( 1, app_window_counter)= c1_out
+        hold_for_medians_grandaughter( 2, app_window_counter)= c365_out
+        hold_for_medians_grandaughter( 3, app_window_counter)= simulation_average
+        hold_for_medians_grandaughter( 4, app_window_counter)= c4_out
+        hold_for_medians_grandaughter( 5, app_window_counter)= c21_out
+        hold_for_medians_grandaughter( 6, app_window_counter)= c60_out
+        hold_for_medians_grandaughter( 7, app_window_counter)= benthic_peak_out
+        hold_for_medians_grandaughter( 8, app_window_counter)= benthic_c21_out
+        hold_for_medians_grandaughter( 9, app_window_counter)= post_bt_avg(3)
+        hold_for_medians_grandaughter( 10, app_window_counter)= throughputs(3)  
 
         case default
     end select
@@ -608,33 +629,6 @@ end Subroutine calculate_effective_halflives
 
 
 
-
-
-
-
-
-     subroutine write_medians(medians_input,number)
-     use constants_and_variables, only: median_output_unit, First_time_through_medians, run_id
-     
-     use waterbody_parameters, ONLY: this_waterbody_name
-     
-                implicit none
-                integer :: number
-                real :: medians_input(number)
-                integer :: i
-                character(Len=50) :: localfilename
-                if (First_time_through_medians) then 
-                    !write header
-                    localfilename = "medians_" // trim(this_waterbody_name) // ".txt"
-                    
-                    open (UNIT= median_output_unit, FILE = localfilename, STATUS = 'UNKNOWN')
-                    write(median_output_unit, '(A215)') (("Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg, post_bt_avg, throughput"))
-                    First_time_through_medians = .FALSE.
-                end if
-                            
-                write(median_output_unit, '(A86, 10(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_input(i), i=1, number)  
-
-     end subroutine write_medians
 
 
      

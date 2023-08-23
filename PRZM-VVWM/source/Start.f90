@@ -10,7 +10,6 @@ program PRZMVVWM
     use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond, spraytable,itstpezwpez
     use clock_variables
 	
-    use outputprocessing, ONLY: write_medians
     use PRZM_VERSION
    ! use PRZM_part
     use initialization
@@ -157,9 +156,7 @@ program PRZMVVWM
                
                ! zero other hold fior mediuans here (maybe not needed)
                
-               
 
-               
                do jj = 0, app_window_span(i), app_window_step(i) 
 				     application_date= application_date_original + jj
                      app_window_counter = app_window_counter +1 
@@ -184,19 +181,6 @@ program PRZMVVWM
                !******process application date widow into medians****************
                call calculate_medians(app_window_counter,run_tpez_wpez )
                
- !              call find_medians (app_window_counter, number_medians, hold_for_medians, medians_conc)  
- !              call write_medians(medians_conc, number_medians)
-               
-               !if (run_tpez_wpez) then  !wpez needs its own call due to different capture also because its scenario run is same as pond
-               !    
-               !      call find_medians (app_window_counter, number_medians, hold_for_medians_wpez, medians_conc_wpez)  
-               !      call write_medians_wpez(medians_conc_wpez, number_medians)
-               !      
-               !      call find_medians (app_window_counter, 1, hold_for_medians_tpez, medians_conc_tpez) 
-               !      call write_medians_tpez(medians_conc_tpez(1))
-               !                       
-               !end if
-               !****************************************************************
                
                call deallocate_scenario_parameters		   
 
