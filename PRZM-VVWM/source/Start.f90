@@ -173,8 +173,11 @@ program PRZMVVWM
                      call VVWM 
                         
                      if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
+                          call time_check("before wpez")
                          call wpez   
+                          call time_check("after wpez")
                          call tpez(i)  !need to send in scheme to find drift
+            
                      end if                     
                end do    
 			                 

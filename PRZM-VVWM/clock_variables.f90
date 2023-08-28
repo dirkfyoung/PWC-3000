@@ -24,10 +24,9 @@ contains
       subroutine time_check(message)
          implicit none                         
          character(Len = *) :: message
-         write (*,*) '###################################################'	 
+
          CALL CPU_TIME (time_1)
-         write (*,*) message, time_1- cputime_begin
-         write (*,*) '###################################################'	  
+
       end subroutine 
 
 

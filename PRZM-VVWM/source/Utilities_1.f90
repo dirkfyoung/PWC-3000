@@ -150,9 +150,7 @@
 
    end subroutine get_date
       
- 
-  
-!
+
      pure integer function find_depth_node(n,depth,desired) 
      !Given an array "depth" of size "n" that is ordered from low to high values, this 
      !function will give the index of "depth" that is closest to the value "desired"
@@ -168,8 +166,6 @@
       !write(*,*) n,depth,desired
       
       
-      
-
       do i=1, n 
           index = i  !store value for the case where we go to the max n and i would be incremented another 1 value
           if (depth(i) > desired) exit
@@ -186,12 +182,11 @@
       end if
 
      end function find_depth_node  
-         
-
-     
+           
      subroutine find_average_property(n, depth, target_depth, property, average)
      !weigted average, given vector of thicknesses and vector of correspnding property, Finds the average property
      !value of a target_depth
+     use clock_variables
      implicit none
         integer,intent(in) :: n                      !size of input vectors for depth and prperty
         real   ,intent(in) :: depth(n)          !vector of cumulative depths 
@@ -201,11 +196,11 @@
         
         integer :: i
         real ::  previous_depth, weighted_tally
-
+call time_check('averag deep loop 1') 
         weighted_tally = 0.0
         previous_depth = 0.0
         
-        do i = 1, n            
+        do i = 1, n    
               if (depth(i) < target_depth) then
                   weighted_tally = weighted_tally+ property(i)*(depth(i) - previous_depth ) 
               elseif(depth(i) >= target_depth) then
@@ -216,7 +211,9 @@
               end if 
               previous_depth = depth(i)
         end do
-       average =  weighted_tally/target_depth
+       average =  weighted_tally/target_depth     
+       
+       
      end subroutine
      
     

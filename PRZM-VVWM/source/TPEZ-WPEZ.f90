@@ -460,7 +460,7 @@ Module TPEZ_WPEZ
       use MassInputs
     !  use outputprocessing
       use utilities_1
-    
+    use clock_variables
       implicit none   
       integer,intent(in) ::scheme_number
      
@@ -497,13 +497,12 @@ Module TPEZ_WPEZ
 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000  &   
 /),(/13,17/)))        
       
-      
+     call time_check("inside tpez")
       !need to reload new spray table for tpez  
       !(but check when main water body table was loaded, my need to rework this by sending in spray table rather than with global mofdule) 
       !dont want to override regular table in the water body loop aug 2023
       
-      
-      write(*,*) "Enter TPEZ"
+    
      
       drift_kg_per_m2= 0.0
 
@@ -554,8 +553,10 @@ Module TPEZ_WPEZ
           end do
       end do
     
+      
      call spraydrift
-   
+
+    
      call find_average_property(ncom2,soil_depth,15.0, theta_fc    , avg_maxwater)    
      call find_average_property(ncom2,soil_depth,15.0, theta_wp    , avg_minwater)
      call find_average_property(ncom2,soil_depth,15.0, bulkdensity , avg_bd)  
@@ -563,10 +564,12 @@ Module TPEZ_WPEZ
     
      write(*,*)"For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:"
      write(*,*) avg_maxwater,  avg_minwater, avg_bd, avg_oc 
-  
+   
      call  tpez_volume_calc (avg_maxwater, avg_minwater, area_tpez)   !call special averaging in here
-
+  
+     
      do chem_index= 1, nchem 
+           
           if (is_koc) then
                   kd = k_f_input(chem_index) * avg_oc /100.0   !ml/g , oc is in %
           else
@@ -574,8 +577,13 @@ Module TPEZ_WPEZ
           end if
           
           call TPEZ_initial_conditions(chem_index)  !just populates m1 additions: erosion runoff and drift
+            call time_check("before main tpex")        
+          
           call MainLoopTPEZ(chem_index, avg_maxwater, kd, avg_bd)      
-    
+
+          call time_check("after main tpex")
+          
+          
           waterbodytext = "TPEZ"
           call tpez_output_processor(chem_index,area_tpez )
      end do
@@ -670,10 +678,11 @@ Module TPEZ_WPEZ
     subroutine MainLoopTPEZ(chem_index, vmax, kd, bd)
        use constants_and_variables, ONLY: num_records , DELT_vvwm,m1_input,m1_store,mavg1_store, aq1_store,  &
                                            k_flow,soil_degradation_halflife_input, burial, dwrate, aq_rate_corrected, ncom2, &
-           degradateProduced1, mwt, nchem,soil_depth
+                                           degradateProduced1, mwt, nchem,soil_depth
 
        use initialization, ONLY: Convert_halflife_to_rate_per_sec                        
        use utilities_1
+       use clock_variables
        
        implicit none
        integer, intent(in) :: chem_index
@@ -689,6 +698,8 @@ Module TPEZ_WPEZ
        real :: k_total
        real :: MWTRatio
        
+       real :: dummy_holder(ncom2)
+       
        degradateProduced1 = 0.
        m1=0.
        mn1=0.
@@ -697,21 +708,24 @@ Module TPEZ_WPEZ
 
        if (nchem > chem_index) then
               MWTRatio = MWT(chem_index+1)/MWT(chem_index)
-       end if       
-       
+       end if             
+
        !***** Daily Loop Calculations ************************
-       do day_count = 1,num_records    
+       do day_count = 1,num_records  
 
           m1 = mn1 + m1_input(day_count)       
           m1_store(day_count)=m1
-       
+            
           !kflow needs to be adjusted for tpez, in normal vvwm solid phase is not considered in water vcolumn
           !adjustment is Vmax/(Vmax + bd Kd) this is a CONSTANT Adjustmen
         
           !Adding daily temerature adjustments for soil degradation
           !because dwrate includes a impicit correction that is not applicable to TPEZ, this needs to be uncorrected
-          call find_average_property(ncom2,soil_depth,15.0, dwrate(chem_index,:), avg_soil_deg_implicit) 
-          
+            
+          dummy_holder = dwrate(chem_index,:)  !necessary for subroutine call, otherwise routine gets hung up            
+          call find_average_property(ncom2,soil_depth,15.0, dummy_holder, avg_soil_deg_implicit)
+    
+
           !here is the derivation to undo the correction
           ! aq_rate_corrected      = exp(aq_rate_input)   -1.  (this is previous correction)
           ! aq_rate_corrected +1.  = exp(aq_rate_input)
@@ -724,7 +738,6 @@ Module TPEZ_WPEZ
           
           mn1 = m1*exp(-DELT_vvwm * k_total) !next start day mass
           
-          
           if (k_total>0.0) then
                  mavg1_store(day_count) = m1_store(day_count)*(1.-exp(-DELT_vvwm * k_total)) /k_total/DELT_vvwm 
           else
@@ -735,15 +748,17 @@ Module TPEZ_WPEZ
           if (nchem > chem_index) then
              degradateProduced1(day_count) =  MWTRatio * avg_soil_deg * mavg1_store(day_count) * DELT_vvwm
           end if
+          
        end do
-       
+
+
        if (nchem > chem_index) then
            !!Degradate production is delayed one time step, this means production is assumed at end of time step 
  
            degradateProduced1(2:num_records)= degradateProduced1(1:num_records-1)
            degradateProduced1(1)= 0.                       !no degradate in calc on first day---sent to next day 
        end if
-      
+
     end subroutine MainLoopTPEZ
     
     

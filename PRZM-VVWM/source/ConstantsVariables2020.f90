@@ -87,9 +87,7 @@ module constants_and_variables
       
       
       
-      
-      
-      
+    
       
       ! scenario_unit_number :: 80 local number in read scenario routine
 
