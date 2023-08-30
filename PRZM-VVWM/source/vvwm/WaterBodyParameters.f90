@@ -34,13 +34,10 @@ implicit none
 	integer :: rows_spraytable
     integer :: columns_spraytable
     
-    logical:: itsapond, itsareservoir, itsother, itstpezwpez
+    logical:: itsapond, itsareservoir, itsother, itstpezwpez, use_tpezbuffer
     character(len=512), allocatable, dimension(:) :: waterbody_names  !this holds the info for looping waterbodies (position 1 and 2 are often Pond and reservoir)
     character(len=512), parameter :: USEPA_pond = "USEPA Pond"  
     character(len=512), parameter :: USEPA_reservoir = "USEPA Reservoir"
-    
-
-    
     
  
     !**** POND ****************

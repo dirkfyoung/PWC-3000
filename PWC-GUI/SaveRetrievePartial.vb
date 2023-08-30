@@ -122,7 +122,7 @@
         msg &= String.Format("{0},", vbNewLine)
 
         msg &= String.Format("{0}{1},", vbNewLine, AdjustCN.Checked)
-        msg &= String.Format("{0}{1},{2},{3},{4}", vbNewLine, ItsaPond.Checked, ItsaReservoir.Checked, ItsOther.Checked, ItsTPEZWPEZ.Checked)
+        msg &= String.Format("{0}{1},{2},{3},{4},{5}", vbNewLine, ItsaPond.Checked, ItsaReservoir.Checked, ItsOther.Checked, ItsTPEZWPEZ.Checked, UseTPEZbuffers.Checked)
         msg &= String.Format("{0}{1},", vbNewLine, WaterbodyList.Items.Count)
 
         For Each specialwaterbody As String In WaterbodyList.Items
@@ -744,7 +744,7 @@
             ItsaReservoir.Checked = currentrow(1)
             ItsOther.Checked = currentrow(2)
             ItsTPEZWPEZ.Checked = currentrow(3)
-
+            UseTPEZbuffers.Checked = currentrow(4)
 
             currentrow = MyReader.ReadFields 'msg = msg & vbNewLine & WaterbodyList.Items.Count
             Dim countofspecialwaterbodies As Integer

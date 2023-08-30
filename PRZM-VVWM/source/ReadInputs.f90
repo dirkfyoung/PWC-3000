@@ -34,7 +34,7 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
 	is_waterbody_info_output , is_adjust_for_rain_schemes,rain_limit_schemes,optimum_application_window_schemes, &
 	intolerable_rain_window_schemes, min_days_between_apps_schemes,  is_batch_scenario , scenario_batchfile 
 
-use waterbody_parameters, ONLY: itsapond, itsareservoir, itsother,itstpezwpez, waterbody_names, USEPA_reservoir,USEPA_pond 
+use waterbody_parameters, ONLY: itsapond, itsareservoir, itsother,itstpezwpez, waterbody_names, USEPA_reservoir,USEPA_pond , use_tpezbuffer
 use utilities
         
     integer :: num_waterbodies, num_special_waterbodies
@@ -215,7 +215,7 @@ use utilities
      read(inputfile_unit_number,*)                                                                     !WS Line 5
      read(inputfile_unit_number,*)                                                                     !WS Line 6
      read(inputfile_unit_number,*) adjust_cn                                                           !WS Line 7
-     read(inputfile_unit_number,*) itsapond,itsareservoir,itsother, itstpezwpez                        !WS Line 8
+     read(inputfile_unit_number,*) itsapond,itsareservoir,itsother, itstpezwpez, use_tpezbuffer        !WS Line 8
      read(inputfile_unit_number,*) num_special_waterbodies                                             !WS Line 9
      
      If (.NOT. (itsapond .AND. itsareservoir)) start_wb = 0 

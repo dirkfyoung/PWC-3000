@@ -397,6 +397,44 @@ end subroutine find_first_annual_dates
 !********************************************************************************
 
 
+	subroutine find_in_table(row, column, table, tablerows,tablecolumns, output)
+     !Given a real "table"  
+     !with "tablerows" = number of rows of table
+     !and "tablecolumns" = number of columns of table
+     ! find the "output" in the table with input row index of integer "row" and where
+     ! the output is interpolated from the columns by the input real "column" value
+     !In other words, rows are exact and columns are interpolated
+    
+	   integer, intent(in) :: row      ! the method
+	   real, intent(in)    :: column   !interpolate between column 
+       
+       integer, intent(in) :: tablerows
+       integer, intent(in) :: tablecolumns      
+       real, intent(in)    :: table(tablerows,tablecolumns)
+	   real, intent(out)   :: output
+	
+	   integer :: i
+	   real    :: previous
+	
+	   !interpolate column value for values in row
+	   previous = 0.0
+	   do i = 1, tablecolumns
+	   	 if (column == table(1, i)) then !exact match, get value and end
+	   		 output =  table(row, i)
+	   		 exit
+	   	 elseif (table(1, i) < column ) then
+	   		 previous = table(1, i)
+	   	 else      !table(1, i))< column  !do interpolation and quit
+	   		 output =  table(row, i-1) +   (table(row, i)-table(row, i-1)) *  (column - previous)/(table(1, i)- previous)
+	   	!	 write(*,'("            row = ",i2, " interpolate between columns ", i2, " and ", i2, ", fraction = ", g10.4 )') row, i-1, i,  (column - previous)/(table(1, i)- previous)
+	   		 exit
+		 end if	 
+	   end do
+
+	!   write(*,'("            Interrpolated Spray Drift = ", G12.4)')  , output
+	
+	end subroutine find_in_table
+
 
 
 

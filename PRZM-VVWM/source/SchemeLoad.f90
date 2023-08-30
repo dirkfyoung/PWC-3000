@@ -94,7 +94,7 @@ module schemeload
 	subroutine lookup_drift(row, column, output)
 	   use waterbody_parameters, only: spraytable
 	   integer, intent(in) :: row  
-	   real, intent(in)    :: column
+	   real, intent(in)    :: column   !this is a distance, so its real and will be used for interpolation
 	   real, intent(out)   :: output
 	
 	   integer :: i

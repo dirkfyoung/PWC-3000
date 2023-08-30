@@ -115,8 +115,7 @@ Module TPEZ_WPEZ
     
     end subroutine wpez
     
-    
-    
+
     
     subroutine output_processor_WPEZ(chem_index, First_time_through, output_unit, unit_number,unit_number_deg1,unit_number_deg2,&
                                 summary_filename, summary_filename_deg1, summary_filename_deg2, waterbody_name )
@@ -445,21 +444,20 @@ Module TPEZ_WPEZ
    end subroutine write_simple_batch_data_WPEZ
                                         
 
-    
-
-
 !****************************************************************************
   subroutine tpez(scheme_number)
       use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
           DELT_vvwm, k_flow,waterbodytext,soil_depth, &
           num_applications_input,application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, drift_kg_per_m2, drift_schemes,&
-          theta_fc,theta_wp, ncom2,  orgcarb,bulkdensity , mavg1_store
-      use waterbody_parameters, ONLY: simtypeflag
+          theta_fc,theta_wp, ncom2,  orgcarb,bulkdensity , mavg1_store, driftfactor_schemes
+      use waterbody_parameters, ONLY: simtypeflag, use_tpezbuffer
       
       use degradation
       use MassInputs
     !  use outputprocessing
-      use utilities_1
+      use utilities_1, ONLY:find_in_table, find_average_property
+      
+      
     use clock_variables
       implicit none   
       integer,intent(in) ::scheme_number
@@ -470,8 +468,9 @@ Module TPEZ_WPEZ
       real    :: drift_value_local
       integer :: i,j
       integer :: app_counter
-      real    :: avg_maxwater ,avg_minwater, avg_oc, avg_bd
-      real kd
+      real    :: avg_maxwater, avg_minwater, avg_oc, avg_bd
+      real    :: kd
+      real    :: buffer_distance   !local holder to take care of zero buffer option
       
       !******Set TPEZ Specific parameters 
       real, parameter :: area_tpez = 10000.!m2
@@ -498,62 +497,30 @@ Module TPEZ_WPEZ
 /),(/13,17/)))        
       
      call time_check("inside tpez")
-      !need to reload new spray table for tpez  
-      !(but check when main water body table was loaded, my need to rework this by sending in spray table rather than with global mofdule) 
-      !dont want to override regular table in the water body loop aug 2023
-      
-    
-     
-      drift_kg_per_m2= 0.0
 
+     ! tpez normally is at edge of field, but user can select buffer for cases like in field buffers
+
+      drift_kg_per_m2= 0.0
       app_counter= 0
       do i=1, num_applications_input
+          if (use_tpezbuffer) then
+             buffer_distance = driftfactor_schemes(scheme_number,i)
+          else           
+             buffer_distance = 0.0
+          end if
+               
           do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
-   
              app_counter = app_counter+1       
-
-             select case (drift_schemes(scheme_number,i))  !this is the row number in the drift table which specifiess the spray method
-             case (1)                         !"Aerial (VF-F)"
-                 drift_value_local = 0.3194
-             case (2)                         !"Aerial (F-M) D"
-                 drift_value_local = 0.1948
-             case (3)                         !"Aerial (M-C)"
-                 drift_value_local = 0.148
-             case (4)                         !"Aerial (C-VC)"
-                 drift_value_local = 0.1196
-             case (5)                         !"Ground (High, VF-F) D"
-                 drift_value_local = 0.1123
-             case (6)                         !"Ground (High, F-MC)"
-                 drift_value_local = 0.0293
-             case (7)                         !"Ground (Low, VF-F)"
-                 drift_value_local = 0.0495
-             case (8)                         !"Ground (Low, F-MC)"
-                 drift_value_local = 0.0195
-             case (9)                         !"Airblast (normal)"
-                 drift_value_local = 0.0019 
-             case (10)                        !"Airblast (dense)"
-                 drift_value_local = 0.0265
-             case (11)                        !"Airblast (sparse) D"
-                 drift_value_local = 0.0831
-             case (12)                        !"Airblast (vinyard)"
-                 drift_value_local = 0.0047
-             case (13)                        !"Airblast (orchard)"
-                 drift_value_local = 0.0417
-             case (14)                        !"Directly applied to waterbody"
-                 drift_value_local = 1.0
-             case (15)                        !"None"
-                 drift_value_local = 0.0
-             case (16)                        !"advanced user"  
-                 drift_value_local = 0.0
-             case default
-                 drift_value_local = 0.0
-             end select
-        
+             call find_in_table(drift_schemes(scheme_number,i)+1, buffer_distance, spray_table_TPEZ,size(spray_table_TPEZ,1),size(spray_table_TPEZ,2),  drift_value_local)
              drift_kg_per_m2(app_counter) = drift_value_local * application_rate_in(i)/10000.
           end do
       end do
-    
       
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      
+write(*,*) "tpez drift factor", drift_value_local
+      
+     !  Spray drift needs waterbody area (fortunately its same as pond but for future flexibity consider fix) 8/30/2023
      call spraydrift
 
     
@@ -716,13 +683,14 @@ Module TPEZ_WPEZ
           m1 = mn1 + m1_input(day_count)       
           m1_store(day_count)=m1
             
-          !kflow needs to be adjusted for tpez, in normal vvwm solid phase is not considered in water vcolumn
-          !adjustment is Vmax/(Vmax + bd Kd) this is a CONSTANT Adjustmen
+          !kflow needs to be adjusted for tpez, in normal vvwm solid phase is not considered in water column
+          !adjustment is Vmax/(Vmax + bd Kd) this is a CONSTANT Adjustment
         
           !Adding daily temerature adjustments for soil degradation
           !because dwrate includes a impicit correction that is not applicable to TPEZ, this needs to be uncorrected
             
-          dummy_holder = dwrate(chem_index,:)  !necessary for subroutine call, otherwise routine gets hung up            
+          dummy_holder = dwrate(chem_index,:)  !necessary for subroutine call, otherwise routine gets hung up.
+                                               ! NOTE: probably should switch order of dwrate array, put chem index 2nd
           call find_average_property(ncom2,soil_depth,15.0, dummy_holder, avg_soil_deg_implicit)
     
 
@@ -927,6 +895,9 @@ use utilities_1, ONLY: Return_Frequency_Value
 end subroutine tpez_write_simple_batch_data
     
 !***************************************************************************
-  
+
+
+
+
  
 end module TPEZ_WPEZ
