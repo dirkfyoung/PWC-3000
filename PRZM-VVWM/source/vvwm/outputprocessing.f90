@@ -484,7 +484,7 @@ use utilities_1, ONLY: Return_Frequency_Value
        hold_for_medians( 8, app_window_counter)= benthic_c21_out
        hold_for_medians( 9, app_window_counter)= post_bt_avg(1)
        hold_for_medians( 10, app_window_counter)= throughputs(1)
-       
+       hold_for_medians( 11, app_window_counter)=  gw_peak(1)
     case (2)
         local_run_id = trim(run_id) // '_deg1'
         write(unit_number_deg1,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field,runoff_fraction,erosion_fraction,drift_fraction, &
@@ -500,7 +500,7 @@ use utilities_1, ONLY: Return_Frequency_Value
        hold_for_medians_daughter( 8, app_window_counter)= benthic_c21_out
        hold_for_medians_daughter( 9, app_window_counter)= post_bt_avg(2)
        hold_for_medians_daughter( 10, app_window_counter)= throughputs(2)  
-    
+       hold_for_medians( 11, app_window_counter)=  gw_peak(2)
     case (3)
         local_run_id = trim(run_id)  // '_deg2'
         write(unit_number_deg2,'(A80,1x,26(",", ES13.4E3))')(adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
@@ -516,6 +516,7 @@ use utilities_1, ONLY: Return_Frequency_Value
         hold_for_medians_grandaughter( 8, app_window_counter)= benthic_c21_out
         hold_for_medians_grandaughter( 9, app_window_counter)= post_bt_avg(3)
         hold_for_medians_grandaughter( 10, app_window_counter)= throughputs(3)  
+        hold_for_medians( 11, app_window_counter)=  gw_peak(3)
 
         case default
     end select

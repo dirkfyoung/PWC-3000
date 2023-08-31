@@ -78,15 +78,7 @@ module process_medians
 
                end if
                
-               
-               
-               
-               
-               
-               
-               
-               
-
+   
                
                First_time_through_medians = .FALSE.
           end if

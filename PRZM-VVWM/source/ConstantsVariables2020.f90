@@ -11,7 +11,7 @@ module constants_and_variables
       logical :: use_bidiagonal
       integer :: app_window_counter  !tracks the appication widow for placement into a storage array for median calculation of concentrations
       
-      integer, parameter :: number_medians = 10
+      integer, parameter :: number_medians = 11
       
       real :: hold_for_medians(number_medians,366)      !holds app window values for median determination 
       real :: hold_for_medians_WPEZ(number_medians,366) !holds app window values for median determination 
