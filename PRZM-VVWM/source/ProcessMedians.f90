@@ -5,7 +5,7 @@ module process_medians
     contains
     
     subroutine calculate_medians(app_window_counter, run_tpez_wpez)
-          use constants_and_variables, ONLY: nchem, number_medians, hold_for_medians, hold_for_medians_wpez, hold_for_medians_tpez,  &
+          use constants_and_variables, ONLY: nchem, number_medians, hold_for_medians_wb, hold_for_medians_wpez, hold_for_medians_tpez,  &
               hold_for_medians_daughter, hold_for_medians_grandaughter, First_time_through_medians,median_unit,run_id, &
               median_daughter_unit,median_grandaughter_unit ,median_unit_wpez, median_unit_tpez,median_daughter_unit_wpez,median_grandaughter_unit_wpez,&
               median_daughter_unit_tpez,median_grandaughter_unit_tpez
@@ -28,18 +28,18 @@ module process_medians
               !open a file and write header
                localfilename = "medians_" // trim(this_waterbody_name) // ".txt"
                open (UNIT= median_unit, FILE = localfilename, STATUS = 'UNKNOWN')
-               write(median_unit, '(A215)') (("Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg, post_bt_avg, throughput"))
+               write(median_unit, '(A225)') (("Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg, post_bt_avg,  throughput,  GWpeak"))
 
                if (nchem>1) then !daughter
                    localfilename = "medians_deg1_" // trim(this_waterbody_name) // ".txt"
                    open (UNIT= median_daughter_unit, FILE = localfilename, STATUS = 'UNKNOWN')
-                   write(median_daughter_unit, '(A215)') (("Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg, post_bt_avg, throughput"))
+                   write(median_daughter_unit, '(A225)') (("Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg, post_bt_avg,  throughput, GWpeak"))
                endif
                
                if (nchem>2) then !grandaughter
                    localfilename = "medians_deg2_" // trim(this_waterbody_name) // ".txt"
                    open (UNIT= median_grandaughter_unit, FILE = localfilename, STATUS = 'UNKNOWN')
-                   write(median_grandaughter_unit, '(A215)') (("Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg, post_bt_avg, throughput"))
+                   write(median_grandaughter_unit, '(A225)') (("Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg, post_bt_avg,  throughput, GWpeak"))
                endif
 
                if (run_tpez_wpez) then
@@ -85,24 +85,21 @@ module process_medians
                
  
           !*********Populate Open Median Files with Data************
-          call find_medians (app_window_counter, number_medians, hold_for_medians, medians_temp)             
-          write(median_unit, '(A86, 10(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_temp(i), i=1, number_medians)  
+
+          call find_medians (app_window_counter, number_medians, hold_for_medians_wb, medians_temp)             
+          write(median_unit, '(A86, 11(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_temp(i), i=1, number_medians)  
 
           if (nchem>1) then !daughter
               call find_medians (app_window_counter, number_medians, hold_for_medians_daughter, medians_temp)             
-              write(median_daughter_unit, '(A86, 10(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_temp(i), i=1, number_medians)  
+              write(median_daughter_unit, '(A86, 11(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_temp(i), i=1, number_medians)  
           end if
           
           if (nchem>2) then !grandaughter
               call find_medians (app_window_counter, number_medians, hold_for_medians_grandaughter, medians_temp)             
-              write(median_grandaughter_unit, '(A86, 10(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_temp(i), i=1, number_medians)  
+              write(median_grandaughter_unit, '(A86, 11(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_temp(i), i=1, number_medians)  
           end if
           
-          
-          
-          
-          
-          
+
           
           !*******************************************
           

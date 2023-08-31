@@ -655,7 +655,7 @@ write(*,*) "tpez drift factor", drift_value_local
        integer, intent(in) :: chem_index
        real, intent(in):: vmax, kd, bd
        
-       integer :: day_count
+       integer :: day_count, i
        real:: m1        !begin day mass
        real:: mn1       !mass at end of time step 
        
@@ -688,9 +688,11 @@ write(*,*) "tpez drift factor", drift_value_local
         
           !Adding daily temerature adjustments for soil degradation
           !because dwrate includes a impicit correction that is not applicable to TPEZ, this needs to be uncorrected
-            
-          dummy_holder = dwrate(chem_index,:)  !necessary for subroutine call, otherwise routine gets hung up.
-                                               ! NOTE: probably should switch order of dwrate array, put chem index 2nd
+          do i = 1, ncom2  
+                dummy_holder(i) = dwrate(chem_index,i)  !necessary for subroutine call, otherwise routine gets hung up.
+                                               ! NOTE: probably should switch order of dwrate array, put chem index 2nd         
+          end do
+          
           call find_average_property(ncom2,soil_depth,15.0, dummy_holder, avg_soil_deg_implicit)
     
 

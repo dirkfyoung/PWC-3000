@@ -13,7 +13,7 @@ module constants_and_variables
       
       integer, parameter :: number_medians = 11
       
-      real :: hold_for_medians(number_medians,366)      !holds app window values for median determination 
+      real :: hold_for_medians_wb(number_medians,366)      !holds app window values for median determination 
       real :: hold_for_medians_WPEZ(number_medians,366) !holds app window values for median determination 
       real :: hold_for_medians_TPEZ(366)     !Holds TPEZ acute value
       

@@ -4,8 +4,8 @@ program PRZMVVWM
     use constants_and_variables, ONLY: maxFileLength, inputfile,number_of_schemes, &
              number_of_scenarios,  First_time_through_wb, First_time_through_wpez,First_time_through_tpez,First_time_through_medians, &
              app_window_span, app_window_step, application_date, application_date_original, &
-             is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id, app_window_counter,hold_for_medians, &
-             First_time_through_medians_wpez, hold_for_medians_wpez, First_time_through_medians_tpez,  hold_for_medians_tpez
+             is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id, app_window_counter, &
+             First_time_through_medians_wpez, First_time_through_medians_tpez
     
     use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond, spraytable,itstpezwpez
     use clock_variables
@@ -152,7 +152,7 @@ program PRZMVVWM
 			   write(*,*) '****************** Start Applicaion Loop **********************************'
 
 			   app_window_counter = 0  !use this to track app window to find medians
-               hold_for_medians = 0.0  !use this to hold data for medians
+           !    hold_for_medians_wb = 0.0  !use this to hold data for medians
                
                ! zero other hold fior mediuans here (maybe not needed)
                

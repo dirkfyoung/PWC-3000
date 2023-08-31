@@ -216,7 +216,10 @@ call time_check('averag deep loop 1')
        
      end subroutine
      
-    
+
+     
+     
+     
      
      subroutine find_medians(rows, columns, local_hold_for_medians, medians)
         !Find median of array with 10 columns and 
