@@ -60,7 +60,6 @@
 		<File RelativePath=".\source\Plant_Pesticide_Processes.f90"/>
 		<File RelativePath=".\source\PlantGrowth.f90"/>
 		<File RelativePath=".\source\PRZM_Version.f90"/>
-		<File RelativePath=".\ReadBatchScenarioFile.f90"/>
 		<File RelativePath=".\source\Temperature_Calcs.f90"/>
 		<File RelativePath=".\source\volatilization.f90"/></Filter>
 		<Filter Name="vvwm">
@@ -76,7 +75,7 @@
 		<File RelativePath=".\source\vvwm\VolumeAndWashout.f90"/>
 		<File RelativePath=".\source\vvwm\VVWM.f90"/></Filter>
 		<File RelativePath=".\source\Allocations.f90"/>
-		<File RelativePath=".\clock_variables.f90"/>
+		<File RelativePath=".\source\clock_variables.f90"/>
 		<File RelativePath=".\source\ConstantsVariables2020.f90"/>
 		<File RelativePath=".\source\Initialization.f90"/>
 		<File RelativePath=".\source\ProcessMedians.f90"/>

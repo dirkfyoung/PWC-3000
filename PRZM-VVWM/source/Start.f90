@@ -21,7 +21,7 @@ program PRZMVVWM
     use chemical_transport
 	use Output_From_Field
 	use Pesticide_Applications
-	use readbatchscenario
+!	use readbatchscenario
     use TPEZ_WPEZ
     use process_medians, ONLY: calculate_medians
 
