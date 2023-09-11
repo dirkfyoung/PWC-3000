@@ -103,16 +103,17 @@ module process_medians
           
           !*******************************************
           
-   
-          
-         !
-         !if (run_tpez_wpez) then  !wpez needs its own call due to different capture also because its scenario run is same as pond                 
-         !       call find_medians (app_window_counter, number_medians, hold_for_medians_wpez, medians_temp)  
-         !       call write_medians_wpez(medians_temp, number_medians)
-         !       
-         !       call find_medians (app_window_counter, 1, hold_for_medians_tpez, medians_temp) 
-         !       call write_medians_tpez(medians_temp(1))                              
-         !end if
+
+         if (run_tpez_wpez) then  !wpez needs its own call due to different capture also because its scenario run is same as pond                 
+                call find_medians (app_window_counter, number_medians, hold_for_medians_wpez, medians_temp)  
+                write(median_unit_wpez, '(A86, 10(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_temp(i), i=1, 9) 
+                
+               ! call write_medians_wpez(medians_temp, number_medians)
+                
+                call find_medians (app_window_counter, 1, hold_for_medians_tpez, medians_temp) 
+              !  call write_medians_tpez(medians_temp(1))   
+                 write(median_unit_tpez, '(A86, ",", G12.4 )') adjustl((adjustr(run_id)//"_median")), medians_temp(1)*0.892179
+         end if
          
                 !write(median_output_unit_tpez, '(A86, ",", G12.4 )') adjustl((adjustr(run_id)//"_median")), medians_input*0.892179
 
@@ -137,25 +138,25 @@ module process_medians
    !             
    !          
    !end subroutine write_medians_wpez
-     
+   !  
      
    
    
-     subroutine write_medians_tpez(medians_input)
-     use constants_and_variables, only: median_unit_tpez, First_time_through_medians_tpez, run_id
-                implicit none
-                real, intent(in) :: medians_input
-                integer :: i
-                if (First_time_through_medians_tpez) then 
-                    !write header
-                    open (UNIT= median_unit_tpez, FILE = 'Medians_tpez.txt', STATUS = 'UNKNOWN')
-                    write(median_unit_tpez,  '(A93)') "Run Information                                                                       ,  lb/A"
-                    First_time_through_medians_tpez = .FALSE.
-                end if
-                
-                write(median_unit_tpez, '(A86, ",", G12.4 )') adjustl((adjustr(run_id)//"_median")), medians_input*0.892179
-             
-     end subroutine write_medians_tpez
+     !subroutine write_medians_tpez(medians_input)
+     !use constants_and_variables, only: median_unit_tpez, First_time_through_medians_tpez, run_id
+     !           implicit none
+     !           real, intent(in) :: medians_input
+     !           integer :: i
+     !           if (First_time_through_medians_tpez) then 
+     !               !write header
+     !               open (UNIT= median_unit_tpez, FILE = 'Medians_tpez.txt', STATUS = 'UNKNOWN')
+     !               write(median_unit_tpez,  '(A93)') "Run Information                                                                       ,  lb/A"
+     !               First_time_through_medians_tpez = .FALSE.
+     !           end if
+     !           
+     !           write(median_unit_tpez, '(A86, ",", G12.4 )') adjustl((adjustr(run_id)//"_median")), medians_input*0.892179
+     !        
+     !end subroutine write_medians_tpez
      
 
 end module process_medians

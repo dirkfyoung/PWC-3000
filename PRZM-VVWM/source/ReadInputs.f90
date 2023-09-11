@@ -143,38 +143,50 @@ use utilities
         do j=1, num_apps_in_schemes(i)                          
             select case (app_reference_point_schemes(i))
             case (0)
+                write(*,*) 'read absolute application day'
                 read(inputfile_unit_number,'(A)')wholeline                                      !Scheme Line Group 4               
                 if (index(wholeline, '/') == index(wholeline, '/', .TRUE.)) then
                    ! only a day and month are given, so this is repeating every year
                                           
                    !convert string dates into integers
                    read(wholeline(1:(index(wholeline, '/')-1)),*)  absolute_app_month
+                   write(*,*) 'absolute month = ',  absolute_app_month
+                   
                    comma_1 = index(wholeline, ',')
                    
                    read(wholeline((index(wholeline, '/')+1): (comma_1 -1)),*)  absolute_app_day
-                   !Convert to julian day. Treat these similar to realtive application, using Jan 1 as reference date                                             
+                   !Convert to julian day. Treat these similar to realtive application, using Jan 1 as reference date          
+                   
+                   write(*,*) 'absolute day = ',  absolute_app_day
                    days_until_applied_schemes(i,j) = jd (1900, absolute_app_month,absolute_app_day)               
                 else
                          !the year is include, so this is year specific
                 end if
-                
+                 
                 comma_2 = comma_1 + index(wholeline((comma_1+1):len(wholeline)), ',')
                 comma_3 = comma_2 + index(wholeline((comma_2+1):len(wholeline)), ',')
                 comma_4 = comma_3 + index(wholeline((comma_3+1):len(wholeline)), ',')
                 comma_5 = comma_4 + index(wholeline((comma_4+1):len(wholeline)), ',')
                 comma_6 = comma_5 + index(wholeline((comma_5+1):len(wholeline)), ',')
                 comma_7 = comma_6 + index(wholeline((comma_6+1):len(wholeline)), ',')
-             !   comma_8 = comma_7 + index(wholeline((comma_7+1):len(wholeline)), ',')
-                                        
+                comma_8 = comma_7 + index(wholeline((comma_7+1):len(wholeline)), ',')
+                             
+    
                 read(wholeline((comma_1+1):(comma_2-1)),*)         application_rate_schemes(i,j)         
                 read(wholeline((comma_2+1):(comma_3-1)),*)         method_schemes(i,j)
                 read(wholeline((comma_3+1):(comma_4-1)),*)         depth_schemes(i,j) 
                 read(wholeline((comma_4+1):(comma_5-1)),*)         split_schemes(i,j)
+                write(*,*) "check 2", split_schemes(i,j)
                 read(wholeline((comma_5+1):(comma_6-1)),*)         drift_schemes(i,j)
+                write(*,*) "check 3",  drift_schemes(i,j)
 				read(wholeline((comma_6+1):(comma_7-1)),*)		   driftfactor_schemes(i,j)
+                write(*,*) "check 4", driftfactor_schemes(i,j)
+                
                 read(wholeline((comma_7+1):(comma_8-1)),*)         periodicity_schemes(i,j)  
+                write(*,*) "check 5",   periodicity_schemes(i,j)  
+                
                 read(wholeline((comma_8+1):len(wholeline)),*)      lag_schemes(i,j)  
-				
+				write(*,*) "check 6",  lag_schemes(i,j)  
                 !read(wholeline((comma_8+1):len(wholeline)),*)       
                 
             case default
@@ -183,14 +195,16 @@ use utilities
                          drift_schemes(i,j), driftfactor_schemes(i,j) ,periodicity_schemes(i,j) , lag_schemes(i,j)           
             end select                
 		end do
-
+        
 
         read(inputfile_unit_number,*) is_app_window(i), app_window_span(i), app_window_step(i)                      !Scheme Line 5
         if (not(is_app_window(i) )) then 
             app_window_span(i) =0  !the stepping starts with zero, so the span iz zero for only one iteration
             app_window_step(i)= 1          
-		end if
+        end if
     
+        write(*,*) 'Is application window?', is_app_window(i)
+        
 		read(inputfile_unit_number,*) is_adjust_for_rain_schemes(i),rain_limit_schemes(i), &                         !Scheme Line 6
 		   optimum_application_window_schemes(i),intolerable_rain_window_schemes(i),min_days_between_apps_schemes(i) 
 			
