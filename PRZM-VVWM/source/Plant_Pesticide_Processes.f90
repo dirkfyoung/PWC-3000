@@ -8,7 +8,7 @@ implicit none
 SUBROUTINE plant_pesticide_degradation
 use  constants_and_Variables, ONLY: plant_pesticide_degrade_rate,plant_volatilization_rate,foliar_formation_ratio_12, &
     foliar_formation_ratio_23,Foliar_degrade_loss,FOLPST,plant_volatilization_rate,Foliar_volatile_loss, &
-    NCHEM,delt
+    NCHEM,delt, foliar_halflife_input
 
     implicit none
     !Determines amount of pesticide which disappears from plant surface by first order decay and volatilization.  
@@ -17,9 +17,26 @@ use  constants_and_Variables, ONLY: plant_pesticide_degrade_rate,plant_volatiliz
 
     real     ::  ex1, ex2, ex3, r,term1, term2, term3, term4, term50,term6,term7,term8,term90,term100
     real     ::  foliar_pesticide_loss(3), fol_deg(3),  foliar_pest_initial(3)
-
+    integer :: i
     Foliar_Pest_initial = FOLPST      !Save initial masses to use later    
+    
+    !convert foliar halflives to rates
+    do i = 1, nchem
+          if (foliar_halflife_input(i) < tiny(foliar_halflife_input(i))) then  !assume that a zero or blank means no degradation 
+          !however because of numerical problems, cant use exactly zero so use small number like 1e-8
+                      plant_pesticide_degrade_rate(i) = 1.0e-8       
+          else
+                      plant_pesticide_degrade_rate(i) = 0.693147180559/foliar_halflife_input(i)  !in per day
+          endif
+    end do
+    
+  write (88,*) "rate", plant_pesticide_degrade_rate(1), plant_pesticide_degrade_rate(2),plant_pesticide_degrade_rate(3)
+
     fol_deg =  plant_pesticide_degrade_rate + plant_volatilization_rate  !local rate, need to 
+    
+    write (88,*) "rate 2", fol_deg(1), fol_deg(2),fol_deg(3)
+    
+    
     
     !Parent degradation for time step
     ex1 = EXP((-fol_deg(1))*DELT)
@@ -52,7 +69,7 @@ use  constants_and_Variables, ONLY: plant_pesticide_degrade_rate,plant_volatiliz
         !*************************************************************************************************
         !I cant find the limit for cases when degradation rates are equal k1=k2=k3 (but there is one, if someone can find it).  
         !In the mean tine, I just slightly alter the rates to make them slightly unequal
-        
+
         IF (fol_deg(2)==fol_deg(1)) then                     
             fol_deg(2) = fol_deg(1) * 1.0001   
             ex2 = EXP((-fol_deg(2))*DELT)
@@ -71,6 +88,8 @@ use  constants_and_Variables, ONLY: plant_pesticide_degrade_rate,plant_volatiliz
             r = (ex1-ex2)/(fol_deg(2)-fol_deg(1)) 
             FOLPST(2) = foliar_pest_initial(1)*foliar_formation_ratio_12*fol_deg(1)*r  + foliar_pest_initial(2)*ex2           
         end if
+        
+
         !**********************************************************************************************************
          
         term1 = fol_deg(1)*fol_deg(2)/(fol_deg(2)-fol_deg(1))
@@ -85,7 +104,9 @@ use  constants_and_Variables, ONLY: plant_pesticide_degrade_rate,plant_volatiliz
         term100 = Foliar_Pest_initial(3)*ex3        
         FOLPST(3) =term50 + term90 + term100
     end if
-             
+             write(88,*) "out", FOLPST(1) , FOLPST(2) , FOLPST(3) 
+    
+    
 END SUBROUTINE plant_pesticide_degradation
 
     

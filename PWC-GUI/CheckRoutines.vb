@@ -262,12 +262,15 @@ Partial Public Class Form1
                 End If
 
                 TestActualRealNumbers(TrueOrFalse, msg, ApplicationTable.Amount(j))
+
                 If TrueOrFalse = False Then
-                    msg = msg & " Application Depth" & String.Format(" for Scheme {0}, Row {1}", i + 1, j + 1)
+                    msg = msg & " Application Amount" & String.Format(" for Scheme {0}, Row {1}", i + 1, j + 1)
                     Return
                 End If
 
                 TestActualRealNumbers(TrueOrFalse, msg, ApplicationTable.Depth(j))
+                MsgBox(ApplicationTable.Depth(j))
+
                 If TrueOrFalse = False Then
                     msg = msg & " Application Depth" & String.Format(" for Scheme {0}, Row {1}", i + 1, j + 1)
                     Return

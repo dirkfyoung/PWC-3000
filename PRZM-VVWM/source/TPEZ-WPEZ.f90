@@ -315,7 +315,7 @@ Module TPEZ_WPEZ
         end if
         
     
-       write(*,*) "total and fraction off field" , applied_mass_sum_gram_per_cm2*Afield*10., fraction_off_field
+       write(*,*) "total and fraction off field (WPEZ)" , applied_mass_sum_gram_per_cm2*Afield*10., fraction_off_field
        write(*,*) 'Doing output process'  
  !      call calculate_effective_halflives()
        
@@ -341,7 +341,9 @@ Module TPEZ_WPEZ
     nchem,     runoff_fraction,erosion_fraction,drift_fraction,summary_outputfile, &
     effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, &
-    gw_peak, post_bt_avg ,throughputs,simulation_avg, fraction_off_field, family_name, app_window_counter, hold_for_medians_WPEZ
+    gw_peak, post_bt_avg ,throughputs,simulation_avg, fraction_off_field, family_name, app_window_counter,&
+    hold_for_medians_WPEZ,hold_for_medians_WPEZ_daughter, hold_for_medians_WPEZ_grandaughter
+
 
     use utilities_1, ONLY: Return_Frequency_Value
 
@@ -390,8 +392,7 @@ Module TPEZ_WPEZ
     
     call Return_Frequency_Value(return_frequency, total_max,      num_years, total_out,           lowyearflag)
     
-    
-    
+
     call Return_Frequency_Value(return_frequency, c4_max,         num_years, c4_out,           lowyearflag)
     call Return_Frequency_Value(return_frequency, c21_max,        num_years, c21_out,          lowyearflag)
     call Return_Frequency_Value(return_frequency, c60_max,        num_years, c60_out,          lowyearflag)
@@ -429,11 +430,39 @@ Module TPEZ_WPEZ
         local_run_id = trim(run_id)//"_WPEZ" // '_deg1'
         write(unit_number_deg1,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field,runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, total_out  !, gw_peak(2), post_bt_avg(2) ,throughputs(2) ,simulation_avg(2)
+
+          hold_for_medians_WPEZ_daughter( 1, app_window_counter)= c1_out
+          hold_for_medians_WPEZ_daughter( 2, app_window_counter)= c365_out
+          hold_for_medians_WPEZ_daughter( 3, app_window_counter)= simulation_average
+          hold_for_medians_WPEZ_daughter( 4, app_window_counter)= c4_out
+          hold_for_medians_WPEZ_daughter( 5, app_window_counter)= c21_out
+          hold_for_medians_WPEZ_daughter( 6, app_window_counter)= c60_out
+          hold_for_medians_WPEZ_daughter( 7, app_window_counter)= benthic_peak_out
+          hold_for_medians_WPEZ_daughter( 8, app_window_counter)= benthic_c21_out
+          hold_for_medians_WPEZ_daughter( 9, app_window_counter)= total_out
+          hold_for_medians_WPEZ_daughter( 10, app_window_counter)= 0.0  !spare
+    
+    
     case (3)
         local_run_id = trim(run_id) //"_WPEZ" // '_deg2'
         write(unit_number_deg2,'(A80,1x,26(",", ES13.4E3))')(adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, total_out   !, gw_peak(3), post_bt_avg(3) ,throughputs(3) ,simulation_avg(3)
 
+
+          hold_for_medians_WPEZ_grandaughter( 1, app_window_counter)= c1_out
+          hold_for_medians_WPEZ_grandaughter( 2, app_window_counter)= c365_out
+          hold_for_medians_WPEZ_grandaughter( 3, app_window_counter)= simulation_average
+          hold_for_medians_WPEZ_grandaughter( 4, app_window_counter)= c4_out
+          hold_for_medians_WPEZ_grandaughter( 5, app_window_counter)= c21_out
+          hold_for_medians_WPEZ_grandaughter( 6, app_window_counter)= c60_out
+          hold_for_medians_WPEZ_grandaughter( 7, app_window_counter)= benthic_peak_out
+          hold_for_medians_WPEZ_grandaughter( 8, app_window_counter)= benthic_c21_out  
+          hold_for_medians_WPEZ_grandaughter( 9, app_window_counter)= total_out
+          hold_for_medians_WPEZ_grandaughter( 10, app_window_counter)= 0.0  !spare
+        
+        
+        
+        
         case default
     end select
 

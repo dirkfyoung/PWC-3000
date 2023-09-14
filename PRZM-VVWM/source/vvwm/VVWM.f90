@@ -87,10 +87,12 @@ real    :: koc
         call gamma_two
         
         call initial_conditions(chem_index)
-        write(*,*) "Main VVWM Loop "
+        write(*,*) "Main VVWM Loop ***********************************************************************" 
+        write(*,*)chem_index
         call MainLoop       
    
-        if (nchem > chem_index) then     
+        if (nchem > chem_index) then    
+            write(*,*) "call produce degradates"
               call DegradateProduction(chem_index) 
         end if
 

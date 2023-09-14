@@ -145,17 +145,23 @@ subroutine DegradateProduction(chem_index)
       real :: MWTRatio
       
       MWTRatio = MWT(chem_index+1)/MWT(chem_index)
+      
 
       degradateProduced1 = MWTRatio*(xPhoto(chem_index)*k_photo*volume1 + xHydro(chem_index)*k_hydro*volume1 + &
                             xAerobic(chem_index)*k_aer_aq*capacity_1)*aqconc_avg1*DELT_vvwm
+      
 
+                  
       degradateProduced2 = MWTRatio*(xHydro(chem_index)*k_hydro*v2 + xBenthic(chem_index)*k_anaer_aq*capacity_2)*aqconc_avg2*DELT_vvwm 
-             
+      
+
+      
       !Degradate production is delayed one time step to approximate the process and to maintain analytical solution for time step  
       degradateProduced1(2:num_records)= degradateProduced1(1:num_records-1)
       degradateProduced2(2:num_records)= degradateProduced2(1:num_records-1)
       degradateProduced1(1)= 0.
       degradateProduced2(1)= 0.
+
 
       
 end subroutine DegradateProduction    

@@ -980,13 +980,29 @@ Public Class Form1
 
     End Sub
 
-    Private Sub AppTableDisplay_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles AppTableDisplay.CellContentClick
+    Private Sub AppTableDisplay_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles AppTableDisplay.CellContentClick, AppTableDisplay.CellClick, AppTableDisplay.CellValueChanged
 
-        'MsgBox(e.RowIndex)
+        If e.RowIndex > -1 Then
+            Select Case AppTableDisplay.Rows(e.RowIndex).Cells(2).Value
+                Case Standard.method1, Standard.method2                    'above and below crop
+                    AppTableDisplay.Rows(e.RowIndex).Cells(3).Value = "4.0"
+                    AppTableDisplay.Rows(e.RowIndex).Cells(4).Value = "0.0"
 
-        'If e.RowIndex < 0 Then
-        '    Exit Sub
-        'End If
+                    AppTableDisplay.Item(3, e.RowIndex).Style.ForeColor = Color.Gray
+                    AppTableDisplay.Item(4, e.RowIndex).Style.ForeColor = Color.Gray
+
+
+                Case Standard.method3, Standard.method4, Standard.method6, Standard.method7      'Uniform and triangles
+                    AppTableDisplay.Rows(e.RowIndex).Cells(4).Value = "0.0"
+
+                    AppTableDisplay.Item(3, e.RowIndex).Style.ForeColor = Color.Black
+                    AppTableDisplay.Item(4, e.RowIndex).Style.ForeColor = Color.Gray
+                Case Else
+                    AppTableDisplay.Item(3, e.RowIndex).Style.ForeColor = Color.Black
+                    AppTableDisplay.Item(4, e.RowIndex).Style.ForeColor = Color.Black
+            End Select
+        End If
+
 
         Select Case AppTableDisplay.Columns(e.ColumnIndex).Name
 
@@ -995,8 +1011,10 @@ Public Class Form1
                 If AppTableDisplay.CurrentRow.IsNewRow Then
                     Beep()
                 Else
+
                     AppTableDisplay.Rows.Remove(AppTableDisplay.Rows(AppTableDisplay.SelectedCells.Item(0).RowIndex))
                 End If
+
 
             Case Else
                 Exit Sub
@@ -1013,7 +1031,7 @@ Public Class Form1
         msg = ""
 
         If MsgBox("Do you want To overwrite the Henry's Law value with an estimate based on the solubility and vapor pressure?", 4, "Overwrite Warning") = 7 Then
-            Return
+                Return
         End If
 
 

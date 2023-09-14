@@ -6,7 +6,9 @@ module process_medians
     
     subroutine calculate_medians(app_window_counter, run_tpez_wpez)
           use constants_and_variables, ONLY: nchem, number_medians, hold_for_medians_wb, hold_for_medians_wpez, hold_for_medians_tpez,  &
-              hold_for_medians_daughter, hold_for_medians_grandaughter, First_time_through_medians,median_unit,run_id, &
+              hold_for_medians_daughter, hold_for_medians_grandaughter, hold_for_medians_WPEZ_daughter, hold_for_medians_TPEZ_daughter, &
+              hold_for_medians_WPEZ_grandaughter,hold_for_medians_TPEZ_grandaughter , &
+              First_time_through_medians,median_unit,run_id, &
               median_daughter_unit,median_grandaughter_unit ,median_unit_wpez, median_unit_tpez,median_daughter_unit_wpez,median_grandaughter_unit_wpez,&
               median_daughter_unit_tpez,median_grandaughter_unit_tpez
             
@@ -106,18 +108,36 @@ module process_medians
 
          if (run_tpez_wpez) then  !wpez needs its own call due to different capture also because its scenario run is same as pond                 
                 call find_medians (app_window_counter, number_medians, hold_for_medians_wpez, medians_temp)  
+                
+  
                 write(median_unit_wpez, '(A86, 10(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_temp(i), i=1, 9) 
-                
-               ! call write_medians_wpez(medians_temp, number_medians)
-                
-                call find_medians (app_window_counter, 1, hold_for_medians_tpez, medians_temp) 
-              !  call write_medians_tpez(medians_temp(1))   
-                 write(median_unit_tpez, '(A86, ",", G12.4 )') adjustl((adjustr(run_id)//"_median")), medians_temp(1)*0.892179
+
+                call find_medians (app_window_counter, 1, hold_for_medians_tpez, medians_temp)   
+                write(median_unit_tpez, '(A86, ",", G12.4 )') adjustl((adjustr(run_id)//"_median")), medians_temp(1)*0.892179
+    
+
+                if (nchem>1) then !daughter
+     
+                   call find_medians (app_window_counter, number_medians, hold_for_medians_WPEZ_daughter, medians_temp)             
+                   write(median_daughter_unit_wpez, '(A86, 11(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_temp(i), i=1, number_medians)  
+           
+                   call find_medians (app_window_counter, 1, hold_for_medians_TPEZ_daughter, medians_temp)             
+                   write(median_daughter_unit_tpez, '(A86, 11(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), medians_temp(1)*0.892179
+                end if
+                 
+          
+               if (nchem>2) then !grandaughter
+                   call find_medians (app_window_counter, number_medians, hold_for_medians_WPEZ_grandaughter, medians_temp)             
+                   write(median_grandaughter_unit_wpez, '(A86, 11(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_temp(i), i=1, number_medians)  
+           
+                   call find_medians (app_window_counter, 1, hold_for_medians_TPEZ_grandaughter, medians_temp)             
+                   write(median_grandaughter_unit_tpez, '(A86, 11(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), medians_temp(1)*0.892179
+               end if
+               
          end if
          
-                !write(median_output_unit_tpez, '(A86, ",", G12.4 )') adjustl((adjustr(run_id)//"_median")), medians_input*0.892179
-
-
+               
+               
     end subroutine calculate_medians
     
    !subroutine write_medians_wpez(medians_input,number)

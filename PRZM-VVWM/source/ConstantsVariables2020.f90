@@ -518,7 +518,9 @@ module constants_and_variables
       logical :: some_applications_were_foliar
                 
      !*****Pesticide Properties ******************  
-      real    :: plant_pesticide_degrade_rate(3)    !plant decay rate
+      real    :: foliar_halflife_input(3)           !plant decay halflife input
+      
+      real    :: plant_pesticide_degrade_rate(3)    !plant decay rate  --convert to this in initialization
       real    :: plant_washoff_coeff(3)             !plant washoff coefficient (per cm rainfall)  
           
 

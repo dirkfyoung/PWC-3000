@@ -31,10 +31,12 @@ use waterbody_parameters, ONLY: benthic_depth ,porosity,area_waterbody
 
     !***** Daily Loop Calculations ************************
     do day_count = 1,num_records    
- 
+
 
         m1 = (1-   fraction_to_benthic(day_count))*(mn1 + m1_input(day_count))  !re-equilibration with incoming sediment and then redistribution
         m2 = mn2 + fraction_to_benthic(day_count) *(mn1 + m1_input(day_count))   + m2_input(day_count)
+        
+        write(*,*) m1_input(day_count)
         
         m1_store(day_count)=m1
         m2_store(day_count)=m2
@@ -43,6 +45,7 @@ use waterbody_parameters, ONLY: benthic_depth ,porosity,area_waterbody
         aqconc1 = m1*fw1(day_count)/daily_depth(day_count)/area_waterbody
         aqconc2 = m2*fw2/(benthic_depth*area_waterbody*porosity )       
         
+
         !******************************************************
         !store these beginning day aquatic concentrations
         !these variables are only used for delivery to output routines

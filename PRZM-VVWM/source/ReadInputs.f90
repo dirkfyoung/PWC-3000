@@ -13,7 +13,7 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     photo_halflife_input, xPhoto, &
     hydrolysis_halflife_input, rflat, xhydro, &
     soil_degradation_halflife_input, soil_ref_temp, xsoil, &
-    plant_pesticide_degrade_rate,foliar_formation_ratio_12, foliar_formation_ratio_23, plant_washoff_coeff, & 
+    foliar_halflife_input,foliar_formation_ratio_12, foliar_formation_ratio_23, plant_washoff_coeff, & 
     mwt, vapor_press, solubilty, dair,Henry_unitless,Heat_of_Henry, q_10, &
     number_of_schemes,num_apps_in_schemes, number_of_scenarios, &
     app_reference_point_schemes  ,&
@@ -83,11 +83,17 @@ use utilities
     read(inputfile_unit_number,*) rflat(1), rflat(2), rflat(3)                                                    !Line 18
     read(inputfile_unit_number,*) hydrolysis_halflife_input(1),hydrolysis_halflife_input(2), &                    !Line 19
         hydrolysis_halflife_input(3) , xhydro(1), xhydro(2)
+    
+
     read(inputfile_unit_number,*) soil_degradation_halflife_input(1), soil_degradation_halflife_input(2),&        !Line 20
         soil_degradation_halflife_input(3), xsoil(1), xsoil(2), is_total_degradation	
 	read(inputfile_unit_number,*) soil_ref_temp(1), soil_ref_temp(2), soil_ref_temp(3)                            !Line 21
-    read(inputfile_unit_number,*) plant_pesticide_degrade_rate(1), plant_pesticide_degrade_rate(2),&              !Line 22
-        plant_pesticide_degrade_rate(3),foliar_formation_ratio_12, foliar_formation_ratio_23            
+
+    read(inputfile_unit_number,*) foliar_halflife_input(1), foliar_halflife_input(2),&              !Line 22
+        foliar_halflife_input(3),foliar_formation_ratio_12, foliar_formation_ratio_23            
+    
+
+    
     read(inputfile_unit_number,*) plant_washoff_coeff(1),plant_washoff_coeff(2),plant_washoff_coeff(3)            !Line 23  
     read(inputfile_unit_number,*) mwt(1), mwt(2), mwt(3)                                                          !Line 24
     read(inputfile_unit_number,*) vapor_press(1), vapor_press(2),vapor_press(3)                                   !Line 25
