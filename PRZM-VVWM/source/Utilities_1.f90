@@ -219,52 +219,51 @@ call time_check('averag deep loop 1')
 
      
      
-     
-     
-     subroutine find_medians(rows, columns, local_hold_for_medians, medians)
-        !Find median of array with 10 columns and 
-         integer, intent(in) ::  rows, columns
-         
-         real, intent(in)    ::  local_hold_for_medians(columns, rows) 
+     subroutine find_medians(rows, columns, x , medians)
+        !Find medians of each column in array x 
+         integer, intent(in) ::  rows, columns      
+         real, intent(in)    ::  x(rows, columns) 
          real, intent(out)   ::  medians(columns)
+         
+         real :: hold(rows) 
+         
+         integer:: i,j
+         integer :: col
+         real :: max
+         
+
         
-         real :: pos_median, neg_median, test_for_median
-         integer:: i,j, count_above, count_below
-         logical :: got_pos, got_neg, got_median
+        do col = 1, columns !loop for each conc
+            max = 0.0
+            !arrange in accending order
+            
+            hold(:) = x(:, col)
+
+
+            do i=1,rows
+               do j=i+1,rows
+                  IF(hold(i)>hold(j))THEN
+                     MAX=hold(i)
+                     hold(i)=hold(j)
+                     hold(j)=MAX
+                  endif
+               end do
+
+
+            end do
+
+            if(MOD(rows,2)==0)then
+               medians(col) = (hold(rows/2)+hold(rows/2+1))/2.0
+            else
+               medians(col) = hold(rows/2 +1)
+            endif
+
+   
+     end do
+     
          
-         test_for_median = 0.0
+     
          
-         do j = 1, columns !loop for each conc
-              got_pos = .False.
-              got_neg = .False.
-              got_median = .False.    
-               
-              do i = 1, rows !days
-                   test_for_median = local_hold_for_medians(j, i)  
-                   count_above = count (local_hold_for_medians(j,:) >= test_for_median)
-                   count_below = count (local_hold_for_medians(j,:) <= test_for_median)
-                   
-                   if (count_above == count_below) then 
-                           got_median = .TRUE.
-                           exit
-                   else if (count_above - count_below == 1) then 
-                           pos_median = test_for_median
-                           got_pos = .TRUE.                  
-                   else if (count_above - count_below == -1) then 
-                           neg_median = test_for_median
-                           got_neg = .TRUE.
-                   end if
-                   if (got_pos .AND. got_neg) exit        
-              end do
-                                     
-              if (got_median) then
-                  medians(j) = test_for_median
-              else if (got_pos .AND. got_neg) then
-                  medians(j) = (pos_median + neg_median)/2.0
-              else 
-                  write(*,*) "Can not find median"
-              end if
-         end do
      end subroutine find_medians
      
      

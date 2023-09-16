@@ -30,13 +30,10 @@ use  constants_and_Variables, ONLY: plant_pesticide_degrade_rate,plant_volatiliz
           endif
     end do
     
-  write (88,*) "rate", plant_pesticide_degrade_rate(1), plant_pesticide_degrade_rate(2),plant_pesticide_degrade_rate(3)
 
     fol_deg =  plant_pesticide_degrade_rate + plant_volatilization_rate  !local rate, need to 
     
-    write (88,*) "rate 2", fol_deg(1), fol_deg(2),fol_deg(3)
-    
-    
+
     
     !Parent degradation for time step
     ex1 = EXP((-fol_deg(1))*DELT)
@@ -104,7 +101,7 @@ use  constants_and_Variables, ONLY: plant_pesticide_degrade_rate,plant_volatiliz
         term100 = Foliar_Pest_initial(3)*ex3        
         FOLPST(3) =term50 + term90 + term100
     end if
-             write(88,*) "out", FOLPST(1) , FOLPST(2) , FOLPST(3) 
+         !    write(88,*) "out", FOLPST(1) , FOLPST(2) , FOLPST(3) 
     
     
 END SUBROUTINE plant_pesticide_degradation

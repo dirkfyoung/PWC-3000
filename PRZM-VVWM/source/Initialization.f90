@@ -1,6 +1,6 @@
 module initialization
 implicit none
-	contains
+    contains
 
 subroutine chemical_manipulations
 use constants_and_Variables, ONLY: MolarConvert_aq12_input, MolarConvert_s12_input,MolarConvert_aq23_input,MolarConvert_s23_input, xsoil
@@ -18,10 +18,10 @@ MolarConvert_s23_input  = xsoil(2)
 
 
 end subroutine chemical_manipulations
-	
-	
-	
-	
+    
+    
+    
+    
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!     
   SUBROUTINE INITL
@@ -497,11 +497,11 @@ end subroutine chemical_manipulations
         
     end do
     
-    write(*,*) 'GW profile:' 
-    write (*,'(A)')   '    #     depth     bd       max_water     min_wat    orgcarb         kd         dwrate'
-    do i = 1, ncom2
-       write (*,'(I5,1X, F9.2, 8G12.3)') i,soil_depth(i), bulkdensity(i),theta_fc(i), theta_wp(i), orgcarb(i),  k_freundlich(1,i),dwrate_atRefTemp(1,i)
-    end do	
+    write(*,*) 'calculate GW profile' 
+    !write (*,'(A)')   '    #     depth     bd       max_water     min_wat    orgcarb         kd         dwrate'
+    !do i = 1, ncom2
+    !   write (*,'(I5,1X, F9.2, 8G12.3)') i,soil_depth(i), bulkdensity(i),theta_fc(i), theta_wp(i), orgcarb(i),  k_freundlich(1,i),dwrate_atRefTemp(1,i)
+    !end do	
     
     !As a default set the degradation rate to equal the input values
     dwrate = dwrate_atRefTemp

@@ -474,49 +474,49 @@ use utilities_1, ONLY: Return_Frequency_Value
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, gw_peak(1), post_bt_avg(1) ,throughputs(1),simulation_avg(1)    !effective_total_deg2 does not mean degradate, means benthic
 
  !**capture data for median calculations here
-       hold_for_medians_wb( 1, app_window_counter)= c1_out
-       hold_for_medians_wb( 2, app_window_counter)= c365_out
-       hold_for_medians_wb( 3, app_window_counter)= simulation_average
-       hold_for_medians_wb( 4, app_window_counter)= c4_out
-       hold_for_medians_wb( 5, app_window_counter)= c21_out
-       hold_for_medians_wb( 6, app_window_counter)= c60_out
-       hold_for_medians_wb( 7, app_window_counter)= benthic_peak_out
-       hold_for_medians_wb( 8, app_window_counter)= benthic_c21_out
-       hold_for_medians_wb( 9, app_window_counter)= post_bt_avg(1)
-       hold_for_medians_wb( 10, app_window_counter)= throughputs(1)
-       hold_for_medians_wb( 11, app_window_counter)=  gw_peak(1)
+       hold_for_medians_wb( app_window_counter,1 )= c1_out
+       hold_for_medians_wb( app_window_counter,2 )= c365_out
+       hold_for_medians_wb( app_window_counter,3 )= simulation_average
+       hold_for_medians_wb( app_window_counter,4 )= c4_out
+       hold_for_medians_wb( app_window_counter,5 )= c21_out
+       hold_for_medians_wb( app_window_counter,6 )= c60_out
+       hold_for_medians_wb( app_window_counter,7 )= benthic_peak_out
+       hold_for_medians_wb( app_window_counter,8 )= benthic_c21_out
+       hold_for_medians_wb( app_window_counter,9 )= post_bt_avg(1)
+       hold_for_medians_wb( app_window_counter,10)= throughputs(1)
+       hold_for_medians_wb( app_window_counter,11)=  gw_peak(1)
     case (2)
         local_run_id = trim(run_id) // '_deg1'
         write(unit_number_deg1,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field,runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, gw_peak(2), post_bt_avg(2) ,throughputs(2) ,simulation_avg(2)
 
-       hold_for_medians_daughter( 1, app_window_counter)= c1_out
-       hold_for_medians_daughter( 2, app_window_counter)= c365_out
-       hold_for_medians_daughter( 3, app_window_counter)= simulation_average
-       hold_for_medians_daughter( 4, app_window_counter)= c4_out
-       hold_for_medians_daughter( 5, app_window_counter)= c21_out
-       hold_for_medians_daughter( 6, app_window_counter)= c60_out
-       hold_for_medians_daughter( 7, app_window_counter)= benthic_peak_out
-       hold_for_medians_daughter( 8, app_window_counter)= benthic_c21_out
-       hold_for_medians_daughter( 9, app_window_counter)= post_bt_avg(2)
-       hold_for_medians_daughter( 10, app_window_counter)= throughputs(2)  
-       hold_for_medians_daughter( 11, app_window_counter)=  gw_peak(2)
+       hold_for_medians_daughter( app_window_counter ,1  )= c1_out
+       hold_for_medians_daughter( app_window_counter ,2  )= c365_out
+       hold_for_medians_daughter( app_window_counter ,3  )= simulation_average
+       hold_for_medians_daughter( app_window_counter ,4  )= c4_out
+       hold_for_medians_daughter( app_window_counter ,5  )= c21_out
+       hold_for_medians_daughter( app_window_counter ,6  )= c60_out
+       hold_for_medians_daughter( app_window_counter ,7  )= benthic_peak_out
+       hold_for_medians_daughter( app_window_counter ,8  )= benthic_c21_out
+       hold_for_medians_daughter( app_window_counter ,9  )= post_bt_avg(2)
+       hold_for_medians_daughter( app_window_counter ,10 )= throughputs(2)  
+       hold_for_medians_daughter( app_window_counter ,11 )=  gw_peak(2)
     case (3)
         local_run_id = trim(run_id)  // '_deg2'
         write(unit_number_deg2,'(A80,1x,26(",", ES13.4E3))')(adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, gw_peak(3), post_bt_avg(3) ,throughputs(3) ,simulation_avg(3)
 
-        hold_for_medians_grandaughter( 1, app_window_counter)= c1_out
-        hold_for_medians_grandaughter( 2, app_window_counter)= c365_out
-        hold_for_medians_grandaughter( 3, app_window_counter)= simulation_average
-        hold_for_medians_grandaughter( 4, app_window_counter)= c4_out
-        hold_for_medians_grandaughter( 5, app_window_counter)= c21_out
-        hold_for_medians_grandaughter( 6, app_window_counter)= c60_out
-        hold_for_medians_grandaughter( 7, app_window_counter)= benthic_peak_out
-        hold_for_medians_grandaughter( 8, app_window_counter)= benthic_c21_out
-        hold_for_medians_grandaughter( 9, app_window_counter)= post_bt_avg(3)
-        hold_for_medians_grandaughter( 10, app_window_counter)= throughputs(3)  
-        hold_for_medians_grandaughter( 11, app_window_counter)=  gw_peak(3)
+        hold_for_medians_grandaughter(  app_window_counter,1   )= c1_out
+        hold_for_medians_grandaughter(  app_window_counter,2   )= c365_out
+        hold_for_medians_grandaughter(  app_window_counter,3   )= simulation_average
+        hold_for_medians_grandaughter(  app_window_counter,4   )= c4_out
+        hold_for_medians_grandaughter(  app_window_counter,5   )= c21_out
+        hold_for_medians_grandaughter(  app_window_counter,6   )= c60_out
+        hold_for_medians_grandaughter(  app_window_counter,7   )= benthic_peak_out
+        hold_for_medians_grandaughter(  app_window_counter,8   )= benthic_c21_out
+        hold_for_medians_grandaughter(  app_window_counter,9   )= post_bt_avg(3)
+        hold_for_medians_grandaughter(  app_window_counter,10  )= throughputs(3)  
+        hold_for_medians_grandaughter(  app_window_counter,11  )=  gw_peak(3)
 
         case default
     end select

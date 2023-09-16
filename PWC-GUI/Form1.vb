@@ -1177,6 +1177,36 @@ Public Class Form1
             ItsTPEZWPEZ.Checked = False
         End If
     End Sub
+
+    Private Sub ModifyScenarios_Click(sender As Object, e As EventArgs) Handles ModifyScenarios.Click
+        Dim msg As String
+        Dim newfilename As String
+
+        For Each scenariofilename As String In ScenarioListBox.Items
+
+            ReadScenarioParameters(scenariofilename)
+
+            'Put modifications here:
+            useAutoGWprofile.Checked = True
+
+
+            'Version numbering
+            newfilename = Replace(scenariofilename, "V4.scn2", "v5.scn2")
+
+            msg = CreateScenarioString()
+
+            Try
+                My.Computer.FileSystem.WriteAllText(newfilename, msg, False, System.Text.Encoding.ASCII)
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            End Try
+
+
+
+
+
+        Next
+    End Sub
 End Class
 
 

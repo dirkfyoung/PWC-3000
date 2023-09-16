@@ -964,6 +964,7 @@
 
     Private Sub ReadScenarioParameters(ByVal filename As String)
 
+
         Using MyReader As New Microsoft.VisualBasic.FileIO.TextFieldParser(filename)
 
             MyReader.TextFieldType = FileIO.FieldType.Delimited
@@ -1196,10 +1197,6 @@
 
 
             End If
-
-
-
-
 
 
 

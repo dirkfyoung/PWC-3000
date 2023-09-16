@@ -19,7 +19,7 @@
         Dim output As String = p.StandardOutput.ReadToEnd
         Dim output2 As String = p.StandardError.ReadToEnd
 
-        '     p.WaitForExit()
+        p.WaitForExit()
         My.Computer.FileSystem.WriteAllText("run_status.txt", output & output2, False, System.Text.Encoding.ASCII)
 
     End Sub

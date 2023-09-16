@@ -13,17 +13,17 @@ module constants_and_variables
       
       integer, parameter :: number_medians = 11
       
-      real :: hold_for_medians_wb(number_medians,366)      !holds app window values for median determination 
-      real :: hold_for_medians_WPEZ(number_medians,366) !holds app window values for median determination 
-      real :: hold_for_medians_TPEZ(366)     !Holds TPEZ acute value
+      real :: hold_for_medians_wb(366, number_medians)      !holds app window values for median determination 
+      real :: hold_for_medians_WPEZ(366,number_medians) !holds app window values for median determination 
+      real :: hold_for_medians_TPEZ(366,1)     !Holds TPEZ acute value, make as a 2d array for the smedian subroutine call
       
-      real :: hold_for_medians_daughter(number_medians,366)      !holds app window values for median determination 
-      real :: hold_for_medians_WPEZ_daughter(number_medians,366) !holds app window values for median determination 
-      real :: hold_for_medians_TPEZ_daughter(366)     !Holds TPEZ acute value
+      real :: hold_for_medians_daughter(366,number_medians)      !holds app window values for median determination 
+      real :: hold_for_medians_WPEZ_daughter(366,number_medians) !holds app window values for median determination 
+      real :: hold_for_medians_TPEZ_daughter(366,1)     !Holds TPEZ acute value
       
-      real :: hold_for_medians_grandaughter(number_medians,366)      !holds app window values for median determination 
-      real :: hold_for_medians_WPEZ_grandaughter(number_medians,366) !holds app window values for median determination 
-      real :: hold_for_medians_TPEZ_grandaughter(366)     !Holds TPEZ acute value     
+      real :: hold_for_medians_grandaughter(366,number_medians)      !holds app window values for median determination 
+      real :: hold_for_medians_WPEZ_grandaughter(366,number_medians) !holds app window values for median determination 
+      real :: hold_for_medians_TPEZ_grandaughter(366,1)     !Holds TPEZ acute value     
     
     !  real :: medians_conc(number_medians)  !keeps final medians for main (current) waterbody simulations
 

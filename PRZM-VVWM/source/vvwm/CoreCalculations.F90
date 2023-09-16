@@ -36,8 +36,6 @@ use waterbody_parameters, ONLY: benthic_depth ,porosity,area_waterbody
         m1 = (1-   fraction_to_benthic(day_count))*(mn1 + m1_input(day_count))  !re-equilibration with incoming sediment and then redistribution
         m2 = mn2 + fraction_to_benthic(day_count) *(mn1 + m1_input(day_count))   + m2_input(day_count)
         
-        write(*,*) m1_input(day_count)
-        
         m1_store(day_count)=m1
         m2_store(day_count)=m2
 

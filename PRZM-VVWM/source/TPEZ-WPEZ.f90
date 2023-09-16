@@ -121,7 +121,7 @@ Module TPEZ_WPEZ
                                 summary_filename, summary_filename_deg1, summary_filename_deg2, waterbody_name )
 
     use utilities
-    use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth, Afield, area_waterbody
+    use waterbody_parameters, ONLY: SimTypeFlag, zero_depth, is_zero_depth, Afield, area_waterbody
     
     use constants_and_variables, ONLY:  num_records, run_id, is_hed_files_made,is_add_return_frequency, additional_return_frequency, &
                                        num_years, startday, &
@@ -139,7 +139,7 @@ Module TPEZ_WPEZ
                                  spray_total ,   &
                                  m_total,        &  !total system average daily mass
                                  Daily_Avg_Runoff, Daily_avg_flow_out,  runoff_fraction, erosion_fraction, drift_fraction ,&
-    k_burial, k_aer_aq, k_flow, k_hydro, k_photo, k_volatile,k_anaer_aq, gamma_1, gamma_2, gw_peak, post_bt_avg ,throughputs,simulation_avg, &
+    k_burial, k_aer_aq, k_hydro, k_photo, k_volatile,k_anaer_aq, gamma_1, gamma_2, gw_peak, post_bt_avg ,throughputs,simulation_avg, &
 	is_waterbody_info_output, full_run_identification, applied_mass_sum_gram_per_cm2 , fraction_off_field
    
     use utilities_1, ONLY: pick_max, find_first_annual_dates
@@ -411,17 +411,19 @@ Module TPEZ_WPEZ
         
           
     !**capture data for median calculations here
-          hold_for_medians_WPEZ( 1, app_window_counter)= c1_out
-          hold_for_medians_WPEZ( 2, app_window_counter)= c365_out
-          hold_for_medians_WPEZ( 3, app_window_counter)= simulation_average
-          hold_for_medians_WPEZ( 4, app_window_counter)= c4_out
-          hold_for_medians_WPEZ( 5, app_window_counter)= c21_out
-          hold_for_medians_WPEZ( 6, app_window_counter)= c60_out
-          hold_for_medians_WPEZ( 7, app_window_counter)= benthic_peak_out
-          hold_for_medians_WPEZ( 8, app_window_counter)= benthic_c21_out
+          hold_for_medians_WPEZ(app_window_counter,1)= c1_out
+          hold_for_medians_WPEZ(app_window_counter,2)= c365_out
+          hold_for_medians_WPEZ(app_window_counter,3)= simulation_average
+          hold_for_medians_WPEZ(app_window_counter,4)= c4_out
+          hold_for_medians_WPEZ(app_window_counter,5)= c21_out
+          hold_for_medians_WPEZ(app_window_counter,6)= c60_out
+          hold_for_medians_WPEZ(app_window_counter,7)= benthic_peak_out
+          hold_for_medians_WPEZ(app_window_counter,8)= benthic_c21_out
           
-          hold_for_medians_WPEZ( 9, app_window_counter)= total_out
-          hold_for_medians_WPEZ( 10, app_window_counter)= 0.0  !spare
+          hold_for_medians_WPEZ(app_window_counter,9)= total_out
+          hold_for_medians_WPEZ(app_window_counter,10)= 0.0  !spare  wpez only uses 9
+          hold_for_medians_WPEZ(app_window_counter,11)= 0.0  !spare
+          
           
     !      hold_for_medians_WPEZ( 9, app_window_counter)= post_bt_avg(1)
     !      hold_for_medians_WPEZ( 10, app_window_counter)= throughputs(1)
@@ -431,17 +433,17 @@ Module TPEZ_WPEZ
         write(unit_number_deg1,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field,runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, total_out  !, gw_peak(2), post_bt_avg(2) ,throughputs(2) ,simulation_avg(2)
 
-          hold_for_medians_WPEZ_daughter( 1, app_window_counter)= c1_out
-          hold_for_medians_WPEZ_daughter( 2, app_window_counter)= c365_out
-          hold_for_medians_WPEZ_daughter( 3, app_window_counter)= simulation_average
-          hold_for_medians_WPEZ_daughter( 4, app_window_counter)= c4_out
-          hold_for_medians_WPEZ_daughter( 5, app_window_counter)= c21_out
-          hold_for_medians_WPEZ_daughter( 6, app_window_counter)= c60_out
-          hold_for_medians_WPEZ_daughter( 7, app_window_counter)= benthic_peak_out
-          hold_for_medians_WPEZ_daughter( 8, app_window_counter)= benthic_c21_out
-          hold_for_medians_WPEZ_daughter( 9, app_window_counter)= total_out
-          hold_for_medians_WPEZ_daughter( 10, app_window_counter)= 0.0  !spare
-    
+          hold_for_medians_WPEZ_daughter(app_window_counter,1)= c1_out
+          hold_for_medians_WPEZ_daughter(app_window_counter,2)= c365_out
+          hold_for_medians_WPEZ_daughter(app_window_counter,3)= simulation_average
+          hold_for_medians_WPEZ_daughter(app_window_counter,4)= c4_out
+          hold_for_medians_WPEZ_daughter(app_window_counter,5)= c21_out
+          hold_for_medians_WPEZ_daughter(app_window_counter,6)= c60_out
+          hold_for_medians_WPEZ_daughter(app_window_counter,7)= benthic_peak_out
+          hold_for_medians_WPEZ_daughter(app_window_counter,8)= benthic_c21_out
+          hold_for_medians_WPEZ_daughter(app_window_counter,9)= total_out
+          hold_for_medians_WPEZ_daughter(app_window_counter,10)= 0.0  !spare
+          hold_for_medians_WPEZ_daughter(app_window_counter,11)= 0.0  !spare
     
     case (3)
         local_run_id = trim(run_id) //"_WPEZ" // '_deg2'
@@ -449,17 +451,17 @@ Module TPEZ_WPEZ
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, total_out   !, gw_peak(3), post_bt_avg(3) ,throughputs(3) ,simulation_avg(3)
 
 
-          hold_for_medians_WPEZ_grandaughter( 1, app_window_counter)= c1_out
-          hold_for_medians_WPEZ_grandaughter( 2, app_window_counter)= c365_out
-          hold_for_medians_WPEZ_grandaughter( 3, app_window_counter)= simulation_average
-          hold_for_medians_WPEZ_grandaughter( 4, app_window_counter)= c4_out
-          hold_for_medians_WPEZ_grandaughter( 5, app_window_counter)= c21_out
-          hold_for_medians_WPEZ_grandaughter( 6, app_window_counter)= c60_out
-          hold_for_medians_WPEZ_grandaughter( 7, app_window_counter)= benthic_peak_out
-          hold_for_medians_WPEZ_grandaughter( 8, app_window_counter)= benthic_c21_out  
-          hold_for_medians_WPEZ_grandaughter( 9, app_window_counter)= total_out
-          hold_for_medians_WPEZ_grandaughter( 10, app_window_counter)= 0.0  !spare
-        
+          hold_for_medians_WPEZ_grandaughter( app_window_counter , 1  )= c1_out
+          hold_for_medians_WPEZ_grandaughter( app_window_counter , 2  )= c365_out
+          hold_for_medians_WPEZ_grandaughter( app_window_counter , 3  )= simulation_average
+          hold_for_medians_WPEZ_grandaughter( app_window_counter , 4  )= c4_out
+          hold_for_medians_WPEZ_grandaughter( app_window_counter , 5  )= c21_out
+          hold_for_medians_WPEZ_grandaughter( app_window_counter , 6  )= c60_out
+          hold_for_medians_WPEZ_grandaughter( app_window_counter , 7  )= benthic_peak_out
+          hold_for_medians_WPEZ_grandaughter( app_window_counter , 8  )= benthic_c21_out  
+          hold_for_medians_WPEZ_grandaughter( app_window_counter , 9  )= total_out
+          hold_for_medians_WPEZ_grandaughter( app_window_counter , 10 )= 0.0  !spare
+          hold_for_medians_WPEZ_grandaughter( app_window_counter , 11 )= 0.0  !spare
         
         
         
@@ -476,7 +478,7 @@ Module TPEZ_WPEZ
 !****************************************************************************
   subroutine tpez(scheme_number)
       use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
-          DELT_vvwm, k_flow,waterbodytext,soil_depth, &
+          DELT_vvwm, waterbodytext,soil_depth, &
           num_applications_input,application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, drift_kg_per_m2, drift_schemes,&
           theta_fc,theta_wp, ncom2,  orgcarb,bulkdensity , mavg1_store, driftfactor_schemes
       use waterbody_parameters, ONLY: simtypeflag, use_tpezbuffer
@@ -590,7 +592,7 @@ write(*,*) "tpez drift factor", drift_value_local
     !*******************************************************************************
     subroutine TPEZ_initial_conditions(chem_index)
        !THIS SUBROUTINE RETURNS VALUES FOR input masses m1_input for TPEZ 
-       use constants_and_variables, ONLY: eroded_solids_mass, degradateProduced1, mass_off_field, spray_additions, capacity_1, kd_sed_1, & 
+       use constants_and_variables, ONLY:  degradateProduced1, mass_off_field, spray_additions, kd_sed_1, & 
                                           m1_input  !OUTPUT mass added to littoral region (kg)                                                       
         implicit none      
         integer,intent(in) :: chem_index
@@ -673,7 +675,7 @@ write(*,*) "tpez drift factor", drift_value_local
     !****************************************************************************
     subroutine MainLoopTPEZ(chem_index, vmax, kd, bd)
        use constants_and_variables, ONLY: num_records , DELT_vvwm,m1_input,m1_store,mavg1_store, aq1_store,  &
-                                           k_flow,soil_degradation_halflife_input, burial, dwrate, aq_rate_corrected, ncom2, &
+                                           k_flow,soil_degradation_halflife_input, burial, dwrate, ncom2, &
                                            degradateProduced1, mwt, nchem,soil_depth
 
        use initialization, ONLY: Convert_halflife_to_rate_per_sec                        
@@ -764,7 +766,7 @@ write(*,*) "tpez drift factor", drift_value_local
     subroutine tpez_output_processor(chem_index, area_tpez)
     use utilities
 
-    use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth, Afield
+    use waterbody_parameters, ONLY: SimTypeFlag, zero_depth, is_zero_depth, Afield
     use utilities_1, ONLY: pick_max, find_first_annual_dates
     use constants_and_variables, ONLY:  num_records, run_id, is_hed_files_made,is_add_return_frequency, additional_return_frequency, &
                                        num_years, startday,  waterbodytext, &
@@ -777,9 +779,6 @@ write(*,*) "tpez drift factor", drift_value_local
                                  aqconc_avg1,    &   !average daily concentration (after app)
                                  aqconc_avg2,    &
                                  daily_depth,    &
-                                 runoff_total ,  &
-                                 erosion_total,  &
-                                 spray_total ,   &
 	                             is_waterbody_info_output, full_run_identification, applied_mass_sum_gram_per_cm2, mavg1_store, edge_of_field
                          
           implicit none
@@ -905,19 +904,19 @@ use utilities_1, ONLY: Return_Frequency_Value
     case (1)
         local_run_id = trim(run_id)//"_TPEZ"  // '_Parent'
         write(summary_output_unit_tpez,     '(A80,1x,26(",",ES13.4E3))') (adjustl(local_run_id)), tpez_max_out, edge_of_field_max_out*1000000.0  !convert to ug/L  from kg/m3
-        hold_for_medians_TPEZ(app_window_counter) = tpez_max_out
+        hold_for_medians_TPEZ(app_window_counter,1) = tpez_max_out
     
     
     case (2)
         local_run_id = trim(run_id)//"_TPEZ"  // '_deg1'
         write(summary_output_unit_tpez_deg1,'(A80,1x,26(",",ES13.4E3))') (adjustl(local_run_id)), tpez_max_out
-        hold_for_medians_TPEZ_daughter(app_window_counter) = tpez_max_out
+        hold_for_medians_TPEZ_daughter(app_window_counter,1) = tpez_max_out
         
         
     case (3)
         local_run_id = trim(run_id)//"_TPEZ"   // '_deg2'
         write(summary_output_unit_tpez_deg2,'(A80,1x,26(",",ES13.4E3))') (adjustl(local_run_id)), tpez_max_out
-        hold_for_medians_TPEZ_grandaughter(app_window_counter) = tpez_max_out
+        hold_for_medians_TPEZ_grandaughter(app_window_counter,1) = tpez_max_out
         case default
     end select
  
