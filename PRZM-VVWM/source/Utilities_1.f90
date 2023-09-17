@@ -218,12 +218,11 @@ call time_check('averag deep loop 1')
      
 
      
-     
      subroutine find_medians(rows, columns, x , medians)
         !Find medians of each column in array x 
          integer, intent(in) ::  rows, columns      
-         real, intent(in)    ::  x(rows, columns) 
-         real, intent(out)   ::  medians(columns)
+         real, intent(in),dimension(:,:)    ::  x       !assumed shape array 
+         real, intent(out),dimension(:)     ::  medians
          
          real :: hold(rows) 
          
@@ -231,25 +230,22 @@ call time_check('averag deep loop 1')
          integer :: col
          real :: max
          
-
-        
         do col = 1, columns !loop for each conc
-            max = 0.0
+           
             !arrange in accending order
+            max = 0.0
             
-            hold(:) = x(:, col)
-
-
+            !x is assumed shape. also it is intent in, so need explicit bounds and local variable hold bcuz variable hold changes below          
+            hold(1:rows) = x(1:rows, col) 
+            
             do i=1,rows
                do j=i+1,rows
                   IF(hold(i)>hold(j))THEN
-                     MAX=hold(i)
+                     max=hold(i)
                      hold(i)=hold(j)
-                     hold(j)=MAX
+                     hold(j)=max
                   endif
                end do
-
-
             end do
 
             if(MOD(rows,2)==0)then
@@ -257,13 +253,9 @@ call time_check('averag deep loop 1')
             else
                medians(col) = hold(rows/2 +1)
             endif
-
-   
      end do
      
-         
-     
-         
+
      end subroutine find_medians
      
      
