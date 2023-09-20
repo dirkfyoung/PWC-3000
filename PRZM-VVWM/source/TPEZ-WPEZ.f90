@@ -34,7 +34,6 @@ Module TPEZ_WPEZ
        real    :: koc
        character(LEN=20) :: waterbody_name
 
-       write(*,*) "enter WPEZ"
 
       ! FOR WPEZ these should already be calculated AFTER pond run
       !   call allocation_for_VVWM  moved to front
@@ -85,12 +84,11 @@ Module TPEZ_WPEZ
           call gamma_two                   !probably doesnt need recalculation
           
           call initial_conditions(chem_index)
-          write(*,*) "Call Main wpez loop"
+
           call MainLoop             
           
           waterbody_name =  "WPEZ"
         
-          write(*,*) 'wpez batch output file ', trim(summary_WPEZoutputfile)
         
           if (nchem > chem_index) then     
                 call DegradateProduction(chem_index) 
@@ -246,7 +244,6 @@ Module TPEZ_WPEZ
 
     call find_first_annual_dates (num_years, first_annual_dates )
 
-	 write(*,*) 'Start picking max'
 	 
     call pick_max(num_years,num_records, first_annual_dates,aqconc_avg1,c1_max)     !NEW FIND DAILY AVERAGE CONCENTRATION RETURN   
     call pick_max(num_years,num_records, first_annual_dates,m_total,total_max)     !total mass 
@@ -315,8 +312,8 @@ Module TPEZ_WPEZ
         end if
         
     
-       write(*,*) "total and fraction off field (WPEZ)" , applied_mass_sum_gram_per_cm2*Afield*10., fraction_off_field
-       write(*,*) 'Doing output process'  
+  !     write(*,*) "total and fraction off field (WPEZ)" , applied_mass_sum_gram_per_cm2*Afield*10., fraction_off_field
+   
  !      call calculate_effective_halflives()
        
 
@@ -469,8 +466,6 @@ Module TPEZ_WPEZ
     end select
 
 
-    
-      write(*,*)'done output batch '
      
    end subroutine write_simple_batch_data_WPEZ
                                         
@@ -549,7 +544,7 @@ Module TPEZ_WPEZ
       
       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       
-write(*,*) "tpez drift factor", drift_value_local
+!write(*,*) "tpez drift factor", drift_value_local
       
      !  Spray drift needs waterbody area (fortunately its same as pond but for future flexibity consider fix) 8/30/2023
      call spraydrift
@@ -560,8 +555,8 @@ write(*,*) "tpez drift factor", drift_value_local
      call find_average_property(ncom2,soil_depth,15.0, bulkdensity , avg_bd)  
      call find_average_property(ncom2,soil_depth,15.0, orgcarb     , avg_oc) 
     
-     write(*,*)"For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:"
-     write(*,*) avg_maxwater,  avg_minwater, avg_bd, avg_oc 
+     !write(*,*)"For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:"
+     !write(*,*) avg_maxwater,  avg_minwater, avg_bd, avg_oc 
    
      call  tpez_volume_calc (avg_maxwater, avg_minwater, area_tpez)   !call special averaging in here
   
@@ -836,7 +831,6 @@ write(*,*) "tpez drift factor", drift_value_local
 
         call find_first_annual_dates (num_years, first_annual_dates )
 
-	    write(*,*) 'Start picking max tpez'
 	
         call pick_max(num_years,num_records, first_annual_dates,mavg1_store,tpez_max)             !NEW FIND DAILY AVERAGE CONCENTRATION RETURN  
         call pick_max(num_years,num_records, first_annual_dates,edge_of_field ,edge_of_field_max) !NEW FIND DAILY AVERAGE CONCENTRATION RETURN   
@@ -919,8 +913,7 @@ use utilities_1, ONLY: Return_Frequency_Value
         hold_for_medians_TPEZ_grandaughter(app_window_counter,1) = tpez_max_out
         case default
     end select
- 
-     write(*,*)'done tpez output batch '
+
      
 end subroutine tpez_write_simple_batch_data
     

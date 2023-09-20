@@ -87,7 +87,7 @@ module process_medians
                
  
           !*********Populate Open Median Files with Data************
-write(88,*) "start on medians"
+
           call find_medians (app_window_counter, number_medians, hold_for_medians_wb, medians_temp)             
           write(median_unit, '(A86, 11(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_temp(i), i=1, number_medians)  
 
@@ -114,7 +114,7 @@ write(88,*) "start on medians"
   
                 write(median_unit_wpez, '(A86, 10(",",G12.4)  )' )  adjustl((adjustr(run_id)//"_median")), (medians_temp(i), i=1, 9) 
 
- write(*,*) "tpez medians"    
+   
                 call find_medians (app_window_counter, 1, hold_for_medians_tpez, medians_temp)   
                 write(median_unit_tpez, '(A86, ",", G12.4 )') adjustl((adjustr(run_id)//"_median")), medians_temp(1)*0.892179
     

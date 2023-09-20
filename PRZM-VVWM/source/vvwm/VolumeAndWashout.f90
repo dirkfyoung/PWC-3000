@@ -55,7 +55,6 @@ contains
         real,dimension(num_records)::evap_area
         real,dimension(num_records)::precip_area
         Daily_avg_flow_out = 0.0
-        write(*,*) "DOING VOLUME CALCULATION"
         
         v_0 = area_waterbody*depth_0
         v_max = area_waterbody*depth_max

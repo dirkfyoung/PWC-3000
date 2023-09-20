@@ -57,7 +57,7 @@
     trim(scenario_id)  &
         // '_' // trim(adjustl(local_name)) // '_' // trim(adjustl(appnumber))
     
-    write(*,'(A8, A256)') 'Run ID:', adjustl(run_ID )
+    !write(*,'(A8, A256)') 'Run ID:', adjustl(run_ID )
 
 
     

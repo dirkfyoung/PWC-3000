@@ -71,7 +71,6 @@ module schemeload
                    
 			!calclautaed based on losses to the waterbody subtracted from fields applied pesticide
 			APPEFF_in(i)           = 1.0 - drift_value(i) * area_waterbody/afield
-       !    write(*,'(I8,G10.3, I4, 3F8.3, I4, 3x, F8.3,3x, 2I6)')days_until_applied(i),application_rate_in(i), pest_app_method_in(i), DEPI_in(i),Tband_top_in(i), APPEFF_in(i),drift_schemes(scheme_number,i), drift_value(i) , repeat_app_in(i),lag_app_in(i) 
         end do 
         		
 		!the following cannot be applied until after the weather file has been read in. 
@@ -110,7 +109,7 @@ module schemeload
 	   		 previous = spraytable(1, i)
 	   	 else      !spraytable(1, i))< column  !do interpolation and quit
 	   		 output =  spraytable(row, i-1) +   (spraytable(row, i)-spraytable(row, i-1)) *  (column - previous)/(spraytable(1, i)- previous)
-	   		 write(*,'("            row = ",i2, " interpolate between columns ", i2, " and ", i2, ", fraction = ", g10.4 )') row, i-1, i,  (column - previous)/(spraytable(1, i)- previous)
+!	   		 write(*,'("            row = ",i2, " interpolate between columns ", i2, " and ", i2, ", fraction = ", g10.4 )') row, i-1, i,  (column - previous)/(spraytable(1, i)- previous)
 	   		 exit
 		 end if	 
 	   end do

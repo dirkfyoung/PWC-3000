@@ -32,8 +32,7 @@ module chemical_transport
     julday1900 = startday
     applied_mass_sum_gram_per_cm2= 0.0
     
-	write(*,*) "Enter chemical transport"
-	
+
     
     do i=1, num_records   !day loop driven by metfile only   
 

@@ -153,7 +153,7 @@ end subroutine chemical_manipulations
     ENPY = Heat_of_Henry/ 4184.0   
     
     !********Allocations of Soil Profile Variables**********************
-    write(*,*) 'Use Autoprofile for soil?', is_auto_profile
+
 	if (is_auto_profile) then
 		ncom2 = sum(profile_number_increments(1:number_of_discrete_layers))  !New way
     else     
@@ -497,7 +497,7 @@ end subroutine chemical_manipulations
         
     end do
     
-    write(*,*) 'calculate GW profile' 
+
     !write (*,'(A)')   '    #     depth     bd       max_water     min_wat    orgcarb         kd         dwrate'
     !do i = 1, ncom2
     !   write (*,'(I5,1X, F9.2, 8G12.3)') i,soil_depth(i), bulkdensity(i),theta_fc(i), theta_wp(i), orgcarb(i),  k_freundlich(1,i),dwrate_atRefTemp(1,i)
@@ -1216,14 +1216,13 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
 	       do i = 1, ncom2
 	          	retardation_factor(k) = retardation_factor(k) + delx(i) /total_depth*	(theta_fc(i) +bulkdensity(i)*kd_new(k, i))/theta_fc(i)
 	       end do
-	       write(*,*) 'Retardation Factor = ' , k, retardation_factor(k)
+
        end do       
         
        maxcap_volume = 0.0       
 	   do i = 1, ncom2
 			maxcap_volume = maxcap_volume + theta_fc(i) * delx(i)
        end do
-       write(*,*) 'maxcap_volume (effective pore volume (depth), cm) = ', maxcap_volume
   end subroutine Calculate_Retardation_Factor
   
 

@@ -141,7 +141,7 @@ use utilities
 	
     do i=1, number_of_schemes
         read(inputfile_unit_number,*) scheme_number_readin, scheme_name                                !scheme line 1
-        write(*,'(A22,I5,1X,A256)') " Scheme Number & Name ",scheme_number_readin, adjustl(scheme_name)
+  !      write(*,'(A22,I5,1X,A256)') " Scheme Number & Name ",scheme_number_readin, adjustl(scheme_name)
          
         read(inputfile_unit_number,*) app_reference_point_schemes(i)                            !scheme line 2
         read(inputfile_unit_number,*) num_apps_in_schemes(i)                                    !scheme line 3
@@ -149,21 +149,19 @@ use utilities
         do j=1, num_apps_in_schemes(i)                          
             select case (app_reference_point_schemes(i))
             case (0)
-                write(*,*) 'read absolute application day'
                 read(inputfile_unit_number,'(A)')wholeline                                      !Scheme Line Group 4               
                 if (index(wholeline, '/') == index(wholeline, '/', .TRUE.)) then
                    ! only a day and month are given, so this is repeating every year
                                           
                    !convert string dates into integers
                    read(wholeline(1:(index(wholeline, '/')-1)),*)  absolute_app_month
-                   write(*,*) 'absolute month = ',  absolute_app_month
+        
                    
                    comma_1 = index(wholeline, ',')
                    
                    read(wholeline((index(wholeline, '/')+1): (comma_1 -1)),*)  absolute_app_day
                    !Convert to julian day. Treat these similar to realtive application, using Jan 1 as reference date          
                    
-                   write(*,*) 'absolute day = ',  absolute_app_day
                    days_until_applied_schemes(i,j) = jd (1900, absolute_app_month,absolute_app_day)               
                 else
                          !the year is include, so this is year specific
@@ -182,17 +180,14 @@ use utilities
                 read(wholeline((comma_2+1):(comma_3-1)),*)         method_schemes(i,j)
                 read(wholeline((comma_3+1):(comma_4-1)),*)         depth_schemes(i,j) 
                 read(wholeline((comma_4+1):(comma_5-1)),*)         split_schemes(i,j)
-                write(*,*) "check 2", split_schemes(i,j)
+  
                 read(wholeline((comma_5+1):(comma_6-1)),*)         drift_schemes(i,j)
-                write(*,*) "check 3",  drift_schemes(i,j)
+    
 				read(wholeline((comma_6+1):(comma_7-1)),*)		   driftfactor_schemes(i,j)
-                write(*,*) "check 4", driftfactor_schemes(i,j)
                 
                 read(wholeline((comma_7+1):(comma_8-1)),*)         periodicity_schemes(i,j)  
-                write(*,*) "check 5",   periodicity_schemes(i,j)  
                 
                 read(wholeline((comma_8+1):len(wholeline)),*)      lag_schemes(i,j)  
-				write(*,*) "check 6",  lag_schemes(i,j)  
                 !read(wholeline((comma_8+1):len(wholeline)),*)       
                 
             case default
@@ -208,24 +203,20 @@ use utilities
             app_window_span(i) =0  !the stepping starts with zero, so the span iz zero for only one iteration
             app_window_step(i)= 1          
         end if
-    
-        write(*,*) 'Is application window?', is_app_window(i)
+
         
 		read(inputfile_unit_number,*) is_adjust_for_rain_schemes(i),rain_limit_schemes(i), &                         !Scheme Line 6
 		   optimum_application_window_schemes(i),intolerable_rain_window_schemes(i),min_days_between_apps_schemes(i) 
 			
 		read(inputfile_unit_number,*) number_of_scenarios(i)                                                         !Scheme Line 7
-        write(*,*)"Number of scn files = ", number_of_scenarios(i)
            
         do j=1, number_of_scenarios(i)
             read(inputfile_unit_number,'(A512)')  scenario_names(i,j) !(i,j) i is scheme #, j is scenario #          !Scheme Group of Lines 8
-           !  write(*,'(A)') trim(scenario_names(i,j))
         end do 
         
         read(inputfile_unit_number,*) is_batch_scenario(i)                                                           !Scheme Line 9
         read(inputfile_unit_number,'(A)') scenario_batchfile(i)                                                      !Scheme Line 10
-       
-        write(*,*)  "Read a batch scenario file?" ,  is_batch_scenario(i)  
+ 
 	enddo
 	
      read(inputfile_unit_number,*) erflag                                                              !WS Line 1
@@ -364,10 +355,8 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         wp_input   = 0.0
         oc_input   = 0.0
 
-        write(*,*)  '**********  Start Reading Scenario Values ************************'  
         error = .FALSE.      
-        filename = trim(scenario_names(schemenumber,scenarionumber))  
-        write(*,'(A512)') adjustl(filename)   
+        filename = trim(scenario_names(schemenumber,scenarionumber))    
 		
 		inquire(53, OPENED=checkopen)
 		
@@ -380,7 +369,6 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         
         read(ScenarioFileUnit,'(A)') scenario_id
         read(ScenarioFileUnit,'(A)') weatherfilename 
-        write(*,*)  'weather: ', trim(weatherfilename )
         read(ScenarioFileUnit,*,  IOSTAT=status ) latitude	
 			IF (status .NE. 0) then
 				call scenario_error(error)  !set the error to true
@@ -439,8 +427,6 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
 					
             !PWC saves canopy cover it as a percent, but przm needs fraction
             max_canopy_cover(i)=max_canopy_cover(i)/100.
-            
-            !write(*,'(8I6)') emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i), foliar_disposition(i),crop_periodicity(i), crop_lag(i) 
         end do
       
      !   write (*,*) "Foliar disposition always = 1, pesticide surface applied"
@@ -501,10 +487,8 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         IF (status .NE. 0) then  !this isn't populated for standard scnarios in 2023
              scalar_albedo = 0.2
              scaler_soil_temp = 15.           
-             write(*,*) "Using Default albedo and gw temperature"
+  !           write(*,*) "Using Default albedo and gw temperature"
         end if
-
-        write(*,*) "albedo and temp = ",  scalar_albedo,scaler_soil_temp
         
         ALBEDO = scalar_albedo                 !albedo is monthly in przm      
         soil_temp_input = scaler_soil_temp
@@ -517,7 +501,6 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "***spare line for expansion"
         read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "***spare line for expansion"
         read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "*** Erosion & Curve Number Info **********"
-        write(*,*)  "Temperature simulated? ",    is_temperature_simulated
         
         read(ScenarioFileUnit,*) NUSLEC  !msg = msg & vbNewLine & NumberOfFactors.Text
         read(ScenarioFileUnit,*) (GDUSLEC(i), i=1,nuslec)
@@ -538,7 +521,6 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
 	  profile_number_increments=0
 	  read(ScenarioFileUnit,*, IOSTAT=eof)  is_auto_profile
       
-	  write (*,*) "eof (autoprofile status) ?", eof, is_auto_profile
     
 	  if (eof >= 0) then             !provides for the possibilty of older scenarios without this feature
 		  if (is_auto_profile) then 
@@ -643,8 +625,7 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
          !read in as string for better list directed error checking. Prevents reads to subsequent lines in the event of missing data
          read(BatchFileUnit, '(A)',IOSTAT=iostatus ) input_string
          !Check for end of file
-         
-         write(*,*) 'READ END OF FILE STATUS ' , IS_IOSTAT_END(iostatus)
+
          if(IS_IOSTAT_END(iostatus)) then
              end_of_file = .TRUE.
              return
@@ -680,7 +661,6 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
          !canopy height is undefined, set to 1 meter by default put into: max_canopy_height(i)
                   
          weatherfilename = trim(adjustl(weather_grid)) // '_grid.wea'
-         write(*,*) trim(weatherfilename)
 
          num_crop_periods_input = 1
          if (julian_emerg==0 .AND.  julian_matur==1 .AND. julian_harv==364) then
@@ -693,13 +673,10 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
 
 
          call get_date(julian_emerg, year, emm(1), emd(1) )
-         write(*,    '("Emerge", 4I12)' ) julian_emerg, year, emm(1), emd(1)
-         
+  
          call get_date(julian_matur, year, mam(1), mad(1) )
-         write(*,    '("Mature", 4I12)' )  julian_matur,year, mam(1), mad(1)
          
          call get_date(julian_harv , year,  ham(1), had(1) )
-          write(*,    '("Harves", 4I12)' )julian_harv, year, ham(1), had(1)
                 
          
          !nuscle = 2 so only 2 curve numbers
@@ -743,9 +720,7 @@ subroutine Read_Weatherfile
         
  
         weatherfile_pathandname = trim(adjustl(weatherfiledirectory)) // trim(adjustl(weatherfilename))
-        
-        write(*,'(A24,A1024)') ' weather path and file: ', adjustl(weatherfile_pathandname)
-        
+              
         OPEN(Unit = metfileunit,FILE=trim(adjustl(weatherfile_pathandname)),STATUS='OLD', IOSTAT=status)
         if (status .NE. 0) THEN
             write(*,*)'Problem opening weather file. Name is ', trim(adjustl(weatherfilename))

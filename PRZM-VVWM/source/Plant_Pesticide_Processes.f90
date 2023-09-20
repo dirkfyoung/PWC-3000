@@ -101,8 +101,7 @@ use  constants_and_Variables, ONLY: plant_pesticide_degrade_rate,plant_volatiliz
         term100 = Foliar_Pest_initial(3)*ex3        
         FOLPST(3) =term50 + term90 + term100
     end if
-         !    write(88,*) "out", FOLPST(1) , FOLPST(2) , FOLPST(3) 
-    
+
     
 END SUBROUTINE plant_pesticide_degradation
 

@@ -42,8 +42,6 @@ integer :: chem_index
 real    :: koc
 
 
-    write(*,*) "enter VVWM"
-
  !   call allocation_for_VVWM  moved to front
     call convert_weatherdata_for_VVWM      
 
@@ -87,12 +85,10 @@ real    :: koc
         call gamma_two
         
         call initial_conditions(chem_index)
-        write(*,*) "Main VVWM Loop ***********************************************************************" 
-        write(*,*)chem_index
+
         call MainLoop       
    
         if (nchem > chem_index) then    
-            write(*,*) "call produce degradates"
               call DegradateProduction(chem_index) 
         end if
 

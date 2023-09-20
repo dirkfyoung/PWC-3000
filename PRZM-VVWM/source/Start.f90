@@ -40,7 +40,6 @@ program PRZMVVWM
     
     !################################################ 
     CALL CPU_TIME (cputime_begin)
-    write(*,*)    '************* Start PRZM-VVWM  *******************'
     
     call SYSTEM_CLOCK(c_count, c_rate, c_max)
     clock_time_0 = real(c_count)/real(c_rate)
@@ -58,7 +57,6 @@ program PRZMVVWM
     call get_command_argument(1,inputfile,length)
     call przm_id                                     !Stamp the runstatus file 
 		
-    write(*,'(A13, A512)') " Input file: ", adjustl(inputfile)
     call read_inputfile
     call chemical_manipulations
 	
@@ -71,7 +69,6 @@ program PRZMVVWM
     !Middle Loop (i) is for Application Schemes
     !Inner Loop (j) is for scenarios
      
-	 write(*,*) '******************** Start Waterbody Loop ***************************'
 
      do hh = 1, size(waterbody_names)
          run_tpez_wpez = .FALSE.
@@ -88,10 +85,7 @@ program PRZMVVWM
          case default
               call read_waterbodyfile(hh)  
          end select
-         
-         write(*,*) 'Doing Water Body: ', trim(waterbody_names(hh))
 		 
-	     write(*,*) '**** Start Scheme Loop *********************************************'
 		 
          do i = 1, number_of_schemes
 			 Write(*,*) 'Doing Scheme No. ', i
@@ -99,7 +93,6 @@ program PRZMVVWM
              !will use spray table in here --need to make spray table correct if changed by tpez
              call set_chemical_applications(i) !gets the individual application scheme from the whole scheme table, non scenario specfic 
 							
-	         write(*,*) '********** Start Scenario Loop *************************************'
 				           
              if(is_batch_scenario(i)) then
                 write(*,'("Batch Scenario File: ", A100) ')  adjustl( scenario_batchfile(i))
@@ -114,7 +107,6 @@ program PRZMVVWM
             do !scenario do loop
                !Loop controled by either the number of files in the batch or by the number of scenarios read in from input file
                kk=kk+1
-               write(*,*) 'Doing scenario ', KK
                if( is_batch_scenario(i)) then
                     call read_batch_scenarios(BatchFileUnit, end_of_file, error_on_read)
 
@@ -148,8 +140,6 @@ program PRZMVVWM
                !soil temp is good here
 
                call allocation_for_VVWM
-			   			   
-			   write(*,*) '****************** Start Applicaion Loop **********************************'
 
 			   app_window_counter = 0  !use this to track app window to find medians
            !    hold_for_medians_wb = 0.0  !use this to hold data for medians
@@ -190,8 +180,7 @@ program PRZMVVWM
             end do  !END SCENARIO LOOP  kk 
             
             call deallocate_application_parameters !allocations are done in set_chmical_applications, need to deallocatte for next scheme 
-            
-            write(*,*) '*****************************Done with scheme ', i    
+              
             call time_check('cpu time, scheme    ')                
 
 		 end do  !End scheme Loop, i

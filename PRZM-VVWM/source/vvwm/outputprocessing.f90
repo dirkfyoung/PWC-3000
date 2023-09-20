@@ -184,7 +184,7 @@ end if
 
     call find_first_annual_dates (num_years, first_annual_dates )
 
-	 write(*,*) 'Start picking max'
+
 	 
     call pick_max(num_years,num_records, first_annual_dates,aqconc_avg1,c1_max)     !NEW FIND DAILY AVERAGE CONCENTRATION RETURN   
     call pick_max(num_years,num_records, first_annual_dates,c4,c4_max)
@@ -248,8 +248,8 @@ end if
         end if
         
     
-       write(*,*) "total and fraction off field" , applied_mass_sum_gram_per_cm2*Afield*10., fraction_off_field
-       write(*,*) 'Doing output process'  
+       !write(*,*) "total and fraction off field" , applied_mass_sum_gram_per_cm2*Afield*10., fraction_off_field
+       !write(*,*) 'Doing output process'  
        call calculate_effective_halflives()
        
 
@@ -521,9 +521,6 @@ use utilities_1, ONLY: Return_Frequency_Value
         case default
     end select
 
-
-    
- write(*,*)'done output batch '
      
 end subroutine write_simple_batch_data
 
