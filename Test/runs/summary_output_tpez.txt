@@ -1,2 +1,0 @@
-Run Information                                                                    TPEZ (kg/ha),   EoF (ug/L),                                                                                                                                                                                                                                                                                                  
-1_527646-14551-1_Corn-r06-B_USEPA Pond_0000_TPEZ_Parent                          ,  1.0001E+000,  5.0860E+000,
