@@ -33,11 +33,8 @@ program PRZMVVWM
     logical :: end_of_file, error_on_read
     logical :: run_tpez_wpez  !TRUE if USEPA_pond has just been simulated AND TPEZ/WPEZ run has been requested (i.e., istpezwpez==treue)
     character :: dummy
+    character(LEN=20) ::message
 
-!    integer, parameter :: number_medians = 10
-    !real::medians_conc_wpez(number_medians)
-    !real:: medians_conc_tpez(1)
-    
     !################################################ 
     CALL CPU_TIME (cputime_begin)
     
@@ -157,15 +154,15 @@ program PRZMVVWM
 					 
 					 call chem_transport_onfield
 					 
-                     call time_check("cpu time chem xport ")
+               !      call time_check("cpu time chem xport ")
                      
 					 call groundwater				 
                      call VVWM 
                         
                      if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
-                          call time_check("before wpez")
+                        !  call time_check("before wpez")
                          call wpez   
-                          call time_check("after wpez")
+                        !  call time_check("after wpez")
                          call tpez(i)  !need to send in scheme to find drift
             
                      end if                     
@@ -181,7 +178,8 @@ program PRZMVVWM
             
             call deallocate_application_parameters !allocations are done in set_chmical_applications, need to deallocatte for next scheme 
               
-            call time_check('cpu time, scheme    ')                
+            write (message, '(A17,I3)') 'cpu time, scheme ', i
+            call time_check(message)                
 
 		 end do  !End scheme Loop, i
 		 
@@ -191,10 +189,10 @@ program PRZMVVWM
      end do !End Waterbody/Watershed Loop
      
  !*******************************************    
- call time_check('End Proram cpu time ')   	
+ call time_check('End program cpu time ')   	
  call SYSTEM_CLOCK(c_count, c_rate, c_max)
  clock_time = real(c_count)/real(c_rate)
  write (*,*) 'Total clock time = ',clock_time  - clock_time_0 
- write (*,*) '###################################################'  	
+
  
 end program PRZMVVWM

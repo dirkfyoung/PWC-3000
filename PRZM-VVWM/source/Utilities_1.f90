@@ -196,7 +196,7 @@
         
         integer :: i
         real ::  previous_depth, weighted_tally
-call time_check('averag deep loop 1') 
+
         weighted_tally = 0.0
         previous_depth = 0.0
         

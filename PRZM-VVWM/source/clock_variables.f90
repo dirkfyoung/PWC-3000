@@ -27,7 +27,11 @@ contains
 
          CALL CPU_TIME (time_1)
 
+         !Note to me: dont delete this output, delete the call to tine_check instead
+         write(*,*) message, time_1
+         
       end subroutine 
+      
 
 
 

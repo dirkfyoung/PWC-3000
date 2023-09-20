@@ -889,7 +889,7 @@
             For i As Integer = 0 To rowcount - 1
                 currentRow = MyReader.ReadFields
 
-                For j As Integer = 1 To colcount - 1
+                For j As Integer = 1 To colcount
 
                     SprayGridView.Item(j, i).Value = currentRow(j - 1)
 
@@ -951,7 +951,8 @@
 
         For i As Integer = 0 To SprayGridView.RowCount - 1
             submsg = SprayGridView.Item(1, i).Value
-            For j As Integer = 2 To SprayGridView.ColumnCount - 1
+
+            For j As Integer = 2 To SprayGridView.ColumnCount - 2
                 submsg = submsg & ", " & SprayGridView.Item(j, i).Value
             Next
             msg = msg & vbNewLine & submsg

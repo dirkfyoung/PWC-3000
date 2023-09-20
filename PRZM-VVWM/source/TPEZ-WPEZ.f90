@@ -522,7 +522,6 @@ Module TPEZ_WPEZ
 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000  &   
 /),(/13,17/)))        
       
-     call time_check("inside tpez")
 
      ! tpez normally is at edge of field, but user can select buffer for cases like in field buffers
 
@@ -570,11 +569,11 @@ Module TPEZ_WPEZ
           end if
           
           call TPEZ_initial_conditions(chem_index)  !just populates m1 additions: erosion runoff and drift
-            call time_check("before main tpex")        
+      !      call time_check("before main tpex")        
           
           call MainLoopTPEZ(chem_index, avg_maxwater, kd, avg_bd)      
 
-          call time_check("after main tpex")
+      !    call time_check("after main tpex")
           
           
           waterbodytext = "TPEZ"
