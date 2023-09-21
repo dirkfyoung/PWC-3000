@@ -378,7 +378,7 @@ Public Class Form1
 
     ' This event handler manually raises the CellValueChanged event
     ' by calling the CommitEdit method.
-    Sub dataGridView1_CurrentCellDirtyStateChanged(
+    Public Sub DataGridView1_CurrentCellDirtyStateChanged(
         ByVal sender As Object, ByVal e As EventArgs) _
         Handles SchemeTableDisplay.CurrentCellDirtyStateChanged
 
@@ -412,203 +412,231 @@ Public Class Form1
             Exit Sub
         End If
 
-        Select Case SchemeTableDisplay.Columns(e.ColumnIndex).Name
-            Case "Edit"
 
-                'clear all got it
-                For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
-                    SchemeTableDisplay.Rows(i).Cells("Commit").Value = ""
-                Next
 
-                'this if statement ensures that all buttons are deactivated when unchecked
-                If SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True Then
-                    For Each oRow As DataGridViewRow In SchemeTableDisplay.Rows
-                        oRow.Cells("Edit").Value = False
+
+        Try
+
+
+            Select Case SchemeTableDisplay.Columns(e.ColumnIndex).Name
+                Case "Edit"
+
+
+
+                    'clear all got it
+                    For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
+                        SchemeTableDisplay.Rows(i).Cells("Commit").Value = ""
                     Next
-                    SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True
-                Else
-                    For Each oRow As DataGridViewRow In SchemeTableDisplay.Rows
-                        oRow.Cells("Edit").Value = False
-                    Next
-                End If
 
-                If SchemeTableDisplay.Columns(e.ColumnIndex).Name = "Edit" Then
-                    Dim buttonCell As DataGridViewDisableButtonCell
-                    Dim checkCell As DataGridViewCheckBoxCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit"), DataGridViewCheckBoxCell)
+                    'this if statement ensures that all buttons are deactivated when unchecked
+                    If SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True Then
+                        For Each oRow As DataGridViewRow In SchemeTableDisplay.Rows
+                            oRow.Cells("Edit").Value = False
+                        Next
+                        SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True
+                    Else
+                        For Each oRow As DataGridViewRow In SchemeTableDisplay.Rows
+                            oRow.Cells("Edit").Value = False
+                        Next
+                    End If
+
+                    If SchemeTableDisplay.Columns(e.ColumnIndex).Name = "Edit" Then
+                        Dim buttonCell As DataGridViewDisableButtonCell
+                        Dim checkCell As DataGridViewCheckBoxCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit"), DataGridViewCheckBoxCell)
+
+                        For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
+                            buttonCell = CType(SchemeTableDisplay.Rows(i).Cells("Commit"), DataGridViewDisableButtonCell)
+                            buttonCell.Enabled = False
+                        Next
+                        buttonCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Commit"), DataGridViewDisableButtonCell)
+
+                        buttonCell.Enabled = CType(checkCell.Value, [Boolean])
+
+                        SchemeTableDisplay.Invalidate()
+                    End If
+
+                    Description = SchemeTableDisplay.Rows(e.RowIndex).Cells(3).Value
+
+                    DisplayedSchemeNumber = e.RowIndex + 1
+                    SchemeLabels = DisplayedSchemeNumber & " " & Description
+
+                    Label88.Text = SchemeLabels
+                    Label87.Text = SchemeLabels
+
+                    If SchemeInfoList.Count - 1 < e.RowIndex Then
+                        'in case edit button is pushed before anything is populated previously an error will not throw
+                        Exit Sub
+                    End If
+
+                    ApplicationTable = SchemeInfoList(e.RowIndex)
+
+                    NumberofApplications = ApplicationTable.Days.Count
+                    AppTableDisplay.Rows.Clear()
+
+                    If NumberofApplications > 0 Then  'prevents error if user attempts to save without any applications
+                        AppTableDisplay.Rows.Add(NumberofApplications)
+
+                        For i As Integer = 0 To NumberofApplications - 1
+                            AppTableDisplay.Item(0, i).Value = ApplicationTable.Days(i)
+                            AppTableDisplay.Item(1, i).Value = ApplicationTable.Amount(i)
+
+
+                            Select Case (ApplicationTable.Method(i))
+                                Case (1)
+                                    AppTableDisplay.Item(2, i).Value = Standard.method1
+                                Case (2)
+                                    AppTableDisplay.Item(2, i).Value = Standard.method2
+                                Case (3)
+                                    AppTableDisplay.Item(2, i).Value = Standard.method3
+                                Case (4)
+                                    AppTableDisplay.Item(2, i).Value = Standard.method4
+                                Case (5)
+                                    AppTableDisplay.Item(2, i).Value = Standard.method5
+                                Case (6)
+                                    AppTableDisplay.Item(2, i).Value = Standard.method6
+                                Case (7)
+                                    AppTableDisplay.Item(2, i).Value = Standard.method7
+                                Case Else
+                                    AppTableDisplay.Item(2, i).Value = Standard.method1
+                            End Select
+
+                            AppTableDisplay.Item(3, i).Value = ApplicationTable.Depth(i)
+                            AppTableDisplay.Item(4, i).Value = ApplicationTable.Split(i)
+                            '   AppTableDisplay.Item(5, i).Value = ApplicationTable.Drift(i)
+
+                            Select Case ApplicationTable.Drift(i)
+                                Case 1
+                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm1
+                                Case 2
+                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm2
+                                Case 3
+                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm3
+                                Case 4
+                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm4
+                                Case (5)
+                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm5
+                                Case (6)
+                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm6
+                                Case (7)
+                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm7
+                                Case (8)
+                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm8
+                                Case (9)
+                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm9
+                                Case (10)
+                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm10
+                                Case (11)
+                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm11
+                                Case (12)
+                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm12
+                                Case (13)
+                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm13
+                                Case (14)
+                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm14
+                                Case (15)
+                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm15
+
+                            End Select
+
+                            AppTableDisplay.Item(6, i).Value = ApplicationTable.DriftBuffer(i)
+                            AppTableDisplay.Item(7, i).Value = ApplicationTable.Periodicity(i)
+                            AppTableDisplay.Item(8, i).Value = ApplicationTable.Lag(i)
+
+                        Next
+                    End If
+
+                    AbsoluteDaysButton.Checked = ApplicationTable.AbsoluteRelative
+                    emerge.Checked = ApplicationTable.Emerge
+                    maturity.Checked = ApplicationTable.Maturity
+                    removal.Checked = ApplicationTable.Removal
+
+                    UseApplicationWindow.Checked = ApplicationTable.UseApplicationWindow
+                    ApplicationWindowDays.Text = ApplicationTable.ApplicationWindowSpan
+                    ApplicationWindowStep.Text = ApplicationTable.ApplicationWindowStep
+
+                    UseRainFast.Checked = ApplicationTable.UseRainFast
+                    RainLimit.Text = ApplicationTable.RainLimit
+                    IntolerableRainWindow.Text = ApplicationTable.IntolerableRainWindow
+                    OptimumApplicationWindow.Text = ApplicationTable.OptimumApplicationWindow
+                    MinDaysBetweenApps.Text = ApplicationTable.MinDaysBetweenApps
+                    GetScenariosBatchCheckBox.Checked = ApplicationTable.UseBatchScenarioFile
+                    ScenarioBatchFileName.Text = ApplicationTable.ScenarioBatchFileName
+
+                    ScenarioListBox.Items.Clear()
+                    For Each ee As String In ApplicationTable.Scenarios
+                        ScenarioListBox.Items.Add(ee)
+                    Next
+
+                Case "Commit"
+
+
+
+                    ' Some error messages have been arising in here ...
+
+                    '    'Disabling button apparently does not really disable its action, only its color
+                    '    'So I added the following IF to kick out of the commit button if the edit box is not checked
+
+
+
+                    If SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = False Then
+                        Exit Sub
+                    End If
+
+
+                    'same set of lines as in EDIT above, but needed because if you change scheme description
+                    'without unchecking and rechecking EDIT, then the labvels will not be loaded
+                    Description = SchemeTableDisplay.Rows(e.RowIndex).Cells(3).Value
+
+                    DisplayedSchemeNumber = e.RowIndex + 1
+                    SchemeLabels = DisplayedSchemeNumber & " " & Description
+
+                    Label88.Text = SchemeLabels
+                    Label87.Text = SchemeLabels
+
 
                     For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
-                        buttonCell = CType(SchemeTableDisplay.Rows(i).Cells("Commit"), DataGridViewDisableButtonCell)
-                        buttonCell.Enabled = False
+                        SchemeTableDisplay.Rows(i).Cells(e.ColumnIndex).Value = ""
                     Next
-                    buttonCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Commit"), DataGridViewDisableButtonCell)
 
-                    buttonCell.Enabled = CType(checkCell.Value, [Boolean])
+                    RecordScheme(e.RowIndex)
 
-                    SchemeTableDisplay.Invalidate()
-                End If
+                    SchemeTableDisplay.Rows(e.RowIndex).Cells(e.ColumnIndex).Value = "got it"
 
-                Description = SchemeTableDisplay.Rows(e.RowIndex).Cells(3).Value
+                    Timer1.Start()
 
-                DisplayedSchemeNumber = e.RowIndex + 1
-                SchemeLabels = DisplayedSchemeNumber & " " & Description
 
-                Label88.Text = SchemeLabels
-                Label87.Text = SchemeLabels
+                Case "Delete"
+                    'First re-assign all the schemes above the deleted scheme
 
-                If SchemeInfoList.Count - 1 < e.RowIndex Then
-                    'in case edit button is pushed before anything is populated previously an error will not throw
+                    For i As Integer = e.RowIndex To SchemeTableDisplay.RowCount - 3
+                        SchemeInfoList(i) = SchemeInfoList(i + 1)
+                    Next
+
+                    If SchemeTableDisplay.CurrentRow.IsNewRow Then
+                        Beep()
+                    Else
+                        SchemeTableDisplay.Rows.Remove(SchemeTableDisplay.Rows(e.RowIndex))
+                    End If
+                Case Else
                     Exit Sub
-                End If
-
-                ApplicationTable = SchemeInfoList(e.RowIndex)
-
-                NumberofApplications = ApplicationTable.Days.Count
-                AppTableDisplay.Rows.Clear()
-
-                If NumberofApplications > 0 Then  'prevents error if user attempts to save without any applications
-                    AppTableDisplay.Rows.Add(NumberofApplications)
-
-                    For i As Integer = 0 To NumberofApplications - 1
-                        AppTableDisplay.Item(0, i).Value = ApplicationTable.Days(i)
-                        AppTableDisplay.Item(1, i).Value = ApplicationTable.Amount(i)
+            End Select
 
 
-                        Select Case (ApplicationTable.Method(i))
-                            Case (1)
-                                AppTableDisplay.Item(2, i).Value = Standard.method1
-                            Case (2)
-                                AppTableDisplay.Item(2, i).Value = Standard.method2
-                            Case (3)
-                                AppTableDisplay.Item(2, i).Value = Standard.method3
-                            Case (4)
-                                AppTableDisplay.Item(2, i).Value = Standard.method4
-                            Case (5)
-                                AppTableDisplay.Item(2, i).Value = Standard.method5
-                            Case (6)
-                                AppTableDisplay.Item(2, i).Value = Standard.method6
-                            Case (7)
-                                AppTableDisplay.Item(2, i).Value = Standard.method7
-                            Case Else
-                                AppTableDisplay.Item(2, i).Value = Standard.method1
-                        End Select
-
-                        AppTableDisplay.Item(3, i).Value = ApplicationTable.Depth(i)
-                        AppTableDisplay.Item(4, i).Value = ApplicationTable.Split(i)
-                        '   AppTableDisplay.Item(5, i).Value = ApplicationTable.Drift(i)
-
-                        Select Case ApplicationTable.Drift(i)
-                            Case 1
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm1
-                            Case 2
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm2
-                            Case 3
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm3
-                            Case 4
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm4
-                            Case (5)
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm5
-                            Case (6)
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm6
-                            Case (7)
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm7
-                            Case (8)
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm8
-                            Case (9)
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm9
-                            Case (10)
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm10
-                            Case (11)
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm11
-                            Case (12)
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm12
-                            Case (13)
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm13
-                            Case (14)
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm14
-                            Case (15)
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm15
-
-                        End Select
-
-                        AppTableDisplay.Item(6, i).Value = ApplicationTable.DriftBuffer(i)
-                        AppTableDisplay.Item(7, i).Value = ApplicationTable.Periodicity(i)
-                        AppTableDisplay.Item(8, i).Value = ApplicationTable.Lag(i)
-
-                    Next
-                End If
-
-                AbsoluteDaysButton.Checked = ApplicationTable.AbsoluteRelative
-                emerge.Checked = ApplicationTable.Emerge
-                maturity.Checked = ApplicationTable.Maturity
-                removal.Checked = ApplicationTable.Removal
-
-                UseApplicationWindow.Checked = ApplicationTable.UseApplicationWindow
-                ApplicationWindowDays.Text = ApplicationTable.ApplicationWindowSpan
-                ApplicationWindowStep.Text = ApplicationTable.ApplicationWindowStep
-
-                UseRainFast.Checked = ApplicationTable.UseRainFast
-                RainLimit.Text = ApplicationTable.RainLimit
-                IntolerableRainWindow.Text = ApplicationTable.IntolerableRainWindow
-                OptimumApplicationWindow.Text = ApplicationTable.OptimumApplicationWindow
-                MinDaysBetweenApps.Text = ApplicationTable.MinDaysBetweenApps
-                GetScenariosBatchCheckBox.Checked = ApplicationTable.UseBatchScenarioFile
-                ScenarioBatchFileName.Text = ApplicationTable.ScenarioBatchFileName
-
-                ScenarioListBox.Items.Clear()
-                For Each ee As String In ApplicationTable.Scenarios
-                    ScenarioListBox.Items.Add(ee)
-                Next
-
-            Case "Commit"
-
-                'Disabling button appaently does not really disable its action, only its color
-                'So I added the following IF to kick out of the commit button if the edit box is not checked
-                If SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = False Then
-                    Exit Select
-                End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            MsgBox(SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value)
 
 
-                'same set of lines as in EDIT above, but needed because if you change scheme description
-                'without unchecking and rechecking EDIT, then the labvels will not be loaded
-                Description = SchemeTableDisplay.Rows(e.RowIndex).Cells(3).Value
+            MsgBox(SchemeTableDisplay.Columns(e.ColumnIndex).Name)
+            MsgBox(SchemeTableDisplay.Columns(e.RowIndex).Name)
 
-                DisplayedSchemeNumber = e.RowIndex + 1
-                SchemeLabels = DisplayedSchemeNumber & " " & Description
-
-                Label88.Text = SchemeLabels
-                Label87.Text = SchemeLabels
+            Exit Sub
+        End Try
 
 
 
 
 
-
-                For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
-                    SchemeTableDisplay.Rows(i).Cells(e.ColumnIndex).Value = ""
-                Next
-
-                RecordScheme(e.RowIndex)
-
-                SchemeTableDisplay.Rows(e.RowIndex).Cells(e.ColumnIndex).Value = "got it"
-
-                Timer1.Start()
-
-
-            Case "Delete"
-                'First re-assign all the schemes above the deleted scheme
-
-                For i As Integer = e.RowIndex To SchemeTableDisplay.RowCount - 3
-                    SchemeInfoList(i) = SchemeInfoList(i + 1)
-                Next
-
-                If SchemeTableDisplay.CurrentRow.IsNewRow Then
-                    Beep()
-                Else
-                    SchemeTableDisplay.Rows.Remove(SchemeTableDisplay.Rows(e.RowIndex))
-                End If
-            Case Else
-                Exit Sub
-        End Select
 
     End Sub
 
