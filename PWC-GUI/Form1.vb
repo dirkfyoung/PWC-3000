@@ -641,17 +641,28 @@ Public Class Form1
 
 
     Private Sub SchemeTableDisplay_SelectionChanged(sender As Object, e As EventArgs) Handles SchemeTableDisplay.SelectionChanged
+        '   MsgBox(SchemeInfoList.Count & "  " & SchemeTableDisplay.Rows.Count - 1)
+
 
         If SchemeTableDisplay.CurrentRow.IsNewRow Then
 
             If SchemeInfoList.Count < SchemeTableDisplay.Rows.Count - 1 Then
-                MsgBox("Previous scheme has never been committed. Commit that scheme before adding another scheme")
 
-                SchemeTableDisplay.CurrentRow.Cells(3).ReadOnly = True  'Current row is new row, so no entry allowed utilk coomit
+
+                SchemeTableDisplay.CurrentRow.Cells(3).ReadOnly = True  'Current row is new row, so no entry allowed utilk commit
+                SchemeTableDisplay.CurrentRow.Cells(1).Value = False
+
+                SchemeTableDisplay.CurrentRow.Cells(1).ReadOnly = True
+
+
+
+                MsgBox("Previous scheme has never been committed. Commit that scheme before adding another scheme")
             End If
 
         Else
+            MsgBox("else here  ")
 
+            SchemeTableDisplay.CurrentRow.Cells(1).ReadOnly = False
 
         End If
 
