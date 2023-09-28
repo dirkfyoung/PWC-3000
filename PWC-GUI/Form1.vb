@@ -414,14 +414,10 @@ Public Class Form1
 
 
 
-
         Try
-
 
             Select Case SchemeTableDisplay.Columns(e.ColumnIndex).Name
                 Case "Edit"
-
-
 
                     'clear all got it
                     For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
@@ -430,11 +426,14 @@ Public Class Form1
 
                     'this if statement ensures that all buttons are deactivated when unchecked
                     If SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True Then
+
                         For Each oRow As DataGridViewRow In SchemeTableDisplay.Rows
                             oRow.Cells("Edit").Value = False
                         Next
                         SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True
                     Else
+
+
                         For Each oRow As DataGridViewRow In SchemeTableDisplay.Rows
                             oRow.Cells("Edit").Value = False
                         Next
@@ -447,7 +446,13 @@ Public Class Form1
                         For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
                             buttonCell = CType(SchemeTableDisplay.Rows(i).Cells("Commit"), DataGridViewDisableButtonCell)
                             buttonCell.Enabled = False
+
+                            'dont allow scheme description to be edited unless checked
+                            SchemeTableDisplay.Rows(i).Cells(3).ReadOnly = True
                         Next
+                        'allow only active scheme dedsription to be edited
+                        SchemeTableDisplay.Rows(e.RowIndex).Cells(3).ReadOnly = False
+
                         buttonCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Commit"), DataGridViewDisableButtonCell)
 
                         buttonCell.Enabled = CType(checkCell.Value, [Boolean])
@@ -605,10 +610,12 @@ Public Class Form1
                     Timer1.Start()
 
 
+
                 Case "Delete"
-                    'First re-assign all the schemes above the deleted scheme
+                    'First re-assign all the schemes BELOW the deleted scheme
 
                     For i As Integer = e.RowIndex To SchemeTableDisplay.RowCount - 3
+
                         SchemeInfoList(i) = SchemeInfoList(i + 1)
                     Next
 
@@ -624,21 +631,53 @@ Public Class Form1
 
         Catch ex As Exception
             MsgBox(ex.Message)
-            MsgBox(SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value)
-
-
-            MsgBox(SchemeTableDisplay.Columns(e.ColumnIndex).Name)
-            MsgBox(SchemeTableDisplay.Columns(e.RowIndex).Name)
 
             Exit Sub
         End Try
 
 
+    End Sub
 
+
+
+    Private Sub SchemeTableDisplay_SelectionChanged(sender As Object, e As EventArgs) Handles SchemeTableDisplay.SelectionChanged
+
+        If SchemeTableDisplay.CurrentRow.IsNewRow Then
+
+            If SchemeInfoList.Count < SchemeTableDisplay.Rows.Count - 1 Then
+                MsgBox("Previous scheme has never been committed. Commit that scheme before adding another scheme")
+
+                SchemeTableDisplay.CurrentRow.Cells(3).ReadOnly = True  'Current row is new row, so no entry allowed utilk coomit
+            End If
+
+        Else
+
+
+        End If
 
 
 
     End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     Private Sub SelectScenarios_Click(sender As Object, e As EventArgs) Handles SelectScenarios.Click
         Dim result As System.Windows.Forms.DialogResult
@@ -1235,6 +1274,8 @@ Public Class Form1
 
         Next
     End Sub
+
+
 End Class
 
 
