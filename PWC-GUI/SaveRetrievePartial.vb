@@ -721,6 +721,8 @@
 
                 ApplicationTable.ScenarioBatchFileName = currentrow(0)
                 SchemeInfoList.Add(ApplicationTable)
+
+
             Next
 
             currentrow = MyReader.ReadFields 'msg = msg & vbNewLine & ErosionFlag.Text
@@ -1318,7 +1320,7 @@
             'if application scheme does not exist, then add it
             SchemeInfoList.Add(AppData)
         ElseIf SchemeNumber >= 0 Then
-            'otherwise repalace it
+            'otherwise replace it
             SchemeInfoList.Item(SchemeNumber) = AppData
         End If
 

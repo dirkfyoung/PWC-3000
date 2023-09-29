@@ -612,12 +612,12 @@ Public Class Form1
 
 
                 Case "Delete"
-                    'First re-assign all the schemes BELOW the deleted scheme
+                    SchemeInfoList.RemoveAt(e.RowIndex)
 
-                    For i As Integer = e.RowIndex To SchemeTableDisplay.RowCount - 3
-
-                        SchemeInfoList(i) = SchemeInfoList(i + 1)
-                    Next
+                    'changed to the above. the below kept the old schemes and did not resize scheme list
+                    'For i As Integer = e.RowIndex To SchemeTableDisplay.RowCount - 3
+                    '    SchemeInfoList(i) = SchemeInfoList(i + 1)
+                    'Next
 
                     If SchemeTableDisplay.CurrentRow.IsNewRow Then
                         Beep()
@@ -641,28 +641,35 @@ Public Class Form1
 
 
     Private Sub SchemeTableDisplay_SelectionChanged(sender As Object, e As EventArgs) Handles SchemeTableDisplay.SelectionChanged
-        '   MsgBox(SchemeInfoList.Count & "  " & SchemeTableDisplay.Rows.Count - 1)
+
+        'Prevents adding new schemes until previous scheme is committed. It does this by checking whether the rows
+        ' in the SchemeTableDisplay equal the number items of items in the SchemeInfoList, specifically by checking:
+        '(SchemeInfoList.Count vs. SchemeTableDisplay.Rows.Count - 1)
 
 
-        If SchemeTableDisplay.CurrentRow.IsNewRow Then
+        If SchemeTableDisplay.CurrentRow.IsNewRow Then  'schemes can only be added on the "new row"
 
-            If SchemeInfoList.Count < SchemeTableDisplay.Rows.Count - 1 Then
+            If SchemeInfoList.Count < SchemeTableDisplay.Rows.Count - 1 Then  'Previous row is not committed
 
-
-                SchemeTableDisplay.CurrentRow.Cells(3).ReadOnly = True  'Current row is new row, so no entry allowed utilk commit
-                SchemeTableDisplay.CurrentRow.Cells(1).Value = False
-
-                SchemeTableDisplay.CurrentRow.Cells(1).ReadOnly = True
-
-
-
+                SchemeTableDisplay.CurrentRow.Cells(3).ReadOnly = True  'Current row is new row, so no entry allowed util commit
+                '  SchemeTableDisplay.CurrentRow.Cells(1).Value = False    'clear any checks
+                SchemeTableDisplay.CurrentRow.Cells(1).ReadOnly = True  'dont allow any checks in edit box
                 MsgBox("Previous scheme has never been committed. Commit that scheme before adding another scheme")
+            Else
+                SchemeTableDisplay.CurrentRow.Cells(1).ReadOnly = False   'allow the edit box to be checked
             End If
 
         Else
-            MsgBox("else here  ")
 
-            SchemeTableDisplay.CurrentRow.Cells(1).ReadOnly = False
+
+            'prevents previous row from being editable without checkbox after a new row has been populated
+            If SchemeTableDisplay.CurrentRow.Cells(1).Value = False Then
+                SchemeTableDisplay.CurrentRow.Cells(3).ReadOnly = True
+            Else
+                SchemeTableDisplay.CurrentRow.Cells(3).ReadOnly = False
+            End If
+
+
 
         End If
 
