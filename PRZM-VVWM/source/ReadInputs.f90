@@ -367,9 +367,9 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
             return
         ENDIF 
         
-        read(ScenarioFileUnit,'(A)') scenario_id
-        read(ScenarioFileUnit,'(A)') weatherfilename 
-        read(ScenarioFileUnit,*,  IOSTAT=status ) latitude	
+        read(ScenarioFileUnit,'(A)') scenario_id                     !Line 1
+        read(ScenarioFileUnit,'(A)') weatherfilename                 !Line 2
+        read(ScenarioFileUnit,*,  IOSTAT=status ) latitude           !Line 3
 			IF (status .NE. 0) then
 				call scenario_error(error)  !set the error to true
                 return
@@ -403,7 +403,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
                
         read(ScenarioFileUnit,'(A)') dummy !   msg = "******** start of PRZM information ******************" & vbNewLine
         
-        read(ScenarioFileUnit,*, IOSTAT=status) dummy, evergreen
+        read(ScenarioFileUnit,*, IOSTAT=status) dummy, evergreen      !Line 29
         
     			IF (status .NE. 0) then
 				  call scenario_error(error)
@@ -415,8 +415,9 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
 				  return
 				end if		
 		
-        read(ScenarioFileUnit,*) ! msg & String.Format("{0}{1},", vbNewLine, simpleRB.Checked)
+        read(ScenarioFileUnit,*) ! msg & String.Format("{0}{1},", vbNewLine, simpleRB.Checked)  !Line 31
         
+        ! LInes 32 to 38 --------------------------------
         do  i=1,num_crop_periods_input
             read(ScenarioFileUnit,*, IOSTAT = status) emd(i),emm(i) ,mad(i),mam(i),had(i),ham(i),max_root_depth(i),max_canopy_cover(i),  &
                 max_canopy_height(i), max_canopy_holdup(i),foliar_disposition(i), crop_periodicity(i), crop_lag(i) 
@@ -428,39 +429,36 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
             !PWC saves canopy cover it as a percent, but przm needs fraction
             max_canopy_cover(i)=max_canopy_cover(i)/100.
         end do
-      
-     !   write (*,*) "Foliar disposition always = 1, pesticide surface applied"
-     !   foliar_disposition = 1        
        
         do i=1, max_number_crop_periods - num_crop_periods_input
             read(ScenarioFileUnit,'(A)') dummy
         end do
-		           
-        read(ScenarioFileUnit,*)     !msg = msg & String.Format("{0}{1},{2},{3},{4}", vbNewLine, altRootDepth.Text, altCanopyCover.Text, altCanopyHeight.Text, altCanopyHoldup.Text)     
-        read(ScenarioFileUnit,*)     !msg = msg & String.Format("{0}{1},{2},{3},{4}", vbNewLine, altEmergeDay.Text, altEmergeMon.Text, altDaysToMaturity.Text, altDaysToHarvest.Text)
+		!----------------------------------------------           
+        read(ScenarioFileUnit,*)     ! Line 39 msg = msg & String.Format("{0}{1},{2},{3},{4}", vbNewLine, altRootDepth.Text, altCanopyCover.Text, altCanopyHeight.Text, altCanopyHoldup.Text)     
+        read(ScenarioFileUnit,*)     ! Line 40 msg = msg & String.Format("{0}{1},{2},{3},{4}", vbNewLine, altEmergeDay.Text, altEmergeMon.Text, altDaysToMaturity.Text, altDaysToHarvest.Text)
        
-        read(ScenarioFileUnit,*, IOSTAT= status)  PFAC,dummy, min_evap_depth 
+        read(ScenarioFileUnit,*, IOSTAT= status)  PFAC,dummy, min_evap_depth !Line 41
 			    IF (status .NE. 0) then
 				  call scenario_error(error)
 				  return
 				end if		
    
-        read(ScenarioFileUnit,*) ! msg = msg & vbNewLine & "*** irrigation information start ***"        
-        read(ScenarioFileUnit,*) irtype !0 = none, 1 flood, 2 undefined 3 = overcanopy 4 = under canopy 5 = undefined, 6 over canopy       43
-        read(ScenarioFileUnit,*) FLEACH,PCDEPL,max_irrig  !fleach.Text, depletion.Text, rateIrrig.Text)                                    44
+        read(ScenarioFileUnit,*) ! Line 42  "*** irrigation information start ***"        
+        read(ScenarioFileUnit,*) irtype ! Line 43 0 = none, 1 flood, 2 undefined 3 = overcanopy 4 = under canopy 5 = undefined, 6 over canopy
+        read(ScenarioFileUnit,*) FLEACH,PCDEPL,max_irrig  !Line 44                  
 
         read(ScenarioFileUnit,*) UserSpecifiesDepth !, user_irrig_depth  ! UserSpecifiesIrrigDepth.Checked, IrrigationDepthUserSpec.Text)
 
         if (UserSpecifiesDepth) then
-            backspace(ScenarioFileUnit)  !if true the userirrig depth will be blankl sometinmes
-            read(ScenarioFileUnit,*) UserSpecifiesDepth, user_irrig_depth        
+            backspace(ScenarioFileUnit)  !if true the userirrig depth will be blank sometinmes
+            read(ScenarioFileUnit,*) UserSpecifiesDepth, user_irrig_depth        !Line 45
         endif
  
-        read(ScenarioFileUnit,'(A)')!msg = msg & vbNewLine & "*** spare line for expansion"     
+        read(ScenarioFileUnit,'(A)') !dummy "*** spare line for expansion"  !Line 46   
 
-        read(ScenarioFileUnit,'(A)') !msg = msg & vbNewLine & "*** spare line for expansion"       
+        read(ScenarioFileUnit,'(A)') !dummy "*** spare line for expansion"  !Line 47    
         
-        read(ScenarioFileUnit,'(A)')!msg = msg & vbNewLine & "*** spare line for expansion"   
+        read(ScenarioFileUnit,'(A)') !dummy "*** spare line for expansion"  !Line 48 
    
         
         read(ScenarioFileUnit,*) USLEK,USLELS,USLEP        
@@ -572,13 +570,11 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
          character(LEN=1000) :: input_string
          character(LEN=3) ::cropgroup,region
          
-
          thickness  = 0.0
          bd_input   = 0.0
          fc_input   = 0.0
          wp_input   = 0.0
          oc_input   = 0.0
-
 
         !Presets
         foliar_disposition = 1

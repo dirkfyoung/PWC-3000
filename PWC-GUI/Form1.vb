@@ -612,18 +612,24 @@ Public Class Form1
 
 
                 Case "Delete"
-                    SchemeInfoList.RemoveAt(e.RowIndex)
 
-                    'changed to the above. the below kept the old schemes and did not resize scheme list
-                    'For i As Integer = e.RowIndex To SchemeTableDisplay.RowCount - 3
-                    '    SchemeInfoList(i) = SchemeInfoList(i + 1)
-                    'Next
 
                     If SchemeTableDisplay.CurrentRow.IsNewRow Then
                         Beep()
                     Else
                         SchemeTableDisplay.Rows.Remove(SchemeTableDisplay.Rows(e.RowIndex))
                     End If
+
+                    If SchemeInfoList.Count > e.RowIndex Then
+                        'this if condition is needed if there is an uncommitted row, then you can still delete it
+                        'likewise if there is an uncommited row, then this prevents attempting to delete a nonexistent scheme
+                        'only want to delete table row, and not schemeinfolist item
+
+                        SchemeInfoList.RemoveAt(e.RowIndex)
+                    End If
+
+
+
                 Case Else
                     Exit Sub
             End Select
@@ -833,11 +839,11 @@ Public Class Form1
 
 
     Private Sub ItsOther_CheckedChanged(sender As Object, e As EventArgs) Handles ItsOther.CheckedChanged
-        If ItsOther.Checked Then
-            waterbodypanel.Visible = True
-        Else
-            waterbodypanel.Visible = False
-        End If
+        'If ItsOther.Checked Then
+        '    waterbodypanel.Visible = True
+        'Else
+        '    waterbodypanel.Visible = False
+        'End If
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click

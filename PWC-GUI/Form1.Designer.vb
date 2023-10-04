@@ -358,11 +358,6 @@ Partial Class Form1
         Me.Schemes = New System.Windows.Forms.TabPage()
         Me.Label101 = New System.Windows.Forms.Label()
         Me.SchemeTableDisplay = New System.Windows.Forms.DataGridView()
-        Me.Column21 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Edit = New System.Windows.Forms.DataGridViewCheckBoxColumn()
-        Me.Commit = New PWC_2020.DataGridViewDisableButtonColumn()
-        Me.Column24 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Delete = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.Chemical = New System.Windows.Forms.TabPage()
         Me.ChemPropertyPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.FoliarDeg3 = New System.Windows.Forms.TextBox()
@@ -549,6 +544,11 @@ Partial Class Form1
         Me.Label129 = New System.Windows.Forms.Label()
         Me.Label130 = New System.Windows.Forms.Label()
         Me.OpenSelectScenarioBatchFile = New System.Windows.Forms.OpenFileDialog()
+        Me.Column21 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Edit = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.Commit = New PWC_2020.DataGridViewDisableButtonColumn()
+        Me.Column24 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Delete = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.MenuStrip1.SuspendLayout()
         Me.AdvancedTab.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
@@ -1528,7 +1528,7 @@ Partial Class Form1
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.68966!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 108.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 94.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 95.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.Label170, 4, 6)
         Me.TableLayoutPanel3.Controls.Add(Me.Label169, 3, 6)
         Me.TableLayoutPanel3.Controls.Add(Me.Label168, 2, 6)
@@ -1591,7 +1591,7 @@ Partial Class Form1
         '
         Me.Label169.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label169.AutoSize = True
-        Me.Label169.Location = New System.Drawing.Point(346, 154)
+        Me.Label169.Location = New System.Drawing.Point(345, 154)
         Me.Label169.Name = "Label169"
         Me.Label169.Size = New System.Drawing.Size(28, 16)
         Me.Label169.TabIndex = 236
@@ -1601,7 +1601,7 @@ Partial Class Form1
         '
         Me.Label168.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label168.AutoSize = True
-        Me.Label168.Location = New System.Drawing.Point(259, 154)
+        Me.Label168.Location = New System.Drawing.Point(258, 154)
         Me.Label168.Name = "Label168"
         Me.Label168.Size = New System.Drawing.Size(21, 16)
         Me.Label168.TabIndex = 235
@@ -1641,7 +1641,7 @@ Partial Class Form1
         '
         Me.Label164.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label164.AutoSize = True
-        Me.Label164.Location = New System.Drawing.Point(346, 132)
+        Me.Label164.Location = New System.Drawing.Point(345, 132)
         Me.Label164.Name = "Label164"
         Me.Label164.Size = New System.Drawing.Size(28, 16)
         Me.Label164.TabIndex = 231
@@ -1651,7 +1651,7 @@ Partial Class Form1
         '
         Me.Label163.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label163.AutoSize = True
-        Me.Label163.Location = New System.Drawing.Point(259, 132)
+        Me.Label163.Location = New System.Drawing.Point(258, 132)
         Me.Label163.Name = "Label163"
         Me.Label163.Size = New System.Drawing.Size(21, 16)
         Me.Label163.TabIndex = 230
@@ -1691,7 +1691,7 @@ Partial Class Form1
         '
         Me.Label159.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label159.AutoSize = True
-        Me.Label159.Location = New System.Drawing.Point(349, 112)
+        Me.Label159.Location = New System.Drawing.Point(348, 112)
         Me.Label159.Name = "Label159"
         Me.Label159.Size = New System.Drawing.Size(21, 16)
         Me.Label159.TabIndex = 226
@@ -1701,7 +1701,7 @@ Partial Class Form1
         '
         Me.Label158.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label158.AutoSize = True
-        Me.Label158.Location = New System.Drawing.Point(259, 112)
+        Me.Label158.Location = New System.Drawing.Point(258, 112)
         Me.Label158.Name = "Label158"
         Me.Label158.Size = New System.Drawing.Size(21, 16)
         Me.Label158.TabIndex = 225
@@ -1731,7 +1731,7 @@ Partial Class Form1
         '
         Me.Label155.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label155.AutoSize = True
-        Me.Label155.Location = New System.Drawing.Point(433, 92)
+        Me.Label155.Location = New System.Drawing.Point(432, 92)
         Me.Label155.Name = "Label155"
         Me.Label155.Size = New System.Drawing.Size(21, 16)
         Me.Label155.TabIndex = 222
@@ -1741,7 +1741,7 @@ Partial Class Form1
         '
         Me.Label154.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label154.AutoSize = True
-        Me.Label154.Location = New System.Drawing.Point(349, 92)
+        Me.Label154.Location = New System.Drawing.Point(348, 92)
         Me.Label154.Name = "Label154"
         Me.Label154.Size = New System.Drawing.Size(21, 16)
         Me.Label154.TabIndex = 221
@@ -1761,7 +1761,7 @@ Partial Class Form1
         '
         Me.Label150.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label150.AutoSize = True
-        Me.Label150.Location = New System.Drawing.Point(433, 72)
+        Me.Label150.Location = New System.Drawing.Point(432, 72)
         Me.Label150.Name = "Label150"
         Me.Label150.Size = New System.Drawing.Size(21, 16)
         Me.Label150.TabIndex = 217
@@ -1771,7 +1771,7 @@ Partial Class Form1
         '
         Me.Label149.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label149.AutoSize = True
-        Me.Label149.Location = New System.Drawing.Point(353, 72)
+        Me.Label149.Location = New System.Drawing.Point(352, 72)
         Me.Label149.Name = "Label149"
         Me.Label149.Size = New System.Drawing.Size(14, 16)
         Me.Label149.TabIndex = 216
@@ -1801,7 +1801,7 @@ Partial Class Form1
         '
         Me.Label144.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label144.AutoSize = True
-        Me.Label144.Location = New System.Drawing.Point(353, 52)
+        Me.Label144.Location = New System.Drawing.Point(352, 52)
         Me.Label144.Name = "Label144"
         Me.Label144.Size = New System.Drawing.Size(14, 16)
         Me.Label144.TabIndex = 8
@@ -1821,7 +1821,7 @@ Partial Class Form1
         '
         Me.Label138.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label138.AutoSize = True
-        Me.Label138.Location = New System.Drawing.Point(221, 9)
+        Me.Label138.Location = New System.Drawing.Point(220, 9)
         Me.Label138.Name = "Label138"
         Me.Label138.Size = New System.Drawing.Size(97, 32)
         Me.Label138.TabIndex = 2
@@ -1851,7 +1851,7 @@ Partial Class Form1
         '
         Me.Label152.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label152.AutoSize = True
-        Me.Label152.Location = New System.Drawing.Point(258, 92)
+        Me.Label152.Location = New System.Drawing.Point(257, 92)
         Me.Label152.Name = "Label152"
         Me.Label152.Size = New System.Drawing.Size(24, 16)
         Me.Label152.TabIndex = 219
@@ -1871,7 +1871,7 @@ Partial Class Form1
         '
         Me.Label147.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label147.AutoSize = True
-        Me.Label147.Location = New System.Drawing.Point(258, 72)
+        Me.Label147.Location = New System.Drawing.Point(257, 72)
         Me.Label147.Name = "Label147"
         Me.Label147.Size = New System.Drawing.Size(24, 16)
         Me.Label147.TabIndex = 214
@@ -1881,7 +1881,7 @@ Partial Class Form1
         '
         Me.Label143.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label143.AutoSize = True
-        Me.Label143.Location = New System.Drawing.Point(156, 52)
+        Me.Label143.Location = New System.Drawing.Point(155, 52)
         Me.Label143.Name = "Label143"
         Me.Label143.Size = New System.Drawing.Size(21, 16)
         Me.Label143.TabIndex = 7
@@ -1891,7 +1891,7 @@ Partial Class Form1
         '
         Me.Label142.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label142.AutoSize = True
-        Me.Label142.Location = New System.Drawing.Point(258, 52)
+        Me.Label142.Location = New System.Drawing.Point(257, 52)
         Me.Label142.Name = "Label142"
         Me.Label142.Size = New System.Drawing.Size(24, 16)
         Me.Label142.TabIndex = 6
@@ -1912,7 +1912,7 @@ Partial Class Form1
         '
         Me.Label139.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label139.AutoSize = True
-        Me.Label139.Location = New System.Drawing.Point(338, 9)
+        Me.Label139.Location = New System.Drawing.Point(337, 9)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(43, 32)
         Me.Label139.TabIndex = 3
@@ -3494,7 +3494,7 @@ Partial Class Form1
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(213, 75)
         Me.Button2.TabIndex = 99
-        Me.Button2.Text = "Select Special " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Water Bodies"
+        Me.Button2.Text = "Select Other " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Water Bodies"
         Me.Button2.UseVisualStyleBackColor = False
         '
         'WaterbodyList
@@ -3908,53 +3908,6 @@ Partial Class Form1
         Me.SchemeTableDisplay.RowTemplate.Height = 24
         Me.SchemeTableDisplay.Size = New System.Drawing.Size(943, 408)
         Me.SchemeTableDisplay.TabIndex = 0
-        '
-        'Column21
-        '
-        Me.Column21.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.Column21.FillWeight = 8.0!
-        Me.Column21.HeaderText = "No."
-        Me.Column21.MinimumWidth = 6
-        Me.Column21.Name = "Column21"
-        Me.Column21.Width = 57
-        '
-        'Edit
-        '
-        Me.Edit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.Edit.FillWeight = 10.0!
-        Me.Edit.HeaderText = "Edit"
-        Me.Edit.MinimumWidth = 6
-        Me.Edit.Name = "Edit"
-        Me.Edit.Width = 36
-        '
-        'Commit
-        '
-        Me.Commit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.Commit.FillWeight = 15.0!
-        Me.Commit.HeaderText = "Commit"
-        Me.Commit.MinimumWidth = 6
-        Me.Commit.Name = "Commit"
-        Me.Commit.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Commit.Width = 58
-        '
-        'Column24
-        '
-        Me.Column24.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Column24.HeaderText = "Scheme Description"
-        Me.Column24.MinimumWidth = 6
-        Me.Column24.Name = "Column24"
-        Me.Column24.ReadOnly = True
-        '
-        'Delete
-        '
-        Me.Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.Delete.FillWeight = 10.0!
-        Me.Delete.HeaderText = "Delete"
-        Me.Delete.MinimumWidth = 6
-        Me.Delete.Name = "Delete"
-        Me.Delete.Text = "X"
-        Me.Delete.UseColumnTextForButtonValue = True
-        Me.Delete.Width = 53
         '
         'Chemical
         '
@@ -6103,6 +6056,54 @@ Partial Class Form1
         Me.Label130.Size = New System.Drawing.Size(90, 16)
         Me.Label130.TabIndex = 6
         Me.Label130.Text = "Family Name:"
+        '
+        'Column21
+        '
+        Me.Column21.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.Column21.FillWeight = 8.0!
+        Me.Column21.HeaderText = "No."
+        Me.Column21.MinimumWidth = 6
+        Me.Column21.Name = "Column21"
+        Me.Column21.Width = 57
+        '
+        'Edit
+        '
+        Me.Edit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.Edit.FillWeight = 10.0!
+        Me.Edit.HeaderText = "Edit"
+        Me.Edit.MinimumWidth = 6
+        Me.Edit.Name = "Edit"
+        Me.Edit.Width = 36
+        '
+        'Commit
+        '
+        Me.Commit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.Commit.FillWeight = 15.0!
+        Me.Commit.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Commit.HeaderText = "Commit"
+        Me.Commit.MinimumWidth = 6
+        Me.Commit.Name = "Commit"
+        Me.Commit.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Commit.Width = 58
+        '
+        'Column24
+        '
+        Me.Column24.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.Column24.HeaderText = "Scheme Description"
+        Me.Column24.MinimumWidth = 6
+        Me.Column24.Name = "Column24"
+        Me.Column24.ReadOnly = True
+        '
+        'Delete
+        '
+        Me.Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.Delete.FillWeight = 10.0!
+        Me.Delete.HeaderText = "Delete"
+        Me.Delete.MinimumWidth = 6
+        Me.Delete.Name = "Delete"
+        Me.Delete.Text = "X"
+        Me.Delete.UseColumnTextForButtonValue = True
+        Me.Delete.Width = 53
         '
         'Form1
         '
