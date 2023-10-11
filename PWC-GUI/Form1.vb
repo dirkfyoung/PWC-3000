@@ -643,6 +643,66 @@ Public Class Form1
 
 
     End Sub
+    Private Sub SchemeTableDisplay_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles SchemeTableDisplay.CellMouseEnter
+        If e.RowIndex < 0 Then
+            Exit Sub
+        End If
+
+        If SchemeTableDisplay.CurrentRow.IsNewRow Then
+            Exit Sub
+        End If
+
+
+
+        Select Case SchemeTableDisplay.Columns(e.ColumnIndex).Name
+            Case "Delete"
+
+                SchemeTableDisplay.Rows(e.RowIndex).Cells("Delete").Value = "Delete"
+
+
+            Case "Commit"
+                If SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True Then
+                    SchemeTableDisplay.Rows(e.RowIndex).Cells("Commit").Value = "Commit"
+                End If
+        End Select
+
+    End Sub
+
+    Private Sub SchemeTableDisplay_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles SchemeTableDisplay.CellMouseLeave
+        If e.RowIndex < 0 Then
+            Exit Sub
+        End If
+
+
+
+
+
+        Select Case SchemeTableDisplay.Columns(e.ColumnIndex).Name
+            Case "Delete"
+
+                SchemeTableDisplay.Rows(e.RowIndex).Cells("Delete").Value = ""
+            Case "Commit"
+                SchemeTableDisplay.Rows(e.RowIndex).Cells("Commit").Value = ""
+
+        End Select
+
+
+
+
+    End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
