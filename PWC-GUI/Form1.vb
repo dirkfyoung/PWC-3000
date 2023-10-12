@@ -276,6 +276,15 @@ Public Class Form1
             buttonCell.Enabled = False
         Next
 
+        'Disable the last new row button
+        buttonCell = CType(SchemeTableDisplay.Rows(SchemeTableDisplay.Rows.Count - 1).Cells("Delete"), DataGridViewDisableButtonCell)
+        buttonCell.Enabled = False
+
+
+
+
+
+
 
     End Sub
 
@@ -450,7 +459,23 @@ Public Class Form1
                             'dont allow scheme description to be edited unless checked
                             SchemeTableDisplay.Rows(i).Cells(3).ReadOnly = True
                         Next
-                        'allow only active scheme dedsription to be edited
+
+                        '________________________________________________________________________
+                        'When a new row is created, Make the delete button imediatelty active and disable the new button
+
+
+                        If (SchemeTableDisplay.Rows.Count - 2 = e.RowIndex) Then
+                            buttonCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Delete"), DataGridViewDisableButtonCell)
+                            buttonCell.Enabled = True
+                            buttonCell = CType(SchemeTableDisplay.Rows(e.RowIndex + 1).Cells("Delete"), DataGridViewDisableButtonCell)
+                            buttonCell.Enabled = False
+                        End If
+
+
+
+                        '_______________________________________________
+
+                        'allow only active scheme description to be edited
                         SchemeTableDisplay.Rows(e.RowIndex).Cells(3).ReadOnly = False
 
                         buttonCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Commit"), DataGridViewDisableButtonCell)
@@ -644,13 +669,28 @@ Public Class Form1
 
     End Sub
     Private Sub SchemeTableDisplay_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles SchemeTableDisplay.CellMouseEnter
+
+
+
+
         If e.RowIndex < 0 Then
             Exit Sub
         End If
 
-        If SchemeTableDisplay.CurrentRow.IsNewRow Then
+        Dim buttonCell As DataGridViewDisableButtonCell
+        buttonCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Delete"), DataGridViewDisableButtonCell)
+
+        'this logic signifies a new row,;iterally "isnewrow" does not work so resorted to this.
+        If (SchemeTableDisplay.Rows.Count - 1 = e.RowIndex) Then
+            buttonCell.Enabled = False
+            SchemeTableDisplay.Invalidate()  'redraw
             Exit Sub
+        Else
+            buttonCell.Enabled = True
         End If
+
+
+        SchemeTableDisplay.Invalidate()  'redraw
 
 
 
