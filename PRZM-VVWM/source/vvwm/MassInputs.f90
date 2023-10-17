@@ -180,7 +180,16 @@ subroutine initial_conditions(chem_index)
 
         !********************************************************************
         fraction_to_benthic = kd_sed_1*eroded_solids_mass/ (capacity_1 + kd_sed_1*eroded_solids_mass)    !used later in core calc routine
-        m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index) + spray_additions  !all mass goes to water column initially
+        
+        
+       !all mass goes to water column initially
+       if (chem_index ==1) then 
+           m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index) + spray_additions !only parent drifts
+       else
+           m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index)                   !degradates dont drift
+       end if
+       
+        
         m2_input = 0.0  
 
         !******* Add in any degradate mass produced by parent from subsequent parent run******

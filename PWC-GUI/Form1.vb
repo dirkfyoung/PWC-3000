@@ -668,6 +668,10 @@ Public Class Form1
 
 
     End Sub
+
+
+
+
     Private Sub SchemeTableDisplay_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles SchemeTableDisplay.CellMouseEnter
 
 
@@ -1179,6 +1183,8 @@ Public Class Form1
                     AppTableDisplay.Rows(e.RowIndex).Cells(3).Value = "4.0"
                     AppTableDisplay.Rows(e.RowIndex).Cells(4).Value = "0.0"
 
+                    AppTableDisplay.Rows(e.RowIndex).Cells(3).ReadOnly = True
+                    AppTableDisplay.Rows(e.RowIndex).Cells(4).ReadOnly = True
                     AppTableDisplay.Item(3, e.RowIndex).Style.ForeColor = Color.Gray
                     AppTableDisplay.Item(4, e.RowIndex).Style.ForeColor = Color.Gray
 
@@ -1188,9 +1194,18 @@ Public Class Form1
 
                     AppTableDisplay.Item(3, e.RowIndex).Style.ForeColor = Color.Black
                     AppTableDisplay.Item(4, e.RowIndex).Style.ForeColor = Color.Gray
+                    AppTableDisplay.Rows(e.RowIndex).Cells(3).ReadOnly = False
+                    AppTableDisplay.Rows(e.RowIndex).Cells(4).ReadOnly = True
+
+
+
                 Case Else
                     AppTableDisplay.Item(3, e.RowIndex).Style.ForeColor = Color.Black
                     AppTableDisplay.Item(4, e.RowIndex).Style.ForeColor = Color.Black
+                    AppTableDisplay.Rows(e.RowIndex).Cells(3).ReadOnly = False
+                    AppTableDisplay.Rows(e.RowIndex).Cells(4).ReadOnly = False
+
+
             End Select
         End If
 

@@ -569,7 +569,7 @@ Module TPEZ_WPEZ
           end if
           
           call TPEZ_initial_conditions(chem_index)  !just populates m1 additions: erosion runoff and drift
-      !      call time_check("before main tpex")        
+           
           
           call MainLoopTPEZ(chem_index, avg_maxwater, kd, avg_bd)      
 
@@ -590,14 +590,25 @@ Module TPEZ_WPEZ
                                           m1_input  !OUTPUT mass added to littoral region (kg)                                                       
         implicit none      
         integer,intent(in) :: chem_index
+        integer i
         
-        m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index) + spray_additions  !all mass goes to single compartment 
-
-        !******* Add in any degradate mass produced by parent from subsequent parent run******
-        if (chem_index >1) then                 ! 1 is the parent.
-          m1_input = m1_input + degradateProduced1   
+        !all mass goes to single compartment
+        if (chem_index==1) then
+             m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index) + spray_additions   !only parent driufts
+        else
+             m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index)                     !degradates dont drift
         end if
         
+        
+        !******* Add in any degradate mass produced by parent from subsequent parent run******
+        if (chem_index >1) then                 ! 1 is the parent.
+          m1_input = m1_input + degradateProduced1    
+          
+          
+        end if
+        
+
+         
     end subroutine TPEZ_initial_conditions
     
     
@@ -670,7 +681,7 @@ Module TPEZ_WPEZ
     subroutine MainLoopTPEZ(chem_index, vmax, kd, bd)
        use constants_and_variables, ONLY: num_records , DELT_vvwm,m1_input,m1_store,mavg1_store, aq1_store,  &
                                            k_flow,soil_degradation_halflife_input, burial, dwrate, ncom2, &
-                                           degradateProduced1, mwt, nchem,soil_depth
+                                           degradateProduced1, mwt, nchem,soil_depth, xsoil
 
        use initialization, ONLY: Convert_halflife_to_rate_per_sec                        
        use utilities_1
@@ -705,9 +716,15 @@ Module TPEZ_WPEZ
        !***** Daily Loop Calculations ************************
        do day_count = 1,num_records  
 
+
+           
           m1 = mn1 + m1_input(day_count)       
           m1_store(day_count)=m1
             
+          if (chem_index ==2)  write(93,*) m1, mn1, m1_input(day_count)
+          
+                   
+
           !kflow needs to be adjusted for tpez, in normal vvwm solid phase is not considered in water column
           !adjustment is Vmax/(Vmax + bd Kd) this is a CONSTANT Adjustment
         
@@ -718,8 +735,10 @@ Module TPEZ_WPEZ
                                                ! NOTE: probably should switch order of dwrate array, put chem index 2nd         
           end do
           
+          
           call find_average_property(ncom2,soil_depth,15.0, dummy_holder, avg_soil_deg_implicit)
-    
+          
+
 
           !here is the derivation to undo the correction
           ! aq_rate_corrected      = exp(aq_rate_input)   -1.  (this is previous correction)
@@ -729,9 +748,15 @@ Module TPEZ_WPEZ
           
           avg_soil_deg = log(avg_soil_deg_implicit + 1.0)/86400.   ! removed implicit correction and now is in per sec,  86400 sec/day
           
+          
+      
+
+   
+          
           k_total =  k_flow(day_count)*vmax/(vmax+kd*bd) + burial(day_count)*Kd/(vmax+kd*bd) + avg_soil_deg
           
           mn1 = m1*exp(-DELT_vvwm * k_total) !next start day mass
+          
           
           if (k_total>0.0) then
                  mavg1_store(day_count) = m1_store(day_count)*(1.-exp(-DELT_vvwm * k_total)) /k_total/DELT_vvwm 
@@ -741,7 +766,8 @@ Module TPEZ_WPEZ
 
           !calculate mass degraded by soil degradation alone  
           if (nchem > chem_index) then
-             degradateProduced1(day_count) =  MWTRatio * avg_soil_deg * mavg1_store(day_count) * DELT_vvwm
+             degradateProduced1(day_count) =  xsoil(chem_index) * MWTRatio * avg_soil_deg * mavg1_store(day_count) * DELT_vvwm
+            
           end if
           
        end do
