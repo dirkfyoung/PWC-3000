@@ -201,6 +201,137 @@
     End Sub
 
 
+    Sub SaveSchemeTableAsTextFile(ByVal savefile As String)
+        Dim msg As String
+        msg = "PWC 3 Scheme Table"
+
+
+
+        'Schemes***************************
+        Dim NumberOfSchemes As Integer
+        Dim ApplicationTable As New SchemeDetails
+        Dim actualRowsInAppTable As Integer 'app table rows
+
+        Dim NumberOfScenarios As Integer
+        Dim referencedate As Integer
+
+        AppTableDisplay.CommitEdit(DataGridViewDataErrorContexts.Commit)  'commit the cell if cursor still on box
+
+
+        NumberOfSchemes = SchemeTableDisplay.RowCount - 1
+        msg = msg & String.Format("{0}{1}{0}", vbNewLine, NumberOfSchemes)
+        SchemeTableDisplay.CommitEdit(DataGridViewDataErrorContexts.Commit) 'commit the cell if cursor still on box
+
+        Dim phrase1 As String = "Sch#, Description,mode,#Apps,"
+        Dim phrase2 As String = " days,amt,method,depth,split,drift,buffer,period,lag,"
+        Dim phrase3 As String = "window, span,step,raifast,rainlimit,intolwindow,optwindow,mindays,#scn,  "
+
+        msg = msg & String.Format("{0}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{2}", phrase1, phrase2, phrase3)
+
+
+
+        For i As Integer = 0 To NumberOfSchemes - 1
+            msg = msg & String.Format("{0}{1},{2},", vbNewLine, (i + 1), """" & SchemeTableDisplay.Item(3, i).Value & """")
+
+            ApplicationTable = SchemeInfoList(i)
+
+            Select Case True
+                Case ApplicationTable.AbsoluteRelative
+                    referencedate = 0
+                Case ApplicationTable.Emerge
+                    referencedate = 1
+                Case ApplicationTable.Maturity
+                    referencedate = 2
+                Case ApplicationTable.Removal
+                    referencedate = 3
+                Case Else
+                    referencedate = 99
+            End Select
+
+            msg = msg & String.Format("{0},", referencedate)
+
+            'Application Table Information
+            actualRowsInAppTable = ApplicationTable.Days.Count   'AppTableDisplay.RowCount - 1
+            msg = msg & String.Format("{0},", actualRowsInAppTable)
+
+
+            'Maximum of 10 applications for a scheme dump
+            If actualRowsInAppTable - 1 > 10 Then
+                MsgBox("column order is preserved only for a maximum of 10 applications")
+            End If
+
+            For j As Integer = 0 To actualRowsInAppTable - 1
+
+                msg = msg & String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},", ApplicationTable.Days(j), ApplicationTable.Amount(j),
+                                          ApplicationTable.Method(j), ApplicationTable.Depth(j), ApplicationTable.Split(j),
+                                          ApplicationTable.Drift(j), ApplicationTable.DriftBuffer(j), ApplicationTable.Periodicity(j), ApplicationTable.Lag(j))
+            Next
+
+            If actualRowsInAppTable < 10 Then
+                For j As Integer = 1 To (10 - actualRowsInAppTable)
+                    msg = msg & String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},", 0, 0, 0, 0, 0, 0, 0, 0, 0)
+                Next
+            End If
+
+
+
+            msg = msg & String.Format("{0},{1},{2},", ApplicationTable.UseApplicationWindow, ApplicationTable.ApplicationWindowSpan, ApplicationTable.ApplicationWindowStep)
+            msg = msg & String.Format("{0},{1},{2},{3},{4},", ApplicationTable.UseRainFast, ApplicationTable.RainLimit, ApplicationTable.IntolerableRainWindow, ApplicationTable.OptimumApplicationWindow, ApplicationTable.MinDaysBetweenApps)
+
+
+            NumberOfScenarios = ApplicationTable.Scenarios.Count
+            msg = msg & NumberOfScenarios
+
+            For j As Integer = 0 To NumberOfScenarios - 1
+                msg = msg & "," & IO.Path.GetFileName(ApplicationTable.Scenarios(j))
+
+
+            Next
+
+
+
+
+            'msg = msg & vbNewLine & ApplicationTable.UseBatchScenarioFile & ","
+            'msg = msg & vbNewLine & ApplicationTable.ScenarioBatchFileName & ","
+        Next
+
+
+
+
+
+
+
+        Try
+            My.Computer.FileSystem.WriteAllText(savefile, msg, False, System.Text.Encoding.ASCII)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+    End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     Private Function CreateScenarioString() As String
         'Private Function WaterBodyInfo() As String
         Dim msg As String

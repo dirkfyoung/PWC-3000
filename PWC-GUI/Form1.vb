@@ -281,11 +281,6 @@ Public Class Form1
         buttonCell.Enabled = False
 
 
-
-
-
-
-
     End Sub
 
     Private Sub CalculateButton_Click(sender As Object, e As EventArgs) Handles CalculateButton.Click
@@ -1407,14 +1402,41 @@ Public Class Form1
                 MsgBox(ex.Message)
             End Try
 
-
-
-
-
         Next
     End Sub
 
+    Private Sub WriteSchemeTableToFileToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WriteSchemeTableToFileToolStripMenuItem.Click
 
+        Dim result As System.Windows.Forms.DialogResult
+
+        SaveFileDialogMain.Filter = "PWC 3 Scheme File (*.sch)|*.SCH|ALL Files (*.*)|*.*"
+        SaveFileDialogMain.FilterIndex = 1
+
+        SaveFileDialogMain.InitialDirectory = FileNames.WorkingDirectory
+        SaveFileDialogMain.FileName = ""
+        result = SaveFileDialogMain.ShowDialog(Me)
+
+        'Cancel button will cuase return without further execution
+        If result = Windows.Forms.DialogResult.Cancel Then
+            Return
+        End If
+
+        FileNames.SchemeFileName = SaveFileDialogMain.FileName
+
+
+        'FileNames.WorkingDirectory = System.IO.Path.GetDirectoryName(SaveFileDialogMain.FileName) & "\"
+        'WorkingDirectoryLabel.Text = FileNames.WorkingDirectory
+        'SaveFileDialogMain.InitialDirectory = WorkingDirectoryLabel.Text
+
+        'IOFamilyName.Text = System.IO.Path.GetFileNameWithoutExtension(SaveFileDialogMain.FileName)
+
+        SaveSchemeTableAsTextFile(SaveFileDialogMain.FileName)
+
+    End Sub
+
+    Private Sub LoadSchemeTableToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadSchemeTableToolStripMenuItem.Click
+
+    End Sub
 End Class
 
 

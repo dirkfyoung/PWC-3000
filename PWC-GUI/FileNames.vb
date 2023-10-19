@@ -16,6 +16,7 @@
     Public Shared Property ErrorFileName As String
     Public Shared Property InputFileName As String
 
+    Public Shared Property SchemeFileName As String
 
     Public Shared Property DefaultWaterBodyDirectory As String
     Public Shared Property DefaultScenarioDirectory As String

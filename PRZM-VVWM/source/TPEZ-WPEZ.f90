@@ -721,7 +721,7 @@ Module TPEZ_WPEZ
           m1 = mn1 + m1_input(day_count)       
           m1_store(day_count)=m1
             
-          if (chem_index ==2)  write(93,*) m1, mn1, m1_input(day_count)
+
           
                    
 
