@@ -1409,7 +1409,7 @@ Public Class Form1
 
         Dim result As System.Windows.Forms.DialogResult
 
-        SaveFileDialogMain.Filter = "PWC 3 Scheme File (*.sch)|*.SCH|ALL Files (*.*)|*.*"
+        SaveFileDialogMain.Filter = "PWC 3 Scheme File (*.sch)|*.SCH|CSV File (*.csv)|*.CSV|ALL Files (*.*)|*.*"
         SaveFileDialogMain.FilterIndex = 1
 
         SaveFileDialogMain.InitialDirectory = FileNames.WorkingDirectory
@@ -1435,6 +1435,43 @@ Public Class Form1
     End Sub
 
     Private Sub LoadSchemeTableToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadSchemeTableToolStripMenuItem.Click
+
+
+        Dim result As System.Windows.Forms.DialogResult
+
+        RetrieveMainInput.Filter = "PWC 3 Scheme Files (*.SCH)|*.SCH|CSV Files (*.CSV)|*.CSV|ALL Files (*.*)|*.*"
+
+        'Opens the desktop if there is no previous open
+        If System.IO.Directory.Exists(FileNames.WorkingDirectory) Then
+            RetrieveMainInput.InitialDirectory = FileNames.WorkingDirectory
+        Else
+            '  RetrieveMainInput.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+        End If
+
+        RetrieveMainInput.FileName = ""
+
+        result = RetrieveMainInput.ShowDialog(Me)
+
+        'Cancel button will cause return without further execution
+        If result = Windows.Forms.DialogResult.Cancel Then
+            Return
+        End If
+
+
+
+        ReadSchemeFile(RetrieveMainInput.FileName)
+
+        'disable all edit buttons in scheme table on first retrieve
+        Dim buttonCell As DataGridViewDisableButtonCell
+        For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
+            buttonCell = CType(SchemeTableDisplay.Rows(i).Cells("Commit"), DataGridViewDisableButtonCell)
+            buttonCell.Enabled = False
+        Next
+
+        'Disable the last new row button
+        buttonCell = CType(SchemeTableDisplay.Rows(SchemeTableDisplay.Rows.Count - 1).Cells("Delete"), DataGridViewDisableButtonCell)
+        buttonCell.Enabled = False
+
 
     End Sub
 End Class

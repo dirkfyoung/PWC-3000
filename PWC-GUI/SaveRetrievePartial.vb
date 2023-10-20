@@ -976,6 +976,110 @@
 
     End Sub
 
+    Sub ReadSchemeFile(ByVal filename As String)
+
+
+        SchemeInfoList.Clear()
+
+        Using MyReader As New Microsoft.VisualBasic.FileIO.TextFieldParser(filename)
+            Dim currentrow As String()
+            Dim NumberOfSchemes As Integer
+            Dim NumberOfScenarios As Integer
+            Dim numRows As Integer
+
+
+            MyReader.TextFieldType = FileIO.FieldType.Delimited
+            MyReader.SetDelimiters(",")
+
+            MyReader.ReadLine()                'Title        LINE 1
+            currentrow = MyReader.ReadFields   'No. Schemes  LINE 2
+            NumberOfSchemes = currentrow(0)
+            MyReader.ReadLine()                'Header       LINE 3
+
+            SchemeTableDisplay.Rows.Clear()
+
+            For i As Integer = 0 To NumberOfSchemes - 1
+                'Need a new apptable for every scheme because otherwise just a reference to table will be sent to schemeinfo
+                ' and only copies of the last scheme will be picked up
+                Dim ApplicationTable As New SchemeDetails With {
+                .Days = New List(Of String),
+                .Amount = New List(Of String),
+                .Method = New List(Of String),
+                .Depth = New List(Of String),
+                .Split = New List(Of String),
+                .Drift = New List(Of String),
+                .DriftBuffer = New List(Of String),
+                .Periodicity = New List(Of String),
+                .Lag = New List(Of String),
+                .Scenarios = New List(Of String)
+                 } 'local for picking up scheme information
+
+                ' ApplicationTable.ClearAll()
+
+                currentrow = MyReader.ReadFields                   'read full scheme line
+
+                SchemeTableDisplay.Rows.Add("", False, "", currentrow(1))
+
+                ApplicationTable.AbsoluteRelative = False
+                ApplicationTable.Emerge = False
+                ApplicationTable.Maturity = False
+                ApplicationTable.Removal = False
+                Select Case currentrow(2)                           'timing reference (mode)
+                    Case 0
+                        ApplicationTable.AbsoluteRelative = True
+                    Case 1
+                        ApplicationTable.Emerge = True
+                    Case 2
+                        ApplicationTable.Maturity = True
+                    Case 3
+                        ApplicationTable.Removal = True
+                End Select
+
+                numRows = currentrow(3)             'number of application (rows) in app table
+
+                If numRows > 10 Then
+                    MsgBox("for scheme upload/download using this external feature, apps are limited to 10 per scheme")
+                End If
+
+                For j As Integer = 0 To numRows - 1
+                    ApplicationTable.Days.Add(currentrow(4 + 9 * j))
+                    ApplicationTable.Amount.Add(currentrow(5 + 9 * j))
+                    ApplicationTable.Method.Add(currentrow(6 + 9 * j))
+                    ApplicationTable.Depth.Add(currentrow(7 + 9 * j))
+                    ApplicationTable.Split.Add(currentrow(8 + 9 * j))
+                    ApplicationTable.Drift.Add(currentrow(9 + 9 * j))
+                    ApplicationTable.DriftBuffer.Add(currentrow(10 + 9 * j))
+                    ApplicationTable.Periodicity.Add(currentrow(11 + 9 * j))
+                    ApplicationTable.Lag.Add(currentrow(12 + 9 * j))
+                Next
+
+                ApplicationTable.UseApplicationWindow = currentrow(94)
+                ApplicationTable.ApplicationWindowSpan = currentrow(95)
+                ApplicationTable.ApplicationWindowStep = currentrow(96)
+
+                ApplicationTable.UseRainFast = currentrow(97)
+                ApplicationTable.RainLimit = currentrow(98)
+                ApplicationTable.IntolerableRainWindow = currentrow(99)
+                ApplicationTable.OptimumApplicationWindow = currentrow(100)
+                ApplicationTable.MinDaysBetweenApps = currentrow(101)
+
+                NumberOfScenarios = currentrow(102)
+
+                For j As Integer = 103 To 103 + NumberOfScenarios - 1
+                    ApplicationTable.Scenarios.Add(currentrow(j))
+                Next
+                SchemeInfoList.Add(ApplicationTable)
+            Next
+
+
+        End Using
+
+
+    End Sub
+
+
+
+
     Private Sub ReadwaterBodyParameters(filename As String)
 
         Using MyReader As New Microsoft.VisualBasic.FileIO.TextFieldParser(filename)
