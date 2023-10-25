@@ -1167,7 +1167,7 @@
         msg = msg & vbNewLine & MaxDepth.Text
         msg = msg & vbNewLine & BaseFlow.Text
         msg = msg & vbNewLine & FlowLength.Text
-        msg = msg & vbNewLine & isZeroConc.Checked & "," & ZeroConcDepth.Text
+        msg = msg & vbNewLine & isZeroConc.Checked & "," & ZeroConcDepth.Text & ","
         msg = msg & vbNewLine & "unused line for future expansion"
 
         Dim column_count As Integer
@@ -1371,11 +1371,15 @@
             Next
 
             MyReader.ReadLine() '*** Horizon End, Temperature Start ********"
-            currentrow = MyReader.ReadFields 'line 62
-            albedo.Text = currentRow(0)
-            bcTemp.Text = currentRow(1)
 
-            SimTemperature.Checked = MyReader.ReadLine() 'line 63
+            'V4 scenarios do not have temp populated'line 62
+            MyReader.ReadLine()
+            albedo.Text = 0.2
+            bcTemp.Text = 10
+
+            currentRow = MyReader.ReadFields
+            SimTemperature.Checked = currentRow(0) 'line 63
+
             MyReader.ReadLine()  '***spare line for expansion
             MyReader.ReadLine()  '***spare line for expansion
             MyReader.ReadLine() '***Erosion Curve Number Inputs, Line 66

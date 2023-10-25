@@ -153,7 +153,7 @@ end subroutine chemical_manipulations
     ENPY = Heat_of_Henry/ 4184.0   
     
     !********Allocations of Soil Profile Variables**********************
-
+Write(*,*) "Start Autoprofile"
 	if (is_auto_profile) then
 		ncom2 = sum(profile_number_increments(1:number_of_discrete_layers))  !New way
     else     
@@ -162,7 +162,10 @@ end subroutine chemical_manipulations
 
 	!***********  allocate and initialize ***********
     call  allocate_soil_compartments
+
 	call  allocate_time_series       !some time series also have soil components, so ncom2 must be defined previoyusly before this call
+
+    
     ainf = 0.0
     GAMMA1  = 0.0
     vel = 0.0
@@ -380,6 +383,8 @@ end subroutine chemical_manipulations
        end do
        !&&&&&&&&&&&&&&&&&&&&&&&&&&& END OF  OLD WAY &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&	
     end if	
+    
+
     
     !****** Calculate Kd for each compartment ******************************
     do K=1, NCHEM

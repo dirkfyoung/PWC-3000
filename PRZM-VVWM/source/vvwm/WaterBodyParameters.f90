@@ -264,9 +264,9 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 	integer :: i,j
      
         open (UNIT=waterbody_file_unit, FILE= trim(waterbody_names(file_index)), STATUS ='old')
-
+   
         read(waterbody_file_unit, *) this_waterbody_name       
-        read(waterbody_file_unit, *) simtypeflag    
+        read(waterbody_file_unit, *) simtypeflag                           !Line 2
         read(waterbody_file_unit, *) flow_averaging     
         read(waterbody_file_unit, *) afield       
         read(waterbody_file_unit, *) area_waterbody     
@@ -282,15 +282,18 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         read(waterbody_file_unit, *) CHL                
         read(waterbody_file_unit, *) FROC1              
         read(waterbody_file_unit, *) DOC1               
-        read(waterbody_file_unit, *) PLMAS         
+        read(waterbody_file_unit, *) PLMAS       !LIne 18
 
-        read(waterbody_file_unit, *) depth_0            
-        read(waterbody_file_unit, *) depth_max          
-        read(waterbody_file_unit, *) baseflow       
+        
+        
+        read(waterbody_file_unit, *) depth_0      !Line 19      
+        read(waterbody_file_unit, *) depth_max    !Line 20
+        read(waterbody_file_unit, *) baseflow     !line 21
 
-        read(waterbody_file_unit, *) hydro_length
+        read(waterbody_file_unit, *) hydro_length  !Line 22
+        write(*,*) "qa check 1"
         read(waterbody_file_unit, *) is_zero_depth, zero_depth
-
+        write(*,*) "qa check 2"
         read(waterbody_file_unit, *) 
 
 		read(waterbody_file_unit, *) rows_spraytable, columns_spraytable ! data is 1 less column, col 0 is a text description in the vb interface, row 1 is length header

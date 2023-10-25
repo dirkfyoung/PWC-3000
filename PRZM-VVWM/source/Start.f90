@@ -129,11 +129,16 @@ program PRZMVVWM
                      end if                    
                end if 
 
+               
+
                call Read_Weatherfile !this reads the new format weather file	   
-               call INITL    !initialize and ALLOCATIONS przm variables  
+               
+               call INITL    !initialize and ALLOCATIONS przm variables 
+               
                call Crop_Growth
+               
 			   call hydrology_only
-		   
+		       
                !soil temp is good here
 
                call allocation_for_VVWM
@@ -142,9 +147,9 @@ program PRZMVVWM
            !    hold_for_medians_wb = 0.0  !use this to hold data for medians
                
                ! zero other hold fior mediuans here (maybe not needed)
-               
+   
 
-               do jj = 0, app_window_span(i), app_window_step(i) 
+               do jj = 0, app_window_span(i), app_window_step(i)                    
 				     application_date= application_date_original + jj
                      app_window_counter = app_window_counter +1 
                      call make_run_id (i,kk, hh,jj) !makes a string that can be used for identifying output scheme#_scenario#_scenarioname      
@@ -167,7 +172,7 @@ program PRZMVVWM
             
                      end if                     
                end do    
-			                 
+        
                !******process application date widow into medians****************
                call calculate_medians(app_window_counter,run_tpez_wpez )
                
@@ -175,6 +180,8 @@ program PRZMVVWM
                call deallocate_scenario_parameters		   
 
             end do  !END SCENARIO LOOP  kk 
+            
+    
             
             call deallocate_application_parameters !allocations are done in set_chmical_applications, need to deallocatte for next scheme 
               

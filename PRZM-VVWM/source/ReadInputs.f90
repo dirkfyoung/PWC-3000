@@ -346,7 +346,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         character(len= 50) ::dummy, dummy2
         real :: scalar_albedo, scaler_soil_temp  !these values are arrays in the program, but they are initialesd with constants
 		
-		logical :: checkopen
+		!logical :: checkopen
             
         
         thickness  = 0.0
@@ -358,7 +358,9 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         error = .FALSE.      
         filename = trim(scenario_names(schemenumber,scenarionumber))    
 		
-		inquire(53, OPENED=checkopen)
+        write(*,*) "Operating on scenario: ", trim(filename)
+        
+		!inquire(53, OPENED=checkopen)
 		
         OPEN(Unit = ScenarioFileUnit, FILE=(filename),STATUS='OLD', IOSTAT=status  )
         IF (status .NE. 0) THEN
@@ -430,6 +432,8 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
             max_canopy_cover(i)=max_canopy_cover(i)/100.
         end do
        
+        
+
         do i=1, max_number_crop_periods - num_crop_periods_input
             read(ScenarioFileUnit,'(A)') dummy
         end do
@@ -460,7 +464,6 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         
         read(ScenarioFileUnit,'(A)') !dummy "*** spare line for expansion"  !Line 48 
    
-        
         read(ScenarioFileUnit,*) USLEK,USLELS,USLEP        
         read(ScenarioFileUnit,*) IREG,SLP
         read(ScenarioFileUnit,*) !line 51   *** Horizon Info *******          
@@ -519,7 +522,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
 	  profile_number_increments=0
 	  read(ScenarioFileUnit,*, IOSTAT=eof)  is_auto_profile
       
-    
+      
 	  if (eof >= 0) then             !provides for the possibilty of older scenarios without this feature
 		  if (is_auto_profile) then 
 		     read(ScenarioFileUnit,*) number_of_discrete_layers
@@ -529,8 +532,9 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
           end if
       else 
           is_auto_profile= .FALSE.  !for older files set default to No aurto profile           
-	  end if
+      end if
 	  
+      
       close (ScenarioFileUnit)
 end subroutine read_scenario_file
 
