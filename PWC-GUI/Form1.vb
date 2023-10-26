@@ -1,4 +1,5 @@
-﻿Imports System.Drawing
+﻿Imports System.ComponentModel
+Imports System.Drawing
 Imports System.Windows.Forms
 Imports System.Windows.Forms.VisualStyles
 
@@ -302,7 +303,12 @@ Public Class Form1
         End If
 
 
+
+
+
+
         RunPRZMandVVWM()
+
 
 
     End Sub
@@ -1232,7 +1238,7 @@ Public Class Form1
         msg = ""
 
         If MsgBox("Do you want To overwrite the Henry's Law value with an estimate based on the solubility and vapor pressure?", 4, "Overwrite Warning") = 7 Then
-                Return
+            Return
         End If
 
 
@@ -1473,6 +1479,40 @@ Public Class Form1
         buttonCell.Enabled = False
 
 
+    End Sub
+
+    Private Sub BackgroundWorker1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles BackgroundWorker1.DoWork
+
+
+        'The file name should be stored somewhere already but for now here it is
+        Dim PRZMVVWMinputFile As String = FileNames.WorkingDirectory & "PRZMVVWM.txt"
+        SaveInputsAsTextFile(PRZMVVWMinputFile)
+
+
+
+        Dim p As Process = New Process
+        p.StartInfo.FileName = My.Application.Info.DirectoryPath() & "\PRZM-VVWM.exe"
+        p.StartInfo.Arguments = """" & PRZMVVWMinputFile & """"
+        p.StartInfo.UseShellExecute = False
+        p.StartInfo.RedirectStandardOutput = True
+        p.StartInfo.RedirectStandardError = True
+        p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden
+        p.StartInfo.CreateNoWindow = True
+        p.Start()
+
+        Dim output As String = p.StandardOutput.ReadToEnd
+        Dim output2 As String = p.StandardError.ReadToEnd
+
+        '  p.WaitForExit()
+        My.Computer.FileSystem.WriteAllText("run_status.txt", output & output2, False, System.Text.Encoding.ASCII)
+
+
+
+    End Sub
+
+    Private Sub BackgroundWorker1_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles BackgroundWorker1.RunWorkerCompleted
+        CalculateButton.Text = "Calculate"
+        CalculateButton.Enabled = True
     End Sub
 End Class
 
