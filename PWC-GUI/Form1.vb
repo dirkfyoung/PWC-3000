@@ -1514,6 +1514,10 @@ Public Class Form1
         CalculateButton.Text = "Calculate"
         CalculateButton.Enabled = True
     End Sub
+
+    Private Sub ContactToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ContactToolStripMenuItem.Click
+
+    End Sub
 End Class
 
 

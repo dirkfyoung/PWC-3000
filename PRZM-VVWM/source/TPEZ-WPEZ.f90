@@ -8,10 +8,9 @@ Module TPEZ_WPEZ
 
         use constants_and_variables, ONLY: nchem, wpez_timeseries_unit,  summary_wpez_unit,summary_wpez_unit_deg1,summary_wpez_unit_deg2, &
             is_koc, k_f_input, water_column_ref_temp, benthic_ref_temp, &
-            water_column_rate,is_hed_files_made, DELT_vvwm,is_add_return_frequency, additional_return_frequency, &
+            water_column_rate,is_hed_files_made, DELT_vvwm, additional_return_frequency, &
             outputfile_parent_daily,outputfile_deg1_daily,outputfile_deg2_daily,&
             outputfile_parent_deem,outputfile_deg1_deem,outputfile_deg2_deem,&
-            outputfile_parent_calendex,outputfile_deg1_calendex,outputfile_deg2_calendex,&
             outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa, k_flow , &
             summary_WPEZoutputfile , summary_WPEZoutputfile_deg1 , summary_WPEZoutputfile_deg2,First_time_through_wpez
        use waterbody_parameters, ONLY: FROC2, simtypeflag, depth_0,depth_max,baseflow,is_zero_depth,zero_depth  
@@ -121,8 +120,7 @@ Module TPEZ_WPEZ
     use utilities
     use waterbody_parameters, ONLY: SimTypeFlag, zero_depth, is_zero_depth, Afield, area_waterbody
     
-    use constants_and_variables, ONLY:  num_records, run_id, is_hed_files_made,is_add_return_frequency, additional_return_frequency, &
-                                       num_years, startday, &
+    use constants_and_variables, ONLY:  num_records, run_id, num_years, startday, &
                                  gamma_1,        &
                                  gamma_2,        &
                                  fw1,            &
@@ -402,7 +400,7 @@ Module TPEZ_WPEZ
     select case (chem_index)
     case (1)
         local_run_id = trim(run_id)//"_WPEZ" // '_Parent'
-        write(unit_number,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out, fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
+        write(unit_number,'(A80,1x,23(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out, fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, total_out    !effective_total_deg2 does not mean degradate, means benthic
 
         
@@ -427,7 +425,7 @@ Module TPEZ_WPEZ
 
     case (2)
         local_run_id = trim(run_id)//"_WPEZ" // '_deg1'
-        write(unit_number_deg1,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field,runoff_fraction,erosion_fraction,drift_fraction, &
+        write(unit_number_deg1,'(A80,1x,23(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field,runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, total_out  !, gw_peak(2), post_bt_avg(2) ,throughputs(2) ,simulation_avg(2)
 
           hold_for_medians_WPEZ_daughter(app_window_counter,1)= c1_out
@@ -444,7 +442,7 @@ Module TPEZ_WPEZ
     
     case (3)
         local_run_id = trim(run_id) //"_WPEZ" // '_deg2'
-        write(unit_number_deg2,'(A80,1x,26(",", ES13.4E3))')(adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
+        write(unit_number_deg2,'(A80,1x,23(",", ES13.4E3))')(adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out,fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
         effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, total_out   !, gw_peak(3), post_bt_avg(3) ,throughputs(3) ,simulation_avg(3)
 
 
@@ -470,8 +468,8 @@ Module TPEZ_WPEZ
    end subroutine write_simple_batch_data_WPEZ
                                         
 
-!****************************************************************************
-  subroutine tpez(scheme_number)
+    !****************************************************************************
+    subroutine tpez(scheme_number)
       use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
           DELT_vvwm, waterbodytext,soil_depth, &
           num_applications_input,application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, drift_kg_per_m2, drift_schemes,&
@@ -612,7 +610,6 @@ Module TPEZ_WPEZ
     end subroutine TPEZ_initial_conditions
     
     
-    !***************************************************************************************
     subroutine tpez_volume_calc(depth_max,TPEZ_depth_min, area_waterbody)
         !This subroutine calculates tpez volume and washout rate
         !need to get soil properties
@@ -788,8 +785,7 @@ Module TPEZ_WPEZ
 
     use waterbody_parameters, ONLY: SimTypeFlag, zero_depth, is_zero_depth, Afield
     use utilities_1, ONLY: pick_max, find_first_annual_dates
-    use constants_and_variables, ONLY:  num_records, run_id, is_hed_files_made,is_add_return_frequency, additional_return_frequency, &
-                                       num_years, startday,  waterbodytext, &
+    use constants_and_variables, ONLY:  num_records, run_id, num_years, startday,  waterbodytext, &
                                  gamma_1,        &
                                  gamma_2,        &
                                  fw1,            &
@@ -868,7 +864,7 @@ Module TPEZ_WPEZ
     end subroutine tpez_output_processor
     
 
-subroutine  tpez_write_simple_batch_data(chem_index, return_frequency,num_years, tpez_max, edge_of_field_max)
+    subroutine  tpez_write_simple_batch_data(chem_index, return_frequency,num_years, tpez_max, edge_of_field_max)
 
 use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     nchem, runoff_fraction,erosion_fraction,drift_fraction , &
@@ -896,7 +892,7 @@ use utilities_1, ONLY: Return_Frequency_Value
     character(len= 257) :: local_run_id
     
     If (First_time_through_tpez) then
-        header = 'Run Information                                                                  ,  TPEZ (kg/ha),   EoF (ug/L) parent calc only,'
+        header = 'Run Information                                                                  ,  TPEZ (kg/ha),   EoF (ug/L) parent calc only'
 
         Open(     unit=summary_output_unit_tpez,  FILE= (trim(family_name) // "_" // trim(summary_outputfile_tpez)),Status='unknown')  
         Write(summary_output_unit_tpez, '(A400)') header
@@ -922,19 +918,19 @@ use utilities_1, ONLY: Return_Frequency_Value
     select case (chem_index)
     case (1)
         local_run_id = trim(run_id)//"_TPEZ"  // '_Parent'
-        write(summary_output_unit_tpez,     '(A80,1x,26(",",ES13.4E3))') (adjustl(local_run_id)), tpez_max_out, edge_of_field_max_out*1000000.0  !convert to ug/L  from kg/m3
+        write(summary_output_unit_tpez,     '(A80,1x,2(",",ES13.4E3))') (adjustl(local_run_id)), tpez_max_out, edge_of_field_max_out*1000000.0  !convert to ug/L  from kg/m3
         hold_for_medians_TPEZ(app_window_counter,1) = tpez_max_out
     
     
     case (2)
         local_run_id = trim(run_id)//"_TPEZ"  // '_deg1'
-        write(summary_output_unit_tpez_deg1,'(A80,1x,26(",",ES13.4E3))') (adjustl(local_run_id)), tpez_max_out
+        write(summary_output_unit_tpez_deg1,'(A80,1x,1(",",ES13.4E3))') (adjustl(local_run_id)), tpez_max_out
         hold_for_medians_TPEZ_daughter(app_window_counter,1) = tpez_max_out
         
         
     case (3)
         local_run_id = trim(run_id)//"_TPEZ"   // '_deg2'
-        write(summary_output_unit_tpez_deg2,'(A80,1x,26(",",ES13.4E3))') (adjustl(local_run_id)), tpez_max_out
+        write(summary_output_unit_tpez_deg2,'(A80,1x,1(",",ES13.4E3))') (adjustl(local_run_id)), tpez_max_out
         hold_for_medians_TPEZ_grandaughter(app_window_counter,1) = tpez_max_out
         case default
     end select
