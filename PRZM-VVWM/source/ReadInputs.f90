@@ -32,7 +32,7 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     is_constant_profile, is_ramp_profile, ramp1, ramp2, ramp3, is_exp_profile , exp_profile1, exp_profile2, is_total_degradation, &
     is_app_window, app_window_span, app_window_step, is_timeseriesfile, &
 	is_waterbody_info_output , is_adjust_for_rain_schemes,rain_limit_schemes,optimum_application_window_schemes, &
-	intolerable_rain_window_schemes, min_days_between_apps_schemes,  is_batch_scenario , scenario_batchfile 
+	intolerable_rain_window_schemes, min_days_between_apps_schemes,  is_batch_scenario , scenario_batchfile , is_needs_poundkg_conversion
 
 use waterbody_parameters, ONLY: itsapond, itsareservoir, itsother,itstpezwpez, waterbody_names, USEPA_reservoir,USEPA_pond , use_tpezbuffer
 use utilities
@@ -64,7 +64,7 @@ use utilities
     read(inputfile_unit_number,'(A)') weatherfiledirectory                                                        !Line 4 
 	write(*,'(A23, A300)') ' weather directory is: ', adjustl(weatherfiledirectory)  
 
-    read(inputfile_unit_number,*) is_koc,is_freundlich , is_nonequilibrium                                        !Line 5
+    read(inputfile_unit_number,*) is_koc,is_freundlich , is_nonequilibrium, is_needs_poundkg_conversion                       !Line 5
     read(inputfile_unit_number,*) nchem                                                                           !Line 6
     read(inputfile_unit_number,*) k_f_input(1),k_f_input(2),k_f_input(3)                                          !Line 7  
     read(inputfile_unit_number,*) N_f_input(1), N_f_input(2), N_f_input(3)                                        !Line 8
@@ -195,9 +195,11 @@ use utilities
                          method_schemes(i,j), depth_schemes(i,j), split_schemes(i,j),   &
                          drift_schemes(i,j), driftfactor_schemes(i,j) ,periodicity_schemes(i,j) , lag_schemes(i,j)           
             end select                
-		end do
+        end do
         
-
+    
+        
+        
         read(inputfile_unit_number,*) is_app_window(i), app_window_span(i), app_window_step(i)                      !Scheme Line 5
         if (not(is_app_window(i) )) then 
             app_window_span(i) =0  !the stepping starts with zero, so the span iz zero for only one iteration
@@ -217,8 +219,16 @@ use utilities
         read(inputfile_unit_number,*) is_batch_scenario(i)                                                           !Scheme Line 9
         read(inputfile_unit_number,'(A)') scenario_batchfile(i)                                                      !Scheme Line 10
  
-	enddo
+    enddo
 	
+    
+   !Convert application rates to kg/ha if they are in lb/acre, 0.892179 kg/ha per lb/acre
+   if (is_needs_poundkg_conversion) then
+        application_rate_schemes = 0.892179*application_rate_schemes
+   end if
+   
+  
+    
      read(inputfile_unit_number,*) erflag                                                              !WS Line 1
      read(inputfile_unit_number,*)                                                                     !WS Line 2
      read(inputfile_unit_number,*)                                                                     !WS Line 3

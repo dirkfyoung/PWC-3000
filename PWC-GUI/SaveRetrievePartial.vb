@@ -7,7 +7,7 @@
         msg &= String.Format("{0}{1}", vbNewLine, IOFamilyName.Text)
         msg &= String.Format("{0}{1}", vbNewLine, WeatherDirectoryBox.Text)
 
-        msg &= String.Format("{0}{1}, {2}, {3},", vbNewLine, isKoc.Checked, UseFreundlich.Checked, UseNonequilibrium.Checked)
+        msg &= String.Format("{0}{1}, {2}, {3}, {4},", vbNewLine, isKoc.Checked, UseFreundlich.Checked, UseNonequilibrium.Checked, poundToKiloConversion.Checked)
 
         Dim nchem As String
         If DoDegradate1.Checked And DoDegradate2.Checked Then 'daughter and graddaugter
@@ -578,15 +578,17 @@
             WeatherDirectoryBox.Text = MyReader.ReadLine()   'LINE 4
 
 
-
-
             'Chemical Proerties
             currentrow = MyReader.ReadFields         'LINE 5
             isKoc.Checked = currentrow(0)
             UseFreundlich.Checked = currentrow(1)
             UseNonequilibrium.Checked = currentrow(2)
 
+            Try
+                poundToKiloConversion.Checked = currentrow(3)
+            Catch ex As Exception
 
+            End Try
 
 
             Dim nchem As Integer

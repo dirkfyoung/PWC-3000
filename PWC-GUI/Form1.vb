@@ -441,12 +441,15 @@ Public Class Form1
                             oRow.Cells("Edit").Value = False
                         Next
                         SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True
-                    Else
 
+                        CheckBox1.Checked = True
+                    Else
 
                         For Each oRow As DataGridViewRow In SchemeTableDisplay.Rows
                             oRow.Cells("Edit").Value = False
                         Next
+
+                        CheckBox1.Checked = False
                     End If
 
                     If SchemeTableDisplay.Columns(e.ColumnIndex).Name = "Edit" Then
@@ -1516,6 +1519,16 @@ Public Class Form1
     End Sub
 
     Private Sub ContactToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ContactToolStripMenuItem.Click
+
+    End Sub
+
+    Private Sub poundToKiloConversion_CheckedChanged(sender As Object, e As EventArgs) Handles poundToKiloConversion.CheckedChanged
+        If poundToKiloConversion.Checked Then
+            AppTableDisplay.Columns(1).Name = "Amount (lb/acre)"
+        Else
+            AppTableDisplay.Columns(1).Name = "Amount (kg/ha)"
+        End If
+
 
     End Sub
 End Class

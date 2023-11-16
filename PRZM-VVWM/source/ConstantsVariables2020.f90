@@ -152,7 +152,8 @@ module constants_and_variables
       
       
       !*********************************************************************
-      logical :: is_koc     
+      logical :: is_koc  
+      logical :: is_needs_poundkg_conversion
       
       !The following are new additionas and need to be populated and converted as appropriate
 
