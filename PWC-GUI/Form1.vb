@@ -16,6 +16,8 @@ Public Class Form1
     Private tempTabpage2 As TabPage
     Private tempTabpage3 As TabPage
     Private tempTabpage4 As TabPage
+    Private tempTabpage5 As TabPage  'application tab
+    Private tempTabpage6 As TabPage  'scenario tab
 
 
 
@@ -25,11 +27,15 @@ Public Class Form1
         tempTabpage2 = ScenarioExaminerTab
         tempTabpage3 = OptionalOutputTab
         tempTabpage4 = WaterbodyExaminerTab
+        tempTabpage5 = SchemeApplicationsTab
+        tempTabpage6 = SchemeScenariosTab
 
         TabControl1.Controls.Remove(AdvancedTab)
         TabControl1.Controls.Remove(ScenarioExaminerTab)
         TabControl1.Controls.Remove(OptionalOutputTab)
         TabControl1.Controls.Remove(WaterbodyExaminerTab)
+        TabControl1.Controls.Remove(SchemeApplicationsTab)
+        TabControl1.Controls.Remove(SchemeScenariosTab)
 
         LoadDefaultDiscretizations()
         MakeSprayTable()
@@ -443,6 +449,14 @@ Public Class Form1
                         SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True
 
                         CheckBox1.Checked = True
+                        'toggle scenario and app tab on if checked
+                        If TabControl1.Controls.Contains(tempTabpage5) = False Then
+                            'tab 5 and 6 are always together, so only need to see if oe or the other is active
+                            TabControl1.Controls.Add(tempTabpage5)
+                            TabControl1.Controls.Add(tempTabpage6)
+                        End If
+
+
                     Else
 
                         For Each oRow As DataGridViewRow In SchemeTableDisplay.Rows
@@ -450,6 +464,11 @@ Public Class Form1
                         Next
 
                         CheckBox1.Checked = False
+
+                        'toggle off scenario and app tab if nothing checked
+                        TabControl1.Controls.Remove(SchemeApplicationsTab)
+                        TabControl1.Controls.Remove(SchemeScenariosTab)
+
                     End If
 
                     If SchemeTableDisplay.Columns(e.ColumnIndex).Name = "Edit" Then
@@ -1162,6 +1181,19 @@ Public Class Form1
         End If
         TabControl1.Controls.Add(tempTabpage3)
     End Sub
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     Private Sub AdditionalOutputGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles AdditionalOutputGridView.CellContentClick
 
