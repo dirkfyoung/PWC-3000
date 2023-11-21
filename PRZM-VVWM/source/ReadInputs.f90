@@ -368,7 +368,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         error = .FALSE.      
         filename = trim(scenario_names(schemenumber,scenarionumber))    
 		
-        write(*,*) "Operating on scenario: ", trim(filename)
+        !write(*,*) "Operating on scenario: ", trim(filename)
         
 		!inquire(53, OPENED=checkopen)
 		

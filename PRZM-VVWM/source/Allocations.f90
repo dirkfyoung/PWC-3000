@@ -9,7 +9,7 @@ module allocations
 	     enriched_erosion_save, et_save, infiltration_save,conc_last_horizon_save, soil_temp_save,nchem
      implicit none
      
-     write(*,*) num_records, ncom2
+     !write(*,*) num_records, ncom2
      
             allocate (erosion_save(num_records))            
             allocate (mass_off_field(num_records,2,3))  

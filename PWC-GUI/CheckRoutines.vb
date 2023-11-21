@@ -4,6 +4,7 @@ Partial Public Class Form1
     Private Sub CheckChemicalInputs(ByRef TrueOrFalse As Boolean, ByRef msg As String)
         TrueOrFalse = True
 
+
         TestRealNumbers(TrueOrFalse, msg, sorption1)
         If TrueOrFalse = False Then Return
 

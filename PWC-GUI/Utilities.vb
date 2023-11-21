@@ -42,7 +42,8 @@
             TestNumber = name.Text
         Catch ex As Exception
 
-            MsgBox(name.Text)
+
+
             name.BackColor = Color.Orange
             msg = "Check the value for " & name.Tag
             TrueOrFalse = False

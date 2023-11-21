@@ -153,7 +153,7 @@ end subroutine chemical_manipulations
     ENPY = Heat_of_Henry/ 4184.0   
     
     !********Allocations of Soil Profile Variables**********************
-Write(*,*) "Start Autoprofile"
+
 	if (is_auto_profile) then
 		ncom2 = sum(profile_number_increments(1:number_of_discrete_layers))  !New way
     else     

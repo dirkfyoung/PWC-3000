@@ -449,6 +449,8 @@ Public Class Form1
                         SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True
 
                         CheckBox1.Checked = True
+
+
                         'toggle scenario and app tab on if checked
                         If TabControl1.Controls.Contains(tempTabpage5) = False Then
                             'tab 5 and 6 are always together, so only need to see if oe or the other is active
@@ -662,13 +664,29 @@ Public Class Form1
                 Case "Delete"
 
 
+
+
                     If SchemeTableDisplay.CurrentRow.IsNewRow Then
                         Beep()
                     Else
-                        SchemeTableDisplay.Rows.Remove(SchemeTableDisplay.Rows(e.RowIndex))
-                    End If
+                        'toggle off scenario and app tab if delete the checked scheme 
 
-                    If SchemeInfoList.Count > e.RowIndex Then
+                        If SchemeTableDisplay.Rows(e.RowIndex).Cells(1).Value Then
+                            TabControl1.Controls.Remove(SchemeApplicationsTab)
+                            TabControl1.Controls.Remove(SchemeScenariosTab)
+                        End If
+
+
+
+
+
+
+
+
+                        SchemeTableDisplay.Rows.Remove(SchemeTableDisplay.Rows(e.RowIndex))
+                        End If
+
+                        If SchemeInfoList.Count > e.RowIndex Then
                         'this if condition is needed if there is an uncommitted row, then you can still delete it
                         'likewise if there is an uncommited row, then this prevents attempting to delete a nonexistent scheme
                         'only want to delete table row, and not schemeinfolist item
@@ -1250,7 +1268,10 @@ Public Class Form1
 
             Case "Delete"
 
+
+
                 If AppTableDisplay.CurrentRow.IsNewRow Then
+
                     Beep()
                 Else
 
@@ -1278,8 +1299,11 @@ Public Class Form1
 
 
         TestRealNumbers(TrueOrFalse, msg, VaporPress1)
+
         If TrueOrFalse = False Then
             MsgBox(msg)
+
+
             Return
         End If
 
