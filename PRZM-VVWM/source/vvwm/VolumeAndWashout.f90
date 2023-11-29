@@ -67,7 +67,9 @@ contains
 
         vol_net = (flowthru_the_body-evap_area+precip_area)*DELT_vvwm  !volume of water added in day; whole array operations
         
+        
         do day = 1,num_records
+  
             check = v_previous + vol_net(day)
             if (check > v_max) then
                 volume1(day) = v_max
@@ -78,11 +80,16 @@ contains
                 volume1(day) = check
             end if
             v_previous = volume1(day)
+            
+           
         end do
                
         Daily_avg_flow_out = sum(k_flow)*v_max/num_records  !used for output characterization only
         daily_depth = volume1/area_waterbody !whole array operation
 
+        
+        
+        
     end subroutine volume_calc
     !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

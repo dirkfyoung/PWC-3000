@@ -8,7 +8,7 @@ module ProcessMetfiles
    subroutine convert_weatherdata_for_VVWM  
    !Converts weather data to VVWM relevant units !average previous 30 day temperature and daily wind speed
     use constants_and_variables, ONLY: num_records, precip, pet_evap,air_temperature, wind_speed,  &
-                                        wind_m,temp_avg,evap_m,precip_m  , pfac
+                                        wind_m,temp_avg,evap_m,precip_m  , open_water_adj
        
     implicit none
 
@@ -35,9 +35,9 @@ module ProcessMetfiles
         !***********************************************
     end do
 
-    wind_m   = wind_speed/100.        !whole array operation convert to m/s
-    evap_m   = pet_evap/100.  *pfac       !whole array operation convert to m
-    precip_m = precip/100.      !whole array operation convert to m
+    wind_m   = wind_speed/100.                     !whole array operation convert to m/s
+    evap_m   = pet_evap/100. *open_water_adj       !whole array operation convert to m
+    precip_m = precip/100.                         !whole array operation convert to m
 
     
     end subroutine convert_weatherdata_for_VVWM  

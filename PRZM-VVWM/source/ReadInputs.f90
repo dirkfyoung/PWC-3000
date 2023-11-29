@@ -32,7 +32,8 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     is_constant_profile, is_ramp_profile, ramp1, ramp2, ramp3, is_exp_profile , exp_profile1, exp_profile2, is_total_degradation, &
     is_app_window, app_window_span, app_window_step, is_timeseriesfile, &
 	is_waterbody_info_output , is_adjust_for_rain_schemes,rain_limit_schemes,optimum_application_window_schemes, &
-	intolerable_rain_window_schemes, min_days_between_apps_schemes,  is_batch_scenario , scenario_batchfile , is_needs_poundkg_conversion
+	intolerable_rain_window_schemes, min_days_between_apps_schemes,  is_batch_scenario , scenario_batchfile , is_needs_poundkg_conversion,&
+    open_water_adj 
 
 use waterbody_parameters, ONLY: itsapond, itsareservoir, itsother,itstpezwpez, waterbody_names, USEPA_reservoir,USEPA_pond , use_tpezbuffer
 use utilities
@@ -62,7 +63,9 @@ use utilities
     write(*,'(A23, A300)') ' working directory is: ', adjustl(working_directory) 
     read(inputfile_unit_number,'(A)') family_name                                                                 !Line 3
     read(inputfile_unit_number,'(A)') weatherfiledirectory                                                        !Line 4 
-	write(*,'(A23, A300)') ' weather directory is: ', adjustl(weatherfiledirectory)  
+	write(*,'(A23, A300)') ' weather directory is: ', adjustl(weatherfiledirectory) 
+    read(inputfile_unit_number,*) open_water_adj
+    
 
     read(inputfile_unit_number,*) is_koc,is_freundlich , is_nonequilibrium, is_needs_poundkg_conversion                       !Line 5
     read(inputfile_unit_number,*) nchem                                                                           !Line 6
@@ -451,7 +454,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         read(ScenarioFileUnit,*)     ! Line 39 msg = msg & String.Format("{0}{1},{2},{3},{4}", vbNewLine, altRootDepth.Text, altCanopyCover.Text, altCanopyHeight.Text, altCanopyHoldup.Text)     
         read(ScenarioFileUnit,*)     ! Line 40 msg = msg & String.Format("{0}{1},{2},{3},{4}", vbNewLine, altEmergeDay.Text, altEmergeMon.Text, altDaysToMaturity.Text, altDaysToHarvest.Text)
        
-        read(ScenarioFileUnit,*, IOSTAT= status)  PFAC,dummy, min_evap_depth !Line 41
+        read(ScenarioFileUnit,*, IOSTAT= status)  dummy,dummy, min_evap_depth !Line 41
 			    IF (status .NE. 0) then
 				  call scenario_error(error)
 				  return
@@ -596,10 +599,10 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
         user_irrig_depth = 0.0
         crop_periodicity(1) =1
         crop_lag(1) = 0
-        PFAC = 1.0                    !always using PET files now, No need to adjust
-        !SFAC = 0.274                 !USDA value  now a parameter        
-        ALBEDO = 0.2                  !albedo is monthly in przm  
-        UserSpecifiesDepth = .FALSE.  !only root irrigation
+        !PFAC = 1.0                       !always using PET files now, No need to adjust
+        !SFAC = 0.274                     !USDA value  now a parameter        
+        ALBEDO = 0.2                      !albedo is monthly in przm  
+        UserSpecifiesDepth = .FALSE.      !only root irrigation
         is_temperature_simulated = .TRUE. 
         dispersion_input = 0.0
         nuslec = 2

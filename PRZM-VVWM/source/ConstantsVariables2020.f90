@@ -586,10 +586,9 @@ module constants_and_variables
       real :: precip_rain     !rain-only component, minus snow
       real,parameter :: SFAC = 2.74  !USDA value
       real :: SNOWFL
-      real :: PFAC
-      
-
-      integer :: num_records  !number of records in weather file
+      real,parameter :: PFAC = 1.0   !originally used to adjust pan evap to field evaporation
+      real :: open_water_adj         !allows tthe evaporation in waterbody to be adjusted (like pfac for field)
+      integer :: num_records         !number of records in weather file
 
       real, allocatable, dimension(:) :: precip, pet_evap,air_temperature, wind_speed, solar_radiation  !from weather file
       real, allocatable, dimension(:) :: precip_m,evap_m , temp_avg, wind_m  ! with VVWM units, all meters, sec, temp is 30-day avg
