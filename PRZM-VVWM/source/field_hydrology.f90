@@ -357,9 +357,12 @@ SUBROUTINE Runoff_cn(day)
               SNOW        = SNOW- SMELT
         ENDIF
       ENDIF
-
+    
       effective_rain  = under_canopy_irrig + over_canopy_irrig + precip_rain + smelt  !used for runoff calc only  (canopy not included)
           
+
+      
+      
       call Curve_Number_Adjustment(curvn)
 	  
 
@@ -371,7 +374,7 @@ SUBROUTINE Runoff_cn(day)
      
       cint   = cint + canopy_capture
 	  
-	  !cint is not well defrined after harvest, but impact is trivial. After harvest there is still cint water, 
+	  !cint is not well defined after harvest, but impact is trivial. After harvest there is still cint water, 
 	  !but it evaporates in a few days under normal evapo values. If PET is zero,
 	  !then it will linger at max value for the entire simulation regardless of crop presence--has insignificant impact
 	  !but it could be added to soil at harvest if you want to get picky
@@ -393,6 +396,7 @@ SUBROUTINE Runoff_cn(day)
       curve_number_daily = CURVN  !store curve number for later output display          
       runoff_save(day)=runoff_on_day
 
+write(91,*) runoff_on_day
 
     END SUBROUTINE Runoff_cn
 

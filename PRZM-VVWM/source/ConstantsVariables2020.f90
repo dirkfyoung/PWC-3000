@@ -584,7 +584,7 @@ module constants_and_variables
 
       !******Weather Related Variables******************       
       real :: precip_rain     !rain-only component, minus snow
-      real,parameter :: SFAC = 2.74  !USDA value
+      real,parameter :: SFAC = 0.274  !USDA value
       real :: SNOWFL
       real,parameter :: PFAC = 1.0   !originally used to adjust pan evap to field evaporation
       real :: open_water_adj         !allows tthe evaporation in waterbody to be adjusted (like pfac for field)

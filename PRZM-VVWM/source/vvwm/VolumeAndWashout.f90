@@ -68,8 +68,12 @@ contains
         vol_net = (flowthru_the_body-evap_area+precip_area)*DELT_vvwm  !volume of water added in day; whole array operations
         
         
+       
         do day = 1,num_records
   
+             write(91,*) vol_net(day), flowthru_the_body(day)
+             
+             
             check = v_previous + vol_net(day)
             if (check > v_max) then
                 volume1(day) = v_max
