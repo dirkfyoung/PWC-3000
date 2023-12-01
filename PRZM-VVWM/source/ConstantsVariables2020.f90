@@ -468,7 +468,7 @@ module constants_and_variables
       integer,allocatable,dimension(:) :: application_date ! juilan date (1900 references) array of application dates       
 	  integer,allocatable,dimension(:) :: application_date_original  !holds the original application date so that "application_date" can be modified during runs
 	  
-      integer,allocatable,dimension(:) :: pest_app_method
+      integer,allocatable,dimension(:) :: pest_app_method   !1 is default 4cm; 2 default above 4cm; 3 uniform; 4 Tband 5 custm 6 custom
       real,allocatable,dimension(:)	   :: DEPI
       real,allocatable,dimension(:)    :: TAPP                !read in application_rate_in as KG/HA but converted to G/CM**2 in initialization
       real,allocatable,dimension(:)    :: APPEFF

@@ -56,6 +56,9 @@ Module Output_From_Field
         mass_off_field(day_number_chemtrans,1,1) =   ROFLUX(1)* afield*10.  !converts to kg
         mass_off_field(day_number_chemtrans,2,1) =   ERFLUX(1)* afield*10.  !converts to kg
           
+        
+        
+        
         if (nchem >1) then
           mass_off_field(day_number_chemtrans,1,2) = ROFLUX(2)* afield*10.  !converts to kg
           mass_off_field(day_number_chemtrans,2,2) = ERFLUX(2)* afield*10.  !converts to kg

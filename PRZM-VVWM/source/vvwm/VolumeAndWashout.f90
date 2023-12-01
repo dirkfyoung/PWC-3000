@@ -71,8 +71,7 @@ contains
        
         do day = 1,num_records
   
-             write(91,*) vol_net(day), flowthru_the_body(day)
-             
+  
              
             check = v_previous + vol_net(day)
             if (check > v_max) then

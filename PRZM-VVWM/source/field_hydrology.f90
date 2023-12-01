@@ -396,7 +396,7 @@ SUBROUTINE Runoff_cn(day)
       curve_number_daily = CURVN  !store curve number for later output display          
       runoff_save(day)=runoff_on_day
 
-write(91,*) runoff_on_day
+
 
     END SUBROUTINE Runoff_cn
 

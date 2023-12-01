@@ -792,16 +792,18 @@ subroutine SetupApplications
                     DEPI(app_counter) =  DEPI_in(i)
                     !make some Depth corrections if necessary
 		   
-                   Select Case(pest_app_method(app_counter))
-                      Case(1:3)
-                          DEPI(app_counter) = cam123_soil_depth  !default for genaeral unspecified applications
-                      Case(4:10)                            
+                   select case(pest_app_method(app_counter))
+                      case(1:2)  !these are the only default depths and set to 4 cm
+                          DEPI(app_counter) = cam123_soil_depth  !default for general unspecified applications
+                      case(3:10)                            
                           If (DEPI(app_counter) < delx(1)) Then
                              DEPI(app_counter) = delx(1)
                              write (*,*) 'Note: Specified depth is less than compartment size, so used minimum incorporation = ', Delx(1)
                           End If
-                   End Select
-
+                      end select
+                      
+  
+                      
                    TAPP(app_counter) = application_rate_in(i)/1.0E5  !     TAPP... kg/ha ---> g/cm**2
                    APPEFF(app_counter) = APPEFF_in(i)
                    Tband_top(app_counter) = Tband_top_in(i)                                   

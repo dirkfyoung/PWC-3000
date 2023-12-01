@@ -145,9 +145,11 @@ module chemical_transport
         CALL plant_pesticide_washoff
         if (harvest_day ) CALL plant_pesticide_harvest_application        
         CALL plant_pesticide_degradation
-	 end if   
+     end if   
 
 	 
+     
+     
      do K=1, NCHEM   !******Pesticide Simulation ********************    
         !After application, get a new pore water concentration for beginning of time step: old_conc to be fed to tridiagonal
         do concurrent (I=1:NCOM2)
@@ -156,6 +158,7 @@ module chemical_transport
            S2_old(i) =sorbed2(k,i)  !create a local array to help things run smoothly 
         end do
  
+   
         ! ****** HENRY LAW COEFFICIENT CALCULATION Temperature Adjustments**************   
         IF (is_temperature_simulated) THEN  
 
@@ -234,14 +237,15 @@ module chemical_transport
 
         !Store new total mass
         do i=1, NCOM2
-            
-
-            
+    
             conc_total_per_water(K,I)=new_conc(i)*(theta_end(i)+kd_new(K,i)*bulkdensity(i) + thair_new(i)*new_henry(K,i))/theta_end(i)           
             Sorbed2(k,i)  = S2_neq(i)
             mass_in_compartment(K,I) = new_conc(i) * (theta_end(i) + kd_new(K,i)*bulkdensity(i) + thair_new(i)*new_henry(K,i))*delx(i)
             mass_in_compartment2(K,I) = Sorbed2(k,i)*bulkdensity(i)*delx(i)                        
-		end do
+        end do
+        
+        
+        
        !*****END PREDICTOR CORRECTOR ********************************************************************************************
 
        call flux_calculations(K, new_conc)   ! Fluxes should really be a summation of the subdaily--fix this
@@ -408,8 +412,6 @@ subroutine flux_calculations(k, concentration)
     ERFLUX(K) =  sum( enriched_eroded_solids*kd_new(K,1:erosion_compt)*    & 
                        concentration(1:erosion_compt)*erosion_intensity(1:erosion_compt)*DELX(1:erosion_compt) )
       
-    
-
         !-------------------VOLATILIZATION--------------------------
         !PVFLUX: Daily Soil Pesticide Volatilization Flux (g cm^-2 day^-1)
         PVFLUX(K,1) = -CONDUC(K)*concentration(1)*new_henry(K,1)   !Calculate pesticide fluxes at soil surface 
