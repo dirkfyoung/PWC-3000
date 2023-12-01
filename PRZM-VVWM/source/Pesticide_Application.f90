@@ -273,9 +273,60 @@ SUBROUTINE plant_pesticide_harvest_application
 end subroutine plant_pesticide_harvest_application
 
 !******************************************************************************************************************************
-    SUBROUTINE pesticide_decreasing_distribution(APPAMT,DMAX,BASE,SLOPE,applied_to_soil )
-      use  constants_and_Variables, ONLY: delx, ncom2
-      implicit none
+    !SUBROUTINE pesticide_decreasing_distribution(APPAMT,DMAX,BASE,SLOPE,applied_to_soil )
+    !  use  constants_and_Variables, ONLY: delx, ncom2
+    !  implicit none
+    !  ! This routine distributes a chemical application down to an input depth decreasing proportionally with depth.
+    !  ! Used for CAM 1 and 6 and Harvest
+    !  
+    !  ! APPAMT - total amount of chemical to distribute in the soil
+    !  ! CHEM   - chemical id number (1-3)
+    !  ! DMAX   - depth to which chemical should be applied;
+    !  ! BASE   - initial starting amount of application
+    !  ! SLOPE  - slope of linearly decreasing application
+    !
+    !  !OUTPUT IS SOILAP the distribution of applied pesticide in the profile
+    !  
+    !
+    !  REAL,intent(in)  :: APPAMT,DMAX,BASE,SLOPE
+    !  real,intent(out) :: applied_to_soil(ncom2)
+    !   
+    !  INTEGER  CMPT
+    !  REAL     DEP,APPTOT,APPREM,FRACT,SLP2,FRCTOT
+    ! 
+    !  
+    !  FRCTOT=0.0
+    !  SLP2= 0.
+    !  CMPT= 0
+    !  DEP = 0.0
+    !  APPTOT=0.0
+    !  APPREM=APPAMT
+    !  applied_to_soil = 0.0
+    !
+    !    
+    !  do 
+    !    CMPT= CMPT + 1
+    !    FRACT=(SLOPE*(DEP+DELX(CMPT)/2.)+BASE)*DELX(CMPT)
+    !    FRCTOT=FRCTOT+FRACT
+    !    IF(FRCTOT.GT.1.00)FRACT=FRACT-(1.0-FRCTOT)
+    !    applied_to_soil(CMPT)=AMIN1(APPREM,APPAMT*FRACT)
+    !
+    !    APPTOT=APPTOT+applied_to_soil(CMPT)
+    !    APPREM=APPAMT-APPTOT
+    !    DEP=DEP+delx(CMPT)
+    !    if (DEP >= (DMAX-1.E-4)) exit
+    !  end do
+    !  
+    ! 
+    !  
+    !   
+    !END SUBROUTINE pesticide_decreasing_distribution
+
+SUBROUTINE pesticide_decreasing_distribution(APPAMT,DMAX,BASE,SLOPE,applied_to_soil )
+    
+!Updated by Houbou with original changes propoposed by Ian Kennedy
+    use  constants_and_Variables, ONLY: delx, ncom2
+    implicit none
       ! This routine distributes a chemical application down to an input depth decreasing proportionally with depth.
       ! Used for CAM 1 and 6 and Harvest
       
@@ -284,43 +335,48 @@ end subroutine plant_pesticide_harvest_application
       ! DMAX   - depth to which chemical should be applied;
       ! BASE   - initial starting amount of application
       ! SLOPE  - slope of linearly decreasing application
-
       !OUTPUT IS SOILAP the distribution of applied pesticide in the profile
       
 
-      REAL,intent(in)  :: APPAMT,DMAX,BASE,SLOPE
-      real,intent(out) :: applied_to_soil(ncom2)
-       
-      INTEGER  CMPT
-      REAL     DEP,APPTOT,APPREM,FRACT,SLP2,FRCTOT
-     
-      
-      FRCTOT=0.0
-      SLP2= 0.
-      CMPT= 0
-      DEP = 0.0
-      APPTOT=0.0
-      APPREM=APPAMT
-      applied_to_soil = 0.0
-  
-        
-      do 
-        CMPT= CMPT + 1
-        FRACT=(SLOPE*(DEP+DELX(CMPT)/2.)+BASE)*DELX(CMPT)
-        FRCTOT=FRCTOT+FRACT
-        IF(FRCTOT.GT.1.00)FRACT=FRACT-(1.0-FRCTOT)
-        applied_to_soil(CMPT)=AMIN1(APPREM,APPAMT*FRACT)
- 
-        APPTOT=APPTOT+applied_to_soil(CMPT)
-        APPREM=APPAMT-APPTOT
-        DEP=DEP+delx(CMPT)
-        if (DEP >= (DMAX-1.E-4)) exit
-      end do
-      
-     
-      
-       
-    END SUBROUTINE pesticide_decreasing_distribution
+    REAL,intent(in)  :: APPAMT,DMAX,BASE,SLOPE
+    real,intent(out) :: applied_to_soil(ncom2)
+
+    INTEGER  CMPT, ncmpwithchem, i
+    REAL     DEP,APPTOT,APPREM,FRACT,SLP2,FRCTOT, prev, curr, bottom
+
+    DEP = 0.0
+    applied_to_soil = 0.0
+    prev = 0.0
+    bottom = 0.0
+
+    do ncmpwithchem = 1, ncom2 ! Count the number of compartments that will have chemical added
+        DEP = DEP + delx(ncmpwithchem)
+        if (DEP >= (DMAX-1E-7)) exit
+    end do
+
+    do i=1, ncmpwithchem
+        bottom = min(bottom + delx(i), DMAX)
+        curr = bottom*bottom*SLOPE/2 + BASE*bottom
+        applied_to_soil(i) = (curr - prev) * APPAMT
+        prev = curr
+    end do
+END SUBROUTINE pesticide_decreasing_distribution
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 !******************************************************************************************************************************
 !    SUBROUTINE pesticide_uniform_distribution(APPAMT,DMAX,applied_to_soil)
@@ -404,136 +460,246 @@ end subroutine plant_pesticide_harvest_application
         
     end do  
   
-END SUBROUTINE pesticide_uniform_distribution 
-!***********************************************************************************    
-    
-    
-    SUBROUTINE pesticide_increasing_distribution(APPAMT,DMAX,BASE,SLOPE,applied_to_soil)
+   END SUBROUTINE pesticide_uniform_distribution 
+!***********************************************************************************   
+   
+ SUBROUTINE pesticide_increasing_distribution(APPAMT,DMAX,BASE,SLOPE,applied_to_soil)
+ !Houbau mod
       use  constants_and_Variables, ONLY: delx,ncom2
       implicit none
-      !This routine distributes a chemical application down to an input depth increasing proportionally with depth.
-      
-      !APPAMT - total amount of chemical to distribute in the soil
-      !CHEM   - chemical id number (1-3)
-      !DMAX   - depth to which chemical should be applied;
-      !BASE   - initial starting amount of application
-      !SLOPE  - slope of linearly decreasing application
 
+      REAL,intent(in)  :: APPAMT,DMAX,BASE,SLOPE
       real,intent(out) :: applied_to_soil(ncom2)
-      REAL     APPAMT,DMAX,BASE,SLOPE
-      INTEGER  CMPT
-      REAL     DEP,APPTOT,APPREM,FRACT,SLP2,FRCTOT
-
-      FRCTOT=0.0
-      SLP2= 0.
-      CMPT= 0
-      DEP = 0.0
-      APPTOT=0.0
-      APPREM=APPAMT
-      applied_to_soil = 0.0
+       
+      INTEGER  CMPT, ncmpwithchem, i
+      REAL     DEP,APPTOT,APPREM,FRACT,SLP2,FRCTOT, prev, curr, bottom
       
-      do     
-        CMPT= CMPT + 1
-        DEP=DEP+DELX(CMPT)        
-        FRACT=(SLOPE*((DMAX-DEP)+DELX(CMPT)/2.)+BASE)*DELX(CMPT)
-        FRCTOT=FRCTOT+FRACT
-        IF(FRCTOT.GT.1.00)FRACT=FRACT-(1.0-FRCTOT)
-        applied_to_soil(CMPT)=AMIN1(APPREM,APPAMT*FRACT)
-        APPTOT=APPTOT+applied_to_soil(CMPT)
-        APPREM=APPAMT-APPTOT
-        IF(DEP>=(DMAX-1.E-4)) exit
+      DEP = 0.0      
+      applied_to_soil = 0.0
+      prev = 0.0
+      bottom = 0.0
+
+      do ncmpwithchem=1, ncom2 ! Count the number of compartments that will have chemical added
+          DEP = DEP + delx(ncmpwithchem)
+          if (DEP >= (DMAX-1E-7)) exit
       end do
 
-    END SUBROUTINE pesticide_increasing_distribution
+      do i=1, ncmpwithchem
+          bottom = min(bottom + delx(i), DMAX)
+          curr = 1 - ((DMAX-bottom)*(DMAX-bottom)*SLOPE/2 + BASE*(DMAX-bottom))
+          applied_to_soil(i) = (curr - prev) * APPAMT
+          prev = curr
+      end do      
+
+ END SUBROUTINE pesticide_increasing_distribution    
     
+    !SUBROUTINE pesticide_increasing_distribution(APPAMT,DMAX,BASE,SLOPE,applied_to_soil)
+    !  use  constants_and_Variables, ONLY: delx,ncom2
+    !  implicit none
+    !  !This routine distributes a chemical application down to an input depth increasing proportionally with depth.
+    !  
+    !  !APPAMT - total amount of chemical to distribute in the soil
+    !  !CHEM   - chemical id number (1-3)
+    !  !DMAX   - depth to which chemical should be applied;
+    !  !BASE   - initial starting amount of application
+    !  !SLOPE  - slope of linearly decreasing application
+    !
+    !  real,intent(out) :: applied_to_soil(ncom2)
+    !  REAL     APPAMT,DMAX,BASE,SLOPE
+    !  INTEGER  CMPT
+    !  REAL     DEP,APPTOT,APPREM,FRACT,SLP2,FRCTOT
+    !
+    !  FRCTOT=0.0
+    !  SLP2= 0.
+    !  CMPT= 0
+    !  DEP = 0.0
+    !  APPTOT=0.0
+    !  APPREM=APPAMT
+    !  applied_to_soil = 0.0
+    !  
+    !  do     
+    !    CMPT= CMPT + 1
+    !    DEP=DEP+DELX(CMPT)        
+    !    FRACT=(SLOPE*((DMAX-DEP)+DELX(CMPT)/2.)+BASE)*DELX(CMPT)
+    !    FRCTOT=FRCTOT+FRACT
+    !    IF(FRCTOT.GT.1.00)FRACT=FRACT-(1.0-FRCTOT)
+    !    applied_to_soil(CMPT)=AMIN1(APPREM,APPAMT*FRACT)
+    !    APPTOT=APPTOT+applied_to_soil(CMPT)
+    !    APPREM=APPAMT-APPTOT
+    !    IF(DEP>=(DMAX-1.E-4)) exit
+    !  end do
+    !
+    !END SUBROUTINE pesticide_increasing_distribution
+    !
+    !
+    !!SUBROUTINE pesticide_Tband_distribution(APPAMT,DMAX,top2cm,applied_to_soil)
+    !!  use  constants_and_Variables, ONLY: DELX,ncom2
+    !!  implicit none
+    !!  !This routine distributes in a T Band: Part in the top 2 cm and the remainder uniformly distributed, 
+    !!  
+    !!  !APPAMT - total amount of chemical to distribute in the soil
+    !!  !CHEM   - chemical id number (1-3)
+    !!  !DMAX   - depth to which chemical should be applied;
+    !!
+    !!  real,intent(out) :: applied_to_soil(ncom2)
+    !!  REAL     APPAMT,DMAX
+    !!  INTEGER  CMPT
+    !!  REAL     depth,APPTOT,APPREM,SLP2,FRCTOT
+    !!  real,intent(in) :: top2cm
+    !!  
+    !!  
+    !!  FRCTOT=0.0
+    !!  SLP2= 0.
+    !!  CMPT= 0
+    !!  depth = 0.0
+    !!  APPTOT=0.0
+    !!  APPREM = APPAMT
+    !!  applied_to_soil = 0.0
+    !!  
+    !!   do
+    !!     CMPT= CMPT + 1
+    !!     depth = depth + DELX(CMPT)
+    !!     SLP2=DELX(CMPT)/2.
+    !!     IF(SLP2 > 1.)  SLP2=1.0
+    !!     applied_to_soil(CMPT) = AMIN1(APPREM,(SLP2*APPAMT*top2cm))
+    !!     APPTOT=APPTOT+applied_to_soil(CMPT)
+    !!     APPREM=(APPAMT*top2cm)-APPTOT
+    !!     if (depth >= 1.95) exit
+    !!     
+    !!
+    !!   end do 
+    !!
+    !!   do  
+    !!      IF((depth.GT.1.95).AND.(depth.LT.2.05))APPREM=APPAMT-APPTOT
+    !!      CMPT= CMPT + 1
+    !!      depth = depth+DELX(CMPT)
+    !!      SLP2=DELX(CMPT)/(DMAX-2.)
+    !!      IF(SLP2.GT.1.)SLP2=1.0
+    !!    !  SOILAP(CHEM,CMPT)=AMIN1(APPREM,(SLP2*APPAMT*(1.0-DRFT(CHEM,NAPPC))))
+    !!      applied_to_soil(CMPT)=AMIN1(APPREM,(SLP2*APPAMT*(1.0-top2cm)))
+    !!      APPTOT=APPTOT + applied_to_soil(CMPT)
+    !!      APPREM=APPAMT-APPTOT
+    !!      if (depth >= (DMAX-1.E-4)) exit
+    !!
+    !!
+    !!   end do
+    !         
+    !
+    !
+    !
+    !   
+    !   
+    !   
+    !END SUBROUTINE pesticide_Tband_distribution
   
-    SUBROUTINE pesticide_Tband_distribution(APPAMT,DMAX,top2cm,applied_to_soil)
-      use  constants_and_Variables, ONLY: DELX,ncom2
-      implicit none
+ SUBROUTINE pesticide_Tband_distribution(APPAMT,DMAX,top2cm,applied_to_soil) 
+ !Houbau mod
+    use  constants_and_Variables, ONLY: DELX,ncom2
+    implicit none
       !This routine distributes in a T Band: Part in the top 2 cm and the remainder uniformly distributed, 
       
       !APPAMT - total amount of chemical to distribute in the soil
       !CHEM   - chemical id number (1-3)
       !DMAX   - depth to which chemical should be applied;
-
-      real,intent(out) :: applied_to_soil(ncom2)
-      REAL     APPAMT,DMAX
-      INTEGER  CMPT
-      REAL     depth,APPTOT,APPREM,SLP2,FRCTOT
-      real,intent(in) :: top2cm
       
+    real,intent(out) :: applied_to_soil(ncom2)
+    REAL     APPAMT,DMAX
+    INTEGER  CMPT,ncmpwithchem,i
+    REAL     depth,APPTOT,APPREM,SLP2,FRCTOT,DEP,prev,curr,bottom
+    real,intent(in) :: top2cm        
       
-      FRCTOT=0.0
-      SLP2= 0.
-      CMPT= 0
-      depth = 0.0
-      APPTOT=0.0
-      APPREM = APPAMT
-      applied_to_soil = 0.0
+    DEP = 0.0
+    APPTOT=0.0
+    APPREM = APPAMT
+    applied_to_soil = 0.0
+    prev=0.0
+    bottom=0.0
+    curr=0.0
       
-       do
-         CMPT= CMPT + 1
-         depth = depth + DELX(CMPT)
-         SLP2=DELX(CMPT)/2.
-         IF(SLP2 > 1.)  SLP2=1.0
-         applied_to_soil(CMPT) = AMIN1(APPREM,(SLP2*APPAMT*top2cm))
-         APPTOT=APPTOT+applied_to_soil(CMPT)
-         APPREM=(APPAMT*top2cm)-APPTOT
-         if (depth >= 1.95) exit
-         
+    do ncmpwithchem=1, ncom2 ! Count the number of compartments that will have chemical added
+        DEP = DEP + delx(ncmpwithchem)
+        if (DEP >= (DMAX-1E-7)) exit
+    end do
 
-       end do 
+    do i=1, ncmpwithchem
+        bottom = min(bottom + delx(i), DMAX)
+        if (bottom <= 2.0) then
+            curr = (bottom/2.0)*APPAMT * top2cm
+            applied_to_soil(i) = (curr - prev)
+        else
+            curr = APPAMT * top2cm +((bottom-2.0)/(DMAX-2.0)) * APPAMT *(1-top2cm)
+            applied_to_soil(i) = (curr - prev)
+        end if
+        prev = curr 
+    end do
+      
+END SUBROUTINE pesticide_Tband_distribution
+ 
+ 
+ 
+SUBROUTINE pesticide_atdepth_distribution(APPAMT,DMAX,applied_to_soil)
+!Houbau mod
+    use constants_and_variables, ONLY: DELX,ncom2
+    implicit none
+    real,intent(out) :: applied_to_soil(ncom2)
+    REAL     APPAMT,DMAX
+    INTEGER  CMPT,ncmpwithchem,i
+    REAL     DEP,bottom     
+      
+    DEP = 0.0
+    applied_to_soil = 0.0
+    bottom=0.0
+    CMPT = 1
+    
+    
+    do ncmpwithchem=1, ncom2 ! Count the number of compartments that will have chemical added
+        DEP = DEP + delx(ncmpwithchem)
+        if (DEP >= (DMAX-1E-7)) exit
+    end do
+    
+    do i=1, ncmpwithchem
+        bottom = min(bottom + delx(i), DMAX)
+        if (bottom >= DMAX) exit
+        CMPT = i
+    end do 
+    applied_to_soil(CMPT) = APPAMT
 
-       do  
-          IF((depth.GT.1.95).AND.(depth.LT.2.05))APPREM=APPAMT-APPTOT
-          CMPT= CMPT + 1
-          depth = depth+DELX(CMPT)
-          SLP2=DELX(CMPT)/(DMAX-2.)
-          IF(SLP2.GT.1.)SLP2=1.0
-        !  SOILAP(CHEM,CMPT)=AMIN1(APPREM,(SLP2*APPAMT*(1.0-DRFT(CHEM,NAPPC))))
-          applied_to_soil(CMPT)=AMIN1(APPREM,(SLP2*APPAMT*(1.0-top2cm)))
-          APPTOT=APPTOT + applied_to_soil(CMPT)
-          APPREM=APPAMT-APPTOT
-          if (depth >= (DMAX-1.E-4)) exit
-
-
-       end do
-             
-
-
-
-       
-       
-       
-    END SUBROUTINE pesticide_Tband_distribution
-        
-    SUBROUTINE pesticide_atdepth_distribution(APPAMT,DMAX,applied_to_soil)
-          use constants_and_variables, ONLY: DELX,ncom2
-          implicit none
-          !Places all pesticide at a specfic depth
-          !APPAMT - total amount of chemical to distribute in the soil
-          !CHEM   - chemical id number (1-3)
-          
-          real,intent(out)   :: applied_to_soil(ncom2)
-          REAL,intent(in)    ::  APPAMT,DMAX
-          INTEGER  CMPT
-          REAL     DEP
-          
-          CMPT= 0
-          DEP = 0.0
-          applied_to_soil = 0.0
-          
-          do
-            CMPT= CMPT + 1
-            DEP=DEP+DELX(CMPT)
-            IF(DEP >= (DMAX-1.E-4)) exit
-          end do     
-          
-          applied_to_soil(CMPT)=APPAMT
-          
-    END SUBROUTINE pesticide_atdepth_distribution
-
-     
+END SUBROUTINE pesticide_atdepth_distribution 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    !SUBROUTINE pesticide_atdepth_distribution(APPAMT,DMAX,applied_to_soil)
+    !      use constants_and_variables, ONLY: DELX,ncom2
+    !      implicit none
+    !      !Places all pesticide at a specfic depth
+    !      !APPAMT - total amount of chemical to distribute in the soil
+    !      !CHEM   - chemical id number (1-3)
+    !      
+    !      real,intent(out)   :: applied_to_soil(ncom2)
+    !      REAL,intent(in)    ::  APPAMT,DMAX
+    !      INTEGER  CMPT
+    !      REAL     DEP
+    !      
+    !      CMPT= 0
+    !      DEP = 0.0
+    !      applied_to_soil = 0.0
+    !      
+    !      do
+    !        CMPT= CMPT + 1
+    !        DEP=DEP+DELX(CMPT)
+    !        IF(DEP >= (DMAX-1.E-4)) exit
+    !      end do     
+    !      
+    !      applied_to_soil(CMPT)=APPAMT
+    !      
+    !END SUBROUTINE pesticide_atdepth_distribution
+    !
+    ! 
   
   
     end module Pesticide_Applications
