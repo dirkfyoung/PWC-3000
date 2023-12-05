@@ -63,6 +63,8 @@ module field_hydrology
 
 	
    !**********IRRIGATION ************************ 
+
+    
    IF (irtype > 0  .AND. cover > 0.0) then  !irrigate if there is a crop
       CALL irrigation(day)
    else										!no irrigation
@@ -96,6 +98,8 @@ module field_hydrology
 
 
        Call Runoff_cn(day) 
+       
+       
        CALL EVPOTR(day)				 !EVAPORATION 
        CALL Leaching(day)        !determine water content of soil and air content (old and new)
        CALL EROSN(day, JULDAY)  !calc loss of chem due to erosion
@@ -211,18 +215,7 @@ module field_hydrology
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 !***********************************************************************************************	
@@ -271,7 +264,9 @@ SUBROUTINE irrigation(day)
 !
 ! See also comments in subroutine iniacc.
 
+    
 
+   
       SMCRIT = 0.0
       SMAVG = 0.0
       FCAVG = 0.0
@@ -281,7 +276,8 @@ SUBROUTINE irrigation(day)
       else
            local_irrigation_node = root_node_daily
       end if
- 
+      
+
       DO I=1,local_irrigation_node
          SMCRIT = SMCRIT + (PCDEPL*(theta_fc(i)-theta_wp(I))+theta_wp(I))*delx(i)
          SMDEF = SMDEF+(theta_fc(i)-theta_end(I))*(1.0 + FLEACH)*DELX(I)
@@ -292,12 +288,18 @@ SUBROUTINE irrigation(day)
       under_canopy_irrig = 0.0
       over_canopy_irrig = 0.0
       
+      
+    
+      
       IF((Sum(theta_end(1:local_irrigation_node)*delx(1:local_irrigation_node)) > SMCRIT) .OR. precipitation > 0.0) THEN
           irrigation_save(day) = 0.0
           return !no irrigation needed
       end if
       
-     
+  
+      
+      
+      
      select case (irtype)
       case (1) !Over-Canopy Sprinkler Irrigation;  irrigation applied above the canopy as precipitation 
          !Din is the max holdup possible on the canopy,cint is any water that is on the canopy.  
@@ -314,6 +316,11 @@ SUBROUTINE irrigation(day)
         over_canopy_irrig = 0.0
         irrigation_save(day) = 0.0
       end select
+      
+      
+      
+      
+      
 END SUBROUTINE Irrigation
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	
 
@@ -362,16 +369,20 @@ SUBROUTINE Runoff_cn(day)
           
 
       
-      
       call Curve_Number_Adjustment(curvn)
 	  
 
       call Calculate_Runoff_PRZM5(curvn,Effective_Rain)
+      
+
+      
 
       !Here runoff has preference since according to CN method canopy would already be accounted for:
       canopy_capture = min(potential_canopy_holdup-CINT, (precip_rain + over_canopy_irrig - runoff_on_day)  )
       canopy_capture = max (0.0, canopy_capture) !for under canopy irrigation the above could be negative
      
+
+      
       cint   = cint + canopy_capture
 	  
 	  !cint is not well defined after harvest, but impact is trivial. After harvest there is still cint water, 
@@ -391,11 +402,20 @@ SUBROUTINE Runoff_cn(day)
       THRUFL = over_canopy_irrig + precip_rain -canopy_capture + under_canopy_irrig
  
       ! Compute infiltration for first soil compartment
+      
+    
+      
+      
       AINF(1) = AINF(1) + Effective_Rain- runoff_on_day -canopy_capture
 	 
+      
+
+      
       curve_number_daily = CURVN  !store curve number for later output display          
       runoff_save(day)=runoff_on_day
 
+
+       write(91,*) runoff_on_day
 
 
     END SUBROUTINE Runoff_cn
@@ -435,6 +455,10 @@ SUBROUTINE Runoff_cn(day)
             CURVN =  CN_2(CN_index)
         end if
 
+   
+        
+        
+        
     End Subroutine Curve_Number_Adjustment
     
      
@@ -457,7 +481,9 @@ SUBROUTINE Runoff_cn(day)
            runoff_on_day = 0.0
        end if
 
-       
+      
+              
+              
     end  Subroutine Calculate_Runoff_PRZM5  
      
      
@@ -475,7 +501,7 @@ SUBROUTINE Runoff_cn(day)
         integer, intent(in) :: day
         INTEGER      I
 
-        
+  
         
         do I=1,NCOM2
             theta_zero(I) = soilwater(I)/DELX(I)
@@ -483,6 +509,8 @@ SUBROUTINE Runoff_cn(day)
             AINF(I+1)= 0.0
 			
 
+ 
+ 
             IF (theta_end(I) .GT. theta_fc(I)) THEN
 				!AINF(I+1)= (theta_end(I)- theta_fc(I))* DELX(I) ! reformulated below to get rig of some nymrical precission issues
                AINF(I+1)= theta_end(I)* DELX(I)- theta_fc(I)* DELX(I)
@@ -495,7 +523,7 @@ SUBROUTINE Runoff_cn(day)
             VEL(I)= AINF(I+1)/theta_end(I)
             soilwater(I) = theta_end(I)*DELX(I)
             
-            
+     
 		end do	
 
 		

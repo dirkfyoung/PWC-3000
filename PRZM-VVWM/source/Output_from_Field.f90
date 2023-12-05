@@ -401,6 +401,8 @@ Module Output_From_Field
     
    call get_date(julday1900, current_year,current_month,current_day)
   
+   write(92,*) runoff_on_day
+   
    WRITE(TimeSeriesUnit2,'(I4,I3,I3, 4X,100(2X,ES12.4E3))') current_year,current_month,current_day,(PRTBUF(I),I=1,NPLOTS)  
 !         !E3 format cuz program was leaving out the "E" on number <  E-99
 !18       FORMAT (I4,I3,I3, 4X,100(2X,ES12.4E3))  

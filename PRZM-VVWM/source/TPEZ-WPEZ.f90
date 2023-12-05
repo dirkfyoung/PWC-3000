@@ -244,7 +244,7 @@ Module TPEZ_WPEZ
 
 	 
     call pick_max(num_years,num_records, first_annual_dates,aqconc_avg1,c1_max)     !NEW FIND DAILY AVERAGE CONCENTRATION RETURN   
-    call pick_max(num_years,num_records, first_annual_dates,m_total,total_max)     !total mass 
+    call pick_max(num_years,num_records, first_annual_dates,m_total,total_max)     !total mass (depth restriction not applicable here)
     
     call pick_max(num_years,num_records, first_annual_dates,c4,c4_max)
     call pick_max(num_years,num_records, first_annual_dates,c21,c21_max)

@@ -71,7 +71,6 @@ contains
        
         do day = 1,num_records
   
-  
              
             check = v_previous + vol_net(day)
             if (check > v_max) then
@@ -84,7 +83,7 @@ contains
             end if
             v_previous = volume1(day)
             
-           
+
         end do
                
         Daily_avg_flow_out = sum(k_flow)*v_max/num_records  !used for output characterization only

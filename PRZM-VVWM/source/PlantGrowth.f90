@@ -40,14 +40,19 @@ module plantgrowth
       
       !Do growth stage
       
+
       
       do i=1, num_crop_periods_input  
             
             if (evergreen) then   !there should be only one crop period for evergreen
                       canopy_cover  = max_canopy_cover(i)
                       canopy_height = max_canopy_height(i)
-                      canopy_holdup = max_canopy_holdup(i)
-                      root_depth    = max_root_depth(i)
+                      canopy_holdup = max_canopy_holdup(i)*max_canopy_cover(i)
+                      
+                      root_depth    = max_root_depth(i)                     
+                      root_node     = find_depth_node(ncom2,soil_depth,max_root_depth(i))
+                      
+                      
             else   !****************************************************  
                       do k = 1 ,last_year -first_year+1   
                            do j=emergence_date(i,k), maturity_date(i,k)
