@@ -48,7 +48,7 @@ Module TPEZ_WPEZ
        depth_max     = 0.15       
        baseflow      = 0.0      
        is_zero_depth = .TRUE. 
-       zero_depth    = 0.01  
+       zero_depth    = 0.005  
       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   
       select case (simtypeflag)

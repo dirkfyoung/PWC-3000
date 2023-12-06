@@ -415,8 +415,6 @@ SUBROUTINE Runoff_cn(day)
       runoff_save(day)=runoff_on_day
 
 
-       write(91,*) runoff_on_day
-
 
     END SUBROUTINE Runoff_cn
 
