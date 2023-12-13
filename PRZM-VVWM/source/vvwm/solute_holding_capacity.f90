@@ -72,6 +72,10 @@ integer :: i
     !solute holding capacity in region 1
     capacity_1 = kd_sed_1 * m_sed_1 + kd_bio * m_bio_1 + kd_doc_1 * m_doc_1 + volume1
 
+
+    
+    
+    
     
     !solute holding capacity in region 2
     capacity_2 = kd_sed_2 * m_sed_2 + kd_bio * m_bio_2 + kd_doc_2 * m_doc_2 + v2
@@ -82,12 +86,14 @@ integer :: i
 	
     fw1=volume1/capacity_1
     fw2=v2/capacity_2
+     theta = capacity_2/capacity_1
 
-    theta = capacity_2/capacity_1
+ 
+
+    
     
     Sediment_conversion_factor = v2/fw2/m_sed_2  !converts pore water to Total Conc normalized to sed mass
     
 
-    
 end subroutine solute_holding_capacity
 end module solute_capacity

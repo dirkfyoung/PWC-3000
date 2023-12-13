@@ -179,7 +179,7 @@ subroutine initial_conditions(chem_index)
                                                        
         implicit none      
         integer,intent(in) :: chem_index
-
+integer :: i
         !********************************************************************
         fraction_to_benthic = kd_sed_1*eroded_solids_mass/ (capacity_1 + kd_sed_1*eroded_solids_mass)    !used later in core calc routine
         
@@ -190,6 +190,9 @@ subroutine initial_conditions(chem_index)
        else
            m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index)                   !degradates dont drift
        end if
+       
+
+       
        
         
         m2_input = 0.0  

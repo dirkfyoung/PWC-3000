@@ -116,11 +116,6 @@ if (is_waterbody_info_output) then
     
     
 
-    !For Certain water bodies, users want to exclude concentrations below a certain level
-    
-    if (is_zero_depth) then
-          where (daily_depth < zero_depth) aqconc_avg1 = 0.0
-    end if
     
      write(output_unit,'(A42)') 'Depth(m), Water Col(kg/m3), Benthic(kg/m3)'
  
@@ -131,6 +126,10 @@ if (is_waterbody_info_output) then
 end if
 
 
+    !For Certain water bodies, users want to exclude concentrations below a certain level   
+    if (is_zero_depth) then
+          where (daily_depth < zero_depth) aqconc_avg1 = 0.0
+    end if
 
 !
 !    !***** EFED TIME SERIES ********************************************

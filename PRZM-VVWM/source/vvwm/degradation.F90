@@ -19,7 +19,7 @@ subroutine gamma_one
                                  gamma_1         !output overall aqueous-phase first-order rate littoral (per sec)
                                                            
   implicit none
-integer :: i 
+integer :: i
   gamma_1 = k_flow+ (k_photo + k_hydro +k_volatile) *fw1  +k_aer_aq*fw1 + k_aer_s*(1.-fw1)
 
  
@@ -29,6 +29,7 @@ integer :: i
         gamma_1 = 1e-18  !not quite zero, as this will prevent some numerical problems if all degradation is zero,
                          !Note: issues observed at 1e-20, spikey conc profile 
     end where
+
   
 end subroutine gamma_one
 
@@ -140,18 +141,21 @@ subroutine metabolism (nchem)
     
     integer, intent(in) :: nchem
 
-        
+    integer :: i    
         
     !***** Zero Half Life Represents Stabilty or Zero Rate *************************
     
     k_aer_aq = water_column_rate(nchem) *Q_10**((temp_avg - water_column_ref_temp(nchem))/10.)     !k_aer_aq  = 0.69314718/aer_aq/86400.    
     k_aer_s  = k_aer_aq                                                          !sorbed rate 
     
+    
     k_anaer_aq = benthic_rate(nchem)*Q_10**((temp_avg - benthic_ref_temp(nchem))/10.) !effective aq metab rate (per sec)
     k_anaer_s  = k_anaer_aq  
-     
-
     
+    
+    
+    
+
 end subroutine metabolism
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

@@ -366,59 +366,6 @@ END SUBROUTINE pesticide_decreasing_distribution
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-!******************************************************************************************************************************
-!    SUBROUTINE pesticide_uniform_distribution(APPAMT,DMAX,applied_to_soil)
-!       use  constants_and_Variables, ONLY: DELX,ncom2
-!       implicit none
-!      ! This routine distributes a chemical application uniformly to depth dmax.
-!      ! Used for CAM 1 ans 6 and Harvest
-!      
-!      ! APPAMT - total amount of chemical to distribute in the soil
-!      ! CHEM   - chemical id number (1-3)
-!      ! DMAX   - depth to which chemical should be applied;
-!
-!      real,intent(out) :: applied_to_soil(ncom2)
-!      REAL,intent(in)  :: APPAMT,DMAX
-!      INTEGER  CMPT
-!      REAL     DEP,APPTOT,APPREM,FRACT,SLP2,FRCTOT
-!
-!      FRCTOT=0.0
-!      SLP2= 0.
-!      CMPT= 0
-!      DEP = 0.0
-!      APPTOT=0.0
-!      APPREM=APPAMT
-!      applied_to_soil = 0.0
-!
-!      do       
-!        CMPT= CMPT + 1
-!        FRACT=DELX(CMPT)/DMAX
-!        FRCTOT=FRCTOT+FRACT
-!        IF(FRCTOT.GT.1.00)FRACT =FRACT-(1.0-FRCTOT)
-!        applied_to_soil(CMPT) = AMIN1(APPREM,APPAMT*FRACT)
-!        APPTOT= APPTOT+applied_to_soil(CMPT)
-!        APPREM=APPAMT-APPTOT
-!        DEP=DEP+DELX(CMPT)
-!        
-!write(91,*) cmpt, applied_to_soil(CMPT)
-!        
-!        if (DEP >= DMAX) exit
-!      end do  
-!       
-!    END SUBROUTINE pesticide_uniform_distribution 
- 
     
 !*************************************************************************************    
    SUBROUTINE pesticide_uniform_distribution(APPAMT,DMAX,applied_to_soil)

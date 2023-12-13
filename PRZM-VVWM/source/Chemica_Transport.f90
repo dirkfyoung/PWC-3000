@@ -128,9 +128,8 @@ module chemical_transport
      ! Application of Pesticide into System
      do i = 1,  total_applications   !check to see if this is an application day     
        if (application_date(i)==julday1900) then	
-           
-           
-         CALL PESTAP(i)  
+      
+             CALL PESTAP(i)  
        end if
 	 end do
 		
@@ -409,6 +408,9 @@ subroutine flux_calculations(k, concentration)
     !Primary Fluxes need for program at all times
     ROFLUX(K) =  sum( runoff_on_day*runoff_intensity(1:RNCMPT)*concentration(1:RNCMPT) *DELX(1:RNCMPT) )   
      
+
+    
+    
     ERFLUX(K) =  sum( enriched_eroded_solids*kd_new(K,1:erosion_compt)*    & 
                        concentration(1:erosion_compt)*erosion_intensity(1:erosion_compt)*DELX(1:erosion_compt) )
       

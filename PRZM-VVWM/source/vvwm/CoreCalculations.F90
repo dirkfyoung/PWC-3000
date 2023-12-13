@@ -15,7 +15,7 @@ use waterbody_parameters, ONLY: benthic_depth ,porosity,area_waterbody
                          
                                   
     implicit none
-    integer :: day_count
+    integer :: day_count, i
 
     real:: m1,m2    !daily peak/average mass
     real:: mn1, mn2        !mass at end of time step
@@ -54,20 +54,22 @@ use waterbody_parameters, ONLY: benthic_depth ,porosity,area_waterbody
         call simuldiff2 (A(day_count),B(day_count),E(day_count),F(day_count), & 
              aqconc1,aqconc2,DELT_vvwm,new_aqconc1,new_aqconc2,aqconc_avg1(day_count),aqconc_avg2(day_count)) 
         
+        
         !convert back to masses
         mn1 = new_aqconc1/fw1(day_count)*daily_depth(day_count)*area_waterbody
         mn2 = new_aqconc2/fw2*benthic_depth*area_waterbody*porosity 
 
         mavg1_store(day_count)= aqconc_avg1(day_count)/fw1(day_count)*daily_depth(day_count)*area_waterbody   
 
-!Find Total System Mass Here
+        !Find Total System Mass Here
 		m_total(day_count) = mavg1_store(day_count) + aqconc_avg2(day_count) * v2 / fw2
+ 
         
-        
+
         
     end do 
 
-   
+
     
 end subroutine MainLoop
 
@@ -90,8 +92,6 @@ subroutine reducer2
         B = omega * theta
         E = omega
         F = -gamma_2-omega
-
-
 
 
 end subroutine reducer2
@@ -129,14 +129,13 @@ subroutine simuldiff2 (A,B,E,F,m1,m2,T_end,mn1,mn2,mavg1,mavg2)
         
         root1 = (af+bbb)/2.
         root2 = (af-bbb)/2.
-
+        
         DD = (root1-A)/B
         EE = (root2-A)/B
         FF = EE-DD
         X1 = (EE*m1-m2)/FF
         Y1 = (m2-DD*m1)/FF
 		
- 
     !calculate new concentrations for next step
         rt1 = root1*T_end
         rt2 = root2*T_end
@@ -144,9 +143,7 @@ subroutine simuldiff2 (A,B,E,F,m1,m2,T_end,mn1,mn2,mavg1,mavg2)
         exrt2 = exp(rt2)
         ccc = X1*exrt1
         ddd = Y1*exrt2
-        
 
-		
         mn1 = ccc+ddd
         mn2= DD*ccc+EE*ddd
 
@@ -156,9 +153,7 @@ subroutine simuldiff2 (A,B,E,F,m1,m2,T_end,mn1,mn2,mavg1,mavg2)
         gx=X1/root1
         hx=Y1/root2
 
-  
-        
-        
+
         term1 = gx*exrt1                    !term3 = -X1/root1*exp(root1*T1)
         term2 = hx*exrt2                    !term4 = -Y1/root2*exp(root2*T1
         term3 = -gx
@@ -166,14 +161,6 @@ subroutine simuldiff2 (A,B,E,F,m1,m2,T_end,mn1,mn2,mavg1,mavg2)
 
         mavg1=(term1+term2+term3+term4)/T_end               !mavg1=(term1+term2+term3+term4)/(T2-T1)
         
-        
-        !        if (isnan(mavg1)) then
-        !    write(*,*)dif, fxa,bxe, f, a, b , e
-        !    pause
-        !endif
-        
-        
-
         
         mavg2=(term1*DD+term2*EE+term3*DD+term4*EE)/T_end  !average compartment 2 concentration
         

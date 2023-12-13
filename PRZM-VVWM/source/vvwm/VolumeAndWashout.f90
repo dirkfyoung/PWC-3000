@@ -54,6 +54,10 @@ contains
         real,dimension(num_records)::vol_net
         real,dimension(num_records)::evap_area
         real,dimension(num_records)::precip_area
+        
+        
+        integer :: i
+        
         Daily_avg_flow_out = 0.0
         
         v_0 = area_waterbody*depth_0
@@ -70,7 +74,6 @@ contains
         
        
         do day = 1,num_records
-  
              
             check = v_previous + vol_net(day)
             if (check > v_max) then
@@ -82,9 +85,10 @@ contains
                 volume1(day) = check
             end if
             v_previous = volume1(day)
-            
+          end do
 
-        end do
+        
+        
                
         Daily_avg_flow_out = sum(k_flow)*v_max/num_records  !used for output characterization only
         daily_depth = volume1/area_waterbody !whole array operation

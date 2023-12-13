@@ -12,7 +12,7 @@ Module TPEZ_WPEZ
             outputfile_parent_daily,outputfile_deg1_daily,outputfile_deg2_daily,&
             outputfile_parent_deem,outputfile_deg1_deem,outputfile_deg2_deem,&
             outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa, k_flow , &
-            summary_WPEZoutputfile , summary_WPEZoutputfile_deg1 , summary_WPEZoutputfile_deg2,First_time_through_wpez
+            summary_WPEZoutputfile , summary_WPEZoutputfile_deg1 , summary_WPEZoutputfile_deg2,First_time_through_wpez  , aqconc_avg1
        use waterbody_parameters, ONLY: FROC2, simtypeflag, depth_0,depth_max,baseflow,is_zero_depth,zero_depth  
 
        use degradation
@@ -29,7 +29,7 @@ Module TPEZ_WPEZ
        implicit none              
 
        !**local chemical properties****
-       integer :: chem_index
+       integer :: chem_index, i
        real    :: koc
        character(LEN=20) :: waterbody_name
 
@@ -43,11 +43,11 @@ Module TPEZ_WPEZ
       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       !AT END OF RUN RESET THESE PARAMETERS TO VVWM STANDARDS
       !RESET PARAMETERS for wpez      
-       simtypeflag   = 1     !***WPEZ MODIFICATION, Always varing volume **********
+       simtypeflag   = 1       !***WPEZ MODIFICATION, Always varing volume **********
        depth_0       = 0.15      
        depth_max     = 0.15       
        baseflow      = 0.0      
-       is_zero_depth = .TRUE. 
+       is_zero_depth = .TRUE.  ! exclusion of conc values from output when below 0.5 cm
        zero_depth    = 0.005  
       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   
@@ -86,6 +86,7 @@ Module TPEZ_WPEZ
 
           call MainLoop             
           
+          
           waterbody_name =  "WPEZ"
         
         
@@ -97,11 +98,10 @@ Module TPEZ_WPEZ
                              summary_WPEZoutputfile , summary_WPEZoutputfile_deg1 , summary_WPEZoutputfile_deg2, waterbody_name )
       end do
       
+      
       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       !AT END OF RUN RESET THESE PARAMETERS TO VVWM STANDARDS
-         
-         !to do:  should make wpez completely independent so reset not necessary
-         
+      !to do:  should make wpez completely independent so reset not necessary       
        simtypeflag   = 2
        depth_0       = 2.0     
        depth_max     = 2.0       
@@ -212,21 +212,28 @@ Module TPEZ_WPEZ
      	
          open (UNIT=output_unit,FILE= trim(waterbody_outputfile),  STATUS='unknown')
      
-         !For Certain water bodies, users want to exclude concentrations below a certain level
-         
-         if (is_zero_depth) then
-               where (daily_depth < zero_depth) aqconc_avg1 = 0.0
-         end if
          
          write(output_unit,*) 'Depth(m)   ,  Water Col(kg/m3), Benthic(kg/m3), total mass (kg)'
       
          do i =1, num_records
              write(output_unit,'(G12.4E3, "," ,ES12.4E3, "      ," ,ES12.4E3, "   ," ,ES12.4E3)')  daily_depth(i), aqconc_avg1(i), aqconc_avg2(i), m_total(i)
+
+
          end do
 
      	 close (output_unit)
      end if
 
+     !For Certain water bodies, users want to exclude concentrations below a certain level
+       if (is_zero_depth) then
+               where (daily_depth < zero_depth) aqconc_avg1 = 0.0
+       end if
+       
+     
+     
+     
+     
+     
     !Calculate chronic values *******************
     !The following returns the n-day running averages for each day in simulation
    
