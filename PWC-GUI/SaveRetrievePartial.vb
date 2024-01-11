@@ -226,11 +226,9 @@
 
         Dim phrase1 As String = "Sch#, Description,mode,#Apps,"
         Dim phrase2 As String = " days,amt,method,depth,split,drift,buffer,period,lag,"
-        Dim phrase3 As String = "window, span,step,raifast,rainlimit,intolwindow,optwindow,mindays,#scn,  "
+        Dim phrase3 As String = "window, span,step,raifast,rainlimit,intolwindow,optwindow,mindays,#scn, scn dir,  "
 
         msg = msg & String.Format("{0}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{2}", phrase1, phrase2, phrase3)
-
-
 
         For i As Integer = 0 To NumberOfSchemes - 1
             msg = msg & String.Format("{0}{1},{2},", vbNewLine, (i + 1), """" & SchemeTableDisplay.Item(3, i).Value & """")
@@ -284,10 +282,15 @@
             NumberOfScenarios = ApplicationTable.Scenarios.Count
             msg = msg & NumberOfScenarios
 
+            If IO.Path.GetDirectoryName(ApplicationTable.Scenarios(0)) = "" Then
+                msg = msg & ","
+            Else
+                msg = msg & "," & IO.Path.GetDirectoryName(ApplicationTable.Scenarios(0)) & "\"
+            End If
+
+
             For j As Integer = 0 To NumberOfScenarios - 1
                 msg = msg & "," & IO.Path.GetFileName(ApplicationTable.Scenarios(j))
-
-
             Next
 
 
@@ -995,6 +998,7 @@
             Dim NumberOfSchemes As Integer
             Dim NumberOfScenarios As Integer
             Dim numRows As Integer
+            Dim scenariopath As String
 
 
             MyReader.TextFieldType = FileIO.FieldType.Delimited
@@ -1074,8 +1078,17 @@
 
                 NumberOfScenarios = currentrow(102)
 
-                For j As Integer = 103 To 103 + NumberOfScenarios - 1
-                    ApplicationTable.Scenarios.Add(currentrow(j))
+
+                'Row 103 is the path
+                If currentrow(103) = "" Then
+                    scenariopath = ""
+                Else
+                    scenariopath = currentrow(103)
+                End If
+
+
+                For j As Integer = 104 To 104 + NumberOfScenarios - 1
+                    ApplicationTable.Scenarios.Add(scenariopath & currentrow(j))
                 Next
                 SchemeInfoList.Add(ApplicationTable)
             Next
