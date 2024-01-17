@@ -1394,7 +1394,9 @@ Public Class Form1
     Private Sub SelectScenarioBatchFile_Click(sender As Object, e As EventArgs) Handles SelectScenarioBatchFile.Click
         Dim result As System.Windows.Forms.DialogResult
 
+
         OpenSelectScenarioBatchFile.Filter = "Scenario Batch Files (*.CSV)|*.CSV| All files (*.*)|*.*"
+
 
         OpenSelectScenarioBatchFile.InitialDirectory = FileNames.DefaultScenarioDirectory
 
@@ -1587,6 +1589,8 @@ Public Class Form1
 
 
     End Sub
+
+
 End Class
 
 
