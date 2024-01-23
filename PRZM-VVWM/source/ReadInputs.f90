@@ -461,7 +461,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
 				end if		
    
         read(ScenarioFileUnit,*) ! Line 42  "*** irrigation information start ***"        
-        read(ScenarioFileUnit,*) irtype ! Line 43 0 = none, 1 flood, 2 undefined 3 = overcanopy 4 = under canopy 5 = undefined, 6 over canopy
+        read(ScenarioFileUnit,*) irtype ! Line 43 0 = none, 1 = overcanopy 2 = under canopy 
         read(ScenarioFileUnit,*) FLEACH,PCDEPL,max_irrig  !Line 44                  
 
         read(ScenarioFileUnit,*) UserSpecifiesDepth !, user_irrig_depth  ! UserSpecifiesIrrigDepth.Checked, IrrigationDepthUserSpec.Text)

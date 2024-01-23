@@ -237,7 +237,7 @@ module constants_and_variables
 
       !************************************************************
       
-      logical :: is_true_rain_distribution
+
 !      logical :: is_TC_lag_method
       
       integer :: day_number_chemtrans  !track days for przm chem transport loop

@@ -102,14 +102,14 @@ module erosion
 ! **********************************************
   SUBROUTINE TMCOEF(EC0,EC1,EC2,julday)
       !Gets Coefficients fro Table F-1 in TR-55
-      use  constants_and_Variables, ONLY: PRECIP_rain, thrufl, ireg, inabs, smelt, is_true_rain_distribution
+      use  constants_and_Variables, ONLY: PRECIP_rain, thrufl, ireg, inabs, smelt
 
       implicit none 
 
       integer,intent(in) :: julday
        real, intent(out) :: EC0,EC1,EC2
       
-      INTEGER  IFND,J,IREGOLD
+      INTEGER  IFND,J
       INTEGER  NBG(4),NEN(4)
       REAL     CC(32),CC0(32),CC1(32),CC2(32)
       REAL     CTEMP,IAP
@@ -131,11 +131,12 @@ module erosion
 
       
       
-      IREGOLD=IREG
+!      IREGOLD=IREG
       
       !!not sure where these ideas came from, they seem contrived to reduce peak runoff.  No reference given in manual. I am adding this option
       !!to bypass relations and allow for some examination.  dfy Feb 2019
-      !If (.not. is_true_rain_distribution) then                                               
+      ! original even possibly even confused the ireg numbers as ireg2 is equal to type 1A, not type 2
+                                           
       !       IF(IREG.NE.2)THEN
       !         IF((JULDAY.LE.121).OR.(JULDAY.GE.258))THEN  !May 1 to Sep 16,  IREG = IREG, else IREG =2
       !           IREG=2
@@ -143,7 +144,7 @@ module erosion
       !           IREG=1
       !         ENDIF
       !       ENDIF
-      !end if
+
       
       
       
@@ -174,7 +175,7 @@ module erosion
       ENDIF
 
 
-      IREG=IREGOLD
+  !    IREG=IREGOLD
 
   END SUBROUTINE TMCOEF
   
