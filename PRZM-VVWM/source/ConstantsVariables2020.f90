@@ -284,7 +284,7 @@ module constants_and_variables
       integer :: NHORIZ                           !input value, number of data horizons
       integer :: Num_delx(max_horizons)           !Input Number of discretizations in horizon
       real    :: bd_input(max_horizons)           !bulk density of each horizon input
-      real    :: oc_input(max_horizons)           !organic carbon fraction input
+      real    :: oc_input(max_horizons)           !organic carbon input Percent %
  
       real    :: fc_input(max_horizons)           !field capacity input
       real    :: wp_input(max_horizons)           !wilting point input

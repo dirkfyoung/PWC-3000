@@ -234,7 +234,7 @@ end subroutine chemical_manipulations
 			             bulkdensity(i) = bd_input  (nhoriz)
                          theta_fc   (i) = fc_input  (nhoriz)
                          theta_wp   (i) = wp_input  (nhoriz)
-                         orgcarb    (i) = 0.0   ! oc_input  (nhoriz)
+                         orgcarb    (i) = 0.0   ! oc_input %  (nhoriz)
                          theta_zero (i) = fc_input(nhoriz)
                          dispersion (i)	= dispersion_input(nhoriz)           
                          soil_temp  (i) = soil_temp_input (nhoriz)

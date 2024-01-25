@@ -557,7 +557,7 @@ Module TPEZ_WPEZ
      call find_average_property(ncom2,soil_depth,15.0, theta_fc    , avg_maxwater)    
      call find_average_property(ncom2,soil_depth,15.0, theta_wp    , avg_minwater)
      call find_average_property(ncom2,soil_depth,15.0, bulkdensity , avg_bd)  
-     call find_average_property(ncom2,soil_depth,15.0, orgcarb     , avg_oc) 
+     call find_average_property(ncom2,soil_depth,15.0, orgcarb     , avg_oc) !percent
     
      !write(*,*)"For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:"
      !write(*,*) avg_maxwater,  avg_minwater, avg_bd, avg_oc 
