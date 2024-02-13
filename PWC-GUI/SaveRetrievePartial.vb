@@ -1356,7 +1356,7 @@
             currentRow = MyReader.ReadFields
             ireg.Text = currentRow(0)
             slope.Text = currentRow(1)
-            '  hydlength.Text = currentRow(2) THIS NEEDSA TO BE HANDLED SOMEWHERE ELSE. Watershed not field parameter
+            '  hydlength.Text = currentRow(2) THIS NEEDS TO BE HANDLED SOMEWHERE ELSE. Watershed not field parameter
 
             MyReader.ReadLine() 'this is: *** Horizon Info *******
 
@@ -1395,9 +1395,23 @@
             MyReader.ReadLine() '*** Horizon End, Temperature Start ********"
 
             'V4 scenarios do not have temp populated'line 62
-            MyReader.ReadLine()
-            albedo.Text = 0.2
-            bcTemp.Text = 10
+            'MyReader.ReadLine()
+
+            '**************************************]
+            Dim ttt As String
+            ttt = MyReader.ReadLine()
+            If ttt = "" Then
+                albedo.Text = 0.2
+                bcTemp.Text = 10
+            Else
+                Dim uuu As String() = Split(ttt, ",")
+                albedo.Text = uuu(0)
+                bcTemp.Text = uuu(1)
+            End If
+
+
+
+            '**************************************
 
             currentRow = MyReader.ReadFields
             SimTemperature.Checked = currentRow(0) 'line 63

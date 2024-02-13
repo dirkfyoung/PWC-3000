@@ -47,7 +47,7 @@ Public Class Form1
         DiscretizationGridView.Rows.Add(7, 7)
         DiscretizationGridView.Rows.Add(10, 2)
         DiscretizationGridView.Rows.Add(80, 4)
-        DiscretizationGridView.Rows.Add(1000, 20)
+        DiscretizationGridView.Rows.Add(900, 18)
         DiscretizationGridView.Rows.Add(100, 2)
     End Sub
 
@@ -1589,7 +1589,6 @@ Public Class Form1
 
 
     End Sub
-
 
 End Class
 
