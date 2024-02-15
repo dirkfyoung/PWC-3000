@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31613.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{6989167D-11E4-40FE-8C1A-2192A86A7E90}") = "PRZM-VVWM", "PRZM-VVWM\PRZM-VVWM.vfproj", "{0F05B786-C684-4D95-8B9B-FA77FC41DA5D}"
 EndProject
@@ -9,6 +9,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "PWC-3interface", "PWC-GUI\P
 	ProjectSection(ProjectDependencies) = postProject
 		{0F05B786-C684-4D95-8B9B-FA77FC41DA5D} = {0F05B786-C684-4D95-8B9B-FA77FC41DA5D}
 	EndProjectSection
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PWC_install", "PWC_install\PWC_install.vdproj", "{E98AF15F-74C1-4473-A04D-1048C0E21E95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,13 @@ Global
 		{9AC70682-B083-4124-8B13-8099846EAE54}.Release|x64.Build.0 = Release|Any CPU
 		{9AC70682-B083-4124-8B13-8099846EAE54}.Release|x86.ActiveCfg = Release|Any CPU
 		{9AC70682-B083-4124-8B13-8099846EAE54}.Release|x86.Build.0 = Release|Any CPU
+		{E98AF15F-74C1-4473-A04D-1048C0E21E95}.Debug|Any CPU.ActiveCfg = Debug
+		{E98AF15F-74C1-4473-A04D-1048C0E21E95}.Debug|x64.ActiveCfg = Debug
+		{E98AF15F-74C1-4473-A04D-1048C0E21E95}.Debug|x86.ActiveCfg = Debug
+		{E98AF15F-74C1-4473-A04D-1048C0E21E95}.Release|Any CPU.ActiveCfg = Release
+		{E98AF15F-74C1-4473-A04D-1048C0E21E95}.Release|Any CPU.Build.0 = Release
+		{E98AF15F-74C1-4473-A04D-1048C0E21E95}.Release|x64.ActiveCfg = Release
+		{E98AF15F-74C1-4473-A04D-1048C0E21E95}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
