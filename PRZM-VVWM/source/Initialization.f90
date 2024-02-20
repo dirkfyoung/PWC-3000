@@ -61,8 +61,7 @@ end subroutine chemical_manipulations
         is_total_degradation,is_constant_profile, is_ramp_profile, ramp1, ramp2, ramp3,is_exp_profile , exp_profile1, exp_profile2, folpst, &
 	    top_node_last_horizon, bottom_node_last_horizon, snow, cint, foliar_degrade_loss, SUPFLX, Foliar_volatile_loss, &
         is_auto_profile, profile_thick, profile_number_increments, number_of_discrete_layers, &
-        aq_rate_corrected,sorb_rate_corrected, gas_rate_corrected
-
+        aq_rate_corrected,sorb_rate_corrected, gas_rate_corrected,scenario_id
 
 
 
@@ -515,7 +514,7 @@ end subroutine chemical_manipulations
 
     theta_sat = 1.0 - bulkdensity/2.65
     if (any(theta_fc > theta_sat)) then
-          WRITE(*,* ) 'Note: water capacity exceeds saturation; assuming no user error'
+          WRITE(*,* ) scenario_id, 'water capacity exceeds saturation; assuming no user error'
     end if
     
     !If Linear Isotherms are used the reading Freundlich coefficient are used as Kd
