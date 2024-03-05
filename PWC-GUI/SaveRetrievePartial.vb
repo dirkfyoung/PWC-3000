@@ -318,25 +318,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     Private Function CreateScenarioString() As String
         'Private Function WaterBodyInfo() As String
         Dim msg As String

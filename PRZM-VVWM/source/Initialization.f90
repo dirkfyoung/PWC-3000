@@ -511,9 +511,9 @@ end subroutine chemical_manipulations
        end if
        
        
-        do i = 1, ncom2
-            write(*,*)i, dwrate_atRefTemp(k,i), dsrate_atRefTemp(k,i)
-        end do
+        !do i = 1, ncom2
+        !    write(*,*)i, dwrate_atRefTemp(k,i), dsrate_atRefTemp(k,i)
+        !end do
         
         
     end do  !chemical species loop

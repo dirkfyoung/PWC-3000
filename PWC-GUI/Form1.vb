@@ -684,9 +684,9 @@ Public Class Form1
 
 
                         SchemeTableDisplay.Rows.Remove(SchemeTableDisplay.Rows(e.RowIndex))
-                        End If
+                    End If
 
-                        If SchemeInfoList.Count > e.RowIndex Then
+                    If SchemeInfoList.Count > e.RowIndex Then
                         'this if condition is needed if there is an uncommitted row, then you can still delete it
                         'likewise if there is an uncommited row, then this prevents attempting to delete a nonexistent scheme
                         'only want to delete table row, and not schemeinfolist item
