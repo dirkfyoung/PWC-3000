@@ -322,6 +322,9 @@ module constants_and_variables
       real :: photo_rate(3)              ! Rate in per sec
       real :: rflat(3)                   ! input latitude for photolysis study   
       
+      logical :: is_hydrolysis_override   !if true then hydrolysis will overide the aquatic phase portion of soil meatbolism if 
+                                       !hydrolyis is greater than soil metabolism, solid phase metabolism remains the same
+      
 
       logical :: is_total_degradation  !True idf total soil degradation, False if aqueous phase only degradatiuon
       real    :: soil_degradation_halflife_input(3), soil_ref_temp(3), xsoil(3)

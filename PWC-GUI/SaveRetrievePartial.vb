@@ -9,7 +9,7 @@
         msg &= String.Format("{0}{1},", vbNewLine, WaterbodyEvapAdjustment.Text)
 
 
-        msg &= String.Format("{0}{1}, {2}, {3}, {4},", vbNewLine, isKoc.Checked, UseFreundlich.Checked, UseNonequilibrium.Checked, poundToKiloConversion.Checked)
+        msg &= String.Format("{0}{1}, {2}, {3}, {4}, {5},", vbNewLine, isKoc.Checked, UseFreundlich.Checked, UseNonequilibrium.Checked, poundToKiloConversion.Checked, IsHydrolysisOverride.Checked)
 
         Dim nchem As String
         If DoDegradate1.Checked And DoDegradate2.Checked Then 'daughter and graddaugter
@@ -594,10 +594,13 @@
             UseFreundlich.Checked = currentrow(1)
             UseNonequilibrium.Checked = currentrow(2)
 
+            'early pwc3 did not have these options:
             Try
                 poundToKiloConversion.Checked = currentrow(3)
+                IsHydrolysisOverride.Checked = currentrow(4)
             Catch ex As Exception
 
+                IsHydrolysisOverride.Checked = True
             End Try
 
 

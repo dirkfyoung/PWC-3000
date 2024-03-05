@@ -33,7 +33,7 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     is_app_window, app_window_span, app_window_step, is_timeseriesfile, &
 	is_waterbody_info_output , is_adjust_for_rain_schemes,rain_limit_schemes,optimum_application_window_schemes, &
 	intolerable_rain_window_schemes, min_days_between_apps_schemes,  is_batch_scenario , scenario_batchfile , is_needs_poundkg_conversion,&
-    open_water_adj 
+    open_water_adj , is_hydrolysis_override
 
 use waterbody_parameters, ONLY: itsapond, itsareservoir, itsother,itstpezwpez, waterbody_names, USEPA_reservoir,USEPA_pond , use_tpezbuffer
 use utilities
@@ -67,7 +67,7 @@ use utilities
     read(inputfile_unit_number,*) open_water_adj
     
 
-    read(inputfile_unit_number,*) is_koc,is_freundlich , is_nonequilibrium, is_needs_poundkg_conversion                       !Line 5
+    read(inputfile_unit_number,*) is_koc,is_freundlich,is_nonequilibrium,is_needs_poundkg_conversion,is_hydrolysis_override !Line 5
     read(inputfile_unit_number,*) nchem                                                                           !Line 6
     read(inputfile_unit_number,*) k_f_input(1),k_f_input(2),k_f_input(3)                                          !Line 7  
     read(inputfile_unit_number,*) N_f_input(1), N_f_input(2), N_f_input(3)                                        !Line 8

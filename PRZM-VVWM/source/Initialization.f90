@@ -61,7 +61,7 @@ end subroutine chemical_manipulations
         is_total_degradation,is_constant_profile, is_ramp_profile, ramp1, ramp2, ramp3,is_exp_profile , exp_profile1, exp_profile2, folpst, &
 	    top_node_last_horizon, bottom_node_last_horizon, snow, cint, foliar_degrade_loss, SUPFLX, Foliar_volatile_loss, &
         is_auto_profile, profile_thick, profile_number_increments, number_of_discrete_layers, &
-        aq_rate_corrected,sorb_rate_corrected, gas_rate_corrected,scenario_id
+        aq_rate_corrected,sorb_rate_corrected, gas_rate_corrected,scenario_id,is_hydrolysis_override
 
 
 
@@ -83,6 +83,8 @@ end subroutine chemical_manipulations
 	integer :: horiz_indx_tracker(50)
 	real :: track_thickness(50)
 	
+    real :: hydrolyisis_rate_corrected(3)  !soil hydrolysis corrected for implicit function and corrected for per second to per day prent daughter granddaughter
+    
 	real :: sumofdp
 	real :: sumofbd
 	real :: sumofmx
@@ -416,6 +418,8 @@ end subroutine chemical_manipulations
              aq_rate_corrected =     exp(aq_rate_input)   -1.  
              sorb_rate_corrected =   exp(sorb_rate_input) -1.
              gas_rate_corrected =    exp(gas_rate_input)  -1.
+             
+             hydrolyisis_rate_corrected = exp(hydrolysis_rate*86400.)-1  !hydrolysis rate is per second, parent, daughter, grand
     !******************************************************************************************
     !
 	! changed---put these corrected values as substitute for input values below, 
@@ -499,7 +503,30 @@ end subroutine chemical_manipulations
              end do   
         end if
         
-    end do
+       !Hydrolysis Overide where aq rate is less than hydrolysis, use hydrolysis
+       if (is_hydrolysis_override) then 
+           where (dwrate_atRefTemp(k,:) < hydrolyisis_rate_corrected(k)  )
+              dwrate_atRefTemp(k,:) = hydrolyisis_rate_corrected(k)
+           end where
+       end if
+       
+       
+        do i = 1, ncom2
+            write(*,*)i, dwrate_atRefTemp(k,i), dsrate_atRefTemp(k,i)
+        end do
+        
+        
+    end do  !chemical species loop
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
     
 
     !write (*,'(A)')   '    #     depth     bd       max_water     min_wat    orgcarb         kd         dwrate'

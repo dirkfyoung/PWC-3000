@@ -16,8 +16,6 @@ module Temperatue_Calcs
            dsrate(k,:) = dsrate_atRefTemp(k,:)*Q_10**((soil_temp(:)-TBASE)/10.)
            dgrate(k,:) = dgrate_atRefTemp(k,:)*Q_10**((soil_temp(:)-TBASE)/10.)         
       end do  
-      
-
 
      END SUBROUTINE Q10DK
      
