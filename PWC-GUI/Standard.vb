@@ -3,6 +3,8 @@
         'Empty constructor to prevent instantiation of this purely static class
     End Sub
 
+    Public Const VersionNumber As String = "3.000"
+
     Public Const method1 As String = "Below Crop"
     Public Const method2 As String = "Above Crop"
     Public Const method3 As String = "Uniform"

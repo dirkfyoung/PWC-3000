@@ -19,7 +19,16 @@ Public Class Form1
     Private tempTabpage5 As TabPage  'application tab
     Private tempTabpage6 As TabPage  'scenario tab
 
+    Public Sub New()
 
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.GetCultureInfo("en-US")
+        Me.Text = "Pesticide Water Calculator, Version " & Standard.VersionNumber
+
+    End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         MakeApplicationTable()
