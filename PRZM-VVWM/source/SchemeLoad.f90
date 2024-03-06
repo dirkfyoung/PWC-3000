@@ -62,13 +62,13 @@ module schemeload
             pest_app_method_in(i)  = method_schemes(scheme_number,i)
             DEPI_in(i)             = depth_schemes(scheme_number,i)
             Tband_top_in(i)        = split_schemes(scheme_number,i)
-
-        
-            
             
 			!Interpolate Drift Values from Spray Table. Remember there is a header in the saved table so add 1
 			call lookup_drift(drift_schemes(scheme_number,i)+1, driftfactor_schemes(scheme_number,i),drift_value(i))
 
+            write(*,*) "Drift Value (each app) ",drift_value(i)
+            
+            
             lag_app_in(i)          = lag_schemes(scheme_number,i)
             repeat_app_in(i)       = periodicity_schemes(scheme_number,i)
                    
@@ -99,13 +99,22 @@ module schemeload
 	   real, intent(in)    :: column   !this is a distance, so its real and will be used for interpolation
 	   real, intent(out)   :: output
 	
-	   integer :: i
+	   integer :: i, j
 	   real    :: previous
-	
+       
+       
 	   !interpolate column value for values in row
-	   previous = 0.0
+	   
+       
+        !do i = 1, size(spraytable, 1)
+        !     write(*,'(20G12.4)') (spraytable(i,j), j=1,size(spraytable, 2))
+        !end do
+       
+        
+        previous = 0.0
 	   do i = 1, size(spraytable, 2)
-	   	 if (column ==spraytable(1, i)) then !exact match, get value and end
+           
+	   	 if (abs(column - spraytable(1, i)) < 0.01 ) then !almost exact match within 0.01 ft, get value and end
 	   		 output = spraytable(row, i)
 	   		 exit
 	   	 elseif (spraytable(1, i) < column ) then

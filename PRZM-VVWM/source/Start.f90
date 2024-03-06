@@ -83,9 +83,9 @@ program PRZMVVWM
               call read_waterbodyfile(hh)  
          end select
 		 
-		 
+		 Write(*,*) 'Doing waterbody: ',  trim(waterbody_names(hh))
          do i = 1, number_of_schemes
-			 Write(*,*) 'Doing Scheme No. ', i
+			 Write(*,*) 'Doing Scheme No. ', i 
 			 
              !will use spray table in here --need to make spray table correct if changed by tpez
              call set_chemical_applications(i) !gets the individual application scheme from the whole scheme table, non scenario specfic 

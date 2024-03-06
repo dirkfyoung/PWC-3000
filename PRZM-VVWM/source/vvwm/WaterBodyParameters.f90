@@ -291,19 +291,27 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         read(waterbody_file_unit, *) baseflow     !line 21
 
         read(waterbody_file_unit, *) hydro_length  !Line 22
-        write(*,*) "qa check 1"
+       
         read(waterbody_file_unit, *) is_zero_depth, zero_depth
-        write(*,*) "qa check 2"
+ 
         read(waterbody_file_unit, *) 
 
-		read(waterbody_file_unit, *) rows_spraytable, columns_spraytable ! data is 1 less column, col 0 is a text description in the vb interface, row 1 is length header
+		read(waterbody_file_unit, *) rows_spraytable, columns_spraytable
 		
-		allocate (spraytable (rows_spraytable, columns_spraytable-1))
+		allocate (spraytable (rows_spraytable, columns_spraytable))
 		
+       ! write(*,*) "read spraytable: rows cols ", rows_spraytable, columns_spraytable
+
 		do i =1, rows_spraytable
-			read(waterbody_file_unit, *) (spraytable(i,j),j=1, columns_spraytable-1)
-		end do
+          
+			read(waterbody_file_unit, *) (spraytable(i,j),j=1, columns_spraytable)
+         
+           ! write(*, *) (spraytable(i,j),j=1, columns_spraytable)
+            
+        end do
 		
+     
+        
 		!write(*, *) 'spray table'
 		!do i =1, rows_spraytable
 		!	write(*,'(20G12.4)' ) (spraytable(i,j),j=1, columns_spraytable-1)
