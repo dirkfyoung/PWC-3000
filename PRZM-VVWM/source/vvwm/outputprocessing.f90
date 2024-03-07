@@ -87,6 +87,10 @@ module outputprocessing
                                     ! First date is the calendar day of start of simulation 
     first_annual_dates= 0
 
+    
+ write(*,*)   "Inside Output process"
+ 
+ 
 if (is_waterbody_info_output) then
 	select case (chem_index)
 		

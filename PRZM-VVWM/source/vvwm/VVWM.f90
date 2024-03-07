@@ -91,7 +91,7 @@ real    :: koc
         if (nchem > chem_index) then    
               call DegradateProduction(chem_index) 
         end if
-
+write(*,*) "output processor"
       !**********************************************************          
        call output_processor(chem_index,First_time_through_wb, waterbody_timeseries_unit, &
            summary_output_unit, summary_output_unit_deg1, summary_output_unit_deg2,       &
