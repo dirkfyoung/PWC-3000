@@ -64,6 +64,11 @@
 
         AppTableDisplay.CommitEdit(DataGridViewDataErrorContexts.Commit)  'commit the cell if cursor still on box
 
+        If NumberOfScenarios = 1 And SchemeInfoList.Count = 0 Then
+            'scheme is not commited so dont try to save else get error below
+            NumberOfSchemes = 0
+        End If
+
 
         NumberOfSchemes = SchemeTableDisplay.RowCount - 1
         msg = msg & String.Format("{0}{1},", vbNewLine, NumberOfSchemes)
