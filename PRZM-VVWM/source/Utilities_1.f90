@@ -392,6 +392,7 @@ end subroutine find_first_annual_dates
 
 
 	subroutine find_in_table(row, column, table, tablerows,tablecolumns, output)
+
      !Given a real "table"  
      !with "tablerows" = number of rows of table
      !and "tablecolumns" = number of columns of table
@@ -423,9 +424,10 @@ end subroutine find_first_annual_dates
 	   	!	 write(*,'("            row = ",i2, " interpolate between columns ", i2, " and ", i2, ", fraction = ", g10.4 )') row, i-1, i,  (column - previous)/(table(1, i)- previous)
 	   		 exit
 		 end if	 
-	   end do
+       end do
 
-	!   write(*,'("            Interrpolated Spray Drift = ", G12.4)')  , output
+
+       
 	
 	end subroutine find_in_table
 

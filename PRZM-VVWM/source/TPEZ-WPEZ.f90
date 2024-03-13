@@ -480,7 +480,8 @@ Module TPEZ_WPEZ
       use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
           DELT_vvwm, waterbodytext,soil_depth, &
           num_applications_input,application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, drift_kg_per_m2, drift_schemes,&
-          theta_fc,theta_wp, ncom2,  orgcarb,bulkdensity , mavg1_store, driftfactor_schemes
+          theta_fc,theta_wp, ncom2,  orgcarb,bulkdensity, mavg1_store, driftfactor_schemes, is_output_spraydrift     
+      
       use waterbody_parameters, ONLY: simtypeflag, use_tpezbuffer
       
       use degradation
@@ -550,29 +551,31 @@ Module TPEZ_WPEZ
 0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00 &
 /),(/13,17/)))
      
-      
-      
-      
-      
-      
-      
+  
 
      ! tpez normally is at edge of field, but user can select buffer for cases like in field buffers
 
       drift_kg_per_m2= 0.0
       app_counter= 0
+      
+      write(*,*) "num applications tpez", num_applications_input
+      
       do i=1, num_applications_input
           if (use_tpezbuffer) then
              buffer_distance = driftfactor_schemes(scheme_number,i)
           else           
              buffer_distance = 0.0
           end if
-               
+          
+          call find_in_table(drift_schemes(scheme_number,i)+1, buffer_distance, spray_table_TPEZ,size(spray_table_TPEZ,1),size(spray_table_TPEZ,2),  drift_value_local)
+          if (is_output_spraydrift)  write(*,*)  "tpez drift factor ", drift_value_local
+          
           do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
              app_counter = app_counter+1       
-             call find_in_table(drift_schemes(scheme_number,i)+1, buffer_distance, spray_table_TPEZ,size(spray_table_TPEZ,1),size(spray_table_TPEZ,2),  drift_value_local)
+
              drift_kg_per_m2(app_counter) = drift_value_local * application_rate_in(i)/10000.
           end do
+
       end do
       
       !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

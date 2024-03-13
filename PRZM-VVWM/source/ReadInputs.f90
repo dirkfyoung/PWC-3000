@@ -33,7 +33,7 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     is_app_window, app_window_span, app_window_step, is_timeseriesfile, &
 	is_waterbody_info_output , is_adjust_for_rain_schemes,rain_limit_schemes,optimum_application_window_schemes, &
 	intolerable_rain_window_schemes, min_days_between_apps_schemes,  is_batch_scenario , scenario_batchfile , is_needs_poundkg_conversion,&
-    open_water_adj , is_hydrolysis_override
+    open_water_adj , is_hydrolysis_override, is_output_spraydrift
 
 use waterbody_parameters, ONLY: itsapond, itsareservoir, itsother,itstpezwpez, waterbody_names, USEPA_reservoir,USEPA_pond , use_tpezbuffer
 use utilities
@@ -307,7 +307,7 @@ use utilities
 	    if (is_soil_water_output) is_timeseriesfile = .TRUE.                                    
     read(inputfile_unit_number,*)  is_irrigation_output                                           !OUTPUT Line 15
         if (is_irrigation_output) is_timeseriesfile = .TRUE.
-    read(inputfile_unit_number,*)  is_infiltration_at_depth_output,infiltration_point             !OUTPUT Line 16
+    read(inputfile_unit_number,*)  is_infiltration_at_depth_output,infiltration_point             !OUTPUT Line 71
         if (is_infiltration_at_depth_output) is_timeseriesfile = .TRUE.
     read(inputfile_unit_number,*) is_infiltrated_bottom_output                                    !OUTPUT Line 17
         if (is_infiltrated_bottom_output) is_timeseriesfile = .TRUE.	
@@ -315,9 +315,9 @@ use utilities
 	!these next 3 are for output from waterbody, this goes into a separate output file
 	read(inputfile_unit_number,*) is_waterbody_info_output   !waterbody depth, conc and benthic   !OUTPUT Line 18
 	
-	read(inputfile_unit_number,*)  !expansion lines    ! OUTPUT Line 19
-	read(inputfile_unit_number,*)	                   ! OUTPUT Line 20
-	read(inputfile_unit_number,*)	                   ! OUTPUT Line 21
+	read(inputfile_unit_number,*)   is_output_spraydrift                   ! OUTPUT Line 74
+	read(inputfile_unit_number,*)	                                       !expansion lines   
+	read(inputfile_unit_number,*)	                   
 	read(inputfile_unit_number,*)                      ! OUTPUT Line 22
 	read(inputfile_unit_number,*)	                   ! OUTPUT Line 23
 	read(inputfile_unit_number,*)	                   ! OUTPUT Line 24

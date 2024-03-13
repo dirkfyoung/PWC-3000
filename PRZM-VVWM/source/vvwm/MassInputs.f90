@@ -106,11 +106,6 @@ integer :: i
        !need to adjust drift here
        ! drift_kg_per_m2(app_counter) = drift_value(i)*application_rate_in(i)/10000.
        
-       
-       
-       
-       
-       
        do i=1, total_applications
            index_day = application_date(i)-startday
            if (index_day > 0 .and. index_day <= num_records) then

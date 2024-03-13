@@ -165,7 +165,7 @@
         msg = msg & vbNewLine & outputInfiltratedWaterLastLayer.Checked & ","
 
         msg = msg & vbNewLine & outputWaterConc.Checked & ","
-        msg = msg & vbNewLine & "holder for future expansion" & ","
+        msg = msg & vbNewLine & outputSpraydrift.Checked & ","
         msg = msg & vbNewLine & "holder for future expansion" & ","
 
         msg = msg & vbNewLine & "holder for future expansion" & ","
@@ -951,10 +951,15 @@
             outputWaterConc.Checked = currentrow(0)
 
 
+            currentrow = MyReader.ReadFields
 
+            If currentrow(0) = "True" Or "False" Then
+                outputSpraydrift.Checked = currentrow(0)
+            Else
+                outputSpraydrift.Checked = False
+            End If
 
             MyReader.ReadLine() 'expansion lines
-            MyReader.ReadLine()
             MyReader.ReadLine()
             MyReader.ReadLine()
             MyReader.ReadLine()

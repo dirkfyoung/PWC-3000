@@ -66,9 +66,6 @@ module schemeload
 			!Interpolate Drift Values from Spray Table. Remember there is a header in the saved table so add 1
 			call lookup_drift(drift_schemes(scheme_number,i)+1, driftfactor_schemes(scheme_number,i),drift_value(i))
 
-            write(*,*) "Drift Value (each app) ",drift_value(i)
-            
-            
             lag_app_in(i)          = lag_schemes(scheme_number,i)
             repeat_app_in(i)       = periodicity_schemes(scheme_number,i)
                    
@@ -94,6 +91,11 @@ module schemeload
     
 	!************************************************************************************
 	subroutine lookup_drift(row, column, output)
+    
+    !this routine seems redundant with the more generic find_in_table in utiliuties
+    !was there a reason to treat tpez spray table differently?
+    !try to consolidate in future
+       use constants_and_variables, ONLY: is_output_spraydrift
 	   use waterbody_parameters, only: spraytable
 	   integer, intent(in) :: row  
 	   real, intent(in)    :: column   !this is a distance, so its real and will be used for interpolation
@@ -124,9 +126,9 @@ module schemeload
 !	   		 write(*,'("            row = ",i2, " interpolate between columns ", i2, " and ", i2, ", fraction = ", g10.4 )') row, i-1, i,  (column - previous)/(spraytable(1, i)- previous)
 	   		 exit
 		 end if	 
-	   end do
-
-!	   write(*,'("            Interrpolated Spray Drift = ", G12.4)')  , output
+       end do
+       
+      if (is_output_spraydrift)  write(*,*)  "waterbody drift factor ", output
 	
 	end subroutine lookup_drift
 	
