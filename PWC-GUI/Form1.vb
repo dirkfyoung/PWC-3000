@@ -457,7 +457,7 @@ Public Class Form1
                         Next
                         SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True
 
-                        CheckBox1.Checked = True
+
 
 
                         'toggle scenario and app tab on if checked
@@ -474,7 +474,6 @@ Public Class Form1
                             oRow.Cells("Edit").Value = False
                         Next
 
-                        CheckBox1.Checked = False
 
                         'toggle off scenario and app tab if nothing checked
                         TabControl1.Controls.Remove(SchemeApplicationsTab)

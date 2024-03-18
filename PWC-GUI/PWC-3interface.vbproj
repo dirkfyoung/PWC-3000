@@ -11,7 +11,7 @@
     <AssemblyName>PWC-3</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -130,6 +130,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SchemeDetails.vb" />
+    <Compile Include="Settings.vb" />
     <Compile Include="Standard.vb" />
     <Compile Include="Utilities.vb" />
   </ItemGroup>
