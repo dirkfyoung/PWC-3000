@@ -127,8 +127,8 @@ module constants_and_variables
 	   
       integer, allocatable, dimension(:,:) :: method_schemes
       integer, allocatable, dimension(:,:) :: days_until_applied_schemes   !(scheme #, application # max of 366) 
-      
-
+      logical, allocatable, dimension(:,:) :: is_absolute_year_schemes            !are applications put on during specific years?
+      logical, allocatable, dimension(:)   :: is_absolute_year 
       
    !   character(LEN=10), allocatable,dimension(:,:) absolute_date_option
       integer,allocatable,dimension(:,:)      :: drift_schemes        !this is an integer corresponding to the drift in the waterbody file, inexed: scheme number, app number
@@ -505,6 +505,7 @@ module constants_and_variables
       integer,allocatable,dimension(:) :: repeat_app_in
       
       integer,allocatable,dimension(:) :: days_until_applied          !for relative dates
+
 
 	  real :: applied_mass_sum_gram_per_cm2  !g/cm2, keeps track of the cumulative mass applied, used in output characterizations, zero it for every run
       real :: fraction_off_field             !fraction of applied mass that leaves field by runoff, erosion, and drift

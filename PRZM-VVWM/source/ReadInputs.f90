@@ -33,7 +33,7 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     is_app_window, app_window_span, app_window_step, is_timeseriesfile, &
 	is_waterbody_info_output , is_adjust_for_rain_schemes,rain_limit_schemes,optimum_application_window_schemes, &
 	intolerable_rain_window_schemes, min_days_between_apps_schemes,  is_batch_scenario , scenario_batchfile , is_needs_poundkg_conversion,&
-    open_water_adj , is_hydrolysis_override, is_output_spraydrift
+    open_water_adj , is_hydrolysis_override, is_output_spraydrift, is_absolute_year_schemes
 
 use waterbody_parameters, ONLY: itsapond, itsareservoir, itsother,itstpezwpez, waterbody_names, USEPA_reservoir,USEPA_pond , use_tpezbuffer
 use utilities
@@ -45,7 +45,9 @@ use utilities
     character(Len=Max_read_line) ::  wholeline
     integer :: absolute_app_month
     integer :: absolute_app_day 
+    integer :: absolute_app_year
     integer :: comma_1, comma_2,comma_3,comma_4,comma_5,comma_6,comma_7,comma_8
+    integer :: first_slash, second_slash
     integer :: start_wb
     
     character (len=256) :: scheme_name
@@ -94,9 +96,7 @@ use utilities
 
     read(inputfile_unit_number,*) foliar_halflife_input(1), foliar_halflife_input(2),&              !Line 22
         foliar_halflife_input(3),foliar_formation_ratio_12, foliar_formation_ratio_23            
-    
-
-    
+        
     read(inputfile_unit_number,*) plant_washoff_coeff(1),plant_washoff_coeff(2),plant_washoff_coeff(3)            !Line 23  
     read(inputfile_unit_number,*) mwt(1), mwt(2), mwt(3)                                                          !Line 24
     read(inputfile_unit_number,*) vapor_press(1), vapor_press(2),vapor_press(3)                                   !Line 25
@@ -115,6 +115,7 @@ use utilities
     allocate (num_apps_in_schemes(number_of_schemes))                                                             
     allocate (app_reference_point_schemes(number_of_schemes))
     allocate (days_until_applied_schemes(number_of_schemes,366)) 
+    allocate (is_absolute_year_schemes(number_of_schemes,366)) 
     
     allocate (application_rate_schemes(number_of_schemes,366)) 
     allocate (method_schemes(number_of_schemes,366)) 
@@ -141,7 +142,7 @@ use utilities
     allocate (is_batch_scenario(number_of_schemes))    
     allocate (scenario_batchfile(number_of_schemes))
     
-	
+	is_absolute_year_schemes = .FALSE.
     do i=1, number_of_schemes
         read(inputfile_unit_number,*) scheme_number_readin, scheme_name                                !scheme line 1
   !      write(*,'(A22,I5,1X,A256)') " Scheme Number & Name ",scheme_number_readin, adjustl(scheme_name)
@@ -149,25 +150,44 @@ use utilities
         read(inputfile_unit_number,*) app_reference_point_schemes(i)                            !scheme line 2
         read(inputfile_unit_number,*) num_apps_in_schemes(i)                                    !scheme line 3
         
-        do j=1, num_apps_in_schemes(i)                          
+        do j=1, num_apps_in_schemes(i)   
+           
             select case (app_reference_point_schemes(i))
             case (0)
-                read(inputfile_unit_number,'(A)')wholeline                                      !Scheme Line Group 4               
-                if (index(wholeline, '/') == index(wholeline, '/', .TRUE.)) then
+                read(inputfile_unit_number,'(A)')wholeline 
+        
+                  first_slash  = index(wholeline, '/')
+                  second_slash = index(wholeline, '/', .TRUE.)
+                  comma_1      = index(wholeline, ',')
+                
+                !Scheme Line Group 4               
+                if (first_slash == second_slash) then  !this checks to see if only one "/" exists
                    ! only a day and month are given, so this is repeating every year
                                           
                    !convert string dates into integers
-                   read(wholeline(1:(index(wholeline, '/')-1)),*)  absolute_app_month
-        
+                   read(wholeline(1:first_slash-1),*)  absolute_app_month                     
+                                     
+                   read(wholeline((first_slash+1): (comma_1 -1)),*)  absolute_app_day
                    
-                   comma_1 = index(wholeline, ',')
-                   
-                   read(wholeline((index(wholeline, '/')+1): (comma_1 -1)),*)  absolute_app_day
                    !Convert to julian day. Treat these similar to realtive application, using Jan 1 as reference date          
                    
                    days_until_applied_schemes(i,j) = jd (1900, absolute_app_month,absolute_app_day)               
                 else
-                         !the year is include, so this is year specific
+                   is_absolute_year_schemes(i,j) = .TRUE.
+                    
+                   read(wholeline(1:(first_slash-1)),*)  absolute_app_month
+                   read(wholeline((first_slash+1):(second_slash-1)),*)  absolute_app_day
+                   read(wholeline((second_slash+1): (comma_1 -1)),*)  absolute_app_year
+                   
+                   write(*,*) absolute_app_month, absolute_app_day, absolute_app_year
+                   
+                   ! For now, treating just like absolute month /day.  
+                   ! THe absolute year can be used as a flag that is different than 1900 to indiucate absolute year
+                   
+                   days_until_applied_schemes(i,j) = jd (absolute_app_year, absolute_app_month,absolute_app_day) 
+
+                     
+                    !the year is include, so this is year specific
                 end if
                  
                 comma_2 = comma_1 + index(wholeline((comma_1+1):len(wholeline)), ',')

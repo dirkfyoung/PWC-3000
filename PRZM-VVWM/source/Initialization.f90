@@ -522,12 +522,6 @@ end subroutine chemical_manipulations
     
 
     
-    
-    
-    
-    
-    
-    
 
     !write (*,'(A)')   '    #     depth     bd       max_water     min_wat    orgcarb         kd         dwrate'
     !do i = 1, ncom2
@@ -745,7 +739,7 @@ subroutine SetupApplications
                                     application_date_original,application_date, pest_app_method,DEPI,TAPP,APPEFF,Tband_top, &
                                     num_crop_periods_input, emm, emd, mam,mad, ham,had, &
                                     total_applications , drift_kg_per_m2, cam123_soil_depth, delx, &
-                                     days_until_applied,app_reference_point, application_order, is_adjust_for_rain
+                                     days_until_applied,app_reference_point, application_order, is_adjust_for_rain, is_absolute_year
    
     use clock_variables
           
@@ -786,6 +780,9 @@ subroutine SetupApplications
         crop_iterations = num_crop_periods_input
     end if
 
+    
+    
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !First Loop is Crop Iterations, for absolute dates there is only one iteration  
     app_counter=0       
     do mcrop = 1, crop_iterations
@@ -803,22 +800,51 @@ subroutine SetupApplications
              case (3) !relative to harvest 
                   month = ham(mcrop)
                   day = had(mcrop)     
-         end select
+             end select
          
         !The following does not put apps in chrono order, rather by app number, then chrono.
         ! this is because each app may be lagged and stepped independent of others
-        !For rain fast option, will need chrono order.
+        !For rain fast option, will need chrono order.  
          do i=1, num_applications_input
+             
+            if (is_absolute_year(i)) then        
+                app_counter = app_counter+1  !this allows both absolute years AND cycle years to be used
+                application_date(app_counter)=   days_until_applied(i) !for absolute years the actual julian is held here  
+                
+                pest_app_method(app_counter) = pest_app_method_in(i)
+                DEPI(app_counter) =  DEPI_in(i)
+                select case(pest_app_method(app_counter))
+                  case(1:2)  !these are the only default depths and set to 4 cm
+                          DEPI(app_counter) = cam123_soil_depth  !default for general unspecified applications
+                  case(3:10)                            
+                     If (DEPI(app_counter) < delx(1)) Then
+                        DEPI(app_counter) = delx(1)
+                        write (*,*) 'Note: Specified depth is less than compartment size, so used minimum incorporation = ', Delx(1)
+                     End If
+                end select
+                                
+                  TAPP(app_counter) = application_rate_in(i)/1.0E5  !     TAPP... kg/ha ---> g/cm**2
+                  APPEFF(app_counter) = APPEFF_in(i)
+                  
+                  Tband_top(app_counter) = Tband_top_in(i)    
+                  
+                  
+                  drift_kg_per_m2(app_counter) = drift_value(i)*application_rate_in(i)/10000.    !Kg/m2 drift application to waterbody         
+               !  call get_date (application_date(app_counter), YEAR_out,MONTH_out,DAY_out)
+                 
+    
+            else
               do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
 
-                    app_counter = app_counter+1  
-                    
+                    app_counter = app_counter+1
+
+ 
                     application_date(app_counter)=   jd(j,month,day) + days_until_applied(i)       
                     pest_app_method(app_counter) = pest_app_method_in(i)
                     DEPI(app_counter) =  DEPI_in(i)
                     !make some Depth corrections if necessary
-		   
-                   select case(pest_app_method(app_counter))
+ 
+                    select case(pest_app_method(app_counter))
                       case(1:2)  !these are the only default depths and set to 4 cm
                           DEPI(app_counter) = cam123_soil_depth  !default for general unspecified applications
                       case(3:10)                            
@@ -827,18 +853,27 @@ subroutine SetupApplications
                              write (*,*) 'Note: Specified depth is less than compartment size, so used minimum incorporation = ', Delx(1)
                           End If
                       end select
+   
                       
-  
-                      
-                   TAPP(app_counter) = application_rate_in(i)/1.0E5  !     TAPP... kg/ha ---> g/cm**2
-                   APPEFF(app_counter) = APPEFF_in(i)
-                   Tband_top(app_counter) = Tband_top_in(i)                                   
-                   drift_kg_per_m2(app_counter) = drift_value(i)*application_rate_in(i)/10000.    !Kg/m2 drift application to waterbody         
-                   call get_date (application_date(app_counter), YEAR_out,MONTH_out,DAY_out)
-
+                    TAPP(app_counter) = application_rate_in(i)/1.0E5  !     TAPP... kg/ha ---> g/cm**2
+                    APPEFF(app_counter) = APPEFF_in(i)
+                    Tband_top(app_counter) = Tband_top_in(i)                                   
+                    drift_kg_per_m2(app_counter) = drift_value(i)*application_rate_in(i)/10000.    !Kg/m2 drift application to waterbody         
+                   !call get_date (application_date(app_counter), YEAR_out,MONTH_out,DAY_out)
+              !    write (*,*) "cyc",YEAR_out,MONTH_out,DAY_out
+                    
               end do    
+            endif  !absolute years vs. yearly cycle
+    
+            
          end  do    
     end do
+    
+
+    
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
+    
     
     application_date_original = application_date  !keep application_date_original the same for every scheme
   

@@ -90,7 +90,7 @@ Public Class Form1
         AppTableDisplay.ColumnCount = 2
         AppTableDisplay.Columns(0).Name = "Days"
         ' AppTableDisplay.Columns(0).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
-        AppTableDisplay.Columns(0).Width = 56
+        AppTableDisplay.Columns(0).Width = 68
 
         AppTableDisplay.Columns(1).Name = "Amount (kg/ha)"
         AppTableDisplay.Columns(1).AutoSizeMode = DataGridViewAutoSizeColumnMode.None

@@ -4,7 +4,7 @@ module schemeload
     
     Subroutine deallocate_application_parameters
         use constants_and_variables, ONLY: application_rate_in,days_until_applied,DEPI_in,APPEFF_in,Tband_top_in,&
-                                        pest_app_method_in ,drift_value,lag_app_in,repeat_app_in
+                                        pest_app_method_in ,drift_value,lag_app_in,repeat_app_in, is_absolute_year
         deallocate(application_rate_in)                                                            
         deallocate(days_until_applied )                                                            
         deallocate(DEPI_in            )          
@@ -15,7 +15,7 @@ module schemeload
         
         deallocate(lag_app_in ) 
         deallocate(repeat_app_in) 
-        
+        deallocate(is_absolute_year)
 
 	end Subroutine deallocate_application_parameters
 
@@ -29,7 +29,8 @@ module schemeload
            drift_schemes,lag_schemes,periodicity_schemes,driftfactor_schemes,&
            app_reference_point, app_reference_point_schemes, is_adjust_for_rain_schemes, & 	
            rain_limit_schemes,optimum_application_window_schemes,intolerable_rain_window_schemes,min_days_between_apps_schemes, & 
-	       is_adjust_for_rain, rain_limit,optimum_application_window,intolerable_rain_window,min_days_between_apps , is_batch_scenario 
+	       is_adjust_for_rain, rain_limit,optimum_application_window,intolerable_rain_window,min_days_between_apps, is_batch_scenario, &
+           is_absolute_year, is_absolute_year_schemes
       
        use waterbody_parameters, ONLY: afield,   area_waterbody, spray_values
         integer,intent(in):: scheme_number
@@ -45,6 +46,8 @@ module schemeload
         allocate(lag_app_in         (num_applications_input)) 
         allocate(repeat_app_in      (num_applications_input))
         allocate(days_until_applied (num_applications_input))
+        allocate(is_absolute_year   (num_applications_input))    
+        
         
         !pest_app_method = 1 "Below Crop" 
         !pest_app_method = 2 "Above Crop"
@@ -57,6 +60,7 @@ module schemeload
         app_reference_point = app_reference_point_schemes(scheme_number)
       
         do i=1, num_applications_input
+            is_absolute_year(i)    = is_absolute_year_schemes(scheme_number,i)
             days_until_applied(i)  = days_until_applied_schemes(scheme_number,i)
             application_rate_in(i) = application_rate_schemes(scheme_number,i)
             pest_app_method_in(i)  = method_schemes(scheme_number,i)
