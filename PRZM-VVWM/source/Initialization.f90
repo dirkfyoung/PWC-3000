@@ -1131,7 +1131,7 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
 	
 
 
-   !Below are the chemicl outputs, ned to get parent and degradates
+   !Below are the chemical outputs, need to get parent and degradates
 	do j=1, nchem
            if (is_runoff_chem_output) then
                i=i+1
