@@ -439,9 +439,9 @@ Public Class Form1
 
 
 
-        Try
 
-            Select Case SchemeTableDisplay.Columns(e.ColumnIndex).Name
+
+        Select Case SchemeTableDisplay.Columns(e.ColumnIndex).Name
                 Case "Edit"
 
                     'clear all got it
@@ -686,11 +686,6 @@ Public Class Form1
 
 
 
-
-
-
-
-
                         SchemeTableDisplay.Rows.Remove(SchemeTableDisplay.Rows(e.RowIndex))
                     End If
 
@@ -709,11 +704,7 @@ Public Class Form1
             End Select
 
 
-        Catch ex As Exception
-            MsgBox(ex.Message)
 
-            Exit Sub
-        End Try
 
 
     End Sub
@@ -1237,58 +1228,69 @@ Public Class Form1
 
     End Sub
 
-    Private Sub AppTableDisplay_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles AppTableDisplay.CellContentClick, AppTableDisplay.CellClick, AppTableDisplay.CellValueChanged
-
-        If e.RowIndex > -1 Then
-            Select Case AppTableDisplay.Rows(e.RowIndex).Cells(2).Value
-                Case Standard.method1, Standard.method2                    'above and below crop
-                    AppTableDisplay.Rows(e.RowIndex).Cells(3).Value = "4.0"
-                    AppTableDisplay.Rows(e.RowIndex).Cells(4).Value = "0.0"
-
-                    AppTableDisplay.Rows(e.RowIndex).Cells(3).ReadOnly = True
-                    AppTableDisplay.Rows(e.RowIndex).Cells(4).ReadOnly = True
-                    AppTableDisplay.Item(3, e.RowIndex).Style.ForeColor = Color.Gray
-                    AppTableDisplay.Item(4, e.RowIndex).Style.ForeColor = Color.Gray
-
-
-                Case Standard.method3, Standard.method4, Standard.method6, Standard.method7      'Uniform and triangles
-                    AppTableDisplay.Rows(e.RowIndex).Cells(4).Value = "0.0"
-
-                    AppTableDisplay.Item(3, e.RowIndex).Style.ForeColor = Color.Black
-                    AppTableDisplay.Item(4, e.RowIndex).Style.ForeColor = Color.Gray
-                    AppTableDisplay.Rows(e.RowIndex).Cells(3).ReadOnly = False
-                    AppTableDisplay.Rows(e.RowIndex).Cells(4).ReadOnly = True
+    Private Sub AppTableDisplay_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles AppTableDisplay.CellContentClick, AppTableDisplay.CellValueChanged
 
 
 
-                Case Else
-                    AppTableDisplay.Item(3, e.RowIndex).Style.ForeColor = Color.Black
-                    AppTableDisplay.Item(4, e.RowIndex).Style.ForeColor = Color.Black
-                    AppTableDisplay.Rows(e.RowIndex).Cells(3).ReadOnly = False
-                    AppTableDisplay.Rows(e.RowIndex).Cells(4).ReadOnly = False
 
 
-            End Select
-        End If
 
 
         Select Case AppTableDisplay.Columns(e.ColumnIndex).Name
 
             Case "Delete"
 
-
-
                 If AppTableDisplay.CurrentRow.IsNewRow Then
 
                     Beep()
                 Else
 
-                    AppTableDisplay.Rows.Remove(AppTableDisplay.Rows(AppTableDisplay.SelectedCells.Item(0).RowIndex))
+                    'AppTableDisplay.Rows.Remove(AppTableDisplay.Rows(AppTableDisplay.SelectedCells.Item(0).RowIndex))
+
+                    AppTableDisplay.Rows.Remove(AppTableDisplay.Rows(e.RowIndex))
+                    Exit Sub
+
+                    AppTableDisplay.ClearSelection()
+
                 End If
 
 
             Case Else
-                Exit Sub
+
+                If e.RowIndex > -1 Then
+                    Select Case AppTableDisplay.Rows(e.RowIndex).Cells(2).Value
+                        Case Standard.method1, Standard.method2                    'above and below crop
+                            AppTableDisplay.Rows(e.RowIndex).Cells(3).Value = "4.0"
+                            AppTableDisplay.Rows(e.RowIndex).Cells(4).Value = "0.0"
+
+                            AppTableDisplay.Rows(e.RowIndex).Cells(3).ReadOnly = True
+                            AppTableDisplay.Rows(e.RowIndex).Cells(4).ReadOnly = True
+                            AppTableDisplay.Item(3, e.RowIndex).Style.ForeColor = Color.Gray
+                            AppTableDisplay.Item(4, e.RowIndex).Style.ForeColor = Color.Gray
+
+
+                        Case Standard.method3, Standard.method4, Standard.method6, Standard.method7      'Uniform and triangles
+                            AppTableDisplay.Rows(e.RowIndex).Cells(4).Value = "0.0"
+
+                            AppTableDisplay.Item(3, e.RowIndex).Style.ForeColor = Color.Black
+                            AppTableDisplay.Item(4, e.RowIndex).Style.ForeColor = Color.Gray
+                            AppTableDisplay.Rows(e.RowIndex).Cells(3).ReadOnly = False
+                            AppTableDisplay.Rows(e.RowIndex).Cells(4).ReadOnly = True
+
+
+                        Case Else
+                            AppTableDisplay.Item(3, e.RowIndex).Style.ForeColor = Color.Black
+                            AppTableDisplay.Item(4, e.RowIndex).Style.ForeColor = Color.Black
+                            AppTableDisplay.Rows(e.RowIndex).Cells(3).ReadOnly = False
+                            AppTableDisplay.Rows(e.RowIndex).Cells(4).ReadOnly = False
+
+                    End Select
+
+
+                End If
+
+
+
         End Select
 
     End Sub
