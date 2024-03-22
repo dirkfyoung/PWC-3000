@@ -174,7 +174,7 @@ Public Class Form1
         AppTableDisplay.Columns(8).Width = 42
 
         Dim btn As New DataGridViewButtonColumn()
-        btn.Text = "XXXX"
+        btn.Text = "delete"
         btn.HeaderText = "Delete"
         btn.Name = "Delete"
         btn.UseColumnTextForButtonValue = True
@@ -427,19 +427,13 @@ Public Class Form1
             .Scenarios = New List(Of String)
         } 'local for picking up schem inforation
 
-
         Dim Description As String
         Dim SchemeLabels As String
         Dim DisplayedSchemeNumber As Integer
 
-
         If e.RowIndex < 0 Then
             Exit Sub
         End If
-
-
-
-
 
         Select Case SchemeTableDisplay.Columns(e.ColumnIndex).Name
                 Case "Edit"
@@ -457,18 +451,14 @@ Public Class Form1
                         Next
                         SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True
 
-
-
-
-                        'toggle scenario and app tab on if checked
-                        If TabControl1.Controls.Contains(tempTabpage5) = False Then
+                    'toggle scenario and app tab on if checked
+                    If TabControl1.Controls.Contains(tempTabpage5) = False Then
                             'tab 5 and 6 are always together, so only need to see if oe or the other is active
                             TabControl1.Controls.Add(tempTabpage5)
                             TabControl1.Controls.Add(tempTabpage6)
                         End If
 
-
-                    Else
+                Else
 
                         For Each oRow As DataGridViewRow In SchemeTableDisplay.Rows
                             oRow.Cells("Edit").Value = False
@@ -504,12 +494,10 @@ Public Class Form1
                             buttonCell.Enabled = False
                         End If
 
+                    '_______________________________________________
 
-
-                        '_______________________________________________
-
-                        'allow only active scheme description to be edited
-                        SchemeTableDisplay.Rows(e.RowIndex).Cells(3).ReadOnly = False
+                    'allow only active scheme description to be edited
+                    SchemeTableDisplay.Rows(e.RowIndex).Cells(3).ReadOnly = False
 
                         buttonCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Commit"), DataGridViewDisableButtonCell)
 
@@ -710,12 +698,7 @@ Public Class Form1
     End Sub
 
 
-
-
     Private Sub SchemeTableDisplay_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles SchemeTableDisplay.CellMouseEnter
-
-
-
 
         If e.RowIndex < 0 Then
             Exit Sub
@@ -757,35 +740,13 @@ Public Class Form1
             Exit Sub
         End If
 
-
-
-
-
         Select Case SchemeTableDisplay.Columns(e.ColumnIndex).Name
             Case "Delete"
-
                 SchemeTableDisplay.Rows(e.RowIndex).Cells("Delete").Value = ""
             Case "Commit"
                 SchemeTableDisplay.Rows(e.RowIndex).Cells("Commit").Value = ""
-
         End Select
-
-
-
-
     End Sub
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1229,11 +1190,6 @@ Public Class Form1
     End Sub
 
     Private Sub AppTableDisplay_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles AppTableDisplay.CellContentClick, AppTableDisplay.CellValueChanged
-
-
-
-
-
 
 
         Select Case AppTableDisplay.Columns(e.ColumnIndex).Name
