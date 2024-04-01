@@ -24,14 +24,14 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -57,11 +57,11 @@ Partial Class Form1
         Me.DataGridViewDisableButtonColumn1 = New PWC_2020.DataGridViewDisableButtonColumn()
         Me.DataGridViewButtonColumn1 = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.AdvancedTab = New System.Windows.Forms.TabPage()
+        Me.ModifyScenarios = New System.Windows.Forms.Button()
         Me.IsHydrolysisOverride = New System.Windows.Forms.CheckBox()
         Me.Label85 = New System.Windows.Forms.Label()
         Me.WaterbodyEvapAdjustment = New System.Windows.Forms.TextBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
-        Me.ModifyScenarios = New System.Windows.Forms.Button()
         Me.TextBox5 = New System.Windows.Forms.TextBox()
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
@@ -607,7 +607,7 @@ Partial Class Form1
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 2, 0, 2)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1018, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1018, 28)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -754,6 +754,7 @@ Partial Class Form1
         '
         'AdvancedTab
         '
+        Me.AdvancedTab.Controls.Add(Me.ModifyScenarios)
         Me.AdvancedTab.Controls.Add(Me.IsHydrolysisOverride)
         Me.AdvancedTab.Controls.Add(Me.Label85)
         Me.AdvancedTab.Controls.Add(Me.WaterbodyEvapAdjustment)
@@ -789,6 +790,15 @@ Partial Class Form1
         Me.AdvancedTab.Text = "Advanced"
         Me.AdvancedTab.UseVisualStyleBackColor = True
         '
+        'ModifyScenarios
+        '
+        Me.ModifyScenarios.Location = New System.Drawing.Point(700, 184)
+        Me.ModifyScenarios.Name = "ModifyScenarios"
+        Me.ModifyScenarios.Size = New System.Drawing.Size(188, 63)
+        Me.ModifyScenarios.TabIndex = 211
+        Me.ModifyScenarios.Text = "Modify Scenarios vX to vY " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for developer only"
+        Me.ModifyScenarios.UseVisualStyleBackColor = True
+        '
         'IsHydrolysisOverride
         '
         Me.IsHydrolysisOverride.AutoSize = True
@@ -814,6 +824,7 @@ Partial Class Form1
         '
         'WaterbodyEvapAdjustment
         '
+        Me.WaterbodyEvapAdjustment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.WaterbodyEvapAdjustment.Location = New System.Drawing.Point(11, 513)
         Me.WaterbodyEvapAdjustment.Name = "WaterbodyEvapAdjustment"
         Me.WaterbodyEvapAdjustment.Size = New System.Drawing.Size(55, 22)
@@ -822,7 +833,6 @@ Partial Class Form1
         '
         'GroupBox7
         '
-        Me.GroupBox7.Controls.Add(Me.ModifyScenarios)
         Me.GroupBox7.Controls.Add(Me.TextBox5)
         Me.GroupBox7.Controls.Add(Me.TextBox3)
         Me.GroupBox7.Controls.Add(Me.TextBox2)
@@ -831,22 +841,14 @@ Partial Class Form1
         Me.GroupBox7.Controls.Add(Me.Button3)
         Me.GroupBox7.Location = New System.Drawing.Point(556, 29)
         Me.GroupBox7.Name = "GroupBox7"
-        Me.GroupBox7.Size = New System.Drawing.Size(406, 248)
+        Me.GroupBox7.Size = New System.Drawing.Size(406, 148)
         Me.GroupBox7.TabIndex = 213
         Me.GroupBox7.TabStop = False
-        Me.GroupBox7.Text = "developer stuff "
-        '
-        'ModifyScenarios
-        '
-        Me.ModifyScenarios.Location = New System.Drawing.Point(195, 174)
-        Me.ModifyScenarios.Name = "ModifyScenarios"
-        Me.ModifyScenarios.Size = New System.Drawing.Size(177, 64)
-        Me.ModifyScenarios.TabIndex = 211
-        Me.ModifyScenarios.Text = "Modify Scenarios v4 to v5" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for developer only"
-        Me.ModifyScenarios.UseVisualStyleBackColor = True
+        Me.GroupBox7.Text = "developer's character checker"
         '
         'TextBox5
         '
+        Me.TextBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox5.Location = New System.Drawing.Point(118, 98)
         Me.TextBox5.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -856,6 +858,7 @@ Partial Class Form1
         '
         'TextBox3
         '
+        Me.TextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox3.Location = New System.Drawing.Point(118, 25)
         Me.TextBox3.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.TextBox3.Name = "TextBox3"
@@ -865,6 +868,7 @@ Partial Class Form1
         '
         'TextBox2
         '
+        Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox2.Location = New System.Drawing.Point(118, 55)
         Me.TextBox2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -897,7 +901,7 @@ Partial Class Form1
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(139, 23)
         Me.Button3.TabIndex = 0
-        Me.Button3.Text = "find a chaacter"
+        Me.Button3.Text = "find a character"
         Me.Button3.UseVisualStyleBackColor = True
         '
         'GroupBox6
@@ -1021,6 +1025,7 @@ Partial Class Form1
         '
         'MassTransferRegion2GrandDaughter
         '
+        Me.MassTransferRegion2GrandDaughter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.MassTransferRegion2GrandDaughter.Location = New System.Drawing.Point(239, 275)
         Me.MassTransferRegion2GrandDaughter.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.MassTransferRegion2GrandDaughter.Name = "MassTransferRegion2GrandDaughter"
@@ -1029,6 +1034,7 @@ Partial Class Form1
         '
         'MassTransferRegion2Daughter
         '
+        Me.MassTransferRegion2Daughter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.MassTransferRegion2Daughter.Location = New System.Drawing.Point(135, 275)
         Me.MassTransferRegion2Daughter.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.MassTransferRegion2Daughter.Name = "MassTransferRegion2Daughter"
@@ -1037,6 +1043,7 @@ Partial Class Form1
         '
         'MassTransferRegion2
         '
+        Me.MassTransferRegion2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.MassTransferRegion2.Location = New System.Drawing.Point(32, 275)
         Me.MassTransferRegion2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.MassTransferRegion2.Name = "MassTransferRegion2"
@@ -1045,6 +1052,7 @@ Partial Class Form1
         '
         'FreundlichMinimumConc
         '
+        Me.FreundlichMinimumConc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.FreundlichMinimumConc.Location = New System.Drawing.Point(5, 94)
         Me.FreundlichMinimumConc.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.FreundlichMinimumConc.Name = "FreundlichMinimumConc"
@@ -1053,6 +1061,7 @@ Partial Class Form1
         '
         'Nexp3Reg1
         '
+        Me.Nexp3Reg1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Nexp3Reg1.Location = New System.Drawing.Point(239, 164)
         Me.Nexp3Reg1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Nexp3Reg1.Name = "Nexp3Reg1"
@@ -1062,6 +1071,7 @@ Partial Class Form1
         '
         'Nexp2Reg1
         '
+        Me.Nexp2Reg1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Nexp2Reg1.Location = New System.Drawing.Point(135, 164)
         Me.Nexp2Reg1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Nexp2Reg1.Name = "Nexp2Reg1"
@@ -1071,6 +1081,7 @@ Partial Class Form1
         '
         'Nexp1Reg1
         '
+        Me.Nexp1Reg1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Nexp1Reg1.Location = New System.Drawing.Point(32, 164)
         Me.Nexp1Reg1.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Nexp1Reg1.Name = "Nexp1Reg1"
@@ -1080,6 +1091,7 @@ Partial Class Form1
         '
         'Nexp3Reg2
         '
+        Me.Nexp3Reg2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Nexp3Reg2.Location = New System.Drawing.Point(239, 229)
         Me.Nexp3Reg2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Nexp3Reg2.Name = "Nexp3Reg2"
@@ -1088,6 +1100,7 @@ Partial Class Form1
         '
         'Nexp2Reg2
         '
+        Me.Nexp2Reg2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Nexp2Reg2.Location = New System.Drawing.Point(135, 229)
         Me.Nexp2Reg2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Nexp2Reg2.Name = "Nexp2Reg2"
@@ -1096,6 +1109,7 @@ Partial Class Form1
         '
         'Nexp1Reg2
         '
+        Me.Nexp1Reg2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Nexp1Reg2.Location = New System.Drawing.Point(32, 229)
         Me.Nexp1Reg2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Nexp1Reg2.Name = "Nexp1Reg2"
@@ -1104,6 +1118,7 @@ Partial Class Form1
         '
         'Kf3Reg2
         '
+        Me.Kf3Reg2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Kf3Reg2.Location = New System.Drawing.Point(239, 207)
         Me.Kf3Reg2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Kf3Reg2.Name = "Kf3Reg2"
@@ -1112,6 +1127,7 @@ Partial Class Form1
         '
         'Kf2Reg2
         '
+        Me.Kf2Reg2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Kf2Reg2.Location = New System.Drawing.Point(135, 207)
         Me.Kf2Reg2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Kf2Reg2.Name = "Kf2Reg2"
@@ -1120,6 +1136,7 @@ Partial Class Form1
         '
         'Kf1Reg2
         '
+        Me.Kf1Reg2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Kf1Reg2.Location = New System.Drawing.Point(32, 207)
         Me.Kf1Reg2.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Kf1Reg2.Name = "Kf1Reg2"
@@ -1128,6 +1145,7 @@ Partial Class Form1
         '
         'SubTimeSteps
         '
+        Me.SubTimeSteps.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.SubTimeSteps.Location = New System.Drawing.Point(5, 68)
         Me.SubTimeSteps.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SubTimeSteps.Name = "SubTimeSteps"
@@ -1275,6 +1293,7 @@ Partial Class Form1
         '
         'ExpParameter2
         '
+        Me.ExpParameter2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.ExpParameter2.Location = New System.Drawing.Point(670, 557)
         Me.ExpParameter2.Name = "ExpParameter2"
         Me.ExpParameter2.Size = New System.Drawing.Size(53, 22)
@@ -1282,6 +1301,7 @@ Partial Class Form1
         '
         'ExpParameter1
         '
+        Me.ExpParameter1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.ExpParameter1.Location = New System.Drawing.Point(670, 535)
         Me.ExpParameter1.Name = "ExpParameter1"
         Me.ExpParameter1.Size = New System.Drawing.Size(53, 22)
@@ -1326,6 +1346,7 @@ Partial Class Form1
         '
         'RampEndValue
         '
+        Me.RampEndValue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.RampEndValue.Location = New System.Drawing.Point(670, 484)
         Me.RampEndValue.Name = "RampEndValue"
         Me.RampEndValue.Size = New System.Drawing.Size(53, 22)
@@ -1334,6 +1355,7 @@ Partial Class Form1
         '
         'ProfileDepth2
         '
+        Me.ProfileDepth2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.ProfileDepth2.Location = New System.Drawing.Point(670, 462)
         Me.ProfileDepth2.Name = "ProfileDepth2"
         Me.ProfileDepth2.Size = New System.Drawing.Size(53, 22)
@@ -1342,6 +1364,7 @@ Partial Class Form1
         '
         'profileDepth1
         '
+        Me.profileDepth1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.profileDepth1.Location = New System.Drawing.Point(670, 440)
         Me.profileDepth1.Name = "profileDepth1"
         Me.profileDepth1.Size = New System.Drawing.Size(53, 22)
@@ -1372,6 +1395,7 @@ Partial Class Form1
         '
         'ErosionFlag
         '
+        Me.ErosionFlag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.ErosionFlag.Location = New System.Drawing.Point(153, 53)
         Me.ErosionFlag.Name = "ErosionFlag"
         Me.ErosionFlag.Size = New System.Drawing.Size(40, 22)
@@ -1380,6 +1404,7 @@ Partial Class Form1
         '
         'Q10
         '
+        Me.Q10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Q10.Location = New System.Drawing.Point(58, 101)
         Me.Q10.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Q10.Name = "Q10"
@@ -1482,6 +1507,7 @@ Partial Class Form1
         '
         'WaterBodyType
         '
+        Me.WaterBodyType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.WaterBodyType.Location = New System.Drawing.Point(146, 35)
         Me.WaterBodyType.Name = "WaterBodyType"
         Me.WaterBodyType.Size = New System.Drawing.Size(33, 22)
@@ -1645,7 +1671,7 @@ Partial Class Form1
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.68966!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 108.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 145.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 146.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.Label170, 4, 6)
         Me.TableLayoutPanel3.Controls.Add(Me.Label169, 3, 6)
         Me.TableLayoutPanel3.Controls.Add(Me.Label168, 2, 6)
@@ -1698,7 +1724,7 @@ Partial Class Form1
         '
         Me.Label170.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label170.AutoSize = True
-        Me.Label170.Location = New System.Drawing.Point(404, 154)
+        Me.Label170.Location = New System.Drawing.Point(403, 154)
         Me.Label170.Name = "Label170"
         Me.Label170.Size = New System.Drawing.Size(28, 16)
         Me.Label170.TabIndex = 237
@@ -1708,7 +1734,7 @@ Partial Class Form1
         '
         Me.Label169.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label169.AutoSize = True
-        Me.Label169.Location = New System.Drawing.Point(295, 154)
+        Me.Label169.Location = New System.Drawing.Point(294, 154)
         Me.Label169.Name = "Label169"
         Me.Label169.Size = New System.Drawing.Size(28, 16)
         Me.Label169.TabIndex = 236
@@ -1718,7 +1744,7 @@ Partial Class Form1
         '
         Me.Label168.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label168.AutoSize = True
-        Me.Label168.Location = New System.Drawing.Point(208, 154)
+        Me.Label168.Location = New System.Drawing.Point(207, 154)
         Me.Label168.Name = "Label168"
         Me.Label168.Size = New System.Drawing.Size(21, 16)
         Me.Label168.TabIndex = 235
@@ -1728,7 +1754,7 @@ Partial Class Form1
         '
         Me.Label167.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label167.AutoSize = True
-        Me.Label167.Location = New System.Drawing.Point(120, 154)
+        Me.Label167.Location = New System.Drawing.Point(119, 154)
         Me.Label167.Name = "Label167"
         Me.Label167.Size = New System.Drawing.Size(14, 16)
         Me.Label167.TabIndex = 234
@@ -1738,7 +1764,7 @@ Partial Class Form1
         '
         Me.Label166.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label166.AutoSize = True
-        Me.Label166.Location = New System.Drawing.Point(31, 154)
+        Me.Label166.Location = New System.Drawing.Point(30, 154)
         Me.Label166.Name = "Label166"
         Me.Label166.Size = New System.Drawing.Size(28, 16)
         Me.Label166.TabIndex = 233
@@ -1748,7 +1774,7 @@ Partial Class Form1
         '
         Me.Label165.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label165.AutoSize = True
-        Me.Label165.Location = New System.Drawing.Point(404, 132)
+        Me.Label165.Location = New System.Drawing.Point(403, 132)
         Me.Label165.Name = "Label165"
         Me.Label165.Size = New System.Drawing.Size(28, 16)
         Me.Label165.TabIndex = 232
@@ -1758,7 +1784,7 @@ Partial Class Form1
         '
         Me.Label164.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label164.AutoSize = True
-        Me.Label164.Location = New System.Drawing.Point(295, 132)
+        Me.Label164.Location = New System.Drawing.Point(294, 132)
         Me.Label164.Name = "Label164"
         Me.Label164.Size = New System.Drawing.Size(28, 16)
         Me.Label164.TabIndex = 231
@@ -1768,7 +1794,7 @@ Partial Class Form1
         '
         Me.Label163.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label163.AutoSize = True
-        Me.Label163.Location = New System.Drawing.Point(208, 132)
+        Me.Label163.Location = New System.Drawing.Point(207, 132)
         Me.Label163.Name = "Label163"
         Me.Label163.Size = New System.Drawing.Size(21, 16)
         Me.Label163.TabIndex = 230
@@ -1778,7 +1804,7 @@ Partial Class Form1
         '
         Me.Label162.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label162.AutoSize = True
-        Me.Label162.Location = New System.Drawing.Point(120, 132)
+        Me.Label162.Location = New System.Drawing.Point(119, 132)
         Me.Label162.Name = "Label162"
         Me.Label162.Size = New System.Drawing.Size(14, 16)
         Me.Label162.TabIndex = 229
@@ -1798,7 +1824,7 @@ Partial Class Form1
         '
         Me.Label160.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label160.AutoSize = True
-        Me.Label160.Location = New System.Drawing.Point(404, 112)
+        Me.Label160.Location = New System.Drawing.Point(403, 112)
         Me.Label160.Name = "Label160"
         Me.Label160.Size = New System.Drawing.Size(28, 16)
         Me.Label160.TabIndex = 227
@@ -1808,7 +1834,7 @@ Partial Class Form1
         '
         Me.Label159.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label159.AutoSize = True
-        Me.Label159.Location = New System.Drawing.Point(298, 112)
+        Me.Label159.Location = New System.Drawing.Point(297, 112)
         Me.Label159.Name = "Label159"
         Me.Label159.Size = New System.Drawing.Size(21, 16)
         Me.Label159.TabIndex = 226
@@ -1818,7 +1844,7 @@ Partial Class Form1
         '
         Me.Label158.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label158.AutoSize = True
-        Me.Label158.Location = New System.Drawing.Point(208, 112)
+        Me.Label158.Location = New System.Drawing.Point(207, 112)
         Me.Label158.Name = "Label158"
         Me.Label158.Size = New System.Drawing.Size(21, 16)
         Me.Label158.TabIndex = 225
@@ -1828,7 +1854,7 @@ Partial Class Form1
         '
         Me.Label157.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label157.AutoSize = True
-        Me.Label157.Location = New System.Drawing.Point(120, 112)
+        Me.Label157.Location = New System.Drawing.Point(119, 112)
         Me.Label157.Name = "Label157"
         Me.Label157.Size = New System.Drawing.Size(14, 16)
         Me.Label157.TabIndex = 224
@@ -1858,7 +1884,7 @@ Partial Class Form1
         '
         Me.Label154.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label154.AutoSize = True
-        Me.Label154.Location = New System.Drawing.Point(298, 92)
+        Me.Label154.Location = New System.Drawing.Point(297, 92)
         Me.Label154.Name = "Label154"
         Me.Label154.Size = New System.Drawing.Size(21, 16)
         Me.Label154.TabIndex = 221
@@ -1888,7 +1914,7 @@ Partial Class Form1
         '
         Me.Label149.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label149.AutoSize = True
-        Me.Label149.Location = New System.Drawing.Point(302, 72)
+        Me.Label149.Location = New System.Drawing.Point(301, 72)
         Me.Label149.Name = "Label149"
         Me.Label149.Size = New System.Drawing.Size(14, 16)
         Me.Label149.TabIndex = 216
@@ -1898,7 +1924,7 @@ Partial Class Form1
         '
         Me.Label146.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label146.AutoSize = True
-        Me.Label146.Location = New System.Drawing.Point(411, 52)
+        Me.Label146.Location = New System.Drawing.Point(410, 52)
         Me.Label146.Name = "Label146"
         Me.Label146.Size = New System.Drawing.Size(14, 16)
         Me.Label146.TabIndex = 213
@@ -1908,7 +1934,7 @@ Partial Class Form1
         '
         Me.Label145.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label145.AutoSize = True
-        Me.Label145.Location = New System.Drawing.Point(38, 72)
+        Me.Label145.Location = New System.Drawing.Point(37, 72)
         Me.Label145.Name = "Label145"
         Me.Label145.Size = New System.Drawing.Size(14, 16)
         Me.Label145.TabIndex = 212
@@ -1918,7 +1944,7 @@ Partial Class Form1
         '
         Me.Label144.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label144.AutoSize = True
-        Me.Label144.Location = New System.Drawing.Point(302, 52)
+        Me.Label144.Location = New System.Drawing.Point(301, 52)
         Me.Label144.Name = "Label144"
         Me.Label144.Size = New System.Drawing.Size(14, 16)
         Me.Label144.TabIndex = 8
@@ -1928,7 +1954,7 @@ Partial Class Form1
         '
         Me.Label140.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label140.AutoSize = True
-        Me.Label140.Location = New System.Drawing.Point(383, 17)
+        Me.Label140.Location = New System.Drawing.Point(382, 17)
         Me.Label140.Name = "Label140"
         Me.Label140.Size = New System.Drawing.Size(70, 16)
         Me.Label140.TabIndex = 4
@@ -1938,7 +1964,7 @@ Partial Class Form1
         '
         Me.Label138.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label138.AutoSize = True
-        Me.Label138.Location = New System.Drawing.Point(170, 9)
+        Me.Label138.Location = New System.Drawing.Point(169, 9)
         Me.Label138.Name = "Label138"
         Me.Label138.Size = New System.Drawing.Size(97, 32)
         Me.Label138.TabIndex = 2
@@ -1948,7 +1974,7 @@ Partial Class Form1
         '
         Me.Label141.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label141.AutoSize = True
-        Me.Label141.Location = New System.Drawing.Point(38, 52)
+        Me.Label141.Location = New System.Drawing.Point(37, 52)
         Me.Label141.Name = "Label141"
         Me.Label141.Size = New System.Drawing.Size(14, 16)
         Me.Label141.TabIndex = 5
@@ -1958,7 +1984,7 @@ Partial Class Form1
         '
         Me.Label153.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label153.AutoSize = True
-        Me.Label153.Location = New System.Drawing.Point(120, 92)
+        Me.Label153.Location = New System.Drawing.Point(119, 92)
         Me.Label153.Name = "Label153"
         Me.Label153.Size = New System.Drawing.Size(14, 16)
         Me.Label153.TabIndex = 220
@@ -1968,7 +1994,7 @@ Partial Class Form1
         '
         Me.Label152.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label152.AutoSize = True
-        Me.Label152.Location = New System.Drawing.Point(207, 92)
+        Me.Label152.Location = New System.Drawing.Point(206, 92)
         Me.Label152.Name = "Label152"
         Me.Label152.Size = New System.Drawing.Size(24, 16)
         Me.Label152.TabIndex = 219
@@ -1978,7 +2004,7 @@ Partial Class Form1
         '
         Me.Label148.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label148.AutoSize = True
-        Me.Label148.Location = New System.Drawing.Point(120, 72)
+        Me.Label148.Location = New System.Drawing.Point(119, 72)
         Me.Label148.Name = "Label148"
         Me.Label148.Size = New System.Drawing.Size(14, 16)
         Me.Label148.TabIndex = 215
@@ -1988,7 +2014,7 @@ Partial Class Form1
         '
         Me.Label147.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label147.AutoSize = True
-        Me.Label147.Location = New System.Drawing.Point(207, 72)
+        Me.Label147.Location = New System.Drawing.Point(206, 72)
         Me.Label147.Name = "Label147"
         Me.Label147.Size = New System.Drawing.Size(24, 16)
         Me.Label147.TabIndex = 214
@@ -1998,7 +2024,7 @@ Partial Class Form1
         '
         Me.Label143.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label143.AutoSize = True
-        Me.Label143.Location = New System.Drawing.Point(117, 52)
+        Me.Label143.Location = New System.Drawing.Point(116, 52)
         Me.Label143.Name = "Label143"
         Me.Label143.Size = New System.Drawing.Size(21, 16)
         Me.Label143.TabIndex = 7
@@ -2008,7 +2034,7 @@ Partial Class Form1
         '
         Me.Label142.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label142.AutoSize = True
-        Me.Label142.Location = New System.Drawing.Point(207, 52)
+        Me.Label142.Location = New System.Drawing.Point(206, 52)
         Me.Label142.Name = "Label142"
         Me.Label142.Size = New System.Drawing.Size(24, 16)
         Me.Label142.TabIndex = 6
@@ -2029,7 +2055,7 @@ Partial Class Form1
         '
         Me.Label139.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label139.AutoSize = True
-        Me.Label139.Location = New System.Drawing.Point(287, 9)
+        Me.Label139.Location = New System.Drawing.Point(286, 9)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(43, 32)
         Me.Label139.TabIndex = 3
@@ -2039,7 +2065,7 @@ Partial Class Form1
         '
         Me.Label137.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label137.AutoSize = True
-        Me.Label137.Location = New System.Drawing.Point(93, 0)
+        Me.Label137.Location = New System.Drawing.Point(92, 0)
         Me.Label137.Name = "Label137"
         Me.Label137.Size = New System.Drawing.Size(69, 50)
         Me.Label137.TabIndex = 1
@@ -2661,8 +2687,8 @@ Partial Class Form1
         Me.HorizonGridView.Name = "HorizonGridView"
         Me.HorizonGridView.RowHeadersVisible = False
         Me.HorizonGridView.RowHeadersWidth = 51
-        DataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.HorizonGridView.RowsDefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.HorizonGridView.RowsDefaultCellStyle = DataGridViewCellStyle1
         Me.HorizonGridView.RowTemplate.Height = 24
         Me.HorizonGridView.Size = New System.Drawing.Size(847, 252)
         Me.HorizonGridView.TabIndex = 0
@@ -2907,14 +2933,14 @@ Partial Class Form1
         '
         'HydroDataGrid
         '
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.HydroDataGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.HydroDataGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         Me.HydroDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.HydroDataGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column20, Me.Column22, Me.Column23})
         Me.HydroDataGrid.Location = New System.Drawing.Point(14, 1710)
@@ -3087,6 +3113,7 @@ Partial Class Form1
         '
         'FractionCroppedArea
         '
+        Me.FractionCroppedArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.FractionCroppedArea.Location = New System.Drawing.Point(184, 226)
         Me.FractionCroppedArea.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.FractionCroppedArea.Name = "FractionCroppedArea"
@@ -3096,6 +3123,7 @@ Partial Class Form1
         '
         'BaseFlow
         '
+        Me.BaseFlow.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.BaseFlow.Location = New System.Drawing.Point(184, 160)
         Me.BaseFlow.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.BaseFlow.Name = "BaseFlow"
@@ -3105,6 +3133,7 @@ Partial Class Form1
         '
         'FlowAveraging
         '
+        Me.FlowAveraging.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.FlowAveraging.Location = New System.Drawing.Point(184, 138)
         Me.FlowAveraging.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.FlowAveraging.Name = "FlowAveraging"
@@ -3114,6 +3143,7 @@ Partial Class Form1
         '
         'MaxDepth
         '
+        Me.MaxDepth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.MaxDepth.Location = New System.Drawing.Point(184, 116)
         Me.MaxDepth.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.MaxDepth.Name = "MaxDepth"
@@ -3123,6 +3153,7 @@ Partial Class Form1
         '
         'FlowLength
         '
+        Me.FlowLength.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.FlowLength.Location = New System.Drawing.Point(184, 204)
         Me.FlowLength.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.FlowLength.Name = "FlowLength"
@@ -3141,6 +3172,7 @@ Partial Class Form1
         '
         'InitialDepth
         '
+        Me.InitialDepth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.InitialDepth.Location = New System.Drawing.Point(184, 94)
         Me.InitialDepth.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.InitialDepth.Name = "InitialDepth"
@@ -3150,6 +3182,7 @@ Partial Class Form1
         '
         'WaterBodyArea
         '
+        Me.WaterBodyArea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.WaterBodyArea.Location = New System.Drawing.Point(184, 72)
         Me.WaterBodyArea.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.WaterBodyArea.Name = "WaterBodyArea"
@@ -3159,6 +3192,7 @@ Partial Class Form1
         '
         'FieldSize
         '
+        Me.FieldSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.FieldSize.Location = New System.Drawing.Point(184, 182)
         Me.FieldSize.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.FieldSize.Name = "FieldSize"
@@ -3231,6 +3265,7 @@ Partial Class Form1
         '
         'WaterColumnBiomass
         '
+        Me.WaterColumnBiomass.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.WaterColumnBiomass.Location = New System.Drawing.Point(802, 187)
         Me.WaterColumnBiomass.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.WaterColumnBiomass.Name = "WaterColumnBiomass"
@@ -3240,6 +3275,7 @@ Partial Class Form1
         '
         'WaterColumnDoc
         '
+        Me.WaterColumnDoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.WaterColumnDoc.Location = New System.Drawing.Point(802, 165)
         Me.WaterColumnDoc.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.WaterColumnDoc.Name = "WaterColumnDoc"
@@ -3249,6 +3285,7 @@ Partial Class Form1
         '
         'WaterColumnFoc
         '
+        Me.WaterColumnFoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.WaterColumnFoc.Location = New System.Drawing.Point(802, 143)
         Me.WaterColumnFoc.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.WaterColumnFoc.Name = "WaterColumnFoc"
@@ -3258,6 +3295,7 @@ Partial Class Form1
         '
         'Chlorophyll
         '
+        Me.Chlorophyll.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Chlorophyll.Location = New System.Drawing.Point(802, 121)
         Me.Chlorophyll.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Chlorophyll.Name = "Chlorophyll"
@@ -3267,6 +3305,7 @@ Partial Class Form1
         '
         'SuspendedSolids
         '
+        Me.SuspendedSolids.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.SuspendedSolids.Location = New System.Drawing.Point(802, 99)
         Me.SuspendedSolids.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.SuspendedSolids.Name = "SuspendedSolids"
@@ -3276,6 +3315,7 @@ Partial Class Form1
         '
         'Dfac
         '
+        Me.Dfac.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Dfac.Location = New System.Drawing.Point(802, 77)
         Me.Dfac.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Dfac.Name = "Dfac"
@@ -3339,6 +3379,7 @@ Partial Class Form1
         '
         'BenthicBiomass
         '
+        Me.BenthicBiomass.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.BenthicBiomass.Location = New System.Drawing.Point(491, 202)
         Me.BenthicBiomass.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.BenthicBiomass.Name = "BenthicBiomass"
@@ -3348,6 +3389,7 @@ Partial Class Form1
         '
         'BenthicDOC
         '
+        Me.BenthicDOC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.BenthicDOC.Location = New System.Drawing.Point(491, 180)
         Me.BenthicDOC.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.BenthicDOC.Name = "BenthicDOC"
@@ -3357,6 +3399,7 @@ Partial Class Form1
         '
         'BenthicFoc
         '
+        Me.BenthicFoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.BenthicFoc.Location = New System.Drawing.Point(491, 158)
         Me.BenthicFoc.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.BenthicFoc.Name = "BenthicFoc"
@@ -3366,6 +3409,7 @@ Partial Class Form1
         '
         'BenthicBulkDensity
         '
+        Me.BenthicBulkDensity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.BenthicBulkDensity.Location = New System.Drawing.Point(491, 136)
         Me.BenthicBulkDensity.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.BenthicBulkDensity.Name = "BenthicBulkDensity"
@@ -3375,6 +3419,7 @@ Partial Class Form1
         '
         'BenthicPorosity
         '
+        Me.BenthicPorosity.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.BenthicPorosity.Location = New System.Drawing.Point(491, 114)
         Me.BenthicPorosity.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.BenthicPorosity.Name = "BenthicPorosity"
@@ -3384,6 +3429,7 @@ Partial Class Form1
         '
         'BenthicDepth
         '
+        Me.BenthicDepth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.BenthicDepth.Location = New System.Drawing.Point(491, 70)
         Me.BenthicDepth.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.BenthicDepth.Name = "BenthicDepth"
@@ -3393,6 +3439,7 @@ Partial Class Form1
         '
         'DoverDx
         '
+        Me.DoverDx.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.DoverDx.Location = New System.Drawing.Point(491, 92)
         Me.DoverDx.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.DoverDx.Name = "DoverDx"
@@ -4012,14 +4059,14 @@ Partial Class Form1
         '
         Me.SchemeTableDisplay.BackgroundColor = System.Drawing.Color.SeaShell
         Me.SchemeTableDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle11.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.SchemeTableDisplay.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.SchemeTableDisplay.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.SchemeTableDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.SchemeTableDisplay.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column21, Me.Edit, Me.Commit, Me.Column24, Me.Delete})
         Me.SchemeTableDisplay.Cursor = System.Windows.Forms.Cursors.Default
@@ -4055,12 +4102,12 @@ Partial Class Form1
         'Commit
         '
         Me.Commit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle12.BackColor = System.Drawing.Color.Honeydew
-        DataGridViewCellStyle12.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.MintCream
-        DataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.Black
-        Me.Commit.DefaultCellStyle = DataGridViewCellStyle12
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.Honeydew
+        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.MintCream
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black
+        Me.Commit.DefaultCellStyle = DataGridViewCellStyle4
         Me.Commit.FillWeight = 15.0!
         Me.Commit.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Commit.HeaderText = "Commit"
@@ -4080,11 +4127,11 @@ Partial Class Form1
         'Delete
         '
         Me.Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle13.BackColor = System.Drawing.Color.MistyRose
-        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.MistyRose
-        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.Black
-        Me.Delete.DefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle5.BackColor = System.Drawing.Color.MistyRose
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.MistyRose
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black
+        Me.Delete.DefaultCellStyle = DataGridViewCellStyle5
         Me.Delete.FillWeight = 10.0!
         Me.Delete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Delete.HeaderText = "Delete"
@@ -5501,6 +5548,7 @@ Partial Class Form1
         '
         'OutputInfiltrationDepth
         '
+        Me.OutputInfiltrationDepth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.OutputInfiltrationDepth.Location = New System.Drawing.Point(791, 177)
         Me.OutputInfiltrationDepth.Margin = New System.Windows.Forms.Padding(4)
         Me.OutputInfiltrationDepth.Name = "OutputInfiltrationDepth"
@@ -5531,6 +5579,7 @@ Partial Class Form1
         '
         'chemInfiltrationDepth
         '
+        Me.chemInfiltrationDepth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.chemInfiltrationDepth.Location = New System.Drawing.Point(343, 89)
         Me.chemInfiltrationDepth.Margin = New System.Windows.Forms.Padding(4)
         Me.chemInfiltrationDepth.Name = "chemInfiltrationDepth"
@@ -5621,6 +5670,7 @@ Partial Class Form1
         '
         'OutputMassDepth1
         '
+        Me.OutputMassDepth1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.OutputMassDepth1.Location = New System.Drawing.Point(343, 194)
         Me.OutputMassDepth1.Margin = New System.Windows.Forms.Padding(4)
         Me.OutputMassDepth1.Name = "OutputMassDepth1"
@@ -5630,6 +5680,7 @@ Partial Class Form1
         '
         'OutputDecayDepth2
         '
+        Me.OutputDecayDepth2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.OutputDecayDepth2.Location = New System.Drawing.Point(448, 154)
         Me.OutputDecayDepth2.Margin = New System.Windows.Forms.Padding(4)
         Me.OutputDecayDepth2.Name = "OutputDecayDepth2"
@@ -5639,6 +5690,7 @@ Partial Class Form1
         '
         'OutputDecayDepth1
         '
+        Me.OutputDecayDepth1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.OutputDecayDepth1.Location = New System.Drawing.Point(343, 154)
         Me.OutputDecayDepth1.Margin = New System.Windows.Forms.Padding(4)
         Me.OutputDecayDepth1.Name = "OutputDecayDepth1"
@@ -5648,6 +5700,7 @@ Partial Class Form1
         '
         'OutputMassDepth2
         '
+        Me.OutputMassDepth2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.OutputMassDepth2.Location = New System.Drawing.Point(448, 194)
         Me.OutputMassDepth2.Margin = New System.Windows.Forms.Padding(4)
         Me.OutputMassDepth2.Name = "OutputMassDepth2"
@@ -6001,6 +6054,7 @@ Partial Class Form1
         '
         'WaterbodyName
         '
+        Me.WaterbodyName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.WaterbodyName.Location = New System.Drawing.Point(304, 6)
         Me.WaterbodyName.MaxLength = 20
         Me.WaterbodyName.Name = "WaterbodyName"
@@ -6046,6 +6100,7 @@ Partial Class Form1
         '
         'ZeroConcDepth
         '
+        Me.ZeroConcDepth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.ZeroConcDepth.Location = New System.Drawing.Point(142, 42)
         Me.ZeroConcDepth.Name = "ZeroConcDepth"
         Me.ZeroConcDepth.Size = New System.Drawing.Size(63, 22)
@@ -6068,30 +6123,30 @@ Partial Class Form1
         Me.SprayGridView.AllowUserToDeleteRows = False
         Me.SprayGridView.AllowUserToResizeColumns = False
         Me.SprayGridView.AllowUserToResizeRows = False
-        DataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.SprayGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(255, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.SprayGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle6
         Me.SprayGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.SprayGridView.BackgroundColor = System.Drawing.Color.Aqua
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle15.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.SprayGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle7.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.SprayGridView.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle7
         Me.SprayGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.SprayGridView.ColumnHeadersVisible = False
         Me.SprayGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column14, Me.Column32, Me.Column15, Me.Column16, Me.Column17, Me.Column18, Me.Column19, Me.Column25, Me.Column26, Me.Column27, Me.Column28, Me.Column29, Me.Column30, Me.Column31, Me.Column33, Me.Column34, Me.Column35, Me.Column36})
         Me.SprayGridView.Cursor = System.Windows.Forms.Cursors.IBeam
-        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle16.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.SprayGridView.DefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Arial Narrow", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.SprayGridView.DefaultCellStyle = DataGridViewCellStyle8
         Me.SprayGridView.Location = New System.Drawing.Point(12, 367)
         Me.SprayGridView.Margin = New System.Windows.Forms.Padding(1)
         Me.SprayGridView.Name = "SprayGridView"

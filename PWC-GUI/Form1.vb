@@ -1415,26 +1415,28 @@ Public Class Form1
         Dim msg As String
         Dim newfilename As String
 
-        For Each scenariofilename As String In ScenarioListBox.Items
+        MsgBox("disabled, for developer only")
 
-            ReadScenarioParameters(scenariofilename)
+        'For Each scenariofilename As String In ScenarioListBox.Items
 
-            'Put modifications here:
-            useAutoGWprofile.Checked = True
+        '    ReadScenarioParameters(scenariofilename)
+
+        '    'Put modifications here:
+        '    useAutoGWprofile.Checked = True
 
 
-            'Version numbering
-            newfilename = Replace(scenariofilename, "V4.scn2", "v5.scn2")
+        '    'Version numbering
+        '    newfilename = Replace(scenariofilename, "V4.scn2", "v5.scn2")
 
-            msg = CreateScenarioString()
+        '    msg = CreateScenarioString()
 
-            Try
-                My.Computer.FileSystem.WriteAllText(newfilename, msg, False, System.Text.Encoding.ASCII)
-            Catch ex As Exception
-                MsgBox(ex.Message)
-            End Try
+        '    Try
+        '        My.Computer.FileSystem.WriteAllText(newfilename, msg, False, System.Text.Encoding.ASCII)
+        '    Catch ex As Exception
+        '        MsgBox(ex.Message)
+        '    End Try
 
-        Next
+        'Next
     End Sub
 
     Private Sub WriteSchemeTableToFileToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WriteSchemeTableToFileToolStripMenuItem.Click
