@@ -89,8 +89,7 @@ Public Class Form1
         'Add Columns
         AppTableDisplay.ColumnCount = 2
         AppTableDisplay.Columns(0).Name = "Days"
-        ' AppTableDisplay.Columns(0).AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
-        AppTableDisplay.Columns(0).Width = 68
+        AppTableDisplay.Columns(0).Width = 70
 
         AppTableDisplay.Columns(1).Name = "Amount (kg/ha)"
         AppTableDisplay.Columns(1).AutoSizeMode = DataGridViewAutoSizeColumnMode.None
@@ -354,7 +353,7 @@ Public Class Form1
 
 
 
-    Private Sub AbsoluteDaysButton_CheckedChanged(sender As Object, e As EventArgs) Handles AbsoluteDaysButton.CheckedChanged
+    Private Sub AbsoluteDaysButton_CheckedChanged(sender As Object, e As EventArgs) Handles AbsoluteDaysButton.CheckedChanged, emerge.CheckedChanged
 
         If AppTableDisplay.IsHandleCreated Then
             If AbsoluteDaysButton.Checked Then
@@ -1555,6 +1554,7 @@ Public Class Form1
 
 
     End Sub
+
 
 End Class
 
