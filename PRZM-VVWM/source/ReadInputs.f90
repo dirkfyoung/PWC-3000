@@ -179,7 +179,7 @@ use utilities
                    read(wholeline((first_slash+1):(second_slash-1)),*)  absolute_app_day
                    read(wholeline((second_slash+1): (comma_1 -1)),*)  absolute_app_year
                    
-                   write(*,*) absolute_app_month, absolute_app_day, absolute_app_year
+                !   write(*,*) absolute_app_month, absolute_app_day, absolute_app_year
                    
                    ! For now, treating just like absolute month /day.  
                    ! THe absolute year can be used as a flag that is different than 1900 to indiucate absolute year

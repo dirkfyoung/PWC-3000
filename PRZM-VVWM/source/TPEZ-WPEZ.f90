@@ -558,8 +558,6 @@ Module TPEZ_WPEZ
       drift_kg_per_m2= 0.0
       app_counter= 0
       
-      write(*,*) "num applications tpez", num_applications_input
-      
       do i=1, num_applications_input
           if (use_tpezbuffer) then
              buffer_distance = driftfactor_schemes(scheme_number,i)
