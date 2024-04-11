@@ -123,7 +123,7 @@ Partial Class Form1
         Me.Label90 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.kgha = New System.Windows.Forms.RadioButton()
         Me.poundToKiloConversion = New System.Windows.Forms.RadioButton()
         Me.VolatilizationBounday = New System.Windows.Forms.TextBox()
         Me.Label44 = New System.Windows.Forms.Label()
@@ -427,7 +427,7 @@ Partial Class Form1
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
-        Me.RadioButton9 = New System.Windows.Forms.RadioButton()
+        Me.isKd = New System.Windows.Forms.RadioButton()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.isKoc = New System.Windows.Forms.RadioButton()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -1459,7 +1459,7 @@ Partial Class Form1
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.RadioButton2)
+        Me.GroupBox1.Controls.Add(Me.kgha)
         Me.GroupBox1.Controls.Add(Me.poundToKiloConversion)
         Me.GroupBox1.Location = New System.Drawing.Point(14, 479)
         Me.GroupBox1.Name = "GroupBox1"
@@ -1468,15 +1468,15 @@ Partial Class Form1
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Applcation units for all schemes"
         '
-        'RadioButton2
+        'kgha
         '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(95, 21)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(62, 20)
-        Me.RadioButton2.TabIndex = 1
-        Me.RadioButton2.Text = "kg/ha"
-        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.kgha.AutoSize = True
+        Me.kgha.Location = New System.Drawing.Point(95, 21)
+        Me.kgha.Name = "kgha"
+        Me.kgha.Size = New System.Drawing.Size(62, 20)
+        Me.kgha.TabIndex = 1
+        Me.kgha.Text = "kg/ha"
+        Me.kgha.UseVisualStyleBackColor = True
         '
         'poundToKiloConversion
         '
@@ -1673,7 +1673,7 @@ Partial Class Form1
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.68966!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 108.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 149.0!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.Label170, 4, 6)
         Me.TableLayoutPanel3.Controls.Add(Me.Label169, 3, 6)
         Me.TableLayoutPanel3.Controls.Add(Me.Label168, 2, 6)
@@ -1726,7 +1726,7 @@ Partial Class Form1
         '
         Me.Label170.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label170.AutoSize = True
-        Me.Label170.Location = New System.Drawing.Point(402, 154)
+        Me.Label170.Location = New System.Drawing.Point(401, 154)
         Me.Label170.Name = "Label170"
         Me.Label170.Size = New System.Drawing.Size(28, 16)
         Me.Label170.TabIndex = 237
@@ -1736,7 +1736,7 @@ Partial Class Form1
         '
         Me.Label169.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label169.AutoSize = True
-        Me.Label169.Location = New System.Drawing.Point(291, 154)
+        Me.Label169.Location = New System.Drawing.Point(290, 154)
         Me.Label169.Name = "Label169"
         Me.Label169.Size = New System.Drawing.Size(28, 16)
         Me.Label169.TabIndex = 236
@@ -1746,7 +1746,7 @@ Partial Class Form1
         '
         Me.Label168.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label168.AutoSize = True
-        Me.Label168.Location = New System.Drawing.Point(204, 154)
+        Me.Label168.Location = New System.Drawing.Point(203, 154)
         Me.Label168.Name = "Label168"
         Me.Label168.Size = New System.Drawing.Size(21, 16)
         Me.Label168.TabIndex = 235
@@ -1756,7 +1756,7 @@ Partial Class Form1
         '
         Me.Label167.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label167.AutoSize = True
-        Me.Label167.Location = New System.Drawing.Point(117, 154)
+        Me.Label167.Location = New System.Drawing.Point(116, 154)
         Me.Label167.Name = "Label167"
         Me.Label167.Size = New System.Drawing.Size(14, 16)
         Me.Label167.TabIndex = 234
@@ -1776,7 +1776,7 @@ Partial Class Form1
         '
         Me.Label165.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label165.AutoSize = True
-        Me.Label165.Location = New System.Drawing.Point(402, 132)
+        Me.Label165.Location = New System.Drawing.Point(401, 132)
         Me.Label165.Name = "Label165"
         Me.Label165.Size = New System.Drawing.Size(28, 16)
         Me.Label165.TabIndex = 232
@@ -1786,7 +1786,7 @@ Partial Class Form1
         '
         Me.Label164.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label164.AutoSize = True
-        Me.Label164.Location = New System.Drawing.Point(291, 132)
+        Me.Label164.Location = New System.Drawing.Point(290, 132)
         Me.Label164.Name = "Label164"
         Me.Label164.Size = New System.Drawing.Size(28, 16)
         Me.Label164.TabIndex = 231
@@ -1796,7 +1796,7 @@ Partial Class Form1
         '
         Me.Label163.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label163.AutoSize = True
-        Me.Label163.Location = New System.Drawing.Point(204, 132)
+        Me.Label163.Location = New System.Drawing.Point(203, 132)
         Me.Label163.Name = "Label163"
         Me.Label163.Size = New System.Drawing.Size(21, 16)
         Me.Label163.TabIndex = 230
@@ -1806,7 +1806,7 @@ Partial Class Form1
         '
         Me.Label162.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label162.AutoSize = True
-        Me.Label162.Location = New System.Drawing.Point(117, 132)
+        Me.Label162.Location = New System.Drawing.Point(116, 132)
         Me.Label162.Name = "Label162"
         Me.Label162.Size = New System.Drawing.Size(14, 16)
         Me.Label162.TabIndex = 229
@@ -1826,7 +1826,7 @@ Partial Class Form1
         '
         Me.Label160.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label160.AutoSize = True
-        Me.Label160.Location = New System.Drawing.Point(402, 112)
+        Me.Label160.Location = New System.Drawing.Point(401, 112)
         Me.Label160.Name = "Label160"
         Me.Label160.Size = New System.Drawing.Size(28, 16)
         Me.Label160.TabIndex = 227
@@ -1836,7 +1836,7 @@ Partial Class Form1
         '
         Me.Label159.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label159.AutoSize = True
-        Me.Label159.Location = New System.Drawing.Point(294, 112)
+        Me.Label159.Location = New System.Drawing.Point(293, 112)
         Me.Label159.Name = "Label159"
         Me.Label159.Size = New System.Drawing.Size(21, 16)
         Me.Label159.TabIndex = 226
@@ -1846,7 +1846,7 @@ Partial Class Form1
         '
         Me.Label158.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label158.AutoSize = True
-        Me.Label158.Location = New System.Drawing.Point(204, 112)
+        Me.Label158.Location = New System.Drawing.Point(203, 112)
         Me.Label158.Name = "Label158"
         Me.Label158.Size = New System.Drawing.Size(21, 16)
         Me.Label158.TabIndex = 225
@@ -1856,7 +1856,7 @@ Partial Class Form1
         '
         Me.Label157.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label157.AutoSize = True
-        Me.Label157.Location = New System.Drawing.Point(117, 112)
+        Me.Label157.Location = New System.Drawing.Point(116, 112)
         Me.Label157.Name = "Label157"
         Me.Label157.Size = New System.Drawing.Size(14, 16)
         Me.Label157.TabIndex = 224
@@ -1886,7 +1886,7 @@ Partial Class Form1
         '
         Me.Label154.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label154.AutoSize = True
-        Me.Label154.Location = New System.Drawing.Point(294, 92)
+        Me.Label154.Location = New System.Drawing.Point(293, 92)
         Me.Label154.Name = "Label154"
         Me.Label154.Size = New System.Drawing.Size(21, 16)
         Me.Label154.TabIndex = 221
@@ -1916,7 +1916,7 @@ Partial Class Form1
         '
         Me.Label149.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label149.AutoSize = True
-        Me.Label149.Location = New System.Drawing.Point(298, 72)
+        Me.Label149.Location = New System.Drawing.Point(297, 72)
         Me.Label149.Name = "Label149"
         Me.Label149.Size = New System.Drawing.Size(14, 16)
         Me.Label149.TabIndex = 216
@@ -1926,7 +1926,7 @@ Partial Class Form1
         '
         Me.Label146.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label146.AutoSize = True
-        Me.Label146.Location = New System.Drawing.Point(409, 52)
+        Me.Label146.Location = New System.Drawing.Point(408, 52)
         Me.Label146.Name = "Label146"
         Me.Label146.Size = New System.Drawing.Size(14, 16)
         Me.Label146.TabIndex = 213
@@ -1946,7 +1946,7 @@ Partial Class Form1
         '
         Me.Label144.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label144.AutoSize = True
-        Me.Label144.Location = New System.Drawing.Point(298, 52)
+        Me.Label144.Location = New System.Drawing.Point(297, 52)
         Me.Label144.Name = "Label144"
         Me.Label144.Size = New System.Drawing.Size(14, 16)
         Me.Label144.TabIndex = 8
@@ -1956,7 +1956,7 @@ Partial Class Form1
         '
         Me.Label140.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label140.AutoSize = True
-        Me.Label140.Location = New System.Drawing.Point(381, 17)
+        Me.Label140.Location = New System.Drawing.Point(380, 17)
         Me.Label140.Name = "Label140"
         Me.Label140.Size = New System.Drawing.Size(70, 16)
         Me.Label140.TabIndex = 4
@@ -1966,7 +1966,7 @@ Partial Class Form1
         '
         Me.Label138.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label138.AutoSize = True
-        Me.Label138.Location = New System.Drawing.Point(166, 9)
+        Me.Label138.Location = New System.Drawing.Point(165, 9)
         Me.Label138.Name = "Label138"
         Me.Label138.Size = New System.Drawing.Size(97, 32)
         Me.Label138.TabIndex = 2
@@ -1986,7 +1986,7 @@ Partial Class Form1
         '
         Me.Label153.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label153.AutoSize = True
-        Me.Label153.Location = New System.Drawing.Point(117, 92)
+        Me.Label153.Location = New System.Drawing.Point(116, 92)
         Me.Label153.Name = "Label153"
         Me.Label153.Size = New System.Drawing.Size(14, 16)
         Me.Label153.TabIndex = 220
@@ -1996,7 +1996,7 @@ Partial Class Form1
         '
         Me.Label152.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label152.AutoSize = True
-        Me.Label152.Location = New System.Drawing.Point(203, 92)
+        Me.Label152.Location = New System.Drawing.Point(202, 92)
         Me.Label152.Name = "Label152"
         Me.Label152.Size = New System.Drawing.Size(24, 16)
         Me.Label152.TabIndex = 219
@@ -2006,7 +2006,7 @@ Partial Class Form1
         '
         Me.Label148.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label148.AutoSize = True
-        Me.Label148.Location = New System.Drawing.Point(117, 72)
+        Me.Label148.Location = New System.Drawing.Point(116, 72)
         Me.Label148.Name = "Label148"
         Me.Label148.Size = New System.Drawing.Size(14, 16)
         Me.Label148.TabIndex = 215
@@ -2016,7 +2016,7 @@ Partial Class Form1
         '
         Me.Label147.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label147.AutoSize = True
-        Me.Label147.Location = New System.Drawing.Point(203, 72)
+        Me.Label147.Location = New System.Drawing.Point(202, 72)
         Me.Label147.Name = "Label147"
         Me.Label147.Size = New System.Drawing.Size(24, 16)
         Me.Label147.TabIndex = 214
@@ -2036,7 +2036,7 @@ Partial Class Form1
         '
         Me.Label142.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label142.AutoSize = True
-        Me.Label142.Location = New System.Drawing.Point(203, 52)
+        Me.Label142.Location = New System.Drawing.Point(202, 52)
         Me.Label142.Name = "Label142"
         Me.Label142.Size = New System.Drawing.Size(24, 16)
         Me.Label142.TabIndex = 6
@@ -2057,7 +2057,7 @@ Partial Class Form1
         '
         Me.Label139.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.Label139.AutoSize = True
-        Me.Label139.Location = New System.Drawing.Point(283, 9)
+        Me.Label139.Location = New System.Drawing.Point(282, 9)
         Me.Label139.Name = "Label139"
         Me.Label139.Size = New System.Drawing.Size(43, 32)
         Me.Label139.TabIndex = 3
@@ -4889,7 +4889,7 @@ Partial Class Form1
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44.17989!))
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 17.46032!))
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 38.09524!))
-        Me.TableLayoutPanel4.Controls.Add(Me.RadioButton9, 1, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.isKd, 1, 0)
         Me.TableLayoutPanel4.Controls.Add(Me.Label1, 2, 0)
         Me.TableLayoutPanel4.Controls.Add(Me.isKoc, 0, 0)
         Me.TableLayoutPanel4.Location = New System.Drawing.Point(0, 32)
@@ -4900,20 +4900,19 @@ Partial Class Form1
         Me.TableLayoutPanel4.Size = New System.Drawing.Size(377, 26)
         Me.TableLayoutPanel4.TabIndex = 40
         '
-        'RadioButton9
+        'isKd
         '
-        Me.RadioButton9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.RadioButton9.AutoSize = True
-        Me.RadioButton9.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RadioButton9.Location = New System.Drawing.Point(186, 2)
-        Me.RadioButton9.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.RadioButton9.Name = "RadioButton9"
-        Me.RadioButton9.Size = New System.Drawing.Size(43, 19)
-        Me.RadioButton9.TabIndex = 38
-        Me.RadioButton9.TabStop = True
-        Me.RadioButton9.Text = "Kd"
-        Me.RadioButton9.TextAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.RadioButton9.UseVisualStyleBackColor = True
+        Me.isKd.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.isKd.AutoSize = True
+        Me.isKd.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.isKd.Location = New System.Drawing.Point(186, 2)
+        Me.isKd.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.isKd.Name = "isKd"
+        Me.isKd.Size = New System.Drawing.Size(43, 19)
+        Me.isKd.TabIndex = 38
+        Me.isKd.Text = "Kd"
+        Me.isKd.TextAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.isKd.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -4929,6 +4928,7 @@ Partial Class Form1
         '
         Me.isKoc.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.isKoc.AutoSize = True
+        Me.isKoc.Checked = True
         Me.isKoc.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.isKoc.Location = New System.Drawing.Point(114, 2)
         Me.isKoc.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
@@ -4973,6 +4973,7 @@ Partial Class Form1
         Me.DoDegradate2.TabIndex = 81
         Me.DoDegradate2.Text = "®"
         Me.DoDegradate2.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.ToolTip1.SetToolTip(Me.DoDegradate2, "Check for granddaughter production")
         Me.DoDegradate2.UseVisualStyleBackColor = True
         '
         'DoDegradate1
@@ -4985,6 +4986,7 @@ Partial Class Form1
         Me.DoDegradate1.Size = New System.Drawing.Size(42, 20)
         Me.DoDegradate1.TabIndex = 80
         Me.DoDegradate1.Text = "®"
+        Me.ToolTip1.SetToolTip(Me.DoDegradate1, "Check for daughter production")
         Me.DoDegradate1.UseVisualStyleBackColor = True
         '
         'Label17
@@ -6601,7 +6603,7 @@ Partial Class Form1
     Friend WithEvents Label6 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents TableLayoutPanel4 As TableLayoutPanel
-    Friend WithEvents RadioButton9 As RadioButton
+    Friend WithEvents isKd As RadioButton
     Friend WithEvents Label1 As Label
     Friend WithEvents isKoc As RadioButton
     Friend WithEvents Label5 As Label
@@ -6904,7 +6906,7 @@ Partial Class Form1
     Friend WithEvents Panel1 As Panel
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents GroupBox1 As GroupBox
-    Friend WithEvents RadioButton2 As RadioButton
+    Friend WithEvents kgha As RadioButton
     Friend WithEvents poundToKiloConversion As RadioButton
     Friend WithEvents Column14 As DataGridViewTextBoxColumn
     Friend WithEvents Column32 As DataGridViewTextBoxColumn

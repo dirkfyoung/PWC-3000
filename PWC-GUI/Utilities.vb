@@ -200,6 +200,7 @@
 
         'testIntegers Today see if its an integer
 
+
         TestReal = name.Text
         If TestReal - TestNumber > 0.01 Then
             msg = "This value should be an integer:  " & name.Tag

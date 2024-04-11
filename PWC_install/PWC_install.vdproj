@@ -27,13 +27,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_26571ABD5EC8D69ED7E35015A6BF532B"
+        "MsmKey" = "8:_7349635EA61D4435BE129DFB486B82FD"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_C1A68802135823F13F2ECA8FBF3A2E7E"
         "OwnerKey" = "8:_05547A5A50884ABC933BE47143EFFC81"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_7349635EA61D4435BE129DFB486B82FD"
+        "MsmKey" = "8:_CF8A9A6362D84586968D1ABC097151AD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -46,7 +52,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_26571ABD5EC8D69ED7E35015A6BF532B"
+        "OwnerKey" = "8:_C1A68802135823F13F2ECA8FBF3A2E7E"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -164,14 +170,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_26571ABD5EC8D69ED7E35015A6BF532B"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_C1A68802135823F13F2ECA8FBF3A2E7E"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
                 "ScatterAssemblies"
                 {
-                    "_26571ABD5EC8D69ED7E35015A6BF532B"
+                    "_C1A68802135823F13F2ECA8FBF3A2E7E"
                     {
                     "Name" = "8:System.Net.Http.dll"
                     "Attributes" = "3:512"
@@ -256,7 +262,7 @@
         "UpgradeCode" = "8:{4CAF849C-6FFA-4E17-BB12-7C52F92E2354}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
@@ -372,6 +378,34 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2A352D1E0AD94230B286DBA33139F65F"
+            {
+            "Name" = "8:PWC3"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_05547A5A50884ABC933BE47143EFFC81"
+            "Folder" = "8:_31FE34640A9441369E895B35ABE7BFFE"
+            "WorkingFolder" = "8:_3C3BF2B823114D82B27F566A6E8BB538"
+            "Icon" = "8:_1FAA5C29ADC546659FFF6FE75C4D7195"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_6EE8509FAB634D76A26F4451D597FE0B"
+            {
+            "Name" = "8:PWC3"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_05547A5A50884ABC933BE47143EFFC81"
+            "Folder" = "8:_5A6B6D2796264EA4B4EF838AF34079EF"
+            "WorkingFolder" = "8:_3C3BF2B823114D82B27F566A6E8BB538"
+            "Icon" = "8:_1FAA5C29ADC546659FFF6FE75C4D7195"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
@@ -800,6 +834,34 @@
                 }
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_7349635EA61D4435BE129DFB486B82FD"
+            {
+            "SourcePath" = "8:..\\CommonOutput\\PRZM-VVWM.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_3C3BF2B823114D82B27F566A6E8BB538"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Primary"
+            "OutputProjectGuid" = "8:{0F05B786-C684-4D95-8B9B-FA77FC41DA5D}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CF8A9A6362D84586968D1ABC097151AD"
             {
             "SourcePath" = "8:..\\CommonOutput\\PRZM-VVWM.exe"
             "TargetName" = "8:"

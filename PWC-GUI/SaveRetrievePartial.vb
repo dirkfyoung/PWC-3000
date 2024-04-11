@@ -579,18 +579,40 @@
 
             'Chemical Proerties
             currentrow = MyReader.ReadFields         'LINE 6
-            isKoc.Checked = currentrow(0)
+            If currentrow(0) Then
+                isKoc.Checked = True
+                isKd.Checked = False
+            Else
+                isKoc.Checked = False
+                isKd.Checked = True
+            End If
+
             UseFreundlich.Checked = currentrow(1)
             UseNonequilibrium.Checked = currentrow(2)
 
             'early pwc3 did not have these options:
             Try
-                poundToKiloConversion.Checked = currentrow(3)
+
+                If currentrow(3) Then
+                    poundToKiloConversion.Checked = True
+                    kgha.Checked = False
+                Else
+                    poundToKiloConversion.Checked = False
+                    kgha.Checked = True
+                End If
+
+
+
+
                 IsHydrolysisOverride.Checked = currentrow(4)
             Catch ex As Exception
 
                 IsHydrolysisOverride.Checked = True
             End Try
+
+
+
+
 
 
             Dim nchem As Integer
