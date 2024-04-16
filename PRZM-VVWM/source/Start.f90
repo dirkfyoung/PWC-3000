@@ -149,7 +149,11 @@ program PRZMVVWM
                ! zero other hold fior mediuans here (maybe not needed)
    
 
-               do jj = 0, app_window_span(i), app_window_step(i)                    
+               do jj = 0, app_window_span(i), app_window_step(i)            
+                   
+                   call reset_initial_masses
+                   
+                   
 				     application_date= application_date_original + jj
                      app_window_counter = app_window_counter +1 
                      call make_run_id (i,kk, hh,jj) !makes a string that can be used for identifying output scheme#_scenario#_scenarioname      

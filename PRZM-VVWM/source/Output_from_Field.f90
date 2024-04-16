@@ -19,11 +19,11 @@ Module Output_From_Field
 	
         do k=1,nchem         
               adj = maxcap_volume*retardation_factor(k)
-              post_bt_avg(k)    = 0.0             !post breakthrough average, avg concentration after one thoughput in last horizon
-              simulation_avg(k) = 0.0				!entire simulation average concentrationin last horizon
-              gw_peak(k) = 0.0						!highest concentration in last horizon
+              post_bt_avg(k)    = 0.0          !post breakthrough average, avg concentration after one thoughput in last horizon
+              simulation_avg(k) = 0.0		   !entire simulation average concentration in last horizon
+              gw_peak(k) = 0.0				   !highest concentration in last horizon
               count = 0
-              inflitration_cum = 0.0              !cumulative infiltration (cm)   
+              inflitration_cum = 0.0           !cumulative infiltration (cm)   
              
               do i = 1, num_records
                   simulation_avg(k) =simulation_avg(k) + conc_last_horizon_save(k, i)

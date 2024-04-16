@@ -1294,4 +1294,21 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
   end subroutine Calculate_Retardation_Factor
   
 
+  
+  subroutine  reset_initial_masses
+  use constants_and_variables, ONLY:conc_total_per_water, mass_in_compartment, conc_porewater,mass_in_compartment2,&
+      soil_applied_washoff
+  
+  
+     conc_total_per_water= 0.0
+     mass_in_compartment = 0.0
+     mass_in_compartment2 = 0.0
+     conc_porewater = 0.0
+     soil_applied_washoff=0.0
+     
+     
+     
+  end  subroutine  reset_initial_masses
+  
+
 end module initialization   

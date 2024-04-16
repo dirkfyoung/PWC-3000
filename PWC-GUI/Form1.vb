@@ -1544,7 +1544,7 @@ Public Class Form1
     End Sub
 
     Private Sub ContactToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ContactToolStripMenuItem.Click
-
+        MsgBox("Technical Support:" & vbCr & "Dirk Young" & vbCr & "USEPA" & vbCr & "young.dirk@epa.gov")
     End Sub
 
     Private Sub poundToKiloConversion_CheckedChanged(sender As Object, e As EventArgs) Handles poundToKiloConversion.CheckedChanged
