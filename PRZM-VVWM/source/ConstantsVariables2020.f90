@@ -564,7 +564,7 @@ module constants_and_variables
       real,parameter :: henry_ref_temp  = 25.0
       
       REAL    :: Q_10   !temperature basis for formerly QFAC
-      REAL    :: TBASE  !temperature reference for Q_10 degradation
+  !    REAL    :: TBASE  !temperature reference for Q_10 degradation
       
       integer :: NCHEM
 

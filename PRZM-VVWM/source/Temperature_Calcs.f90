@@ -3,18 +3,20 @@ module Temperatue_Calcs
     contains
     
      SUBROUTINE Q10DK
-      !converts degradation rate by Q10
+      !converts SOIL degradation rate by Q10
       use  constants_and_Variables, ONLY:  soil_temp, &
                                            dwrate_atRefTemp, dsrate_atRefTemp, dgrate_atRefTemp, & 
                                            dwrate,dsrate,dgrate, &
-                                           Q_10,TBASE,nchem
+                                           Q_10,nchem, soil_ref_temp
       implicit none
        integer :: k
 
+       
+       
       do k=1,NCHEM   
-           dwrate(k,:) = dwrate_atRefTemp(k,:)*Q_10**((soil_temp(:)-TBASE)/10.)
-           dsrate(k,:) = dsrate_atRefTemp(k,:)*Q_10**((soil_temp(:)-TBASE)/10.)
-           dgrate(k,:) = dgrate_atRefTemp(k,:)*Q_10**((soil_temp(:)-TBASE)/10.)         
+           dwrate(k,:) = dwrate_atRefTemp(k,:)*Q_10**((soil_temp(:)-soil_ref_temp(k))/10.)
+           dsrate(k,:) = dsrate_atRefTemp(k,:)*Q_10**((soil_temp(:)-soil_ref_temp(k))/10.)
+           dgrate(k,:) = dgrate_atRefTemp(k,:)*Q_10**((soil_temp(:)-soil_ref_temp(k))/10.)         
       end do  
 
      END SUBROUTINE Q10DK
