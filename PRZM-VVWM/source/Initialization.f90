@@ -1308,6 +1308,8 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
      Sorbed2 = 0.0   
      
   end  subroutine  reset_initial_masses
-  
 
+  
+  
+  
 end module initialization   

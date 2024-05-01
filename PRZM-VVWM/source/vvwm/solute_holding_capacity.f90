@@ -2,7 +2,7 @@ module solute_capacity
 
 
 contains
-subroutine solute_holding_capacity(koc)
+subroutine solute_holding_capacity(chem_index, koc)
    use constants_and_variables, ONLY: fw1,fw2, capacity_1,capacity_2,              &
                                 v2,	Sediment_conversion_factor, kd_sed_1,m_sed_1,  &	!out          
                                 volume1,theta                                           !INPUT
@@ -17,6 +17,7 @@ subroutine solute_holding_capacity(koc)
    implicit none
 
    real, intent(in):: koc
+   integer, intent(in)::chem_index
    real:: VOL1,VOL2
    real:: KOW, KPDOC1,KPDOC2,XKPB
 
@@ -67,32 +68,20 @@ integer :: i
     m_doc_2 = DOC2*v2*.001
 
 
-	
-	
     !solute holding capacity in region 1
     capacity_1 = kd_sed_1 * m_sed_1 + kd_bio * m_bio_1 + kd_doc_1 * m_doc_1 + volume1
 
-
-    
-    
-    
     
     !solute holding capacity in region 2
     capacity_2 = kd_sed_2 * m_sed_2 + kd_bio * m_bio_2 + kd_doc_2 * m_doc_2 + v2
 
 	
-
-	
-	
     fw1=volume1/capacity_1
     fw2=v2/capacity_2
-     theta = capacity_2/capacity_1
-
- 
+    theta = capacity_2/capacity_1
 
     
-    
-    Sediment_conversion_factor = v2/fw2/m_sed_2  !converts pore water to Total Conc normalized to sed mass
+    Sediment_conversion_factor(chem_index) = v2/fw2/m_sed_2  !converts pore water to Total Conc normalized to sed mass
     
 
 end subroutine solute_holding_capacity

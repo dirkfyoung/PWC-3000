@@ -3,7 +3,7 @@ module outputprocessing
     contains
     
 
-    subroutine output_processor(chem_index, First_time_through, output_unit, unit_number,unit_number_deg1,unit_number_deg2,&
+    subroutine output_processor(chem_index, output_unit, unit_number,unit_number_deg1,unit_number_deg2,&
                                 summary_filename, summary_filename_deg1, summary_filename_deg2, waterbody_name )
 
     use utilities
@@ -34,7 +34,7 @@ module outputprocessing
     integer,             intent(in)    :: output_unit                                             !time series
     integer,             intent(in)    :: unit_number,unit_number_deg1,unit_number_deg2            ! summary files
     character(len= 500), intent(in)    :: summary_filename, summary_filename_deg1, summary_filename_deg2
-    logical,             intent(inout) :: First_time_through
+    !logical,             intent(inout) :: First_time_through
     character(len= 20), intent(in)     :: waterbody_name
     
     
@@ -101,17 +101,6 @@ if (is_waterbody_info_output) then
 	    case default
 		    waterbody_outputfile =trim(full_run_identification) // '_nada.out'	
         end select
-	
-     !   	    case (1)
-		   ! waterbody_outputfile = trim(full_run_identification) // '_parent_wb.out'
-	    !case (2)
-		   ! waterbody_outputfile = trim(full_run_identification) // '_daugter_wb.out'
-	    !case (3)
-		   ! waterbody_outputfile = trim(full_run_identification) // '_granddaugter_wb.out'		
-	    !case default
-		   ! waterbody_outputfile =trim(full_run_identification) // '_nada.out'	
-     !   end select
-        
 
     
 	open (UNIT=output_unit,FILE= trim(waterbody_outputfile),  STATUS='unknown')
@@ -254,7 +243,7 @@ end if
        call calculate_effective_halflives()
        
 
-       call write_simple_batch_data(chem_index, First_time_through, unit_number,unit_number_deg1,unit_number_deg2,&
+       call write_simple_batch_data(chem_index, unit_number,unit_number_deg1,unit_number_deg2,&
                                      summary_filename, summary_filename_deg1, summary_filename_deg2, &
                                      return_frequency,num_years, peak,Simulation_average,c1_max,c4_max, &
                                      c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max )      
@@ -316,91 +305,91 @@ end if
 
 
 
- subroutine write_returnfrequency_data(return_frequency, unit_number,num_years, peak,Simulation_average,c1_max,c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max   )
-   use constants_and_variables, Only : version_number,Sediment_conversion_factor,fw2 
-   use utilities_1, ONLY: Return_Frequency_Value
-   
-   implicit none
-  
-     real, intent(in)                         :: return_frequency
-     integer, intent(in)                       :: unit_number
-     integer, intent(in)                       :: num_years
-     real   , intent(in), dimension(num_years) :: peak,c1_max,c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max
-     real, intent(in)                          :: Simulation_average
-     
-     
-     real :: peak_out,c1_out, c4_out,c21_out,c60_out,c90_out,c365_out,benthic_peak_out,benthic_c21_out
-     logical :: lowyearflag
-     integer :: date_time(8)
-     integer :: i
-     character(len=10) :: frequencystring 
-
-  
-     !**find values corresponding to  percentiles
-     call Return_Frequency_Value(return_frequency, peak,           num_years, peak_out,         lowyearflag)
-     
-     call Return_Frequency_Value(return_frequency, c1_max,         num_years, c1_out,           lowyearflag)
-     
-     call Return_Frequency_Value(return_frequency, c4_max,         num_years, c4_out,           lowyearflag)
-     call Return_Frequency_Value(return_frequency, c21_max,        num_years, c21_out,          lowyearflag)
-     call Return_Frequency_Value(return_frequency, c60_max,        num_years, c60_out,          lowyearflag)
-     call Return_Frequency_Value(return_frequency, c90_max,        num_years, c90_out,          lowyearflag)
-     call Return_Frequency_Value(return_frequency, c365_max,       num_years, c365_out,         lowyearflag)
-     call Return_Frequency_Value(return_frequency, benthic_peak,   num_years, benthic_peak_out, lowyearflag)
-     call Return_Frequency_Value(return_frequency, benthic_c21_max,num_years, benthic_c21_out,  lowyearflag)
-    
-
-    call date_and_time(VALUES = date_time)
-    
-    Write(unit_number,*) "Waterbody Output, PRZMVVWM Version ", Version_Number
-  
-    write(unit_number,*) 
-    write(unit_number,*)  '*******************************************'
-    write(unit_number,'("Performed on: ", i2,"/",i2,"/",i4,2x,"at " ,i2,":",i2) ') &
-                   date_time(2),date_time(3),date_time(1),date_time(5),date_time(6)
-  
-    write(frequencystring, '(F4.1)')  return_frequency  !internal write in order to right justify string
-  
-
-  
-  if (LowYearFlag)then
-      Write(unit_number,  '(''* Insufficient years to calculate 1-in-'', A5, ''. Only maximums are reported here.'') '   ) adjustl(frequencystring)
-  else 
-       write(unit_number,*)
-  end if
+ !subroutine write_returnfrequency_data(return_frequency, unit_number,num_years, peak,Simulation_average,c1_max,c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max   )
+ !  use constants_and_variables, Only : version_number,Sediment_conversion_factor,fw2 
+ !  use utilities_1, ONLY: Return_Frequency_Value
+ !  
+ !  implicit none
+ ! 
+ !    real, intent(in)                         :: return_frequency
+ !    integer, intent(in)                       :: unit_number
+ !    integer, intent(in)                       :: num_years
+ !    real   , intent(in), dimension(num_years) :: peak,c1_max,c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max
+ !    real, intent(in)                          :: Simulation_average
+ !    
+ !    
+ !    real :: peak_out,c1_out, c4_out,c21_out,c60_out,c90_out,c365_out,benthic_peak_out,benthic_c21_out
+ !    logical :: lowyearflag
+ !    integer :: date_time(8)
+ !    integer :: i
+ !    character(len=10) :: frequencystring 
+ !
+ ! 
+ !    !**find values corresponding to  percentiles
+ !    call Return_Frequency_Value(return_frequency, peak,           num_years, peak_out,         lowyearflag)
+ !    
+ !    call Return_Frequency_Value(return_frequency, c1_max,         num_years, c1_out,           lowyearflag)
+ !    
+ !    call Return_Frequency_Value(return_frequency, c4_max,         num_years, c4_out,           lowyearflag)
+ !    call Return_Frequency_Value(return_frequency, c21_max,        num_years, c21_out,          lowyearflag)
+ !    call Return_Frequency_Value(return_frequency, c60_max,        num_years, c60_out,          lowyearflag)
+ !    call Return_Frequency_Value(return_frequency, c90_max,        num_years, c90_out,          lowyearflag)
+ !    call Return_Frequency_Value(return_frequency, c365_max,       num_years, c365_out,         lowyearflag)
+ !    call Return_Frequency_Value(return_frequency, benthic_peak,   num_years, benthic_peak_out, lowyearflag)
+ !    call Return_Frequency_Value(return_frequency, benthic_c21_max,num_years, benthic_c21_out,  lowyearflag)
+ !   
+ !
+ !   call date_and_time(VALUES = date_time)
+ !   
+ !   Write(unit_number,*) "Waterbody Output, PRZMVVWM Version ", Version_Number
+ ! 
+ !   write(unit_number,*) 
+ !   write(unit_number,*)  '*******************************************'
+ !   write(unit_number,'("Performed on: ", i2,"/",i2,"/",i4,2x,"at " ,i2,":",i2) ') &
+ !                  date_time(2),date_time(3),date_time(1),date_time(5),date_time(6)
+ ! 
+ !   write(frequencystring, '(F4.1)')  return_frequency  !internal write in order to right justify string
+ ! 
+ !
+ ! 
+ ! if (LowYearFlag)then
+ !     Write(unit_number,  '(''* Insufficient years to calculate 1-in-'', A5, ''. Only maximums are reported here.'') '   ) adjustl(frequencystring)
+ ! else 
+ !      write(unit_number,*)
+ ! end if
+ !
+ !! write(unit_number, '(''Initial 1-in-'', A5 ,'' = '', G14.4E3,'' ppb'')'  )    adjustl(frequencystring), peak_out
+ ! write(unit_number, '(''1-d avg   1-in-'', A5 ,'' = '', G14.4E3,'' ppb'')'  )    adjustl(frequencystring),c1_out
+ ! write(unit_number, '(''365-d avg 1-in-'', A5 ,'' = '', G14.4E3,'' ppb'')'  )    adjustl(frequencystring),c365_out 
+ ! write(unit_number, '(''Simulation Avg       = '', G14.4E3,'' ppb'')'  )         simulation_average
+ ! write(unit_number, '(''4-d avg  1-in-'', A5 ,''  = '', G14.4E3,'' ppb'')'  )  adjustl(frequencystring),c4_out
+ ! write(unit_number, '(''21-d avg 1-in-'', A5 ,''  = '', G14.4E3,'' ppb'')'  )  adjustl(frequencystring), c21_out
+ ! write(unit_number, '(''60-d avg 1-in-'', A5 ,''  = '', G14.4E3,'' ppb'')'  )  adjustl(frequencystring), c60_out
+ ! write(unit_number, '(''90-d avg 1-in-'', A5 ,''  = '', G14.4E3,'' ppb'')'  )  adjustl(frequencystring),c90_out
+ ! 
+ ! 
+ !   
+ ! write(unit_number, '(''Benthic Pore Water 1-d  avg 1-in-'', A5 ,''= '', G14.4E3,'' ppb'')'  ) adjustl(frequencystring),  benthic_peak_out
+ ! write(unit_number, '(''Benthic Pore Water 21-d avg 1-in-'', A5 ,''= '', G14.4E3,'' ppb'')'  ) adjustl(frequencystring),  benthic_c21_out
+ !   
+ ! write(unit_number, '(''Benthic Conversion Factor             = '', G14.4E3,'' -Pore water (ug/L) to (total mass, ug)/(dry sed mass,kg)'')')&
+ !       Sediment_conversion_factor*1000.
+ ! 
+ ! write(unit_number, '(''Benthic Mass Fraction in Pore Water   = '', G14.4E3)'  )  fw2
+ ! write (unit_number,*)
+ ! write (unit_number,'(A)') 'YEAR    1-day     4-day      21-day     60-day     90-day   Yearly Avg Benthic Pk  Benthic 21-day'
+ ! do I=1, num_years  
+ !  write(unit_number,'(I3,1x,8ES11.2E3)') i,c1_max(i),c4_max(i),c21_max(i),c60_max(i),c90_max(i),c365_max(i),benthic_peak(i),benthic_c21_max(i)
+ ! end do
+ ! 
+ !
+ !end subroutine write_returnfrequency_data
  
- ! write(unit_number, '(''Initial 1-in-'', A5 ,'' = '', G14.4E3,'' ppb'')'  )    adjustl(frequencystring), peak_out
-  write(unit_number, '(''1-d avg   1-in-'', A5 ,'' = '', G14.4E3,'' ppb'')'  )    adjustl(frequencystring),c1_out
-  write(unit_number, '(''365-d avg 1-in-'', A5 ,'' = '', G14.4E3,'' ppb'')'  )    adjustl(frequencystring),c365_out 
-  write(unit_number, '(''Simulation Avg       = '', G14.4E3,'' ppb'')'  )         simulation_average
-  write(unit_number, '(''4-d avg  1-in-'', A5 ,''  = '', G14.4E3,'' ppb'')'  )  adjustl(frequencystring),c4_out
-  write(unit_number, '(''21-d avg 1-in-'', A5 ,''  = '', G14.4E3,'' ppb'')'  )  adjustl(frequencystring), c21_out
-  write(unit_number, '(''60-d avg 1-in-'', A5 ,''  = '', G14.4E3,'' ppb'')'  )  adjustl(frequencystring), c60_out
-  write(unit_number, '(''90-d avg 1-in-'', A5 ,''  = '', G14.4E3,'' ppb'')'  )  adjustl(frequencystring),c90_out
-  
-  
-    
-  write(unit_number, '(''Benthic Pore Water 1-d  avg 1-in-'', A5 ,''= '', G14.4E3,'' ppb'')'  ) adjustl(frequencystring),  benthic_peak_out
-  write(unit_number, '(''Benthic Pore Water 21-d avg 1-in-'', A5 ,''= '', G14.4E3,'' ppb'')'  ) adjustl(frequencystring),  benthic_c21_out
-    
-  write(unit_number, '(''Benthic Conversion Factor             = '', G14.4E3,'' -Pore water (ug/L) to (total mass, ug)/(dry sed mass,kg)'')')&
-        Sediment_conversion_factor*1000.
-  
-  write(unit_number, '(''Benthic Mass Fraction in Pore Water   = '', G14.4E3)'  )  fw2
-  write (unit_number,*)
-  write (unit_number,'(A)') 'YEAR    1-day     4-day      21-day     60-day     90-day   Yearly Avg Benthic Pk  Benthic 21-day'
-  do I=1, num_years  
-   write(unit_number,'(I3,1x,8ES11.2E3)') i,c1_max(i),c4_max(i),c21_max(i),c60_max(i),c90_max(i),c365_max(i),benthic_peak(i),benthic_c21_max(i)
-  end do
-  
-
- end subroutine write_returnfrequency_data
- 
 
 
 
 
-subroutine write_simple_batch_data(chem_index,First_time_through, unit_number,unit_number_deg1,unit_number_deg2, &
+subroutine write_simple_batch_data(chem_index,unit_number,unit_number_deg1,unit_number_deg2, &
                                    summary_filename, summary_filename_deg1, summary_filename_deg2, &
                                    return_frequency,num_years, peak,Simulation_average,c1_max, &
                                    c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max   )
@@ -410,7 +399,9 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, &
     gw_peak, post_bt_avg ,throughputs,simulation_avg, fraction_off_field, family_name, app_window_counter, &
-    hold_for_medians_wb, hold_for_medians_daughter,hold_for_medians_grandaughter
+    hold_for_medians_wb, hold_for_medians_daughter,hold_for_medians_grandaughter, First_time_through_wb
+
+use waterbody_parameters, ONLY: FROC2
 
 use utilities_1, ONLY: Return_Frequency_Value
 
@@ -420,7 +411,7 @@ use utilities_1, ONLY: Return_Frequency_Value
     real, intent(in)                          :: return_frequency
     real, intent(in), dimension(num_years)    :: peak,c1_max,c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max
     real, intent(in)                          :: Simulation_average
-    logical, intent(inout)                    :: First_time_through
+    !logical, intent(inout)                    :: First_time_through
     
     
     integer, intent(in) :: unit_number,unit_number_deg1,unit_number_deg2
@@ -436,24 +427,41 @@ use utilities_1, ONLY: Return_Frequency_Value
     logical   :: lowyearflag
     character(len= 257) :: local_run_id
     
-    If (First_time_through) then
+    If (First_time_through_wb(1) .AND. chem_index ==1 ) then
         header = 'Run Information                                                                  ,      1-d avg,    365-d avg,    Total avg,      4-d avg,     21-d avg,     60-d avg,      B 1-day,   B 21-d avg,    Off-Field,  Runoff Frac,   Erosn Frac,   Drift Frac,  col washout,    col metab,    col hydro,    col photo,    col volat,    col total,  ben sed rem,    ben metab,    ben hydro,    ben total,      gw_peak,  post_bt_avg,   throughput,   sim_avg_gw'
         
         Open(unit=unit_number,FILE=  (trim(family_name) // "_" // trim(summary_filename)),Status='unknown')  
-        Write(unit_number, '(A457)') header
-        if ( NCHEM>1) then
+            write(unit_number, '(''Benthic Conversion Factor             = '', G14.4E3,'' -Pore water (ug/L) to (total mass, ug)/(dry sed mass,kg)'')') Sediment_conversion_factor(1)*1000.
+            write(unit_number, '(''OC sediment fraction                  = '', G14.4E3)') froc2
+            Write(unit_number, '(A457)') header
+        First_time_through_wb(1) = .FALSE.
+    end if             
+
+        If (First_time_through_wb(2) .AND. chem_index ==2 ) then
+        header = 'Run Information                                                                  ,      1-d avg,    365-d avg,    Total avg,      4-d avg,     21-d avg,     60-d avg,      B 1-day,   B 21-d avg,    Off-Field,  Runoff Frac,   Erosn Frac,   Drift Frac,  col washout,    col metab,    col hydro,    col photo,    col volat,    col total,  ben sed rem,    ben metab,    ben hydro,    ben total,      gw_peak,  post_bt_avg,   throughput,   sim_avg_gw'
+        
             Open(unit=unit_number_deg1,FILE= (trim(family_name) // "_" // trim(summary_filename_deg1)),Status='unknown')  
+            write(unit_number_deg1, '(''Benthic Conversion Factor             = '', G14.4E3,'' -Pore water (ug/L) to (total mass, ug)/(dry sed mass,kg)'')') Sediment_conversion_factor(2)*1000.
+            write(unit_number_deg1, '(''OC sediment fraction                  = '', G14.4E3)') froc2
             Write(unit_number_deg1, '(A457)') header
-        end if
-        if ( NCHEM >2) then
-            Open(unit=unit_number_deg2,FILE= (trim(family_name) // "_" // trim(summary_filename_deg2)),Status='unknown')  
-            Write(unit_number_deg2, '(A457)') header
+            First_time_through_wb(2) = .FALSE.
         end if
         
-        First_time_through= .FALSE.
-    end if
+        If (First_time_through_wb(3) .AND. chem_index ==3 ) then
+        header = 'Run Information                                                                  ,      1-d avg,    365-d avg,    Total avg,      4-d avg,     21-d avg,     60-d avg,      B 1-day,   B 21-d avg,    Off-Field,  Runoff Frac,   Erosn Frac,   Drift Frac,  col washout,    col metab,    col hydro,    col photo,    col volat,    col total,  ben sed rem,    ben metab,    ben hydro,    ben total,      gw_peak,  post_bt_avg,   throughput,   sim_avg_gw'
+        
+            Open(unit=unit_number_deg2,FILE= (trim(family_name) // "_" // trim(summary_filename_deg2)),Status='unknown')
+            write(unit_number_deg2, '(''Benthic Conversion Factor             = '', G14.4E3,'' -Pore water (ug/L) to (total mass, ug)/(dry sed mass,kg)'')') Sediment_conversion_factor(3)*1000.
+            write(unit_number_deg2, '(''OC sediment fraction                  = '', G14.4E3)') froc2
+            Write(unit_number_deg2, '(A457)') header
+            
+            First_time_through_wb(3) = .FALSE.
+            
+        end if
+        
 
-
+   
+    
     !**find values corresponding to  percentiles
     call Return_Frequency_Value(return_frequency, peak,           num_years, peak_out,         lowyearflag)   
     call Return_Frequency_Value(return_frequency, c1_max,         num_years, c1_out,           lowyearflag)

@@ -68,7 +68,7 @@ Module TPEZ_WPEZ
                   Koc = k_f_input(chem_index)/froc2
           end if
       
-          call solute_holding_capacity(koc)    
+          call solute_holding_capacity(chem_index,koc)    
           
           call omega_mass_xfer             !probably doesnt need recalculation
           call hydrolysis(chem_index) 
@@ -339,7 +339,7 @@ Module TPEZ_WPEZ
                                         return_frequency,num_years, peak,Simulation_average,c1_max, &
                                         c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max, total_max  )
 
-    use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
+    use constants_and_variables, ONLY: run_id,fw2 ,&
     nchem,     runoff_fraction,erosion_fraction,drift_fraction,summary_outputfile, &
     effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, &
@@ -903,7 +903,7 @@ Module TPEZ_WPEZ
 
     subroutine  tpez_write_simple_batch_data(chem_index, return_frequency,num_years, tpez_max, edge_of_field_max)
 
-use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
+use constants_and_variables, ONLY: run_id,fw2 ,&
     nchem, runoff_fraction,erosion_fraction,drift_fraction , &
     First_time_through_tpez,summary_outputfile_tpez,summary_outputfile_tpez_deg1,summary_outputfile_tpez_deg2,&
     summary_output_unit_tpez,summary_output_unit_tpez_deg1,summary_output_unit_tpez_deg2, &   

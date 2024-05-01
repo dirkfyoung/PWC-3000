@@ -884,7 +884,7 @@ real:: spray_total(3)
 real:: runoff_total(3)
 real:: erosion_total(3)
 
-real :: Sediment_conversion_factor !Converts pore water to concentration (total mass)/(dry solid mass)
+real :: Sediment_conversion_factor(3) !Converts pore water to concentration (total mass)/(dry solid mass)
 real :: Daily_Avg_Runoff
 real :: Daily_avg_flow_out
 
@@ -892,7 +892,7 @@ real :: Daily_avg_flow_out
 real :: runoff_fraction  !fraction of chemical transport due to runoff
 real :: erosion_fraction
 real :: drift_fraction 
-logical :: First_time_through_wb        !used for batch reader
+logical :: First_time_through_wb(3)        !used for batch reader
 logical :: First_time_through_wpez         !used for batch reader
 logical :: First_time_through_tpez         !used for batch reader
 logical :: First_time_through_PRZM         !used to write output przm time series file headers, so can keep all output writes in one place

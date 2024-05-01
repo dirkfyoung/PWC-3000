@@ -44,7 +44,7 @@ program PRZMVVWM
 	
    !################################################ 
 	
-    First_time_through_wb   = .TRUE.  !used to write output file headers, so can keep all output writes in one place
+    First_time_through_wb   = .TRUE.  !ARRAY of 3 parent, deg1, deg2, used to write output file headers
     First_time_through_tpez = .TRUE.
     First_time_through_wpez = .TRUE.
 
@@ -68,6 +68,8 @@ program PRZMVVWM
      
 
      do hh = 1, size(waterbody_names)
+ 
+         
          run_tpez_wpez = .FALSE.
          First_time_through_medians = .TRUE.     !we want a separate file for each median (move this uop if alll in one file, but file has watrerbody name
          
@@ -83,6 +85,8 @@ program PRZMVVWM
               call read_waterbodyfile(hh)  
          end select
 		 
+
+         
 		 Write(*,*) 'Doing waterbody: ',  trim(waterbody_names(hh))
          do i = 1, number_of_schemes
 			 Write(*,*) 'Doing Scheme No. ', i 

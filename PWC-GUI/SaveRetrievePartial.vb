@@ -238,78 +238,88 @@
 
         msg = msg & String.Format("{0}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{2}", phrase1, phrase2, phrase3)
 
-        For i As Integer = 0 To NumberOfSchemes - 1
-            msg = msg & String.Format("{0}{1},{2},", vbNewLine, (i + 1), """" & SchemeTableDisplay.Item(3, i).Value & """")
-
-            ApplicationTable = SchemeInfoList(i)
-
-            Select Case True
-                Case ApplicationTable.AbsoluteRelative
-                    referencedate = 0
-                Case ApplicationTable.Emerge
-                    referencedate = 1
-                Case ApplicationTable.Maturity
-                    referencedate = 2
-                Case ApplicationTable.Removal
-                    referencedate = 3
-                Case Else
-                    referencedate = 99
-            End Select
-
-            msg = msg & String.Format("{0},", referencedate)
-
-            'Application Table Information
-            actualRowsInAppTable = ApplicationTable.Days.Count   'AppTableDisplay.RowCount - 1
-            msg = msg & String.Format("{0},", actualRowsInAppTable)
 
 
-            'Maximum of 10 applications for a scheme dump
-            If actualRowsInAppTable - 1 > 10 Then
-                MsgBox("column order is preserved only for a maximum of 10 applications")
-            End If
+        Dim checktest As Integer
+        Try
 
-            For j As Integer = 0 To actualRowsInAppTable - 1
+            For i As Integer = 0 To NumberOfSchemes - 1
 
-                msg = msg & String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},", ApplicationTable.Days(j), ApplicationTable.Amount(j),
-                                          ApplicationTable.Method(j), ApplicationTable.Depth(j), ApplicationTable.Split(j),
-                                          ApplicationTable.Drift(j), ApplicationTable.DriftBuffer(j), ApplicationTable.Periodicity(j), ApplicationTable.Lag(j))
-            Next
 
-            If actualRowsInAppTable < 10 Then
-                For j As Integer = 1 To (10 - actualRowsInAppTable)
-                    msg = msg & String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},", 0, 0, 0, 0, 0, 0, 0, 0, 0)
+                checktest = i
+                msg = msg & String.Format("{0}{1},{2},", vbNewLine, (i + 1), """" & SchemeTableDisplay.Item(3, i).Value & """")
+
+                ApplicationTable = SchemeInfoList(i)
+
+                Select Case True
+                    Case ApplicationTable.AbsoluteRelative
+                        referencedate = 0
+                    Case ApplicationTable.Emerge
+                        referencedate = 1
+                    Case ApplicationTable.Maturity
+                        referencedate = 2
+                    Case ApplicationTable.Removal
+                        referencedate = 3
+                    Case Else
+                        referencedate = 99
+                End Select
+
+                msg = msg & String.Format("{0},", referencedate)
+
+                'Application Table Information
+                actualRowsInAppTable = ApplicationTable.Days.Count   'AppTableDisplay.RowCount - 1
+                msg = msg & String.Format("{0},", actualRowsInAppTable)
+
+
+                'Maximum of 10 applications for a scheme dump
+                If actualRowsInAppTable - 1 > 10 Then
+                    MsgBox("column order is preserved only for a maximum of 10 applications")
+                End If
+
+                For j As Integer = 0 To actualRowsInAppTable - 1
+
+                    msg = msg & String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},", ApplicationTable.Days(j), ApplicationTable.Amount(j),
+                                              ApplicationTable.Method(j), ApplicationTable.Depth(j), ApplicationTable.Split(j),
+                                              ApplicationTable.Drift(j), ApplicationTable.DriftBuffer(j), ApplicationTable.Periodicity(j), ApplicationTable.Lag(j))
                 Next
-            End If
+
+                If actualRowsInAppTable < 10 Then
+                    For j As Integer = 1 To (10 - actualRowsInAppTable)
+                        msg = msg & String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},", 0, 0, 0, 0, 0, 0, 0, 0, 0)
+                    Next
+                End If
 
 
 
-            msg = msg & String.Format("{0},{1},{2},", ApplicationTable.UseApplicationWindow, ApplicationTable.ApplicationWindowSpan, ApplicationTable.ApplicationWindowStep)
-            msg = msg & String.Format("{0},{1},{2},{3},{4},", ApplicationTable.UseRainFast, ApplicationTable.RainLimit, ApplicationTable.IntolerableRainWindow, ApplicationTable.OptimumApplicationWindow, ApplicationTable.MinDaysBetweenApps)
+                msg = msg & String.Format("{0},{1},{2},", ApplicationTable.UseApplicationWindow, ApplicationTable.ApplicationWindowSpan, ApplicationTable.ApplicationWindowStep)
+                msg = msg & String.Format("{0},{1},{2},{3},{4},", ApplicationTable.UseRainFast, ApplicationTable.RainLimit, ApplicationTable.IntolerableRainWindow, ApplicationTable.OptimumApplicationWindow, ApplicationTable.MinDaysBetweenApps)
 
 
-            NumberOfScenarios = ApplicationTable.Scenarios.Count
-            msg = msg & NumberOfScenarios
+                NumberOfScenarios = ApplicationTable.Scenarios.Count
+                msg = msg & NumberOfScenarios
 
-            If IO.Path.GetDirectoryName(ApplicationTable.Scenarios(0)) = "" Then
-                msg = msg & ","
-            Else
-                msg = msg & "," & IO.Path.GetDirectoryName(ApplicationTable.Scenarios(0)) & "\"
-            End If
+                If IO.Path.GetDirectoryName(ApplicationTable.Scenarios(0)) = "" Then
+                    msg = msg & ","
+                Else
+                    msg = msg & "," & IO.Path.GetDirectoryName(ApplicationTable.Scenarios(0)) & "\"
+                End If
 
 
-            For j As Integer = 0 To NumberOfScenarios - 1
-                msg = msg & "," & IO.Path.GetFileName(ApplicationTable.Scenarios(j))
+                For j As Integer = 0 To NumberOfScenarios - 1
+                    msg = msg & "," & IO.Path.GetFileName(ApplicationTable.Scenarios(j))
+                Next
+
+
+
+
+                'msg = msg & vbNewLine & ApplicationTable.UseBatchScenarioFile & ","
+                'msg = msg & vbNewLine & ApplicationTable.ScenarioBatchFileName & ","
             Next
 
 
-
-
-            'msg = msg & vbNewLine & ApplicationTable.UseBatchScenarioFile & ","
-            'msg = msg & vbNewLine & ApplicationTable.ScenarioBatchFileName & ","
-        Next
-
-
-
+        Catch ex As Exception
+            MsgBox("uncommitted scheme or unpopulated scheme: " & checktest)
+        End Try
 
 
 

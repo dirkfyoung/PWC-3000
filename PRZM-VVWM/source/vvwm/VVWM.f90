@@ -4,7 +4,7 @@ module VVWM_solution_setup
 ! THIS IS THE ANALYTICAL SOLUTION For the two compartment VVWM.
 ! Also has a single comprtment TPEZ solution
 !
-! Based on EXAMS, attempt made to put EXAMS partameters in CAPITAL LETTERS
+! Based on EXAMS, attempt made to put EXAMS parameters in CAPITAL LETTERS
 !___________________________________________________________________________
     contains
     subroutine VVWM
@@ -15,7 +15,7 @@ module VVWM_solution_setup
         outputfile_parent_daily,outputfile_deg1_daily,outputfile_deg2_daily,&
         outputfile_parent_deem,outputfile_deg1_deem,outputfile_deg2_deem,&
         outputfile_parent_calendex,outputfile_deg1_calendex,outputfile_deg2_calendex,&
-        outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa,summary_outputfile,  k_flow, First_time_through_wb
+        outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa,summary_outputfile,  k_flow  !, First_time_through_wb
     
     use waterbody_parameters, ONLY: FROC2, simtypeflag, this_waterbody_name
     
@@ -69,7 +69,7 @@ real    :: koc
           end if
       
       !*******************************************
-        call solute_holding_capacity(koc)    
+        call solute_holding_capacity(chem_index,koc)    
         
         call omega_mass_xfer
         call hydrolysis(chem_index) 
@@ -93,7 +93,7 @@ real    :: koc
         end if
 
       !**********************************************************          
-       call output_processor(chem_index,First_time_through_wb, waterbody_timeseries_unit, &
+       call output_processor(chem_index, waterbody_timeseries_unit, &
            summary_output_unit, summary_output_unit_deg1, summary_output_unit_deg2,       &
            summary_outputfile, summary_outputfile_deg1, summary_outputfile_deg2, this_waterbody_name)
       !**********************************************************          

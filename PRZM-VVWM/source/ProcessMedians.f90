@@ -10,7 +10,7 @@ module process_medians
               hold_for_medians_WPEZ_grandaughter,hold_for_medians_TPEZ_grandaughter , &
               First_time_through_medians,median_unit,run_id, &
               median_daughter_unit,median_grandaughter_unit ,median_unit_wpez, median_unit_tpez,median_daughter_unit_wpez,median_grandaughter_unit_wpez,&
-              median_daughter_unit_tpez,median_grandaughter_unit_tpez
+              median_daughter_unit_tpez,median_grandaughter_unit_tpez, Sediment_conversion_factor
             
           use utilities_1, ONLY: find_medians
           use waterbody_parameters, ONLY: this_waterbody_name
@@ -30,17 +30,22 @@ module process_medians
               !open a file and write header
                localfilename = "medians_" // trim(this_waterbody_name) // ".txt"
                open (UNIT= median_unit, FILE = localfilename, STATUS = 'UNKNOWN')
+               write(median_unit, '(''Benthic Conversion Factor             = '', G14.4E3,'' -Pore water (ug/L) to (total mass, ug)/(dry sed mass,kg)'')') Sediment_conversion_factor(1)*1000.        
                write(median_unit, '(A225)') (("Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg, post_bt_avg,  throughput,  GWpeak"))
 
                if (nchem>1) then !daughter
                    localfilename = "medians_deg1_" // trim(this_waterbody_name) // ".txt"
                    open (UNIT= median_daughter_unit, FILE = localfilename, STATUS = 'UNKNOWN')
+                   
+                   write(median_daughter_unit, '(''Benthic Conversion Factor             = '', G14.4E3,'' -Pore water (ug/L) to (total mass, ug)/(dry sed mass,kg)'')') Sediment_conversion_factor(2)*1000.
                    write(median_daughter_unit, '(A225)') (("Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg, post_bt_avg,  throughput, GWpeak"))
                endif
                
                if (nchem>2) then !grandaughter
                    localfilename = "medians_deg2_" // trim(this_waterbody_name) // ".txt"
                    open (UNIT= median_grandaughter_unit, FILE = localfilename, STATUS = 'UNKNOWN')
+                   write(median_grandaughter_unit, '(''Benthic Conversion Factor             = '', G14.4E3,'' -Pore water (ug/L) to (total mass, ug)/(dry sed mass,kg)'')') Sediment_conversion_factor(3)*1000.
+                   
                    write(median_grandaughter_unit, '(A225)') (("Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg, post_bt_avg,  throughput, GWpeak"))
                endif
 
