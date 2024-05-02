@@ -295,17 +295,27 @@
                 msg = msg & String.Format("{0},{1},{2},{3},{4},", ApplicationTable.UseRainFast, ApplicationTable.RainLimit, ApplicationTable.IntolerableRainWindow, ApplicationTable.OptimumApplicationWindow, ApplicationTable.MinDaysBetweenApps)
 
 
+
                 NumberOfScenarios = ApplicationTable.Scenarios.Count
+
+
                 msg = msg & NumberOfScenarios
 
-                If IO.Path.GetDirectoryName(ApplicationTable.Scenarios(0)) = "" Then
+                If NumberOfScenarios = 0 Then
                     msg = msg & ","
                 Else
-                    msg = msg & "," & IO.Path.GetDirectoryName(ApplicationTable.Scenarios(0)) & "\"
+                    If IO.Path.GetDirectoryName(ApplicationTable.Scenarios(0)) = "" Then
+                        msg = msg & ","
+                    Else
+                        msg = msg & "," & IO.Path.GetDirectoryName(ApplicationTable.Scenarios(0)) & "\"
+                    End If
                 End If
 
 
+
                 For j As Integer = 0 To NumberOfScenarios - 1
+
+
                     msg = msg & "," & IO.Path.GetFileName(ApplicationTable.Scenarios(j))
                 Next
 
@@ -318,7 +328,9 @@
 
 
         Catch ex As Exception
-            MsgBox("uncommitted scheme or unpopulated scheme: " & checktest)
+
+            MsgBox("uncommitted scheme or unpopulated scheme: " & checktest + 1)
+            Return
         End Try
 
 
