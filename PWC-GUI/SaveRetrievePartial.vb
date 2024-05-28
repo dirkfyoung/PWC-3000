@@ -67,6 +67,12 @@
 
 
         NumberOfSchemes = SchemeTableDisplay.RowCount - 1
+
+        If (NumberOfSchemes > SchemeInfoList.Count) Then
+            MsgBox("There is an uncommitted scheme. Delete it or commit it.")
+            Return
+        End If
+
         If NumberOfSchemes = 1 And SchemeInfoList.Count = 0 Then
             'scheme is not commited so dont try to save else get error below
             NumberOfSchemes = 0
@@ -229,6 +235,13 @@
 
 
         NumberOfSchemes = SchemeTableDisplay.RowCount - 1
+
+        If (NumberOfSchemes > SchemeInfoList.Count) Then
+            MsgBox("There is an uncommitted scheme. Delete it or commit it.")
+            Return
+        End If
+
+
         msg = msg & String.Format("{0}{1}{0}", vbNewLine, NumberOfSchemes)
         SchemeTableDisplay.CommitEdit(DataGridViewDataErrorContexts.Commit) 'commit the cell if cursor still on box
 
@@ -312,15 +325,11 @@
                 End If
 
 
-
                 For j As Integer = 0 To NumberOfScenarios - 1
 
 
                     msg = msg & "," & IO.Path.GetFileName(ApplicationTable.Scenarios(j))
                 Next
-
-
-
 
                 'msg = msg & vbNewLine & ApplicationTable.UseBatchScenarioFile & ","
                 'msg = msg & vbNewLine & ApplicationTable.ScenarioBatchFileName & ","
@@ -329,7 +338,7 @@
 
         Catch ex As Exception
 
-            MsgBox("uncommitted scheme or unpopulated scheme: " & checktest + 1)
+            MsgBox("There is a problem with scheme save. " & ex.Message)
             Return
         End Try
 
