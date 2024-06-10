@@ -904,9 +904,6 @@
                 ApplicationTable.UseBatchScenarioFile = currentrow(0)
 
                 currentrow = MyReader.ReadFields
-
-
-
                 ApplicationTable.ScenarioBatchFileName = currentrow(0)
                 SchemeInfoList.Add(ApplicationTable)
 

@@ -52,7 +52,8 @@ use utilities
     
     character (len=256) :: scheme_name
 	integer             :: scheme_number_readin
-
+    integer             :: comma_place 
+    
     OPEN(Unit = inputfile_unit_number, FILE=(inputfile),STATUS='OLD', IOSTAT=status  )
     IF (status .NE. 0) THEN
       WRITE(*,*)'Problem with PRZMVVWM input file: ', inputfile
@@ -239,9 +240,14 @@ use utilities
             read(inputfile_unit_number,'(A512)')  scenario_names(i,j) !(i,j) i is scheme #, j is scenario #          !Scheme Group of Lines 8
         end do 
         
-        read(inputfile_unit_number,*) is_batch_scenario(i)                                                           !Scheme Line 9
-        read(inputfile_unit_number,'(A)') scenario_batchfile(i)                                                      !Scheme Line 10
- 
+        read(inputfile_unit_number,*) is_batch_scenario(i)      !Scheme Line 9
+        read(inputfile_unit_number,'(A)') scenario_batchfile(i) !Scheme Line 10
+        
+        !remove comma from end of file name, it will be last character
+        comma_place = index(scenario_batchfile(i),",",.TRUE.)-1
+        if (comma_place >0)then
+             scenario_batchfile(i) = scenario_batchfile(i)(1: comma_place -1)
+        end if
     enddo
 	
     
