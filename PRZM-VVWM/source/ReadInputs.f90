@@ -253,7 +253,8 @@ use utilities
     
    !Convert application rates to kg/ha if they are in lb/acre, 0.892179 kg/ha per lb/acre
    if (is_needs_poundkg_conversion) then
-        application_rate_schemes = 0.892179*application_rate_schemes
+     !   application_rate_schemes = 0.892179*application_rate_schemes          oops!
+        application_rate_schemes = 1.12085*application_rate_schemes
    end if
    
   
