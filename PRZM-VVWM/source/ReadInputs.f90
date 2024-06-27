@@ -607,7 +607,7 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
          real :: root_depth         !needs to be put into array max_root_depth(i)
          real :: cn_cov, cn_fal, usle_c_cov, usle_c_fal
          integer year !dummy not used but for sub op
-         character(LEN=10) :: weather_grid
+         character(LEN=50) :: weather_grid
          integer :: iostatus
          integer :: i
          real ::  gw_depth, gw_temp
@@ -700,7 +700,14 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
          !Foliar Disposition seems to be undefined in the batch file
          !canopy height is undefined, set to 1 meter by default put into: max_canopy_height(i)
                   
-         weatherfilename = trim(adjustl(weather_grid)) // '_grid.wea'
+          
+         !added the following to enable complete filenames in weather_grid field in csv file, per ian 
+         if( INDEX(weather_grid, ".wea") > 0) then ! assume any file with this string is a complete weather file name
+           weatherfilename = trim(adjustl(weather_grid))
+         else
+           weatherfilename = trim(adjustl(weather_grid)) // '_grid.wea'
+         end if 
+          
 
          num_crop_periods_input = 1
          if (julian_emerg==0 .AND.  julian_matur==1 .AND. julian_harv==364) then
