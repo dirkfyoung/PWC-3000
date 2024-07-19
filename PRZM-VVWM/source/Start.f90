@@ -96,8 +96,13 @@ program PRZMVVWM
 							
 				           
              if(is_batch_scenario(i)) then
-                write(*,'("Batch Scenario File: ", A100) ')  adjustl( scenario_batchfile(i))
+                write(*,'("Batch Scenario File: ", A200) ')  adjustl( scenario_batchfile(i))
                 open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus ) 
+                if(iostatus /= 0) then
+                    write(*,*) "Can't find scenario batch file for scheme ",i 
+                    stop
+                end if
+                
                 read(BatchFileUnit,*) dummy  ! skip header
                 end_of_file = .FALSE. !reset the batch scenario reading
                 error_on_read = .FALSE.

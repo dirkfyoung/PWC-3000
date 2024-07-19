@@ -244,9 +244,9 @@ use utilities
         read(inputfile_unit_number,'(A)') scenario_batchfile(i) !Scheme Line 10
         
         !remove comma from end of file name, it will be last character
-        comma_place = index(scenario_batchfile(i),",",.TRUE.)-1
+        comma_place = index(scenario_batchfile(i),",",.TRUE.)
         if (comma_place >0)then
-             scenario_batchfile(i) = scenario_batchfile(i)(1: comma_place -1)
+            scenario_batchfile(i) = scenario_batchfile(i)(1: comma_place -1)    
         end if
     enddo
 	
@@ -670,7 +670,7 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
              end_of_file = .TRUE.
              return
          else 
-            write(*,'(A)') input_string 
+         !   write(*,'(A)') input_string 
          end if
         
  
@@ -686,10 +686,9 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
              dummy,dummy,dummy,dummy,dummy,dummy,dummy,dummy,dummy,cropgroup,region, gw_depth, gw_temp               
          
          
-        
          if (iostatus /= 0 ) then  !there is a problem
              error_on_read = .TRUE.
-             write (*,*) '^^^^^^^^^^ ERROR DETECTED IN THIS SCENARIO ^^^^^^^^'
+             write (*,*) 'ERROR IN THIS SCENARIO (ignore if this is just the header)'
              return
          end if
          
