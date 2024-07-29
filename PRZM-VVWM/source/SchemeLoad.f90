@@ -3,8 +3,10 @@ module schemeload
     contains
     
     Subroutine deallocate_application_parameters
-        use constants_and_variables, ONLY: application_rate_in,days_until_applied,DEPI_in,APPEFF_in,Tband_top_in,&
-                                        pest_app_method_in ,drift_value,lag_app_in,repeat_app_in, is_absolute_year
+        use constants_and_variables,   ONLY: application_rate_in,days_until_applied,DEPI_in,APPEFF_in,Tband_top_in,&
+                                           pest_app_method_in ,drift_value,lag_app_in,repeat_app_in, is_absolute_year
+        use TPEZ_spray_initialization, ONLY: tpez_drift_value
+        
         deallocate(application_rate_in)                                                            
         deallocate(days_until_applied )                                                            
         deallocate(DEPI_in            )          
@@ -17,6 +19,8 @@ module schemeload
         deallocate(repeat_app_in) 
         deallocate(is_absolute_year)
 
+        deallocate(tpez_drift_value ) 
+        
 	end Subroutine deallocate_application_parameters
 
 
@@ -32,7 +36,7 @@ module schemeload
 	       is_adjust_for_rain, rain_limit,optimum_application_window,intolerable_rain_window,min_days_between_apps, is_batch_scenario, &
            is_absolute_year, is_absolute_year_schemes
       
-       use waterbody_parameters, ONLY: afield,   area_waterbody, spray_values
+       use waterbody_parameters, ONLY: afield,   area_waterbody
         integer,intent(in):: scheme_number
         integer :: i
         num_applications_input = num_apps_in_schemes(scheme_number)
@@ -96,7 +100,7 @@ module schemeload
 	!************************************************************************************
 	subroutine lookup_drift(row, column, output)
     
-    !this routine seems redundant with the more generic find_in_table in utiliuties
+    !this routine seems redundant with the more generic find_in_table in utilities
     !was there a reason to treat tpez spray table differently?
     !try to consolidate in future
        use constants_and_variables, ONLY: is_output_spraydrift

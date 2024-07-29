@@ -7,6 +7,7 @@ module allocations
 		 irrigation_save,  canopy_flow_save, THAIR_save, ncom2, theta_end_save, &
 		 runoff_save,soilwater_save, velocity_save,theta_zero_save,thair_old_save, &
 	     enriched_erosion_save, et_save, infiltration_save,conc_last_horizon_save, soil_temp_save,nchem
+     use TPEZ_spray_initialization, ONLY:tpez_spray_additions
      implicit none
      
      !write(*,*) num_records, ncom2
@@ -14,6 +15,9 @@ module allocations
             allocate (erosion_save(num_records))            
             allocate (mass_off_field(num_records,2,3))  
             allocate (spray_additions(num_records)) 
+            
+            allocate(tpez_spray_additions(num_records))
+            
             
 			allocate (irrigation_save(num_records))
 			allocate (canopy_flow_save(num_records))
@@ -208,7 +212,7 @@ end subroutine allocation_for_VVWM
         conc_porewater,sorbed2,Kd_2, ainf, vel, &
         EvapoTran,GAMMA1,new_henry,old_Henry,runoff_intensity, erosion_intensity,soilap,  &
         DKFLUX,SRCFLX,PVFLUX,UPFLUX, dgair, soil_applied_washoff,&
-        application_order, application_date,application_date_original, pest_app_method, DEPI,TAPP,APPEFF,Tband_top,drift_kg_per_m2,tpez_drift_kg_per_m2, &
+        application_order, application_date,application_date_original, pest_app_method, DEPI,TAPP,APPEFF,Tband_top,drift_kg_per_m2, &
         crop_fraction_of_max,canopy_cover,canopy_height,canopy_holdup,is_harvest_day,&      
         evapo_root_node,root_depth,root_node,atharvest_pest_app,  &
         flowthru_the_body,burial,eroded_solids_mass,fraction_to_benthic, &
@@ -219,7 +223,9 @@ end subroutine allocation_for_VVWM
         aqconc_avg1,aqconc_avg2,aq1_store,aq2_store, irrigation_save, canopy_flow_save, THAIR_save, &
 		theta_end_save, runoff_save,soilwater_save,velocity_save, theta_zero_save,thair_old_save, &
        	erosion_save, enriched_erosion_save,et_save, infiltration_save,conc_last_horizon_save, soil_temp_save, edge_of_field
-  
+        
+        use TPEZ_spray_initialization, ONLY: tpez_drift_kg_per_m2, tpez_spray_additions
+        
         deallocate (emergence_date )        
         deallocate (maturity_date  )
         deallocate (harvest_date   )
@@ -342,7 +348,7 @@ end subroutine allocation_for_VVWM
           
       deallocate (mass_off_field)
       deallocate (spray_additions)
-      
+      deallocate(tpez_spray_additions)
       
       if (nchem > 1) then 
               deallocate (degradateProduced1)

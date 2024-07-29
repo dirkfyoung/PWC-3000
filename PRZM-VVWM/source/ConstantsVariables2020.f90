@@ -474,7 +474,7 @@ module constants_and_variables
       real,allocatable,dimension(:)    :: APPEFF
       real,allocatable,dimension(:)    :: Tband_top
       real,allocatable,dimension(:)	   :: drift_kg_per_m2          !the drift application rate to pond
-      real,allocatable,dimension(:)	   :: tpez_drift_kg_per_m2     !the drift application rate to tpez
+     ! real,allocatable,dimension(:)	   :: tpez_drift_kg_per_m2     !the drift application rate to tpez
       
       
       

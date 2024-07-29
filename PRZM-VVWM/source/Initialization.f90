@@ -318,7 +318,8 @@ end subroutine chemical_manipulations
                      endif 
                  end if
             end do          
-
+      
+            
           !saturate last 2 compartments to simulate aquifer
             
             theta_fc(ncom2-1) = 1.0 - bulkdensity(ncom2-1)/2.65
@@ -404,15 +405,10 @@ end subroutine chemical_manipulations
         
     end do   	
 
-    !WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW  look
-    !****************************needs repair for autoprofile
 
     !Find index of last 2 nodes, this will be used for groundwater calculations
 	    top_node_last_horizon    = ncom2-1
 		bottom_node_last_horizon = ncom2
-    
-    !SHOULD last 2 compaertments be saturated?  Not sure if that is in here 7/5/2023
-    !*************************************************
 
     !Implicit routine corection for degradation: insures perfect degradation at high rates    
              aq_rate_corrected =     exp(aq_rate_input)   -1.  
@@ -695,7 +691,29 @@ end subroutine chemical_manipulations
     call SetupFieldOutputOptions
 	call calculate_retardation_factor
     
-end subroutine INITL
+  end subroutine INITL
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
     
 !**********************************************************************
 
@@ -739,9 +757,9 @@ subroutine SetupApplications
                                     application_date_original,application_date, pest_app_method,DEPI,TAPP,APPEFF,Tband_top, &
                                     num_crop_periods_input, emm, emd, mam,mad, ham,had, &
                                     total_applications , drift_kg_per_m2, cam123_soil_depth, delx, &
-                                     days_until_applied,app_reference_point, application_order, is_adjust_for_rain, is_absolute_year, &
-                                     tpez_drift_kg_per_m2
-   
+                                     days_until_applied,app_reference_point, application_order, is_adjust_for_rain, is_absolute_year 
+                                     
+    use TPEZ_spray_initialization, ONLY: tpez_drift_kg_per_m2
     use clock_variables
           
     implicit none 
@@ -764,6 +782,8 @@ subroutine SetupApplications
     allocate (APPEFF(total_applications))
     allocate (Tband_top(total_applications))
     allocate (drift_kg_per_m2(total_applications))
+    
+    
     allocate (tpez_drift_kg_per_m2(total_applications))
     
 
@@ -841,7 +861,6 @@ subroutine SetupApplications
 
                     app_counter = app_counter+1
 
- 
                     application_date(app_counter)=   jd(j,month,day) + days_until_applied(i)       
                     pest_app_method(app_counter) = pest_app_method_in(i)
                     DEPI(app_counter) =  DEPI_in(i)
@@ -856,27 +875,22 @@ subroutine SetupApplications
                              write (*,*) 'Note: Specified depth is less than compartment size, so used minimum incorporation = ', Delx(1)
                           End If
                       end select
-   
-                      
+                         
                     TAPP(app_counter) = application_rate_in(i)/1.0E5  !     TAPP... kg/ha ---> g/cm**2
                     APPEFF(app_counter) = APPEFF_in(i)
                     Tband_top(app_counter) = Tband_top_in(i)                                   
                     drift_kg_per_m2(app_counter) = drift_value(i)*application_rate_in(i)/10000.    !Kg/m2 drift application to waterbody         
-                   !call get_date (application_date(app_counter), YEAR_out,MONTH_out,DAY_out)
-              !    write (*,*) "cyc",YEAR_out,MONTH_out,DAY_out
                     
               end do    
             endif  !absolute years vs. yearly cycle
     
-            
          end  do    
     end do
     
 
-    
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    
-    
+     
     
     application_date_original = application_date  !keep application_date_original the same for every scheme
   

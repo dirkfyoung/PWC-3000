@@ -478,105 +478,61 @@ Module TPEZ_WPEZ
     subroutine tpez(scheme_number)
       use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
           DELT_vvwm, waterbodytext,soil_depth, &
-          num_applications_input,application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, tpez_drift_kg_per_m2, drift_schemes,&
+          application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, drift_schemes,&
           theta_fc,theta_wp, ncom2,  orgcarb,bulkdensity, mavg1_store, driftfactor_schemes, is_output_spraydrift     
+ !     num_applications_input,
       
-      use waterbody_parameters, ONLY: simtypeflag, use_tpezbuffer
+      
+      use waterbody_parameters, ONLY: simtypeflag    !, use_tpezbuffer
+!     use TPEZ_initialization, ONLY: tpez_drift_kg_per_m2
       
       use degradation
       use MassInputs
     !  use outputprocessing
-      use utilities_1, ONLY:find_in_table, find_average_property
+      use utilities_1, ONLY:find_average_property
+      use TPEZ_spray_initialization, ONLY: area_tpez
       
-      
-    use clock_variables
+      use clock_variables
       implicit none   
       integer,intent(in) ::scheme_number
      
       !**local chemical properties****
       integer :: chem_index
       real    :: koc
-      real    :: drift_value_local
+  !    real    :: drift_value_local
       integer :: i,j
-      integer :: app_counter
+   !   integer :: app_counter
       real    :: avg_maxwater, avg_minwater, avg_oc, avg_bd
       real    :: kd
-      real    :: buffer_distance   !local holder to take care of zero buffer option
-      
-      !******Set TPEZ Specific parameters 
-      real, parameter :: area_tpez = 10000.!m2
-      
-      !TPEZ SPRAY DRIFT TABLE
-!      real,dimension(17,13),parameter :: spray_table_TPEZ = transpose(reshape((/&      
-!   0.0,   10.0,   25.0,   50.0,   75.0,  100.0,  125.0,  150.0,  200.0,  250.0,  300.0, 350.0,   400.0, &
-!0.3194, 0.2953, 0.2669, 0.2305, 0.2012, 0.1765, 0.1576, 0.1411, 0.1177, 0.1016, 0.0896, 0.0802, 0.0728, &
-!0.1948, 0.1634, 0.1343, 0.1033, 0.0809, 0.0654, 0.0548, 0.0476, 0.0375, 0.0309, 0.0263, 0.0229, 0.0204, &
-!0.1480, 0.1145, 0.0870, 0.0631, 0.0466, 0.0367, 0.0300, 0.0254, 0.0189, 0.0149, 0.0124, 0.0107, 0.0095, &
-!0.1196, 0.0858, 0.0600, 0.0408, 0.0298, 0.0231, 0.0185, 0.0154, 0.0113, 0.0090, 0.0076, 0.0066, 0.0059, &
-!0.1123, 0.0624, 0.0409, 0.0275, 0.0211, 0.0171, 0.0144, 0.0123, 0.0095, 0.0076, 0.0063, 0.0053, 0.0045, &
-!0.0293, 0.0136, 0.0100, 0.0075, 0.0061, 0.0052, 0.0046, 0.0041, 0.0033, 0.0028, 0.0024, 0.0021, 0.0019, &
-!0.0495, 0.0219, 0.0147, 0.0104, 0.0082, 0.0069, 0.0059, 0.0052, 0.0420, 0.0035, 0.0030, 0.0027, 0.0023, &
-!0.0195, 0.0084, 0.0062, 0.0047, 0.0039, 0.0034, 0.0030, 0.0027, 0.0022, 0.0019, 0.0017, 0.0015, 0.0013, &
-!0.0019, 0.0014, 0.0010, 0.0007, 0.0005, 0.0004, 0.0004, 0.0003, 0.0002, 0.0002, 0.0002, 0.0001, 0.0001, &
-!0.0265, 0.0184, 0.0122, 0.0075, 0.0053, 0.0041, 0.0033, 0.0027, 0.0021, 0.0017, 0.0014, 0.0012, 0.0011, &
-!0.0831, 0.0502, 0.0280, 0.0136, 0.0078, 0.0050, 0.0035, 0.0025, 0.0015, 0.0010, 0.0007, 0.0050, 0.0004, &
-!0.0047, 0.0026, 0.0015, 0.0009, 0.0006, 0.0005, 0.0004, 0.0003, 0.0002, 0.0002, 0.0001, 0.0001, 0.0001, &
-!0.0417, 0.0265, 0.0161, 0.0090, 0.0059, 0.0043, 0.0034, 0.0027, 0.0020, 0.0015, 0.0013, 0.0011, 0.0009, &
-!1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 1.0000, &
-!0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, &                                                               
-!0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000  &   
-!/),(/13,17/)))        
-!      
-      
-  !qa'd table    
-      
-      real,dimension(17,13),parameter :: spray_table_TPEZ = transpose(reshape((/&      
-0.0000E+00,1.0000E+01,2.5000E+01,5.0000E+01,7.5000E+01,1.0000E+02,1.2500E+02,1.5000E+02,2.0000E+02,2.5000E+02,3.0000E+02,3.5000E+02,4.0000E+02,&
-3.1900E-01,2.9490E-01,2.6660E-01,2.3020E-01,2.0100E-01,1.7640E-01,1.5750E-01,1.4100E-01,1.1760E-01,1.0160E-01,8.9500E-02,8.0100E-02,7.2800E-02,&
-1.9440E-01,1.6300E-01,1.3400E-01,1.0310E-01,8.0800E-02,6.5300E-02,5.4800E-02,4.7500E-02,3.7500E-02,3.0900E-02,2.6300E-02,2.2900E-02,2.0400E-02,&
-1.4760E-01,1.1430E-01,8.6800E-02,6.3000E-02,4.6500E-02,3.6600E-02,3.0000E-02,2.5400E-02,1.8900E-02,1.4900E-02,1.2400E-02,1.0700E-02,9.5000E-03,&
-1.1920E-01,8.5600E-02,5.9800E-02,4.0700E-02,2.9700E-02,2.3100E-02,1.8500E-02,1.5300E-02,1.1200E-02,9.0000E-03,7.6000E-03,6.6000E-03,5.9000E-03,&
-1.1190E-01,6.2200E-02,4.0800E-02,2.7500E-02,2.1100E-02,1.7100E-02,1.4400E-02,1.2300E-02,9.5000E-03,7.6000E-03,6.3000E-03,5.3000E-03,4.5000E-03,&
-2.9200E-02,1.3600E-02,1.0000E-02,7.5000E-03,6.1000E-03,5.2000E-03,4.6000E-03,4.1000E-03,3.3000E-03,2.8000E-03,2.4000E-03,2.1000E-03,1.9000E-03,&
-4.9300E-02,2.1800E-02,1.4700E-02,1.0300E-02,8.2000E-03,6.9000E-03,5.9000E-03,5.2000E-03,4.2000E-03,3.5000E-03,3.0000E-03,2.6000E-03,2.3000E-03,&
-1.9400E-02,8.3000E-03,6.2000E-03,4.7000E-03,3.9000E-03,3.4000E-03,3.0000E-03,2.7000E-03,2.2000E-03,1.9000E-03,1.7000E-03,1.5000E-03,1.3000E-03,&
-1.9000E-03,1.4000E-03,1.0000E-03,7.0000E-04,5.0000E-04,4.0000E-04,4.0000E-04,3.0000E-04,2.0000E-04,2.0000E-04,2.0000E-04,1.0000E-04,1.0000E-04,&
-2.6400E-02,1.8300E-02,1.2200E-02,7.5000E-03,5.3000E-03,4.1000E-03,3.3000E-03,2.7000E-03,2.1000E-03,1.7000E-03,1.4000E-03,1.2000E-03,1.1000E-03,&
-8.2800E-02,5.0100E-02,2.8000E-02,1.3500E-02,7.8000E-03,5.0000E-03,3.5000E-03,2.5000E-03,1.5000E-03,1.0000E-03,7.0000E-04,5.0000E-04,4.0000E-04,&
-4.6000E-03,2.6000E-03,1.5000E-03,9.0000E-04,6.0000E-04,5.0000E-04,4.0000E-04,3.0000E-04,2.0000E-04,2.0000E-04,1.0000E-04,1.0000E-04,1.0000E-04,&
-4.1500E-02,2.6400E-02,1.6100E-02,9.0000E-03,5.9000E-03,4.3000E-03,3.4000E-03,2.7000E-03,2.0000E-03,1.5000E-03,1.3000E-03,1.1000E-03,9.0000E-04,&
-1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,&
-0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,&
-0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00 &
-/),(/13,17/)))
-     
-  
+  !    real    :: buffer_distance   !local holder to take care of zero buffer option
 
      ! tpez normally is at edge of field, but user can select buffer for cases like in field buffers
 
-      tpez_drift_kg_per_m2= 0.0
-      app_counter= 0
-      
-      do i=1, num_applications_input
-          if (use_tpezbuffer) then
-             buffer_distance = driftfactor_schemes(scheme_number,i)
-          else           
-             buffer_distance = 0.0
-          end if
-          
-          call find_in_table(drift_schemes(scheme_number,i)+1, buffer_distance, spray_table_TPEZ,size(spray_table_TPEZ,1),size(spray_table_TPEZ,2),  drift_value_local)
-          if (is_output_spraydrift)  write(*,*)  "tpez drift factor ", drift_value_local
-          
-          do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
-             app_counter = app_counter+1       
+      !tpez_drift_kg_per_m2= 0.0
+      !app_counter= 0
+      !
+      !do i=1, num_applications_input
+      !    if (use_tpezbuffer) then
+      !       buffer_distance = driftfactor_schemes(scheme_number,i)
+      !    else           
+      !       buffer_distance = 0.0
+      !    end if
+      !    
+      !    call find_in_table(drift_schemes(scheme_number,i)+1, buffer_distance, spray_table_TPEZ,size(spray_table_TPEZ,1),size(spray_table_TPEZ,2),  drift_value_local)
+      !    if (is_output_spraydrift)  write(*,*)  "tpez drift factor ", drift_value_local
+      !    
+      !    do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
+      !       app_counter = app_counter+1       
+      !
+      !       tpez_drift_kg_per_m2(app_counter) = drift_value_local * application_rate_in(i)/10000.
+      !    end do
+      !
+      !end do
 
-             tpez_drift_kg_per_m2(app_counter) = drift_value_local * application_rate_in(i)/10000.
-          end do
-
-      end do
+ !    call tpez_spraydrift(area_tpez)
       
-     call tpez_spraydrift(area_tpez)
-   
+      
+     !Scenario Dependent Properties. Must be at the Scenario level
      call find_average_property(ncom2,soil_depth,15.0, theta_fc    , avg_maxwater)    
      call find_average_property(ncom2,soil_depth,15.0, theta_wp    , avg_minwater)
      call find_average_property(ncom2,soil_depth,15.0, bulkdensity , avg_bd)  
@@ -602,8 +558,7 @@ Module TPEZ_WPEZ
           call MainLoopTPEZ(chem_index, avg_maxwater, kd, avg_bd)      
 
       !    call time_check("after main tpex")
-          
-          
+                   
           waterbodytext = "TPEZ"
           call tpez_output_processor(chem_index,area_tpez )
      end do
@@ -614,15 +569,16 @@ Module TPEZ_WPEZ
     !*******************************************************************************
     subroutine TPEZ_initial_conditions(chem_index)
        !THIS SUBROUTINE RETURNS VALUES FOR input masses m1_input for TPEZ 
-       use constants_and_variables, ONLY:  degradateProduced1, mass_off_field, spray_additions, kd_sed_1, & 
-                                          m1_input  !OUTPUT mass added to littoral region (kg)                                                       
+       use constants_and_variables, ONLY:  degradateProduced1, mass_off_field, kd_sed_1, & 
+                                          m1_input  !OUTPUT mass added to littoral region (kg) 
+       use TPEZ_spray_initialization, ONLY:tpez_spray_additions
         implicit none      
         integer,intent(in) :: chem_index
         integer i
         
         !all mass goes to single compartment
         if (chem_index==1) then
-             m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index) + spray_additions   !only parent drifts
+             m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index) + tpez_spray_additions   !only parent drifts
         else
              m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index)                     !degradates dont drift
         end if
@@ -635,8 +591,6 @@ Module TPEZ_WPEZ
           
         end if
         
-
-         
     end subroutine TPEZ_initial_conditions
     
     
@@ -969,26 +923,7 @@ use utilities_1, ONLY: Return_Frequency_Value
 end subroutine tpez_write_simple_batch_data
     
 !***************************************************************************
-    subroutine tpez_spraydrift(area_tpez)
-       !Because vvwm spraydrift values are calculated outside app loop, this routine needs to be isolated to not change vvwm spray values
-       !probably could put this outside loop also for nore efficiency
-       use constants_and_variables, ONLY: num_records, total_applications, tpez_drift_kg_per_m2,  &
-                                           application_date, startday, spray_additions             
-       implicit none
-       real, intent(in) :: area_tpez
-       integer  ::  i, index_day
-       !Note mass is an array refernced to day 1 of the simulation, appdate is an array of dates from 1900       
 
-       spray_additions = 0.0
-       
-       do i=1, total_applications
-           index_day = application_date(i)-startday
-           if (index_day > 0 .and. index_day <= num_records) then       
-               spray_additions(index_day) = tpez_drift_kg_per_m2(i) * area_tpez 
-           end if          
-       end do
-
-    end subroutine tpez_spraydrift
 
 
  

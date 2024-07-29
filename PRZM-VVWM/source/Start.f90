@@ -24,7 +24,7 @@ program PRZMVVWM
 !	use readbatchscenario
     use TPEZ_WPEZ
     use process_medians, ONLY: calculate_medians
-
+    use TPEZ_spray_initialization, ONLY:tpez_drift_finalize, set_tpez_spray
     implicit none
 
     integer :: length               !length of input file characters
@@ -68,10 +68,9 @@ program PRZMVVWM
      
 
      do hh = 1, size(waterbody_names)
- 
-         
+  
          run_tpez_wpez = .FALSE.
-         First_time_through_medians = .TRUE.     !we want a separate file for each median (move this uop if alll in one file, but file has watrerbody name
+         First_time_through_medians = .TRUE.     !we want a separate file for each median (move this uop if all in one file, but file has waterbody name
          
          select case   (waterbody_names(hh))       !note:   waterbody spray drift table is loaded here (tpez will need different table)
          case (USEPA_reservoir)
@@ -84,17 +83,19 @@ program PRZMVVWM
          case default
               call read_waterbodyfile(hh)  
          end select
-		 
 
-         
 		 Write(*,*) 'Doing waterbody: ',  trim(waterbody_names(hh))
          do i = 1, number_of_schemes
 			 Write(*,*) 'Doing Scheme No. ', i 
 			 
+             !*******************************************************************
              !will use spray table in here --need to make spray table correct if changed by tpez
              call set_chemical_applications(i) !gets the individual application scheme from the whole scheme table, non scenario specfic 
-							
-				           
+        
+             !If running TPEZ, set the unchanging parameters here like spraydrift
+             call set_tpez_spray(i)
+             !*******************************************************************
+             
              if(is_batch_scenario(i)) then
                 write(*,'("Batch Scenario File: ", A200) ')  adjustl( scenario_batchfile(i))
                 open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus ) 
@@ -108,7 +109,7 @@ program PRZMVVWM
                 error_on_read = .FALSE.
              end if    
        
-            kk=0
+            kk=0 !index for scenario loop
             
             do !scenario do loop
                !Loop controled by either the number of files in the batch or by the number of scenarios read in from input file
@@ -127,7 +128,8 @@ program PRZMVVWM
                             write(*,*) 'bad scenario # ', kk
                             cycle                       
                      end if 
-                     !*****END ERROR CHECKING ON SCENARIO BATCH FILE ****************                             
+                     !*****END ERROR CHECKING ON SCENARIO BATCH FILE ****************       
+                     
                else    !*******use scenarios directly read into input
                      if (kk == number_of_scenarios(i) + 1) exit  !end of scenario list from gui inputs
                      call read_scenario_file(i,kk, error)
@@ -138,30 +140,21 @@ program PRZMVVWM
                      end if                    
                end if 
 
-               
-
                call Read_Weatherfile !this reads the new format weather file	   
                
-               call INITL    !initialize and ALLOCATIONS przm variables 
+               call INITL    !initialize and ALLOCATIONS przm variables  (also sets application and drift)    
+               !set scenario-dependent TPEZ drift here
                
-               call Crop_Growth
-               
+               call Crop_Growth              
 			   call hydrology_only
-		       
-               !soil temp is good here
-
                call allocation_for_VVWM
-
-			   app_window_counter = 0  !use this to track app window to find medians
-           !    hold_for_medians_wb = 0.0  !use this to hold data for medians
                
-               ! zero other hold fior mediuans here (maybe not needed)
-   
-
+               call tpez_drift_finalize 
+               
+			   app_window_counter = 0  !use this to track app window to find medians
                do jj = 0, app_window_span(i), app_window_step(i)            
                    
-                   call reset_initial_masses
-                   
+                     call reset_initial_masses
                    
 				     application_date= application_date_original + jj
                      app_window_counter = app_window_counter +1 
@@ -171,31 +164,22 @@ program PRZMVVWM
 					 if (is_adjust_for_rain) call adjust_application_dates_for_weather
 					 
 					 call chem_transport_onfield
-					 
-               !      call time_check("cpu time chem xport ")
-                     
 					 call groundwater				 
                      call VVWM 
                         
                      if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
-                        !  call time_check("before wpez")
                          call wpez   
-                        !  call time_check("after wpez")
                          call tpez(i)  !need to send in scheme to find drift
-            
                      end if                     
                end do    
-        
-               !******process application date widow into medians****************
-               call calculate_medians(app_window_counter,run_tpez_wpez )
                
+               !process application date window into medians      
+               call calculate_medians(app_window_counter,run_tpez_wpez )
                
                call deallocate_scenario_parameters		   
 
             end do  !END SCENARIO LOOP  kk 
-            
-    
-            
+             
             call deallocate_application_parameters !allocations are done in set_chmical_applications, need to deallocatte for next scheme 
               
             write (message, '(A17,I3)') 'cpu time, scheme ', i
@@ -203,7 +187,6 @@ program PRZMVVWM
 
 		 end do  !End scheme Loop, i
 		 
-
 		 deallocate (spraytable )
 		 
      end do !End Waterbody/Watershed Loop
