@@ -112,7 +112,6 @@ Module TPEZ_WPEZ
     
     end subroutine wpez
     
-
     
     subroutine output_processor_WPEZ(chem_index, First_time_through, output_unit, unit_number,unit_number_deg1,unit_number_deg2,&
                                 summary_filename, summary_filename_deg1, summary_filename_deg2, waterbody_name )
@@ -479,7 +478,7 @@ Module TPEZ_WPEZ
     subroutine tpez(scheme_number)
       use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
           DELT_vvwm, waterbodytext,soil_depth, &
-          num_applications_input,application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, drift_kg_per_m2, drift_schemes,&
+          num_applications_input,application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, tpez_drift_kg_per_m2, drift_schemes,&
           theta_fc,theta_wp, ncom2,  orgcarb,bulkdensity, mavg1_store, driftfactor_schemes, is_output_spraydrift     
       
       use waterbody_parameters, ONLY: simtypeflag, use_tpezbuffer
@@ -555,7 +554,7 @@ Module TPEZ_WPEZ
 
      ! tpez normally is at edge of field, but user can select buffer for cases like in field buffers
 
-      drift_kg_per_m2= 0.0
+      tpez_drift_kg_per_m2= 0.0
       app_counter= 0
       
       do i=1, num_applications_input
@@ -571,19 +570,13 @@ Module TPEZ_WPEZ
           do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
              app_counter = app_counter+1       
 
-             drift_kg_per_m2(app_counter) = drift_value_local * application_rate_in(i)/10000.
+             tpez_drift_kg_per_m2(app_counter) = drift_value_local * application_rate_in(i)/10000.
           end do
 
       end do
       
-      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      
-!write(*,*) "tpez drift factor", drift_value_local
-      
-     !  Spray drift needs waterbody area (fortunately its same as pond but for future flexibity consider fix) 8/30/2023
-     call spraydrift
-
-    
+     call tpez_spraydrift(area_tpez)
+   
      call find_average_property(ncom2,soil_depth,15.0, theta_fc    , avg_maxwater)    
      call find_average_property(ncom2,soil_depth,15.0, theta_wp    , avg_minwater)
      call find_average_property(ncom2,soil_depth,15.0, bulkdensity , avg_bd)  
@@ -629,7 +622,7 @@ Module TPEZ_WPEZ
         
         !all mass goes to single compartment
         if (chem_index==1) then
-             m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index) + spray_additions   !only parent driufts
+             m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index) + spray_additions   !only parent drifts
         else
              m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index)                     !degradates dont drift
         end if
@@ -976,8 +969,26 @@ use utilities_1, ONLY: Return_Frequency_Value
 end subroutine tpez_write_simple_batch_data
     
 !***************************************************************************
+    subroutine tpez_spraydrift(area_tpez)
+       !Because vvwm spraydrift values are calculated outside app loop, this routine needs to be isolated to not change vvwm spray values
+       !probably could put this outside loop also for nore efficiency
+       use constants_and_variables, ONLY: num_records, total_applications, tpez_drift_kg_per_m2,  &
+                                           application_date, startday, spray_additions             
+       implicit none
+       real, intent(in) :: area_tpez
+       integer  ::  i, index_day
+       !Note mass is an array refernced to day 1 of the simulation, appdate is an array of dates from 1900       
 
+       spray_additions = 0.0
+       
+       do i=1, total_applications
+           index_day = application_date(i)-startday
+           if (index_day > 0 .and. index_day <= num_records) then       
+               spray_additions(index_day) = tpez_drift_kg_per_m2(i) * area_tpez 
+           end if          
+       end do
 
+    end subroutine tpez_spraydrift
 
 
  

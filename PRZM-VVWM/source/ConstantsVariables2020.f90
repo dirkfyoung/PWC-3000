@@ -105,9 +105,6 @@ module constants_and_variables
 
 	  !GW--------------------------------------
 
-      
-      
-      
       !output
       real :: effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2
 
@@ -476,8 +473,11 @@ module constants_and_variables
       real,allocatable,dimension(:)    :: TAPP                !read in application_rate_in as KG/HA but converted to G/CM**2 in initialization
       real,allocatable,dimension(:)    :: APPEFF
       real,allocatable,dimension(:)    :: Tband_top
-      real,allocatable,dimension(:)	   :: drift_kg_per_m2     !the drift application rate to pond
-
+      real,allocatable,dimension(:)	   :: drift_kg_per_m2          !the drift application rate to pond
+      real,allocatable,dimension(:)	   :: tpez_drift_kg_per_m2     !the drift application rate to tpez
+      
+      
+      
 	  integer,allocatable,dimension(:) :: application_order !array of indices to order the applications chronologically, needed only if the rain fast option is to be used.
 	  
       integer :: total_applications      !Total applications for simulations 

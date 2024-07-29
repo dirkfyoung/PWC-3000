@@ -739,7 +739,8 @@ subroutine SetupApplications
                                     application_date_original,application_date, pest_app_method,DEPI,TAPP,APPEFF,Tband_top, &
                                     num_crop_periods_input, emm, emd, mam,mad, ham,had, &
                                     total_applications , drift_kg_per_m2, cam123_soil_depth, delx, &
-                                     days_until_applied,app_reference_point, application_order, is_adjust_for_rain, is_absolute_year
+                                     days_until_applied,app_reference_point, application_order, is_adjust_for_rain, is_absolute_year, &
+                                     tpez_drift_kg_per_m2
    
     use clock_variables
           
@@ -763,6 +764,8 @@ subroutine SetupApplications
     allocate (APPEFF(total_applications))
     allocate (Tband_top(total_applications))
     allocate (drift_kg_per_m2(total_applications))
+    allocate (tpez_drift_kg_per_m2(total_applications))
+    
 
     !initialize application date to very high (unlikely julian app date). 
     !Because allocated array may be larger than the actual number of applications (i.e. i used a simple counting scheme)
