@@ -5,22 +5,17 @@ implicit none
 subroutine chemical_manipulations
 use constants_and_Variables, ONLY: MolarConvert_aq12_input, MolarConvert_s12_input,MolarConvert_aq23_input,MolarConvert_s23_input, xsoil
 
-
-!SET Soil molar coinversions to the same value for all horizons, for both aqueous and sorbed degradation
-MolarConvert_aq12_input = xsoil(1)
-MolarConvert_s12_input  = xsoil(1)
-
-!MolarConvert_aq13_input(i) = not defined in this version
-!MolarConvert_s13_input(i) = not defined 
-
-MolarConvert_aq23_input = xsoil(2)
-MolarConvert_s23_input  = xsoil(2)
-
+    !SET Soil molar coinversions to the same value for all horizons, for both aqueous and sorbed degradation
+    MolarConvert_aq12_input = xsoil(1)
+    MolarConvert_s12_input  = xsoil(1)
+    
+    !MolarConvert_aq13_input(i) = not defined in this version
+    !MolarConvert_s13_input(i) = not defined 
+    
+    MolarConvert_aq23_input = xsoil(2)
+    MolarConvert_s23_input  = xsoil(2)
 
 end subroutine chemical_manipulations
-    
-    
-    
     
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!     

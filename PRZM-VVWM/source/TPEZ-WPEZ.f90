@@ -499,51 +499,18 @@ Module TPEZ_WPEZ
       !**local chemical properties****
       integer :: chem_index
       real    :: koc
-  !    real    :: drift_value_local
       integer :: i,j
-   !   integer :: app_counter
       real    :: avg_maxwater, avg_minwater, avg_oc, avg_bd
       real    :: kd
-  !    real    :: buffer_distance   !local holder to take care of zero buffer option
 
-     ! tpez normally is at edge of field, but user can select buffer for cases like in field buffers
-
-      !tpez_drift_kg_per_m2= 0.0
-      !app_counter= 0
-      !
-      !do i=1, num_applications_input
-      !    if (use_tpezbuffer) then
-      !       buffer_distance = driftfactor_schemes(scheme_number,i)
-      !    else           
-      !       buffer_distance = 0.0
-      !    end if
-      !    
-      !    call find_in_table(drift_schemes(scheme_number,i)+1, buffer_distance, spray_table_TPEZ,size(spray_table_TPEZ,1),size(spray_table_TPEZ,2),  drift_value_local)
-      !    if (is_output_spraydrift)  write(*,*)  "tpez drift factor ", drift_value_local
-      !    
-      !    do j = first_year +lag_app_in(i) , last_year, repeat_app_in(i)
-      !       app_counter = app_counter+1       
-      !
-      !       tpez_drift_kg_per_m2(app_counter) = drift_value_local * application_rate_in(i)/10000.
-      !    end do
-      !
-      !end do
-
- !    call tpez_spraydrift(area_tpez)
-      
-      
-     !Scenario Dependent Properties. Must be at the Scenario level
+     !Scenario Dependent Properties. Must be called after each Scenario
      call find_average_property(ncom2,soil_depth,15.0, theta_fc    , avg_maxwater)    
      call find_average_property(ncom2,soil_depth,15.0, theta_wp    , avg_minwater)
      call find_average_property(ncom2,soil_depth,15.0, bulkdensity , avg_bd)  
      call find_average_property(ncom2,soil_depth,15.0, orgcarb     , avg_oc) !percent
-    
-     !write(*,*)"For TPEZ, avg_maxwater, avg_minwater,avg_bd, avg_oc as follows:"
-     !write(*,*) avg_maxwater,  avg_minwater, avg_bd, avg_oc 
-   
+
      call  tpez_volume_calc (avg_maxwater, avg_minwater, area_tpez)   !call special averaging in here
   
-     
      do chem_index= 1, nchem 
            
           if (is_koc) then
@@ -552,18 +519,13 @@ Module TPEZ_WPEZ
                   Kd = k_f_input(chem_index)
           end if
           
-          call TPEZ_initial_conditions(chem_index)  !just populates m1 additions: erosion runoff and drift
-           
-          
+          call TPEZ_initial_conditions(chem_index)  !just populates m1 additions: erosion runoff and drift                
           call MainLoopTPEZ(chem_index, avg_maxwater, kd, avg_bd)      
-
-      !    call time_check("after main tpex")
-                   
+          
           waterbodytext = "TPEZ"
           call tpez_output_processor(chem_index,area_tpez )
      end do
      
-
   end subroutine tpez
     
     !*******************************************************************************
@@ -582,13 +544,10 @@ Module TPEZ_WPEZ
         else
              m1_input = mass_off_field(:,1,chem_index) +  mass_off_field(:,2,chem_index)                     !degradates dont drift
         end if
-        
-        
+         
         !******* Add in any degradate mass produced by parent from subsequent parent run******
         if (chem_index >1) then                 ! 1 is the parent.
-          m1_input = m1_input + degradateProduced1    
-          
-          
+            m1_input = m1_input + degradateProduced1    
         end if
         
     end subroutine TPEZ_initial_conditions
@@ -697,15 +656,9 @@ Module TPEZ_WPEZ
        !***** Daily Loop Calculations ************************
        do day_count = 1,num_records  
 
-
-           
           m1 = mn1 + m1_input(day_count)       
           m1_store(day_count)=m1
             
-
-          
-                   
-
           !kflow needs to be adjusted for tpez, in normal vvwm solid phase is not considered in water column
           !adjustment is Vmax/(Vmax + bd Kd) this is a CONSTANT Adjustment
         
@@ -715,12 +668,9 @@ Module TPEZ_WPEZ
                 dummy_holder(i) = dwrate(chem_index,i)  !necessary for subroutine call, otherwise routine gets hung up.
                                                ! NOTE: probably should switch order of dwrate array, put chem index 2nd         
           end do
-          
-          
+           
           call find_average_property(ncom2,soil_depth,15.0, dummy_holder, avg_soil_deg_implicit)
           
-
-
           !here is the derivation to undo the correction
           ! aq_rate_corrected      = exp(aq_rate_input)   -1.  (this is previous correction)
           ! aq_rate_corrected +1.  = exp(aq_rate_input)
@@ -729,16 +679,10 @@ Module TPEZ_WPEZ
           
           avg_soil_deg = log(avg_soil_deg_implicit + 1.0)/86400.   ! removed implicit correction and now is in per sec,  86400 sec/day
           
-          
-      
-
-   
-          
           k_total =  k_flow(day_count)*vmax/(vmax+kd*bd) + burial(day_count)*Kd/(vmax+kd*bd) + avg_soil_deg
           
           mn1 = m1*exp(-DELT_vvwm * k_total) !next start day mass
-          
-          
+                   
           if (k_total>0.0) then
                  mavg1_store(day_count) = m1_store(day_count)*(1.-exp(-DELT_vvwm * k_total)) /k_total/DELT_vvwm 
           else
@@ -747,8 +691,7 @@ Module TPEZ_WPEZ
 
           !calculate mass degraded by soil degradation alone  
           if (nchem > chem_index) then
-             degradateProduced1(day_count) =  xsoil(chem_index) * MWTRatio * avg_soil_deg * mavg1_store(day_count) * DELT_vvwm
-            
+             degradateProduced1(day_count) =  xsoil(chem_index) * MWTRatio * avg_soil_deg * mavg1_store(day_count) * DELT_vvwm            
           end if
           
        end do
@@ -763,7 +706,7 @@ Module TPEZ_WPEZ
 
     end subroutine MainLoopTPEZ
     
-    
+    !*************************************************************************************************
     subroutine tpez_output_processor(chem_index, area_tpez)
     use utilities
 
@@ -781,32 +724,18 @@ Module TPEZ_WPEZ
                                  daily_depth,    &
 	                             is_waterbody_info_output, full_run_identification, applied_mass_sum_gram_per_cm2, mavg1_store, edge_of_field
                          
-          implicit none
-          integer, intent(in) :: chem_index
-          real, intent(in)    :: area_tpez
+         implicit none
+         integer, intent(in) :: chem_index
+         real, intent(in)    :: area_tpez          
+         character(len=512) :: waterbody_outputfile
            
-          character(len=512) :: waterbody_outputfile
-         
-          
-          !temporary parameters for esa, should make this more general in the future
-          real:: return_frequency
-          integer:: unit_number
-          !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          
-          real:: simulation_average
-          
-          real :: xxx  !local variable
+         !temporary parameters for esa, should make this more general in the future
+         real:: return_frequency
       
          real,dimension(num_years):: tpez_max               !peak year to year daily average
          real,dimension(num_years):: edge_of_field_max
         
          integer :: i    
-         integer ::date_time(8)
-         real :: convert                    !conversion factor kg/m3 
-        
-         real :: Total_Mass
-         integer :: YEAR,MONTH,DAY
-         integer :: eliminate_year
          integer,dimension(num_years) ::  first_annual_dates !array of yearly first dates (absolute days).
                                     ! First date is the calendar day of start of simulation 
          first_annual_dates= 0
@@ -833,17 +762,12 @@ Module TPEZ_WPEZ
         	close (19)
         end if
 
-
         call find_first_annual_dates (num_years, first_annual_dates )
-
-	
         call pick_max(num_years,num_records, first_annual_dates,mavg1_store,tpez_max)             !NEW FIND DAILY AVERAGE CONCENTRATION RETURN  
         call pick_max(num_years,num_records, first_annual_dates,edge_of_field ,edge_of_field_max) !NEW FIND DAILY AVERAGE CONCENTRATION RETURN   
      
         return_frequency = 10.0
-       
-       call tpez_write_simple_batch_data(chem_index, return_frequency,num_years, tpez_max, edge_of_field_max)      
-
+        call tpez_write_simple_batch_data(chem_index, return_frequency,num_years, tpez_max, edge_of_field_max)      
 
     end subroutine tpez_output_processor
     
@@ -923,8 +847,5 @@ use utilities_1, ONLY: Return_Frequency_Value
 end subroutine tpez_write_simple_batch_data
     
 !***************************************************************************
-
-
-
  
 end module TPEZ_WPEZ
