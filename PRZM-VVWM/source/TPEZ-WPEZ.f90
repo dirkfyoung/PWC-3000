@@ -476,6 +476,7 @@ Module TPEZ_WPEZ
 
     !****************************************************************************
     subroutine tpez(scheme_number)
+      ! this is scenario dependent
       use constants_and_variables, ONLY: nchem, is_koc, k_f_input, &
           DELT_vvwm, waterbodytext,soil_depth, &
           application_rate_in, first_year ,lag_app_in , last_year, repeat_app_in, drift_schemes,&

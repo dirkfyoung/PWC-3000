@@ -92,8 +92,8 @@ program PRZMVVWM
              !will use spray table in here --need to make spray table correct if changed by tpez
              call set_chemical_applications(i) !gets the individual application scheme from the whole scheme table, non scenario specfic 
         
-             !If running TPEZ, set the unchanging parameters here like spraydrift
-             call set_tpez_spray(i)
+             !If running TPEZ, set the unchanging (with scheme) parameters here like spraydrift
+             call set_tpez_spray(i)  
              !*******************************************************************
              
              if(is_batch_scenario(i)) then
@@ -149,7 +149,7 @@ program PRZMVVWM
 			   call hydrology_only
                call allocation_for_VVWM
                
-               call tpez_drift_finalize 
+               call tpez_drift_finalize !must be called after INITL because need to know total applications
                
 			   app_window_counter = 0  !use this to track app window to find medians
                do jj = 0, app_window_span(i), app_window_step(i)            
@@ -169,7 +169,7 @@ program PRZMVVWM
                         
                      if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
                          call wpez   
-                         call tpez(i)  !need to send in scheme to find drift
+                         call tpez(i)  !need to send in scheme number to find drift
                      end if                     
                end do    
                

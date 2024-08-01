@@ -31,7 +31,7 @@ module TPEZ_spray_initialization
     contains 
     
     subroutine set_tpez_spray(scheme_number)
-    !After scheme and before scenarios
+    !After scheme and before scenarios.  
          use constants_and_variables, ONLY: num_applications_input, drift_schemes, driftfactor_schemes,is_output_spraydrift
          use waterbody_parameters, ONLY:  use_tpezbuffer
          use utilities_1, ONLY:find_in_table
@@ -60,7 +60,7 @@ module TPEZ_spray_initialization
     
     
    subroutine tpez_drift_finalize          
-     !Set TPEZ Specific parameters dependent on scenario 
+     !Call must be placed after INITL because call to tpez_spraydrift need to know toatal apps
       use constants_and_variables, ONLY: driftfactor_schemes,is_output_spraydrift,is_absolute_year, &
                                         lag_app_in ,first_year, last_year, repeat_app_in,application_rate_in, &
                                         num_applications_input
@@ -96,6 +96,7 @@ module TPEZ_spray_initialization
     subroutine tpez_spraydrift
        !Because vvwm spraydrift values are calculated outside app loop, this routine needs to be isolated to not change vvwm spray values
        !probably could put this outside loop also for nore efficiency
+       !but this routine needs to know total apps which requires that scenario be read in
        use constants_and_variables, ONLY: num_records, total_applications, application_date, startday           
        implicit none
 
