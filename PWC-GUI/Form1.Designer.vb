@@ -2678,7 +2678,7 @@ Partial Class Form1
         'HorizonGridView
         '
         Me.HorizonGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.HorizonGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7, Me.Column13})
+        Me.HorizonGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7})
         Me.HorizonGridView.Location = New System.Drawing.Point(4, 348)
         Me.HorizonGridView.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.HorizonGridView.Name = "HorizonGridView"

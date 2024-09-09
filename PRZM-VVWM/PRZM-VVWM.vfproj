@@ -38,7 +38,7 @@
 			<Tool Name="VFPostBuildEventTool"/>
 			<Tool Name="VFManifestTool" SuppressStartupBanner="true"/>
 		</Configuration>
-		<Configuration Name="Release|x64" UseCompiler="ifortCompiler" OutputDirectory="..\CommonOutput\">
+		<Configuration Name="Release|x64" UseCompiler="ifxCompiler" OutputDirectory="..\CommonOutput\">
 			<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" HeapArrays="600" IntegerKIND="integerKIND8" RealKIND="realKIND8" DoublePrecisionKIND="doublePrecisionKIND16"/>
 			<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" SubSystem="subSystemConsole"/>
 			<Tool Name="VFResourceCompilerTool"/>

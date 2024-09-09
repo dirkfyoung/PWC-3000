@@ -838,6 +838,7 @@ Public Class Form1
     End Sub
 
     Private Sub ClearSelectedScenarios_Click(sender As Object, e As EventArgs) Handles ClearSelectedScenarios.Click
+        Dim selectedScenario As String
         Dim selectedScenarios = (From i In ScenarioListBox.SelectedItems).ToArray()
 
         For Each selectedScenario In selectedScenarios
@@ -983,6 +984,8 @@ Public Class Form1
     End Sub
 
     Private Sub ClearSelectedWaterBody_Click(sender As Object, e As EventArgs) Handles ClearSelectedWaterBody.Click
+        Dim WaterBody As String
+
         Dim selectedWaterBodies = (From i In WaterbodyList.SelectedItems).ToArray()
 
         For Each WaterBody In selectedWaterBodies
@@ -1412,8 +1415,8 @@ Public Class Form1
     End Sub
 
     Private Sub ModifyScenarios_Click(sender As Object, e As EventArgs) Handles ModifyScenarios.Click
-        Dim msg As String
-        Dim newfilename As String
+        'Dim msg As String
+        'Dim newfilename As String
 
         MsgBox("disabled, for developer only")
 

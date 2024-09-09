@@ -361,11 +361,12 @@
         'Private Function WaterBodyInfo() As String
         Dim msg As String
 
+
         msg = ScenarioID.Text
         msg = msg & vbNewLine & WeatherFileName.Text
         msg = msg & vbNewLine & latitude.Text
 
-        For i = 1 To 24  'This is all the waterbody stuff in the old scenarios
+        For i As Integer = 1 To 24  'This is all the waterbody stuff in the old scenarios
             msg = msg & vbNewLine
         Next
 
