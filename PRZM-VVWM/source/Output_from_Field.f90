@@ -1,7 +1,16 @@
 Module Output_From_Field
   implicit none
-	contains
+    contains
 		
+    subroutine scenario_hydrolgy_summary
+    use constants_and_variables, ONLY: scenario_id, hold_precip, hold_irrig, hold_runoff
+         write(98,'(A40, 4G12.4)') trim(scenario_id), hold_precip, hold_irrig, hold_runoff, hold_runoff/(hold_precip + hold_irrig) 
+
+    
+    end subroutine scenario_hydrolgy_summary
+    
+    
+    
 	subroutine groundwater
 	    use constants_and_variables, ONLY: num_records, retardation_factor,  maxcap_volume, conc_last_horizon_save, &
 	    	                               infiltration_save, ncom2,gw_peak, post_bt_avg ,throughputs,simulation_avg, nchem
@@ -96,7 +105,8 @@ Module Output_From_Field
     OUTPJJ,chem_id,NPLOTS, ARG,ARG2,PLNAME,MODE,DCOFLX,max_number_plots,Version_Number,julday1900,  &
      day_number_chemtrans,mass_off_field, &
     First_time_through_PRZM , working_directory, family_name, run_id,maxFileLength, &
-	top_node_last_horizon, bottom_node_last_horizon,conc_last_horizon_save, day_number_chemtrans, full_run_identification
+	top_node_last_horizon, bottom_node_last_horizon,conc_last_horizon_save, day_number_chemtrans, full_run_identification, &
+    hold_precip,hold_irrig,hold_runoff
     
     use waterbody_parameters, ONLY: afield 
     use utilities_1
@@ -129,6 +139,14 @@ Module Output_From_Field
      end do	
 
     !********************************************************************** 
+       !Cummulatives for researech
+  hold_precip   = hold_precip + precipitation
+  hold_irrig    = hold_irrig  + IRRR
+  hold_runoff   = hold_runoff + runoff_on_day
+     
+     
+     
+     
 	if (is_timeseriesfile .eqv. .FALSE. ) return  !if time series file is not specified, then leave
 	
     if (First_time_through_PRZM) then 
@@ -151,8 +169,9 @@ Module Output_From_Field
     END DO
 
 ! ******************************************************************
-   OUTPUT= 0.   
+
   
+   OUTPUT= 0.   
    DO i=1,NPLOTS
 
      start_compartment= ARG(i)

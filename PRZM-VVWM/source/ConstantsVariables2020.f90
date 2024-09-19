@@ -2,6 +2,11 @@ module constants_and_variables
 
       implicit none
       save
+      
+      !cummulatives for research:
+      real :: hold_precip
+      real :: hold_irrig
+      real :: hold_runoff
 
 
 	  integer :: xx= 89! temporary dummy get rid of this

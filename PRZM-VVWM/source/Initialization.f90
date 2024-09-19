@@ -1309,15 +1309,20 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
   
   subroutine  reset_initial_masses
   use constants_and_variables, ONLY:conc_total_per_water, mass_in_compartment, conc_porewater,mass_in_compartment2,&
-      soil_applied_washoff, sorbed2
+      soil_applied_washoff, sorbed2, &
+      hold_precip,hold_irrig,hold_runoff
   
-  
-     conc_total_per_water= 0.0
-     mass_in_compartment = 0.0
-     mass_in_compartment2 = 0.0
-     conc_porewater = 0.0
-     soil_applied_washoff=0.0
-     Sorbed2 = 0.0   
+      conc_total_per_water= 0.0
+      mass_in_compartment = 0.0
+      mass_in_compartment2 = 0.0
+      conc_porewater = 0.0
+      soil_applied_washoff=0.0
+      Sorbed2 = 0.0   
+      
+      !cummulatives for research:
+      hold_precip = 0.0
+      hold_irrig = 0.0
+      hold_runoff= 0.0
      
   end  subroutine  reset_initial_masses
 

@@ -442,35 +442,33 @@ Public Class Form1
                         SchemeTableDisplay.Rows(i).Cells("Commit").Value = ""
                     Next
 
-                    'this if statement ensures that all buttons are deactivated when unchecked
-                    If SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True Then
+                'this if statement ensures that all buttons are deactivated when unchecked
+                If SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True Then
 
-                        For Each oRow As DataGridViewRow In SchemeTableDisplay.Rows
-                            oRow.Cells("Edit").Value = False
-                        Next
-                        SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True
+                    For Each oRow As DataGridViewRow In SchemeTableDisplay.Rows
+                        oRow.Cells("Edit").Value = False
+                    Next
+                    SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True
 
                     'toggle scenario and app tab on if checked
                     If TabControl1.Controls.Contains(tempTabpage5) = False Then
-                            'tab 5 and 6 are always together, so only need to see if oe or the other is active
-                            TabControl1.Controls.Add(tempTabpage5)
-                            TabControl1.Controls.Add(tempTabpage6)
-                        End If
-
-                Else
-
-                        For Each oRow As DataGridViewRow In SchemeTableDisplay.Rows
-                            oRow.Cells("Edit").Value = False
-                        Next
-
-
-                        'toggle off scenario and app tab if nothing checked
-                        TabControl1.Controls.Remove(SchemeApplicationsTab)
-                        TabControl1.Controls.Remove(SchemeScenariosTab)
-
+                        'tab 5 and 6 are always together, so only need to see if oe or the other is active
+                        TabControl1.Controls.Add(tempTabpage5)
+                        TabControl1.Controls.Add(tempTabpage6)
                     End If
 
-                    If SchemeTableDisplay.Columns(e.ColumnIndex).Name = "Edit" Then
+                Else
+                    For Each oRow As DataGridViewRow In SchemeTableDisplay.Rows
+                        oRow.Cells("Edit").Value = False
+                    Next
+
+                    'toggle off scenario and app tab if nothing checked
+                    TabControl1.Controls.Remove(SchemeApplicationsTab)
+                    TabControl1.Controls.Remove(SchemeScenariosTab)
+                End If
+
+
+                If SchemeTableDisplay.Columns(e.ColumnIndex).Name = "Edit" Then
                         Dim buttonCell As DataGridViewDisableButtonCell
                         Dim checkCell As DataGridViewCheckBoxCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit"), DataGridViewCheckBoxCell)
 
@@ -555,40 +553,42 @@ Public Class Form1
                             '   AppTableDisplay.Item(5, i).Value = ApplicationTable.Drift(i)
 
                             Select Case ApplicationTable.Drift(i)
-                                Case 1
-                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm1
-                                Case 2
-                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm2
-                                Case 3
-                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm3
-                                Case 4
-                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm4
-                                Case (5)
-                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm5
-                                Case (6)
-                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm6
-                                Case (7)
-                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm7
-                                Case (8)
-                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm8
-                                Case (9)
-                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm9
-                                Case (10)
-                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm10
-                                Case (11)
-                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm11
-                                Case (12)
-                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm12
-                                Case (13)
-                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm13
-                                Case (14)
-                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm14
-                                Case (15)
-                                    AppTableDisplay.Item(5, i).Value = Standard.sprayterm15
+                            Case 1
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm1
+                            Case 2
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm2
+                            Case 3
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm3
+                            Case 4
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm4
+                            Case (5)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm5
+                            Case (6)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm6
+                            Case (7)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm7
+                            Case (8)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm8
+                            Case (9)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm9
+                            Case (10)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm10
+                            Case (11)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm11
+                            Case (12)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm12
+                            Case (13)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm13
+                            Case (14)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm14
+                            Case (15)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm15
+                            Case (16)
+                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm16
+                        End Select
 
-                            End Select
 
-                            AppTableDisplay.Item(6, i).Value = ApplicationTable.DriftBuffer(i)
+                        AppTableDisplay.Item(6, i).Value = ApplicationTable.DriftBuffer(i)
                             AppTableDisplay.Item(7, i).Value = ApplicationTable.Periodicity(i)
                             AppTableDisplay.Item(8, i).Value = ApplicationTable.Lag(i)
 

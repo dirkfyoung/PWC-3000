@@ -152,8 +152,8 @@ program PRZMVVWM
                call tpez_drift_finalize !must be called after INITL because need to know total applications
                
 			   app_window_counter = 0  !use this to track app window to find medians
-               do jj = 0, app_window_span(i), app_window_step(i)            
-                   
+               do jj = 0, app_window_span(i), app_window_step(i)   
+    
                      call reset_initial_masses
                    
 				     application_date= application_date_original + jj
@@ -172,6 +172,8 @@ program PRZMVVWM
                          call tpez(i)  !need to send in scheme number to find drift
                      end if                     
                end do    
+               
+               call scenario_hydrolgy_summary
                
                !process application date window into medians      
                call calculate_medians(app_window_counter,run_tpez_wpez )

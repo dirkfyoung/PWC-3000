@@ -1609,6 +1609,8 @@
                     AppData.Drift.Add("14")
                 Case (Standard.sprayterm15)
                     AppData.Drift.Add("15")
+                Case (Standard.sprayterm16)
+                    AppData.Drift.Add("16")
                 Case Else
                     AppData.Drift.Add("15")
             End Select
