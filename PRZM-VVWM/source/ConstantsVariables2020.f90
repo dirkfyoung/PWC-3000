@@ -408,7 +408,7 @@ module constants_and_variables
       real,allocatable,dimension(:,:) :: conc_total_per_water     !pest conc in Total Mass in all phases divided by water content)
       real,allocatable,dimension(:,:) :: mass_in_compartment      !New experimetal variable to replace "conc_total_per_water"
       real,allocatable,dimension(:,:) :: mass_in_compartment2     !mass in nonequilibrium compartment
-      real,allocatable,dimension(:,:) :: SOILAP  !g/cm2  Mass of applied pesticide in soil
+ !     real,allocatable,dimension(:,:) :: SOILAP  !g/cm2  Mass of applied pesticide in soil
       
       real,allocatable,dimension(:) :: DGAIR !effective air diffusion coefficient through profile for chemical in the loop  
          

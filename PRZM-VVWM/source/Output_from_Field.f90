@@ -100,7 +100,7 @@ Module Output_From_Field
     use	constants_and_Variables, ONLY: is_timeseriesfile, TimeSeriesUnit2, precipitation, snowfl,soil_temp,THRUFL,IRRR,SoilWater,cint,EvapoTran,delx, &
     theta_end, CEVAP ,runoff_on_day,curve_number_daily,theta_sat,ainf,ncom2,snow,sedl,TDET,PVFLUX,sdkflx,SUPFLX,UPFLUX,kd_new, &
     conc_total_per_water, mass_in_compartment, mass_in_compartment2,HEIGHT,  &
-    conc_porewater,SOILAP, FOLPST,Foliar_degrade_loss,new_henry,Foliar_volatile_loss,plant_app, &
+    conc_porewater, FOLPST,Foliar_degrade_loss,new_henry,Foliar_volatile_loss,plant_app, &
     NCHEM,TCNC,DKFLUX,ERFLUX, WOFLUX,ROFLUX,const,OUTPUJ,    &
     OUTPJJ,chem_id,NPLOTS, ARG,ARG2,PLNAME,MODE,DCOFLX,max_number_plots,Version_Number,julday1900,  &
      day_number_chemtrans,mass_off_field, &
@@ -161,12 +161,13 @@ Module Output_From_Field
     TCUM = 'TCUM'
     TSER = 'TSER'
     
-    DO K=1,NCHEM
-      onSOIL(K) = 0.00
-      DO i = 1, NCOM2
-        onSOIL(K) = onSOIL(K) + SOILAP(K,i)  !total soil application
-      END DO
-    END DO
+    !DO K=1,NCHEM
+    !  onSOIL(K) = 0.00
+    !  DO i = 1, NCOM2
+    !    onSOIL(K) = onSOIL(K) + SOILAP(K,i)  !total soil application
+    !  END DO
+    !END DO
+
 
 ! ******************************************************************
 

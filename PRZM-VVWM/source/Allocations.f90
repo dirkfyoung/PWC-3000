@@ -117,7 +117,7 @@ end subroutine allocation_for_VVWM
         Kd_new,Kd_old, k_freundlich,  N_freundlich, k_freundlich_2, N_freundlich_2, conc_total_per_water, &
         mass_in_compartment,mass_in_compartment2, &
         conc_porewater,sorbed2,Kd_2, ainf, vel, &
-        EvapoTran,GAMMA1,new_henry,old_Henry,runoff_intensity, erosion_intensity,soilap, nchem,  &
+        EvapoTran,GAMMA1,new_henry,old_Henry,runoff_intensity, erosion_intensity, nchem,  &
         DKFLUX,SRCFLX,PVFLUX,UPFLUX, dgair, soil_applied_washoff
     
         
@@ -186,7 +186,7 @@ end subroutine allocation_for_VVWM
         allocate (runoff_intensity(ncom2))
         allocate (erosion_intensity(ncom2))
            
-        allocate (soilap(nchem,ncom2)) 
+   !     allocate (soilap(nchem,ncom2)) 
         
 
             allocate (DKFLUX(nchem,ncom2))       
@@ -210,7 +210,7 @@ end subroutine allocation_for_VVWM
         Kd_new,Kd_old, k_freundlich,  N_freundlich, k_freundlich_2, N_freundlich_2, conc_total_per_water, &
         mass_in_compartment,mass_in_compartment2, &
         conc_porewater,sorbed2,Kd_2, ainf, vel, &
-        EvapoTran,GAMMA1,new_henry,old_Henry,runoff_intensity, erosion_intensity,soilap,  &
+        EvapoTran,GAMMA1,new_henry,old_Henry,runoff_intensity, erosion_intensity,  &
         DKFLUX,SRCFLX,PVFLUX,UPFLUX, dgair, soil_applied_washoff,&
         application_order, application_date,application_date_original, pest_app_method, DEPI,TAPP,APPEFF,Tband_top,drift_kg_per_m2, &
         crop_fraction_of_max,canopy_cover,canopy_height,canopy_holdup,is_harvest_day,&      
@@ -307,7 +307,7 @@ end subroutine allocation_for_VVWM
         deallocate (old_Henry)           
         deallocate (runoff_intensity)
         deallocate (erosion_intensity)          
-        deallocate (soilap)        
+       ! deallocate (soilap)        
 
  
         deallocate (SRCFLX)    !this one needs to be 3 becuz parent can produces 2 degradates           

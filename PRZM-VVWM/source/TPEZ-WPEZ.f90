@@ -801,7 +801,7 @@ use utilities_1, ONLY: Return_Frequency_Value
     character(len= 257) :: local_run_id
     
     If (First_time_through_tpez) then
-        header = 'Run Information                                                                  ,  TPEZ (kg/ha)' !,   EoF (ug/L) parent calc only'
+        header = 'Run Information                                                                  ,  TPEZ (kg/ha) ,   EoF (ug/L) parent calc only'
 
         Open(     unit=summary_output_unit_tpez,  FILE= (trim(family_name) // "_" // trim(summary_outputfile_tpez)),Status='unknown')  
         Write(summary_output_unit_tpez, '(A400)') header
@@ -827,7 +827,7 @@ use utilities_1, ONLY: Return_Frequency_Value
     select case (chem_index)
     case (1)
         local_run_id = trim(run_id)//"_TPEZ"  // '_Parent'
-        write(summary_output_unit_tpez,     '(A80,1x,2(",",ES13.4E3))') (adjustl(local_run_id)), tpez_max_out  !, edge_of_field_max_out*1000000.0  !convert to ug/L  from kg/m3
+        write(summary_output_unit_tpez,     '(A80,1x,2(","2ES13.4E3))') (adjustl(local_run_id)), tpez_max_out  , edge_of_field_max_out*1000000.0  !convert to ug/L  from kg/m3
         hold_for_medians_TPEZ(app_window_counter,1) = tpez_max_out
     
     

@@ -74,7 +74,7 @@ SUBROUTINE PESTAP(application_index)
       use  constants_and_Variables, ONLY: COVER,pest_app_method,  &
                                     delx,theta_zero,DEPI,TAPP,appeff, &
                                     conc_total_per_water,mass_in_compartment, &
-                                    SOILAP,FOLPST,plant_app,Tband_top, ncom2, julday1900, applied_mass_sum_gram_per_cm2
+                                    FOLPST,plant_app,Tband_top, ncom2, julday1900, applied_mass_sum_gram_per_cm2
       use utilities_1
       implicit none
       
@@ -93,7 +93,7 @@ SUBROUTINE PESTAP(application_index)
       integer :: i
   
       plant_app = 0.0
-      SOILAP = 0.0
+   !   SOILAP = 0.0
       CAM_local = pest_app_method(application_index)
       distribution_of_applied = 0.0
 	  
@@ -129,7 +129,8 @@ SUBROUTINE PESTAP(application_index)
 
         
         IF(DEPI(application_index).EQ.0.0)THEN
-          SOILAP(1,1)  = TAPP(application_index)*APPEFF(application_index)
+          distribution_of_applied(1)  = TAPP(application_index)*APPEFF(application_index)  
+         ! SOILAP(1,1)  = TAPP(application_index)*APPEFF(application_index)
         ELSE
           call pesticide_uniform_distribution(APPAMT,DMAX,distribution_of_applied) 
         ENDIF
