@@ -33,7 +33,7 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     is_app_window, app_window_span, app_window_step, is_timeseriesfile, &
 	is_waterbody_info_output , is_adjust_for_rain_schemes,rain_limit_schemes,optimum_application_window_schemes, &
 	intolerable_rain_window_schemes, min_days_between_apps_schemes,  is_batch_scenario , scenario_batchfile , is_needs_poundkg_conversion,&
-    open_water_adj , is_hydrolysis_override, is_output_spraydrift, is_absolute_year_schemes
+    open_water_adj , is_hydrolysis_override, is_output_spraydrift, is_absolute_year_schemes,is_gw_btc
 
 use waterbody_parameters, ONLY: itsapond, itsareservoir, itsother,itstpezwpez, waterbody_names, USEPA_reservoir,USEPA_pond , use_tpezbuffer
 use utilities
@@ -343,7 +343,8 @@ use utilities
 	read(inputfile_unit_number,*) is_waterbody_info_output   !waterbody depth, conc and benthic   !OUTPUT Line 18
 	
 	read(inputfile_unit_number,*)   is_output_spraydrift                   ! OUTPUT Line 74
-	read(inputfile_unit_number,*)	                                       !expansion lines   
+	read(inputfile_unit_number,*)	is_gw_btc             
+      if (is_gw_btc) is_timeseriesfile = .TRUE.
 	read(inputfile_unit_number,*)	                   
 	read(inputfile_unit_number,*)                      ! OUTPUT Line 22
 	read(inputfile_unit_number,*)	                   ! OUTPUT Line 23

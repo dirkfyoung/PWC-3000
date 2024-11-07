@@ -290,6 +290,20 @@ Module Output_From_Field
                 ENDIF
               end do         
               PNBRN(I)=TTTOT  
+              
+         case('AQFR')  !Aquifer
+              DO K =start_compartment,end_compartment
+                  
+                IF(MODE(I).EQ.TAVE)THEN
+                  TTTOT= TTTOT+( conc_porewater(chem_id(i),K)*1.E6)*DELX(K)
+                ELSE
+                  TTTOT= TTTOT+( conc_porewater(chem_id(i),K)*1.E6)
+                ENDIF
+              end do         
+              PNBRN(I)=TTTOT    
+              
+       
+              
           case('ACON')             
              DO K =start_compartment,end_compartment
                IF(MODE(I).EQ.TAVE)THEN
@@ -333,6 +347,11 @@ Module Output_From_Field
         IF (PLNAME(I) == 'THET') PNBRN(I)= theta_end(start_compartment) ! Soil water storage (dimensionless)
         
 !       Water fluxes (units of CM/DAY)
+
+        IF (PLNAME(I) == 'PVOL') PNBRN(I)= AINF(start_compartment) !pore volume
+        IF (PLNAME(I) == 'TPUT') PNBRN(I)= AINF(start_compartment) !throughput
+        
+        
         IF (PLNAME(I) == 'INFL') PNBRN(I)= AINF(start_compartment)
         IF (PLNAME(I) == 'SLET') PNBRN(I)= EvapoTran(start_compartment)
         IF (PLNAME(I) == 'STMP') PNBRN(I)= soil_temp(start_compartment)         !     Soil temperature (oC)
@@ -354,6 +373,7 @@ Module Output_From_Field
         IF (PLNAME(I)=='DCON') then
             PNBRN(I)=conc_porewater(chem_id(i),start_compartment)*1.E6     
         end if
+        
         
         IF (PLNAME(I)=='ACON') PNBRN(I)=conc_porewater(chem_id(i),start_compartment)*1.E6 *kd_new(chem_id(i),start_compartment)
         IF (PLNAME(I)=='GCON') PNBRN(I)=conc_porewater(chem_id(i),start_compartment)*1.E6*new_henry(chem_id(i),start_compartment)

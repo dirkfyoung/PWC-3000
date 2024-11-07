@@ -944,8 +944,8 @@ logical :: is_waterbody_info_output
 !logical :: is_waterbody_porewater_output 
 
 
-logical ::is_output_spraydrift
-
+logical :: is_output_spraydrift
+logical :: is_gw_btc
 
 
 

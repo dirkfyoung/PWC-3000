@@ -172,7 +172,7 @@
 
         msg = msg & vbNewLine & outputWaterConc.Checked & ","
         msg = msg & vbNewLine & outputSpraydrift.Checked & ","
-        msg = msg & vbNewLine & "holder for future expansion" & ","
+        msg = msg & vbNewLine & output_GW_BTC.Checked & ","
 
         msg = msg & vbNewLine & "holder for future expansion" & ","
         msg = msg & vbNewLine & "holder for future expansion" & ","
@@ -1010,8 +1010,16 @@
                 outputSpraydrift.Checked = False
             End If
 
+
+            currentrow = MyReader.ReadFields
+            If currentrow(0) = "True" Or "False" Then
+                output_GW_BTC.Checked = currentrow(0)
+            Else
+                output_GW_BTC.Checked = False
+            End If
+
+
             MyReader.ReadLine() 'expansion lines
-            MyReader.ReadLine()
             MyReader.ReadLine()
             MyReader.ReadLine()
             MyReader.ReadLine()

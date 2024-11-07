@@ -682,8 +682,10 @@ end subroutine chemical_manipulations
     end if
   
     call SetupApplications
+    
+    call calculate_retardation_factor !keep before setupfield
     call SetupFieldOutputOptions
-	call calculate_retardation_factor
+	
     
   end subroutine INITL
   
@@ -1040,7 +1042,7 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
     is_infiltration_at_depth_output,infiltration_point,is_infiltrated_bottom_output,infiltration_point,is_infiltrated_bottom_output, &
     PLNAME, chem_id, mode, arg, arg2, const, nplots, thickness, ncom2,soil_depth,nhoriz,leachdepth, &
     extra_plots, temp_PLNAME,  temp_chem_id, temp_MODE,temp_ARG,temp_ARG2,temp_CONST, nchem, &
-     profile_thick, profile_number_increments, is_auto_profile, number_of_discrete_layers
+     profile_thick, profile_number_increments, is_auto_profile, number_of_discrete_layers, is_gw_btc, maxcap_volume,retardation_factor
     
     
     implicit none
@@ -1143,9 +1145,15 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
          ARG(i) = ncom2  !always at the bottom node
          ARG2(i) = 2     !should be a dummy right?
          CONST(i) = 1.
-	end if
+    end if
 	
 
+    
+    
+    
+    
+    
+    
    !Below are the chemical outputs, need to get parent and degradates
 	do j=1, nchem
            if (is_runoff_chem_output) then
@@ -1262,9 +1270,59 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
                 ARG(i) = 1
                 ARG2(i) = 2
                 CONST(i) = 100000. !kg/ha
-           end if
-
+           end if        
     end do
+    
+    
+    
+    !special groundwater breakjthrough curve section (parent only)
+    
+        if (is_gw_btc) then
+              i=i+1
+              write(*,*) maxcap_volume,retardation_factor(1)
+              !Pore Volumes
+               PLNAME(i) = 'PVOL'
+               chem_id(i) = 1
+               MODE(i) = 'TCUM'                 
+               ARG(i) = ncom2  !always at the bottom node
+               ARG2(i) = 2     !dummy
+               CONST(i) = 1./maxcap_volume
+                             
+               !Throughputs
+               i=i+1
+               PLNAME(i) = 'TPUT'
+               chem_id(i) = 1
+               MODE(i) = 'TCUM'   
+               ARG(i) = ncom2  !always at the bottom node
+               ARG2(i) = 2     !dummy
+               CONST(i) = 1./maxcap_volume/retardation_factor(1)
+           
+               !Concentration
+               i=i+1
+               PLNAME(i) = 'AQFR'
+               chem_id(I) = 1
+               MODE(i) = 'TAVE'
+               
+               if(is_auto_profile) then
+                  arg(i)  = ncom2-profile_number_increments(number_of_discrete_layers)+1
+                  ARG2(i) = ncom2   
+               else        
+                  depth1 = sum(thickness(1:(nhoriz-1)) )     !top of last horizon
+		          depth2 = sum(thickness)
+                  ARG(i)  = find_depth_node(ncom2,soil_depth,depth1) 
+                  If (Arg(i) > 1) then    !Forthe unusual case where the last node is the first node
+                    ARG(i)  = ARG(i) +1 !need to add node because depth is countedat bottom of node
+                  end if
+                  ARG2(i) = find_depth_node(ncom2,soil_depth,depth2)
+               end if
+               CONST(i) = 1000. 
+               
+        end if
+        
+    
+    
+    
+    
     
     num_std_plots= i 
 
