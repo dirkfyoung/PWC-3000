@@ -291,7 +291,7 @@ module constants_and_variables
       real    :: fc_input(max_horizons)           !field capacity input
       real    :: wp_input(max_horizons)           !wilting point input
       real    :: soil_temp_input(max_horizons)    !input of initial soil temperatures
-      real    :: thickness(max_horizons)          !thickness of each horizon
+      real    :: thickness(max_horizons)          !thickness of each horizon, data input not reformulated by auto
       real    :: dispersion_input(max_horizons)   !dispersion
       
       
@@ -583,8 +583,8 @@ module constants_and_variables
       real    :: TCNC(3)     !used for output only
       
 	  !********* Groundwater Related Variables
-	  real :: retardation_factor(3)   !retardation factor of entire soil profile (parent, daughter, grand)
-      real :: maxcap_volume        !summation of max capacities, this is the effective aqueous transport pore volume
+	  real :: retardation_factor(3)   !retardation factor of entire soil profile (parent, daughter, grand); exclude last 2 nodes
+      real :: maxcap_volume           !summation of max capacities, this is the effective aqueous transport pore volume
       integer :: top_node_last_horizon, bottom_node_last_horizon
 	  real :: gw_peak(3)
 	  real :: post_bt_avg(3)

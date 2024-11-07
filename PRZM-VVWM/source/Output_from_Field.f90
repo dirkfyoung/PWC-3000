@@ -350,8 +350,11 @@ Module Output_From_Field
 !        IF (PLNAME(I)=='AFLX') PNBRN(I)=ADFLUX(chem_id(i),start_compartment)
         IF (PLNAME(I)=='DKFX') PNBRN(I)=DKFLUX(chem_id(i),start_compartment)
         IF (PLNAME(I)=='UFLX') PNBRN(I)=UPFLUX(chem_id(i),start_compartment)
+
+        IF (PLNAME(I)=='DCON') then
+            PNBRN(I)=conc_porewater(chem_id(i),start_compartment)*1.E6     
+        end if
         
-        IF (PLNAME(I)=='DCON') PNBRN(I)=conc_porewater(chem_id(i),start_compartment)*1.E6
         IF (PLNAME(I)=='ACON') PNBRN(I)=conc_porewater(chem_id(i),start_compartment)*1.E6 *kd_new(chem_id(i),start_compartment)
         IF (PLNAME(I)=='GCON') PNBRN(I)=conc_porewater(chem_id(i),start_compartment)*1.E6*new_henry(chem_id(i),start_compartment)
         

@@ -568,6 +568,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
 		     read(ScenarioFileUnit,*) number_of_discrete_layers
 		     do i = 1,  number_of_discrete_layers
 		       read(ScenarioFileUnit,*) profile_thick(i), profile_number_increments(i)
+               
 		     end do
           end if
       else 

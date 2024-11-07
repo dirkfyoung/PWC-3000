@@ -313,12 +313,11 @@ end subroutine chemical_manipulations
                      endif 
                  end if
             end do          
-      
-            
+  
           !saturate last 2 compartments to simulate aquifer
-            
-            theta_fc(ncom2-1) = 1.0 - bulkdensity(ncom2-1)/2.65
-            theta_fc(ncom2)   = 1.0 - bulkdensity(ncom2)/2.65
+          
+          theta_fc(ncom2-1) = 1.0 - bulkdensity(ncom2-1)/2.65
+          theta_fc(ncom2)   = 1.0 - bulkdensity(ncom2)/2.65
             
     else 	!No auto discretization  START OF  OLD WAY -- Possibly eliminate
 	
@@ -1040,7 +1039,8 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
     is_evapotranspiration_output, is_soil_water_output, is_irrigation_output,is_chem_in_all_soil_output, &
     is_infiltration_at_depth_output,infiltration_point,is_infiltrated_bottom_output,infiltration_point,is_infiltrated_bottom_output, &
     PLNAME, chem_id, mode, arg, arg2, const, nplots, thickness, ncom2,soil_depth,nhoriz,leachdepth, &
-    extra_plots, temp_PLNAME,  temp_chem_id, temp_MODE,temp_ARG,temp_ARG2,temp_CONST, nchem
+    extra_plots, temp_PLNAME,  temp_chem_id, temp_MODE,temp_ARG,temp_ARG2,temp_CONST, nchem, &
+     profile_thick, profile_number_increments, is_auto_profile, number_of_discrete_layers
     
     
     implicit none
@@ -1050,6 +1050,7 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
     integer :: num_std_plots  !counter for the number of standard plots that were requested 
                               !("extra plots" as in the variables module are those that the user specified with the traditional przm nomenclature)
 
+    
     i=0
     if (is_runoff_output) then
         i=i+1
@@ -1099,8 +1100,12 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
          MODE(i) = 'TSUM'   
          
          ARG(i) = 1
-		 
-		 depth2 = sum(thickness)
+         
+         if(is_auto_profile) then
+		     depth2 = sum(profile_thick)
+         else
+		     depth2 = sum(thickness)
+         end if
     
          ARG2(i) = find_depth_node(ncom2,soil_depth,depth2)
          CONST(i) = 1.
@@ -1134,14 +1139,12 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
          PLNAME(i) = 'INFL'
          chem_id(i) = 1
          MODE(i) = 'TSER'   
-         depth2 = sum(thickness)
-
-         ARG(i) = find_depth_node(ncom2,soil_depth,depth2)
-         ARG2(i) = 2
+         
+         ARG(i) = ncom2  !always at the bottom node
+         ARG2(i) = 2     !should be a dummy right?
          CONST(i) = 1.
 	end if
 	
-
 
    !Below are the chemical outputs, need to get parent and degradates
 	do j=1, nchem
@@ -1166,21 +1169,25 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
            end if
            
            if (is_conc_bottom_output) then
+               !this should be average concentration in aquifer which is assumed to be last layer in autodiscretization
                i=i+1
-                PLNAME(i) = 'DCON'
-                chem_id(I) = j
-                MODE(i) = 'TAVE'
-                 
-                depth1 = sum(thickness(1:(nhoriz-1)) )     !top of last horizon
-                depth2 = sum(thickness)                   !Bottom of last horizon   
+               PLNAME(i) = 'DCON'
+               chem_id(I) = j
+               MODE(i) = 'TAVE'
                 
-                ARG(i)  = find_depth_node(ncom2,soil_depth,depth1) 
-                If (Arg(i) > 1) then    !Forthe unusual case where the last node is the first node
+               if(is_auto_profile) then
+                  arg(i)  = ncom2-profile_number_increments(number_of_discrete_layers)+1
+                  ARG2(i) = ncom2   
+               else        
+                  depth1 = sum(thickness(1:(nhoriz-1)) )     !top of last horizon
+		          depth2 = sum(thickness)
+                  ARG(i)  = find_depth_node(ncom2,soil_depth,depth1) 
+                  If (Arg(i) > 1) then    !Forthe unusual case where the last node is the first node
                     ARG(i)  = ARG(i) +1 !need to add node because depth is countedat bottom of node
-                end if
-   
-                ARG2(i) = find_depth_node(ncom2,soil_depth,depth2)
-                CONST(i) = 1000.     
+                  end if
+                  ARG2(i) = find_depth_node(ncom2,soil_depth,depth2)
+               end if
+                CONST(i) = 1000.    
            end if
            
            if (is_daily_volatilized_output) then
@@ -1295,7 +1302,9 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
 	       retardation_factor(k) = 0.0
 	       do i = 1, ncom2
 	          	retardation_factor(k) = retardation_factor(k) + delx(i) /total_depth*	(theta_fc(i) +bulkdensity(i)*kd_new(k, i))/theta_fc(i)
-	       end do
+                
+           
+           end do
 
        end do       
         
