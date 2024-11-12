@@ -368,6 +368,9 @@ integer mm
   
 CALL CPU_TIME (time_5)	
 
+do i= 1, ncom2
+       write(97,*)  i, (  theta_new(i)  + kd_new(K,i)*bulkdensity(i) )/theta_new(i)  ,  theta_new(i)  !, kd_new(K,i)
+end do
 
   
     CALL TRIDIAGONAL_Solution (A,B,C, new_conc,F,NCOM2)        

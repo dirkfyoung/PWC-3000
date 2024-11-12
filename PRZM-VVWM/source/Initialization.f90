@@ -211,7 +211,7 @@ end subroutine chemical_manipulations
                      orgcarb    (i)       = oc_input  (j)                                          
                      theta_fc   (i)       = fc_input  (j)
                      theta_wp   (i)       = wp_input  (j)    
-                     theta_zero (i)       = fc_input  (j)  !Set the iniitial Water content to field capacity 
+                   !  theta_zero (i)       = fc_input  (j)  !Set the iniitial Water content to field capacity 
                      dispersion (i)		  = dispersion_input(j)	            
                      soil_temp  (i)       = soil_temp_input (j)
 	                 		
@@ -230,8 +230,8 @@ end subroutine chemical_manipulations
 			             bulkdensity(i) = bd_input  (nhoriz)
                          theta_fc   (i) = fc_input  (nhoriz)
                          theta_wp   (i) = wp_input  (nhoriz)
-                         orgcarb    (i) = 0.0   ! oc_input %  (nhoriz)
-                         theta_zero (i) = fc_input(nhoriz)
+                         orgcarb    (i) = 0.0                  ! oc_input %  (nhoriz)
+                   !      theta_zero (i) = fc_input(nhoriz)
                          dispersion (i)	= dispersion_input(nhoriz)           
                          soil_temp  (i) = soil_temp_input (nhoriz)
                          
@@ -269,7 +269,7 @@ end subroutine chemical_manipulations
                         sumofsn =  0.0
                         sumofcl =  0.0
                                            
-                        sumoftheta_zero        = 0.0
+                   !     sumoftheta_zero        = 0.0
                         sumofdispersion        = 0.0
                         sumofsoil_temp         = 0.0
                         sumofMolarConvert_aq12 = 0.0
@@ -285,7 +285,7 @@ end subroutine chemical_manipulations
                             sumofmx = sumofmx + fc_input  (horiz_indx_tracker(m)) *   track_thickness(m)
                             sumofmn = sumofmn + wp_input  (horiz_indx_tracker(m)) *   track_thickness(m)
                             sumofoc = sumofoc + oc_input  (horiz_indx_tracker(m)) *   track_thickness(m)                            
-                            sumoftheta_zero          =sumoftheta_zero          +  fc_input                 (horiz_indx_tracker(m)) *   track_thickness(m)
+                      !      sumoftheta_zero          =sumoftheta_zero          +  fc_input                 (horiz_indx_tracker(m)) *   track_thickness(m)
                             sumofdispersion          =sumofdispersion          +  dispersion_input         (horiz_indx_tracker(m)) *   track_thickness(m)
                             sumofsoil_temp           =sumofsoil_temp           +  soil_temp_input          (horiz_indx_tracker(m)) *   track_thickness(m)
                             sumofMolarConvert_aq12   =sumofMolarConvert_aq12   +   MolarConvert_aq12_input (horiz_indx_tracker(m)) *   track_thickness(m)
@@ -301,7 +301,7 @@ end subroutine chemical_manipulations
                             theta_wp   (i) = sumofmn /sumofdp	
                             orgcarb    (i) = sumofoc /sumofdp	
 			        	 
-                            theta_zero       (i) =sumoftheta_zero          /sumofdp
+                        !    theta_zero       (i) =sumoftheta_zero          /sumofdp
                             dispersion       (i) =sumofdispersion          /sumofdp
                             soil_temp        (i) =sumofsoil_temp           /sumofdp
                             MolarConvert_aq12(i) = sumofMolarConvert_aq12  /sumofdp
@@ -314,11 +314,15 @@ end subroutine chemical_manipulations
                  end if
             end do          
   
+
+            
           !saturate last 2 compartments to simulate aquifer
           
           theta_fc(ncom2-1) = 1.0 - bulkdensity(ncom2-1)/2.65
           theta_fc(ncom2)   = 1.0 - bulkdensity(ncom2)/2.65
             
+          theta_zero = theta_fc  !initialize water = field capacity 
+
     else 	!No auto discretization  START OF  OLD WAY -- Possibly eliminate
 	
       ! *** Populate the Delx Vector and Kf & N *******
@@ -1319,11 +1323,7 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
                
         end if
         
-    
-    
-    
-    
-    
+   
     num_std_plots= i 
 
     do i =  1, extra_plots       
@@ -1346,25 +1346,29 @@ use constants_and_variables, ONLY:     is_runoff_output, is_erosion_output, is_r
 
 		real :: total_depth
 		integer ::i, k
-        !  For i As Integer = 0 To (NumberOfHorizons - 2)
-        !    depth = depth + thick(i).Text
-        !Next
-        !
-        !Retardation = 0.0
-        !For i As Integer = 0 To (NumberOfHorizons - 2)
-        !    Retardation = Retardation + thick(i).Text / depth * (maxcap(i).Text + bulkden(i).Text * kd(ChemID, i)) / maxcap(i).Text
-        !Next   
+
+ !real :: r_zone, t_depth       
+        
         
        do k = 1, nchem
 	       total_depth = sum(delx)
 	       retardation_factor(k) = 0.0
 	       do i = 1, ncom2
+            
 	          	retardation_factor(k) = retardation_factor(k) + delx(i) /total_depth*	(theta_fc(i) +bulkdensity(i)*kd_new(k, i))/theta_fc(i)
-                
-           
            end do
-
        end do       
+      
+!!retardation in standard degradation zone   
+!r_zone = 0.0
+!t_depth = sum(delx(1:43))
+!do i = 1, 43
+!    
+!                   write(*,*) theta_fc(i), bulkdensity(i), kd_new(k, i)
+!	          	r_zone = r_zone + delx(i) /t_depth*	(theta_fc(i) +bulkdensity(i)*kd_new(k, i))/theta_fc(i)
+! end do
+! write(*,*) "deg zone R = ", r_zone      
+       
         
        maxcap_volume = 0.0       
 	   do i = 1, ncom2
