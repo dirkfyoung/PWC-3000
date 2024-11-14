@@ -4,7 +4,7 @@ Module Output_From_Field
 		
     subroutine scenario_hydrolgy_summary
     use constants_and_variables, ONLY: scenario_id, hold_precip, hold_irrig, hold_runoff
-         write(98,'(A40, 4G12.4)') trim(scenario_id), hold_precip, hold_irrig, hold_runoff, hold_runoff/(hold_precip + hold_irrig) 
+       !  write(98,'(A40, 4G12.4)') trim(scenario_id), hold_precip, hold_irrig, hold_runoff, hold_runoff/(hold_precip + hold_irrig) 
 
     
     end subroutine scenario_hydrolgy_summary

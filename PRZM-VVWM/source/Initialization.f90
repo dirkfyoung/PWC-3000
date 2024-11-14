@@ -408,13 +408,32 @@ end subroutine chemical_manipulations
 	    top_node_last_horizon    = ncom2-1
 		bottom_node_last_horizon = ncom2
 
-    !Implicit routine corection for degradation: insures perfect degradation at high rates    
-             aq_rate_corrected =     exp(aq_rate_input)   -1.  
-             sorb_rate_corrected =   exp(sorb_rate_input) -1.
-             gas_rate_corrected =    exp(gas_rate_input)  -1.
+    !Implicit routine corection for degradation: insures perfect degradation at high rates  for the case
+        !where sorbed and aqueous degradation are equal
+        !may cause problems however when comparing aqueous and bulk degradation. in such cases would need 
+        !to make retardation factor adjustment as well. The proper correction would first calulate the overall
+        !rate including retardation and THEN make the correction 
+        !these corrections would only work if aq and sorbed were equal or if one were zero
+        
+             !aq_rate_corrected =     exp(aq_rate_input)   -1.  
+             !sorb_rate_corrected =   exp(sorb_rate_input) -1.
+             !gas_rate_corrected =    exp(gas_rate_input)  -1.
+             !hydrolyisis_rate_corrected = exp(hydrolysis_rate*86400.)-1  !hydrolysis rate is per second, parent, daughter, grand
+
+        !changed to no corrections, cuz they are not generally true  11/12/2024
+        
+             aq_rate_corrected =     aq_rate_input  
+             sorb_rate_corrected =   sorb_rate_input
+             gas_rate_corrected =    gas_rate_input
              
-             hydrolyisis_rate_corrected = exp(hydrolysis_rate*86400.)-1  !hydrolysis rate is per second, parent, daughter, grand
-    !******************************************************************************************
+             hydrolyisis_rate_corrected = hydrolysis_rate*86400. !hydrolysis rate is per second, parent, daughter, grand
+
+             
+             
+             
+             
+             
+             !******************************************************************************************
     !
 	! changed---put these corrected values as substitute for input values below, 
              !done as of 12-4-2022  but check
@@ -506,9 +525,9 @@ end subroutine chemical_manipulations
        
        
         !do i = 1, ncom2
-        !    write(*,*)i, dwrate_atRefTemp(k,i), dsrate_atRefTemp(k,i)
+        !    write(93,*) i, dwrate_atRefTemp(k,i), dsrate_atRefTemp(k,i)
         !end do
-        
+        !
         
     end do  !chemical species loop
     
