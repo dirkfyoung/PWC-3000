@@ -340,10 +340,7 @@ integer mm
         F(I)=(theta_old(I) + Kd_old(K,I)*bulkdensity(I)  +  theta_air_old(I)*old_Henry(K,I) )* old_conc(I)  +  &
                (soil_applied_washoff(K,I)*DELT/DELX(I)) +     SRCFLX(K,I)/DELX(I)*DELT
         
-      
 
- 
-        
         
     end do
         

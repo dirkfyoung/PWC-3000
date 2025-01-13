@@ -107,7 +107,7 @@ integer :: i
        ! drift_kg_per_m2(app_counter) = drift_value(i)*application_rate_in(i)/10000.
        
        do i=1, total_applications
-           index_day = application_date(i)-startday
+           index_day = application_date(i)-startday+1  !corrected by adding 1, since first day is 1 not zero
            if (index_day > 0 .and. index_day <= num_records) then
             !   sprayrate = drift_kg_per_m2(i) * area_waterbody  
                
@@ -146,12 +146,8 @@ subroutine DegradateProduction(chem_index)
 
       degradateProduced1 = MWTRatio*(xPhoto(chem_index)*k_photo*volume1 + xHydro(chem_index)*k_hydro*volume1 + &
                             xAerobic(chem_index)*k_aer_aq*capacity_1)*aqconc_avg1*DELT_vvwm
-      
-
                   
       degradateProduced2 = MWTRatio*(xHydro(chem_index)*k_hydro*v2 + xBenthic(chem_index)*k_anaer_aq*capacity_2)*aqconc_avg2*DELT_vvwm 
-      
-
       
       !Degradate production is delayed one time step to approximate the process and to maintain analytical solution for time step  
       degradateProduced1(2:num_records)= degradateProduced1(1:num_records-1)
