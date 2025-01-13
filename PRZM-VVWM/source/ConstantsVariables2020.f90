@@ -343,6 +343,8 @@ module constants_and_variables
       real :: k_f_2_input(3)  !input Freundlich Kf for each horizon Region 2
       real :: N_f_2_input(3)  !input Freundlich N for each horizon Region 2
           
+      
+      !Soil Degradation Conversion Factors---Changed to Mass Conversion Factors on 1/13/2024 by multiplying MWT ratios  
       real :: MolarConvert_aq12_input(max_horizons),MolarConvert_aq13_input(max_horizons),MolarConvert_aq23_input(max_horizons)
       real :: MolarConvert_s12_input(max_horizons), MolarConvert_s13_input(max_horizons), MolarConvert_s23_input(max_horizons)
         

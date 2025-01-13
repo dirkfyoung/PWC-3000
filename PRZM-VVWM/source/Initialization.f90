@@ -3,18 +3,33 @@ implicit none
     contains
 
 subroutine chemical_manipulations
-use constants_and_Variables, ONLY: MolarConvert_aq12_input, MolarConvert_s12_input,MolarConvert_aq23_input,MolarConvert_s23_input, xsoil
+use constants_and_Variables, ONLY: MolarConvert_aq12_input, MolarConvert_s12_input,MolarConvert_aq23_input,MolarConvert_s23_input, xsoil, nchem, mwt
+  
+  real ::   ratio_mwt1, ratio_mwt2
+  !--------------------------------------------------------
+  !As of 1/13/2024 now converting to mass instead of parent equivalent
+     If (nchem >1) then
+         ratio_mwt1 = mwt(2)/mwt(1)
+     else 
+         ratio_mwt1 = 0.0
+     end if
+     
+     if (nchem>2) then
+         ratio_mwt2 = mwt(3)/mwt(2)
+     else
+         ratio_mwt2 = 0.0
+     end if
+  !---------------------------------------------   
 
-    !SET Soil molar coinversions to the same value for all horizons, for both aqueous and sorbed degradation
-    MolarConvert_aq12_input = xsoil(1)
-    MolarConvert_s12_input  = xsoil(1)
+    !SET Soil molar conversions to the same value for all horizons, for both aqueous and sorbed degradation
+    MolarConvert_aq12_input = xsoil(1) * ratio_mwt1
+    MolarConvert_s12_input  = xsoil(1) * ratio_mwt1
     
     !MolarConvert_aq13_input(i) = not defined in this version
     !MolarConvert_s13_input(i) = not defined 
     
-    MolarConvert_aq23_input = xsoil(2)
-    MolarConvert_s23_input  = xsoil(2)
-
+    MolarConvert_aq23_input = xsoil(2) * ratio_mwt2
+    MolarConvert_s23_input  = xsoil(2) * ratio_mwt2
 end subroutine chemical_manipulations
     
 
@@ -22,7 +37,7 @@ end subroutine chemical_manipulations
   SUBROUTINE INITL
   use utilities_1
   use allocations
-  use constants_and_Variables, ONLY: min_evap_depth,                             &
+  use constants_and_Variables, ONLY: min_evap_depth,                           &
         SoilWater,fieldcap_water, wiltpoint_water,delx,                        &
         theta_zero,                                                            &
         bd_input,              bulkdensity,                                    &
@@ -33,11 +48,11 @@ end subroutine chemical_manipulations
         fc_input,              theta_fc,                                       &
         wp_input,              theta_wp,                                       &
         soil_temp_input,       soil_temp,                                      &
-        theta_sat, juslec,NUSLEC,CN_moisture_ref,RNCMPT,ncom2,                           &
+        theta_sat, juslec,NUSLEC,CN_moisture_ref,RNCMPT,ncom2,                 &
         old_Henry,new_henry, Henry_unitless,orgcarb, oc_input, NCHEM,NHORIZ,thickness, &
-        OUTPUJ,OUTPJJ,Num_delx,startday, soil_depth,                                                       &
-        theta_end,CN_index,cfac,USLEC,                           &
-        cn_moist_node, runoff_effic, runoff_decline,runoff_intensity,runoff_extr_depth,                    &
+        OUTPUJ,OUTPJJ,Num_delx,startday, soil_depth,                                   &
+        theta_end,CN_index,cfac,USLEC,                                                 &
+        cn_moist_node, runoff_effic, runoff_decline,runoff_intensity,runoff_extr_depth,&
         cam123_soil_depth, &
         CN_moisture_depth,erosion_intensity,erosion_decline,erosion_depth,erosion_effic , erosion_compt, &
         GYUSLEC,GMUSLEC,GDUSLEC,use_usleyears,number_washoff_nodes, washoff_incorp_depth, &
