@@ -11,7 +11,7 @@ module constants_and_variables
 
 	  integer :: xx= 89! temporary dummy get rid of this
 	  
-      real,parameter :: Version_Number = 1.002 !version 1
+      real,parameter :: Version_Number = 1.003 !version 1
       
       logical :: use_bidiagonal
       integer :: app_window_counter  !tracks the appication widow for placement into a storage array for median calculation of concentrations
