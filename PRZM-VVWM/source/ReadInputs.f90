@@ -67,7 +67,7 @@ use utilities
     read(inputfile_unit_number,'(A)') family_name                                                                 !Line 3
     read(inputfile_unit_number,'(A)') weatherfiledirectory                                                        !Line 4 
 	write(*,'(A23, A300)') ' weather directory is: ', adjustl(weatherfiledirectory) 
-    read(inputfile_unit_number,*) open_water_adj
+    read(inputfile_unit_number,*) open_water_adj                                                                  !Line 5
     
 
     read(inputfile_unit_number,*) is_koc,is_freundlich,is_nonequilibrium,is_needs_poundkg_conversion,is_hydrolysis_override !Line 5
