@@ -399,7 +399,7 @@ use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, &
     gw_peak, post_bt_avg ,throughputs,simulation_avg, fraction_off_field, family_name, app_window_counter, &
-    hold_for_medians_wb, hold_for_medians_daughter,hold_for_medians_grandaughter, First_time_through_wb
+    hold_for_medians_wb, hold_for_medians_daughter,hold_for_medians_grandaughter, First_time_through_wb, working_directory
 
 use waterbody_parameters, ONLY: FROC2
 
@@ -429,8 +429,9 @@ use utilities_1, ONLY: Return_Frequency_Value
     
     If (First_time_through_wb(1) .AND. chem_index ==1 ) then
         header = 'Run Information                                                                  ,      1-d avg,    365-d avg,    Total avg,      4-d avg,     21-d avg,     60-d avg,      B 1-day,   B 21-d avg,    Off-Field,  Runoff Frac,   Erosn Frac,   Drift Frac,  col washout,    col metab,    col hydro,    col photo,    col volat,    col total,  ben sed rem,    ben metab,    ben hydro,    ben total,      gw_peak,  post_bt_avg,   throughput,   sim_avg_gw'
+
         
-        Open(unit=unit_number,FILE=  (trim(family_name) // "_" // trim(summary_filename)),Status='unknown')  
+        Open(unit=unit_number,FILE=  (trim(working_directory) //trim(family_name) // "_" // trim(summary_filename)),Status='unknown')  
             write(unit_number, '(''Benthic Conversion Factor             = '', G14.4E3,'' -Pore water (ug/L) to (total mass, ug)/(dry sed mass,kg)'')') Sediment_conversion_factor(1)*1000.
             write(unit_number, '(''OC sediment fraction                  = '', G14.4E3)') froc2
             Write(unit_number, '(A457)') header
@@ -440,7 +441,7 @@ use utilities_1, ONLY: Return_Frequency_Value
         If (First_time_through_wb(2) .AND. chem_index ==2 ) then
         header = 'Run Information                                                                  ,      1-d avg,    365-d avg,    Total avg,      4-d avg,     21-d avg,     60-d avg,      B 1-day,   B 21-d avg,    Off-Field,  Runoff Frac,   Erosn Frac,   Drift Frac,  col washout,    col metab,    col hydro,    col photo,    col volat,    col total,  ben sed rem,    ben metab,    ben hydro,    ben total,      gw_peak,  post_bt_avg,   throughput,   sim_avg_gw'
         
-            Open(unit=unit_number_deg1,FILE= (trim(family_name) // "_" // trim(summary_filename_deg1)),Status='unknown')  
+            Open(unit=unit_number_deg1,FILE= (trim(working_directory) //trim(family_name) // "_" // trim(summary_filename_deg1)),Status='unknown')  
             write(unit_number_deg1, '(''Benthic Conversion Factor             = '', G14.4E3,'' -Pore water (ug/L) to (total mass, ug)/(dry sed mass,kg)'')') Sediment_conversion_factor(2)*1000.
             write(unit_number_deg1, '(''OC sediment fraction                  = '', G14.4E3)') froc2
             Write(unit_number_deg1, '(A457)') header
@@ -449,8 +450,8 @@ use utilities_1, ONLY: Return_Frequency_Value
         
         If (First_time_through_wb(3) .AND. chem_index ==3 ) then
         header = 'Run Information                                                                  ,      1-d avg,    365-d avg,    Total avg,      4-d avg,     21-d avg,     60-d avg,      B 1-day,   B 21-d avg,    Off-Field,  Runoff Frac,   Erosn Frac,   Drift Frac,  col washout,    col metab,    col hydro,    col photo,    col volat,    col total,  ben sed rem,    ben metab,    ben hydro,    ben total,      gw_peak,  post_bt_avg,   throughput,   sim_avg_gw'
-        
-            Open(unit=unit_number_deg2,FILE= (trim(family_name) // "_" // trim(summary_filename_deg2)),Status='unknown')
+ 
+            Open(unit=unit_number_deg2,FILE= (trim(working_directory) //trim(family_name) // "_" // trim(summary_filename_deg2)),Status='unknown')
             write(unit_number_deg2, '(''Benthic Conversion Factor             = '', G14.4E3,'' -Pore water (ug/L) to (total mass, ug)/(dry sed mass,kg)'')') Sediment_conversion_factor(3)*1000.
             write(unit_number_deg2, '(''OC sediment fraction                  = '', G14.4E3)') froc2
             Write(unit_number_deg2, '(A457)') header
