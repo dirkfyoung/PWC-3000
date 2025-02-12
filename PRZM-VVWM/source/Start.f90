@@ -164,11 +164,21 @@ program PRZMVVWM
 					 if (is_adjust_for_rain) call adjust_application_dates_for_weather
 					 
 					 call chem_transport_onfield
-					 call groundwater				 
+					 call groundwater	
+                     
+                     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                     !put runoff and erosion mitigation here
+                     !drift mitigation may have to be placed in indidual waterbody routines
+                     call mitigation
+                     
+                     
+                     
+                     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                     
                      call VVWM 
                         
                      if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
-                         call wpez   
+                         call wpez     !drift is same as pond noi need to recalculate
                          call tpez(i)  !need to send in scheme number to find drift
                      end if                     
                end do    

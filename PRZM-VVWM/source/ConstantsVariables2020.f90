@@ -126,6 +126,15 @@ module constants_and_variables
 	  integer, allocatable, dimension(:) :: optimum_application_window_schemes
 	  integer, allocatable, dimension(:) :: intolerable_rain_window_schemes
 	  integer, allocatable, dimension(:) ::	min_days_between_apps_schemes
+      
+      real,    allocatable, dimension(:) :: runoff_mitigation_schemes
+      real,    allocatable, dimension(:) :: erosion_mitigation_schemes
+      real,    allocatable, dimension(:) :: drift_mitigation_schemes
+      real                               :: runoff_mitigation
+      real                               :: erosion_mitigation
+      real                               :: drift_mitigation
+      
+      
 	   
       integer, allocatable, dimension(:,:) :: method_schemes
       integer, allocatable, dimension(:,:) :: days_until_applied_schemes   !(scheme #, application # max of 366) 

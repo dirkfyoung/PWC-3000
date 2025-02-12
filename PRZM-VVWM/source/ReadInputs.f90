@@ -33,7 +33,9 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     is_app_window, app_window_span, app_window_step, is_timeseriesfile, &
 	is_waterbody_info_output , is_adjust_for_rain_schemes,rain_limit_schemes,optimum_application_window_schemes, &
 	intolerable_rain_window_schemes, min_days_between_apps_schemes,  is_batch_scenario , scenario_batchfile , is_needs_poundkg_conversion,&
-    open_water_adj , is_hydrolysis_override, is_output_spraydrift, is_absolute_year_schemes,is_gw_btc
+    open_water_adj , is_hydrolysis_override, is_output_spraydrift, is_absolute_year_schemes,is_gw_btc, &
+    runoff_mitigation_schemes, erosion_mitigation_schemes,drift_mitigation_schemes
+    
 
 use waterbody_parameters, ONLY: itsapond, itsareservoir, itsother,itstpezwpez, waterbody_names, USEPA_reservoir,USEPA_pond , use_tpezbuffer
 use utilities
@@ -139,7 +141,11 @@ use utilities
     allocate (optimum_application_window_schemes(number_of_schemes))
     allocate (intolerable_rain_window_schemes(number_of_schemes))
     allocate (min_days_between_apps_schemes(number_of_schemes))
-
+    
+    allocate (runoff_mitigation_schemes(number_of_schemes))
+    allocate (erosion_mitigation_schemes(number_of_schemes))
+    allocate (drift_mitigation_schemes(number_of_schemes))
+    
     allocate (is_batch_scenario(number_of_schemes))    
     allocate (scenario_batchfile(number_of_schemes))
     
@@ -230,10 +236,11 @@ use utilities
             app_window_step(i)= 1          
         end if
 
-        
 		read(inputfile_unit_number,*) is_adjust_for_rain_schemes(i),rain_limit_schemes(i), &                         !Scheme Line 6
 		   optimum_application_window_schemes(i),intolerable_rain_window_schemes(i),min_days_between_apps_schemes(i) 
-			
+
+        read(inputfile_unit_number,*)  runoff_mitigation_schemes(i), erosion_mitigation_schemes(i),drift_mitigation_schemes(i)
+
 		read(inputfile_unit_number,*) number_of_scenarios(i)                                                         !Scheme Line 7
            
         do j=1, number_of_scenarios(i)

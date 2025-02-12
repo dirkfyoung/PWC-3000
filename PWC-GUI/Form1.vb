@@ -521,38 +521,39 @@ Public Class Form1
                     NumberofApplications = ApplicationTable.Days.Count
                     AppTableDisplay.Rows.Clear()
 
-                    If NumberofApplications > 0 Then  'prevents error if user attempts to save without any applications
-                        AppTableDisplay.Rows.Add(NumberofApplications)
+                If NumberofApplications > 0 Then  'prevents error if user attempts to save without any applications
+                    AppTableDisplay.Rows.Add(NumberofApplications)
 
-                        For i As Integer = 0 To NumberofApplications - 1
-                            AppTableDisplay.Item(0, i).Value = ApplicationTable.Days(i)
-                            AppTableDisplay.Item(1, i).Value = ApplicationTable.Amount(i)
+                    For i As Integer = 0 To NumberofApplications - 1
+                        AppTableDisplay.Item(0, i).Value = ApplicationTable.Days(i)
+                        AppTableDisplay.Item(1, i).Value = ApplicationTable.Amount(i)
 
 
-                            Select Case (ApplicationTable.Method(i))
-                                Case (1)
-                                    AppTableDisplay.Item(2, i).Value = Standard.method1
-                                Case (2)
-                                    AppTableDisplay.Item(2, i).Value = Standard.method2
-                                Case (3)
-                                    AppTableDisplay.Item(2, i).Value = Standard.method3
-                                Case (4)
-                                    AppTableDisplay.Item(2, i).Value = Standard.method4
-                                Case (5)
-                                    AppTableDisplay.Item(2, i).Value = Standard.method5
-                                Case (6)
-                                    AppTableDisplay.Item(2, i).Value = Standard.method6
-                                Case (7)
-                                    AppTableDisplay.Item(2, i).Value = Standard.method7
-                                Case Else
-                                    AppTableDisplay.Item(2, i).Value = Standard.method1
-                            End Select
+                        Select Case (ApplicationTable.Method(i))
+                            Case (1)
+                                AppTableDisplay.Item(2, i).Value = Standard.method1
+                            Case (2)
+                                AppTableDisplay.Item(2, i).Value = Standard.method2
+                            Case (3)
+                                AppTableDisplay.Item(2, i).Value = Standard.method3
+                            Case (4)
+                                AppTableDisplay.Item(2, i).Value = Standard.method4
+                            Case (5)
+                                AppTableDisplay.Item(2, i).Value = Standard.method5
+                            Case (6)
+                                AppTableDisplay.Item(2, i).Value = Standard.method6
+                            Case (7)
+                                AppTableDisplay.Item(2, i).Value = Standard.method7
+                            Case Else
+                                AppTableDisplay.Item(2, i).Value = Standard.method1
+                        End Select
 
-                            AppTableDisplay.Item(3, i).Value = ApplicationTable.Depth(i)
-                            AppTableDisplay.Item(4, i).Value = ApplicationTable.Split(i)
-                            '   AppTableDisplay.Item(5, i).Value = ApplicationTable.Drift(i)
 
-                            Select Case ApplicationTable.Drift(i)
+                        AppTableDisplay.Item(3, i).Value = ApplicationTable.Depth(i)
+                        AppTableDisplay.Item(4, i).Value = ApplicationTable.Split(i)
+                        '   AppTableDisplay.Item(5, i).Value = ApplicationTable.Drift(i)
+
+                        Select Case ApplicationTable.Drift(i)
                             Case 1
                                 AppTableDisplay.Item(5, i).Value = Standard.sprayterm1
                             Case 2
@@ -589,30 +590,36 @@ Public Class Form1
 
 
                         AppTableDisplay.Item(6, i).Value = ApplicationTable.DriftBuffer(i)
-                            AppTableDisplay.Item(7, i).Value = ApplicationTable.Periodicity(i)
-                            AppTableDisplay.Item(8, i).Value = ApplicationTable.Lag(i)
+                        AppTableDisplay.Item(7, i).Value = ApplicationTable.Periodicity(i)
+                        AppTableDisplay.Item(8, i).Value = ApplicationTable.Lag(i)
 
-                        Next
-                    End If
+                    Next
+                End If
 
-                    AbsoluteDaysButton.Checked = ApplicationTable.AbsoluteRelative
-                    emerge.Checked = ApplicationTable.Emerge
-                    maturity.Checked = ApplicationTable.Maturity
-                    removal.Checked = ApplicationTable.Removal
 
-                    UseApplicationWindow.Checked = ApplicationTable.UseApplicationWindow
-                    ApplicationWindowDays.Text = ApplicationTable.ApplicationWindowSpan
-                    ApplicationWindowStep.Text = ApplicationTable.ApplicationWindowStep
+                AbsoluteDaysButton.Checked = ApplicationTable.AbsoluteRelative
 
-                    UseRainFast.Checked = ApplicationTable.UseRainFast
-                    RainLimit.Text = ApplicationTable.RainLimit
-                    IntolerableRainWindow.Text = ApplicationTable.IntolerableRainWindow
-                    OptimumApplicationWindow.Text = ApplicationTable.OptimumApplicationWindow
-                    MinDaysBetweenApps.Text = ApplicationTable.MinDaysBetweenApps
-                    GetScenariosBatchCheckBox.Checked = ApplicationTable.UseBatchScenarioFile
-                    ScenarioBatchFileName.Text = ApplicationTable.ScenarioBatchFileName
+                emerge.Checked = ApplicationTable.Emerge
+                maturity.Checked = ApplicationTable.Maturity
+                removal.Checked = ApplicationTable.Removal
 
-                    ScenarioListBox.Items.Clear()
+                UseApplicationWindow.Checked = ApplicationTable.UseApplicationWindow
+                ApplicationWindowDays.Text = ApplicationTable.ApplicationWindowSpan
+                ApplicationWindowStep.Text = ApplicationTable.ApplicationWindowStep
+
+                UseRainFast.Checked = ApplicationTable.UseRainFast
+                RainLimit.Text = ApplicationTable.RainLimit
+                IntolerableRainWindow.Text = ApplicationTable.IntolerableRainWindow
+                OptimumApplicationWindow.Text = ApplicationTable.OptimumApplicationWindow
+                MinDaysBetweenApps.Text = ApplicationTable.MinDaysBetweenApps
+                GetScenariosBatchCheckBox.Checked = ApplicationTable.UseBatchScenarioFile
+                ScenarioBatchFileName.Text = ApplicationTable.ScenarioBatchFileName
+
+                RunoffMitigation.Text = ApplicationTable.RunoffMitigation
+                ErosionMitigation.Text = ApplicationTable.ErosionMitigation
+                DriftMitigation.Text = ApplicationTable.DriftMitigation
+
+                ScenarioListBox.Items.Clear()
                     For Each ee As String In ApplicationTable.Scenarios
                         ScenarioListBox.Items.Add(ee)
                     Next
@@ -786,21 +793,6 @@ Public Class Form1
 
 
     End Sub
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1559,7 +1551,6 @@ Public Class Form1
 
 
     End Sub
-
 
 End Class
 

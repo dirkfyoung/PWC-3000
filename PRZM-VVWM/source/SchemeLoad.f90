@@ -34,8 +34,10 @@ module schemeload
            app_reference_point, app_reference_point_schemes, is_adjust_for_rain_schemes, & 	
            rain_limit_schemes,optimum_application_window_schemes,intolerable_rain_window_schemes,min_days_between_apps_schemes, & 
 	       is_adjust_for_rain, rain_limit,optimum_application_window,intolerable_rain_window,min_days_between_apps, is_batch_scenario, &
-           is_absolute_year, is_absolute_year_schemes
-      
+           is_absolute_year, is_absolute_year_schemes, runoff_mitigation_schemes, erosion_mitigation_schemes,  drift_mitigation_schemes, &
+           runoff_mitigation, erosion_mitigation,drift_mitigation  
+       
+
        use waterbody_parameters, ONLY: afield,   area_waterbody
         integer,intent(in):: scheme_number
         integer :: i
@@ -89,6 +91,11 @@ module schemeload
 		optimum_application_window = optimum_application_window_schemes(scheme_number)
 		intolerable_rain_window    = intolerable_rain_window_schemes(scheme_number)
 		min_days_between_apps      = min_days_between_apps_schemes(scheme_number)
+         
+        runoff_mitigation  = runoff_mitigation_schemes(scheme_number)
+        erosion_mitigation = erosion_mitigation_schemes(scheme_number)
+        drift_mitigation   = drift_mitigation_schemes(scheme_number)
+        
 
         some_applications_were_foliar = .FALSE.
         if(any(pest_app_method_in==2)) then

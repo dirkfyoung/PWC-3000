@@ -128,6 +128,9 @@
             Next
             msg = msg & vbNewLine & ApplicationTable.UseBatchScenarioFile & ","
             msg = msg & vbNewLine & ApplicationTable.ScenarioBatchFileName & ","
+            msg = msg & vbNewLine & "Mitigations (flag to make older versions still readable)"
+            msg = msg & String.Format("{0}{1},{2},{3},", vbNewLine, ApplicationTable.RunoffMitigation, ApplicationTable.ErosionMitigation, ApplicationTable.DriftMitigation)
+
         Next
 
         msg &= String.Format("{0}{1},", vbNewLine, ErosionFlag.Text)
@@ -352,9 +355,6 @@
         End Try
 
     End Sub
-
-
-
 
 
     Private Function CreateScenarioString() As String
@@ -599,15 +599,10 @@
             MyReader.ReadLine() 'family name not retrieved, so can alter, needed for transfer to vvwm
             'Weather Path
 
-
-
             WeatherDirectoryBox.Text = MyReader.ReadLine()   'LINE 4
-
 
             currentrow = MyReader.ReadFields                 'LINE 5
             WaterbodyEvapAdjustment.Text = currentrow(0)
-
-
 
             'Chemical Proerties
             currentrow = MyReader.ReadFields         'LINE 6
@@ -633,17 +628,11 @@
                     kgha.Checked = True
                 End If
 
-
-
-
                 IsHydrolysisOverride.Checked = currentrow(4)
             Catch ex As Exception
 
                 IsHydrolysisOverride.Checked = True
             End Try
-
-
-
 
 
 
@@ -663,15 +652,10 @@
                 Case Else
             End Select
 
-
             currentrow = MyReader.ReadFields
             sorption1.Text = currentrow(0)
             sorption2.Text = currentrow(1)
             sorption3.Text = currentrow(2)
-
-
-
-
 
             currentrow = MyReader.ReadFields
             Nexp1Reg1.Text = currentrow(0)
@@ -906,9 +890,23 @@
 
                 currentrow = MyReader.ReadFields
                 ApplicationTable.ScenarioBatchFileName = currentrow(0)
+
+
+
+                If MyReader.PeekChars(11) = "Mitigations" Then
+                    MyReader.ReadLine() 'skip over the Mitigations line
+                    currentrow = MyReader.ReadFields
+                    ApplicationTable.RunoffMitigation = currentrow(0)
+                    ApplicationTable.ErosionMitigation = currentrow(1)
+                    ApplicationTable.DriftMitigation = currentrow(2)
+                Else
+                    ApplicationTable.RunoffMitigation = "1.0"
+                    ApplicationTable.ErosionMitigation = "1.0"
+                    ApplicationTable.DriftMitigation = "1.0"
+                End If
+
+
                 SchemeInfoList.Add(ApplicationTable)
-
-
             Next
 
             currentrow = MyReader.ReadFields 'msg = msg & vbNewLine & ErosionFlag.Text
@@ -1154,8 +1152,6 @@
 
 
     End Sub
-
-
 
 
     Private Sub ReadwaterBodyParameters(filename As String)
@@ -1451,10 +1447,10 @@
             MyReader.ReadLine() '*** Horizon End, Temperature Start ********"
 
             'V4 scenarios do not have temp populated'line 62
-            'MyReader.ReadLine()
+                'MyReader.ReadLine()
 
-            '**************************************]
-            Dim ttt As String
+                '**************************************]
+                Dim ttt As String
             ttt = MyReader.ReadLine()
             If ttt = "" Then
                 albedo.Text = 0.2
@@ -1642,6 +1638,11 @@
         AppData.IntolerableRainWindow = IntolerableRainWindow.Text
         AppData.OptimumApplicationWindow = OptimumApplicationWindow.Text
         AppData.MinDaysBetweenApps = MinDaysBetweenApps.Text
+
+        AppData.RunoffMitigation = RunoffMitigation.Text
+        AppData.ErosionMitigation = ErosionMitigation.Text
+        AppData.DriftMitigation = DriftMitigation.Text
+
 
 
         AppData.Scenarios = ScenarioListBox.Items.Cast(Of String).ToList

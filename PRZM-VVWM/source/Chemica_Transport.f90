@@ -444,7 +444,7 @@ subroutine flux_calculations(k, concentration)
 
     
     
-    !------------------------Degrdate Production --------------------------------------
+    !------------------------Degradate Production --------------------------------------
     IF (nchem ==1)then 
          srcflx=0.0
     else     

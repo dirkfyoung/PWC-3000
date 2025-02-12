@@ -27,6 +27,11 @@
     Public Property UseBatchScenarioFile As Boolean
     Public Property ScenarioBatchFileName As String
 
+    Public Property RunoffMitigation As String
+    Public Property ErosionMitigation As String
+    Public Property DriftMitigation As String
+
+
 
     'Public Sub ClearAll()
     '    Days.Clear()

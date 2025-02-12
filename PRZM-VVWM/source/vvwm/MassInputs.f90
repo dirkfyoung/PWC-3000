@@ -94,7 +94,7 @@ integer :: i
        use waterbody_parameters, ONLY:area_waterbody
        
        use constants_and_variables, ONLY: num_records, total_applications, drift_kg_per_m2 , application_date, startday, &
-                                      mass_off_field, spray_total, spray_additions             
+                                      mass_off_field, spray_total, spray_additions ,  drift_mitigation           
        implicit none
        integer  ::  i, index_day
       ! real     ::  sprayrate
@@ -111,7 +111,7 @@ integer :: i
            if (index_day > 0 .and. index_day <= num_records) then
             !   sprayrate = drift_kg_per_m2(i) * area_waterbody  
                
-               spray_additions(index_day) = drift_kg_per_m2(i) * area_waterbody 
+               spray_additions(index_day) = drift_kg_per_m2(i) * area_waterbody * drift_mitigation
                
            !    mass_off_field(index_day, 1,1) =  mass_off_field(index_day, 1,1) +   sprayrate             
               ! spray_total(1) =  spray_total(1) +  sprayrate
