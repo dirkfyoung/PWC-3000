@@ -127,10 +127,10 @@ module constants_and_variables
 	  integer, allocatable, dimension(:) :: intolerable_rain_window_schemes
 	  integer, allocatable, dimension(:) ::	min_days_between_apps_schemes
       
-      real,    allocatable, dimension(:) :: runoff_mitigation_schemes
+      real,    allocatable, dimension(:) :: runoff_mitigation_schemes  !scheme array of mass reducers for runoff
       real,    allocatable, dimension(:) :: erosion_mitigation_schemes
       real,    allocatable, dimension(:) :: drift_mitigation_schemes
-      real                               :: runoff_mitigation
+      real                               :: runoff_mitigation          !these are scheme-level proportional mass reductions
       real                               :: erosion_mitigation
       real                               :: drift_mitigation
       

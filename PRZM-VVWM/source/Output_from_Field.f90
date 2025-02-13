@@ -56,28 +56,30 @@ Module Output_From_Field
 
 	
 	subroutine get_inputs_from_field_for_vvwm
-	    use  constants_and_Variables, ONLY:mass_off_field,ROFLUX,ERFLUX,day_number_chemtrans,nchem 
+	    use  constants_and_Variables, ONLY:mass_off_field,ROFLUX,ERFLUX,day_number_chemtrans,nchem ,&
+             runoff_mitigation, erosion_mitigation
+        
+        
+        
 	    use waterbody_parameters, ONLY: afield 
 	    implicit none
    
-	   
         !Time Series sent to VVWM:
-        mass_off_field(day_number_chemtrans,1,1) =   ROFLUX(1)* afield*10.  !converts to kg
-        mass_off_field(day_number_chemtrans,2,1) =   ERFLUX(1)* afield*10.  !converts to kg
+        mass_off_field(day_number_chemtrans,1,1) =   ROFLUX(1)* afield*10. * runoff_mitigation !converts to kg
+        mass_off_field(day_number_chemtrans,2,1) =   ERFLUX(1)* afield*10. * erosion_mitigation !converts to kg
           
-        
-        
+
         if (nchem >1) then
-          mass_off_field(day_number_chemtrans,1,2) = ROFLUX(2)* afield*10.  !converts to kg
-          mass_off_field(day_number_chemtrans,2,2) = ERFLUX(2)* afield*10.  !converts to kg
+          mass_off_field(day_number_chemtrans,1,2) = ROFLUX(2)* afield*10. * runoff_mitigation !converts to kg
+          mass_off_field(day_number_chemtrans,2,2) = ERFLUX(2)* afield*10. * erosion_mitigation !converts to kg
         end if
         
         if (nchem >2) then
-          mass_off_field(day_number_chemtrans,1,3) = ROFLUX(3)* afield*10.  !converts to kg
-          mass_off_field(day_number_chemtrans,2,3) = ERFLUX(3) * afield*10.  !converts to kg
-		end if
+          mass_off_field(day_number_chemtrans,1,3) = ROFLUX(3)* afield*10.  * runoff_mitigation !converts to kg
+          mass_off_field(day_number_chemtrans,2,3) = ERFLUX(3) * afield*10. * erosion_mitigation !converts to kg
+        end if
 
-
+        
 	end subroutine get_inputs_from_field_for_vvwm
 	
 

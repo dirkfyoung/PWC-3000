@@ -166,15 +166,6 @@ program PRZMVVWM
 					 call chem_transport_onfield
 					 call groundwater	
                      
-                     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                     !put runoff and erosion mitigation here
-                     !drift mitigation may have to be placed in indidual waterbody routines
-                     call mitigation
-                     
-                     
-                     
-                     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                     
                      call VVWM 
                         
                      if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run

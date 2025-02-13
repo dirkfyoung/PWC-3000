@@ -56,6 +56,8 @@ use utilities
 	integer             :: scheme_number_readin
     integer             :: comma_place 
     
+     character (len=10) :: dummy
+    
     OPEN(Unit = inputfile_unit_number, FILE=(inputfile),STATUS='OLD', IOSTAT=status  )
     IF (status .NE. 0) THEN
       WRITE(*,*)'Problem with PRZMVVWM input file: ', inputfile
@@ -227,19 +229,14 @@ use utilities
             end select                
         end do
         
-    
-        
-        
         read(inputfile_unit_number,*) is_app_window(i), app_window_span(i), app_window_step(i)                      !Scheme Line 5
         if (not(is_app_window(i) )) then 
             app_window_span(i) =0  !the stepping starts with zero, so the span iz zero for only one iteration
             app_window_step(i)= 1          
         end if
-
+   
 		read(inputfile_unit_number,*) is_adjust_for_rain_schemes(i),rain_limit_schemes(i), &                         !Scheme Line 6
 		   optimum_application_window_schemes(i),intolerable_rain_window_schemes(i),min_days_between_apps_schemes(i) 
-
-        read(inputfile_unit_number,*)  runoff_mitigation_schemes(i), erosion_mitigation_schemes(i),drift_mitigation_schemes(i)
 
 		read(inputfile_unit_number,*) number_of_scenarios(i)                                                         !Scheme Line 7
            
@@ -255,6 +252,12 @@ use utilities
         if (comma_place >0)then
             scenario_batchfile(i) = scenario_batchfile(i)(1: comma_place -1)    
         end if
+        
+        read(inputfile_unit_number,*) ! "Mitigations"  
+        read(inputfile_unit_number,*)  runoff_mitigation_schemes(i) , erosion_mitigation_schemes(i),drift_mitigation_schemes(i)
+        
+write(*,*)runoff_mitigation_schemes(i), erosion_mitigation_schemes(i),drift_mitigation_schemes(i)
+
     enddo
 	
     
