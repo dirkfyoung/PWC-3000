@@ -256,8 +256,6 @@ use utilities
         read(inputfile_unit_number,*) ! "Mitigations"  
         read(inputfile_unit_number,*)  runoff_mitigation_schemes(i) , erosion_mitigation_schemes(i),drift_mitigation_schemes(i)
         
-write(*,*)runoff_mitigation_schemes(i), erosion_mitigation_schemes(i),drift_mitigation_schemes(i)
-
     enddo
 	
     
