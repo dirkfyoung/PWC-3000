@@ -522,9 +522,11 @@ SUBROUTINE Runoff_cn(day)
             soilwater(I) = theta_end(I)*DELX(I)
             
      
-		end do	
+        end do	
 
-		
+		Write(91,*) ncom2, soilwater(ncom2)
+        
+        
         !***** Calculate Air space and gas diffusion coefficient
         thair_old = theta_sat - theta_zero
         where (thair_old < 0.0) thair_old = 0.0

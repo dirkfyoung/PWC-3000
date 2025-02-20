@@ -990,7 +990,13 @@ Public Class Form1
     End Sub
 
     Private Sub PushToLoadScenario_Click(sender As Object, e As EventArgs) Handles PushToLoadScenario.Click
-        OpenSingleScenarioFile.Filter = "Scenario Files (*.SCN2)|*.SCN2"
+
+        If LoadFromCSV.Checked Then
+            OpenSingleScenarioFile.Filter = "Batch CSV Files (*.CSV)|*.CSV"
+        Else
+            OpenSingleScenarioFile.Filter = "Scenario Files (*.SCN2)|*.SCN2"
+        End If
+
 
         If System.IO.Directory.Exists(FileNames.PreviousScenarioPath) Then
             OpenSingleScenarioFile.InitialDirectory = FileNames.PreviousScenarioPath
@@ -998,21 +1004,23 @@ Public Class Form1
             OpenSingleScenarioFile.InitialDirectory = FileNames.DefaultScenarioDirectory
         End If
 
-
         Dim result As System.Windows.Forms.DialogResult
-
         result = OpenSingleScenarioFile.ShowDialog(Me)
 
         'Cancel button will cuase return without further execution
         If result = Windows.Forms.DialogResult.Cancel Then
-
             Return
         End If
 
-
         FileNames.PreviousScenarioPath = System.IO.Path.GetDirectoryName(OpenSingleScenarioFile.FileName)
 
-        ReadScenarioParameters(OpenSingleScenarioFile.FileName)
+        If LoadFromCSV.Checked Then
+            LoadSingleBatchFileScenario(OpenSingleScenarioFile.FileName)
+        Else
+            ReadScenarioParameters(OpenSingleScenarioFile.FileName)
+        End If
+
+
 
 
 

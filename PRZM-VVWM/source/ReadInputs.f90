@@ -620,7 +620,7 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
          character(LEN=50) :: weather_grid
          integer :: iostatus
          integer :: i
-         real ::  gw_depth, gw_temp
+         real ::  gw_depth, gw_temp  !meters and C
          character(LEN=1000) :: input_string
          character(LEN=3) ::cropgroup,region
          
@@ -751,11 +751,12 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
         soil_temp_input  = gw_temp         !array for horizons, set as constant for all horizons as initial condition. 
         bottom_bc = gw_temp                !bottom boundary is constant temperature
         
+       
         
-        profile_thick(5) = gw_depth - 100.  ! gw_depth is depth to aquifer surface, subtract the 1 meter (thickness of the horizons 1 to 4)
-        profile_number_increments(5) = int(gw_depth)/50 -2
+        profile_thick(5) = gw_depth*100. - 100.  ! gw_depth is depth to aquifer surface, subtract the 1 meter (thickness of the horizons 1 to 4)
+        profile_number_increments(5) = nint (profile_thick(5)/50.)
         
-        
+         write(*,*) gw_depth, profile_thick(5), profile_number_increments(5)
 
     end subroutine read_batch_scenarios
     
