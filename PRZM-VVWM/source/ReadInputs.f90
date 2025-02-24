@@ -753,7 +753,7 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
         
        
         
-        profile_thick(5) = gw_depth*100. - 100.  ! gw_depth is depth to aquifer surface, subtract the 1 meter (thickness of the horizons 1 to 4)
+        profile_thick(5) = gw_depth - 100.  ! gw_depth is depth to aquifer surface, subtract the 1 meter (thickness of the horizons 1 to 4)
         profile_number_increments(5) = nint (profile_thick(5)/50.)
         
          write(*,*) gw_depth, profile_thick(5), profile_number_increments(5)

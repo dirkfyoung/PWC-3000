@@ -1280,7 +1280,6 @@
             Dim currentRow As String()
             Dim test As Boolean
 
-            Dim croprows As Integer
             Dim msg As String
             msg = ""
 
@@ -1354,8 +1353,8 @@
 
             Dim transition_depth As Single
             Dim transition_delta As Integer
-            transition_depth = (currentRow(96) - 2.0) * 100.0
-            transition_delta = 2 * (currentRow(96) - 2.0)
+            transition_depth = currentRow(96) - 100
+            transition_delta = transition_depth / 50     ' 50 cm increment
 
             DiscretizationGridView.Rows.Add(transition_depth, transition_delta)
             DiscretizationGridView.Rows.Add("100.0", "2")
