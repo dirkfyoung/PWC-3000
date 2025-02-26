@@ -1273,155 +1273,175 @@
         CreateWaterbodyString = msg
     End Function
     Private Sub LoadSingleBatchFileScenario(ByVal filename As String)
-
-        Using MyReader As New Microsoft.VisualBasic.FileIO.TextFieldParser(filename)
-            MyReader.TextFieldType = FileIO.FieldType.Delimited
-            MyReader.SetDelimiters(",")
-            Dim currentRow As String()
-            Dim test As Boolean
-
-            Dim msg As String
-            msg = ""
+        Try
 
 
-            TestIntegers(test, msg, CSV_line)
-            If test = False Then
-                MsgBox(msg)
-                Return
-            End If
 
 
-            For i As Integer = 1 To Convert.ToInt16(CSV_line.Text) - 1
-                If MyReader.EndOfData Then
-                    Exit For
+            Using MyReader As New Microsoft.VisualBasic.FileIO.TextFieldParser(filename)
+                MyReader.TextFieldType = FileIO.FieldType.Delimited
+                MyReader.SetDelimiters(",")
+                Dim currentRow As String()
+                Dim test As Boolean
+
+                Dim msg As String
+                msg = ""
+
+
+                TestIntegers(test, msg, CSV_line)
+                If test = False Then
+                    MsgBox(msg)
+                    Return
                 End If
 
-                MyReader.ReadLine()
-            Next
 
-            If MyReader.EndOfData Then
-                MsgBox("No data on this line")
-                Exit Sub
-            End If
+                For i As Integer = 1 To Convert.ToInt16(CSV_line.Text) - 1
+                    If MyReader.EndOfData Then
+                        Exit For
+                    End If
 
-            currentRow = MyReader.ReadFields
-            ScenarioID.Text = currentRow(0)
-            WeatherFileName.Text = currentRow(2) & "_grid.wea"
-            latitude.Text = currentRow(9)
+                    MyReader.ReadLine()
+                Next
 
-            PETadjustment.Text = "1.0"              'default
-            VolatilizationBounday.Text = "5.0"      'default
+                If MyReader.EndOfData Then
+                    MsgBox("No data on this line")
+                    Exit Sub
+                End If
 
-            evapDepth.Text = currentRow(11)
+                currentRow = MyReader.ReadFields
+                ScenarioID.Text = currentRow(0)
+                WeatherFileName.Text = currentRow(2) & "_grid.wea"
+                latitude.Text = currentRow(9)
 
-            ireg.Text = currentRow(12)
+                PETadjustment.Text = "1.0"              'default
+                VolatilizationBounday.Text = "5.0"      'default
 
+                evapDepth.Text = currentRow(11)
 
-            Select Case currentRow(13)
-                Case "0"
-                    noIrrigation.Checked = True
-                Case "1"
-                    overCanopy.Checked = True
-                Case "2"
-                    underCanopy.Checked = True
-                Case Else
-                    noIrrigation.Checked = True
-            End Select
+                ireg.Text = currentRow(12)
 
 
-            rateIrrig.Text = currentRow(14)
-            depletion.Text = currentRow(15)
-            fleach.Text = currentRow(16)
-
-            IrrigDepthRootZone.Checked = True  'default
-            SimTemperature.Checked = True      'default
-
-            bcTemp.Text = currentRow(97)
-            albedo.Text = 0.2                  'default
-
-            HorizonGridView.Rows.Clear()
-            For i As Integer = 0 To currentRow(36) - 1
-                HorizonGridView.Rows.Add(i + 1, currentRow(37 + i), currentRow(45 + i), currentRow(53 + i), currentRow(61 + i), currentRow(69 + i), "0")
-            Next
-
-            useAutoGWprofile.Checked = True  'true
-            DiscretizationGridView.Rows.Clear()
-            DiscretizationGridView.Rows.Add("3.0", "30")
-            DiscretizationGridView.Rows.Add("7.0", "7")
-            DiscretizationGridView.Rows.Add("10.0", "2")
-            DiscretizationGridView.Rows.Add("80.0", "4")
-
-            Dim transition_depth As Single
-            Dim transition_delta As Integer
-            transition_depth = currentRow(96) - 100
-            transition_delta = transition_depth / 50     ' 50 cm increment
-
-            DiscretizationGridView.Rows.Add(transition_depth, transition_delta)
-            DiscretizationGridView.Rows.Add("100.0", "2")
+                Select Case currentRow(13)
+                    Case "0"
+                        noIrrigation.Checked = True
+                    Case "1"
+                        overCanopy.Checked = True
+                    Case "2"
+                        underCanopy.Checked = True
+                    Case Else
+                        noIrrigation.Checked = True
+                End Select
 
 
-            CropGridView.Rows.Clear()
+                rateIrrig.Text = currentRow(14)
+                depletion.Text = currentRow(15)
+                fleach.Text = currentRow(16)
 
-            Dim emergence_date As Date  ' emergence
-            Dim maturity_date As Date  ' maturity
-            Dim harvest_date As Date  ' harvest
+                IrrigDepthRootZone.Checked = True  'default
+                SimTemperature.Checked = True      'default
 
-            Dim dayEmerge As Integer
-            Dim monthEmerge As Integer
-            Dim dayMature As Integer
-            Dim monthMature As Integer
-            Dim dayHarvest As Integer
-            Dim monthHarvest As Integer
+                bcTemp.Text = currentRow(97)
+                albedo.Text = 0.2                  'default
 
-            Dim aa, bb, cc As Double
-            aa = currentRow(18)
-            bb = currentRow(19)
-            cc = currentRow(20)
+                HorizonGridView.Rows.Clear()
+                For i As Integer = 0 To currentRow(36) - 1
+                    HorizonGridView.Rows.Add(i + 1, currentRow(37 + i), currentRow(45 + i), currentRow(53 + i), currentRow(61 + i), currentRow(69 + i), "0")
+                Next
 
-            emergence_date = DateAdd(DateInterval.Day, aa, #1/1/1900#)
-            maturity_date = DateAdd(DateInterval.Day, bb, #1/1/1900#)
-            harvest_date = DateAdd(DateInterval.Day, cc, #1/1/1900#)
+                useAutoGWprofile.Checked = True  'true
+                DiscretizationGridView.Rows.Clear()
+                DiscretizationGridView.Rows.Add("3.0", "30")
+                DiscretizationGridView.Rows.Add("7.0", "7")
+                DiscretizationGridView.Rows.Add("10.0", "2")
+                DiscretizationGridView.Rows.Add("80.0", "4")
 
-            dayEmerge = DatePart(DateInterval.Day, emergence_date)
-            monthEmerge = DatePart(DateInterval.Month, emergence_date)
+                Dim transition_depth As Single
+                Dim transition_delta As Integer
+                transition_depth = currentRow(96) - 100
+                transition_delta = transition_depth / 50     ' 50 cm increment
 
-            dayMature = DatePart(DateInterval.Day, maturity_date)
-            monthMature = DatePart(DateInterval.Month, maturity_date)
-
-            dayHarvest = DatePart(DateInterval.Day, harvest_date)
-            monthHarvest = DatePart(DateInterval.Month, harvest_date)
-
-            CropGridView.Rows.Add(monthEmerge & "/" & dayEmerge, monthMature & "/" & dayMature, monthHarvest & "/" & dayHarvest, currentRow(27), currentRow(26),
-                      "1.0", currentRow(25), "Surface Applied", "1", "0")
+                DiscretizationGridView.Rows.Add(transition_depth, transition_delta)
+                DiscretizationGridView.Rows.Add("100.0", "2")
 
 
-            YearlyCycleButton.Checked = True
-            HydroDataGrid.Rows.Clear()
+                CropGridView.Rows.Clear()
 
-            HydroDataGrid.Rows.Add(monthEmerge & "/" & dayEmerge, currentRow(28), currentRow(30))
-            HydroDataGrid.Rows.Add(monthHarvest & "/" & dayHarvest, currentRow(29), currentRow(31))
+                Dim emergence_date As Date  ' emergence
+                Dim maturity_date As Date  ' maturity
+                Dim harvest_date As Date  ' harvest
 
-            usleK.Text = currentRow(33)
-            usleLS.Text = currentRow(34)
-            usleP.Text = currentRow(32)
-            slope.Text = currentRow(35)
+                Dim dayEmerge As Integer
+                Dim monthEmerge As Integer
+                Dim dayMature As Integer
+                Dim monthMature As Integer
+                Dim dayHarvest As Integer
+                Dim monthHarvest As Integer
+
+                Dim aa, bb, cc As Double
+                aa = currentRow(18)
+                bb = currentRow(19)
+                cc = currentRow(20)
+
+                emergence_date = DateAdd(DateInterval.Day, aa, #1/1/1900#)
+                maturity_date = DateAdd(DateInterval.Day, bb, #1/1/1900#)
+                harvest_date = DateAdd(DateInterval.Day, cc, #1/1/1900#)
+
+                dayEmerge = DatePart(DateInterval.Day, emergence_date)
+                monthEmerge = DatePart(DateInterval.Month, emergence_date)
+
+                dayMature = DatePart(DateInterval.Day, maturity_date)
+                monthMature = DatePart(DateInterval.Month, maturity_date)
+
+                dayHarvest = DatePart(DateInterval.Day, harvest_date)
+                monthHarvest = DatePart(DateInterval.Month, harvest_date)
+
+                CropGridView.Rows.Add(monthEmerge & "/" & dayEmerge, monthMature & "/" & dayMature, monthHarvest & "/" & dayHarvest, currentRow(27), currentRow(26),
+                          "1.0", currentRow(25), "Surface Applied", "1", "0")
 
 
-            rDepth.Text = "8.0"
-            rDecline.Text = "1.4"
-            rInteracting.Text = "0.19"
 
-            eDepth.Text = "0.1"
-            eDecline.Text = "0.0"
-            eInteracting.Text = "1.0"
+                MsgBox(aa & " " & Convert.ToInt16(cc))
 
-
-        End Using
+                If (Convert.ToInt16(aa) = 0 And Convert.ToInt16(bb) = 1 And (Convert.ToInt16(cc) = 364 Or Convert.ToInt16(cc) = 365)) Then
+                    Evergreen.Checked = True
+                    EvergreenRoot.Text = currentRow(27)
+                    EvergreenCover.Text = currentRow(26)
+                    EvergreenHt.Text = 1.0
+                    EvergreenHoldup.Text = currentRow(25)
+                End If
 
 
 
 
+                YearlyCycleButton.Checked = True
+                HydroDataGrid.Rows.Clear()
 
+                HydroDataGrid.Rows.Add(monthEmerge & "/" & dayEmerge, currentRow(28), currentRow(30))
+                HydroDataGrid.Rows.Add(monthHarvest & "/" & dayHarvest, currentRow(29), currentRow(31))
+
+                usleK.Text = currentRow(33)
+                usleLS.Text = currentRow(34)
+                usleP.Text = currentRow(32)
+                slope.Text = currentRow(35)
+
+
+                rDepth.Text = "8.0"
+                rDecline.Text = "1.4"
+                rInteracting.Text = "0.19"
+
+                eDepth.Text = "0.1"
+                eDecline.Text = "0.0"
+                eInteracting.Text = "1.0"
+
+
+            End Using
+
+
+
+
+        Catch ex As Exception
+            MsgBox("Bad line in csv file")
+        End Try
 
 
 

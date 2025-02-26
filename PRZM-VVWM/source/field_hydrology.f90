@@ -190,8 +190,8 @@ module field_hydrology
           TFRAC  =TFRAC + FRAC(I)
         end do
 !###########################################################################################################################################################
-           
-        
+
+ 
         
         DO  I = 1, evapo_root_node_daily
           EvapoTran(I) = AMIN1((SoilWater(I)-wiltpoint_water(I)),PETP*FRAC(I)/TFRAC)
@@ -499,33 +499,25 @@ SUBROUTINE Runoff_cn(day)
         integer, intent(in) :: day
         INTEGER      I
 
-  
+
         
         do I=1,NCOM2
             theta_zero(I) = soilwater(I)/DELX(I)
             theta_end(I) = (soilwater(I)+ AINF(I)- EvapoTran(I))/ DELX(I)
             AINF(I+1)= 0.0
-			
 
- 
- 
             IF (theta_end(I) .GT. theta_fc(I)) THEN
 				!AINF(I+1)= (theta_end(I)- theta_fc(I))* DELX(I) ! reformulated below to get rig of some nymrical precission issues
                AINF(I+1)= theta_end(I)* DELX(I)- theta_fc(I)* DELX(I)
                 theta_end(I) = theta_fc(I)
 			ENDIF
 
-
-			
-			
             VEL(I)= AINF(I+1)/theta_end(I)
             soilwater(I) = theta_end(I)*DELX(I)
             
      
         end do	
 
-		Write(91,*) ncom2, soilwater(ncom2)
-        
         
         !***** Calculate Air space and gas diffusion coefficient
         thair_old = theta_sat - theta_zero

@@ -40,7 +40,7 @@ module plantgrowth
       
       !Do growth stage
       
-
+write(91,*)  evergreen
       
       do i=1, num_crop_periods_input  
             
@@ -88,15 +88,13 @@ module plantgrowth
             end if        
       end do
       
-
-
-
-        
        !minimum evaporation zone is limited by min_evap_depth (anetd) parameter
         where (root_node > min_evap_node) evapo_root_node = root_node
        
 
-        
+
+
+
     end subroutine Crop_Growth
     
  

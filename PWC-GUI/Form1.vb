@@ -1560,6 +1560,13 @@ Public Class Form1
 
     End Sub
 
+    Private Sub Evergreen_CheckedChanged(sender As Object, e As EventArgs) Handles Evergreen.CheckedChanged
+        If Evergreen.Checked = True Then
+            EvergreenPanel.Visible = True
+        Else
+            EvergreenPanel.Visible = False
+        End If
+    End Sub
 End Class
 
 
