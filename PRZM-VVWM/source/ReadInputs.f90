@@ -717,8 +717,9 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
            weatherfilename = trim(adjustl(weather_grid)) // '_grid.wea'
          end if 
           
-
+         
          num_crop_periods_input = 1
+         evergreen = .FALSE. 
          if (julian_emerg==0 .AND.  julian_matur==1 .AND. julian_harv==364) then
              evergreen = .TRUE. 
          end if

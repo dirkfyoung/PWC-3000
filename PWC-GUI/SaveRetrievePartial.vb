@@ -1402,7 +1402,7 @@
 
                 MsgBox(aa & " " & Convert.ToInt16(cc))
 
-                If (Convert.ToInt16(aa) = 0 And Convert.ToInt16(bb) = 1 And (Convert.ToInt16(cc) = 364 Or Convert.ToInt16(cc) = 365)) Then
+                If (Convert.ToInt16(aa) = 0 And Convert.ToInt16(bb) = 1) Then
                     Evergreen.Checked = True
                     EvergreenRoot.Text = currentRow(27)
                     EvergreenCover.Text = currentRow(26)

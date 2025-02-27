@@ -38,12 +38,11 @@ module plantgrowth
       evapo_root_node = min_evap_node
       atharvest_pest_app = 0
       
+
       !Do growth stage
-      
-write(91,*)  evergreen
-      
+
       do i=1, num_crop_periods_input  
-            
+
             if (evergreen) then   !there should be only one crop period for evergreen
                       canopy_cover  = max_canopy_cover(i)
                       canopy_height = max_canopy_height(i)
@@ -64,7 +63,10 @@ write(91,*)  evergreen
                              canopy_height(m) = crop_fraction_of_max(m)*max_canopy_height(i)
                              canopy_holdup(m) = canopy_cover(m)*max_canopy_holdup(i)
                              root_depth(m)    = crop_fraction_of_max(m)*max_root_depth(i)
-                             root_node(m) =  find_depth_node(ncom2,soil_depth,root_depth(m))              
+                             root_node(m) =  find_depth_node(ncom2,soil_depth,root_depth(m))     
+                              
+                    
+                             
                            end do
                            
                            do j=maturity_date(i,k), harvest_date(i,k)-1
@@ -76,6 +78,7 @@ write(91,*)  evergreen
                               canopy_holdup(m) = max_canopy_holdup(i)*canopy_cover(m)
                               root_depth(m)    = max_root_depth(i)                            
                               root_node(m) =  find_depth_node(ncom2,soil_depth,root_depth(m))
+
                            end do                          
                                          
                           !Set Harvest Dates
@@ -88,12 +91,11 @@ write(91,*)  evergreen
             end if        
       end do
       
+            
+
        !minimum evaporation zone is limited by min_evap_depth (anetd) parameter
         where (root_node > min_evap_node) evapo_root_node = root_node
        
-
-
-
 
     end subroutine Crop_Growth
     

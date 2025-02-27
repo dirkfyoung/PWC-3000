@@ -317,10 +317,6 @@ Public Class Form1
         End If
 
 
-
-
-
-
         RunPRZMandVVWM()
 
 
@@ -1518,7 +1514,6 @@ Public Class Form1
         'The file name should be stored somewhere already but for now here it is
         Dim PRZMVVWMinputFile As String = FileNames.WorkingDirectory & "PRZMVVWM.txt"
         SaveInputsAsTextFile(PRZMVVWMinputFile)
-
 
 
         Dim p As Process = New Process

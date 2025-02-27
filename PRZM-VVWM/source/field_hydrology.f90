@@ -139,6 +139,7 @@ module field_hydrology
       
       PET= PEVP*PFAC
       
+          
 !     Subtract canopy evaporation from potential evapotranspiration
 
       PETP= AMAX1(0.0,PET-CINT)
@@ -161,12 +162,13 @@ module field_hydrology
       DENOM= 0.0
       FRAC = 0.0
   
+      
+      
       do I= 1, evapo_root_node_daily
         ANUM = ANUM  + AMAX1(0.0,soilwater(I)- wiltpoint_water(I))
         DENOM= DENOM + AMAX1(0.0,fieldcap_water(I)- wiltpoint_water(I))
       end do
       
-
 
       AW   = ANUM/DENOM
       IF (AW.LT.0.6) PETP= AW*PETP/0.6
