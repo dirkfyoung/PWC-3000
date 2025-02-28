@@ -1398,9 +1398,7 @@
                 CropGridView.Rows.Add(monthEmerge & "/" & dayEmerge, monthMature & "/" & dayMature, monthHarvest & "/" & dayHarvest, currentRow(27), currentRow(26),
                           "1.0", currentRow(25), "Surface Applied", "1", "0")
 
-
-
-                MsgBox(aa & " " & Convert.ToInt16(cc))
+                Evergreen.Checked = False
 
                 If (Convert.ToInt16(aa) = 0 And Convert.ToInt16(bb) = 1) Then
                     Evergreen.Checked = True
