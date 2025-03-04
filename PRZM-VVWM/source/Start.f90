@@ -85,9 +85,32 @@ program PRZMVVWM
          end select
 
 		 Write(*,*) 'Doing waterbody: ',  trim(waterbody_names(hh))
-         do i = 1, number_of_schemes
+         
+         schemeloop: do i = 1, number_of_schemes
 			 Write(*,*) 'Doing Scheme No. ', i 
 			 
+             !*****************************************************************
+             !open and check to see if we have a batch scenario file is present
+             if(is_batch_scenario(i)) then
+                write(*,'(" Batch Scenario File: ", A) ') scenario_batchfile(i)
+                open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus ) 
+                
+                if(iostatus /= 0) then
+                    write(*,*) "Can't find scenario batch file for scheme ",i 
+                    write(*,*) "Skip to next scheme"
+                    cycle schemeloop
+                end if
+                
+                read(BatchFileUnit,*) dummy  ! skip header
+                end_of_file = .FALSE. !reset the batch scenario reading
+                error_on_read = .FALSE.
+             end if    
+            !*********************************************************************   
+             
+             
+             
+             
+             
              !*******************************************************************
              !will use spray table in here --need to make spray table correct if changed by tpez
              call set_chemical_applications(i) !gets the individual application scheme from the whole scheme table, non scenario specfic 
@@ -96,19 +119,9 @@ program PRZMVVWM
              call set_tpez_spray(i)  
              !*******************************************************************
              
-             if(is_batch_scenario(i)) then
-                write(*,'("Batch Scenario File: ", A200) ')  adjustl( scenario_batchfile(i))
-                open (Unit = BatchFileUnit, FILE=scenario_batchfile(i),STATUS='OLD', IOSTAT= iostatus ) 
-                if(iostatus /= 0) then
-                    write(*,*) "Can't find scenario batch file for scheme ",i 
-                    stop
-                end if
-                
-                read(BatchFileUnit,*) dummy  ! skip header
-                end_of_file = .FALSE. !reset the batch scenario reading
-                error_on_read = .FALSE.
-             end if    
-       
+
+             
+             
             kk=0 !index for scenario loop
             
             do !scenario do loop
@@ -125,7 +138,7 @@ program PRZMVVWM
                      end if
                                               
                      if (error_on_read)  then  
-                            write(*,*) 'bad scenario # ', kk
+                            write(*,*) 'bad scenario line # ', kk
                             cycle                       
                      end if 
                      !*****END ERROR CHECKING ON SCENARIO BATCH FILE ****************       
@@ -135,12 +148,17 @@ program PRZMVVWM
                      call read_scenario_file(i,kk, error)
                      
                      if (error) then 
-				         Write(*,*) 'exiting scenario loop due to scenario open problem'
+				         Write(*,*)  'Skipping scenario loop due to scenario open problem'
 				         cycle   !error, try next scenario in scheme
                      end if                    
                end if 
 
-               call Read_Weatherfile !this reads the new format weather file	   
+               call Read_Weatherfile(error) !this reads the new format weather file	  
+                    if (error) then 
+				         Write(*,'(A59, I4)') ' Skipping scenario due to weather file problem, Scenario # ', kk
+				         cycle   !error, try next scenario in scheme
+                     end if 
+               
                
                call INITL    !initialize and ALLOCATIONS przm variables  (also sets application and drift)    
                !set scenario-dependent TPEZ drift here
@@ -182,13 +200,14 @@ program PRZMVVWM
                call deallocate_scenario_parameters		   
 
             end do  !END SCENARIO LOOP  kk 
+            
              
             call deallocate_application_parameters !allocations are done in set_chmical_applications, need to deallocatte for next scheme 
               
             write (message, '(A17,I3)') 'cpu time, scheme ', i
             call time_check(message)                
 
-		 end do  !End scheme Loop, i
+		 end do schemeloop                 !End scheme Loop
 		 
 		 deallocate (spraytable )
 		 

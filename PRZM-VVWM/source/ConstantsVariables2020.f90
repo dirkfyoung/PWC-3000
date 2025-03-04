@@ -8,9 +8,6 @@ module constants_and_variables
       real :: hold_irrig
       real :: hold_runoff
 
-
-	  integer :: xx= 89! temporary dummy get rid of this
-	  
       real,parameter :: Version_Number = 1.003 !version 1
       
       logical :: use_bidiagonal
@@ -20,7 +17,7 @@ module constants_and_variables
       
       real :: hold_for_medians_wb(366, number_medians)      !holds app window values for median determination 
       real :: hold_for_medians_WPEZ(366,number_medians) !holds app window values for median determination 
-      real :: hold_for_medians_TPEZ(366,1)     !Holds TPEZ acute value, make as a 2d array for the smedian subroutine call
+      real :: hold_for_medians_TPEZ(366,1)     !Holds TPEZ acute value, make as a 2d array for the median subroutine call
       
       real :: hold_for_medians_daughter(366,number_medians)      !holds app window values for median determination 
       real :: hold_for_medians_WPEZ_daughter(366,number_medians) !holds app window values for median determination 

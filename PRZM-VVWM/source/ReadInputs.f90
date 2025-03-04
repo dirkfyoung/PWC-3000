@@ -757,12 +757,10 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
         profile_thick(5) = gw_depth - 100.  ! gw_depth is depth to aquifer surface, subtract the 1 meter (thickness of the horizons 1 to 4)
         profile_number_increments(5) = nint (profile_thick(5)/50.)
         
-         write(*,*) gw_depth, profile_thick(5), profile_number_increments(5)
-
     end subroutine read_batch_scenarios
     
     
-subroutine Read_Weatherfile
+subroutine Read_Weatherfile(err)
     !open weather file, count file, allocate the weather variables, read in dat and place in vectors to store in constant/variable mod.  
     use utilities_1
     use constants_and_Variables, ONLY:precip, pet_evap,air_temperature, wind_speed, solar_radiation, num_records, &
@@ -772,17 +770,18 @@ subroutine Read_Weatherfile
 
 
     
-        
+        logical,intent(out) :: err
         integer :: dummy, status,i, year
         character(Len=1024) :: weatherfile_pathandname
         
- 
+        err = .FALSE.
         weatherfile_pathandname = trim(adjustl(weatherfiledirectory)) // trim(adjustl(weatherfilename))
               
         OPEN(Unit = metfileunit,FILE=trim(adjustl(weatherfile_pathandname)),STATUS='OLD', IOSTAT=status)
         if (status .NE. 0) THEN
-            write(*,*)'Problem opening weather file. Name is ', trim(adjustl(weatherfilename))
-            stop
+            write(*,*)'Problem opening weather file: ', trim(adjustl(weatherfilename))
+            err = .TRUE.
+            return
         endif  
       
       num_records = 0
