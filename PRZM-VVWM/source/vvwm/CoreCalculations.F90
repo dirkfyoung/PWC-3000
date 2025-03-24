@@ -32,7 +32,6 @@ use waterbody_parameters, ONLY: benthic_depth ,porosity,area_waterbody
     !***** Daily Loop Calculations ************************
     do day_count = 1,num_records    
 
-
         m1 = (1-   fraction_to_benthic(day_count))*(mn1 + m1_input(day_count))  !re-equilibration with incoming sediment and then redistribution
         m2 = mn2 + fraction_to_benthic(day_count) *(mn1 + m1_input(day_count))   + m2_input(day_count)
         
@@ -54,7 +53,6 @@ use waterbody_parameters, ONLY: benthic_depth ,porosity,area_waterbody
         call simuldiff2 (A(day_count),B(day_count),E(day_count),F(day_count), & 
              aqconc1,aqconc2,DELT_vvwm,new_aqconc1,new_aqconc2,aqconc_avg1(day_count),aqconc_avg2(day_count)) 
         
-        
         !convert back to masses
         mn1 = new_aqconc1/fw1(day_count)*daily_depth(day_count)*area_waterbody
         mn2 = new_aqconc2/fw2*benthic_depth*area_waterbody*porosity 
@@ -64,9 +62,6 @@ use waterbody_parameters, ONLY: benthic_depth ,porosity,area_waterbody
         !Find Total System Mass Here
 		m_total(day_count) = mavg1_store(day_count) + aqconc_avg2(day_count) * v2 / fw2
  
-        
-
-        
     end do 
 
 

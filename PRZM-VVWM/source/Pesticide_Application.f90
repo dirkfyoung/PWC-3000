@@ -29,11 +29,13 @@ use  constants_and_Variables, ONLY: application_date, precip, total_applications
   
   do i = 1 , total_applications  
       day_initial = application_date(i)-startday+1   
-	  
+         
+         
       do j = 0, optimum_application_window 
           k = (-1)**(j+1) *( j/2+ (1-(-1)**j)/2) !Alternating sign and increasing magnitude index 0, 1, -1, 2,-2, 3,-3...
-          
           m = day_initial + k
+
+          
           n = day_initial+intolerable_rain_window +k 
           m =max(1,m)
           n= min(n,num_records)

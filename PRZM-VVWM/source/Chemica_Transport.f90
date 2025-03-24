@@ -289,7 +289,7 @@ use clock_variables
       
     INTEGER ::   I
     real    ::   A(ncom2),B(ncom2),C(ncom2),F(ncom2)
-integer mm
+
 
     SRCFLX(1,:)=0.0  !Parent production is always zero. For degradate, this variable gets populated after corrrector run
     ! Set up coefficients for surface layer

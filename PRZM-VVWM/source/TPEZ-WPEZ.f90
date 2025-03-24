@@ -197,7 +197,7 @@ Module TPEZ_WPEZ
     first_annual_dates= 0
     
 
-     if (is_waterbody_info_output) then
+    if (is_waterbody_info_output) then
      	select case (chem_index)
      	    case (1)
      		    waterbody_outputfile = trim(full_run_identification) // '_parent_'       // trim(waterbody_name) // '.out'
@@ -210,29 +210,21 @@ Module TPEZ_WPEZ
          end select
      	
          open (UNIT=output_unit,FILE= trim(waterbody_outputfile),  STATUS='unknown')
-     
-         
+
          write(output_unit,*) 'Depth(m)   ,  Water Col(kg/m3), Benthic(kg/m3), total mass (kg)'
       
          do i =1, num_records
              write(output_unit,'(G12.4E3, "," ,ES12.4E3, "      ," ,ES12.4E3, "   ," ,ES12.4E3)')  daily_depth(i), aqconc_avg1(i), aqconc_avg2(i), m_total(i)
-
-
          end do
 
      	 close (output_unit)
-     end if
+    end if
 
-     !For Certain water bodies, users want to exclude concentrations below a certain level
-       if (is_zero_depth) then
-               where (daily_depth < zero_depth) aqconc_avg1 = 0.0
-       end if
-       
-     
-     
-     
-     
-     
+    !For Certain water bodies, users want to exclude concentrations below a certain level
+    if (is_zero_depth) then
+              where (daily_depth < zero_depth) aqconc_avg1 = 0.0
+    end if
+
     !Calculate chronic values *******************
     !The following returns the n-day running averages for each day in simulation
    
@@ -247,7 +239,6 @@ Module TPEZ_WPEZ
     call window_average(aqconc_avg2,21,num_records,benthic_c21)
 
     call find_first_annual_dates (num_years, first_annual_dates )
-
 	 
     call pick_max(num_years,num_records, first_annual_dates,aqconc_avg1,c1_max)     !NEW FIND DAILY AVERAGE CONCENTRATION RETURN   
     call pick_max(num_years,num_records, first_annual_dates,m_total,total_max)     !total mass (depth restriction not applicable here)
@@ -259,7 +250,6 @@ Module TPEZ_WPEZ
     call pick_max(num_years,num_records, first_annual_dates,benthic_c21,benthic_c21_max)
     
     
-
     !treat the 365 day average somewhat differently:
     !In this case, we simply are calculating the average for the 365 day forward from the
     !day of application
@@ -326,12 +316,9 @@ Module TPEZ_WPEZ
                                      return_frequency,num_years, peak,Simulation_average,c1_max,c4_max, &
                                      c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max, total_max )      
 
-
     end subroutine output_processor_WPEZ  
                                 
-    
-   
-    
+
     
    subroutine write_simple_batch_data_WPEZ(chem_index,First_time_through, unit_number,unit_number_deg1,unit_number_deg2, &
                                         summary_filename, summary_filename_deg1, summary_filename_deg2, &
@@ -339,7 +326,7 @@ Module TPEZ_WPEZ
                                         c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max, total_max  )
 
     use constants_and_variables, ONLY: run_id,fw2 ,&
-    nchem,     runoff_fraction,erosion_fraction,drift_fraction,summary_outputfile, &
+    nchem, runoff_fraction,erosion_fraction,drift_fraction,summary_outputfile, &
     effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, &
     gw_peak, post_bt_avg ,throughputs,simulation_avg, fraction_off_field, family_name, app_window_counter,&

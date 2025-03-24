@@ -120,6 +120,8 @@
             msg = msg & String.Format("{0}{1},{2},{3},{4},{5},", vbNewLine, ApplicationTable.UseRainFast, ApplicationTable.RainLimit, ApplicationTable.IntolerableRainWindow, ApplicationTable.OptimumApplicationWindow, ApplicationTable.MinDaysBetweenApps)
 
 
+
+
             NumberOfScenarios = ApplicationTable.Scenarios.Count
             msg = msg & vbNewLine & NumberOfScenarios
 

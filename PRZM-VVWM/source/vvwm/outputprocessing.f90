@@ -8,7 +8,7 @@ module outputprocessing
 
     use utilities
     use utilities_1, ONLY: pick_max, find_first_annual_dates
-    use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth, Afield
+    use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth, Afield, area_waterbody
     
     use constants_and_variables, ONLY:  num_records, run_id, is_hed_files_made,is_add_return_frequency, additional_return_frequency, &
                                        num_years, startday, &
@@ -26,7 +26,7 @@ module outputprocessing
                                  spray_total ,   &
                                  Daily_Avg_Runoff, Daily_avg_flow_out,  runoff_fraction, erosion_fraction, drift_fraction ,&
     k_burial, k_aer_aq, k_flow, k_hydro, k_photo, k_volatile,k_anaer_aq, gamma_1, gamma_2, gw_peak, post_bt_avg ,throughputs,simulation_avg, &
-	is_waterbody_info_output, full_run_identification, applied_mass_sum_gram_per_cm2 , fraction_off_field
+	is_waterbody_info_output, full_run_identification, applied_mass_sum_gram_per_cm2 , fraction_off_field, m_total
    
                          
     implicit none
@@ -60,7 +60,6 @@ module outputprocessing
     real,dimension(num_records):: c365
     real,dimension(num_records):: benthic_c21
     
- !   real,dimension(num_years):: onedayavg
     real,dimension(num_years):: peak   
     real,dimension(num_years):: benthic_peak  !now it 1-day average
     
@@ -73,7 +72,7 @@ module outputprocessing
     real, dimension(num_years)::c90_max
     real,dimension(num_years):: c365_max !the peak 365-day average within the 365 days after application
                                             !last year will be short depending on application date
-                                        
+    real,dimension(num_years):: total_max   !total mass in system  converted to lb/acre below                                   
     real,dimension(num_years):: benthic_c21_max                         
                                         
     integer :: i    
@@ -174,7 +173,8 @@ end if
 
     call find_first_annual_dates (num_years, first_annual_dates )
 
-
+    call pick_max(num_years,num_records, first_annual_dates,m_total,total_max)     !total mass (depth restriction not applicable here)
+    
 	 
     call pick_max(num_years,num_records, first_annual_dates,aqconc_avg1,c1_max)     !NEW FIND DAILY AVERAGE CONCENTRATION RETURN   
     call pick_max(num_years,num_records, first_annual_dates,c4,c4_max)
@@ -214,7 +214,9 @@ end if
     benthic_c21_max    = benthic_c21_max*convert
     Simulation_average = Simulation_average*convert
 
-
+    total_max = total_max/area_waterbody*8921.79         !convert from kg/m2 to lb/Acre
+        
+        
  !   if (is_output_all== .false.) then  !append an output file for a reduced output batch run
        return_frequency = 10.0
 
@@ -246,7 +248,7 @@ end if
        call write_simple_batch_data(chem_index, unit_number,unit_number_deg1,unit_number_deg2,&
                                      summary_filename, summary_filename_deg1, summary_filename_deg2, &
                                      return_frequency,num_years, peak,Simulation_average,c1_max,c4_max, &
-                                     c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max )      
+                                     c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max,total_max  )      
 
 
     end subroutine output_processor
@@ -392,7 +394,7 @@ end if
 subroutine write_simple_batch_data(chem_index,unit_number,unit_number_deg1,unit_number_deg2, &
                                    summary_filename, summary_filename_deg1, summary_filename_deg2, &
                                    return_frequency,num_years, peak,Simulation_average,c1_max, &
-                                   c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max   )
+                                   c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max,  total_max  )
 
 use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
     nchem,     runoff_fraction,erosion_fraction,drift_fraction,summary_outputfile, &
@@ -409,7 +411,7 @@ use utilities_1, ONLY: Return_Frequency_Value
     implicit none   
     integer, intent(in)                       :: num_years
     real, intent(in)                          :: return_frequency
-    real, intent(in), dimension(num_years)    :: peak,c1_max,c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max
+    real, intent(in), dimension(num_years)    :: peak,c1_max,c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max, total_max  
     real, intent(in)                          :: Simulation_average
     !logical, intent(inout)                    :: First_time_through
     
@@ -419,22 +421,22 @@ use utilities_1, ONLY: Return_Frequency_Value
     
     
     integer, intent(in) ::chem_index
-    character (len=457) :: header
+    character (len=465) :: header
     
     
     !****LOCAL*********************
-    real      :: peak_out,c1_out, c4_out,c21_out,c60_out,c90_out,c365_out,benthic_peak_out,benthic_c21_out    
+    real      :: peak_out,c1_out, c4_out,c21_out,c60_out,c90_out,c365_out,benthic_peak_out,benthic_c21_out  ,    total_out  
     logical   :: lowyearflag
     character(len= 257) :: local_run_id
     
     If (First_time_through_wb(1) .AND. chem_index ==1 ) then
-        header = 'Run Information                                                                  ,      1-d avg,    365-d avg,    Total avg,      4-d avg,     21-d avg,     60-d avg,      B 1-day,   B 21-d avg,    Off-Field,  Runoff Frac,   Erosn Frac,   Drift Frac,  col washout,    col metab,    col hydro,    col photo,    col volat,    col total,  ben sed rem,    ben metab,    ben hydro,    ben total,      gw_peak,  post_bt_avg,   throughput,   sim_avg_gw'
+        header = 'Run Information                                                                  ,      1-d avg,    365-d avg,    Total avg,      4-d avg,     21-d avg,     60-d avg,      B 1-day,   B 21-d avg,    Off-Field,  Runoff Frac,   Erosn Frac,   Drift Frac,  col washout,    col metab,    col hydro,    col photo,    col volat,    col total,  ben sed rem,    ben metab,    ben hydro,    ben total,      gw_peak,  post_bt_avg,   throughput,   sim_avg_gw,  Waterbody (lb/A)'
 
         
         Open(unit=unit_number,FILE=  (trim(working_directory) //trim(family_name) // "_" // trim(summary_filename)),Status='unknown')  
             write(unit_number, '(''Benthic Conversion Factor             = '', G14.4E3,'' -Pore water (ug/L) to (total mass, ug)/(dry sed mass,kg)'')') Sediment_conversion_factor(1)*1000.
             write(unit_number, '(''OC sediment fraction                  = '', G14.4E3)') froc2
-            Write(unit_number, '(A457)') header
+            Write(unit_number, '(A465)') header
         First_time_through_wb(1) = .FALSE.
     end if             
 
@@ -444,7 +446,7 @@ use utilities_1, ONLY: Return_Frequency_Value
             Open(unit=unit_number_deg1,FILE= (trim(working_directory) //trim(family_name) // "_" // trim(summary_filename_deg1)),Status='unknown')  
             write(unit_number_deg1, '(''Benthic Conversion Factor             = '', G14.4E3,'' -Pore water (ug/L) to (total mass, ug)/(dry sed mass,kg)'')') Sediment_conversion_factor(2)*1000.
             write(unit_number_deg1, '(''OC sediment fraction                  = '', G14.4E3)') froc2
-            Write(unit_number_deg1, '(A457)') header
+            Write(unit_number_deg1, '(A465)') header
             First_time_through_wb(2) = .FALSE.
         end if
         
@@ -454,15 +456,13 @@ use utilities_1, ONLY: Return_Frequency_Value
             Open(unit=unit_number_deg2,FILE= (trim(working_directory) //trim(family_name) // "_" // trim(summary_filename_deg2)),Status='unknown')
             write(unit_number_deg2, '(''Benthic Conversion Factor             = '', G14.4E3,'' -Pore water (ug/L) to (total mass, ug)/(dry sed mass,kg)'')') Sediment_conversion_factor(3)*1000.
             write(unit_number_deg2, '(''OC sediment fraction                  = '', G14.4E3)') froc2
-            Write(unit_number_deg2, '(A457)') header
+            Write(unit_number_deg2, '(A465)') header
             
             First_time_through_wb(3) = .FALSE.
             
         end if
         
 
-   
-    
     !**find values corresponding to  percentiles
     call Return_Frequency_Value(return_frequency, peak,           num_years, peak_out,         lowyearflag)   
     call Return_Frequency_Value(return_frequency, c1_max,         num_years, c1_out,           lowyearflag)
@@ -475,13 +475,13 @@ use utilities_1, ONLY: Return_Frequency_Value
     call Return_Frequency_Value(return_frequency, benthic_peak,   num_years, benthic_peak_out, lowyearflag)
     call Return_Frequency_Value(return_frequency, benthic_c21_max,num_years, benthic_c21_out,  lowyearflag)
 
-	
-    
+	call Return_Frequency_Value(return_frequency, total_max,      num_years, total_out,           lowyearflag)
+
     select case (chem_index)
     case (1)
         local_run_id = trim(run_id) // '_Parent'
-        write(unit_number,'(A80,1x,26(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out, fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
-        effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, gw_peak(1), post_bt_avg(1) ,throughputs(1),simulation_avg(1)    !effective_total_deg2 does not mean degradate, means benthic
+        write(unit_number,'(A80,1x,27(",", ES13.4E3))') (adjustl(local_run_id)), c1_out, c365_out , simulation_average, c4_out, c21_out,c60_out,benthic_peak_out, benthic_c21_out, fraction_off_field, runoff_fraction,erosion_fraction,drift_fraction, &
+        effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1, effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, gw_peak(1), post_bt_avg(1) ,throughputs(1),simulation_avg(1),  total_out   !effective_total_deg2 does not mean degradate, means benthic
 
  !**capture data for median calculations here
        hold_for_medians_wb( app_window_counter,1 )= c1_out

@@ -166,7 +166,6 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 
     contains
     subroutine get_pond_parameters
-    integer :: i,j
         this_waterbody_name = "Pond"
         simtypeflag         = waterbodytype_P 
         flow_averaging      = flow_averaging_P  
@@ -211,7 +210,6 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 	
 	
     subroutine get_reservoir_parameters
-        integer :: i,j
         
         this_waterbody_name = "Reservoir"
         simtypeflag = waterbodytype_R

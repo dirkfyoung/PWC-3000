@@ -55,9 +55,7 @@ use utilities
     character (len=256) :: scheme_name
 	integer             :: scheme_number_readin
     integer             :: comma_place 
-    
-     character (len=10) :: dummy
-    
+
     OPEN(Unit = inputfile_unit_number, FILE=(inputfile),STATUS='OLD', IOSTAT=status  )
     IF (status .NE. 0) THEN
       WRITE(*,*)'Problem with PRZMVVWM input file: ', inputfile
@@ -234,9 +232,9 @@ use utilities
             app_window_span(i) =0  !the stepping starts with zero, so the span iz zero for only one iteration
             app_window_step(i)= 1          
         end if
-   
+
 		read(inputfile_unit_number,*) is_adjust_for_rain_schemes(i),rain_limit_schemes(i), &                         !Scheme Line 6
-		   optimum_application_window_schemes(i),intolerable_rain_window_schemes(i),min_days_between_apps_schemes(i) 
+		   intolerable_rain_window_schemes(i),optimum_application_window_schemes(i),min_days_between_apps_schemes(i) 
 
 		read(inputfile_unit_number,*) number_of_scenarios(i)                                                         !Scheme Line 7
            
@@ -392,7 +390,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         !local that will likely need to go to module
         !logical :: evergreen
         
-        character(len= 50) ::dummy, dummy2
+        character(len= 50) ::dummy
         real :: scalar_albedo, scaler_soil_temp  !these values are arrays in the program, but they are initialesd with constants
 		
 		!logical :: checkopen
@@ -619,7 +617,7 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
          integer year !dummy not used but for sub op
          character(LEN=50) :: weather_grid
          integer :: iostatus
-         integer :: i
+     
          real ::  gw_depth, gw_temp  !meters and C
          character(LEN=1000) :: input_string
          character(LEN=3) ::cropgroup,region
@@ -668,91 +666,80 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
         !  profile_number_increments(5) = int(gw_depth)/50 -2
         profile_number_increments(6) = 2
         
-          end_of_file    = .FALSE.
-          error_on_read  = .FALSE.
+        end_of_file    = .FALSE.
+        error_on_read  = .FALSE.
         
           
-         !read in as string for better list directed error checking. Prevents reads to subsequent lines in the event of missing data
-         read(BatchFileUnit, '(A)',IOSTAT=iostatus ) input_string
-         !Check for end of file
+        !read in as string for better list directed error checking. Prevents reads to subsequent lines in the event of missing data
+        read(BatchFileUnit, '(A)',IOSTAT=iostatus ) input_string
+        !Check for end of file
 
-         if(IS_IOSTAT_END(iostatus)) then
-             end_of_file = .TRUE.
-             return
-         else 
-         !   write(*,'(A)') input_string 
-         end if
+        if(IS_IOSTAT_END(iostatus)) then
+            end_of_file = .TRUE.
+            return
+        else 
+        !   write(*,'(A)') input_string 
+        end if
         
- 
-         read(input_string, *, IOSTAT=iostatus)   scenario_id, dummy, weather_grid, dummy ,dummy, dummy, dummy, dummy, dummy, &  !enter the long string of values
-             latitude, dummy, min_evap_depth , IREG, irtype, max_irrig,  PCDEPL, FLEACH,dummy, julian_emerg, julian_matur, julian_harv, &
-             dummy, dummy, dummy, dummy, canopy_holdup, canopy_coverage, root_depth, cn_cov, cn_fal, usle_c_cov, usle_c_fal, USLEP, USLEK,USLELS,SLP, &
-             NHORIZ, thickness(1), thickness(2), thickness(3), thickness(4), thickness(5), thickness(6), thickness(7), thickness(8), &
-             bd_input(1),bd_input(2),bd_input(3),bd_input(4),bd_input(5),bd_input(6),bd_input(7),bd_input(8), &
-             fc_input(1),fc_input(2),fc_input(3),fc_input(4),fc_input(5),fc_input(6),fc_input(7),fc_input(8), &
-             wp_input(1),wp_input(2),wp_input(3),wp_input(4),wp_input(5),wp_input(6),wp_input(7),wp_input(8), &
-             oc_input(1),oc_input(2),oc_input(3),oc_input(4),oc_input(5),oc_input(6),oc_input(7),oc_input(8), &
-             dummy,dummy,dummy,dummy,dummy,dummy,dummy,dummy, &
-             dummy,dummy,dummy,dummy,dummy,dummy,dummy,dummy,dummy,cropgroup,region, gw_depth, gw_temp               
-         
-         
-         if (iostatus /= 0 ) then  !there is a problem
+        read(input_string, *, IOSTAT=iostatus)   scenario_id, dummy, weather_grid, dummy ,dummy, dummy, dummy, dummy, dummy, &  !enter the long string of values
+            latitude, dummy, min_evap_depth , IREG, irtype, max_irrig,  PCDEPL, FLEACH,dummy, julian_emerg, julian_matur, julian_harv, &
+            dummy, dummy, dummy, dummy, canopy_holdup, canopy_coverage, root_depth, cn_cov, cn_fal, usle_c_cov, usle_c_fal, USLEP, USLEK,USLELS,SLP, &
+            NHORIZ, thickness(1), thickness(2), thickness(3), thickness(4), thickness(5), thickness(6), thickness(7), thickness(8), &
+            bd_input(1),bd_input(2),bd_input(3),bd_input(4),bd_input(5),bd_input(6),bd_input(7),bd_input(8), &
+            fc_input(1),fc_input(2),fc_input(3),fc_input(4),fc_input(5),fc_input(6),fc_input(7),fc_input(8), &
+            wp_input(1),wp_input(2),wp_input(3),wp_input(4),wp_input(5),wp_input(6),wp_input(7),wp_input(8), &
+            oc_input(1),oc_input(2),oc_input(3),oc_input(4),oc_input(5),oc_input(6),oc_input(7),oc_input(8), &
+            dummy,dummy,dummy,dummy,dummy,dummy,dummy,dummy, &
+            dummy,dummy,dummy,dummy,dummy,dummy,dummy,dummy,dummy,cropgroup,region, gw_depth, gw_temp               
+              
+        if (iostatus /= 0 ) then  !there is a problem
              error_on_read = .TRUE.
              write (*,*) 'ERROR IN THIS SCENARIO (ignore if this is just the header)'
              return
-         end if
-         
-         
-          scenario_id =  trim(scenario_id) //"_C" // trim(cropgroup) //"_R" //trim(region)
-         
-         !**************************************************
-         !Foliar Disposition seems to be undefined in the batch file
-         !canopy height is undefined, set to 1 meter by default put into: max_canopy_height(i)
+        end if
+        
+        scenario_id =  trim(scenario_id) //"_C" // trim(cropgroup) //"_R" //trim(region)
+        
+        !**************************************************
+        !Foliar Disposition seems to be undefined in the batch file
+        !canopy height is undefined, set to 1 meter by default put into: max_canopy_height(i)
+                 
+        !added the following to enable complete filenames in weather_grid field in csv file, per ian 
+        if( INDEX(weather_grid, ".wea") > 0) then ! assume any file with this string is a complete weather file name
+          weatherfilename = trim(adjustl(weather_grid))
+        else
+          weatherfilename = trim(adjustl(weather_grid)) // '_grid.wea'
+        end if 
                   
-          
-         !added the following to enable complete filenames in weather_grid field in csv file, per ian 
-         if( INDEX(weather_grid, ".wea") > 0) then ! assume any file with this string is a complete weather file name
-           weatherfilename = trim(adjustl(weather_grid))
-         else
-           weatherfilename = trim(adjustl(weather_grid)) // '_grid.wea'
-         end if 
-          
-         
-         num_crop_periods_input = 1
-         evergreen = .FALSE. 
-         if (julian_emerg==0 .AND.  julian_matur==1 .AND. julian_harv==364) then
-             evergreen = .TRUE. 
-         end if
-         
-         max_canopy_cover(1) = canopy_coverage/100.  ! read in as percent
-         max_canopy_holdup(1)   = canopy_holdup
-         max_root_depth(1)      = root_depth
+        num_crop_periods_input = 1
+        evergreen = .FALSE. 
+        if (julian_emerg==0 .AND.  julian_matur==1 .AND. julian_harv==364) then
+            evergreen = .TRUE. 
+        end if
+        
+        max_canopy_cover(1) = canopy_coverage/100.  ! read in as percent
+        max_canopy_holdup(1)   = canopy_holdup
+        max_root_depth(1)      = root_depth
 
-
-         call get_date(julian_emerg, year, emm(1), emd(1) )
-  
-         call get_date(julian_matur, year, mam(1), mad(1) )
-         
-         call get_date(julian_harv , year,  ham(1), had(1) )
-                
-         
-         !nuscle = 2 so only 2 curve numbers
-         CN_2(1)  = cn_cov
-         CN_2(2)  = cn_fal 
-         USLEC(1) = usle_c_cov
-         USLEC(2) = usle_c_fal
-         
-         !only 1 crop
-         GDUSLEC(1) = emd(1)  !emergence 
-         GMUSLEC(1) = emm(1)
-         
-         GDUSLEC(2) = had(1)  !harvest
-         GMUSLEC(2) = ham(1)
-         
+        call get_date(julian_emerg, year, emm(1), emd(1) )
+        call get_date(julian_matur, year, mam(1), mad(1) )
+        call get_date(julian_harv , year,  ham(1), had(1) )
+               
+        !nuscle = 2 so only 2 curve numbers
+        CN_2(1)  = cn_cov
+        CN_2(2)  = cn_fal 
+        USLEC(1) = usle_c_cov
+        USLEC(2) = usle_c_fal
+        
+        !only 1 crop
+        GDUSLEC(1) = emd(1)  !emergence 
+        GMUSLEC(1) = emm(1)
+        
+        GDUSLEC(2) = had(1)  !harvest
+        GMUSLEC(2) = ham(1)
+        
         soil_temp_input  = gw_temp         !array for horizons, set as constant for all horizons as initial condition. 
         bottom_bc = gw_temp                !bottom boundary is constant temperature
-        
-       
         
         profile_thick(5) = gw_depth - 100.  ! gw_depth is depth to aquifer surface, subtract the 1 meter (thickness of the horizons 1 to 4)
         profile_number_increments(5) = nint (profile_thick(5)/50.)
@@ -760,73 +747,69 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
     end subroutine read_batch_scenarios
     
     
-subroutine Read_Weatherfile(err)
+   subroutine Read_Weatherfile(err)
     !open weather file, count file, allocate the weather variables, read in dat and place in vectors to store in constant/variable mod.  
     use utilities_1
     use constants_and_Variables, ONLY:precip, pet_evap,air_temperature, wind_speed, solar_radiation, num_records, &
                                       metfileunit,weatherfilename, weatherfiledirectory, &
                                       startday, first_year, last_year, num_years,first_mon, first_day 
-    
 
-
-    
-        logical,intent(out) :: err
-        integer :: dummy, status,i, year
-        character(Len=1024) :: weatherfile_pathandname
+    logical,intent(out) :: err
+    integer :: dummy, status,i, year
+    character(Len=1024) :: weatherfile_pathandname
         
-        err = .FALSE.
-        weatherfile_pathandname = trim(adjustl(weatherfiledirectory)) // trim(adjustl(weatherfilename))
-              
-        OPEN(Unit = metfileunit,FILE=trim(adjustl(weatherfile_pathandname)),STATUS='OLD', IOSTAT=status)
-        if (status .NE. 0) THEN
-            write(*,*)'Problem opening weather file: ', trim(adjustl(weatherfilename))
-            err = .TRUE.
-            return
-        endif  
+    err = .FALSE.
+    weatherfile_pathandname = trim(adjustl(weatherfiledirectory)) // trim(adjustl(weatherfilename))
+          
+    OPEN(Unit = metfileunit,FILE=trim(adjustl(weatherfile_pathandname)),STATUS='OLD', IOSTAT=status)
+    if (status .NE. 0) THEN
+        write(*,*)'Problem opening weather file: ', trim(adjustl(weatherfilename))
+        err = .TRUE.
+        return
+    endif  
       
-      num_records = 0
+    num_records = 0
+    
+    !Read first Date of Simulation
+    read (metfileunit,*, IOSTAT=status) first_mon, first_day, first_year
+    
+    if (status /= 0) then
+        write(*,*) "No data or other problem in Weather File"
+        stop
+    end if
       
-      !Read first Date of Simulation
-      read (metfileunit,*, IOSTAT=status) first_mon, first_day, first_year
-      
-      if (status /= 0) then
-          write(*,*) "No data or other problem in Weather File"
-          stop
-      end if
-      
-      startday = jd(first_year, first_mon, first_day)
+    startday = jd(first_year, first_mon, first_day)
 
-      !Count the records in the weather file
-      num_records=1
-      do        
-          read (metfileunit,*, IOSTAT=status) dummy
-          if (status /= 0)exit
-          num_records=num_records+1
-      end do
+    !Count the records in the weather file
+    num_records=1
+    do        
+        read (metfileunit,*, IOSTAT=status) dummy
+        if (status /= 0)exit
+        num_records=num_records+1
+    end do
 
-      !Allocate the weather parameters 
-      allocate (precip(num_records))
-      allocate (pet_evap(num_records))
-      allocate (air_temperature(num_records))
-      allocate (wind_speed(num_records))
-      allocate (solar_radiation(num_records))
+    !Allocate the weather parameters 
+    allocate (precip(num_records))
+    allocate (pet_evap(num_records))
+    allocate (air_temperature(num_records))
+    allocate (wind_speed(num_records))
+    allocate (solar_radiation(num_records))
 
-      !ONLY READS WEA FORMAT
-      !rewind and read in weather data
-      rewind(metfileunit)      
-      do i = 1, num_records
-          READ(MetFileUnit,*, IOSTAT=status) dummy,dummy,year,precip(i),pet_evap(i),air_temperature(i),wind_speed(i),solar_radiation(i)
-          if (status /= 0)then
-              write (*,*) "weather file problem on line ", i, status
-              exit
-          end if
-      end do
+    !ONLY READS WEA FORMAT
+    !rewind and read in weather data
+    rewind(metfileunit)      
+    do i = 1, num_records
+        READ(MetFileUnit,*, IOSTAT=status) dummy,dummy,year,precip(i),pet_evap(i),air_temperature(i),wind_speed(i),solar_radiation(i)
+        if (status /= 0)then
+            write (*,*) "weather file problem on line ", i, status
+            exit
+        end if
+    end do
   
-      last_year = year
+    last_year = year
+    num_years = last_year-first_year+1
       
-      num_years = last_year-first_year+1
-      
-      close(metfileunit)
-	end subroutine Read_Weatherfile  
+    close(metfileunit)
+   end subroutine Read_Weatherfile  
     
 end module readinputs

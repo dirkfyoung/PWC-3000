@@ -4,7 +4,7 @@ program PRZMVVWM
     use constants_and_variables, ONLY: maxFileLength, inputfile,number_of_schemes, &
              number_of_scenarios,  First_time_through_wb, First_time_through_wpez,First_time_through_tpez,First_time_through_medians, &
              app_window_span, app_window_step, application_date, application_date_original, &
-             is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, run_id, app_window_counter, &
+             is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, app_window_counter, &
              First_time_through_medians_wpez, First_time_through_medians_tpez
     
     use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond, spraytable,itstpezwpez
@@ -175,6 +175,8 @@ program PRZMVVWM
                      call reset_initial_masses
                    
 				     application_date= application_date_original + jj
+                    
+                     
                      app_window_counter = app_window_counter +1 
                      call make_run_id (i,kk, hh,jj) !makes a string that can be used for identifying output scheme#_scenario#_scenarioname      
                     

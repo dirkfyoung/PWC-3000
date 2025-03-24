@@ -183,8 +183,6 @@ real, parameter  :: R_JKmol  = 8.314      !gas constant (J/K/mol)
 
 
 real :: HENRY_local     ! local Henry's constant; read in as unitless but cahanged to atm m3/mol later
-integer i
-
 
    !Added Nov 2021 because was causing problems on some compiles when divide by zero occurred 
    !Not sure why this never caused issues in older vvwm
