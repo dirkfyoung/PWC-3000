@@ -40,6 +40,8 @@ implicit none
     character(len=512), parameter :: USEPA_reservoir = "USEPA Reservoir"
     
  
+    
+    
     !**** POND ****************
 
     integer, parameter :: waterbodytype_P = 2
@@ -159,6 +161,15 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 0.0       ,0.0       ,0.0	    ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0        ,&
 0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0       ,0.0         &
 /),(/15,17/)))
+
+
+
+
+
+
+
+
+
 
 
 
@@ -315,6 +326,18 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 		
 
     end subroutine read_waterbodyfile
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
