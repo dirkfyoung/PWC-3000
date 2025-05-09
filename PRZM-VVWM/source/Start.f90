@@ -25,6 +25,9 @@ program PRZMVVWM
     use TPEZ_WPEZ
     use process_medians, ONLY: calculate_medians
     use TPEZ_spray_initialization, ONLY:tpez_drift_finalize, set_tpez_spray
+    
+    use spray_deposition_curve
+    
     implicit none
 
     integer :: length               !length of input file characters
@@ -35,6 +38,20 @@ program PRZMVVWM
     character :: dummy
     character(LEN=20) ::message
 
+    
+    !TEST TRAPEZOID HERE
+    
+    call trapezoid_rule(1.6,24.8, 1) 
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
     !################################################ 
     CALL CPU_TIME (cputime_begin)
     
