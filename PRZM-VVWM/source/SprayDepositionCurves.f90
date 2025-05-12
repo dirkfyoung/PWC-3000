@@ -403,6 +403,7 @@ Module spray_deposition_curve
     /),(/3,398/)))      
     
     contains
+    
     subroutine trapezoid_rule(first,last, column)
     real, intent(in) :: first, last ! end point of distance to be integrated meters
     integer, intent(in) :: column
@@ -421,6 +422,10 @@ Module spray_deposition_curve
             index_one = ceiling(actual_one)      !integer, index of nearest
         end if
         
+write(96,*) "actual_one= ", actual_one      
+write(96,*) "index_one= ", index_one
+
+ 
         actual_two = last/incr +1         !real
         index_two = floor(actual_two)     !integer
         
@@ -432,32 +437,27 @@ Module spray_deposition_curve
         
         area = area*incr/2.0  !Trapezoid rule finish
         
- write(96,*) "internal area", area       
-        
         !add in the front partial increment
         if (first /= 0.0) then
-            X =    index_one- actual_one  ! *incr/incr with following equation cancels out
-            Y =  X * (spraycurve(index_one-1, column) - spraycurve(index_one, column)) 
-            actual_Y1 = spraycurve(index_one, 1) + Y 
+            X = (index_one-1)*incr - first                  
+            Y =  X/incr * (spraycurve(index_one-1, column) - spraycurve(index_one, column)) 
+            actual_Y1 = spraycurve(index_one, column) + Y 
             front_area =   (index_one - actual_one)*incr * (spraycurve(index_one,column) + actual_Y1)/2.0
         end if
-write(96,*) "front ",  front_area
+
         !add in the rear partial increment
             X =    actual_two - index_two
             
             Y =  X * (spraycurve(index_two, column) - spraycurve(index_two+1, column)) 
-            actual_Y2 = spraycurve(index_two, 1) -Y
-            
-write(96,*) "y2 " , actual_Y2
+            actual_Y2 = spraycurve(index_two, column) -Y
+
             rear_area =   (actual_two - index_two)*incr * (spraycurve(index_two,column) + actual_Y2)/2.0
- write(96,*) "rear ", rear_area
-        
-        
-        
-        
+
+ write(96,*)  area , front_area , rear_area
+            
         area = area + front_area + rear_area
-        
-        write(96,*), "area = ", area
+
+write(96,*), "drift factor = ", area, area/(last-first)
         
         !now add in the last partial increment
     

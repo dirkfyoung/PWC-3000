@@ -37,10 +37,13 @@ module schemeload
            is_absolute_year, is_absolute_year_schemes, runoff_mitigation_schemes, erosion_mitigation_schemes,  drift_mitigation_schemes, &
            runoff_mitigation, erosion_mitigation,drift_mitigation  
        
-
-       use waterbody_parameters, ONLY: afield,   area_waterbody
+       use spray_deposition_curve
+       use waterbody_parameters, ONLY: afield,   area_waterbody, distance_drift
         integer,intent(in):: scheme_number
         integer :: i
+        real:: buffer, distance
+        
+        
         num_applications_input = num_apps_in_schemes(scheme_number)
 
         allocate(application_rate_in(num_applications_input))
@@ -72,6 +75,29 @@ module schemeload
             pest_app_method_in(i)  = method_schemes(scheme_number,i)
             DEPI_in(i)             = depth_schemes(scheme_number,i)
             Tband_top_in(i)        = split_schemes(scheme_number,i)
+            
+            !********************************************************************************
+            !this is where to add the new spray curve and integration routine *****************
+            
+            !     send in waterbody dimension, buffer, and spray type (col number)
+            !     return drift value
+         
+                
+              !TEST TRAPEZOID HERE
+   
+             !   call trapezoid_rule(buffer,distance, 1) 
+            
+              !convert feet to meters
+              buffer = driftfactor_schemes(scheme_number,i)*0.3048 !convert input feet to meters
+              
+              distance = distance_drift  !already in meters
+
+              call trapezoid_rule(buffer,    buffer+ distance,    (drift_schemes(scheme_number,i) )  )
+            
+            
+            
+            
+            !********************************************************************************
             
 			!Interpolate Drift Values from Spray Table. Remember there is a header in the saved table so add 1
 			call lookup_drift(drift_schemes(scheme_number,i)+1, driftfactor_schemes(scheme_number,i),drift_value(i))

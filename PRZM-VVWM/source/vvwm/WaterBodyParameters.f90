@@ -18,6 +18,10 @@ implicit none
     real :: PLMAS         
     real :: afield            !square meters 
     real :: area_waterbody    
+    
+    !NEW PARAMETER
+    real :: distance_drift    !the length of the water body in the direction of drift 
+    
     real :: depth_0    
     real :: depth_max     
     real :: baseflow       
@@ -28,7 +32,7 @@ implicit none
     real    :: zero_depth     !depth below which conc are zeroed during post processing
 
 	
-	real,dimension(14):: spray_values  !default or read-in values for spray drift, their order should corresponds to the menu in the application table
+	!real,dimension(14):: spray_values  !default or read-in values for spray drift, their order should corresponds to the menu in the application table
 
     real,allocatable,dimension(:,:)	  :: spraytable !holds all the spraydrift and buffer values
 	integer :: rows_spraytable
@@ -65,9 +69,10 @@ implicit none
     real,parameter :: baseflow_P      = 0.0   
     integer,parameter :: flow_averaging_P = 0
     real,parameter    :: hydro_length_P      = 356.8 
-	
+    
+	real,parameter    :: distance_drift_P      = 63.61 !meters
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
-	real,dimension(14),parameter :: spray_p = (/0.242,0.125,0.089,0.068, 0.062, 0.027, 0.017, 0.011, 0.042, 0.015, 0.002, 0.022, 1.0, 0.0 /)
+!	real,dimension(14),parameter :: spray_p = (/0.242,0.125,0.089,0.068, 0.062, 0.027, 0.017, 0.011, 0.042, 0.015, 0.002, 0.022, 1.0, 0.0 /)
 
     integer,parameter :: rows_spraytable_P = 17
     integer,parameter :: columns_spraytable_P =15   
@@ -118,8 +123,11 @@ real,dimension(17,15),parameter :: spray_table_P = transpose(reshape((/&
     integer,parameter :: flow_averaging_R = 0
     real,parameter :: hydro_length_R      = 600. 
     
-    
-    real,dimension(14),parameter :: spray_R = (/0.258, 0.135, 0.097, 0.076, 0.066,0.027,0.017,0.011, 0.048, 0.017,0.0003,0.025, 1.0, 0.0 /)
+    !Get Real Value Dummty for now
+     real :: distance_drift_R = 100000000000000000000000000000000000000000000000000.0
+     
+     
+  !  real,dimension(14),parameter :: spray_R = (/0.258, 0.135, 0.097, 0.076, 0.066,0.027,0.017,0.011, 0.048, 0.017,0.0003,0.025, 1.0, 0.0 /)
 	
 !"Method \  Buffer (ft)",
 !"Aerial (VF-F)"        ,
@@ -163,18 +171,6 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 /),(/15,17/)))
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     contains
     subroutine get_pond_parameters
         this_waterbody_name = "Pond"
@@ -199,23 +195,18 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         depth_max           = depth_max_P     
         baseflow            = baseflow_P        
         hydro_length        = hydro_length_P
-        spray_values        =spray_p
+      !  spray_values        =spray_p
         
         is_zero_depth = .FALSE.
         zero_depth = 0.0
-
 
 	    rows_spraytable = rows_spraytable_P
         columns_spraytable = columns_spraytable_P
         
         allocate (spraytable (rows_spraytable, columns_spraytable))	
 	    spraytable = spray_table_P 
-        
-
-        !do i = 1, rows_spraytable
-        !    write(*,'(17G12.4)') (spraytable(i,j),j=1, columns_spraytable)
-        !end do	
-		
+        distance_drift  =  distance_drift_P 
+   
 	end subroutine get_pond_parameters
    
 	
@@ -248,19 +239,14 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         is_zero_depth = .FALSE.
         zero_depth = 0.0
 
-        
-       ! spray_values        = spray_R
+        ! spray_values        = spray_R
         
         rows_spraytable = rows_spraytable_R
         columns_spraytable = columns_spraytable_R
         
-       allocate (spraytable (rows_spraytable, columns_spraytable))	
-	   spraytable = spray_table_R 
-        
-       !write(*,*) 'Default Reservoir Spraydrift Table'
-       !do i = 1, rows_spraytable
-       !     write(*,'(17G12.4)') (spraytable(i,j),j=1, columns_spraytable)
-       !end do
+        allocate (spraytable (rows_spraytable, columns_spraytable))	
+	    spraytable = spray_table_R 
+        distance_drift  =  distance_drift_R
     end subroutine get_reservoir_parameters
 
     
@@ -291,8 +277,6 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
         read(waterbody_file_unit, *) DOC1               
         read(waterbody_file_unit, *) PLMAS       !LIne 18
 
-        
-        
         read(waterbody_file_unit, *) depth_0      !Line 19      
         read(waterbody_file_unit, *) depth_max    !Line 20
         read(waterbody_file_unit, *) baseflow     !line 21
@@ -310,20 +294,11 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
        ! write(*,*) "read spraytable: rows cols ", rows_spraytable, columns_spraytable
 
 		do i =1, rows_spraytable
-          
-			read(waterbody_file_unit, *) (spraytable(i,j),j=1, columns_spraytable)
-         
-           ! write(*, *) (spraytable(i,j),j=1, columns_spraytable)
-            
+			read(waterbody_file_unit, *) (spraytable(i,j),j=1, columns_spraytable)   
         end do
-		
-     
         
-		!write(*, *) 'spray table'
-		!do i =1, rows_spraytable
-		!	write(*,'(20G12.4)' ) (spraytable(i,j),j=1, columns_spraytable-1)
-  !      end do
-		
+        read(waterbody_file_unit, *) distance_drift
+        
 
     end subroutine read_waterbodyfile
     
