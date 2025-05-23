@@ -63,8 +63,9 @@ module schemeload
         !pest_app_method = 3 "Uniform"
         !pest_app_method = 4 "At Specific Depth"
         !pest_app_method = 5 "T Band"
-        !pest_app_method = 6 "invert triange chrw 9661"
-        !pest_app_method = 7 "triangle chrw 9651"
+        !pest_app_method = 6 "triangle chrw 9651"
+        !pest_app_method = 7 "invert triangle chrw 9661"
+        
         
         app_reference_point = app_reference_point_schemes(scheme_number)
       
@@ -90,11 +91,11 @@ module schemeload
               !convert feet to meters
               buffer = driftfactor_schemes(scheme_number,i)*0.3048 !convert input feet to meters
               
-              distance = distance_drift  !already in meters
+              distance = distance_drift  !already in meters, this comes from the waterbody parameters
 
-              call trapezoid_rule(buffer,    buffer+ distance,    (drift_schemes(scheme_number,i) )  )
+              call trapezoid_rule(buffer,    buffer+ distance,    (drift_schemes(scheme_number,i) ), drift_value(i)  )
             
-            
+            write(*,*) "New", drift_value(i)
             
             
             !********************************************************************************
@@ -102,6 +103,8 @@ module schemeload
 			!Interpolate Drift Values from Spray Table. Remember there is a header in the saved table so add 1
 			call lookup_drift(drift_schemes(scheme_number,i)+1, driftfactor_schemes(scheme_number,i),drift_value(i))
 
+            write(*,*) "old", drift_value(i) 
+            write(*,*)
             lag_app_in(i)          = lag_schemes(scheme_number,i)
             repeat_app_in(i)       = periodicity_schemes(scheme_number,i)
                    

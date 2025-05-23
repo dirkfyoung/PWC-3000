@@ -136,11 +136,7 @@ SUBROUTINE PESTAP(application_index)
         ELSE
           call pesticide_uniform_distribution(APPAMT,DMAX,distribution_of_applied) 
         ENDIF
-        
-        
-        
-        
-        
+
         
       case(4)  !(At Specific Depth)
         plant_app= 0.
@@ -164,21 +160,8 @@ SUBROUTINE PESTAP(application_index)
         ELSE
           CALL pesticide_Tband_distribution(APPAMT,DMAX, Tband_top(application_index),distribution_of_applied)
         ENDIF  
-             
-       case (6) !**** linearly decreasing with depth *****
-        plant_app= 0.
-        APPAMT = TAPP(application_index)*APPEFF(application_index)
-        !  Solve for base of isosceles triangle given: length of 1 leg and area = 1.0
-        DMAX = DEPI(application_index)
-        BASE=2./DMAX
-        SLOPE=(-BASE/DMAX)
-        IF(DEPI(application_index).EQ.0.0)THEN
-          distribution_of_applied(1)  = TAPP(application_index)*APPEFF(application_index)
-        ELSE
-          call pesticide_decreasing_distribution(APPAMT,DMAX,BASE,SLOPE, distribution_of_applied) 
-        ENDIF   
-        
-      case (7) ! Incorporated increasing with depth pesticide application 
+                  
+      case (6) ! Incorporated increasing with depth pesticide application 
         plant_app= 0.
         APPAMT = TAPP(application_index)*APPEFF(application_index)
 !       Solve for base of isosceles triangle given:length of 1 leg and area = 1.0
@@ -191,6 +174,22 @@ SUBROUTINE PESTAP(application_index)
           CALL pesticide_increasing_distribution(APPAMT,DMAX,BASE,SLOPE,distribution_of_applied)
         ENDIF
 
+          
+       case (7) !**** linearly decreasing with depth *****
+        plant_app= 0.
+        APPAMT = TAPP(application_index)*APPEFF(application_index)
+        !  Solve for base of isosceles triangle given: length of 1 leg and area = 1.0
+        DMAX = DEPI(application_index)
+        BASE=2./DMAX
+        SLOPE=(-BASE/DMAX)
+        IF(DEPI(application_index).EQ.0.0)THEN
+          distribution_of_applied(1)  = TAPP(application_index)*APPEFF(application_index)
+        ELSE
+          call pesticide_decreasing_distribution(APPAMT,DMAX,BASE,SLOPE, distribution_of_applied) 
+        ENDIF   
+ 
+        
+        
       case (8)  
           !this option is not accessible from pwc interface, it is here if you want to explore the default assumption that canopy spray that hits the ground 
           ! will be incorpoated at some other depth than 4 cm

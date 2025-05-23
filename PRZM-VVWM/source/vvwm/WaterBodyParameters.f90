@@ -250,11 +250,16 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
     end subroutine get_reservoir_parameters
 
     
+    
+    
+    
+    
+    
     subroutine read_waterbodyfile(file_index)
     use constants_and_variables, ONLY: waterbody_file_unit
 
     integer,intent(in) :: file_index
-	integer :: i,j
+	integer :: i,j, eof
      
         open (UNIT=waterbody_file_unit, FILE= trim(waterbody_names(file_index)), STATUS ='old')
    
@@ -290,14 +295,18 @@ real,dimension(17,15),parameter :: spray_table_R = transpose(reshape((/&
 		read(waterbody_file_unit, *) rows_spraytable, columns_spraytable
 		
 		allocate (spraytable (rows_spraytable, columns_spraytable))
-		
-       ! write(*,*) "read spraytable: rows cols ", rows_spraytable, columns_spraytable
 
 		do i =1, rows_spraytable
 			read(waterbody_file_unit, *) (spraytable(i,j),j=1, columns_spraytable)   
         end do
+  
         
-        read(waterbody_file_unit, *) distance_drift
+        read(waterbody_file_unit,*, IOSTAT=eof) distance_drift
+        if (eof < 0) then 
+            write(*,*) "The waterbody file is older version and does not include a waterbody dimension for spray drift."
+            write(*,*) "Assuming waterbody is square for spray calculations."
+            distance_drift = sqrt(area_waterbody )
+        end if
         
 
     end subroutine read_waterbodyfile

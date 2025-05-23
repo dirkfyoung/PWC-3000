@@ -1198,18 +1198,21 @@
             rowcount = currentRow(0)
             colcount = currentRow(1)
 
-
             For i As Integer = 0 To rowcount - 1
                 currentRow = MyReader.ReadFields
-
                 For j As Integer = 1 To colcount
-
                     SprayGridView.Item(j, i).Value = currentRow(j - 1)
-
                 Next
-
             Next
 
+
+            Try
+
+                WidthSpray.Text = MyReader.ReadLine()
+
+            Catch ex As Exception
+
+            End Try
 
 
 
@@ -1271,6 +1274,8 @@
             msg = msg & vbNewLine & submsg
 
         Next
+
+        msg = msg & vbNewLine & WidthSpray.Text
 
         CreateWaterbodyString = msg
     End Function
