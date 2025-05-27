@@ -47,7 +47,7 @@ Public Class Form1
         TabControl1.Controls.Remove(SchemeScenariosTab)
 
         LoadDefaultDiscretizations()
-        MakeSprayTable()
+        'MakeSprayTable()
 
     End Sub
 
@@ -60,29 +60,6 @@ Public Class Form1
         DiscretizationGridView.Rows.Add(100, 2)
     End Sub
 
-    Private Sub MakeSprayTable()
-        SprayGridView.Rows.Add(Standard.sprayterm0) 'Header with buffer length in ft
-        SprayGridView.Rows.Add(Standard.sprayterm1)
-        SprayGridView.Rows.Add(Standard.sprayterm2)
-        SprayGridView.Rows.Add(Standard.sprayterm3)
-        SprayGridView.Rows.Add(Standard.sprayterm4)
-        SprayGridView.Rows.Add(Standard.sprayterm5)
-        SprayGridView.Rows.Add(Standard.sprayterm6)
-        SprayGridView.Rows.Add(Standard.sprayterm7)
-        SprayGridView.Rows.Add(Standard.sprayterm8)
-        SprayGridView.Rows.Add(Standard.sprayterm9)
-        SprayGridView.Rows.Add(Standard.sprayterm10)
-        SprayGridView.Rows.Add(Standard.sprayterm11)
-        SprayGridView.Rows.Add(Standard.sprayterm12)
-        SprayGridView.Rows.Add(Standard.sprayterm13)
-        SprayGridView.Rows.Add(Standard.sprayterm14)
-        SprayGridView.Rows.Add(Standard.sprayterm15)
-        SprayGridView.Rows.Add(Standard.sprayterm16)
-
-        SprayGridView.Rows(0).DefaultCellStyle = New DataGridViewCellStyle With {.Font = New System.Drawing.Font("Arial", 10.0!, FontStyle.Bold)}
-        SprayGridView.Rows(0).DefaultCellStyle.ForeColor = Color.Purple
-
-    End Sub
 
 
     Private Sub MakeApplicationTable()

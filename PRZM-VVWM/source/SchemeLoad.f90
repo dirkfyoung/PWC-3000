@@ -78,37 +78,23 @@ module schemeload
             Tband_top_in(i)        = split_schemes(scheme_number,i)
             
             !********************************************************************************
-            !this is where to add the new spray curve and integration routine *****************
+            !the new spray curve and integration routine
+            !convert feet to meters
+            buffer = driftfactor_schemes(scheme_number,i)*0.3048 !convert input feet to meters       
+            distance = distance_drift  !already in meters, this comes from the waterbody parameters
             
-            !     send in waterbody dimension, buffer, and spray type (col number)
-            !     return drift value
-         
-                
-              !TEST TRAPEZOID HERE
-   
-             !   call trapezoid_rule(buffer,distance, 1) 
-            
-              !convert feet to meters
-              buffer = driftfactor_schemes(scheme_number,i)*0.3048 !convert input feet to meters
-              
-              distance = distance_drift  !already in meters, this comes from the waterbody parameters
-
-              call trapezoid_rule(buffer,    buffer+ distance,    (drift_schemes(scheme_number,i) ), drift_value(i)  )
-            
+            write(*,*) buffer,    buffer+ distance,    (drift_schemes(scheme_number,i) )
+            call trapezoid_rule(buffer,    buffer+ distance,    (drift_schemes(scheme_number,i) ), drift_value(i)  )
+           
             write(*,*) "New", drift_value(i)
-            
-            
-            !********************************************************************************
-            
-			!Interpolate Drift Values from Spray Table. Remember there is a header in the saved table so add 1
-			call lookup_drift(drift_schemes(scheme_number,i)+1, driftfactor_schemes(scheme_number,i),drift_value(i))
+           
+			!!Interpolate Drift Values from Spray Table. Remember there is a header in the saved table so add 1
+			!call lookup_drift(drift_schemes(scheme_number,i)+1, driftfactor_schemes(scheme_number,i),drift_value(i))
 
-            write(*,*) "old", drift_value(i) 
-            write(*,*)
             lag_app_in(i)          = lag_schemes(scheme_number,i)
             repeat_app_in(i)       = periodicity_schemes(scheme_number,i)
                    
-			!calclautaed based on losses to the waterbody subtracted from fields applied pesticide
+			!Efficiency calclautaed based on losses to the waterbody subtracted from fields applied pesticide
 			APPEFF_in(i)           = 1.0 - drift_value(i) * area_waterbody/afield
         end do 
         		

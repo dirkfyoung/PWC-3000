@@ -1193,26 +1193,13 @@
 
             MyReader.ReadLine() 'blank line
 
-            Dim rowcount, colcount As Integer
-            currentRow = MyReader.ReadFields
-            rowcount = currentRow(0)
-            colcount = currentRow(1)
-
-            For i As Integer = 0 To rowcount - 1
-                currentRow = MyReader.ReadFields
-                For j As Integer = 1 To colcount
-                    SprayGridView.Item(j, i).Value = currentRow(j - 1)
-                Next
-            Next
-
-
-            Try
-
-                WidthSpray.Text = MyReader.ReadLine()
-
-            Catch ex As Exception
-
-            End Try
+            Dim test As String
+            test = MyReader.ReadLine()
+            If test.Contains(",") Then
+                MsgBox("Old Waterbody file! This file is missing the waterbody width used for spray drift. Add it.")
+            Else
+                WidthSpray.Text = test
+            End If
 
 
 
@@ -1249,33 +1236,36 @@
         msg = msg & vbNewLine & isZeroConc.Checked & "," & ZeroConcDepth.Text & ","
         msg = msg & vbNewLine & "unused line for future expansion"
 
-        Dim column_count As Integer
-        'determine column count
-        column_count = 0
-        For i As Integer = 1 To SprayGridView.ColumnCount - 1
-
-            If IsNumeric(SprayGridView.Item(i, 0).Value) Then
-                column_count = column_count + 1
-            Else
-                Exit For
-            End If
-        Next
-
-        msg = msg & vbNewLine & SprayGridView.RowCount & "," & column_count
-
-        Dim submsg As String
-
-        For i As Integer = 0 To SprayGridView.RowCount - 1
-            submsg = SprayGridView.Item(1, i).Value
-
-            For j As Integer = 2 To SprayGridView.ColumnCount - 2
-                submsg = submsg & ", " & SprayGridView.Item(j, i).Value
-            Next
-            msg = msg & vbNewLine & submsg
-
-        Next
 
         msg = msg & vbNewLine & WidthSpray.Text
+
+
+        'Dim column_count As Integer
+        ''determine column count
+        'column_count = 0
+        'For i As Integer = 1 To SprayGridView.ColumnCount - 1
+
+        '    If IsNumeric(SprayGridView.Item(i, 0).Value) Then
+        '        column_count = column_count + 1
+        '    Else
+        '        Exit For
+        '    End If
+        'Next
+
+        'msg = msg & vbNewLine & SprayGridView.RowCount & "," & column_count
+
+        'Dim submsg As String
+
+        'For i As Integer = 0 To SprayGridView.RowCount - 1
+        '    submsg = SprayGridView.Item(1, i).Value
+
+        '    For j As Integer = 2 To SprayGridView.ColumnCount - 2
+        '        submsg = submsg & ", " & SprayGridView.Item(j, i).Value
+        '    Next
+        '    msg = msg & vbNewLine & submsg
+
+        'Next
+
 
         CreateWaterbodyString = msg
     End Function

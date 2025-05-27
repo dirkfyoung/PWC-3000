@@ -6,26 +6,28 @@ module TPEZ_spray_initialization
     real,allocatable,dimension(:)  :: tpez_spray_additions     !daily mass of spray to be added to water column (kg) 
  
     real, parameter :: area_tpez = 10000.!m2  
-    real,dimension(17,13),parameter :: spray_table_TPEZ = transpose(reshape((/&      
-    0.0000E+00,1.0000E+01,2.5000E+01,5.0000E+01,7.5000E+01,1.0000E+02,1.2500E+02,1.5000E+02,2.0000E+02,2.5000E+02,3.0000E+02,3.5000E+02,4.0000E+02,&
-    3.1900E-01,2.9490E-01,2.6660E-01,2.3020E-01,2.0100E-01,1.7640E-01,1.5750E-01,1.4100E-01,1.1760E-01,1.0160E-01,8.9500E-02,8.0100E-02,7.2800E-02,&
-    1.9440E-01,1.6300E-01,1.3400E-01,1.0310E-01,8.0800E-02,6.5300E-02,5.4800E-02,4.7500E-02,3.7500E-02,3.0900E-02,2.6300E-02,2.2900E-02,2.0400E-02,&
-    1.4760E-01,1.1430E-01,8.6800E-02,6.3000E-02,4.6500E-02,3.6600E-02,3.0000E-02,2.5400E-02,1.8900E-02,1.4900E-02,1.2400E-02,1.0700E-02,9.5000E-03,&
-    1.1920E-01,8.5600E-02,5.9800E-02,4.0700E-02,2.9700E-02,2.3100E-02,1.8500E-02,1.5300E-02,1.1200E-02,9.0000E-03,7.6000E-03,6.6000E-03,5.9000E-03,&
-    1.1190E-01,6.2200E-02,4.0800E-02,2.7500E-02,2.1100E-02,1.7100E-02,1.4400E-02,1.2300E-02,9.5000E-03,7.6000E-03,6.3000E-03,5.3000E-03,4.5000E-03,&
-    2.9200E-02,1.3600E-02,1.0000E-02,7.5000E-03,6.1000E-03,5.2000E-03,4.6000E-03,4.1000E-03,3.3000E-03,2.8000E-03,2.4000E-03,2.1000E-03,1.9000E-03,&
-    4.9300E-02,2.1800E-02,1.4700E-02,1.0300E-02,8.2000E-03,6.9000E-03,5.9000E-03,5.2000E-03,4.2000E-03,3.5000E-03,3.0000E-03,2.6000E-03,2.3000E-03,&
-    1.9400E-02,8.3000E-03,6.2000E-03,4.7000E-03,3.9000E-03,3.4000E-03,3.0000E-03,2.7000E-03,2.2000E-03,1.9000E-03,1.7000E-03,1.5000E-03,1.3000E-03,&
-    1.9000E-03,1.4000E-03,1.0000E-03,7.0000E-04,5.0000E-04,4.0000E-04,4.0000E-04,3.0000E-04,2.0000E-04,2.0000E-04,2.0000E-04,1.0000E-04,1.0000E-04,&
-    2.6400E-02,1.8300E-02,1.2200E-02,7.5000E-03,5.3000E-03,4.1000E-03,3.3000E-03,2.7000E-03,2.1000E-03,1.7000E-03,1.4000E-03,1.2000E-03,1.1000E-03,&
-    8.2800E-02,5.0100E-02,2.8000E-02,1.3500E-02,7.8000E-03,5.0000E-03,3.5000E-03,2.5000E-03,1.5000E-03,1.0000E-03,7.0000E-04,5.0000E-04,4.0000E-04,&
-    4.6000E-03,2.6000E-03,1.5000E-03,9.0000E-04,6.0000E-04,5.0000E-04,4.0000E-04,3.0000E-04,2.0000E-04,2.0000E-04,1.0000E-04,1.0000E-04,1.0000E-04,&
-    4.1500E-02,2.6400E-02,1.6100E-02,9.0000E-03,5.9000E-03,4.3000E-03,3.4000E-03,2.7000E-03,2.0000E-03,1.5000E-03,1.3000E-03,1.1000E-03,9.0000E-04,&
-    1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,&
-    0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,&
-    0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00 &
-    /),(/13,17/)))
+    real, parameter :: width_tpez = 30.0 !m
     
+    !real,dimension(17,13),parameter :: spray_table_TPEZ = transpose(reshape((/&      
+    !0.0000E+00,1.0000E+01,2.5000E+01,5.0000E+01,7.5000E+01,1.0000E+02,1.2500E+02,1.5000E+02,2.0000E+02,2.5000E+02,3.0000E+02,3.5000E+02,4.0000E+02,&
+    !3.1900E-01,2.9490E-01,2.6660E-01,2.3020E-01,2.0100E-01,1.7640E-01,1.5750E-01,1.4100E-01,1.1760E-01,1.0160E-01,8.9500E-02,8.0100E-02,7.2800E-02,&
+    !1.9440E-01,1.6300E-01,1.3400E-01,1.0310E-01,8.0800E-02,6.5300E-02,5.4800E-02,4.7500E-02,3.7500E-02,3.0900E-02,2.6300E-02,2.2900E-02,2.0400E-02,&
+    !1.4760E-01,1.1430E-01,8.6800E-02,6.3000E-02,4.6500E-02,3.6600E-02,3.0000E-02,2.5400E-02,1.8900E-02,1.4900E-02,1.2400E-02,1.0700E-02,9.5000E-03,&
+    !1.1920E-01,8.5600E-02,5.9800E-02,4.0700E-02,2.9700E-02,2.3100E-02,1.8500E-02,1.5300E-02,1.1200E-02,9.0000E-03,7.6000E-03,6.6000E-03,5.9000E-03,&
+    !1.1190E-01,6.2200E-02,4.0800E-02,2.7500E-02,2.1100E-02,1.7100E-02,1.4400E-02,1.2300E-02,9.5000E-03,7.6000E-03,6.3000E-03,5.3000E-03,4.5000E-03,&
+    !2.9200E-02,1.3600E-02,1.0000E-02,7.5000E-03,6.1000E-03,5.2000E-03,4.6000E-03,4.1000E-03,3.3000E-03,2.8000E-03,2.4000E-03,2.1000E-03,1.9000E-03,&
+    !4.9300E-02,2.1800E-02,1.4700E-02,1.0300E-02,8.2000E-03,6.9000E-03,5.9000E-03,5.2000E-03,4.2000E-03,3.5000E-03,3.0000E-03,2.6000E-03,2.3000E-03,&
+    !1.9400E-02,8.3000E-03,6.2000E-03,4.7000E-03,3.9000E-03,3.4000E-03,3.0000E-03,2.7000E-03,2.2000E-03,1.9000E-03,1.7000E-03,1.5000E-03,1.3000E-03,&
+    !1.9000E-03,1.4000E-03,1.0000E-03,7.0000E-04,5.0000E-04,4.0000E-04,4.0000E-04,3.0000E-04,2.0000E-04,2.0000E-04,2.0000E-04,1.0000E-04,1.0000E-04,&
+    !2.6400E-02,1.8300E-02,1.2200E-02,7.5000E-03,5.3000E-03,4.1000E-03,3.3000E-03,2.7000E-03,2.1000E-03,1.7000E-03,1.4000E-03,1.2000E-03,1.1000E-03,&
+    !8.2800E-02,5.0100E-02,2.8000E-02,1.3500E-02,7.8000E-03,5.0000E-03,3.5000E-03,2.5000E-03,1.5000E-03,1.0000E-03,7.0000E-04,5.0000E-04,4.0000E-04,&
+    !4.6000E-03,2.6000E-03,1.5000E-03,9.0000E-04,6.0000E-04,5.0000E-04,4.0000E-04,3.0000E-04,2.0000E-04,2.0000E-04,1.0000E-04,1.0000E-04,1.0000E-04,&
+    !4.1500E-02,2.6400E-02,1.6100E-02,9.0000E-03,5.9000E-03,4.3000E-03,3.4000E-03,2.7000E-03,2.0000E-03,1.5000E-03,1.3000E-03,1.1000E-03,9.0000E-04,&
+    !1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,1.0000E+00,&
+    !0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,&
+    !0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00,0.0000E+00 &
+    !/),(/13,17/)))
+    !
 
 
     contains 
@@ -34,26 +36,54 @@ module TPEZ_spray_initialization
     !After scheme and before scenarios.  
          use constants_and_variables, ONLY: num_applications_input, drift_schemes, driftfactor_schemes,is_output_spraydrift, drift_mitigation
          use waterbody_parameters, ONLY:  use_tpezbuffer
-         use utilities_1, ONLY:find_in_table
+        ! use utilities_1, ONLY:find_in_table
+         use spray_deposition_curve, ONLY: trapezoid_rule
          
-         real    :: buffer_distance   !local holder to take care of zero buffer option
+         
+         real    :: buffer   !local holder to take care of zero buffer option
          integer, intent(in) ::scheme_number
          integer :: i
          allocate(tpez_drift_value(num_applications_input)) 
     
          do i=1, num_applications_input
+                !if (use_tpezbuffer) then
+                !     buffer_distance = driftfactor_schemes(scheme_number,i)
+                !else            
+                !     buffer_distance = 0.0
+                !end if
+                !call find_in_table(drift_schemes(scheme_number,i)+1, buffer_distance, spray_table_TPEZ,size(spray_table_TPEZ,1),size(spray_table_TPEZ,2),  tpez_drift_value(i))        
+                !tpez_drift_value(i) =  tpez_drift_value(i) * drift_mitigation
+             
                 if (use_tpezbuffer) then
-                     buffer_distance = driftfactor_schemes(scheme_number,i)
+                     buffer = driftfactor_schemes(scheme_number,i)*0.3048 !convert input feet to meters  
                 else            
-                     buffer_distance = 0.0
+                     buffer = 0.0
                 end if
-      
-                call find_in_table(drift_schemes(scheme_number,i)+1, buffer_distance, spray_table_TPEZ,size(spray_table_TPEZ,1),size(spray_table_TPEZ,2),  tpez_drift_value(i))        
 
+                call trapezoid_rule(buffer,    buffer + width_tpez ,    (drift_schemes(scheme_number,i) ), tpez_drift_value(i) )
+           
                 tpez_drift_value(i) =  tpez_drift_value(i) * drift_mitigation
                 
                 if (is_output_spraydrift)  write(*,*)  "tpez drift factor ", tpez_drift_value(i)
+                   write(*,*) "New tpez drift", tpez_drift_value(i)
+                
          end do 
+         
+                  
+         
+            !         !the new spray curve and integration routine
+            !!convert feet to meters
+            !buffer = driftfactor_schemes(scheme_number,i)*0.3048 !convert input feet to meters       
+            !distance = distance_drift  !already in meters, this comes from the waterbody parameters
+   
+
+           
+         
+         
+         
+         
+         
+         
          
          
          
