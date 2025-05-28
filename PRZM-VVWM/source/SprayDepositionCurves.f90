@@ -419,7 +419,6 @@ Module spray_deposition_curve
       integer, intent(in) :: column   !the column with the spray vlues of interest.  Add 1 to this value bcuz 1st col is distance
       real, intent(out)   :: output   !drift factor
     
-      real, parameter :: incr = 2.0   !table is in 2 meter increments
       integer :: index_one, index_two, i
       real :: actual_one, actual_two, area, X, Y, actual_Y1,actual_Y2, front_area, rear_area
       integer :: col
@@ -431,6 +430,7 @@ Module spray_deposition_curve
         
         !Do straight up search for endpoints
         !find first point and front area
+        
         loop1: do i = 1, size(spraycurve,1)-1
             if (abs(first- spraycurve(i,1))<.00001) then 
                 index_one = i
@@ -444,27 +444,36 @@ Module spray_deposition_curve
             end if
             
         end do loop1
-
+        
         !find mid area and last point
         loop2 : do i = index_one, size(spraycurve, 1)-1
-             if (abs(last- spraycurve(i,1))<.00001) then 
-                    rear_area = 0.0
-                    exit loop2
-             else if (last > spraycurve(i+1,1)) then
+            
+             if (last > spraycurve(i+1,1))then 
                  area = area + (spraycurve(i,col) + spraycurve(i+1,col))/2.0*(spraycurve(i+1,1)-spraycurve(i,1))
+           
+             else if  (last == spraycurve(i+1,1))then 
+                 area = area + (spraycurve(i,col) + spraycurve(i+1,col))/2.0*(spraycurve(i+1,1)-spraycurve(i,1))
+                 rear_area = 0.0
+                 exit loop2
+                                  
              else if (last < spraycurve(i+1,1)) then
                  
                  !add in rear area
                  c_int = spraycurve(i,col) - (last - spraycurve(i,1))/(spraycurve(i+1,1) - spraycurve(i,1))  *(spraycurve(i,col)-spraycurve(i+1,col))
                  rear_area = (c_int + spraycurve(i,col))/2.0 *(last - spraycurve(i,1))
+
                  exit loop2
     
              end if  
+             
         end do loop2
-  
+
+        if (last >  spraycurve(size(spraycurve, 1), 1)     )  write(*,*) "Spray distance exceeds available data"
+
         area = area + front_area + rear_area
+
         output = area/(last-first) 
- 
+        
     end subroutine trapezoid_rule
     
     
