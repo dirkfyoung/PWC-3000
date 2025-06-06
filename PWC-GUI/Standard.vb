@@ -33,7 +33,7 @@
 
     Public Const sprayterm14 As String = "Directly applied to waterbody"
     Public Const sprayterm15 As String = "None"
-    Public Const sprayterm16 As String = "For Advanced User"
+    '   Public Const sprayterm16 As String = "For Advanced User"
 
 End Class
 

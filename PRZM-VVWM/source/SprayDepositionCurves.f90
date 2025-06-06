@@ -423,10 +423,23 @@ Module spray_deposition_curve
       real :: actual_one, actual_two, area, X, Y, actual_Y1,actual_Y2, front_area, rear_area
       integer :: col
       real :: c_int
+      
+      If (column ==14) then !user chose full on spray drift
+          output = 1.0
+          return
+      end if
+  
+      If (column ==15) then !user chose no spray drift
+          output = 0.0
+          return
+      end if
+      
         area = 0.0
         front_area = 0.0
         rear_area = 0.0
         col = column + 1   
+        
+
         
         !Do straight up search for endpoints
         !find first point and front area
@@ -476,73 +489,6 @@ Module spray_deposition_curve
         
     end subroutine trapezoid_rule
     
-    
-!    subroutine trapezoid_rule(first,last, column, output)
-!      real, intent(in)    :: first   !start point of distance to be integrated meters, first would be buffer 
-!      real, intent(in)    :: last     !end point of distance to be integrated meters,last would be width + buffer
-!      integer, intent(in) :: column   !the coulumn with the spray vlues of interest
-!      real, intent(out)   :: output   !drift factor
-!    
-!      real, parameter :: incr = 2.0   !table is in 2 meter increments
-!      integer :: index_one, index_two, i
-!      real :: actual_one, actual_two, area, X, Y, actual_Y1,actual_Y2, front_area, rear_area
-!    
-!        area= 0.0
-!        front_area = 0.0
-!        rear_area = 0.0
-!        
-!        !check where "first" is, table is in 2's 
-!        if (first == 0.0) then 
-!            index_one  = 1
-!            actual_one = 1
-!        else
-!            actual_one = first/incr +1           !real number: convert inputs to index equivalents
-!            index_one = ceiling(actual_one)      !integer, index of nearest
-!        end if
-! 
-!        actual_two = last/incr +1         !real
-!        index_two = floor(actual_two)     !integer
-!        
-!
-!        write(*,*) "column", column, index_one, actual_one
-!        
-!        
-!        area = spraycurve(index_one,column) + spraycurve(index_two,column)
-!        do i = index_one+1, index_two-1
-!            area = area + 2.0*spraycurve(i,column)  !trapezoid rule 
-!        end do 
-!        
-!        area = area*incr/2.0  !Trapezoid rule finish
-!        
-!
-!     
-!        !add in the front partial increment
-!        if (first /= 0.0) then
-!            X = (index_one-1)*incr - first                  
-!            Y =  X/incr * (spraycurve(index_one-1, column) - spraycurve(index_one, column)) 
-!            actual_Y1 = spraycurve(index_one, column) + Y 
-!            front_area =   (index_one - actual_one)*incr * (spraycurve(index_one,column) + actual_Y1)/2.0
-!        end if
-!        
-!        
-!
-!        !add in the rear partial increment
-!        X =    actual_two - index_two
-!        Y =  X * (spraycurve(index_two, column) - spraycurve(index_two+1, column)) 
-!        actual_Y2 = spraycurve(index_two, column) -Y
-!        rear_area = (actual_two - index_two)*incr * (spraycurve(index_two,column) + actual_Y2)/2.0
-!            write(*,*) 'area ', area, front_area, rear_area       
-!        
-!        area = area + front_area + rear_area
-!        output = area/(last-first) 
-!        
-!        
-!        
-!
-!        
-!        
-!write(*,*), "New drift factor = ", output
-!    
-!    end subroutine trapezoid_rule
+   
 
 end module spray_deposition_curve

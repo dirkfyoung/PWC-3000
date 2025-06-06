@@ -14,7 +14,7 @@ module TPEZ_spray_initialization
     subroutine set_tpez_spray(scheme_number)
     !After scheme and before scenarios.  
          use constants_and_variables, ONLY: num_applications_input, drift_schemes, driftfactor_schemes,is_output_spraydrift, drift_mitigation
-         use waterbody_parameters, ONLY:  use_tpezbuffer
+         use waterbody_parameters, ONLY:  use_tpezbuffer,itstpezwpez
         ! use utilities_1, ONLY:find_in_table
          use spray_deposition_curve, ONLY: trapezoid_rule
          
@@ -32,7 +32,9 @@ module TPEZ_spray_initialization
 
                 call trapezoid_rule(buffer,    buffer + width_tpez ,    (drift_schemes(scheme_number,i) ), tpez_drift_value(i) )           
                 tpez_drift_value(i) =  tpez_drift_value(i) * drift_mitigation    
-                if (is_output_spraydrift)  write(*,*)  "tpez drift factor ", tpez_drift_value(i)      
+                
+
+                if (is_output_spraydrift )  write(*,*)  "tpez drift factor ", tpez_drift_value(i)      
          end do 
          
     end  subroutine set_tpez_spray

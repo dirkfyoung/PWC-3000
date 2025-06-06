@@ -5,7 +5,9 @@ module schemeload
     Subroutine deallocate_application_parameters
         use constants_and_variables,   ONLY: application_rate_in,days_until_applied,DEPI_in,APPEFF_in,Tband_top_in,&
                                            pest_app_method_in ,drift_value,lag_app_in,repeat_app_in, is_absolute_year
-        use TPEZ_spray_initialization, ONLY: tpez_drift_value
+        use TPEZ_spray_initialization, ONLY: tpez_drift_value 
+        use waterbody_parameters, ONLY:itstpezwpez
+        
         
         deallocate(application_rate_in)                                                            
         deallocate(days_until_applied )                                                            
@@ -18,8 +20,7 @@ module schemeload
         deallocate(lag_app_in ) 
         deallocate(repeat_app_in) 
         deallocate(is_absolute_year)
-
-        deallocate(tpez_drift_value ) 
+        if (itstpezwpez) deallocate(tpez_drift_value ) 
         
 	end Subroutine deallocate_application_parameters
 
@@ -35,7 +36,7 @@ module schemeload
            rain_limit_schemes,optimum_application_window_schemes,intolerable_rain_window_schemes,min_days_between_apps_schemes, & 
 	       is_adjust_for_rain, rain_limit,optimum_application_window,intolerable_rain_window,min_days_between_apps, is_batch_scenario, &
            is_absolute_year, is_absolute_year_schemes, runoff_mitigation_schemes, erosion_mitigation_schemes,  drift_mitigation_schemes, &
-           runoff_mitigation, erosion_mitigation,drift_mitigation  
+           runoff_mitigation, erosion_mitigation,drift_mitigation,is_output_spraydrift
        
        use spray_deposition_curve
        use waterbody_parameters, ONLY: afield,   area_waterbody, distance_drift
@@ -84,7 +85,12 @@ module schemeload
             distance = distance_drift  !already in meters, this comes from the waterbody parameters
 
             call trapezoid_rule(buffer,    buffer+ distance,    (drift_schemes(scheme_number,i) ), drift_value(i)  )
-               
+            
+    
+            
+            
+            if (is_output_spraydrift)  write(*,*)  "drift factor ", drift_value(i)    
+            
             lag_app_in(i)          = lag_schemes(scheme_number,i)
             repeat_app_in(i)       = periodicity_schemes(scheme_number,i)
                    

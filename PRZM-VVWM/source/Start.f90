@@ -41,14 +41,6 @@ program PRZMVVWM
 
 
     
-    
-    
-    
-    
-    
-    
-    
-    
     !################################################ 
     CALL CPU_TIME (cputime_begin)
     
@@ -128,10 +120,11 @@ program PRZMVVWM
              !will use spray table in here --need to make spray table correct if changed by tpez
              call set_chemical_applications(i) !gets the individual application scheme from the whole scheme table, non scenario specfic 
         
+        
              !If running TPEZ, set the unchanging (with scheme) parameters here like spraydrift
-             call set_tpez_spray(i)  
+             if (itstpezwpez)  call set_tpez_spray(i)  
              !*******************************************************************
-             
+              
 
              
              
@@ -172,16 +165,16 @@ program PRZMVVWM
 				         cycle   !error, try next scenario in scheme
                      end if 
                
-               
+                
                call INITL    !initialize and ALLOCATIONS przm variables  (also sets application and drift)    
                !set scenario-dependent TPEZ drift here
-               
+                 
                call Crop_Growth              
 			   call hydrology_only
                call allocation_for_VVWM
-               
-               call tpez_drift_finalize !must be called after INITL because need to know total applications
-               
+        
+              if (itstpezwpez)  call tpez_drift_finalize !must be called after INITL because need to know total applications
+
 			   app_window_counter = 0  !use this to track app window to find medians
                do jj = 0, app_window_span(i), app_window_step(i)   
     
@@ -200,7 +193,8 @@ program PRZMVVWM
 					 call groundwater	
                      
                      call VVWM 
-                        
+                       
+                 
                      if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
                          call wpez     !drift is same as pond noi need to recalculate
                          call tpez(i)  !need to send in scheme number to find drift
@@ -216,9 +210,11 @@ program PRZMVVWM
 
             end do  !END SCENARIO LOOP  kk 
             
+                  
              
             call deallocate_application_parameters !allocations are done in set_chmical_applications, need to deallocatte for next scheme 
               
+             
             write (message, '(A17,I3)') 'cpu time, scheme ', i
             call time_check(message)                
 

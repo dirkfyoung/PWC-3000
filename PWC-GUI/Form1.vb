@@ -124,7 +124,7 @@ Public Class Form1
         driftcombo.Items.Add(Standard.sprayterm13)
         driftcombo.Items.Add(Standard.sprayterm14)
         driftcombo.Items.Add(Standard.sprayterm15)
-        driftcombo.Items.Add(Standard.sprayterm16)
+        '       driftcombo.Items.Add(Standard.sprayterm16)
 
         AppTableDisplay.Columns.Add(driftcombo)
 
@@ -557,8 +557,8 @@ Public Class Form1
                                 AppTableDisplay.Item(5, i).Value = Standard.sprayterm14
                             Case (15)
                                 AppTableDisplay.Item(5, i).Value = Standard.sprayterm15
-                            Case (16)
-                                AppTableDisplay.Item(5, i).Value = Standard.sprayterm16
+                                'Case (16)
+                                '    AppTableDisplay.Item(5, i).Value = Standard.sprayterm16
                         End Select
 
 
