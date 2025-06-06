@@ -47,7 +47,7 @@ Public Class Form1
         TabControl1.Controls.Remove(SchemeScenariosTab)
 
         LoadDefaultDiscretizations()
-        'MakeSprayTable()
+
 
     End Sub
 

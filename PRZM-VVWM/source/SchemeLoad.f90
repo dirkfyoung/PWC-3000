@@ -82,15 +82,9 @@ module schemeload
             !convert feet to meters
             buffer = driftfactor_schemes(scheme_number,i)*0.3048 !convert input feet to meters       
             distance = distance_drift  !already in meters, this comes from the waterbody parameters
-            
-            write(*,*) buffer,    buffer+ distance,    (drift_schemes(scheme_number,i) )
-            call trapezoid_rule(buffer,    buffer+ distance,    (drift_schemes(scheme_number,i) ), drift_value(i)  )
-           
-            write(*,*) "New", drift_value(i)
-           
-			!!Interpolate Drift Values from Spray Table. Remember there is a header in the saved table so add 1
-			!call lookup_drift(drift_schemes(scheme_number,i)+1, driftfactor_schemes(scheme_number,i),drift_value(i))
 
+            call trapezoid_rule(buffer,    buffer+ distance,    (drift_schemes(scheme_number,i) ), drift_value(i)  )
+               
             lag_app_in(i)          = lag_schemes(scheme_number,i)
             repeat_app_in(i)       = periodicity_schemes(scheme_number,i)
                    
@@ -119,49 +113,6 @@ module schemeload
 
     end subroutine set_chemical_applications
     
-	!************************************************************************************
-	subroutine lookup_drift(row, column, output)
-    
-    !this routine seems redundant with the more generic find_in_table in utilities
-    !was there a reason to treat tpez spray table differently?
-    !try to consolidate in future
-       use constants_and_variables, ONLY: is_output_spraydrift
-	   use waterbody_parameters, only: spraytable
-	   integer, intent(in) :: row  
-	   real, intent(in)    :: column   !this is a distance, so its real and will be used for interpolation
-	   real, intent(out)   :: output
-	
-	   integer :: i, j
-	   real    :: previous
-       
-       
-	   !interpolate column value for values in row
-	   
-       
-        !do i = 1, size(spraytable, 1)
-        !     write(*,'(20G12.4)') (spraytable(i,j), j=1,size(spraytable, 2))
-        !end do
-       
-        
-        previous = 0.0
-	   do i = 1, size(spraytable, 2)
-           
-	   	 if (abs(column - spraytable(1, i)) < 0.01 ) then !almost exact match within 0.01 ft, get value and end
-	   		 output = spraytable(row, i)
-	   		 exit
-	   	 elseif (spraytable(1, i) < column ) then
-	   		 previous = spraytable(1, i)
-	   	 else      !spraytable(1, i))< column  !do interpolation and quit
-	   		 output =  spraytable(row, i-1) +   (spraytable(row, i)-spraytable(row, i-1)) *  (column - previous)/(spraytable(1, i)- previous)
-!	   		 write(*,'("            row = ",i2, " interpolate between columns ", i2, " and ", i2, ", fraction = ", g10.4 )') row, i-1, i,  (column - previous)/(spraytable(1, i)- previous)
-	   		 exit
-		 end if	 
-       end do
-       
-      if (is_output_spraydrift)  write(*,*)  "waterbody drift factor ", output
-	
-	end subroutine lookup_drift
-	
 
 end module schemeload
    

@@ -7,7 +7,7 @@ program PRZMVVWM
              is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, app_window_counter, &
              First_time_through_medians_wpez, First_time_through_medians_tpez
     
-    use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond, spraytable,itstpezwpez
+    use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond,itstpezwpez
     use clock_variables
 	
     use PRZM_VERSION
@@ -224,8 +224,7 @@ program PRZMVVWM
 
 		 end do schemeloop                 !End scheme Loop
 		 
-		 deallocate (spraytable )
-		 
+
      end do !End Waterbody/Watershed Loop
      
  !*******************************************    
