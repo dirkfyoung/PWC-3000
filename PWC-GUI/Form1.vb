@@ -174,7 +174,7 @@ Public Class Form1
 
         Dim result As System.Windows.Forms.DialogResult
 
-        SaveFileDialogMain.Filter = "PWC 3 INPUT Files (*.PW3)|*.PW3|ALL Files (*.*)|*.*"
+        SaveFileDialogMain.Filter = "PWC 3 INPUT Files (*.PW4)|*.PW4|ALL Files (*.*)|*.*"
         SaveFileDialogMain.FilterIndex = 1
 
         SaveFileDialogMain.InitialDirectory = FileNames.WorkingDirectory
@@ -239,7 +239,7 @@ Public Class Form1
     Private Sub RetrieveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RetrieveToolStripMenuItem.Click
         Dim result As System.Windows.Forms.DialogResult
 
-        RetrieveMainInput.Filter = "PWC 3 INPUT Files (*.PW3)|*.PW3|ALL Files (*.*)|*.*"
+        RetrieveMainInput.Filter = "PWC 3 INPUT Files (*.PW4)|*.PW4|PWC 3 INPUT Files (*.PW3)|*.PW3|ALL Files (*.*)|*.*"
 
         'Opens the desktop if there is no previous open
         If System.IO.Directory.Exists(FileNames.WorkingDirectory) Then
