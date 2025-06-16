@@ -29,12 +29,15 @@ module TPEZ_spray_initialization
                 else            
                      buffer = 0.0
                 end if
-
-                call trapezoid_rule(buffer,    buffer + width_tpez ,    (drift_schemes(scheme_number,i) ), tpez_drift_value(i) )           
+      
+                call trapezoid_rule(buffer,    buffer + width_tpez ,    (drift_schemes(scheme_number,i) ), tpez_drift_value(i) ) 
+                
+                if (is_output_spraydrift )  write(*,*)  "tpez drift factor, before mitigation", tpez_drift_value(i) 
+                
                 tpez_drift_value(i) =  tpez_drift_value(i) * drift_mitigation    
                 
 
-                if (is_output_spraydrift )  write(*,*)  "tpez drift factor ", tpez_drift_value(i)      
+                     
          end do 
          
     end  subroutine set_tpez_spray

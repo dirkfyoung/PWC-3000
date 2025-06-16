@@ -89,7 +89,7 @@ module schemeload
     
             
             
-            if (is_output_spraydrift)  write(*,*)  "drift factor ", drift_value(i)    
+            if (is_output_spraydrift)  write(*,*)  "drift factor, before mitigation ", drift_value(i)    
             
             lag_app_in(i)          = lag_schemes(scheme_number,i)
             repeat_app_in(i)       = periodicity_schemes(scheme_number,i)

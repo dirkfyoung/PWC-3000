@@ -252,10 +252,9 @@
 
         Dim phrase1 As String = "Sch#, Description,mode,#Apps,"
         Dim phrase2 As String = " days,amt,method,depth,split,drift,buffer,period,lag,"
-        Dim phrase3 As String = "window, span,step,raifast,rainlimit,intolwindow,optwindow,mindays,#scn, scn dir,  "
+        Dim phrase3 As String = "window, span,step,raifast,rainlimit,intolwindow,optwindow,mindays,RunoffMit, ErosionMit, DriftMit, #scn, scn dir,  "
 
         msg = msg & String.Format("{0}{1}{1}{1}{1}{1}{1}{1}{1}{1}{1}{2}", phrase1, phrase2, phrase3)
-
 
 
         Dim checktest As Integer
@@ -312,6 +311,8 @@
                 msg = msg & String.Format("{0},{1},{2},", ApplicationTable.UseApplicationWindow, ApplicationTable.ApplicationWindowSpan, ApplicationTable.ApplicationWindowStep)
                 msg = msg & String.Format("{0},{1},{2},{3},{4},", ApplicationTable.UseRainFast, ApplicationTable.RainLimit, ApplicationTable.IntolerableRainWindow, ApplicationTable.OptimumApplicationWindow, ApplicationTable.MinDaysBetweenApps)
 
+
+                msg = msg & String.Format("{0},{1},{2},", ApplicationTable.RunoffMitigation, ApplicationTable.ErosionMitigation, ApplicationTable.DriftMitigation)
 
 
                 NumberOfScenarios = ApplicationTable.Scenarios.Count
@@ -1132,18 +1133,22 @@
                 ApplicationTable.OptimumApplicationWindow = currentrow(100)
                 ApplicationTable.MinDaysBetweenApps = currentrow(101)
 
-                NumberOfScenarios = currentrow(102)
+                ApplicationTable.RunoffMitigation = currentrow(102)
+                ApplicationTable.ErosionMitigation = currentrow(103)
+                ApplicationTable.DriftMitigation = currentrow(104)
+
+                NumberOfScenarios = currentrow(105)
 
 
                 'Row 103 is the path
-                If currentrow(103) = "" Then
+                If currentrow(106) = "" Then
                     scenariopath = ""
                 Else
-                    scenariopath = currentrow(103)
+                    scenariopath = currentrow(106)
                 End If
 
 
-                For j As Integer = 104 To 104 + NumberOfScenarios - 1
+                For j As Integer = 107 To 107 + NumberOfScenarios - 1
                     ApplicationTable.Scenarios.Add(scenariopath & currentrow(j))
                 Next
                 SchemeInfoList.Add(ApplicationTable)
