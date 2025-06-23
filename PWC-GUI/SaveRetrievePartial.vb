@@ -246,8 +246,16 @@
             Return
         End If
 
+        Dim massUnits As String
+        If kgha.Checked Then
+            massUnits = "kg/ha"
+        Else
+            massUnits = "lb/acre"
+        End If
 
-        msg = msg & String.Format("{0}{1}{0}", vbNewLine, NumberOfSchemes)
+
+
+        msg = msg & String.Format("{0}{1}, amt in {2} {0}", vbNewLine, NumberOfSchemes, massUnits)
         SchemeTableDisplay.CommitEdit(DataGridViewDataErrorContexts.Commit) 'commit the cell if cursor still on box
 
         Dim phrase1 As String = "Sch#, Description,mode,#Apps,"
@@ -1064,6 +1072,13 @@
             MyReader.ReadLine()                'Title        LINE 1
             currentrow = MyReader.ReadFields   'No. Schemes  LINE 2
             NumberOfSchemes = currentrow(0)
+
+            If currentrow(1).Contains("kg/ha") Then
+                kgha.Checked = True
+            Else
+                poundToKiloConversion.Checked = True
+            End If
+
             MyReader.ReadLine()                'Header       LINE 3
 
             SchemeTableDisplay.Rows.Clear()
