@@ -632,7 +632,50 @@ Public Class Form1
 
                     SchemeTableDisplay.Rows(e.RowIndex).Cells(e.ColumnIndex).Value = "got it"
 
-                    Timer1.Start()
+
+                'Calculate the total number of simulations
+                Dim tally As Integer
+                Dim runsInScheme As Integer
+                Dim windowRuns As Integer
+                Dim span As Single
+                Dim windstep As Single
+
+                tally = 0
+
+                For i As Integer = 0 To SchemeInfoList.Count - 1
+                    If SchemeInfoList(i).UseApplicationWindow Then
+
+                        Try
+                            span = SchemeInfoList(i).ApplicationWindowSpan
+                            windstep = SchemeInfoList(i).ApplicationWindowStep
+                            If span > 365 Then
+                                MsgBox("Application Window span maximum is 365 days")
+                                Exit Sub
+                            End If
+
+                        Catch ex As Exception
+
+
+                            MsgBox("The Application Window parameters are a problem")
+                            RunCount.Text = "XXXXXXX"
+                            Exit Sub
+                        End Try
+
+
+
+                        windowRuns = span / windstep + 1
+                    Else
+                        windowRuns = 1
+                    End If
+                    runsInScheme = SchemeInfoList(i).Scenarios.Count * windowRuns
+                    tally = tally + runsInScheme
+                Next
+
+                RunCount.Text = tally
+
+
+
+                Timer1.Start()
 
 
 
@@ -1033,8 +1076,6 @@ Public Class Form1
     End Sub
 
     Private Sub PushToLoadWaterBody_Click(sender As Object, e As EventArgs) Handles PushToLoadWaterBody.Click
-
-
 
         OpenWaterbodyFile.Filter = "Waterbody Files (*.WAT)|*.WAT"
 
