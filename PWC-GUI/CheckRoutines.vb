@@ -236,6 +236,27 @@ Partial Public Class Form1
 
             ApplicationTable = SchemeInfoList(i)
 
+
+            If ApplicationTable.UseApplicationWindow = True Then
+                TestActualIntegers(TrueOrFalse, msg, ApplicationTable.ApplicationWindowStep)
+                msg = msg & ": Window step in scheme " & Convert.ToString(i + 1)
+                If TrueOrFalse = False Then Return
+
+                TestActualIntegers(TrueOrFalse, msg, ApplicationTable.ApplicationWindowSpan)
+                msg = msg & ": Window span in scheme " & Convert.ToString(i + 1)
+                If TrueOrFalse = False Then Return
+
+
+                If ApplicationTable.ApplicationWindowSpan > 365 Then
+                    msg = "application window span cannot be greater than 365, scheme " & (i + 1)
+                    TrueOrFalse = False
+                    Return
+                End If
+
+            End If
+
+
+
             'Application Table Information
             actualRowsInAppTable = ApplicationTable.Days.Count   'AppTableDisplay.RowCount - 1
             If actualRowsInAppTable < 1 Then
@@ -243,6 +264,13 @@ Partial Public Class Form1
                 TrueOrFalse = False
                 Return
             End If
+
+
+
+
+
+
+
 
             Dim formats() As String = {"MM/d/yyyy", "MM/dd/yyyy", "M/dd/yyyy", "M/d/yyyy", "M/d", "MM/d", "M/d", "M/dd"}
             Dim thisDt As DateTime

@@ -561,14 +561,12 @@ Public Class Form1
                                 '    AppTableDisplay.Item(5, i).Value = Standard.sprayterm16
                         End Select
 
-
                         AppTableDisplay.Item(6, i).Value = ApplicationTable.DriftBuffer(i)
                         AppTableDisplay.Item(7, i).Value = ApplicationTable.Periodicity(i)
                         AppTableDisplay.Item(8, i).Value = ApplicationTable.Lag(i)
 
                     Next
                 End If
-
 
                 AbsoluteDaysButton.Checked = ApplicationTable.AbsoluteRelative
 
@@ -599,23 +597,16 @@ Public Class Form1
 
                 Case "Commit"
 
+                '    'Disabling button apparently does not really disable its action, only its color
+                '    'So I added the following IF to kick out of the commit button if the edit box is not checked
 
-
-                    ' Some error messages have been arising in here ...
-
-                    '    'Disabling button apparently does not really disable its action, only its color
-                    '    'So I added the following IF to kick out of the commit button if the edit box is not checked
-
-
-
-                    If SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = False Then
+                If SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = False Then
                         Exit Sub
                     End If
 
-
-                    'same set of lines as in EDIT above, but needed because if you change scheme description
-                    'without unchecking and rechecking EDIT, then the labvels will not be loaded
-                    Description = SchemeTableDisplay.Rows(e.RowIndex).Cells(3).Value
+                'same set of lines as in EDIT above, but needed because if you change scheme description
+                'without unchecking and rechecking EDIT, then the labvels will not be loaded
+                Description = SchemeTableDisplay.Rows(e.RowIndex).Cells(3).Value
 
                     DisplayedSchemeNumber = e.RowIndex + 1
                     SchemeLabels = DisplayedSchemeNumber & " " & Description
@@ -623,17 +614,15 @@ Public Class Form1
                     Label88.Text = SchemeLabels
                     Label87.Text = SchemeLabels
 
+                For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
+                    SchemeTableDisplay.Rows(i).Cells(e.ColumnIndex).Value = ""
+                Next
 
-                    For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
-                        SchemeTableDisplay.Rows(i).Cells(e.ColumnIndex).Value = ""
-                    Next
+                RecordScheme(e.RowIndex)
 
-                    RecordScheme(e.RowIndex)
+                SchemeTableDisplay.Rows(e.RowIndex).Cells(e.ColumnIndex).Value = "got it"
 
-                    SchemeTableDisplay.Rows(e.RowIndex).Cells(e.ColumnIndex).Value = "got it"
-
-
-                'Calculate the total number of simulations
+                '******* Calculate the total number of simulations ************************
                 Dim tally As Integer
                 Dim runsInScheme As Integer
                 Dim windowRuns As Integer
@@ -643,25 +632,27 @@ Public Class Form1
                 tally = 0
 
                 For i As Integer = 0 To SchemeInfoList.Count - 1
-                    If SchemeInfoList(i).UseApplicationWindow Then
+                    If SchemeInfoList(i).UseBatchScenarioFile Then
+                        RunCount.Text = "????"
+                        MsgBox(SchemeInfoList(i).UseBatchScenarioFile)
+                        Exit For
+                    End If
 
+                    If SchemeInfoList(i).UseApplicationWindow Then
                         Try
                             span = SchemeInfoList(i).ApplicationWindowSpan
                             windstep = SchemeInfoList(i).ApplicationWindowStep
                             If span > 365 Then
                                 MsgBox("Application Window span maximum is 365 days")
+                                RunCount.Text = "XXXXXXX"
                                 Exit Sub
                             End If
 
                         Catch ex As Exception
-
-
                             MsgBox("The Application Window parameters are a problem")
                             RunCount.Text = "XXXXXXX"
                             Exit Sub
                         End Try
-
-
 
                         windowRuns = span / windstep + 1
                     Else
@@ -671,9 +662,10 @@ Public Class Form1
                     tally = tally + runsInScheme
                 Next
 
-                RunCount.Text = tally
-
-
+                If RunCount.Text <> "????" Then
+                    RunCount.Text = tally
+                End If
+                '********************************************************************
 
                 Timer1.Start()
 
@@ -681,10 +673,7 @@ Public Class Form1
 
                 Case "Delete"
 
-
-
-
-                    If SchemeTableDisplay.CurrentRow.IsNewRow Then
+                If SchemeTableDisplay.CurrentRow.IsNewRow Then
                         Beep()
                     Else
                         'toggle off scenario and app tab if delete the checked scheme 
@@ -694,9 +683,7 @@ Public Class Form1
                             TabControl1.Controls.Remove(SchemeScenariosTab)
                         End If
 
-
-
-                        SchemeTableDisplay.Rows.Remove(SchemeTableDisplay.Rows(e.RowIndex))
+                    SchemeTableDisplay.Rows.Remove(SchemeTableDisplay.Rows(e.RowIndex))
                     End If
 
                     If SchemeInfoList.Count > e.RowIndex Then
@@ -707,9 +694,7 @@ Public Class Form1
                         SchemeInfoList.RemoveAt(e.RowIndex)
                     End If
 
-
-
-                Case Else
+            Case Else
                     Exit Sub
             End Select
 
