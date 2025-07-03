@@ -962,7 +962,8 @@ subroutine SetupApplications
         write (*,*) '###################################################'
     end if
 
-    !not sure about this, check it it seems to alter the original
+    !not sure about this, check it it seems to alter the original, 
+    !maybe doesnt matter cuz its just  a reorder after rain restriction sort
     application_date_original = application_date  !keep application_date_original the same for every scheme
     
   end subroutine SetupApplications

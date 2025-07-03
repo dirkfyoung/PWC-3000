@@ -618,7 +618,7 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
          character(LEN=50) :: weather_grid
          integer :: iostatus
      
-         real ::  gw_depth, gw_temp  !meters and C
+         real ::  gw_depth, gw_temp  !cm and C
          character(LEN=1000) :: input_string
          character(LEN=3) ::cropgroup,region
          
