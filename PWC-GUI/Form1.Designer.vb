@@ -24,8 +24,8 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -121,57 +121,16 @@ Partial Class Form1
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.kgha = New System.Windows.Forms.RadioButton()
         Me.poundToKiloConversion = New System.Windows.Forms.RadioButton()
-        Me.VolatilizationBounday = New System.Windows.Forms.TextBox()
-        Me.Label44 = New System.Windows.Forms.Label()
         Me.WaterBodyType = New System.Windows.Forms.TextBox()
         Me.Label93 = New System.Windows.Forms.Label()
         Me.ScenarioExaminerTab = New System.Windows.Forms.TabPage()
         Me.LoadFromCSV = New System.Windows.Forms.CheckBox()
-        Me.Label120 = New System.Windows.Forms.Label()
         Me.Label119 = New System.Windows.Forms.Label()
         Me.CSV_line = New System.Windows.Forms.TextBox()
         Me.Label133 = New System.Windows.Forms.Label()
-        Me.Label91 = New System.Windows.Forms.Label()
         Me.PushToSaveScenario = New System.Windows.Forms.Button()
         Me.PushToLoadScenario = New System.Windows.Forms.Button()
-        Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Label171 = New System.Windows.Forms.Label()
-        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
-        Me.Label170 = New System.Windows.Forms.Label()
-        Me.Label169 = New System.Windows.Forms.Label()
-        Me.Label168 = New System.Windows.Forms.Label()
-        Me.Label167 = New System.Windows.Forms.Label()
-        Me.Label166 = New System.Windows.Forms.Label()
-        Me.Label165 = New System.Windows.Forms.Label()
-        Me.Label164 = New System.Windows.Forms.Label()
-        Me.Label163 = New System.Windows.Forms.Label()
-        Me.Label162 = New System.Windows.Forms.Label()
-        Me.Label161 = New System.Windows.Forms.Label()
-        Me.Label160 = New System.Windows.Forms.Label()
-        Me.Label159 = New System.Windows.Forms.Label()
-        Me.Label158 = New System.Windows.Forms.Label()
-        Me.Label157 = New System.Windows.Forms.Label()
-        Me.Label156 = New System.Windows.Forms.Label()
-        Me.Label155 = New System.Windows.Forms.Label()
-        Me.Label154 = New System.Windows.Forms.Label()
-        Me.Label151 = New System.Windows.Forms.Label()
-        Me.Label150 = New System.Windows.Forms.Label()
-        Me.Label149 = New System.Windows.Forms.Label()
-        Me.Label146 = New System.Windows.Forms.Label()
-        Me.Label145 = New System.Windows.Forms.Label()
-        Me.Label144 = New System.Windows.Forms.Label()
-        Me.Label140 = New System.Windows.Forms.Label()
-        Me.Label138 = New System.Windows.Forms.Label()
-        Me.Label141 = New System.Windows.Forms.Label()
-        Me.Label153 = New System.Windows.Forms.Label()
-        Me.Label152 = New System.Windows.Forms.Label()
-        Me.Label148 = New System.Windows.Forms.Label()
-        Me.Label147 = New System.Windows.Forms.Label()
-        Me.Label143 = New System.Windows.Forms.Label()
-        Me.Label142 = New System.Windows.Forms.Label()
-        Me.Label136 = New System.Windows.Forms.Label()
-        Me.Label139 = New System.Windows.Forms.Label()
-        Me.Label137 = New System.Windows.Forms.Label()
         Me.Label135 = New System.Windows.Forms.Label()
         Me.useAutoGWprofile = New System.Windows.Forms.CheckBox()
         Me.Label132 = New System.Windows.Forms.Label()
@@ -179,19 +138,16 @@ Partial Class Form1
         Me.DiscretizationGridView = New System.Windows.Forms.DataGridView()
         Me.Thickness = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Increments = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Label99 = New System.Windows.Forms.Label()
         Me.Label98 = New System.Windows.Forms.Label()
         Me.Label97 = New System.Windows.Forms.Label()
         Me.Label96 = New System.Windows.Forms.Label()
         Me.Label84 = New System.Windows.Forms.Label()
-        Me.GetWeatherFile = New System.Windows.Forms.Button()
+        Me.Label44 = New System.Windows.Forms.Label()
+        Me.VolatilizationBounday = New System.Windows.Forms.TextBox()
         Me.albedo = New System.Windows.Forms.TextBox()
-        Me.Label37 = New System.Windows.Forms.Label()
         Me.evapDepth = New System.Windows.Forms.TextBox()
         Me.Label35 = New System.Windows.Forms.Label()
-        Me.PETadjustment = New System.Windows.Forms.TextBox()
         Me.Evergreen = New System.Windows.Forms.CheckBox()
-        Me.WeatherFileName = New System.Windows.Forms.TextBox()
         Me.EvergreenPanel = New System.Windows.Forms.Panel()
         Me.Label43 = New System.Windows.Forms.Label()
         Me.Label42 = New System.Windows.Forms.Label()
@@ -221,14 +177,11 @@ Partial Class Form1
         Me.noIrrigation = New System.Windows.Forms.RadioButton()
         Me.eInteracting = New System.Windows.Forms.TextBox()
         Me.rDecline = New System.Windows.Forms.TextBox()
-        Me.Label21 = New System.Windows.Forms.Label()
         Me.rInteracting = New System.Windows.Forms.TextBox()
         Me.eDepth = New System.Windows.Forms.TextBox()
         Me.eDecline = New System.Windows.Forms.TextBox()
         Me.rDepth = New System.Windows.Forms.TextBox()
-        Me.latitude = New System.Windows.Forms.TextBox()
         Me.Label26 = New System.Windows.Forms.Label()
-        Me.ScenarioID = New System.Windows.Forms.TextBox()
         Me.Label27 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.Label25 = New System.Windows.Forms.Label()
@@ -242,9 +195,18 @@ Partial Class Form1
         Me.Column7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label24 = New System.Windows.Forms.Label()
         Me.Label23 = New System.Windows.Forms.Label()
-        Me.Label62 = New System.Windows.Forms.Label()
         Me.SimTemperature = New System.Windows.Forms.CheckBox()
         Me.CropGridView = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewComboBoxColumn1 = New System.Windows.Forms.DataGridViewComboBoxColumn()
+        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.RunoffErosionYearSpecific = New System.Windows.Forms.RadioButton()
         Me.YearlyCycleButton = New System.Windows.Forms.RadioButton()
         Me.HydroDataGrid = New System.Windows.Forms.DataGridView()
@@ -261,6 +223,14 @@ Partial Class Form1
         Me.usleP = New System.Windows.Forms.TextBox()
         Me.ireg = New System.Windows.Forms.TextBox()
         Me.slope = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.ScenarioID = New System.Windows.Forms.TextBox()
+        Me.GetWeatherFile = New System.Windows.Forms.Button()
+        Me.WeatherFileName = New System.Windows.Forms.TextBox()
+        Me.Label62 = New System.Windows.Forms.Label()
+        Me.latitude = New System.Windows.Forms.TextBox()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.PETadjustment = New System.Windows.Forms.TextBox()
         Me.Column13 = New PWC_2020.DataGridViewDisableButtonColumn()
         Me.Label92 = New System.Windows.Forms.Label()
         Me.PushToSaveWaterBody = New System.Windows.Forms.Button()
@@ -538,16 +508,6 @@ Partial Class Form1
         Me.OpenSelectScenarioBatchFile = New System.Windows.Forms.OpenFileDialog()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewComboBoxColumn1 = New System.Windows.Forms.DataGridViewComboBoxColumn()
-        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.MenuStrip1.SuspendLayout()
         Me.AdvancedTab.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
@@ -555,8 +515,6 @@ Partial Class Form1
         Me.GroupBox5.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.ScenarioExaminerTab.SuspendLayout()
-        Me.Panel2.SuspendLayout()
-        Me.TableLayoutPanel3.SuspendLayout()
         CType(Me.DiscretizationGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.EvergreenPanel.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
@@ -1472,24 +1430,6 @@ Partial Class Form1
         Me.poundToKiloConversion.Text = "lb/acre"
         Me.poundToKiloConversion.UseVisualStyleBackColor = True
         '
-        'VolatilizationBounday
-        '
-        Me.VolatilizationBounday.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.VolatilizationBounday.Location = New System.Drawing.Point(769, 85)
-        Me.VolatilizationBounday.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.VolatilizationBounday.Name = "VolatilizationBounday"
-        Me.VolatilizationBounday.Size = New System.Drawing.Size(73, 22)
-        Me.VolatilizationBounday.TabIndex = 139
-        '
-        'Label44
-        '
-        Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(479, 91)
-        Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(209, 16)
-        Me.Label44.TabIndex = 140
-        Me.Label44.Text = "Volatilization Boundary Layer (cm)"
-        '
         'WaterBodyType
         '
         Me.WaterBodyType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
@@ -1512,15 +1452,68 @@ Partial Class Form1
         '
         Me.ScenarioExaminerTab.AutoScroll = True
         Me.ScenarioExaminerTab.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label171)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label96)
+        Me.ScenarioExaminerTab.Controls.Add(Me.eInteracting)
+        Me.ScenarioExaminerTab.Controls.Add(Me.rDecline)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label98)
+        Me.ScenarioExaminerTab.Controls.Add(Me.rInteracting)
         Me.ScenarioExaminerTab.Controls.Add(Me.LoadFromCSV)
-        Me.ScenarioExaminerTab.Controls.Add(Me.Label120)
+        Me.ScenarioExaminerTab.Controls.Add(Me.eDepth)
+        Me.ScenarioExaminerTab.Controls.Add(Me.EvergreenPanel)
+        Me.ScenarioExaminerTab.Controls.Add(Me.eDecline)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Evergreen)
+        Me.ScenarioExaminerTab.Controls.Add(Me.rDepth)
         Me.ScenarioExaminerTab.Controls.Add(Me.Label119)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label26)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label132)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label27)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label135)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label28)
+        Me.ScenarioExaminerTab.Controls.Add(Me.DiscretizationGridView)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label25)
+        Me.ScenarioExaminerTab.Controls.Add(Me.useAutoGWprofile)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label24)
         Me.ScenarioExaminerTab.Controls.Add(Me.CSV_line)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label23)
         Me.ScenarioExaminerTab.Controls.Add(Me.Label133)
-        Me.ScenarioExaminerTab.Controls.Add(Me.Label91)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label131)
+        Me.ScenarioExaminerTab.Controls.Add(Me.HydroDataGrid)
+        Me.ScenarioExaminerTab.Controls.Add(Me.RunoffErosionYearSpecific)
+        Me.ScenarioExaminerTab.Controls.Add(Me.YearlyCycleButton)
         Me.ScenarioExaminerTab.Controls.Add(Me.PushToSaveScenario)
         Me.ScenarioExaminerTab.Controls.Add(Me.PushToLoadScenario)
-        Me.ScenarioExaminerTab.Controls.Add(Me.Panel2)
+        Me.ScenarioExaminerTab.Controls.Add(Me.usleLS)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label21)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label29)
+        Me.ScenarioExaminerTab.Controls.Add(Me.ScenarioID)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label30)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label97)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label31)
+        Me.ScenarioExaminerTab.Controls.Add(Me.CropGridView)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label32)
+        Me.ScenarioExaminerTab.Controls.Add(Me.GetWeatherFile)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label33)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label84)
+        Me.ScenarioExaminerTab.Controls.Add(Me.usleK)
+        Me.ScenarioExaminerTab.Controls.Add(Me.WeatherFileName)
+        Me.ScenarioExaminerTab.Controls.Add(Me.usleP)
+        Me.ScenarioExaminerTab.Controls.Add(Me.albedo)
+        Me.ScenarioExaminerTab.Controls.Add(Me.ireg)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label62)
+        Me.ScenarioExaminerTab.Controls.Add(Me.slope)
+        Me.ScenarioExaminerTab.Controls.Add(Me.evapDepth)
+        Me.ScenarioExaminerTab.Controls.Add(Me.VolatilizationBounday)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label35)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label44)
+        Me.ScenarioExaminerTab.Controls.Add(Me.latitude)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label37)
+        Me.ScenarioExaminerTab.Controls.Add(Me.bcTemp)
+        Me.ScenarioExaminerTab.Controls.Add(Me.PETadjustment)
+        Me.ScenarioExaminerTab.Controls.Add(Me.Label83)
+        Me.ScenarioExaminerTab.Controls.Add(Me.GroupBox4)
+        Me.ScenarioExaminerTab.Controls.Add(Me.SimTemperature)
+        Me.ScenarioExaminerTab.Controls.Add(Me.HorizonGridView)
         Me.ScenarioExaminerTab.Location = New System.Drawing.Point(4, 25)
         Me.ScenarioExaminerTab.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ScenarioExaminerTab.Name = "ScenarioExaminerTab"
@@ -1532,21 +1525,12 @@ Partial Class Form1
         'LoadFromCSV
         '
         Me.LoadFromCSV.AutoSize = True
-        Me.LoadFromCSV.Location = New System.Drawing.Point(27, 89)
+        Me.LoadFromCSV.Location = New System.Drawing.Point(23, 78)
         Me.LoadFromCSV.Name = "LoadFromCSV"
         Me.LoadFromCSV.Size = New System.Drawing.Size(277, 20)
         Me.LoadFromCSV.TabIndex = 213
         Me.LoadFromCSV.Text = "Load scenario from csv file at line number:"
         Me.LoadFromCSV.UseVisualStyleBackColor = True
-        '
-        'Label120
-        '
-        Me.Label120.AutoSize = True
-        Me.Label120.Location = New System.Drawing.Point(202, 91)
-        Me.Label120.Name = "Label120"
-        Me.Label120.Size = New System.Drawing.Size(32, 16)
-        Me.Label120.TabIndex = 212
-        Me.Label120.Text = "Line"
         '
         'Label119
         '
@@ -1559,7 +1543,7 @@ Partial Class Form1
         'CSV_line
         '
         Me.CSV_line.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CSV_line.Location = New System.Drawing.Point(344, 85)
+        Me.CSV_line.Location = New System.Drawing.Point(337, 78)
         Me.CSV_line.Name = "CSV_line"
         Me.CSV_line.Size = New System.Drawing.Size(61, 22)
         Me.CSV_line.TabIndex = 210
@@ -1575,17 +1559,6 @@ Partial Class Form1
         Me.Label133.Size = New System.Drawing.Size(269, 41)
         Me.Label133.TabIndex = 207
         Me.Label133.Text = "Field Scenario"
-        '
-        'Label91
-        '
-        Me.Label91.AutoSize = True
-        Me.Label91.Font = New System.Drawing.Font("Algerian", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label91.ForeColor = System.Drawing.Color.Moccasin
-        Me.Label91.Location = New System.Drawing.Point(1219, 94)
-        Me.Label91.Name = "Label91"
-        Me.Label91.Size = New System.Drawing.Size(335, 45)
-        Me.Label91.TabIndex = 205
-        Me.Label91.Text = "Field Scenario"
         '
         'PushToSaveScenario
         '
@@ -1611,495 +1584,19 @@ Partial Class Form1
         Me.PushToLoadScenario.Text = "Push Here to Examine a Scenario"
         Me.PushToLoadScenario.UseVisualStyleBackColor = False
         '
-        'Panel2
-        '
-        Me.Panel2.AutoScroll = True
-        Me.Panel2.BackColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(192, Byte), Integer))
-        Me.Panel2.Controls.Add(Me.Label171)
-        Me.Panel2.Controls.Add(Me.TableLayoutPanel3)
-        Me.Panel2.Controls.Add(Me.Label135)
-        Me.Panel2.Controls.Add(Me.useAutoGWprofile)
-        Me.Panel2.Controls.Add(Me.Label132)
-        Me.Panel2.Controls.Add(Me.Label131)
-        Me.Panel2.Controls.Add(Me.DiscretizationGridView)
-        Me.Panel2.Controls.Add(Me.Label99)
-        Me.Panel2.Controls.Add(Me.Label98)
-        Me.Panel2.Controls.Add(Me.Label97)
-        Me.Panel2.Controls.Add(Me.Label96)
-        Me.Panel2.Controls.Add(Me.Label84)
-        Me.Panel2.Controls.Add(Me.Label44)
-        Me.Panel2.Controls.Add(Me.VolatilizationBounday)
-        Me.Panel2.Controls.Add(Me.GetWeatherFile)
-        Me.Panel2.Controls.Add(Me.albedo)
-        Me.Panel2.Controls.Add(Me.Label37)
-        Me.Panel2.Controls.Add(Me.evapDepth)
-        Me.Panel2.Controls.Add(Me.Label35)
-        Me.Panel2.Controls.Add(Me.PETadjustment)
-        Me.Panel2.Controls.Add(Me.Evergreen)
-        Me.Panel2.Controls.Add(Me.WeatherFileName)
-        Me.Panel2.Controls.Add(Me.EvergreenPanel)
-        Me.Panel2.Controls.Add(Me.bcTemp)
-        Me.Panel2.Controls.Add(Me.Label83)
-        Me.Panel2.Controls.Add(Me.GroupBox4)
-        Me.Panel2.Controls.Add(Me.eInteracting)
-        Me.Panel2.Controls.Add(Me.rDecline)
-        Me.Panel2.Controls.Add(Me.Label21)
-        Me.Panel2.Controls.Add(Me.rInteracting)
-        Me.Panel2.Controls.Add(Me.eDepth)
-        Me.Panel2.Controls.Add(Me.eDecline)
-        Me.Panel2.Controls.Add(Me.rDepth)
-        Me.Panel2.Controls.Add(Me.latitude)
-        Me.Panel2.Controls.Add(Me.Label26)
-        Me.Panel2.Controls.Add(Me.ScenarioID)
-        Me.Panel2.Controls.Add(Me.Label27)
-        Me.Panel2.Controls.Add(Me.Label28)
-        Me.Panel2.Controls.Add(Me.Label25)
-        Me.Panel2.Controls.Add(Me.HorizonGridView)
-        Me.Panel2.Controls.Add(Me.Label24)
-        Me.Panel2.Controls.Add(Me.Label23)
-        Me.Panel2.Controls.Add(Me.Label62)
-        Me.Panel2.Controls.Add(Me.SimTemperature)
-        Me.Panel2.Controls.Add(Me.CropGridView)
-        Me.Panel2.Controls.Add(Me.RunoffErosionYearSpecific)
-        Me.Panel2.Controls.Add(Me.YearlyCycleButton)
-        Me.Panel2.Controls.Add(Me.HydroDataGrid)
-        Me.Panel2.Controls.Add(Me.usleLS)
-        Me.Panel2.Controls.Add(Me.Label29)
-        Me.Panel2.Controls.Add(Me.Label30)
-        Me.Panel2.Controls.Add(Me.Label31)
-        Me.Panel2.Controls.Add(Me.Label32)
-        Me.Panel2.Controls.Add(Me.Label33)
-        Me.Panel2.Controls.Add(Me.usleK)
-        Me.Panel2.Controls.Add(Me.usleP)
-        Me.Panel2.Controls.Add(Me.ireg)
-        Me.Panel2.Controls.Add(Me.slope)
-        Me.Panel2.Location = New System.Drawing.Point(23, 120)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(874, 2184)
-        Me.Panel2.TabIndex = 200
-        '
         'Label171
         '
         Me.Label171.AutoSize = True
-        Me.Label171.Location = New System.Drawing.Point(305, 1090)
+        Me.Label171.Location = New System.Drawing.Point(411, 989)
         Me.Label171.Name = "Label171"
-        Me.Label171.Size = New System.Drawing.Size(444, 32)
+        Me.Label171.Size = New System.Drawing.Size(508, 176)
         Me.Label171.TabIndex = 212
-        Me.Label171.Text = "*This value can be adjusted for different aquifer depths, but increment size " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "sh" &
-    "ould be kept at 50 cm."
-        '
-        'TableLayoutPanel3
-        '
-        Me.TableLayoutPanel3.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.TableLayoutPanel3.ColumnCount = 5
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 54.31034!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.68966!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 108.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 72.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 194.0!))
-        Me.TableLayoutPanel3.Controls.Add(Me.Label170, 4, 6)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label169, 3, 6)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label168, 2, 6)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label167, 1, 6)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label166, 0, 6)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label165, 4, 5)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label164, 3, 5)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label163, 2, 5)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label162, 1, 5)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label161, 0, 5)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label160, 4, 4)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label159, 3, 4)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label158, 2, 4)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label157, 1, 4)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label156, 0, 4)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label155, 4, 3)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label154, 3, 3)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label151, 0, 3)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label150, 4, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label149, 3, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label146, 4, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label145, 0, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label144, 3, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label140, 4, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label138, 2, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label141, 0, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label153, 1, 3)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label152, 2, 3)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label148, 1, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label147, 2, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label143, 1, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label142, 2, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label136, 0, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label139, 3, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.Label137, 1, 0)
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(302, 905)
-        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        Me.TableLayoutPanel3.RowCount = 7
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(491, 175)
-        Me.TableLayoutPanel3.TabIndex = 211
-        '
-        'Label170
-        '
-        Me.Label170.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label170.AutoSize = True
-        Me.Label170.Location = New System.Drawing.Point(379, 154)
-        Me.Label170.Name = "Label170"
-        Me.Label170.Size = New System.Drawing.Size(28, 16)
-        Me.Label170.TabIndex = 237
-        Me.Label170.Text = "400"
-        '
-        'Label169
-        '
-        Me.Label169.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label169.AutoSize = True
-        Me.Label169.Location = New System.Drawing.Point(246, 154)
-        Me.Label169.Name = "Label169"
-        Me.Label169.Size = New System.Drawing.Size(28, 16)
-        Me.Label169.TabIndex = 236
-        Me.Label169.Text = "300"
-        '
-        'Label168
-        '
-        Me.Label168.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label168.AutoSize = True
-        Me.Label168.Location = New System.Drawing.Point(159, 154)
-        Me.Label168.Name = "Label168"
-        Me.Label168.Size = New System.Drawing.Size(21, 16)
-        Me.Label168.TabIndex = 235
-        Me.Label168.Text = "50"
-        '
-        'Label167
-        '
-        Me.Label167.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label167.AutoSize = True
-        Me.Label167.Location = New System.Drawing.Point(82, 154)
-        Me.Label167.Name = "Label167"
-        Me.Label167.Size = New System.Drawing.Size(14, 16)
-        Me.Label167.TabIndex = 234
-        Me.Label167.Text = "2"
-        '
-        'Label166
-        '
-        Me.Label166.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label166.AutoSize = True
-        Me.Label166.Location = New System.Drawing.Point(17, 154)
-        Me.Label166.Name = "Label166"
-        Me.Label166.Size = New System.Drawing.Size(28, 16)
-        Me.Label166.TabIndex = 233
-        Me.Label166.Text = "100"
-        '
-        'Label165
-        '
-        Me.Label165.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label165.AutoSize = True
-        Me.Label165.Location = New System.Drawing.Point(379, 132)
-        Me.Label165.Name = "Label165"
-        Me.Label165.Size = New System.Drawing.Size(28, 16)
-        Me.Label165.TabIndex = 232
-        Me.Label165.Text = "300"
-        '
-        'Label164
-        '
-        Me.Label164.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label164.AutoSize = True
-        Me.Label164.Location = New System.Drawing.Point(246, 132)
-        Me.Label164.Name = "Label164"
-        Me.Label164.Size = New System.Drawing.Size(28, 16)
-        Me.Label164.TabIndex = 231
-        Me.Label164.Text = "100"
-        '
-        'Label163
-        '
-        Me.Label163.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label163.AutoSize = True
-        Me.Label163.Location = New System.Drawing.Point(159, 132)
-        Me.Label163.Name = "Label163"
-        Me.Label163.Size = New System.Drawing.Size(21, 16)
-        Me.Label163.TabIndex = 230
-        Me.Label163.Text = "50"
-        '
-        'Label162
-        '
-        Me.Label162.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label162.AutoSize = True
-        Me.Label162.Location = New System.Drawing.Point(82, 132)
-        Me.Label162.Name = "Label162"
-        Me.Label162.Size = New System.Drawing.Size(14, 16)
-        Me.Label162.TabIndex = 229
-        Me.Label162.Text = "4"
-        '
-        'Label161
-        '
-        Me.Label161.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label161.AutoSize = True
-        Me.Label161.Location = New System.Drawing.Point(15, 132)
-        Me.Label161.Name = "Label161"
-        Me.Label161.Size = New System.Drawing.Size(33, 16)
-        Me.Label161.TabIndex = 228
-        Me.Label161.Text = "200*"
-        '
-        'Label160
-        '
-        Me.Label160.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label160.AutoSize = True
-        Me.Label160.Location = New System.Drawing.Point(379, 112)
-        Me.Label160.Name = "Label160"
-        Me.Label160.Size = New System.Drawing.Size(28, 16)
-        Me.Label160.TabIndex = 227
-        Me.Label160.Text = "100"
-        '
-        'Label159
-        '
-        Me.Label159.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label159.AutoSize = True
-        Me.Label159.Location = New System.Drawing.Point(249, 112)
-        Me.Label159.Name = "Label159"
-        Me.Label159.Size = New System.Drawing.Size(21, 16)
-        Me.Label159.TabIndex = 226
-        Me.Label159.Text = "20"
-        '
-        'Label158
-        '
-        Me.Label158.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label158.AutoSize = True
-        Me.Label158.Location = New System.Drawing.Point(159, 112)
-        Me.Label158.Name = "Label158"
-        Me.Label158.Size = New System.Drawing.Size(21, 16)
-        Me.Label158.TabIndex = 225
-        Me.Label158.Text = "20"
-        '
-        'Label157
-        '
-        Me.Label157.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label157.AutoSize = True
-        Me.Label157.Location = New System.Drawing.Point(82, 112)
-        Me.Label157.Name = "Label157"
-        Me.Label157.Size = New System.Drawing.Size(14, 16)
-        Me.Label157.TabIndex = 224
-        Me.Label157.Text = "4"
-        '
-        'Label156
-        '
-        Me.Label156.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label156.AutoSize = True
-        Me.Label156.Location = New System.Drawing.Point(21, 112)
-        Me.Label156.Name = "Label156"
-        Me.Label156.Size = New System.Drawing.Size(21, 16)
-        Me.Label156.TabIndex = 223
-        Me.Label156.Text = "80"
-        '
-        'Label155
-        '
-        Me.Label155.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label155.AutoSize = True
-        Me.Label155.Location = New System.Drawing.Point(383, 92)
-        Me.Label155.Name = "Label155"
-        Me.Label155.Size = New System.Drawing.Size(21, 16)
-        Me.Label155.TabIndex = 222
-        Me.Label155.Text = "20"
-        '
-        'Label154
-        '
-        Me.Label154.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label154.AutoSize = True
-        Me.Label154.Location = New System.Drawing.Point(249, 92)
-        Me.Label154.Name = "Label154"
-        Me.Label154.Size = New System.Drawing.Size(21, 16)
-        Me.Label154.TabIndex = 221
-        Me.Label154.Text = "10"
-        '
-        'Label151
-        '
-        Me.Label151.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label151.AutoSize = True
-        Me.Label151.Location = New System.Drawing.Point(21, 92)
-        Me.Label151.Name = "Label151"
-        Me.Label151.Size = New System.Drawing.Size(21, 16)
-        Me.Label151.TabIndex = 218
-        Me.Label151.Text = "10"
-        '
-        'Label150
-        '
-        Me.Label150.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label150.AutoSize = True
-        Me.Label150.Location = New System.Drawing.Point(383, 72)
-        Me.Label150.Name = "Label150"
-        Me.Label150.Size = New System.Drawing.Size(21, 16)
-        Me.Label150.TabIndex = 217
-        Me.Label150.Text = "10"
-        '
-        'Label149
-        '
-        Me.Label149.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label149.AutoSize = True
-        Me.Label149.Location = New System.Drawing.Point(253, 72)
-        Me.Label149.Name = "Label149"
-        Me.Label149.Size = New System.Drawing.Size(14, 16)
-        Me.Label149.TabIndex = 216
-        Me.Label149.Text = "3"
-        '
-        'Label146
-        '
-        Me.Label146.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label146.AutoSize = True
-        Me.Label146.Location = New System.Drawing.Point(386, 52)
-        Me.Label146.Name = "Label146"
-        Me.Label146.Size = New System.Drawing.Size(14, 16)
-        Me.Label146.TabIndex = 213
-        Me.Label146.Text = "3"
-        '
-        'Label145
-        '
-        Me.Label145.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label145.AutoSize = True
-        Me.Label145.Location = New System.Drawing.Point(24, 72)
-        Me.Label145.Name = "Label145"
-        Me.Label145.Size = New System.Drawing.Size(14, 16)
-        Me.Label145.TabIndex = 212
-        Me.Label145.Text = "7"
-        '
-        'Label144
-        '
-        Me.Label144.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label144.AutoSize = True
-        Me.Label144.Location = New System.Drawing.Point(253, 52)
-        Me.Label144.Name = "Label144"
-        Me.Label144.Size = New System.Drawing.Size(14, 16)
-        Me.Label144.TabIndex = 8
-        Me.Label144.Text = "0"
-        '
-        'Label140
-        '
-        Me.Label140.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label140.AutoSize = True
-        Me.Label140.Location = New System.Drawing.Point(358, 17)
-        Me.Label140.Name = "Label140"
-        Me.Label140.Size = New System.Drawing.Size(70, 16)
-        Me.Label140.TabIndex = 4
-        Me.Label140.Text = "End Depth"
-        '
-        'Label138
-        '
-        Me.Label138.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label138.AutoSize = True
-        Me.Label138.Location = New System.Drawing.Point(121, 9)
-        Me.Label138.Name = "Label138"
-        Me.Label138.Size = New System.Drawing.Size(97, 32)
-        Me.Label138.TabIndex = 2
-        Me.Label138.Text = "Increment Size (cm)"
-        '
-        'Label141
-        '
-        Me.Label141.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label141.AutoSize = True
-        Me.Label141.Location = New System.Drawing.Point(24, 52)
-        Me.Label141.Name = "Label141"
-        Me.Label141.Size = New System.Drawing.Size(14, 16)
-        Me.Label141.TabIndex = 5
-        Me.Label141.Text = "3"
-        '
-        'Label153
-        '
-        Me.Label153.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label153.AutoSize = True
-        Me.Label153.Location = New System.Drawing.Point(82, 92)
-        Me.Label153.Name = "Label153"
-        Me.Label153.Size = New System.Drawing.Size(14, 16)
-        Me.Label153.TabIndex = 220
-        Me.Label153.Text = "2"
-        '
-        'Label152
-        '
-        Me.Label152.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label152.AutoSize = True
-        Me.Label152.Location = New System.Drawing.Point(158, 92)
-        Me.Label152.Name = "Label152"
-        Me.Label152.Size = New System.Drawing.Size(24, 16)
-        Me.Label152.TabIndex = 219
-        Me.Label152.Text = "5.0"
-        '
-        'Label148
-        '
-        Me.Label148.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label148.AutoSize = True
-        Me.Label148.Location = New System.Drawing.Point(82, 72)
-        Me.Label148.Name = "Label148"
-        Me.Label148.Size = New System.Drawing.Size(14, 16)
-        Me.Label148.TabIndex = 215
-        Me.Label148.Text = "7"
-        '
-        'Label147
-        '
-        Me.Label147.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label147.AutoSize = True
-        Me.Label147.Location = New System.Drawing.Point(158, 72)
-        Me.Label147.Name = "Label147"
-        Me.Label147.Size = New System.Drawing.Size(24, 16)
-        Me.Label147.TabIndex = 214
-        Me.Label147.Text = "1.0"
-        '
-        'Label143
-        '
-        Me.Label143.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label143.AutoSize = True
-        Me.Label143.Location = New System.Drawing.Point(79, 52)
-        Me.Label143.Name = "Label143"
-        Me.Label143.Size = New System.Drawing.Size(21, 16)
-        Me.Label143.TabIndex = 7
-        Me.Label143.Text = "30"
-        '
-        'Label142
-        '
-        Me.Label142.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label142.AutoSize = True
-        Me.Label142.Location = New System.Drawing.Point(158, 52)
-        Me.Label142.Name = "Label142"
-        Me.Label142.Size = New System.Drawing.Size(24, 16)
-        Me.Label142.TabIndex = 6
-        Me.Label142.Text = "0.1"
-        '
-        'Label136
-        '
-        Me.Label136.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label136.AutoSize = True
-        Me.Label136.Location = New System.Drawing.Point(4, 9)
-        Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(55, 32)
-        Me.Label136.TabIndex = 0
-        Me.Label136.Text = "Thickness (cm)"
-        Me.Label136.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'Label139
-        '
-        Me.Label139.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label139.AutoSize = True
-        Me.Label139.Location = New System.Drawing.Point(238, 9)
-        Me.Label139.Name = "Label139"
-        Me.Label139.Size = New System.Drawing.Size(43, 32)
-        Me.Label139.TabIndex = 3
-        Me.Label139.Text = "Start Depth"
-        '
-        'Label137
-        '
-        Me.Label137.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.Label137.AutoSize = True
-        Me.Label137.Location = New System.Drawing.Point(66, 0)
-        Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(47, 50)
-        Me.Label137.TabIndex = 1
-        Me.Label137.Text = "Number of " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Increments"
+        Me.Label171.Text = resources.GetString("Label171.Text")
         '
         'Label135
         '
         Me.Label135.AutoSize = True
-        Me.Label135.Location = New System.Drawing.Point(19, 636)
+        Me.Label135.Location = New System.Drawing.Point(76, 764)
         Me.Label135.Name = "Label135"
         Me.Label135.Size = New System.Drawing.Size(686, 96)
         Me.Label135.TabIndex = 210
@@ -2110,7 +1607,7 @@ Partial Class Form1
         Me.useAutoGWprofile.AutoSize = True
         Me.useAutoGWprofile.Checked = True
         Me.useAutoGWprofile.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.useAutoGWprofile.Location = New System.Drawing.Point(263, 612)
+        Me.useAutoGWprofile.Location = New System.Drawing.Point(320, 740)
         Me.useAutoGWprofile.Name = "useAutoGWprofile"
         Me.useAutoGWprofile.Size = New System.Drawing.Size(236, 20)
         Me.useAutoGWprofile.TabIndex = 209
@@ -2120,16 +1617,16 @@ Partial Class Form1
         'Label132
         '
         Me.Label132.AutoSize = True
-        Me.Label132.Location = New System.Drawing.Point(305, 741)
+        Me.Label132.Location = New System.Drawing.Point(411, 872)
         Me.Label132.Name = "Label132"
-        Me.Label132.Size = New System.Drawing.Size(500, 144)
+        Me.Label132.Size = New System.Drawing.Size(527, 96)
         Me.Label132.TabIndex = 204
         Me.Label132.Text = resources.GetString("Label132.Text")
         '
         'Label131
         '
         Me.Label131.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label131.Location = New System.Drawing.Point(9, 605)
+        Me.Label131.Location = New System.Drawing.Point(66, 733)
         Me.Label131.Name = "Label131"
         Me.Label131.Size = New System.Drawing.Size(271, 31)
         Me.Label131.TabIndex = 203
@@ -2139,7 +1636,7 @@ Partial Class Form1
         '
         Me.DiscretizationGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DiscretizationGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Thickness, Me.Increments})
-        Me.DiscretizationGridView.Location = New System.Drawing.Point(8, 775)
+        Me.DiscretizationGridView.Location = New System.Drawing.Point(79, 872)
         Me.DiscretizationGridView.Name = "DiscretizationGridView"
         Me.DiscretizationGridView.RowHeadersVisible = False
         Me.DiscretizationGridView.RowHeadersWidth = 51
@@ -2161,19 +1658,10 @@ Partial Class Form1
         Me.Increments.MinimumWidth = 6
         Me.Increments.Name = "Increments"
         '
-        'Label99
-        '
-        Me.Label99.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label99.Location = New System.Drawing.Point(346, 2122)
-        Me.Label99.Name = "Label99"
-        Me.Label99.Size = New System.Drawing.Size(166, 31)
-        Me.Label99.TabIndex = 201
-        Me.Label99.Text = "Scenario Page End"
-        '
         'Label98
         '
         Me.Label98.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label98.Location = New System.Drawing.Point(20, 1604)
+        Me.Label98.Location = New System.Drawing.Point(22, 1682)
         Me.Label98.Name = "Label98"
         Me.Label98.Size = New System.Drawing.Size(348, 31)
         Me.Label98.TabIndex = 200
@@ -2182,7 +1670,7 @@ Partial Class Form1
         'Label97
         '
         Me.Label97.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label97.Location = New System.Drawing.Point(10, 257)
+        Me.Label97.Location = New System.Drawing.Point(51, 384)
         Me.Label97.Name = "Label97"
         Me.Label97.Size = New System.Drawing.Size(177, 31)
         Me.Label97.TabIndex = 199
@@ -2191,7 +1679,7 @@ Partial Class Form1
         'Label96
         '
         Me.Label96.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label96.Location = New System.Drawing.Point(9, 1106)
+        Me.Label96.Location = New System.Drawing.Point(29, 1227)
         Me.Label96.Name = "Label96"
         Me.Label96.Size = New System.Drawing.Size(78, 31)
         Me.Label96.TabIndex = 0
@@ -2200,27 +1688,35 @@ Partial Class Form1
         'Label84
         '
         Me.Label84.AutoSize = True
-        Me.Label84.Location = New System.Drawing.Point(580, 320)
+        Me.Label84.Location = New System.Drawing.Point(621, 447)
         Me.Label84.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label84.Name = "Label84"
         Me.Label84.Size = New System.Drawing.Size(51, 16)
         Me.Label84.TabIndex = 84
         Me.Label84.Text = "Albedo"
         '
-        'GetWeatherFile
+        'Label44
         '
-        Me.GetWeatherFile.Location = New System.Drawing.Point(8, 39)
-        Me.GetWeatherFile.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.GetWeatherFile.Name = "GetWeatherFile"
-        Me.GetWeatherFile.Size = New System.Drawing.Size(132, 28)
-        Me.GetWeatherFile.TabIndex = 1
-        Me.GetWeatherFile.Text = "Get Weather File"
-        Me.GetWeatherFile.UseVisualStyleBackColor = True
+        Me.Label44.AutoSize = True
+        Me.Label44.Location = New System.Drawing.Point(528, 206)
+        Me.Label44.Name = "Label44"
+        Me.Label44.Size = New System.Drawing.Size(209, 16)
+        Me.Label44.TabIndex = 140
+        Me.Label44.Text = "Volatilization Boundary Layer (cm)"
+        '
+        'VolatilizationBounday
+        '
+        Me.VolatilizationBounday.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.VolatilizationBounday.Location = New System.Drawing.Point(776, 206)
+        Me.VolatilizationBounday.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.VolatilizationBounday.Name = "VolatilizationBounday"
+        Me.VolatilizationBounday.Size = New System.Drawing.Size(73, 22)
+        Me.VolatilizationBounday.TabIndex = 139
         '
         'albedo
         '
         Me.albedo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.albedo.Location = New System.Drawing.Point(636, 320)
+        Me.albedo.Location = New System.Drawing.Point(677, 447)
         Me.albedo.Margin = New System.Windows.Forms.Padding(4)
         Me.albedo.Name = "albedo"
         Me.albedo.Size = New System.Drawing.Size(55, 22)
@@ -2228,19 +1724,10 @@ Partial Class Form1
         Me.albedo.Tag = "albedo."
         Me.albedo.Text = "0.2"
         '
-        'Label37
-        '
-        Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(155, 91)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(110, 16)
-        Me.Label37.TabIndex = 138
-        Me.Label37.Text = "Adjust PET factor"
-        '
         'evapDepth
         '
         Me.evapDepth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.evapDepth.Location = New System.Drawing.Point(221, 298)
+        Me.evapDepth.Location = New System.Drawing.Point(262, 425)
         Me.evapDepth.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.evapDepth.Name = "evapDepth"
         Me.evapDepth.Size = New System.Drawing.Size(59, 22)
@@ -2250,27 +1737,17 @@ Partial Class Form1
         'Label35
         '
         Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(12, 299)
+        Me.Label35.Location = New System.Drawing.Point(53, 426)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(185, 16)
         Me.Label35.TabIndex = 134
         Me.Label35.Text = "Depth of soil evaporation (cm)"
         '
-        'PETadjustment
-        '
-        Me.PETadjustment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PETadjustment.Location = New System.Drawing.Point(279, 88)
-        Me.PETadjustment.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.PETadjustment.Name = "PETadjustment"
-        Me.PETadjustment.Size = New System.Drawing.Size(52, 22)
-        Me.PETadjustment.TabIndex = 137
-        Me.PETadjustment.Text = "1"
-        '
         'Evergreen
         '
         Me.Evergreen.AutoSize = True
         Me.Evergreen.CheckAlign = System.Drawing.ContentAlignment.BottomCenter
-        Me.Evergreen.Location = New System.Drawing.Point(110, 1474)
+        Me.Evergreen.Location = New System.Drawing.Point(90, 1569)
         Me.Evergreen.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.Evergreen.Name = "Evergreen"
         Me.Evergreen.Size = New System.Drawing.Size(74, 37)
@@ -2278,15 +1755,6 @@ Partial Class Form1
         Me.Evergreen.Text = "Evergreen"
         Me.Evergreen.TextAlign = System.Drawing.ContentAlignment.TopCenter
         Me.Evergreen.UseVisualStyleBackColor = True
-        '
-        'WeatherFileName
-        '
-        Me.WeatherFileName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.WeatherFileName.Location = New System.Drawing.Point(158, 42)
-        Me.WeatherFileName.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.WeatherFileName.Name = "WeatherFileName"
-        Me.WeatherFileName.Size = New System.Drawing.Size(369, 22)
-        Me.WeatherFileName.TabIndex = 2
         '
         'EvergreenPanel
         '
@@ -2298,7 +1766,7 @@ Partial Class Form1
         Me.EvergreenPanel.Controls.Add(Me.EvergreenHt)
         Me.EvergreenPanel.Controls.Add(Me.EvergreenCover)
         Me.EvergreenPanel.Controls.Add(Me.EvergreenRoot)
-        Me.EvergreenPanel.Location = New System.Drawing.Point(302, 1446)
+        Me.EvergreenPanel.Location = New System.Drawing.Point(215, 1569)
         Me.EvergreenPanel.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.EvergreenPanel.Name = "EvergreenPanel"
         Me.EvergreenPanel.Size = New System.Drawing.Size(316, 98)
@@ -2326,7 +1794,7 @@ Partial Class Form1
         'Label41
         '
         Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(90, 18)
+        Me.Label41.Location = New System.Drawing.Point(77, 2)
         Me.Label41.Name = "Label41"
         Me.Label41.Size = New System.Drawing.Size(46, 32)
         Me.Label41.TabIndex = 7
@@ -2335,7 +1803,7 @@ Partial Class Form1
         'Label40
         '
         Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(24, 4)
+        Me.Label40.Location = New System.Drawing.Point(12, 7)
         Me.Label40.Name = "Label40"
         Me.Label40.Size = New System.Drawing.Size(46, 48)
         Me.Label40.TabIndex = 6
@@ -2380,7 +1848,7 @@ Partial Class Form1
         'bcTemp
         '
         Me.bcTemp.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.bcTemp.Location = New System.Drawing.Point(636, 294)
+        Me.bcTemp.Location = New System.Drawing.Point(677, 421)
         Me.bcTemp.Margin = New System.Windows.Forms.Padding(4)
         Me.bcTemp.Name = "bcTemp"
         Me.bcTemp.Size = New System.Drawing.Size(55, 22)
@@ -2391,7 +1859,7 @@ Partial Class Form1
         'Label83
         '
         Me.Label83.AutoSize = True
-        Me.Label83.Location = New System.Drawing.Point(449, 298)
+        Me.Label83.Location = New System.Drawing.Point(490, 425)
         Me.Label83.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label83.Name = "Label83"
         Me.Label83.Size = New System.Drawing.Size(169, 16)
@@ -2416,7 +1884,7 @@ Partial Class Form1
         Me.GroupBox4.Controls.Add(Me.overCanopy)
         Me.GroupBox4.Controls.Add(Me.noIrrigation)
         Me.GroupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.GroupBox4.Location = New System.Drawing.Point(7, 135)
+        Me.GroupBox4.Location = New System.Drawing.Point(27, 248)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Padding = New System.Windows.Forms.Padding(4)
@@ -2589,7 +2057,7 @@ Partial Class Form1
         'eInteracting
         '
         Me.eInteracting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.eInteracting.Location = New System.Drawing.Point(647, 2057)
+        Me.eInteracting.Location = New System.Drawing.Point(697, 2163)
         Me.eInteracting.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.eInteracting.Name = "eInteracting"
         Me.eInteracting.Size = New System.Drawing.Size(100, 22)
@@ -2598,25 +2066,16 @@ Partial Class Form1
         'rDecline
         '
         Me.rDecline.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.rDecline.Location = New System.Drawing.Point(235, 2036)
+        Me.rDecline.Location = New System.Drawing.Point(285, 2142)
         Me.rDecline.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.rDecline.Name = "rDecline"
         Me.rDecline.Size = New System.Drawing.Size(100, 22)
         Me.rDecline.TabIndex = 115
         '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(12, 15)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(77, 16)
-        Me.Label21.TabIndex = 4
-        Me.Label21.Text = "Scenario ID"
-        '
         'rInteracting
         '
         Me.rInteracting.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.rInteracting.Location = New System.Drawing.Point(235, 2058)
+        Me.rInteracting.Location = New System.Drawing.Point(285, 2164)
         Me.rInteracting.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.rInteracting.Name = "rInteracting"
         Me.rInteracting.Size = New System.Drawing.Size(100, 22)
@@ -2625,7 +2084,7 @@ Partial Class Form1
         'eDepth
         '
         Me.eDepth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.eDepth.Location = New System.Drawing.Point(647, 2013)
+        Me.eDepth.Location = New System.Drawing.Point(697, 2119)
         Me.eDepth.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.eDepth.Name = "eDepth"
         Me.eDepth.Size = New System.Drawing.Size(100, 22)
@@ -2634,7 +2093,7 @@ Partial Class Form1
         'eDecline
         '
         Me.eDecline.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.eDecline.Location = New System.Drawing.Point(647, 2035)
+        Me.eDecline.Location = New System.Drawing.Point(697, 2141)
         Me.eDecline.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.eDecline.Name = "eDecline"
         Me.eDecline.Size = New System.Drawing.Size(100, 22)
@@ -2643,43 +2102,25 @@ Partial Class Form1
         'rDepth
         '
         Me.rDepth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.rDepth.Location = New System.Drawing.Point(235, 2014)
+        Me.rDepth.Location = New System.Drawing.Point(285, 2120)
         Me.rDepth.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.rDepth.Name = "rDepth"
         Me.rDepth.Size = New System.Drawing.Size(100, 22)
         Me.rDepth.TabIndex = 111
         '
-        'latitude
-        '
-        Me.latitude.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.latitude.Location = New System.Drawing.Point(742, 42)
-        Me.latitude.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.latitude.Name = "latitude"
-        Me.latitude.Size = New System.Drawing.Size(100, 22)
-        Me.latitude.TabIndex = 86
-        '
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(460, 2062)
+        Me.Label26.Location = New System.Drawing.Point(510, 2168)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(168, 16)
         Me.Label26.TabIndex = 121
         Me.Label26.Text = "Erosion Interacting Fraction"
         '
-        'ScenarioID
-        '
-        Me.ScenarioID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.ScenarioID.Location = New System.Drawing.Point(158, 11)
-        Me.ScenarioID.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.ScenarioID.Name = "ScenarioID"
-        Me.ScenarioID.Size = New System.Drawing.Size(684, 22)
-        Me.ScenarioID.TabIndex = 3
-        '
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(465, 2038)
+        Me.Label27.Location = New System.Drawing.Point(515, 2144)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(163, 16)
         Me.Label27.TabIndex = 120
@@ -2688,7 +2129,7 @@ Partial Class Form1
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(446, 2016)
+        Me.Label28.Location = New System.Drawing.Point(496, 2122)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(182, 16)
         Me.Label28.TabIndex = 119
@@ -2697,7 +2138,7 @@ Partial Class Form1
         'Label25
         '
         Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(58, 2061)
+        Me.Label25.Location = New System.Drawing.Point(108, 2167)
         Me.Label25.Name = "Label25"
         Me.Label25.Size = New System.Drawing.Size(160, 16)
         Me.Label25.TabIndex = 118
@@ -2707,13 +2148,13 @@ Partial Class Form1
         '
         Me.HorizonGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.HorizonGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column1, Me.Column2, Me.Column3, Me.Column4, Me.Column5, Me.Column6, Me.Column7})
-        Me.HorizonGridView.Location = New System.Drawing.Point(4, 348)
+        Me.HorizonGridView.Location = New System.Drawing.Point(45, 475)
         Me.HorizonGridView.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.HorizonGridView.Name = "HorizonGridView"
         Me.HorizonGridView.RowHeadersVisible = False
         Me.HorizonGridView.RowHeadersWidth = 51
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.HorizonGridView.RowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.HorizonGridView.RowsDefaultCellStyle = DataGridViewCellStyle2
         Me.HorizonGridView.RowTemplate.Height = 24
         Me.HorizonGridView.Size = New System.Drawing.Size(847, 252)
         Me.HorizonGridView.TabIndex = 0
@@ -2785,7 +2226,7 @@ Partial Class Form1
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(63, 2038)
+        Me.Label24.Location = New System.Drawing.Point(113, 2144)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(155, 16)
         Me.Label24.TabIndex = 117
@@ -2794,27 +2235,18 @@ Partial Class Form1
         'Label23
         '
         Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(44, 2017)
+        Me.Label23.Location = New System.Drawing.Point(94, 2123)
         Me.Label23.Name = "Label23"
         Me.Label23.Size = New System.Drawing.Size(174, 16)
         Me.Label23.TabIndex = 116
         Me.Label23.Text = "Runoff Extraction Depth (cm)"
-        '
-        'Label62
-        '
-        Me.Label62.AutoSize = True
-        Me.Label62.Location = New System.Drawing.Point(577, 45)
-        Me.Label62.Name = "Label62"
-        Me.Label62.Size = New System.Drawing.Size(111, 16)
-        Me.Label62.TabIndex = 87
-        Me.Label62.Text = "Scenario Latitude"
         '
         'SimTemperature
         '
         Me.SimTemperature.AutoSize = True
         Me.SimTemperature.Checked = True
         Me.SimTemperature.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.SimTemperature.Location = New System.Drawing.Point(515, 269)
+        Me.SimTemperature.Location = New System.Drawing.Point(556, 396)
         Me.SimTemperature.Margin = New System.Windows.Forms.Padding(4)
         Me.SimTemperature.Name = "SimTemperature"
         Me.SimTemperature.Size = New System.Drawing.Size(162, 20)
@@ -2827,7 +2259,7 @@ Partial Class Form1
         '
         Me.CropGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.CropGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6, Me.DataGridViewTextBoxColumn7, Me.DataGridViewComboBoxColumn1, Me.DataGridViewTextBoxColumn8, Me.DataGridViewTextBoxColumn9})
-        Me.CropGridView.Location = New System.Drawing.Point(7, 1146)
+        Me.CropGridView.Location = New System.Drawing.Point(79, 1260)
         Me.CropGridView.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.CropGridView.Name = "CropGridView"
         Me.CropGridView.RowHeadersVisible = False
@@ -2836,10 +2268,94 @@ Partial Class Form1
         Me.CropGridView.Size = New System.Drawing.Size(844, 286)
         Me.CropGridView.TabIndex = 109
         '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn1.FillWeight = 5.0!
+        Me.DataGridViewTextBoxColumn1.HeaderText = "Emerge (m/d)"
+        Me.DataGridViewTextBoxColumn1.MinimumWidth = 6
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn2.FillWeight = 5.0!
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Maturity (m/d)"
+        Me.DataGridViewTextBoxColumn2.MinimumWidth = 6
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn3.FillWeight = 5.0!
+        Me.DataGridViewTextBoxColumn3.HeaderText = "Removal (m/d)"
+        Me.DataGridViewTextBoxColumn3.MinimumWidth = 6
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn4.FillWeight = 6.0!
+        Me.DataGridViewTextBoxColumn4.HeaderText = "Root Depth (cm)"
+        Me.DataGridViewTextBoxColumn4.MinimumWidth = 6
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn5.FillWeight = 5.0!
+        Me.DataGridViewTextBoxColumn5.HeaderText = "Cover (%)"
+        Me.DataGridViewTextBoxColumn5.MinimumWidth = 6
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn6.FillWeight = 5.0!
+        Me.DataGridViewTextBoxColumn6.HeaderText = "Height (cm)"
+        Me.DataGridViewTextBoxColumn6.MinimumWidth = 6
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        '
+        'DataGridViewTextBoxColumn7
+        '
+        Me.DataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn7.FillWeight = 5.0!
+        Me.DataGridViewTextBoxColumn7.HeaderText = "Holdup (cm)"
+        Me.DataGridViewTextBoxColumn7.MinimumWidth = 6
+        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
+        '
+        'DataGridViewComboBoxColumn1
+        '
+        Me.DataGridViewComboBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewComboBoxColumn1.DropDownWidth = 2
+        Me.DataGridViewComboBoxColumn1.FillWeight = 12.0!
+        Me.DataGridViewComboBoxColumn1.HeaderText = "Removal Type"
+        Me.DataGridViewComboBoxColumn1.Items.AddRange(New Object() {"Surface Applied", "Removed", "Left on Plant"})
+        Me.DataGridViewComboBoxColumn1.MinimumWidth = 6
+        Me.DataGridViewComboBoxColumn1.Name = "DataGridViewComboBoxColumn1"
+        Me.DataGridViewComboBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        '
+        'DataGridViewTextBoxColumn8
+        '
+        Me.DataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.DataGridViewTextBoxColumn8.FillWeight = 5.0!
+        Me.DataGridViewTextBoxColumn8.HeaderText = "Periodicity"
+        Me.DataGridViewTextBoxColumn8.MinimumWidth = 6
+        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
+        Me.DataGridViewTextBoxColumn8.Width = 99
+        '
+        'DataGridViewTextBoxColumn9
+        '
+        Me.DataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.DataGridViewTextBoxColumn9.FillWeight = 5.0!
+        Me.DataGridViewTextBoxColumn9.HeaderText = "Lag"
+        Me.DataGridViewTextBoxColumn9.MinimumWidth = 6
+        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
+        '
         'RunoffErosionYearSpecific
         '
         Me.RunoffErosionYearSpecific.AutoSize = True
-        Me.RunoffErosionYearSpecific.Location = New System.Drawing.Point(25, 1675)
+        Me.RunoffErosionYearSpecific.Location = New System.Drawing.Point(34, 1743)
         Me.RunoffErosionYearSpecific.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.RunoffErosionYearSpecific.Name = "RunoffErosionYearSpecific"
         Me.RunoffErosionYearSpecific.Size = New System.Drawing.Size(340, 20)
@@ -2851,7 +2367,7 @@ Partial Class Form1
         '
         Me.YearlyCycleButton.AutoSize = True
         Me.YearlyCycleButton.Checked = True
-        Me.YearlyCycleButton.Location = New System.Drawing.Point(25, 1655)
+        Me.YearlyCycleButton.Location = New System.Drawing.Point(34, 1723)
         Me.YearlyCycleButton.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.YearlyCycleButton.Name = "YearlyCycleButton"
         Me.YearlyCycleButton.Size = New System.Drawing.Size(322, 20)
@@ -2862,17 +2378,17 @@ Partial Class Form1
         '
         'HydroDataGrid
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.HydroDataGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.HydroDataGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.HydroDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.HydroDataGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column20, Me.Column22, Me.Column23})
-        Me.HydroDataGrid.Location = New System.Drawing.Point(14, 1710)
+        Me.HydroDataGrid.Location = New System.Drawing.Point(38, 1777)
         Me.HydroDataGrid.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.HydroDataGrid.Name = "HydroDataGrid"
         Me.HydroDataGrid.RowHeadersWidth = 51
@@ -2907,7 +2423,7 @@ Partial Class Form1
         'usleLS
         '
         Me.usleLS.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.usleLS.Location = New System.Drawing.Point(633, 1738)
+        Me.usleLS.Location = New System.Drawing.Point(585, 1790)
         Me.usleLS.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.usleLS.Name = "usleLS"
         Me.usleLS.Size = New System.Drawing.Size(100, 22)
@@ -2916,7 +2432,7 @@ Partial Class Form1
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(569, 1719)
+        Me.Label29.Location = New System.Drawing.Point(521, 1771)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(54, 16)
         Me.Label29.TabIndex = 102
@@ -2925,7 +2441,7 @@ Partial Class Form1
         'Label30
         '
         Me.Label30.AutoSize = True
-        Me.Label30.Location = New System.Drawing.Point(561, 1741)
+        Me.Label30.Location = New System.Drawing.Point(513, 1793)
         Me.Label30.Name = "Label30"
         Me.Label30.Size = New System.Drawing.Size(62, 16)
         Me.Label30.TabIndex = 103
@@ -2934,7 +2450,7 @@ Partial Class Form1
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(569, 1763)
+        Me.Label31.Location = New System.Drawing.Point(521, 1815)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(55, 16)
         Me.Label31.TabIndex = 104
@@ -2943,7 +2459,7 @@ Partial Class Form1
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(585, 1785)
+        Me.Label32.Location = New System.Drawing.Point(537, 1837)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(39, 16)
         Me.Label32.TabIndex = 105
@@ -2952,7 +2468,7 @@ Partial Class Form1
         'Label33
         '
         Me.Label33.AutoSize = True
-        Me.Label33.Location = New System.Drawing.Point(556, 1807)
+        Me.Label33.Location = New System.Drawing.Point(508, 1859)
         Me.Label33.Name = "Label33"
         Me.Label33.Size = New System.Drawing.Size(66, 16)
         Me.Label33.TabIndex = 106
@@ -2961,7 +2477,7 @@ Partial Class Form1
         'usleK
         '
         Me.usleK.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.usleK.Location = New System.Drawing.Point(633, 1716)
+        Me.usleK.Location = New System.Drawing.Point(585, 1768)
         Me.usleK.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.usleK.Name = "usleK"
         Me.usleK.Size = New System.Drawing.Size(100, 22)
@@ -2970,7 +2486,7 @@ Partial Class Form1
         'usleP
         '
         Me.usleP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.usleP.Location = New System.Drawing.Point(633, 1760)
+        Me.usleP.Location = New System.Drawing.Point(585, 1812)
         Me.usleP.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.usleP.Name = "usleP"
         Me.usleP.Size = New System.Drawing.Size(100, 22)
@@ -2979,7 +2495,7 @@ Partial Class Form1
         'ireg
         '
         Me.ireg.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.ireg.Location = New System.Drawing.Point(633, 1782)
+        Me.ireg.Location = New System.Drawing.Point(585, 1834)
         Me.ireg.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.ireg.Name = "ireg"
         Me.ireg.Size = New System.Drawing.Size(100, 22)
@@ -2988,11 +2504,85 @@ Partial Class Form1
         'slope
         '
         Me.slope.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.slope.Location = New System.Drawing.Point(633, 1804)
+        Me.slope.Location = New System.Drawing.Point(585, 1856)
         Me.slope.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
         Me.slope.Name = "slope"
         Me.slope.Size = New System.Drawing.Size(100, 22)
         Me.slope.TabIndex = 101
+        '
+        'Label21
+        '
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(20, 121)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(77, 16)
+        Me.Label21.TabIndex = 4
+        Me.Label21.Text = "Scenario ID"
+        '
+        'ScenarioID
+        '
+        Me.ScenarioID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.ScenarioID.Location = New System.Drawing.Point(108, 121)
+        Me.ScenarioID.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.ScenarioID.Name = "ScenarioID"
+        Me.ScenarioID.Size = New System.Drawing.Size(684, 22)
+        Me.ScenarioID.TabIndex = 3
+        '
+        'GetWeatherFile
+        '
+        Me.GetWeatherFile.Location = New System.Drawing.Point(15, 158)
+        Me.GetWeatherFile.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.GetWeatherFile.Name = "GetWeatherFile"
+        Me.GetWeatherFile.Size = New System.Drawing.Size(132, 28)
+        Me.GetWeatherFile.TabIndex = 1
+        Me.GetWeatherFile.Text = "Get Weather File"
+        Me.GetWeatherFile.UseVisualStyleBackColor = True
+        '
+        'WeatherFileName
+        '
+        Me.WeatherFileName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.WeatherFileName.Location = New System.Drawing.Point(158, 164)
+        Me.WeatherFileName.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.WeatherFileName.Name = "WeatherFileName"
+        Me.WeatherFileName.Size = New System.Drawing.Size(369, 22)
+        Me.WeatherFileName.TabIndex = 2
+        '
+        'Label62
+        '
+        Me.Label62.AutoSize = True
+        Me.Label62.Location = New System.Drawing.Point(603, 164)
+        Me.Label62.Name = "Label62"
+        Me.Label62.Size = New System.Drawing.Size(111, 16)
+        Me.Label62.TabIndex = 87
+        Me.Label62.Text = "Scenario Latitude"
+        '
+        'latitude
+        '
+        Me.latitude.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.latitude.Location = New System.Drawing.Point(730, 162)
+        Me.latitude.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.latitude.Name = "latitude"
+        Me.latitude.Size = New System.Drawing.Size(100, 22)
+        Me.latitude.TabIndex = 86
+        '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.Location = New System.Drawing.Point(24, 206)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(110, 16)
+        Me.Label37.TabIndex = 138
+        Me.Label37.Text = "Adjust PET factor"
+        '
+        'PETadjustment
+        '
+        Me.PETadjustment.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.PETadjustment.Location = New System.Drawing.Point(158, 200)
+        Me.PETadjustment.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
+        Me.PETadjustment.Name = "PETadjustment"
+        Me.PETadjustment.Size = New System.Drawing.Size(52, 22)
+        Me.PETadjustment.TabIndex = 137
+        Me.PETadjustment.Text = "1"
         '
         'Column13
         '
@@ -6183,90 +5773,6 @@ Partial Class Form1
         Me.BackgroundWorker1.WorkerReportsProgress = True
         Me.BackgroundWorker1.WorkerSupportsCancellation = True
         '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn1.FillWeight = 5.0!
-        Me.DataGridViewTextBoxColumn1.HeaderText = "Emerge (m/d)"
-        Me.DataGridViewTextBoxColumn1.MinimumWidth = 6
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn2.FillWeight = 5.0!
-        Me.DataGridViewTextBoxColumn2.HeaderText = "Maturity (m/d)"
-        Me.DataGridViewTextBoxColumn2.MinimumWidth = 6
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn3.FillWeight = 5.0!
-        Me.DataGridViewTextBoxColumn3.HeaderText = "Removal (m/d)"
-        Me.DataGridViewTextBoxColumn3.MinimumWidth = 6
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn4.FillWeight = 6.0!
-        Me.DataGridViewTextBoxColumn4.HeaderText = "Root Depth (cm)"
-        Me.DataGridViewTextBoxColumn4.MinimumWidth = 6
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        '
-        'DataGridViewTextBoxColumn5
-        '
-        Me.DataGridViewTextBoxColumn5.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn5.FillWeight = 5.0!
-        Me.DataGridViewTextBoxColumn5.HeaderText = "Cover (%)"
-        Me.DataGridViewTextBoxColumn5.MinimumWidth = 6
-        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
-        '
-        'DataGridViewTextBoxColumn6
-        '
-        Me.DataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn6.FillWeight = 5.0!
-        Me.DataGridViewTextBoxColumn6.HeaderText = "Height (cm)"
-        Me.DataGridViewTextBoxColumn6.MinimumWidth = 6
-        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
-        '
-        'DataGridViewTextBoxColumn7
-        '
-        Me.DataGridViewTextBoxColumn7.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn7.FillWeight = 5.0!
-        Me.DataGridViewTextBoxColumn7.HeaderText = "Holdup (cm)"
-        Me.DataGridViewTextBoxColumn7.MinimumWidth = 6
-        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
-        '
-        'DataGridViewComboBoxColumn1
-        '
-        Me.DataGridViewComboBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewComboBoxColumn1.DropDownWidth = 2
-        Me.DataGridViewComboBoxColumn1.FillWeight = 12.0!
-        Me.DataGridViewComboBoxColumn1.HeaderText = "Removal Type"
-        Me.DataGridViewComboBoxColumn1.Items.AddRange(New Object() {"Surface Applied", "Removed", "Left on Plant"})
-        Me.DataGridViewComboBoxColumn1.MinimumWidth = 6
-        Me.DataGridViewComboBoxColumn1.Name = "DataGridViewComboBoxColumn1"
-        Me.DataGridViewComboBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        '
-        'DataGridViewTextBoxColumn8
-        '
-        Me.DataGridViewTextBoxColumn8.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.DataGridViewTextBoxColumn8.FillWeight = 5.0!
-        Me.DataGridViewTextBoxColumn8.HeaderText = "Periodicity"
-        Me.DataGridViewTextBoxColumn8.MinimumWidth = 6
-        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
-        Me.DataGridViewTextBoxColumn8.Width = 99
-        '
-        'DataGridViewTextBoxColumn9
-        '
-        Me.DataGridViewTextBoxColumn9.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.DataGridViewTextBoxColumn9.FillWeight = 5.0!
-        Me.DataGridViewTextBoxColumn9.HeaderText = "Lag"
-        Me.DataGridViewTextBoxColumn9.MinimumWidth = 6
-        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -6301,10 +5807,6 @@ Partial Class Form1
         Me.GroupBox1.PerformLayout()
         Me.ScenarioExaminerTab.ResumeLayout(False)
         Me.ScenarioExaminerTab.PerformLayout()
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
-        Me.TableLayoutPanel3.ResumeLayout(False)
-        Me.TableLayoutPanel3.PerformLayout()
         CType(Me.DiscretizationGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.EvergreenPanel.ResumeLayout(False)
         Me.EvergreenPanel.PerformLayout()
@@ -6404,46 +5906,8 @@ Partial Class Form1
     Friend WithEvents Label15 As Label
     Friend WithEvents Button3 As Button
     Friend WithEvents ScenarioExaminerTab As TabPage
-    Friend WithEvents EvergreenPanel As Panel
-    Friend WithEvents Label43 As Label
-    Friend WithEvents Label42 As Label
-    Friend WithEvents Label41 As Label
-    Friend WithEvents Label40 As Label
-    Friend WithEvents EvergreenHoldup As TextBox
-    Friend WithEvents EvergreenHt As TextBox
-    Friend WithEvents EvergreenCover As TextBox
-    Friend WithEvents EvergreenRoot As TextBox
-    Friend WithEvents Evergreen As CheckBox
     Friend WithEvents WeatherDirectoryBox As TextBox
-    Friend WithEvents latitude As TextBox
-    Friend WithEvents ScenarioID As TextBox
-    Friend WithEvents WeatherFileName As TextBox
     Friend WithEvents GetWeatherFileDirectory As Button
-    Friend WithEvents Label62 As Label
-    Friend WithEvents Label84 As Label
-    Friend WithEvents albedo As TextBox
-    Friend WithEvents Label83 As Label
-    Friend WithEvents bcTemp As TextBox
-    Friend WithEvents SimTemperature As CheckBox
-    Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents IrrigateOnlyCrops As CheckBox
-    Friend WithEvents Panel3 As Panel
-    Friend WithEvents IrrigDepthRootZone As RadioButton
-    Friend WithEvents UserSpecifiesIrrigDepth As RadioButton
-    Friend WithEvents Label304 As Label
-    Friend WithEvents IrrigationDepthUserSpec As TextBox
-    Friend WithEvents Label53 As Label
-    Friend WithEvents Label52 As Label
-    Friend WithEvents Label51 As Label
-    Friend WithEvents rateIrrig As TextBox
-    Friend WithEvents depletion As TextBox
-    Friend WithEvents fleach As TextBox
-    Friend WithEvents underCanopy As RadioButton
-    Friend WithEvents overCanopy As RadioButton
-    Friend WithEvents noIrrigation As RadioButton
-    Friend WithEvents Label21 As Label
-    Friend WithEvents GetWeatherFile As Button
-    Friend WithEvents HorizonGridView As DataGridView
     Friend WithEvents SchemeScenariosTab As TabPage
     Friend WithEvents ClearAllScenarios As Button
     Friend WithEvents ClearSelectedScenarios As Button
@@ -6558,22 +6022,6 @@ Partial Class Form1
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents Label39 As Label
     Friend WithEvents FlowLength As TextBox
-    Friend WithEvents slope As TextBox
-    Friend WithEvents ireg As TextBox
-    Friend WithEvents usleP As TextBox
-    Friend WithEvents usleLS As TextBox
-    Friend WithEvents usleK As TextBox
-    Friend WithEvents Label33 As Label
-    Friend WithEvents Label32 As Label
-    Friend WithEvents Label31 As Label
-    Friend WithEvents Label30 As Label
-    Friend WithEvents Label29 As Label
-    Friend WithEvents RunoffErosionYearSpecific As RadioButton
-    Friend WithEvents YearlyCycleButton As RadioButton
-    Friend WithEvents HydroDataGrid As DataGridView
-    Friend WithEvents Column20 As DataGridViewTextBoxColumn
-    Friend WithEvents Column22 As DataGridViewTextBoxColumn
-    Friend WithEvents Column23 As DataGridViewTextBoxColumn
     Friend WithEvents UseNonequilibrium As CheckBox
     Friend WithEvents Label93 As Label
     Friend WithEvents WaterBodyType As TextBox
@@ -6617,28 +6065,9 @@ Partial Class Form1
     Friend WithEvents Label66 As Label
     Friend WithEvents Label65 As Label
     Friend WithEvents Label64 As Label
-    Friend WithEvents VolatilizationBounday As TextBox
-    Friend WithEvents PETadjustment As TextBox
-    Friend WithEvents evapDepth As TextBox
-    Friend WithEvents Label44 As Label
-    Friend WithEvents Label37 As Label
-    Friend WithEvents Label35 As Label
     Friend WithEvents Q10 As TextBox
-    Friend WithEvents eInteracting As TextBox
-    Friend WithEvents rDecline As TextBox
-    Friend WithEvents rInteracting As TextBox
-    Friend WithEvents eDepth As TextBox
-    Friend WithEvents eDecline As TextBox
-    Friend WithEvents rDepth As TextBox
     Friend WithEvents Label45 As Label
-    Friend WithEvents Label26 As Label
-    Friend WithEvents Label27 As Label
-    Friend WithEvents Label28 As Label
-    Friend WithEvents Label25 As Label
-    Friend WithEvents Label24 As Label
-    Friend WithEvents Label23 As Label
     Friend WithEvents AdjustCN As CheckBox
-    Friend WithEvents CropGridView As DataGridView
     Friend WithEvents waterbodypanel As Panel
     Friend WithEvents ClearAllWaterBodies As Button
     Friend WithEvents ClearSelectedWaterBody As Button
@@ -6648,17 +6077,11 @@ Partial Class Form1
     Friend WithEvents ItsaReservoir As CheckBox
     Friend WithEvents ItsaPond As CheckBox
     Friend WithEvents Label95 As Label
-    Friend WithEvents Panel2 As Panel
     Friend WithEvents PushToSaveScenario As Button
     Friend WithEvents PushToLoadScenario As Button
     Friend WithEvents PushToSaveWaterBody As Button
     Friend WithEvents PushToLoadWaterBody As Button
     Friend WithEvents Label92 As Label
-    Friend WithEvents Label91 As Label
-    Friend WithEvents Label97 As Label
-    Friend WithEvents Label96 As Label
-    Friend WithEvents Label98 As Label
-    Friend WithEvents Label99 As Label
     Friend WithEvents OpenSingleScenarioFile As OpenFileDialog
     Friend WithEvents SaveSingleScenarioFile As SaveFileDialog
     Friend WithEvents OpenWaterbodyFile As OpenFileDialog
@@ -6753,51 +6176,7 @@ Partial Class Form1
     Friend WithEvents RainLimit As TextBox
     Friend WithEvents Label129 As Label
     Friend WithEvents Label130 As Label
-    Friend WithEvents Label132 As Label
-    Friend WithEvents Label131 As Label
-    Friend WithEvents DiscretizationGridView As DataGridView
-    Friend WithEvents Label135 As Label
-    Friend WithEvents useAutoGWprofile As CheckBox
-    Friend WithEvents Thickness As DataGridViewTextBoxColumn
-    Friend WithEvents Increments As DataGridViewTextBoxColumn
     Friend WithEvents Label133 As Label
-    Friend WithEvents TableLayoutPanel3 As TableLayoutPanel
-    Friend WithEvents Label170 As Label
-    Friend WithEvents Label169 As Label
-    Friend WithEvents Label168 As Label
-    Friend WithEvents Label167 As Label
-    Friend WithEvents Label166 As Label
-    Friend WithEvents Label165 As Label
-    Friend WithEvents Label164 As Label
-    Friend WithEvents Label163 As Label
-    Friend WithEvents Label162 As Label
-    Friend WithEvents Label161 As Label
-    Friend WithEvents Label160 As Label
-    Friend WithEvents Label159 As Label
-    Friend WithEvents Label158 As Label
-    Friend WithEvents Label157 As Label
-    Friend WithEvents Label156 As Label
-    Friend WithEvents Label155 As Label
-    Friend WithEvents Label154 As Label
-    Friend WithEvents Label151 As Label
-    Friend WithEvents Label150 As Label
-    Friend WithEvents Label149 As Label
-    Friend WithEvents Label146 As Label
-    Friend WithEvents Label145 As Label
-    Friend WithEvents Label144 As Label
-    Friend WithEvents Label140 As Label
-    Friend WithEvents Label139 As Label
-    Friend WithEvents Label138 As Label
-    Friend WithEvents Label137 As Label
-    Friend WithEvents Label141 As Label
-    Friend WithEvents Label153 As Label
-    Friend WithEvents Label152 As Label
-    Friend WithEvents Label148 As Label
-    Friend WithEvents Label147 As Label
-    Friend WithEvents Label143 As Label
-    Friend WithEvents Label142 As Label
-    Friend WithEvents Label136 As Label
-    Friend WithEvents Label171 As Label
     Friend WithEvents ToggeWaterbodyExaminerToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents WaterbodyExaminerTab As TabPage
     Friend WithEvents Label94 As Label
@@ -6818,13 +6197,6 @@ Partial Class Form1
     Friend WithEvents ClearTable As Button
     Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents ItsTPEZWPEZ As CheckBox
-    Friend WithEvents Column1 As DataGridViewTextBoxColumn
-    Friend WithEvents Column2 As DataGridViewTextBoxColumn
-    Friend WithEvents Column3 As DataGridViewTextBoxColumn
-    Friend WithEvents Column4 As DataGridViewTextBoxColumn
-    Friend WithEvents Column5 As DataGridViewTextBoxColumn
-    Friend WithEvents Column6 As DataGridViewTextBoxColumn
-    Friend WithEvents Column7 As DataGridViewTextBoxColumn
     Friend WithEvents Column13 As DataGridViewDisableButtonColumn
     Friend WithEvents Label115 As Label
     Friend WithEvents WaterbodyName As TextBox
@@ -6857,13 +6229,87 @@ Partial Class Form1
     Friend WithEvents DriftMitigation As TextBox
     Friend WithEvents RunoffMitigation As TextBox
     Friend WithEvents LoadFromCSV As CheckBox
-    Friend WithEvents Label120 As Label
     Friend WithEvents Label119 As Label
     Friend WithEvents CSV_line As TextBox
     Friend WithEvents Label121 As Label
     Friend WithEvents WidthSpray As TextBox
     Friend WithEvents Label111 As Label
     Friend WithEvents RunCount As Label
+    Friend WithEvents Label171 As Label
+    Friend WithEvents Label135 As Label
+    Friend WithEvents useAutoGWprofile As CheckBox
+    Friend WithEvents Label132 As Label
+    Friend WithEvents Label131 As Label
+    Friend WithEvents DiscretizationGridView As DataGridView
+    Friend WithEvents Thickness As DataGridViewTextBoxColumn
+    Friend WithEvents Increments As DataGridViewTextBoxColumn
+    Friend WithEvents Label98 As Label
+    Friend WithEvents Label97 As Label
+    Friend WithEvents Label96 As Label
+    Friend WithEvents Label84 As Label
+    Friend WithEvents Label44 As Label
+    Friend WithEvents VolatilizationBounday As TextBox
+    Friend WithEvents GetWeatherFile As Button
+    Friend WithEvents albedo As TextBox
+    Friend WithEvents Label37 As Label
+    Friend WithEvents evapDepth As TextBox
+    Friend WithEvents Label35 As Label
+    Friend WithEvents PETadjustment As TextBox
+    Friend WithEvents Evergreen As CheckBox
+    Friend WithEvents WeatherFileName As TextBox
+    Friend WithEvents EvergreenPanel As Panel
+    Friend WithEvents Label43 As Label
+    Friend WithEvents Label42 As Label
+    Friend WithEvents Label41 As Label
+    Friend WithEvents Label40 As Label
+    Friend WithEvents EvergreenHoldup As TextBox
+    Friend WithEvents EvergreenHt As TextBox
+    Friend WithEvents EvergreenCover As TextBox
+    Friend WithEvents EvergreenRoot As TextBox
+    Friend WithEvents bcTemp As TextBox
+    Friend WithEvents Label83 As Label
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents IrrigateOnlyCrops As CheckBox
+    Friend WithEvents Panel3 As Panel
+    Friend WithEvents IrrigDepthRootZone As RadioButton
+    Friend WithEvents UserSpecifiesIrrigDepth As RadioButton
+    Friend WithEvents Label304 As Label
+    Friend WithEvents IrrigationDepthUserSpec As TextBox
+    Friend WithEvents Label53 As Label
+    Friend WithEvents Label52 As Label
+    Friend WithEvents Label51 As Label
+    Friend WithEvents rateIrrig As TextBox
+    Friend WithEvents depletion As TextBox
+    Friend WithEvents fleach As TextBox
+    Friend WithEvents underCanopy As RadioButton
+    Friend WithEvents overCanopy As RadioButton
+    Friend WithEvents noIrrigation As RadioButton
+    Friend WithEvents eInteracting As TextBox
+    Friend WithEvents rDecline As TextBox
+    Friend WithEvents Label21 As Label
+    Friend WithEvents rInteracting As TextBox
+    Friend WithEvents eDepth As TextBox
+    Friend WithEvents eDecline As TextBox
+    Friend WithEvents rDepth As TextBox
+    Friend WithEvents latitude As TextBox
+    Friend WithEvents Label26 As Label
+    Friend WithEvents ScenarioID As TextBox
+    Friend WithEvents Label27 As Label
+    Friend WithEvents Label28 As Label
+    Friend WithEvents Label25 As Label
+    Friend WithEvents HorizonGridView As DataGridView
+    Friend WithEvents Column1 As DataGridViewTextBoxColumn
+    Friend WithEvents Column2 As DataGridViewTextBoxColumn
+    Friend WithEvents Column3 As DataGridViewTextBoxColumn
+    Friend WithEvents Column4 As DataGridViewTextBoxColumn
+    Friend WithEvents Column5 As DataGridViewTextBoxColumn
+    Friend WithEvents Column6 As DataGridViewTextBoxColumn
+    Friend WithEvents Column7 As DataGridViewTextBoxColumn
+    Friend WithEvents Label24 As Label
+    Friend WithEvents Label23 As Label
+    Friend WithEvents Label62 As Label
+    Friend WithEvents SimTemperature As CheckBox
+    Friend WithEvents CropGridView As DataGridView
     Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn3 As DataGridViewTextBoxColumn
@@ -6874,4 +6320,20 @@ Partial Class Form1
     Friend WithEvents DataGridViewComboBoxColumn1 As DataGridViewComboBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn8 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn9 As DataGridViewTextBoxColumn
+    Friend WithEvents RunoffErosionYearSpecific As RadioButton
+    Friend WithEvents YearlyCycleButton As RadioButton
+    Friend WithEvents HydroDataGrid As DataGridView
+    Friend WithEvents Column20 As DataGridViewTextBoxColumn
+    Friend WithEvents Column22 As DataGridViewTextBoxColumn
+    Friend WithEvents Column23 As DataGridViewTextBoxColumn
+    Friend WithEvents usleLS As TextBox
+    Friend WithEvents Label29 As Label
+    Friend WithEvents Label30 As Label
+    Friend WithEvents Label31 As Label
+    Friend WithEvents Label32 As Label
+    Friend WithEvents Label33 As Label
+    Friend WithEvents usleK As TextBox
+    Friend WithEvents usleP As TextBox
+    Friend WithEvents ireg As TextBox
+    Friend WithEvents slope As TextBox
 End Class
