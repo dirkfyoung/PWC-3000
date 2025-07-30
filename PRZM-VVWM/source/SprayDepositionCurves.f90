@@ -1,7 +1,8 @@
 Module spray_deposition_curve
    implicit none
     ! meters,Aerial (F-50% boom),Aerial (M) EPA Default,Aerial (C),Aerial (VC),"Ground (High Boom, VF-F) EPA Default","Ground (High Boom, FM-C)","Ground (Low Boom, VF-F)","Ground (Low Boom, FM-C)",Airblast (normal),Airblast (dense),Airblast (sparse) EPA Default,Airblast (vineyard),Airblast (orchard),
-    real,dimension(406,14),parameter :: spraycurve = transpose(reshape((/&    
+    !last 2 rows contains a dummy Values:  at 1200 m is zero, and at "infinity" (i.e., 1e20)  is zero.  1200 was from linear regression of last dozen or so data points for aerial 
+   real,dimension(408,14),parameter :: spraycurve = transpose(reshape((/&    
     0.00000,0.132700000000,0.177200000000,0.125200000000,0.095300000000,1.055205000000,1.012828000000,1.019339000000,1.007885000000,0.008912324000,0.115527600000,0.476265100000,0.037585120000,0.222305100000,&
     0.03125,0.132300000000,0.177100000000,0.125000000000,0.095100000000,1.031179000000,0.865165100000,0.956334400000,0.791181000000,0.008819452000,0.114691100000,0.472173800000,0.036986860000,0.220377900000,&
     0.06250,0.132000000000,0.177000000000,0.124900000000,0.095000000000,1.008014000000,0.752384100000,0.899545700000,0.646353700000,0.008728320000,0.113863600000,0.468129900000,0.036402810000,0.218474500000,&
@@ -407,11 +408,16 @@ Module spray_deposition_curve
     788.00000,0.006373033000,0.002673563000,0.001189830000,0.000690229800,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,&
     790.00000,0.006346733000,0.002657233000,0.001182100000,0.000685596900,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,&
     792.00000,0.006320585000,0.002640968000,0.001174359000,0.000680957700,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,&
-    794.00000,0.006294271000,0.002624673000,0.001166576000,0.000676294700,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000 &  
-    /),(/14,406/)))      
+    794.00000,0.006294271000,0.002624673000,0.001166576000,0.000676294700,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,&  
+    1200.0000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000, &
+    1.0e20   ,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000,0.000000000000 &     
+    /),(/14,408/)))      
     
 
+    !here are the limits to the distance of spraydrift.  Used for warning user. First column value is a dummy 0.0
+    real,parameter:: spray_limit(14) = (/ 0.0, 794.0, 794.0, 794.0, 794.0, 304.0, 304.0, 304.0, 304.0, 304.0, 304.0, 304.0, 304.0, 304.0 /)
     
+   
     contains
       subroutine trapezoid_rule(first,last, column, output)
       real, intent(in)    :: first   !start point of distance to be integrated meters, first would be buffer 
@@ -439,10 +445,18 @@ Module spray_deposition_curve
         rear_area = 0.0
         col = column + 1   
         
+        !check if the last point exceeds available data:
 
-        
-        !Do straight up search for endpoints
-        !find first point and front area
+       if (last > spray_limit(col)) then
+           write(*,*) "************************ NOTE ******************************"
+           write(*,*) "Spray distance exceeds the maximum distance of available data."
+           write(*,*) "Drift values are unreliable beyond this limit." 
+           write(*,*) "Date limit (meters) is ", spray_limit(col)
+           write(*,*) "Buffer plus body width is ", last   
+       end if
+
+       !Do straight up search for endpoints
+       !find first point and front area
         
         loop1: do i = 1, size(spraycurve,1)-1
             if (abs(first- spraycurve(i,1))<.00001) then 
@@ -481,7 +495,7 @@ Module spray_deposition_curve
              
         end do loop2
 
-        if (last >  spraycurve(size(spraycurve, 1), 1)     )  write(*,*) "Spray distance exceeds available data"
+   !     if (last >  spraycurve(size(spraycurve, 1), 1)     )  write(*,*) "Spray distance exceeds available data"
 
         area = area + front_area + rear_area
 

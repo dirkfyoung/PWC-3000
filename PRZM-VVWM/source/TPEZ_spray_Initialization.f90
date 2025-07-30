@@ -36,8 +36,6 @@ module TPEZ_spray_initialization
                 
                 tpez_drift_value(i) =  tpez_drift_value(i) * drift_mitigation    
                 
-
-                     
          end do 
          
     end  subroutine set_tpez_spray
