@@ -194,7 +194,7 @@ implicit none
      
         open (UNIT=waterbody_file_unit, FILE= trim(waterbody_names(file_index)), STATUS ='old')
    
-        read(waterbody_file_unit, *) this_waterbody_name       
+        read(waterbody_file_unit, '(A)') this_waterbody_name       
         read(waterbody_file_unit, *) simtypeflag                           !Line 2
         read(waterbody_file_unit, *) flow_averaging     
         read(waterbody_file_unit, *) afield       

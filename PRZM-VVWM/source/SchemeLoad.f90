@@ -86,9 +86,6 @@ module schemeload
 
             call trapezoid_rule(buffer,    buffer+ distance,    (drift_schemes(scheme_number,i) ), drift_value(i)  )
             
-    
-            
-            
             if (is_output_spraydrift)  write(*,*)  "drift factor, before mitigation ", drift_value(i)    
             
             lag_app_in(i)          = lag_schemes(scheme_number,i)
@@ -110,6 +107,31 @@ module schemeload
         runoff_mitigation  = runoff_mitigation_schemes(scheme_number)
         erosion_mitigation = erosion_mitigation_schemes(scheme_number)
         drift_mitigation   = drift_mitigation_schemes(scheme_number)
+        
+        
+        !************ some warnings requested by QA team **************************************
+        if (runoff_mitigation > 1.0000001) then 
+              write(*,*) "Runoff mass modified with factor greater than 1: ", runoff_mitigation
+        else if (runoff_mitigation < -0.000000001) then             
+               write(*,*) "Runoff mass modified with negative factor: ", runoff_mitigation
+        end if
+        
+        if (erosion_mitigation > 1.0000001) then 
+              write(*,*) "Erosion mass modified with factor greater than 1: ", erosion_mitigation
+        else if (erosion_mitigation < -0.00000000) then             
+               write(*,*) "Erosion mass modified with negative factor: ", erosion_mitigation
+        end if
+        
+        if (drift_mitigation > 1.0000001) then 
+              write(*,*) "Drift mass modified with factor greater than 1: ", drift_mitigation
+        else if (erosion_mitigation < -0.00000000) then             
+               write(*,*) "Drift mass modified with negative factor: ", drift_mitigation
+        end if        
+       !************ End some warnings requested by QA team **************************************
+        
+        
+        
+        
         
 
         some_applications_were_foliar = .FALSE.
