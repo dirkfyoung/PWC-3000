@@ -297,11 +297,7 @@ SUBROUTINE irrigation(day)
           irrigation_save(day) = 0.0
           return !no irrigation needed
       end if
-      
-  
-      
-      
-      
+     
      select case (irtype)
       case (1) !Over-Canopy Sprinkler Irrigation;  irrigation applied above the canopy as precipitation 
          !Din is the max holdup possible on the canopy,cint is any water that is on the canopy.  
@@ -320,9 +316,7 @@ SUBROUTINE irrigation(day)
       end select
       
       
-      
-      
-      
+
 END SUBROUTINE Irrigation
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!	
 

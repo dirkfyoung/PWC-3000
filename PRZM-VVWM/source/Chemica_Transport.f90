@@ -15,7 +15,7 @@ module chemical_transport
         First_time_through_PRZM, THAIR_new ,THAIR_save, theta_end_save,theta_end,runoff_on_day , runoff_save, & 
 		soilwater, soilwater_save,velocity_save, vel,velocity_save, theta_zero,theta_zero_save,thair_old_save, thair_old, &
 		erosion_save, enriched_erosion_save, sedl, enriched_eroded_solids, tdet ,et_save ,ainf,infiltration_save, &
-        soil_temp_save, soil_temp, applied_mass_sum_gram_per_cm2
+        soil_temp_save, soil_temp, applied_mass_sum_gram_per_cm2, irrigation_save, irrigation_on_day
 	
 
     use utilities_1
@@ -55,7 +55,7 @@ module chemical_transport
 	   tdet                    = et_save(i)
 	   
 	   sedl                    = erosion_save(i)  !not sure if this is needed until output 
-	   enriched_eroded_solids        = enriched_erosion_save(i)
+	   enriched_eroded_solids  = enriched_erosion_save(i)
 	   
 	   !still need to move erosion
 			
@@ -66,7 +66,7 @@ module chemical_transport
 	   theta_zero              = theta_zero_save(:,i)
 	   thair_old               = thair_old_save(:,i)
 	   ainf				       = infiltration_save(:,i)   !only needed for output
-	   
+	   irrigation_on_day       = irrigation_save(i)       !only needed for output
        soil_temp               = soil_temp_save(:,i)
        
        
@@ -96,7 +96,7 @@ module chemical_transport
   !   use Hydrolgy
   !   use evapotranspiration
      use erosion
-     use irrigation
+    ! use irrigation
      !use plantgrowth
      use utilities_1
      use nonideal_sorption
@@ -148,9 +148,6 @@ module chemical_transport
         CALL plant_pesticide_degradation
      end if   
 
-	 
-     
-     
      do K=1, NCHEM   !******Pesticide Simulation ********************    
         !After application, get a new pore water concentration for beginning of time step: old_conc to be fed to tridiagonal
         do concurrent (I=1:NCOM2)

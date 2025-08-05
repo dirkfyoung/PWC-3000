@@ -646,7 +646,6 @@
             End Try
 
 
-
             Dim nchem As Integer
             currentrow = MyReader.ReadFields
             nchem = currentrow(0) 'LINE 6
@@ -818,6 +817,7 @@
             Dim numRows As Integer
             Dim blip As String
 
+
             For i As Integer = 0 To NumberOfSchemes - 1
                 'Need a new apptable for every scheme because otherwise just a reference to table will be sent to schemeinfo
                 ' and only copies of the last scheme will be picked up
@@ -890,6 +890,7 @@
 
                 NumberOfScenarios = currentrow(0)
 
+
                 For j As Integer = 0 To NumberOfScenarios - 1
                     'currentrow = MyReader.ReadFields
                     'ApplicationTable.Scenarios.Add(currentrow(0)) ' commas in name were causing problems READ Entire line instead
@@ -904,13 +905,22 @@
 
 
 
+
                 If MyReader.PeekChars(11) = "Mitigations" Then
+
+
                     MyReader.ReadLine() 'skip over the Mitigations line
+
+
                     currentrow = MyReader.ReadFields
-                    ApplicationTable.RunoffMitigation = currentrow(0)
-                    ApplicationTable.ErosionMitigation = currentrow(1)
-                    ApplicationTable.DriftMitigation = currentrow(2)
+                        ApplicationTable.RunoffMitigation = currentrow(0)
+                        ApplicationTable.ErosionMitigation = currentrow(1)
+                        ApplicationTable.DriftMitigation = currentrow(2)
+
                 Else
+
+
+
                     ApplicationTable.RunoffMitigation = "1.0"
                     ApplicationTable.ErosionMitigation = "1.0"
                     ApplicationTable.DriftMitigation = "1.0"
@@ -919,6 +929,8 @@
 
                 SchemeInfoList.Add(ApplicationTable)
             Next
+
+
 
             currentrow = MyReader.ReadFields 'msg = msg & vbNewLine & ErosionFlag.Text
             ErosionFlag.Text = currentrow(0)
@@ -930,7 +942,6 @@
 
             currentrow = MyReader.ReadFields
             AdjustCN.Checked = currentrow(0) 'msg = msg & vbNewLine & AdjustCN.Checked
-
 
 
             currentrow = MyReader.ReadFields 'msg = msg & vbNewLine & ItsaPond.Checked & "," & ItsaReservoir.Checked & "," & ItsOther.Checked
@@ -949,13 +960,10 @@
             WaterbodyList.Items.Clear()
 
 
-
             For i As Integer = 1 To countofspecialwaterbodies
                 currentrow = MyReader.ReadFields
                 WaterbodyList.Items.Add(currentrow(0))
             Next
-
-
 
 
             currentrow = MyReader.ReadFields
@@ -1028,6 +1036,7 @@
             End If
 
 
+
             MyReader.ReadLine() 'expansion lines
             MyReader.ReadLine()
             MyReader.ReadLine()
@@ -1037,6 +1046,7 @@
             Dim NumOutputRows As Integer
             currentrow = MyReader.ReadFields
             NumOutputRows = currentrow(0)
+
 
 
             AdditionalOutputGridView.Rows.Clear()

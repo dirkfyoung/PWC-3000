@@ -98,7 +98,7 @@ Module Output_From_Field
   end subroutine write_outputfile_header_2
  
   SUBROUTINE write_outputfile_2
-    use	constants_and_Variables, ONLY: is_timeseriesfile, TimeSeriesUnit2, precipitation, snowfl,soil_temp,THRUFL,IRRR,SoilWater,cint,EvapoTran,delx, &
+    use	constants_and_Variables, ONLY: is_timeseriesfile, TimeSeriesUnit2, precipitation, snowfl,soil_temp,THRUFL,irrigation_on_day,SoilWater,cint,EvapoTran,delx, &
     theta_end, CEVAP ,runoff_on_day,curve_number_daily,theta_sat,ainf,ncom2,snow,sedl,TDET,PVFLUX,sdkflx,SUPFLX,UPFLUX,kd_new, &
     conc_total_per_water, mass_in_compartment, mass_in_compartment2,HEIGHT,  &
     conc_porewater, FOLPST,Foliar_degrade_loss,new_henry,Foliar_volatile_loss,plant_app, &
@@ -142,7 +142,7 @@ Module Output_From_Field
     !********************************************************************** 
        !Cummulatives for researech
   hold_precip   = hold_precip + precipitation
-  hold_irrig    = hold_irrig  + IRRR
+  hold_irrig    = hold_irrig  + irrigation_on_day
   hold_runoff   = hold_runoff + runoff_on_day
      
      
@@ -391,7 +391,7 @@ Module Output_From_Field
       
       ! Water fluxes (units of CM/DAY)
       IF (PLNAME(I) .EQ. 'PRCP') PNBRN(I)= precipitation
-      IF (PLNAME(I) .EQ. 'IRRG') PNBRN(I)= IRRR
+      IF (PLNAME(I) .EQ. 'IRRG') PNBRN(I)= irrigation_on_day
       IF (PLNAME(I) .EQ. 'SNOF') PNBRN(I)= SNOWFL
       IF (PLNAME(I) .EQ. 'THRF') PNBRN(I)= THRUFL
       IF (PLNAME(I) .EQ. 'RUNF') PNBRN(I)= runoff_on_day

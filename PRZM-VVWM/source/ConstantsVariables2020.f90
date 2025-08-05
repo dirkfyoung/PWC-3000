@@ -623,14 +623,14 @@ module constants_and_variables
       real    :: max_irrig  !maximum  irrigation water over 24 hour period
       real    :: under_canopy_irrig, over_canopy_irrig 
       
-      real    :: IRRR                      !daily irrigation water, used for time series reporting only
+      real    :: irrigation_on_day      !scaler single day irrigation water, used inside main loop and output (see irrigation_save)
 	  
 	
 	  real, allocatable, dimension(:)   :: enriched_erosion_save
 	   
-	  real, allocatable, dimension(:)   :: irrigation_save
-	  real, allocatable, dimension(:)   :: canopy_flow_save
-	  real, allocatable, dimension(:,:) :: thair_save   !(ncom2, num_records)
+	  real, allocatable, dimension(:)   :: irrigation_save        !entire time series of irrigation water
+	  real, allocatable, dimension(:)   :: canopy_flow_save       !entire time series 
+	  real, allocatable, dimension(:,:) :: thair_save             !(ncom2, num_records)
 	  real, allocatable, dimension(:,:) :: theta_end_save
 	  real, allocatable, dimension(:,:) :: soilwater_save
 	  real, allocatable, dimension(:,:) :: velocity_save

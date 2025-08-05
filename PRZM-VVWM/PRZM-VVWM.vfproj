@@ -60,7 +60,6 @@
 		<File RelativePath=".\source\Curve_Number_Table.f90"/>
 		<File RelativePath=".\source\Erosion2020.f90"/>
 		<File RelativePath=".\source\field_hydrology.f90"/>
-		<File RelativePath=".\source\Irrigation.f90"/>
 		<File RelativePath=".\source\NonidealSorption.f90"/>
 		<File RelativePath=".\source\Output_from_Field.f90"/>
 		<File RelativePath=".\source\Pesticide_Application.f90"/>
