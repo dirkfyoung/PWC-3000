@@ -768,7 +768,8 @@ use constants_and_variables, ONLY: run_id,fw2 ,&
     summary_output_unit_tpez,summary_output_unit_tpez_deg1,summary_output_unit_tpez_deg2, &   
     effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2,  &
-     fraction_off_field, family_name, hold_for_medians_TPEZ, app_window_counter,hold_for_medians_TPEZ_daughter,hold_for_medians_TPEZ_grandaughter
+    fraction_off_field, family_name, hold_for_medians_TPEZ, app_window_counter, &
+    hold_for_medians_TPEZ_daughter,hold_for_medians_TPEZ_grandaughter, hold_for_medians_EoF
 
 use utilities_1, ONLY: Return_Frequency_Value
 
@@ -810,13 +811,17 @@ use utilities_1, ONLY: Return_Frequency_Value
     call Return_Frequency_Value(return_frequency, tpez_max,          num_years, tpez_max_out,          lowyearflag)   
     call Return_Frequency_Value(return_frequency, edge_of_field_max, num_years, edge_of_field_max_out, lowyearflag)   
 
-
+    
+    edge_of_field_max_out =  edge_of_field_max_out*1000000.0  !convert to ug/L  from kg/m3
+    
+    
     select case (chem_index)
     case (1)
         local_run_id = trim(run_id)//"_TPEZ"  // '_Parent'
-        write(summary_output_unit_tpez,     '(A80,1x,",",ES13.4E3,"  ,",ES13.4E3 ))') (adjustl(local_run_id)), tpez_max_out  , edge_of_field_max_out*1000000.0  !convert to ug/L  from kg/m3
+        write(summary_output_unit_tpez,     '(A80,1x,",",ES13.4E3,"  ,",ES13.4E3 ))') (adjustl(local_run_id)), tpez_max_out  , edge_of_field_max_out
         hold_for_medians_TPEZ(app_window_counter,1) = tpez_max_out
-    
+        hold_for_medians_EoF(app_window_counter,1) = edge_of_field_max_out
+        
     
     case (2)
         local_run_id = trim(run_id)//"_TPEZ"  // '_deg1'

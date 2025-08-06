@@ -320,6 +320,8 @@
                 msg = msg & String.Format("{0},{1},{2},{3},{4},", ApplicationTable.UseRainFast, ApplicationTable.RainLimit, ApplicationTable.IntolerableRainWindow, ApplicationTable.OptimumApplicationWindow, ApplicationTable.MinDaysBetweenApps)
 
 
+                MsgBox(ApplicationTable.DriftMitigation)
+
                 msg = msg & String.Format("{0},{1},{2},", ApplicationTable.RunoffMitigation, ApplicationTable.ErosionMitigation, ApplicationTable.DriftMitigation)
 
 

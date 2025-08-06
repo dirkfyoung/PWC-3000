@@ -15,9 +15,11 @@ module constants_and_variables
       
       integer, parameter :: number_medians = 11
       
-      real :: hold_for_medians_wb(366, number_medians)      !holds app window values for median determination 
+      real :: hold_for_medians_wb(366, number_medians)  !holds app window values for median determination 
       real :: hold_for_medians_WPEZ(366,number_medians) !holds app window values for median determination 
-      real :: hold_for_medians_TPEZ(366,1)     !Holds TPEZ acute value, make as a 2d array for the median subroutine call
+      real :: hold_for_medians_TPEZ(366,1)              !Holds TPEZ acute value, make as a 2d array for the median subroutine call
+      real :: hold_for_medians_EoF(366,1)               !Holds edge of field max concentrations for median calcs (ug/L)
+      
       
       real :: hold_for_medians_daughter(366,number_medians)      !holds app window values for median determination 
       real :: hold_for_medians_WPEZ_daughter(366,number_medians) !holds app window values for median determination 
@@ -73,7 +75,8 @@ module constants_and_variables
       integer, parameter ::  median_unit_tpez              = 66
       integer, parameter ::  median_daughter_unit_tpez     = 67
       integer, parameter ::  median_grandaughter_unit_tpez = 68
-      
+
+      integer, parameter ::  median_unit_eof               = 69
 
       character(len= 500), parameter :: summary_outputfile      =  "summary.txt"
       character(len= 500), parameter :: summary_outputfile_deg1 =  "summary_Deg1.txt"

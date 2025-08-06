@@ -601,11 +601,12 @@ Public Class Form1
                 '    'So I added the following IF to kick out of the commit button if the edit box is not checked
 
                 If SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = False Then
-                        Exit Sub
-                    End If
+                    Exit Sub
+                End If
+
 
                 'same set of lines as in EDIT above, but needed because if you change scheme description
-                'without unchecking and rechecking EDIT, then the labvels will not be loaded
+                'without unchecking and rechecking EDIT, then the labels will not be loaded
                 Description = SchemeTableDisplay.Rows(e.RowIndex).Cells(3).Value
 
                     DisplayedSchemeNumber = e.RowIndex + 1
