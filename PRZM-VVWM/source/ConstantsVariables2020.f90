@@ -19,6 +19,8 @@ module constants_and_variables
       real :: hold_for_medians_WPEZ(366,number_medians) !holds app window values for median determination 
       real :: hold_for_medians_TPEZ(366,1)              !Holds TPEZ acute value, make as a 2d array for the median subroutine call
       real :: hold_for_medians_EoF(366,1)               !Holds edge of field max concentrations for median calcs (ug/L)
+      logical :: calc_eof                               !switch for calculating edge of field concentrations
+      
       
       
       real :: hold_for_medians_daughter(366,number_medians)      !holds app window values for median determination 
@@ -77,6 +79,9 @@ module constants_and_variables
       integer, parameter ::  median_grandaughter_unit_tpez = 68
 
       integer, parameter ::  median_unit_eof               = 69
+      integer, parameter ::  summary_output_unit_eof       = 70
+      
+      
 
       character(len= 500), parameter :: summary_outputfile      =  "summary.txt"
       character(len= 500), parameter :: summary_outputfile_deg1 =  "summary_Deg1.txt"
@@ -90,7 +95,7 @@ module constants_and_variables
       character(len= 500), parameter :: summary_WPEZoutputfile_deg1 =  "summary_WPEZ_deg1.txt"
       character(len= 500), parameter :: summary_WPEZoutputfile_deg2 =  "summary_WPEZ_deg2.txt"
       
-      
+      character(len= 500), parameter :: summary_outputfile_eof      =  "summary_EoF.txt"
       
     
       
@@ -220,7 +225,6 @@ module constants_and_variables
       logical :: is_above_crop_irrigation
   
       !Time series trasfer from PRZM to VVWM
- !     real, allocatable, dimension(:) :: runoff_series   !runoff in cm
       real, allocatable, dimension(:) :: erosion_save  !eroded solids in (metric tons)
       
       real, allocatable, dimension(:) :: runoff_save   !runoff in cm
@@ -854,7 +858,7 @@ module constants_and_variables
     real,allocatable,dimension(:) :: eroded_solids_mass   !read in from PRZMV output as tonnes/day but immediately converted to kg/day
     real,allocatable,dimension(:) :: burial               !(kg/sec) array of daily burial rate
     real,allocatable,dimension(:) :: flowthru_the_body    !(m3/sec) array of daily flow
-    real,allocatable,dimension(:) :: edge_of_field        !(kg/m3) array of daily runoff concentrations (zero if no runoff) includes base flow dilution if any
+    real,allocatable,dimension(:) :: edge_of_field        !(kg/m3) array of daily runoff concentrations (zero if no runoff) 
     
     
    
@@ -913,7 +917,7 @@ logical :: First_time_through_PRZM         !used to write output przm time serie
 logical :: First_time_through_medians      ! median output file
 logical :: First_time_through_medians_wpez
 logical :: First_time_through_medians_tpez
-
+logical :: First_time_through_eof         !used for batch reader
 
 
 !OUTPUT FLAGS

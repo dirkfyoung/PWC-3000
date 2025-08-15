@@ -21,7 +21,6 @@
         End If
         msg = msg & String.Format("{0}{1},", vbNewLine, nchem)
 
-
         msg = msg & String.Format("{0}{1},{2},{3},", vbNewLine, sorption1.Text, sorption2.Text, sorption3.Text)
         msg = msg & String.Format("{0}{1},{2},{3},", vbNewLine, Nexp1Reg1.Text, Nexp2Reg1.Text, Nexp3Reg1.Text)
         msg = msg & String.Format("{0}{1},{2},{3},", vbNewLine, Kf1Reg2.Text, Kf2Reg2.Text, Kf3Reg2.Text)
@@ -52,8 +51,6 @@
         msg = msg & String.Format("{0}{1},{2},{3},{4},", vbNewLine, RampProfile.Checked, profileDepth1.Text, ProfileDepth2.Text, RampEndValue.Text)
         msg = msg & String.Format("{0}{1},{2},{3},", vbNewLine, ExponentialProfile.Checked, ExpParameter1.Text, ExpParameter2.Text)
 
-
-
         'Schemes***************************
         Dim NumberOfSchemes As Integer
         Dim ApplicationTable As New SchemeDetails
@@ -63,8 +60,6 @@
         Dim referencedate As Integer
 
         AppTableDisplay.CommitEdit(DataGridViewDataErrorContexts.Commit)  'commit the cell if cursor still on box
-
-
 
         NumberOfSchemes = SchemeTableDisplay.RowCount - 1
 
@@ -78,14 +73,11 @@
             NumberOfSchemes = 0
         End If
 
-
-
         msg = msg & String.Format("{0}{1},", vbNewLine, NumberOfSchemes)
         SchemeTableDisplay.CommitEdit(DataGridViewDataErrorContexts.Commit) 'commit the cell if cursor still on box
 
         For i As Integer = 0 To NumberOfSchemes - 1
             msg = msg & String.Format("{0}{1},{2},", vbNewLine, (i + 1), """" & SchemeTableDisplay.Item(3, i).Value & """")
-
 
             ApplicationTable = SchemeInfoList(i)
 
@@ -119,9 +111,6 @@
             msg = msg & String.Format("{0}{1},{2},{3},", vbNewLine, ApplicationTable.UseApplicationWindow, ApplicationTable.ApplicationWindowSpan, ApplicationTable.ApplicationWindowStep)
             msg = msg & String.Format("{0}{1},{2},{3},{4},{5},", vbNewLine, ApplicationTable.UseRainFast, ApplicationTable.RainLimit, ApplicationTable.IntolerableRainWindow, ApplicationTable.OptimumApplicationWindow, ApplicationTable.MinDaysBetweenApps)
 
-
-
-
             NumberOfScenarios = ApplicationTable.Scenarios.Count
             msg = msg & vbNewLine & NumberOfScenarios
 
@@ -132,7 +121,6 @@
             msg = msg & vbNewLine & ApplicationTable.ScenarioBatchFileName & ","
             msg = msg & vbNewLine & "Mitigations (flag to make older versions still readable)"
             msg = msg & String.Format("{0}{1},{2},{3},", vbNewLine, ApplicationTable.RunoffMitigation, ApplicationTable.ErosionMitigation, ApplicationTable.DriftMitigation)
-
         Next
 
         msg &= String.Format("{0}{1},", vbNewLine, ErosionFlag.Text)
@@ -183,7 +171,7 @@
         msg = msg & vbNewLine & "holder for future expansion" & ","
         msg = msg & vbNewLine & "holder for future expansion" & ","
         msg = msg & vbNewLine & "holder for future expansion" & ","
-        msg = msg & vbNewLine & "holder for future expansion" & ","
+        msg = msg & vbNewLine & CalculateEoF.Checked & ","
 
         AdditionalOutputGridView.CommitEdit(DataGridViewDataErrorContexts.Commit)
         Dim NumberAdditionalOutputs As Integer
@@ -314,19 +302,12 @@
                     Next
                 End If
 
-
-
                 msg = msg & String.Format("{0},{1},{2},", ApplicationTable.UseApplicationWindow, ApplicationTable.ApplicationWindowSpan, ApplicationTable.ApplicationWindowStep)
                 msg = msg & String.Format("{0},{1},{2},{3},{4},", ApplicationTable.UseRainFast, ApplicationTable.RainLimit, ApplicationTable.IntolerableRainWindow, ApplicationTable.OptimumApplicationWindow, ApplicationTable.MinDaysBetweenApps)
 
-
-                MsgBox(ApplicationTable.DriftMitigation)
-
                 msg = msg & String.Format("{0},{1},{2},", ApplicationTable.RunoffMitigation, ApplicationTable.ErosionMitigation, ApplicationTable.DriftMitigation)
 
-
                 NumberOfScenarios = ApplicationTable.Scenarios.Count
-
 
                 msg = msg & NumberOfScenarios
 
@@ -340,10 +321,7 @@
                     End If
                 End If
 
-
                 For j As Integer = 0 To NumberOfScenarios - 1
-
-
                     msg = msg & "," & IO.Path.GetFileName(ApplicationTable.Scenarios(j))
                 Next
 
@@ -1029,7 +1007,6 @@
                 outputSpraydrift.Checked = False
             End If
 
-
             currentrow = MyReader.ReadFields
             If currentrow(0) = "True" Or "False" Then
                 output_GW_BTC.Checked = currentrow(0)
@@ -1037,31 +1014,27 @@
                 output_GW_BTC.Checked = False
             End If
 
-
-
             MyReader.ReadLine() 'expansion lines
             MyReader.ReadLine()
             MyReader.ReadLine()
             MyReader.ReadLine()
-            MyReader.ReadLine()
+
+            currentrow = MyReader.ReadFields
+
+            If currentrow(0) = "True" Or currentrow(0) = "False" Then  ' for backward compatibiilty cuz line used to be unused
+                CalculateEoF.Checked = currentrow(0)
+            End If
 
             Dim NumOutputRows As Integer
             currentrow = MyReader.ReadFields
             NumOutputRows = currentrow(0)
-
-
 
             AdditionalOutputGridView.Rows.Clear()
             For j As Integer = 0 To NumOutputRows - 1
                 currentrow = MyReader.ReadFields
                 AdditionalOutputGridView.Rows.Add(currentrow(0), currentrow(1), currentrow(2), currentrow(3), currentrow(4), currentrow(5))
             Next
-
-
-
-
         End Using
-
 
     End Sub
 

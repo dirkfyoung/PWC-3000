@@ -10,7 +10,7 @@ module process_medians
               hold_for_medians_WPEZ_grandaughter,hold_for_medians_TPEZ_grandaughter , &
               First_time_through_medians,median_unit,run_id,hold_for_medians_eof, &
               median_daughter_unit,median_grandaughter_unit ,median_unit_wpez, median_unit_tpez,median_daughter_unit_wpez,median_grandaughter_unit_wpez,&
-              median_daughter_unit_tpez,median_grandaughter_unit_tpez, Sediment_conversion_factor, family_name, working_directory,median_unit_eof 
+              median_daughter_unit_tpez,median_grandaughter_unit_tpez, Sediment_conversion_factor, family_name, working_directory,median_unit_eof , calc_eof
             
           use utilities_1, ONLY: find_medians
           use waterbody_parameters, ONLY: this_waterbody_name
@@ -23,9 +23,8 @@ module process_medians
           real    :: medians_temp(number_medians)        
           character(Len=1000) :: localfilename
           
-          
-          !***** Open median file and write headers*******
- 
+
+          !**********Water Bodies File Open *****************
           if (First_time_through_medians) then 
               !open a file and write header
                localfilename = trim(working_directory) //trim(family_name) // "_medians_" // trim(this_waterbody_name) // ".txt"
@@ -49,6 +48,7 @@ module process_medians
                    write(median_grandaughter_unit, '(A225)') (("Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg, post_bt_avg,  throughput, GWpeak"))
                endif
 
+               !**********TPEZ WPEZ Field File Open *****************
                if (run_tpez_wpez) then
                   localfilename = trim(working_directory) //trim(family_name) // '_medians_wpez.txt'
                   open (UNIT= median_unit_wpez, FILE = localfilename, STATUS = 'UNKNOWN')
@@ -57,12 +57,7 @@ module process_medians
                   localfilename = trim(working_directory) //trim(family_name) // '_medians_tpez.txt'
                   open (UNIT= median_unit_tpez, FILE = localfilename, STATUS = 'UNKNOWN')
                   write(median_unit_tpez,  '(A93)') "Run Information                                                                       ,  lb/A"
-
-                  localfilename = trim(working_directory) //trim(family_name) // '_medians_eof.txt'
-                  open (UNIT= median_unit_eof, FILE = localfilename, STATUS = 'UNKNOWN')
-                  write(median_unit_eof,  '(A93)')  "Run Information                                                                       ,  ug/L"  
                   
-    
                   if (nchem>1) then !daughter
                       localfilename = trim(working_directory) //trim(family_name) // '_medians_deg1_wpez.txt'
                       open (UNIT= median_daughter_unit_wpez, FILE = localfilename, STATUS = 'UNKNOWN')
@@ -71,9 +66,7 @@ module process_medians
                       localfilename = trim(working_directory) //trim(family_name) // '_medians_deg1_tpez.txt'
                       open (UNIT= median_daughter_unit_tpez, FILE = localfilename, STATUS = 'UNKNOWN')
                       write(median_daughter_unit_tpez,  '(A93)') "Run Information                                                                       ,  lb/A"
-
                   endif
-                  
                   
                   if (nchem>2) then !grandaughter
                       localfilename =  trim(working_directory) //trim(family_name) // '_medians_deg2_wpez.txt'
@@ -83,15 +76,16 @@ module process_medians
                       localfilename = trim(working_directory) // trim(family_name) // '_medians_deg2_tpez.txt'
                       open (UNIT= median_grandaughter_unit_tpez, FILE = localfilename, STATUS = 'UNKNOWN')
                       write(median_grandaughter_unit_tpez,  '(A93)') "Run Information                                                                       ,  lb/A"
-
                   endif
-                  
-                  
-
                end if
                
-   
-               
+               !**********Edge of Field File Open *****************
+               if (calc_eof) then
+                   localfilename = trim(working_directory) //trim(family_name) // '_medians_eof.txt'
+                   open (UNIT= median_unit_eof, FILE = localfilename, STATUS = 'UNKNOWN')
+                   write(median_unit_eof,  '(A93)')  "Run Information                                                                       ,  ug/L"           
+               end if
+
                First_time_through_medians = .FALSE.
           end if
                
@@ -114,7 +108,11 @@ module process_medians
 
           
           !*******************************************
-          
+           if (calc_eof) then
+                    call find_medians (app_window_counter, 1, hold_for_medians_eof, medians_temp)  
+                    write(median_unit_eof, '(A86, ",", G12.4 )') adjustl((adjustr(run_id)//"_median")), medians_temp(1)
+           end if
+                
 
          if (run_tpez_wpez) then  !wpez needs its own call due to different capture also because its scenario run is same as pond                 
 
@@ -125,10 +123,7 @@ module process_medians
                 call find_medians (app_window_counter, 1, hold_for_medians_tpez, medians_temp)   
                 write(median_unit_tpez, '(A86, ",", G12.4 )') adjustl((adjustr(run_id)//"_median")), medians_temp(1)*0.892179  !unit conversion to lb/acre
     
-                
-                
-                call find_medians (app_window_counter, 1, hold_for_medians_eof, medians_temp)  
-                write(median_unit_eof, '(A86, ",", G12.4 )') adjustl((adjustr(run_id)//"_median")), medians_temp(1)
+
                 
                 if (nchem>1) then !daughter
      

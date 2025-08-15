@@ -441,6 +441,7 @@ Partial Class Form1
         Me.UseTPEZbuffers = New System.Windows.Forms.CheckBox()
         Me.ItsTPEZWPEZ = New System.Windows.Forms.CheckBox()
         Me.OptionalOutputTab = New System.Windows.Forms.TabPage()
+        Me.CalculateEoF = New System.Windows.Forms.CheckBox()
         Me.output_GW_BTC = New System.Windows.Forms.CheckBox()
         Me.outputSpraydrift = New System.Windows.Forms.CheckBox()
         Me.Label9 = New System.Windows.Forms.Label()
@@ -552,7 +553,7 @@ Partial Class Form1
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 2, 0, 2)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1052, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1052, 28)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -560,7 +561,7 @@ Partial Class Form1
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveToolStripMenuItem, Me.RetrieveToolStripMenuItem, Me.WriteSchemeTableToFileToolStripMenuItem, Me.LoadSchemeTableToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 26)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 24)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'SaveToolStripMenuItem
@@ -591,7 +592,7 @@ Partial Class Form1
         '
         Me.MorenTabsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToggleAdvancedToolStripMenuItem, Me.ToggleMoreOutputToolStripMenuItem, Me.ToggleScenarioExaminerToolStripMenuItem, Me.ToggeWaterbodyExaminerToolStripMenuItem})
         Me.MorenTabsToolStripMenuItem.Name = "MorenTabsToolStripMenuItem"
-        Me.MorenTabsToolStripMenuItem.Size = New System.Drawing.Size(91, 26)
+        Me.MorenTabsToolStripMenuItem.Size = New System.Drawing.Size(91, 24)
         Me.MorenTabsToolStripMenuItem.Text = "More Tabs"
         '
         'ToggleAdvancedToolStripMenuItem
@@ -622,7 +623,7 @@ Partial Class Form1
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContactToolStripMenuItem})
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(55, 26)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(55, 24)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'ContactToolStripMenuItem
@@ -5057,14 +5058,15 @@ Partial Class Form1
         Me.ItsTPEZWPEZ.ForeColor = System.Drawing.Color.Black
         Me.ItsTPEZWPEZ.Location = New System.Drawing.Point(492, 80)
         Me.ItsTPEZWPEZ.Name = "ItsTPEZWPEZ"
-        Me.ItsTPEZWPEZ.Size = New System.Drawing.Size(358, 33)
+        Me.ItsTPEZWPEZ.Size = New System.Drawing.Size(303, 33)
         Me.ItsTPEZWPEZ.TabIndex = 107
-        Me.ItsTPEZWPEZ.Text = "USEPA TPEZ, WPEZ && EoF"
+        Me.ItsTPEZWPEZ.Text = "USEPA TPEZ && WPEZ "
         Me.ItsTPEZWPEZ.UseVisualStyleBackColor = True
         '
         'OptionalOutputTab
         '
         Me.OptionalOutputTab.BackColor = System.Drawing.Color.Yellow
+        Me.OptionalOutputTab.Controls.Add(Me.CalculateEoF)
         Me.OptionalOutputTab.Controls.Add(Me.output_GW_BTC)
         Me.OptionalOutputTab.Controls.Add(Me.outputSpraydrift)
         Me.OptionalOutputTab.Controls.Add(Me.Label9)
@@ -5110,6 +5112,17 @@ Partial Class Form1
         Me.OptionalOutputTab.Size = New System.Drawing.Size(1027, 598)
         Me.OptionalOutputTab.TabIndex = 10
         Me.OptionalOutputTab.Text = "Optional Output"
+        '
+        'CalculateEoF
+        '
+        Me.CalculateEoF.AutoSize = True
+        Me.CalculateEoF.Location = New System.Drawing.Point(29, 547)
+        Me.CalculateEoF.Name = "CalculateEoF"
+        Me.CalculateEoF.Size = New System.Drawing.Size(177, 21)
+        Me.CalculateEoF.TabIndex = 90
+        Me.CalculateEoF.Text = "Print Edge-of-Field files"
+        Me.CalculateEoF.UseVisualStyleBackColor = True
+        Me.CalculateEoF.Visible = False
         '
         'output_GW_BTC
         '
@@ -6336,4 +6349,5 @@ Partial Class Form1
     Friend WithEvents usleP As TextBox
     Friend WithEvents ireg As TextBox
     Friend WithEvents slope As TextBox
+    Friend WithEvents CalculateEoF As CheckBox
 End Class

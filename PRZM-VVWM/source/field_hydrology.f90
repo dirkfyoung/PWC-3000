@@ -8,7 +8,7 @@ module field_hydrology
                                   startday, num_records,canopy_holdup, &
                                   canopy_height, canopy_cover  , cover, height, &
                                   potential_canopy_holdup,evapo_root_node_daily, &
-                                  evapo_root_node,root_node ,root_node_daily, julday1900 ,startday,soil_temp
+                                  evapo_root_node,root_node ,root_node_daily, julday1900 ,startday
 	  integer :: i
       julday1900 = startday
 
@@ -30,84 +30,72 @@ module field_hydrology
 			
 			julday1900 = julday1900  +1
 	   end do
-	   
 
-	   
 	end subroutine hydrology_only
 	
     !*******************************************************************************************************
     SUBROUTINE runoff_leaching_and_heat(day)
-	use constants_and_Variables, ONLY: is_temperature_simulated,            & 
-        THRUFL,really_not_thrufl,COVER, USLEC,cfac, & 
-        ainf,juslec,nuslec,CN_index, under_canopy_irrig,over_canopy_irrig,julday1900, &
-        use_usleyears, delt, irtype, irrigation_save
+	    use constants_and_Variables, ONLY: is_temperature_simulated,            & 
+           THRUFL,really_not_thrufl,COVER, USLEC,cfac, & 
+           ainf,juslec,nuslec,CN_index, under_canopy_irrig,over_canopy_irrig,julday1900, &
+           use_usleyears, delt, irtype, irrigation_save
 
-    use Temperatue_Calcs
-    use Output_From_Field
-    use erosion
-    use utilities_1
+        use Temperatue_Calcs
+        use Output_From_Field
+        use erosion
+        use utilities_1
+     
+        use plant_pesticide_processes
+        implicit none
+        integer, intent(in) :: day !day tracker
+     	
+        integer  :: I
+        integer  :: julday                   !this is the day of the year starting with Jan 1
+        integer  :: current_year, current_month, current_day    
+     
+       !************************************************************************************************
+       AINF   = 0.0
+       THRUFL = 0.0
+       really_not_thrufl = .FALSE.
 
-    use plant_pesticide_processes
-    implicit none
-    integer, intent(in) :: day !day tracker
-	
-    integer  :: I
-    integer  :: julday                   !this is the day of the year starting with Jan 1
-    integer  :: current_year, current_month, current_day    
+       !**********IRRIGATION ************************ 
 
-    !************************************************************************************************
-    AINF   = 0.0
-    THRUFL = 0.0
-    really_not_thrufl = .FALSE.
- 
-
-	
-   !**********IRRIGATION ************************ 
-
-    
-   IF (irtype > 0  .AND. cover > 0.0) then  !irrigate if there is a crop
-      CALL irrigation(day)
-   else										!no irrigation
-      under_canopy_irrig = 0.0
-      over_canopy_irrig = 0.0
-      irrigation_save(day) = 0.0               
-   end if
-
-   !this version of julian day is needed for the curve number and erosion routines
-   call get_date (julday1900, current_year, current_month, current_day) 
-   julday = julday1900 -jd(current_year,1,1) +1
-
-   if (use_usleyears) then
-      do i = 1, nuslec
-         if (julday1900  ==juslec(i))then
-             cfac=USLEC(i)
-             CN_index = i  !this is used for curve number
-             exit
-         end if
-      end do       
-   else     
-      do i = 1, nuslec
-         if (julday ==juslec(i))then
-           cfac=USLEC(i)
-           CN_index = i  !this is used for curve number
-           exit
-         end if
-      end do
-   end if
-
-
+       IF (irtype > 0  .AND. cover > 0.0) then  !irrigate if there is a crop
+          CALL irrigation(day)
+       else										!no irrigation
+          under_canopy_irrig = 0.0
+          over_canopy_irrig = 0.0
+          irrigation_save(day) = 0.0               
+       end if
+     
+       !this version of julian day is needed for the curve number and erosion routines
+       call get_date (julday1900, current_year, current_month, current_day) 
+       julday = julday1900 -jd(current_year,1,1) +1
+     
+       if (use_usleyears) then
+          do i = 1, nuslec
+             if (julday1900  ==juslec(i))then
+                 cfac=USLEC(i)
+                 CN_index = i  !this is used for curve number
+                 exit
+             end if
+          end do       
+       else     
+          do i = 1, nuslec
+             if (julday ==juslec(i))then
+               cfac=USLEC(i)
+               CN_index = i  !this is used for curve number
+               exit
+             end if
+          end do
+       end if
 
        Call Runoff_cn(day) 
-       
-       
-       CALL EVPOTR(day)				 !EVAPORATION 
-       CALL Leaching(day)        !determine water content of soil and air content (old and new)
+       CALL EVPOTR(day)			!EVAPORATION 
+       CALL Leaching(day)       !determine water content of soil and air content (old and new)
        CALL EROSN(day, JULDAY)  !calc loss of chem due to erosion
 
-
-        ! ****** Soil Temperature Calculations ************** 
-
-       
+       ! ****** Soil Temperature Calculations ************** 
        IF (is_temperature_simulated) CALL SLTEMP(day)    
   
 
@@ -325,9 +313,10 @@ END SUBROUTINE Irrigation
 SUBROUTINE Runoff_cn(day)
     !PRZM5: Calculate runoff first and then using any left over for the canopy & infiltration 
     !In conformance to NEH-4, initial abstraction is no longer altered by canopy
+    !Ouptput runoff is in runoff_save
     
       use constants_and_Variables, ONLY: precipitation, precip_rain, air_TEMP,sfac,snowfl,THRUFL, &
-        cint,smelt,runoff_on_day, curve_number_daily,ainf,potential_canopy_holdup,snow, &
+        cint,smelt, curve_number_daily,ainf,potential_canopy_holdup,snow, &
         under_canopy_irrig, over_canopy_irrig,  canopy_flow_save, &
         effective_rain ,  runoff_save
         
@@ -338,8 +327,10 @@ SUBROUTINE Runoff_cn(day)
       REAL   CURVN
 
       real :: canopy_capture
-
-      runoff_on_day = 0.0
+      real :: runoff_local
+      
+      
+      runoff_local = 0.0
       SMELT = 0.0
       SNOWFL= 0.0
       effective_rain = 0.0
@@ -363,22 +354,15 @@ SUBROUTINE Runoff_cn(day)
     
       effective_rain  = under_canopy_irrig + over_canopy_irrig + precip_rain + smelt  !used for runoff calc only  (canopy not included)
           
-
-      
       call Curve_Number_Adjustment(curvn)
-	  
-
-      call Calculate_Runoff_PRZM5(curvn,Effective_Rain)
-      
-
+    
+      call Calculate_Runoff_PRZM5(curvn,Effective_Rain, runoff_local)   !calculates runoff_on_day
       
 
       !Here runoff has preference since according to CN method canopy would already be accounted for:
-      canopy_capture = min(potential_canopy_holdup-CINT, (precip_rain + over_canopy_irrig - runoff_on_day)  )
+      canopy_capture = min(potential_canopy_holdup-CINT, (precip_rain + over_canopy_irrig - runoff_local)  )
       canopy_capture = max (0.0, canopy_capture) !for under canopy irrigation the above could be negative
-     
 
-      
       cint   = cint + canopy_capture
 	  
 	  !cint is not well defined after harvest, but impact is trivial. After harvest there is still cint water, 
@@ -389,9 +373,7 @@ SUBROUTINE Runoff_cn(day)
 	  
 	  !Capture this in an array
       canopy_flow_save(day) = max (0.0, over_canopy_irrig + precip_rain -canopy_capture ) !used for pesticide washoff calcs
-     	  
-	  
-	  
+
       !Thrufl is now only the amount of water actually hitting the ground  used for erosion calcs
       !Might need rethinkin to remove canopy if already accounted for in C factors
       !used effective rain for time of conc in erosion routine
@@ -399,18 +381,10 @@ SUBROUTINE Runoff_cn(day)
  
       ! Compute infiltration for first soil compartment
       
-    
-      
-      
-      AINF(1) = AINF(1) + Effective_Rain- runoff_on_day -canopy_capture
-	 
-      
+      AINF(1) = AINF(1) + Effective_Rain- runoff_local -canopy_capture
 
-      
       curve_number_daily = CURVN  !store curve number for later output display          
-      runoff_save(day)=runoff_on_day
-
-
+      runoff_save(day) = runoff_local
 
     END SUBROUTINE Runoff_cn
 
@@ -449,20 +423,18 @@ SUBROUTINE Runoff_cn(day)
             CURVN =  CN_2(CN_index)
         end if
 
-   
-        
-        
-        
+
     End Subroutine Curve_Number_Adjustment
     
      
   
     !****************************************************************rf*************************
-    Subroutine Calculate_Runoff_PRZM5(curvn,Effective_Rain)
-       use constants_and_Variables, ONLY:runoff_on_day,inabs
+    Subroutine Calculate_Runoff_PRZM5(curvn,Effective_Rain, runoff_from_cn)
+       use constants_and_Variables, ONLY:inabs
        implicit none
-       real, intent(in) :: curvn
+       real,intent(in) :: curvn
        real,intent(in)  :: Effective_Rain
+       real,intent(out) :: runoff_from_cn
     
        !the constant 0.508 is derived from 0.2 * 2.54 cm/in and 0.2 is from INABS = 0.2 * S, where S is (1000./CURVN-10.).
        !INABS: Initial Abstraction INABS = AMAX1(0.508* (1000./CURVN-10.),PRECIP-THRUFL)
@@ -470,14 +442,12 @@ SUBROUTINE Runoff_cn(day)
 
        INABS = 0.508* (1000./CURVN-10.)  !also used in erosion calculation
        IF (Effective_Rain .GT. INABS) then
-           runoff_on_day= (Effective_Rain-INABS)**2/ (Effective_Rain + (4.0* INABS))  !OK the 4 is from 0.8 = 4 * 0.2
+           runoff_from_cn= (Effective_Rain-INABS)**2/ (Effective_Rain + (4.0* INABS))  !OK the 4 is from 0.8 = 4 * 0.2
        else 
-           runoff_on_day = 0.0
+           runoff_from_cn = 0.0
        end if
 
-      
-              
-              
+
     end  Subroutine Calculate_Runoff_PRZM5  
      
      

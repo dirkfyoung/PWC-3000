@@ -4,9 +4,9 @@ contains
 
 subroutine gamma_one
    !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-   !This subroutine calculates the Gamma_1 --the overall littoral degradation rate
-   !metabloism is coded to accept sorbed phase degradation independently, but 
-   !standard water bodies equate sorbed and aqueous metabloism rate
+   !This subroutine calculates the Gamma_1 --the overall water column degradation rate
+   !metabolism here accepts sorbed-phase degradation independently, but 
+   !standard water bodies equate sorbed and aqueous metabolism rate at an earlier point in this program
    !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
    use constants_and_variables, Only:  k_aer_aq,    &  !input aqueous-phase aerobic rate (per sec), see meatabolism.f90
@@ -22,8 +22,6 @@ subroutine gamma_one
 integer :: i
   gamma_1 = k_flow+ (k_photo + k_hydro +k_volatile) *fw1  +k_aer_aq*fw1 + k_aer_s*(1.-fw1)
 
- 
-  
     !The following makes a minimum super low value in order to avoid numerical difficulties
     where (gamma_1 <= 1e-18) 
         gamma_1 = 1e-18  !not quite zero, as this will prevent some numerical problems if all degradation is zero,
@@ -44,7 +42,7 @@ use constants_and_variables, Only:  k_hydro,     &
                                  fw2,         &
                                  gamma_2         !OUTPUT
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    !This subroutine calcualtes the overall rates for given
+    !This subroutine calculates the overall rates given
     ! the individual rates for all processes
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
    implicit none
@@ -64,19 +62,13 @@ subroutine photolysis (nchem)
 
     use constants_and_variables, ONLY: num_records, temp_avg, latitude, photo_rate, RFLAT, CLOUD,k_photo, daily_depth
     use waterbody_parameters, ONLY:sused, dfac, chl,DOC1
-    
-    
 
     implicit none
-    
     integer, intent(in) :: nchem
 
-
-    real:: A
- !   real:: KDP        !calculated EXAMS parameter                      
+    real:: A                 
     real,dimension(num_records) :: term3
     real term1,term2,term4
-
 
         A= 0.141 +101.*CHL+6.25*DOC1 +.34*SUSED   !EXAMS 2.98 section 2.3.3.2.2
         
@@ -85,17 +77,13 @@ subroutine photolysis (nchem)
         
         term3 = (1.-exp(-dfac*daily_depth*A))/dfac/daily_depth/A
         term4 = 1.-0.056*cloud
-        
-  !      KDP  = 8.0225368e-6/photo_input(nchem) !KDP  = 0.69314718/photo/24/3600.  !EXAMS parameter (per sec)
-        
+
         k_photo = photo_rate(nchem)*term1/term2*term3*term4  !effective photolysis rate (per sec)
         
         where (temp_avg <= 0) !eliminate volatilization and photolysis when the pond freezes
          k_photo = 0.
         end where    
         
-
-    
 end subroutine photolysis
 
 
@@ -104,13 +92,10 @@ subroutine hydrolysis(nchem)
   !calculates the hydrolysis rate, given the half life 
   use constants_and_variables, ONLY: hydrolysis_rate, minimum_depth,k_hydro ,daily_depth
 
-  
   implicit none
   integer,intent(in) :: nchem 
-  
 
      k_hydro  = hydrolysis_rate(nchem)  !hydrolysis is constant (for now no dependecies)
-
   
 !Since the field is supposed to be unflooded when depth is minimum depth, we will eliminmate hydrolysis since 
 !we are saying that no water exists in the benthic during this period.
@@ -227,13 +212,10 @@ real :: HENRY_local     ! local Henry's constant; read in as unitless but cahang
        ! VW = 0.1857+5.68*U                                    !(m/hr) EXAMS 2-82 optimized
        ! RG = R*(temp_avg+273.15)/VW/HENRY/sqrt(18./MWT)       !(hr/m) EXAMS 2-76
   
-       
-       
+
        RG = R*(temp_avg+273.15)/(0.1857+5.68*U)/HENRY_temp/sqrt(18./MWT(nchem))
-       
        RG = RG*3600.                                        !(s/m)
 	   
-
        !************************************************************************
        !K_overall = 1./(RL+RG)                            !(m/s)  EXAMS 2-78
        !k_volatile = AREA*K_overall/v                    !per sec                                      
@@ -241,10 +223,7 @@ real :: HENRY_local     ! local Henry's constant; read in as unitless but cahang
     elsewhere  
        k_volatile = 0.0
     end where
-    
-
-		
-
+ 
     where (temp_avg <= 0.) !eliminate volatilization when the pond freezes
         k_volatile = 0.0 
     end where

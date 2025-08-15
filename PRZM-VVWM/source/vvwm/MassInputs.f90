@@ -6,7 +6,7 @@ contains
 
     use constants_and_variables, ONLY: nchem ,num_records, runoff_save,erosion_save,&
                                  eroded_solids_mass, burial,flowthru_the_body, mass_off_field,&   !OUTPUT array to hold runoff & erosion & spraydrift events
-                                 runoff_total,erosion_total,  Daily_Avg_Runoff, runoff_save, edge_of_field
+                                 runoff_total,erosion_total,  Daily_Avg_Runoff, runoff_save
     
     use waterbody_parameters, ONLY: afield, baseflow    
 
@@ -47,39 +47,20 @@ integer :: i
         ! Process and convert runoff for VVWM use
         flowthru_the_body = runoff_save*afield/8640000.    !m3/s :(cm/day) *(m2)* (m/100cm)* (day/806400s)  
         Daily_Avg_Runoff  = sum(flowthru_the_body)/num_records
-        flowthru_the_body = flowthru_the_body+ baseflow  !add in baseflow
-       
-
+ 
         
-        edge_of_field  = 0.0
-        where (flowthru_the_body> 0.0) edge_of_field = mass_off_field(:,1,nchem) /(flowthru_the_body*86400.) !kg/m3
+        !edge_of_field  = 0.0
+        !where (flowthru_the_body> 0.0) edge_of_field = mass_off_field(:,1,nchem) /(flowthru_the_body*86400.) !kg/m3
+        !
         
+        flowthru_the_body = flowthru_the_body+ baseflow  !add in baseflow 
         
- !       either For the case showb implying more mechanistic meaning to tpez depth a  
-        
+   
         ! Process and convert erosion for VVWM use
         eroded_solids_mass= erosion_save*1000. !convert from tonnes to kg
 		
         Burial = eroded_solids_mass/86400.  ! kg/day*(day/86400 sec)    = kg/sec
-        
-        !write(*,*) 'parent runoff mass delivered ',     sum(mass_off_field(:,1,1))
-        !write(*,*)  'parent erosion mass ',             sum(mass_off_field(:,2,1))
-        !
-        !proocess mass inputs
-    !    mass_off_field= mass_off_field* afield*10.  !converts to kg
 
-        !mass_off_field(:,1,1) =  parent_runoff_series(:)* afield*10.  !converts to kg
-        !mass_off_field(:,2,1) = parent_erosion_series(:)* afield*10.  !converts to kg
-        !        
-        !if (nchem >1) then
-        !  mass_off_field(:,1,2) = daughter_runoff_series(:)* afield*10.  !converts to kg
-        !  mass_off_field(:,2,2) = daughter_erosion_series(:)* afield*10.  !converts to kg
-        !end if
-        !
-        !if (nchem >2) then
-        !  mass_off_field(:,1,3) = granddaughter_runoff_series(:)* afield*10.  !converts to kg
-        !  mass_off_field(:,2,3) = granddaughter_erosion_series(:)* afield*10.  !converts to kg
-        !end if
         
         runoff_total(1:nchem) = sum(mass_off_field(:,1,1:nchem),1)
         erosion_total(1:nchem)= sum(mass_off_field(:,2,1:nchem),1)

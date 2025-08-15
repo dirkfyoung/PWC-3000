@@ -1168,22 +1168,26 @@ Public Class Form1
 
 
 
-
-
-
-
-
-
-
     Private Sub AdditionalOutputGridView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles AdditionalOutputGridView.CellContentClick
 
 
+
+
         If AdditionalOutputGridView.Columns(e.ColumnIndex).HeaderText = "Delete" Then
+
+            If AdditionalOutputGridView.Item(0, e.RowIndex).Value = "EoF" Then
+                CalculateEoF.Visible = True
+            End If
+
             If AdditionalOutputGridView.CurrentRow.IsNewRow Then
                 Beep()
             Else
                 AdditionalOutputGridView.Rows.Remove(AdditionalOutputGridView.Rows(e.RowIndex))
             End If
+
+
+
+
         End If
 
 
@@ -1566,6 +1570,8 @@ Public Class Form1
             EvergreenPanel.Visible = False
         End If
     End Sub
+
+
 End Class
 
 

@@ -5,7 +5,7 @@ program PRZMVVWM
              number_of_scenarios,  First_time_through_wb, First_time_through_wpez,First_time_through_tpez,First_time_through_medians, &
              app_window_span, app_window_step, application_date, application_date_original, &
              is_adjust_for_rain, is_batch_scenario, scenario_batchfile , BatchFileUnit, app_window_counter, &
-             First_time_through_medians_wpez, First_time_through_medians_tpez
+             First_time_through_medians_wpez, First_time_through_medians_tpez, calc_eof, First_time_through_eof
     
     use waterbody_parameters, ONLY: read_waterbodyfile, get_pond_parameters, get_reservoir_parameters,waterbody_names,USEPA_reservoir,USEPA_pond,itstpezwpez
     use clock_variables
@@ -53,9 +53,11 @@ program PRZMVVWM
     First_time_through_wb   = .TRUE.  !ARRAY of 3 parent, deg1, deg2, used to write output file headers
     First_time_through_tpez = .TRUE.
     First_time_through_wpez = .TRUE.
-
+    First_time_through_eof  = .TRUE.
+    
     First_time_through_medians_wpez = .TRUE. 
     First_time_through_medians_tpez = .TRUE.
+
     
     call get_command_argument(1,inputfile,length)
     call przm_id                                     !Stamp the runstatus file 
@@ -196,9 +198,15 @@ program PRZMVVWM
                        
                  
                      if (run_tpez_wpez) then !only do TPEZ WPEZ if its a pond run
-                         call wpez     !drift is same as pond noi need to recalculate
-                         call tpez(i)  !need to send in scheme number to find drift
+                         call wpez     !drift is same as pond no need to recalculate
+                         call tpez(i)  !need to send in scheme number to find drift---maybe not anymore
                      end if                     
+                     
+                     if(calc_eof) then
+                         call calc_edge_of_field
+                     end if
+                     
+                     
                end do    
                
                call scenario_hydrolgy_summary
