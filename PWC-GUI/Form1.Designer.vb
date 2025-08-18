@@ -207,7 +207,6 @@ Partial Class Form1
         Me.PETadjustment = New System.Windows.Forms.TextBox()
         Me.Label83 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.IrrigateOnlyCrops = New System.Windows.Forms.CheckBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.IrrigDepthRootZone = New System.Windows.Forms.RadioButton()
         Me.UserSpecifiesIrrigDepth = New System.Windows.Forms.RadioButton()
@@ -553,7 +552,7 @@ Partial Class Form1
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 2, 0, 2)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1052, 28)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1052, 30)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -561,7 +560,7 @@ Partial Class Form1
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveToolStripMenuItem, Me.RetrieveToolStripMenuItem, Me.WriteSchemeTableToFileToolStripMenuItem, Me.LoadSchemeTableToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 24)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 26)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'SaveToolStripMenuItem
@@ -592,7 +591,7 @@ Partial Class Form1
         '
         Me.MorenTabsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToggleAdvancedToolStripMenuItem, Me.ToggleMoreOutputToolStripMenuItem, Me.ToggleScenarioExaminerToolStripMenuItem, Me.ToggeWaterbodyExaminerToolStripMenuItem})
         Me.MorenTabsToolStripMenuItem.Name = "MorenTabsToolStripMenuItem"
-        Me.MorenTabsToolStripMenuItem.Size = New System.Drawing.Size(91, 24)
+        Me.MorenTabsToolStripMenuItem.Size = New System.Drawing.Size(91, 26)
         Me.MorenTabsToolStripMenuItem.Text = "More Tabs"
         '
         'ToggleAdvancedToolStripMenuItem
@@ -623,7 +622,7 @@ Partial Class Form1
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContactToolStripMenuItem})
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(55, 24)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(55, 26)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'ContactToolStripMenuItem
@@ -2308,7 +2307,6 @@ Partial Class Form1
         'GroupBox4
         '
         Me.GroupBox4.BackColor = System.Drawing.Color.PapayaWhip
-        Me.GroupBox4.Controls.Add(Me.IrrigateOnlyCrops)
         Me.GroupBox4.Controls.Add(Me.Panel3)
         Me.GroupBox4.Controls.Add(Me.Label304)
         Me.GroupBox4.Controls.Add(Me.IrrigationDepthUserSpec)
@@ -2330,17 +2328,6 @@ Partial Class Form1
         Me.GroupBox4.TabIndex = 10
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Irrigation"
-        '
-        'IrrigateOnlyCrops
-        '
-        Me.IrrigateOnlyCrops.AutoSize = True
-        Me.IrrigateOnlyCrops.Location = New System.Drawing.Point(7, 95)
-        Me.IrrigateOnlyCrops.Margin = New System.Windows.Forms.Padding(3, 2, 3, 2)
-        Me.IrrigateOnlyCrops.Name = "IrrigateOnlyCrops"
-        Me.IrrigateOnlyCrops.Size = New System.Drawing.Size(216, 20)
-        Me.IrrigateOnlyCrops.TabIndex = 90
-        Me.IrrigateOnlyCrops.Text = "Irrigate only during crop season"
-        Me.IrrigateOnlyCrops.UseVisualStyleBackColor = True
         '
         'Panel3
         '
@@ -6282,7 +6269,6 @@ Partial Class Form1
     Friend WithEvents bcTemp As TextBox
     Friend WithEvents Label83 As Label
     Friend WithEvents GroupBox4 As GroupBox
-    Friend WithEvents IrrigateOnlyCrops As CheckBox
     Friend WithEvents Panel3 As Panel
     Friend WithEvents IrrigDepthRootZone As RadioButton
     Friend WithEvents UserSpecifiesIrrigDepth As RadioButton
