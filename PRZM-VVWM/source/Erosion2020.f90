@@ -78,9 +78,7 @@ module erosion
       erosion_save(day) = sedl
 	  enriched_erosion_save(day)= enriched_eroded_solids
 
-      
-      	  write(92,*) runoff_today, sedl
-      
+ 
     END  SUBROUTINE EROSN
     
   

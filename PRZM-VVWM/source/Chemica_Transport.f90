@@ -72,8 +72,6 @@ module chemical_transport
 	   irrigation_on_day       = irrigation_save(i)       !only needed for output
        soil_temp               = soil_temp_save(:,i)
        
-        write(91,*)precipitation, runoff_on_day, sedl
-       
 
       CALL chemical_transport_oneday
 
