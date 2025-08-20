@@ -50,13 +50,16 @@ module chemical_transport
        evapo_root_node_daily   = evapo_root_node(i)
        root_node_daily         = root_node(i)       !only needed for irrigation
        harvest_placement       = atharvest_pest_app(i)
+       
+       
 	   canopy_flow             = canopy_flow_save(i)
 	   runoff_on_day           = runoff_save(i)
 	   tdet                    = et_save(i)
 	   
 	   sedl                    = erosion_save(i)  !not sure if this is needed until output 
 	   enriched_eroded_solids  = enriched_erosion_save(i)
-	   
+       
+	  
 	   !still need to move erosion
 			
        THAIR_new               = THAIR_save(:,i)
@@ -69,6 +72,7 @@ module chemical_transport
 	   irrigation_on_day       = irrigation_save(i)       !only needed for output
        soil_temp               = soil_temp_save(:,i)
        
+        write(91,*)precipitation, runoff_on_day, sedl
        
 
       CALL chemical_transport_oneday

@@ -90,11 +90,11 @@ module field_hydrology
           end do
        end if
 
-       Call Runoff_cn(day) 
+       Call Runoff_cn(day)      !runoff added to vector runoff_save
        CALL EVPOTR(day)			!EVAPORATION 
        CALL Leaching(day)       !determine water content of soil and air content (old and new)
-       CALL EROSN(day, JULDAY)  !calc loss of chem due to erosion
-
+       CALL EROSN(day, JULDAY)  !calc eroded solids
+       
        ! ****** Soil Temperature Calculations ************** 
        IF (is_temperature_simulated) CALL SLTEMP(day)    
   
@@ -356,7 +356,7 @@ SUBROUTINE Runoff_cn(day)
           
       call Curve_Number_Adjustment(curvn)
     
-      call Calculate_Runoff_PRZM5(curvn,Effective_Rain, runoff_local)   !calculates runoff_on_day
+      call Calculate_Runoff_PRZM5(curvn,Effective_Rain, runoff_local)   !calculates daily runoff
       
 
       !Here runoff has preference since according to CN method canopy would already be accounted for:

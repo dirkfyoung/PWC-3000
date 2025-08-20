@@ -5,8 +5,8 @@ module erosion
     SUBROUTINE EROSN(day, julday)
      !Determines loss of pesticide due to erosion by a variation of USLE and an enrichment ratio.
       use constants_and_Variables,ONLY: soil_temp,is_temperature_simulated,AFIELD_ha,USLEK,USLELS,USLEP,cfac, &
-                                        runoff_on_day,erflag,sedl,enriched_eroded_solids,  julday1900,model_erosion,data_date ,&
-	                                    erosion_save, enriched_erosion_save
+                                        erflag,sedl,enriched_eroded_solids,  julday1900,model_erosion,data_date ,&
+	                                    erosion_save, enriched_erosion_save, runoff_save
 	  
 	  !***NOTE make sedl and enriched_erosion_solids local variables when done *************
 										
@@ -15,23 +15,33 @@ module erosion
       implicit none
 	  integer, intent(in) :: day    !simulation tracker for output arrays
       integer,intent(in) :: julday  !used to determine the rainfall characteristics
-
+      
+      real :: runoff_today
 
 	  
       REAL ::  Q,QQP,SLKGHA,ENRICH
       REAL ::  EC0,EC1,EC2,TC,QP,QU
+      
+      runoff_today = runoff_save(day)
+      
 
-	  
+      
       !if runoff does not occur or frozen ground (maybe redundant) then no erosion
 	  SEDL= 0.0                     
       enriched_eroded_solids= 0.0	
-	  IF (runoff_on_day <= 0.0 ) then !if runoff does not occur, no erosion
+	  IF (runoff_today <= 0.0 ) then !if runoff does not occur, no erosion
+        
+          
 		  SEDL= 0.0                     
           enriched_eroded_solids= 0.0	
 	  else if ((is_temperature_simulated).AND.(soil_temp(1).LE.0.0)) then !if runoff does not occur or frozen ground (maybe redundant) 
           SEDL= 0.0                     
           enriched_eroded_solids= 0.0	 
-	  else  !regular erosion caluclations
+             
+          
+      else  !regular erosion caluclations
+             
+          
          call TMCOEF(EC0,EC1,EC2, julday)  !Get Coefficients from Table F-1 in TR-55
          call Time_of_conc_lag_method(TC)
          QU=EC0+EC1*ALOG10(TC)+EC2*(ALOG10(TC))**2.     
@@ -39,8 +49,8 @@ module erosion
          !QP=(QU*(AFIELD_ha*.00386)*(runoff_on_day*.3937))*0.02832
          !QP=(QP/AFIELD_ha)*360.
     
-         QP= 0.01549346 *QU *runoff_on_day   ! check = QU*.00386*runoff_on_day*.3937*0.02832*360.      
-         Q=runoff_on_day*10.
+         QP= 0.01549346 *QU *runoff_today   ! check = QU*.00386*runoff_on_day*.3937*0.02832*360.      
+         Q=runoff_today*10.
          QQP=Q*QP
       
          IF(ERFLAG.EQ.1)THEN                          ! MUSLE
@@ -68,6 +78,9 @@ module erosion
       erosion_save(day) = sedl
 	  enriched_erosion_save(day)= enriched_eroded_solids
 
+      
+      	  write(92,*) runoff_today, sedl
+      
     END  SUBROUTINE EROSN
     
   
