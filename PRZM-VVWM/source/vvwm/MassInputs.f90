@@ -65,6 +65,8 @@ integer :: i
         runoff_total(1:nchem) = sum(mass_off_field(:,1,1:nchem),1)
         erosion_total(1:nchem)= sum(mass_off_field(:,2,1:nchem),1)
 
+
+        
     end subroutine get_mass_inputs
 
     

@@ -92,6 +92,8 @@ end subroutine chemical_manipulations
 	integer :: count_straddled	  ! counter for the number of straddled horizons
 	integer :: horiz_indx_tracker(50)
 	real :: track_thickness(50)
+    
+
 	
     real :: hydrolyisis_rate_corrected(3)  !soil hydrolysis corrected for implicit function and corrected for per second to per day prent daughter granddaughter
     
@@ -327,10 +329,18 @@ end subroutine chemical_manipulations
                             MolarConvert_s23 (i) = sumofMolarConvert_s23   /sumofdp                         
                      endif 
                  end if
-            end do          
-  
-
+            end do  
             
+        !*************************************************************************************************
+        !Adjust the water content to reflect NAFTA guidance: water content halfway between fc and porosity below 10 cm
+          do i=1, NCOM2 -2
+             if (soil_depth(i)>10.0 ) then                                  !below 10 cm adjust the water content  
+                theta_fc(i) = (theta_fc(i) + (1.0 - bulkdensity(i)/2.65) )/2.0
+             end if    
+          end do
+          
+        !*************************************************************************************************    
+
           !saturate last 2 compartments to simulate aquifer
           
           theta_fc(ncom2-1) = 1.0 - bulkdensity(ncom2-1)/2.65
