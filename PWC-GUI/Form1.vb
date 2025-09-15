@@ -1527,6 +1527,9 @@ Public Class Form1
         Dim p As Process = New Process
         p.StartInfo.FileName = My.Application.Info.DirectoryPath() & "\PRZM-VVWM.exe"
         p.StartInfo.Arguments = """" & PRZMVVWMinputFile & """"
+
+
+
         p.StartInfo.UseShellExecute = False
         p.StartInfo.RedirectStandardOutput = True
         p.StartInfo.RedirectStandardError = True

@@ -437,7 +437,7 @@
         End If
 
         msg = msg & String.Format("{0}{1},{2},{3},", vbNewLine, fleach.Text, depletion.Text, rateIrrig.Text)
-        msg = msg & String.Format("{0}{1},{2},", vbNewLine, UserSpecifiesIrrigDepth.Checked, IrrigationDepthUserSpec.Text)
+        msg = msg & String.Format("{0}{1},{2},{3},", vbNewLine, UserSpecifiesIrrigDepth.Checked, IrrigationDepthUserSpec.Text, MaxIrrigationDepth.Text)
         msg = msg & vbNewLine & "*** spare line for expansion"
         msg = msg & vbNewLine & "*** spare line for expansion"
         msg = msg & vbNewLine & "*** Soil Information ***"
@@ -1573,6 +1573,13 @@
             UserSpecifiesIrrigDepth.Checked = currentRow(0)
             IrrigDepthRootZone.Checked = Not UserSpecifiesIrrigDepth.Checked
             IrrigationDepthUserSpec.Text = currentRow(1)
+
+            Try
+                MaxIrrigationDepth.Text = currentRow(2)
+            Catch ex As Exception
+
+            End Try
+
 
             MyReader.ReadLine()      'Line46
             MyReader.ReadLine()      'Line47
