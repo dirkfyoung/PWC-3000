@@ -623,6 +623,8 @@ Public Class Form1
 
                 SchemeTableDisplay.Rows(e.RowIndex).Cells(e.ColumnIndex).Value = "got it"
 
+
+
                 '******* Calculate the total number of simulations ************************
                 Dim tally As Integer
                 Dim runsInScheme As Integer
@@ -635,7 +637,7 @@ Public Class Form1
                 For i As Integer = 0 To SchemeInfoList.Count - 1
                     If SchemeInfoList(i).UseBatchScenarioFile Then
                         RunCount.Text = "????"
-                        MsgBox(SchemeInfoList(i).UseBatchScenarioFile)
+
                         Exit For
                     End If
 
@@ -662,6 +664,7 @@ Public Class Form1
                     runsInScheme = SchemeInfoList(i).Scenarios.Count * windowRuns
                     tally = tally + runsInScheme
                 Next
+
 
                 If RunCount.Text <> "????" Then
                     RunCount.Text = tally
