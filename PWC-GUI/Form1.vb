@@ -272,6 +272,8 @@ Public Class Form1
         buttonCell = CType(SchemeTableDisplay.Rows(SchemeTableDisplay.Rows.Count - 1).Cells("Delete"), DataGridViewDisableButtonCell)
         buttonCell.Enabled = False
 
+        TallyRuns()
+
 
     End Sub
 
@@ -623,53 +625,53 @@ Public Class Form1
 
                 SchemeTableDisplay.Rows(e.RowIndex).Cells(e.ColumnIndex).Value = "got it"
 
+                TallyRuns()
+
+                ''******* Calculate the total number of simulations ************************
+                'Dim tally As Integer
+                'Dim runsInScheme As Integer
+                'Dim windowRuns As Integer
+                'Dim span As Single
+                'Dim windstep As Single
+
+                'tally = 0
+
+                'For i As Integer = 0 To SchemeInfoList.Count - 1
+                '    If SchemeInfoList(i).UseBatchScenarioFile Then
+                '        RunCount.Text = "????"
+
+                '        Exit For
+                '    End If
+
+                '    If SchemeInfoList(i).UseApplicationWindow Then
+                '        Try
+                '            span = SchemeInfoList(i).ApplicationWindowSpan
+                '            windstep = SchemeInfoList(i).ApplicationWindowStep
+                '            If span > 365 Then
+                '                MsgBox("Application Window span maximum is 365 days")
+                '                RunCount.Text = "XXXXXXX"
+                '                Exit Sub
+                '            End If
+
+                '        Catch ex As Exception
+                '            MsgBox("The Application Window parameters are a problem")
+                '            RunCount.Text = "XXXXXXX"
+                '            Exit Sub
+                '        End Try
+
+                '        windowRuns = span / windstep + 1
+                '    Else
+                '        windowRuns = 1
+                '    End If
+                '    runsInScheme = SchemeInfoList(i).Scenarios.Count * windowRuns
+                '    tally = tally + runsInScheme
+                'Next
 
 
-                '******* Calculate the total number of simulations ************************
-                Dim tally As Integer
-                Dim runsInScheme As Integer
-                Dim windowRuns As Integer
-                Dim span As Single
-                Dim windstep As Single
-
-                tally = 0
-
-                For i As Integer = 0 To SchemeInfoList.Count - 1
-                    If SchemeInfoList(i).UseBatchScenarioFile Then
-                        RunCount.Text = "????"
-
-                        Exit For
-                    End If
-
-                    If SchemeInfoList(i).UseApplicationWindow Then
-                        Try
-                            span = SchemeInfoList(i).ApplicationWindowSpan
-                            windstep = SchemeInfoList(i).ApplicationWindowStep
-                            If span > 365 Then
-                                MsgBox("Application Window span maximum is 365 days")
-                                RunCount.Text = "XXXXXXX"
-                                Exit Sub
-                            End If
-
-                        Catch ex As Exception
-                            MsgBox("The Application Window parameters are a problem")
-                            RunCount.Text = "XXXXXXX"
-                            Exit Sub
-                        End Try
-
-                        windowRuns = span / windstep + 1
-                    Else
-                        windowRuns = 1
-                    End If
-                    runsInScheme = SchemeInfoList(i).Scenarios.Count * windowRuns
-                    tally = tally + runsInScheme
-                Next
-
-
-                If RunCount.Text <> "????" Then
-                    RunCount.Text = tally
-                End If
-                '********************************************************************
+                'If RunCount.Text <> "????" Then
+                '    RunCount.Text = tally
+                'End If
+                ''********************************************************************
 
                 Timer1.Start()
 
@@ -698,6 +700,11 @@ Public Class Form1
                         SchemeInfoList.RemoveAt(e.RowIndex)
                     End If
 
+                TallyRuns()
+
+
+
+
             Case Else
                     Exit Sub
             End Select
@@ -707,6 +714,60 @@ Public Class Form1
 
 
     End Sub
+
+    Private Sub TallyRuns()
+        '******* Calculate the total number of simulations ************************
+        Dim tally As Integer
+        Dim runsInScheme As Integer
+        Dim windowRuns As Integer
+        Dim span As Single
+        Dim windstep As Single
+
+        tally = 0
+
+        For i As Integer = 0 To SchemeInfoList.Count - 1
+            If SchemeInfoList(i).UseBatchScenarioFile Then
+                RunCount.Text = "????"
+
+                Exit For
+            End If
+
+            If SchemeInfoList(i).UseApplicationWindow Then
+                Try
+                    span = SchemeInfoList(i).ApplicationWindowSpan
+                    windstep = SchemeInfoList(i).ApplicationWindowStep
+                    'If span > 365 Then
+                    '    MsgBox("Application Window span maximum is 365 days")
+                    '    RunCount.Text = "XXXXXXX"
+                    '    Exit Sub
+                    'End If
+
+                Catch ex As Exception
+                    '     MsgBox("The Application Window parameters are a problem")
+                    RunCount.Text = "XXXXXXX"
+                    Exit Sub
+                End Try
+
+                windowRuns = span / windstep + 1
+            Else
+                windowRuns = 1
+            End If
+            runsInScheme = SchemeInfoList(i).Scenarios.Count * windowRuns
+            tally = tally + runsInScheme
+        Next
+
+
+        If RunCount.Text <> "????" Then
+            RunCount.Text = tally
+        End If
+
+
+
+    End Sub
+
+
+
+
 
 
     Private Sub SchemeTableDisplay_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles SchemeTableDisplay.CellMouseEnter
