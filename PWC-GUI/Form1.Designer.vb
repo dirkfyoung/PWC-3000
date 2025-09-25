@@ -207,6 +207,8 @@ Partial Class Form1
         Me.PETadjustment = New System.Windows.Forms.TextBox()
         Me.Label83 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.Label91 = New System.Windows.Forms.Label()
+        Me.MaxIrrigationDepth = New System.Windows.Forms.TextBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.IrrigDepthRootZone = New System.Windows.Forms.RadioButton()
         Me.UserSpecifiesIrrigDepth = New System.Windows.Forms.RadioButton()
@@ -508,8 +510,6 @@ Partial Class Form1
         Me.OpenSelectScenarioBatchFile = New System.Windows.Forms.OpenFileDialog()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
-        Me.MaxIrrigationDepth = New System.Windows.Forms.TextBox()
-        Me.Label91 = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.AdvancedTab.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
@@ -1003,6 +1003,7 @@ Partial Class Form1
         Me.FreundlichMinimumConc.Name = "FreundlichMinimumConc"
         Me.FreundlichMinimumConc.Size = New System.Drawing.Size(64, 22)
         Me.FreundlichMinimumConc.TabIndex = 51
+        Me.FreundlichMinimumConc.Text = "0.00001"
         '
         'Nexp3Reg1
         '
@@ -2333,6 +2334,25 @@ Partial Class Form1
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Irrigation"
         '
+        'Label91
+        '
+        Me.Label91.AutoSize = True
+        Me.Label91.Location = New System.Drawing.Point(795, 16)
+        Me.Label91.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label91.Name = "Label91"
+        Me.Label91.Size = New System.Drawing.Size(142, 32)
+        Me.Label91.TabIndex = 91
+        Me.Label91.Text = "Max Soil Depth for " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Irrigation Demand (cm)"
+        '
+        'MaxIrrigationDepth
+        '
+        Me.MaxIrrigationDepth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.MaxIrrigationDepth.Location = New System.Drawing.Point(836, 51)
+        Me.MaxIrrigationDepth.Name = "MaxIrrigationDepth"
+        Me.MaxIrrigationDepth.Size = New System.Drawing.Size(49, 22)
+        Me.MaxIrrigationDepth.TabIndex = 90
+        Me.MaxIrrigationDepth.Text = "30"
+        '
         'Panel3
         '
         Me.Panel3.Controls.Add(Me.IrrigDepthRootZone)
@@ -3287,11 +3307,11 @@ Partial Class Form1
         'Label118
         '
         Me.Label118.AutoSize = True
-        Me.Label118.Location = New System.Drawing.Point(378, 427)
+        Me.Label118.Location = New System.Drawing.Point(398, 411)
         Me.Label118.Name = "Label118"
-        Me.Label118.Size = New System.Drawing.Size(171, 18)
+        Me.Label118.Size = New System.Drawing.Size(130, 36)
         Me.Label118.TabIndex = 102
-        Me.Label118.Text = "Mass Mitigation Factors:"
+        Me.Label118.Text = "  Pesticide Mass " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Mitigation Factors:"
         '
         'Label117
         '
@@ -3561,7 +3581,7 @@ Partial Class Form1
         'UseRainFast
         '
         Me.UseRainFast.AutoSize = True
-        Me.UseRainFast.Location = New System.Drawing.Point(13, 13)
+        Me.UseRainFast.Location = New System.Drawing.Point(13, 14)
         Me.UseRainFast.Name = "UseRainFast"
         Me.UseRainFast.Size = New System.Drawing.Size(252, 22)
         Me.UseRainFast.TabIndex = 17
@@ -5776,25 +5796,6 @@ Partial Class Form1
         '
         Me.BackgroundWorker1.WorkerReportsProgress = True
         Me.BackgroundWorker1.WorkerSupportsCancellation = True
-        '
-        'MaxIrrigationDepth
-        '
-        Me.MaxIrrigationDepth.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.MaxIrrigationDepth.Location = New System.Drawing.Point(836, 51)
-        Me.MaxIrrigationDepth.Name = "MaxIrrigationDepth"
-        Me.MaxIrrigationDepth.Size = New System.Drawing.Size(49, 22)
-        Me.MaxIrrigationDepth.TabIndex = 90
-        Me.MaxIrrigationDepth.Text = "30"
-        '
-        'Label91
-        '
-        Me.Label91.AutoSize = True
-        Me.Label91.Location = New System.Drawing.Point(795, 16)
-        Me.Label91.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label91.Name = "Label91"
-        Me.Label91.Size = New System.Drawing.Size(142, 32)
-        Me.Label91.TabIndex = 91
-        Me.Label91.Text = "Max Soil Depth for " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Irrigation Demand (cm)"
         '
         'Form1
         '

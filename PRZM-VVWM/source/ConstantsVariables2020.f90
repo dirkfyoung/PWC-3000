@@ -631,7 +631,7 @@ module constants_and_variables
       real    :: under_canopy_irrig, over_canopy_irrig 
       
       real    :: irrigation_on_day      !scaler single day irrigation water, used inside main loop and output (see irrigation_save)
-	  
+	  real    :: max_irrig_soildepth    ! (cm) maximum depth used to calculate dryness, added to prevent huge sudden demand by deep rrots
 	
 	  real, allocatable, dimension(:)   :: enriched_erosion_save
 	   
@@ -651,6 +651,8 @@ module constants_and_variables
       logical :: UserSpecifiesDepth        !True if custom depth, False if auto with root depth
       real    :: user_irrig_depth          !user-specified depth of irrigation, input value
       integer :: user_irrig_depth_node     !node for user-specified depth of irrigation, calc in INITL subroutine
+      integer :: max_irrig_soildepth_node  !node for maximum depth to sence dryness
+      
       
       !*****Crop Parameters ********* 
 

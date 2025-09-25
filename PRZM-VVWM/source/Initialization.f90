@@ -71,8 +71,8 @@ end subroutine chemical_manipulations
         is_total_degradation,is_constant_profile, is_ramp_profile, ramp1, ramp2, ramp3,is_exp_profile , exp_profile1, exp_profile2, folpst, &
 	    top_node_last_horizon, bottom_node_last_horizon, snow, cint, foliar_degrade_loss, SUPFLX, Foliar_volatile_loss, &
         is_auto_profile, profile_thick, profile_number_increments, number_of_discrete_layers, &
-        aq_rate_corrected,sorb_rate_corrected, gas_rate_corrected,scenario_id,is_hydrolysis_override
-
+        aq_rate_corrected,sorb_rate_corrected, gas_rate_corrected,scenario_id,is_hydrolysis_override, &
+        max_irrig_soildepth, max_irrig_soildepth_node
 
 
   use waterbody_parameters, ONLY: afield
@@ -596,14 +596,17 @@ end subroutine chemical_manipulations
     cn_moist_node = find_depth_node(ncom2,soil_depth,CN_moisture_depth)
     
     !*** Find the node for the  min_evap_depth (formerly) ANETD***************
-    
-
     Min_Evap_node =  find_depth_node(ncom2,soil_depth,min_evap_depth)
     
     !Find the node for user-specified irrigation depth
     If (UserSpecifiesDepth) then
         user_irrig_depth_node =  find_depth_node(ncom2,soil_depth,user_irrig_depth)
     end if
+    
+    !Find node for max dryness depth
+    max_irrig_soildepth_node =  find_depth_node(ncom2,soil_depth,max_irrig_soildepth)
+    
+    
     
     !initialize the water content in the profile to the THETO (previously initailized in SUBROUTINE INIACC)
     theta_end = theta_zero 

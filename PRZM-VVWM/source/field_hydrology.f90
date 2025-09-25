@@ -214,7 +214,8 @@ SUBROUTINE irrigation(day)
 
       use  constants_and_Variables, ONLY: precipitation, really_not_thrufl,IRTYPE,PCDEPL,max_irrig,FLEACH, &
            cint,DELX,theta_end,theta_fc,theta_wp,potential_canopy_holdup,root_node_daily, &
-           under_canopy_irrig, over_canopy_irrig, UserSpecifiesDepth,user_irrig_depth_node,irrigation_save
+           under_canopy_irrig, over_canopy_irrig, UserSpecifiesDepth,user_irrig_depth_node,irrigation_save, &
+           max_irrig_soildepth_node
       
       implicit none
 
@@ -252,9 +253,7 @@ SUBROUTINE irrigation(day)
 ! hydrologic updates in HYDR1. Thus in the IRRIG routine, the
 ! definition of THETN is contrary to the manual's definition.
 !
-! See also comments in subroutine iniacc.
-
-    
+! Addded max_irrig_soildepth as a limit to the soil depth that would be used to determine soil water demand (cm), Sep 2025 dfy
 
    
       SMCRIT = 0.0
@@ -264,7 +263,7 @@ SUBROUTINE irrigation(day)
       if (UserSpecifiesDepth) then
            local_irrigation_node = user_irrig_depth_node 
       else
-           local_irrigation_node = root_node_daily
+           local_irrigation_node = min(root_node_daily, max_irrig_soildepth_node   )
       end if
       
 
@@ -277,9 +276,6 @@ SUBROUTINE irrigation(day)
 
       under_canopy_irrig = 0.0
       over_canopy_irrig = 0.0
-      
-      
-    
       
       IF((Sum(theta_end(1:local_irrigation_node)*delx(1:local_irrigation_node)) > SMCRIT) .OR. precipitation > 0.0) THEN
           irrigation_save(day) = 0.0

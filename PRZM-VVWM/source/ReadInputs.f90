@@ -377,14 +377,15 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         nhoriz,thickness,bd_input,fc_input, wp_input, oc_input, bd_input, Num_delx,dispersion_input, &
         is_temperature_simulated , albedo, NUSLEC,GDUSLEC,GMUSLEC,cn_2, uslec, &
         runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth, erosion_decline, erosion_effic,use_usleyears,Height_stagnant_air_layer_cm, &
-		is_auto_profile,number_of_discrete_layers,  profile_thick, profile_number_increments,  evergreen,soil_temp_input, scenario_id, bottom_bc
-    
+		is_auto_profile,number_of_discrete_layers,  profile_thick, profile_number_increments,  evergreen,soil_temp_input, scenario_id, bottom_bc, &
+        max_irrig_soildepth
         integer :: eof
         logical, intent(out) :: error
         integer, intent(in) :: schemenumber,scenarionumber
         character (len=512) filename
-        integer :: i,status
-        
+        integer :: i,status, iostat_status, j
+        integer :: comma_count
+        integer, dimension(4) :: comma_place
  
         !local that will likely need to go to module
         !logical :: evergreen
@@ -478,7 +479,7 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
             max_canopy_cover(i)=max_canopy_cover(i)/100.
         end do
        
-        
+     
 
         do i=1, max_number_crop_periods - num_crop_periods_input
             read(ScenarioFileUnit,'(A)') dummy
@@ -495,8 +496,36 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
    
         read(ScenarioFileUnit,*) ! Line 42  "*** irrigation information start ***"        
         read(ScenarioFileUnit,*) irtype ! Line 43 0 = none, 1 = overcanopy 2 = under canopy 
-        read(ScenarioFileUnit,*) FLEACH,PCDEPL,max_irrig  !Line 44                  
+        
+        !________________________________________________________________________________________
+        !Make backward compatible for new added parameter: old scenarios had 2 commas on this line  
+        !30 cm default value
+        read(ScenarioFileUnit,*) FLEACH,PCDEPL,max_irrig  !Line 44 
+        
+        backspace(ScenarioFileUnit) ! re read it now to look for 4th parameter     
+        read(ScenarioFileUnit,'(A)') dummy
+        comma_count = 0
+        comma_place = 0
+        j = 0
+        do i = 1, len(dummy)
+            if (dummy(i:i) == ",") then
+               j = j+1
+               comma_count = comma_count+1
+               comma_place(j) = i 
+            end if
+        end do
 
+        if (comma_count >= 3) then
+            read(  dummy(comma_place(3)+1 : len(dummy) ), *, iostat=iostat_status) max_irrig_soildepth
+              if (iostat_status .NE. 0) then      
+                   max_irrig_soildepth = 30.0
+              end if  
+        else  !capture if only 2 commas as with old files  
+            max_irrig_soildepth = 30.0   
+        end if
+
+        !----------------------------------------------------------------------------------------
+        
         read(ScenarioFileUnit,*) UserSpecifiesDepth !, user_irrig_depth  ! UserSpecifiesIrrigDepth.Checked, IrrigationDepthUserSpec.Text)
 
         if (UserSpecifiesDepth) then
@@ -602,7 +631,7 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
              ALBEDO, soil_temp_input, dispersion_input, nuslec,cn_2, USLEC, gmuslec, gduslec, use_usleyears, &
              runoff_extr_depth,runoff_decline,runoff_effic,erosion_depth,erosion_decline,erosion_effic, Height_stagnant_air_layer_cm, &
              profile_thick, profile_number_increments, is_auto_profile,  number_of_discrete_layers, foliar_disposition, UserSpecifiesDepth,  &
-             user_irrig_depth , bottom_bc
+             user_irrig_depth , bottom_bc, max_irrig_soildepth
                                                                           
          logical, intent(out) :: end_of_file, error_on_read                                 
          integer, intent(in)  :: batchfileunit                            
@@ -648,6 +677,7 @@ subroutine read_batch_scenarios(batchfileunit, end_of_file, error_on_read)
         erosion_decline   = 0.0
         erosion_effic     = 1.0
         Height_stagnant_air_layer_cm = 5.0
+        max_irrig_soildepth = 30.0
         
         is_auto_profile = .TRUE.  !we will use discretizations specified independent of horizon info
         number_of_discrete_layers	=   6

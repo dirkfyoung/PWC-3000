@@ -59,6 +59,7 @@ Global
 		{23D9F747-68FF-417E-8AFD-E200A6F7A1D0}.Release|Any CPU.ActiveCfg = Release
 		{23D9F747-68FF-417E-8AFD-E200A6F7A1D0}.Release|Any CPU.Build.0 = Release
 		{23D9F747-68FF-417E-8AFD-E200A6F7A1D0}.Release|x64.ActiveCfg = Release
+		{23D9F747-68FF-417E-8AFD-E200A6F7A1D0}.Release|x64.Build.0 = Release
 		{23D9F747-68FF-417E-8AFD-E200A6F7A1D0}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution

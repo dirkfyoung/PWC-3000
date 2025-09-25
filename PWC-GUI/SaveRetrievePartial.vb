@@ -436,8 +436,8 @@
             msg = msg & String.Format("{0}0", vbNewLine)
         End If
 
-        msg = msg & String.Format("{0}{1},{2},{3},", vbNewLine, fleach.Text, depletion.Text, rateIrrig.Text)
-        msg = msg & String.Format("{0}{1},{2},{3},", vbNewLine, UserSpecifiesIrrigDepth.Checked, IrrigationDepthUserSpec.Text, MaxIrrigationDepth.Text)
+        msg = msg & String.Format("{0}{1},{2},{3},{4},", vbNewLine, fleach.Text, depletion.Text, rateIrrig.Text, MaxIrrigationDepth.Text)
+        msg = msg & String.Format("{0}{1},{2},", vbNewLine, UserSpecifiesIrrigDepth.Checked, IrrigationDepthUserSpec.Text)
         msg = msg & vbNewLine & "*** spare line for expansion"
         msg = msg & vbNewLine & "*** spare line for expansion"
         msg = msg & vbNewLine & "*** Soil Information ***"
@@ -1564,21 +1564,29 @@
                     noIrrigation.Checked = True
             End Select
 
+
+
             currentRow = MyReader.ReadFields 'line 44
             fleach.Text = currentRow(0)
             depletion.Text = currentRow(1)
             rateIrrig.Text = currentRow(2)
+
+            'Old scenarios are mising max irrigation depth
+            Try
+                MaxIrrigationDepth.Text = currentRow(3)
+            Catch ex As Exception
+                MaxIrrigationDepth.Text = "30.0"
+            End Try
+
+
 
             currentRow = MyReader.ReadFields 'line 45
             UserSpecifiesIrrigDepth.Checked = currentRow(0)
             IrrigDepthRootZone.Checked = Not UserSpecifiesIrrigDepth.Checked
             IrrigationDepthUserSpec.Text = currentRow(1)
 
-            Try
-                MaxIrrigationDepth.Text = currentRow(2)
-            Catch ex As Exception
 
-            End Try
+
 
 
             MyReader.ReadLine()      'Line46
