@@ -31,7 +31,7 @@ module schemeload
            pest_app_method_in , drift_value,lag_app_in , repeat_app_in,num_applications_input, some_applications_were_foliar,&
            days_until_applied,&
            days_until_applied_schemes,application_rate_schemes,method_schemes,depth_schemes,split_schemes,&
-           drift_schemes,lag_schemes,periodicity_schemes,driftfactor_schemes,&
+           drift_schemes,lag_schemes,periodicity_schemes,driftbuffer_schemes,&
            app_reference_point, app_reference_point_schemes, is_adjust_for_rain_schemes, & 	
            rain_limit_schemes,optimum_application_window_schemes,intolerable_rain_window_schemes,min_days_between_apps_schemes, & 
 	       is_adjust_for_rain, rain_limit,optimum_application_window,intolerable_rain_window,min_days_between_apps, is_batch_scenario, &
@@ -81,7 +81,7 @@ module schemeload
             !********************************************************************************
             !the new spray curve and integration routine
             !convert feet to meters
-            buffer = driftfactor_schemes(scheme_number,i)*0.3048 !convert input feet to meters       
+            buffer = driftbuffer_schemes(scheme_number,i)*0.3048 !convert input feet to meters       
             distance = distance_drift  !already in meters, this comes from the waterbody parameters
 
             call trapezoid_rule(buffer,    buffer+ distance,    (drift_schemes(scheme_number,i) ), drift_value(i)  )

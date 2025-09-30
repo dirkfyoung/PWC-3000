@@ -7,7 +7,6 @@ Imports System.Windows.Forms.VisualStyles
 
 
 Public Class Form1
-    Const VersionNumber As Double = 1.0
 
     Private ReadOnly SchemeInfoList As New ArrayList ' this is a list and characteristics of all the application schemes, icluding crops, rates everything from labels
 

@@ -101,18 +101,13 @@
         "InstallerBootstrapper" = "3:2"
             "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
             {
-            "Enabled" = "11:TRUE"
+            "Enabled" = "11:FALSE"
             "PromptEnabled" = "11:TRUE"
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
-                    {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
-                    }
                 }
             }
         }
@@ -136,7 +131,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.8"
+                "FrameworkVersion" = "8:ANY"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=863262"
                 }
@@ -251,15 +246,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:PWC3"
-        "ProductCode" = "8:{C46A0B16-7448-41DB-A86F-465C043B1B95}"
-        "PackageCode" = "8:{0DF7F484-669D-48A6-9F7E-7EAC351652D3}"
+        "ProductCode" = "8:{3D7D561A-D9C5-44A2-8E9C-3A0B757D1F4E}"
+        "PackageCode" = "8:{42D16806-982E-406B-A344-99EF2E727011}"
         "UpgradeCode" = "8:{8C575A54-B17E-4C11-BA19-AE32D6B190D5}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.10"
+        "ProductVersion" = "8:1.1.00"
         "Manufacturer" = "8:U.S. EPA"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -388,7 +383,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_9502DD4CFA124F19BDD03D211DC2BB19"
             {
-            "Name" = "8:PWC-3"
+            "Name" = "8:PWC-3.1"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"

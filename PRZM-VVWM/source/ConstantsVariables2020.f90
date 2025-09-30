@@ -8,7 +8,7 @@ module constants_and_variables
       real :: hold_irrig
       real :: hold_runoff
 
-      real,parameter :: Version_Number = 1.003 !version 1
+      real,parameter :: Version_Number = 1.040 !version 1
       
       logical :: use_bidiagonal
       integer :: app_window_counter  !tracks the appication widow for placement into a storage array for median calculation of concentrations
@@ -148,7 +148,7 @@ module constants_and_variables
       
    !   character(LEN=10), allocatable,dimension(:,:) absolute_date_option
       integer,allocatable,dimension(:,:)      :: drift_schemes        !this is an integer corresponding to the drift in the waterbody file, inexed: scheme number, app number
-      real,allocatable,dimension(:,:)         :: driftfactor_schemes  !distance (ft) of spray buffers or whatever distance unit the spray table is in
+      real,allocatable,dimension(:,:)         :: driftbuffer_schemes  !distance (ft) of spray buffers or whatever distance unit the spray table is in
 	  
       real,allocatable,dimension(:,:)		  :: application_rate_schemes
       real,allocatable,dimension(:,:)         :: depth_schemes

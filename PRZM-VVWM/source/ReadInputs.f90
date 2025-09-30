@@ -18,7 +18,7 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     number_of_schemes,num_apps_in_schemes, number_of_scenarios, &
     app_reference_point_schemes  ,&
     application_rate_schemes, depth_schemes, split_schemes, drift_schemes, &
-    lag_schemes, periodicity_schemes,driftfactor_schemes,&
+    lag_schemes, periodicity_schemes,driftbuffer_schemes,&
     method_schemes, days_until_applied_schemes,&
     scenario_names, working_directory, family_name,weatherfiledirectory,erflag, nchem,  &
     ADJUST_CN, water_column_halflife_input, &
@@ -62,59 +62,59 @@ use utilities
       stop
     ENDIF 
     
-    read(inputfile_unit_number,*) !Version info                                                                   !Line 1
+    read(inputfile_unit_number,*) !Version info                                      !Line 1                                                        !Line 1
                                                                                                                   
-    read(inputfile_unit_number,'(A)')  working_directory                                                          !Line 2 
-    write(*,'(A23, A300)') ' working directory is: ', adjustl(working_directory) 
-    read(inputfile_unit_number,'(A)') family_name                                                                 !Line 3
-    read(inputfile_unit_number,'(A)') weatherfiledirectory                                                        !Line 4 
+    read(inputfile_unit_number,'(A)')  working_directory                             !Line 2                                                   !Line 2 
+    write(*,'(A23, A300)') ' working directory is: ', adjustl(working_directory)     
+    read(inputfile_unit_number,'(A)') family_name                                    !Line 3                             !Line 3
+    read(inputfile_unit_number,'(A)') weatherfiledirectory                           !Line 4                            !Line 4 
 	write(*,'(A23, A300)') ' weather directory is: ', adjustl(weatherfiledirectory) 
-    read(inputfile_unit_number,*) open_water_adj                                                                  !Line 5
+    read(inputfile_unit_number,*) open_water_adj                                     !Line 5                                             !Line 5
     
 
-    read(inputfile_unit_number,*) is_koc,is_freundlich,is_nonequilibrium,is_needs_poundkg_conversion,is_hydrolysis_override !Line 5
-    read(inputfile_unit_number,*) nchem                                                                           !Line 6
-    read(inputfile_unit_number,*) k_f_input(1),k_f_input(2),k_f_input(3)                                          !Line 7  
-    read(inputfile_unit_number,*) N_f_input(1), N_f_input(2), N_f_input(3)                                        !Line 8
-    read(inputfile_unit_number,*) k_f_2_input(1), k_f_2_input(2), k_f_2_input(3)                                  !Line 9
-    read(inputfile_unit_number,*) N_f_2_input(1), N_f_2_input(2), N_f_2_input(3)                                  !Line 10
-    read(inputfile_unit_number,*) K2(1), K2(2), K2(3)                                                             !Line 11
-    read(inputfile_unit_number,*) lowest_conc, number_subdelt                                                     !Line 12
-    read(inputfile_unit_number,*) water_column_halflife_input(1), &                                               !Line 13
+    read(inputfile_unit_number,*) is_koc,is_freundlich,is_nonequilibrium,is_needs_poundkg_conversion,is_hydrolysis_override !Line 6
+    read(inputfile_unit_number,*) nchem                                                                           !Line 7
+    read(inputfile_unit_number,*) k_f_input(1),k_f_input(2),k_f_input(3)                                          !Line 8  
+    read(inputfile_unit_number,*) N_f_input(1), N_f_input(2), N_f_input(3)                                        !Line 9
+    read(inputfile_unit_number,*) k_f_2_input(1), k_f_2_input(2), k_f_2_input(3)                                  !Line 10
+    read(inputfile_unit_number,*) N_f_2_input(1), N_f_2_input(2), N_f_2_input(3)                                  !Line 11
+    read(inputfile_unit_number,*) K2(1), K2(2), K2(3)                                                             !Line 12
+    read(inputfile_unit_number,*) lowest_conc, number_subdelt                                                     !Line 13
+    read(inputfile_unit_number,*) water_column_halflife_input(1), &                                               !Line 14
         water_column_halflife_input(2),water_column_halflife_input(3),xAerobic(1),  xAerobic(2)   
-	read(inputfile_unit_number,*) water_column_ref_temp(1),water_column_ref_temp(2),water_column_ref_temp(3)      !Line 14
-    read(inputfile_unit_number,*) benthic_halflife_input(1),benthic_halflife_input(2),benthic_halflife_input(3),& !Line 15
+	read(inputfile_unit_number,*) water_column_ref_temp(1),water_column_ref_temp(2),water_column_ref_temp(3)      !Line 15
+    read(inputfile_unit_number,*) benthic_halflife_input(1),benthic_halflife_input(2),benthic_halflife_input(3),& !Line 16
         xBenthic(1), xbenthic(2)
-    read(inputfile_unit_number,*) benthic_ref_temp(1),benthic_ref_temp(2),benthic_ref_temp(3)                     !Line 16
-    read(inputfile_unit_number,*) photo_halflife_input(1), photo_halflife_input(2), photo_halflife_input(3),&     !Line 17
+    read(inputfile_unit_number,*) benthic_ref_temp(1),benthic_ref_temp(2),benthic_ref_temp(3)                     !Line 17
+    read(inputfile_unit_number,*) photo_halflife_input(1), photo_halflife_input(2), photo_halflife_input(3),&     !Line 18
         xPhoto(1), xphoto(2) 
-    read(inputfile_unit_number,*) rflat(1), rflat(2), rflat(3)                                                    !Line 18
-    read(inputfile_unit_number,*) hydrolysis_halflife_input(1),hydrolysis_halflife_input(2), &                    !Line 19
+    read(inputfile_unit_number,*) rflat(1), rflat(2), rflat(3)                                                    !Line 19
+    read(inputfile_unit_number,*) hydrolysis_halflife_input(1),hydrolysis_halflife_input(2), &                    !Line 20
         hydrolysis_halflife_input(3) , xhydro(1), xhydro(2)
     
 
-    read(inputfile_unit_number,*) soil_degradation_halflife_input(1), soil_degradation_halflife_input(2),&        !Line 20
+    read(inputfile_unit_number,*) soil_degradation_halflife_input(1), soil_degradation_halflife_input(2),&        !Line 21
         soil_degradation_halflife_input(3), xsoil(1), xsoil(2), is_total_degradation	
-	read(inputfile_unit_number,*) soil_ref_temp(1), soil_ref_temp(2), soil_ref_temp(3)                            !Line 21
+	read(inputfile_unit_number,*) soil_ref_temp(1), soil_ref_temp(2), soil_ref_temp(3)                            !Line 22
 
-    read(inputfile_unit_number,*) foliar_halflife_input(1), foliar_halflife_input(2),&              !Line 22
+    read(inputfile_unit_number,*) foliar_halflife_input(1), foliar_halflife_input(2),&                            !Line 23
         foliar_halflife_input(3),foliar_formation_ratio_12, foliar_formation_ratio_23            
         
-    read(inputfile_unit_number,*) plant_washoff_coeff(1),plant_washoff_coeff(2),plant_washoff_coeff(3)            !Line 23  
-    read(inputfile_unit_number,*) mwt(1), mwt(2), mwt(3)                                                          !Line 24
-    read(inputfile_unit_number,*) vapor_press(1), vapor_press(2),vapor_press(3)                                   !Line 25
-    read(inputfile_unit_number,*) solubilty(1), solubilty(2), solubilty(3)                                        !Line 26
-    read(inputfile_unit_number,*) Henry_unitless(1),Henry_unitless(2),Henry_unitless(3)
-    read(inputfile_unit_number,*) DAIR(1),DAIR(2),DAIR(3)                                                         !Line 28
-    read(inputfile_unit_number,*) Heat_of_Henry(1),Heat_of_Henry(2),Heat_of_Henry(3)                              !Line 29
-    read(inputfile_unit_number,*) Q_10                                                                            !Line 30
-    read(inputfile_unit_number,*) is_constant_profile                                                             !Line 31
-    read(inputfile_unit_number,*) is_ramp_profile, ramp1, ramp2, ramp3                                            !Line 32
-    read(inputfile_unit_number,*) is_exp_profile , exp_profile1, exp_profile2                                     !Line 33
-    read(inputfile_unit_number,*) number_of_schemes                                                               !Line 34
+    read(inputfile_unit_number,*) plant_washoff_coeff(1),plant_washoff_coeff(2),plant_washoff_coeff(3)            !Line 24  
+    read(inputfile_unit_number,*) mwt(1), mwt(2), mwt(3)                                                          !Line 25
+    read(inputfile_unit_number,*) vapor_press(1), vapor_press(2),vapor_press(3)                                   !Line 26
+    read(inputfile_unit_number,*) solubilty(1), solubilty(2), solubilty(3)                                        !Line 27
+    read(inputfile_unit_number,*) Henry_unitless(1),Henry_unitless(2),Henry_unitless(3)                           !Line 28
+    read(inputfile_unit_number,*) DAIR(1),DAIR(2),DAIR(3)                                                         !Line 29
+    read(inputfile_unit_number,*) Heat_of_Henry(1),Heat_of_Henry(2),Heat_of_Henry(3)                              !Line 30 
+    read(inputfile_unit_number,*) Q_10                                                                            !Line 31 
+    read(inputfile_unit_number,*) is_constant_profile                                                             !Line 32 
+    read(inputfile_unit_number,*) is_ramp_profile, ramp1, ramp2, ramp3                                            !Line 33 
+    read(inputfile_unit_number,*) is_exp_profile , exp_profile1, exp_profile2                                     !Line 34 
+    read(inputfile_unit_number,*) number_of_schemes                                                               
                                      
-    write(*,*) "Number of schemes = ", number_of_schemes                                                          
-                                                                                                                  !Lines become variable from here 
+    write(*,*) "Number of schemes = ", number_of_schemes                                                          !Line 35
+                                                                                                                  
     allocate (num_apps_in_schemes(number_of_schemes))                                                             
     allocate (app_reference_point_schemes(number_of_schemes))
     allocate (days_until_applied_schemes(number_of_schemes,366)) 
@@ -125,7 +125,7 @@ use utilities
     allocate (depth_schemes(number_of_schemes,366)) 
     allocate (split_schemes(number_of_schemes,366)) 
     allocate (drift_schemes(number_of_schemes,366)) 
-	allocate (driftfactor_schemes(number_of_schemes,366))
+	allocate (driftbuffer_schemes(number_of_schemes,366))
 	
     allocate (lag_schemes(number_of_schemes,366)) 
     allocate (periodicity_schemes(number_of_schemes,366)) 
@@ -151,11 +151,11 @@ use utilities
     
 	is_absolute_year_schemes = .FALSE.
     do i=1, number_of_schemes
-        read(inputfile_unit_number,*) scheme_number_readin, scheme_name                                !scheme line 1
+        read(inputfile_unit_number,*) scheme_number_readin, scheme_name                                    !scheme line 1
   !      write(*,'(A22,I5,1X,A256)') " Scheme Number & Name ",scheme_number_readin, adjustl(scheme_name)
          
-        read(inputfile_unit_number,*) app_reference_point_schemes(i)                            !scheme line 2
-        read(inputfile_unit_number,*) num_apps_in_schemes(i)                                    !scheme line 3
+        read(inputfile_unit_number,*) app_reference_point_schemes(i)                                       !scheme line 2
+        read(inputfile_unit_number,*) num_apps_in_schemes(i)                                               !scheme line 3
         
         do j=1, num_apps_in_schemes(i)   
            
@@ -213,7 +213,7 @@ use utilities
   
                 read(wholeline((comma_5+1):(comma_6-1)),*)         drift_schemes(i,j)
     
-				read(wholeline((comma_6+1):(comma_7-1)),*)		   driftfactor_schemes(i,j)
+				read(wholeline((comma_6+1):(comma_7-1)),*)		   driftbuffer_schemes(i,j)
                 
                 read(wholeline((comma_7+1):(comma_8-1)),*)         periodicity_schemes(i,j)  
                 
@@ -223,7 +223,7 @@ use utilities
             case default
                      read(inputfile_unit_number,*) days_until_applied_schemes(i,j), application_rate_schemes(i,j), &
                          method_schemes(i,j), depth_schemes(i,j), split_schemes(i,j),   &
-                         drift_schemes(i,j), driftfactor_schemes(i,j) ,periodicity_schemes(i,j) , lag_schemes(i,j)           
+                         drift_schemes(i,j), driftbuffer_schemes(i,j) ,periodicity_schemes(i,j) , lag_schemes(i,j)           
             end select                
         end do
         

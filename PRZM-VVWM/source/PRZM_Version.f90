@@ -9,7 +9,7 @@ Contains
      Implicit None
 
 
-     WRITE(*,'(A19,1X,F7.3)')' PRZM5-VVWM Version:', Version_Number  
+     WRITE(*,'(A19,1X,F7.3)')' PRZM-VVWM Version:', Version_Number  
      Write(*, *)
      Write(*, *) '    For technical support contact:'
      Write(*, *) '           Dirk F. Young ' 

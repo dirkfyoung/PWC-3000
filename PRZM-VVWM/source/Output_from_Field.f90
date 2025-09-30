@@ -90,7 +90,7 @@ Module Output_From_Field
       use  constants_and_Variables, ONLY:TimeSeriesUnit2,Version_Number,PLNAME,chem_id,NPLOTS
       integer :: i
       
-      WRITE(TimeSeriesUnit2,'(A48,1X,F7.3)')'United States of America, EPA PRZM5-VVWM Version', Version_Number  
+      WRITE(TimeSeriesUnit2,'(A48,1X,F7.3)')'United States of America, EPA PRZM-VVWM Version', Version_Number  
       WRITE(TimeSeriesUnit2,*)      
   
       WRITE(TimeSeriesUnit2,'(A4,1x,A2,1x,A2,9x, 100(A4,I1,9X))') "Year","Mo","Dy", (PLNAME(I),chem_id(I),I=1,NPLOTS)     !Header List
