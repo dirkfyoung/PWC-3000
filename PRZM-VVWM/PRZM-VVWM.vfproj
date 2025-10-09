@@ -39,7 +39,7 @@
 			<Tool Name="VFManifestTool" SuppressStartupBanner="true"/>
 		</Configuration>
 		<Configuration Name="Release|x64" UseCompiler="ifxCompiler" OutputDirectory="..\CommonOutput\">
-			<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" HeapArrays="600" IntegerKIND="integerKIND8" RealKIND="realKIND8" DoublePrecisionKIND="doublePrecisionKIND16"/>
+			<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" HeapArrays="600" StandardWarnings="standardWarningsF18" IntegerKIND="integerKIND8" RealKIND="realKIND8" DoublePrecisionKIND="doublePrecisionKIND16"/>
 			<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" SubSystem="subSystemConsole"/>
 			<Tool Name="VFResourceCompilerTool"/>
 			<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>

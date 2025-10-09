@@ -1,6 +1,6 @@
 module Pesticide_Applications
 implicit none
-	contains
+contains
     
 Subroutine adjust_application_dates_for_weather
 !Start with given application date. Check to see if a rain event of size "rain_limit" occurs within
@@ -76,7 +76,7 @@ SUBROUTINE PESTAP(application_index)
       use  constants_and_Variables, ONLY: COVER,pest_app_method,  &
                                     delx,theta_zero,DEPI,TAPP,appeff, &
                                     conc_total_per_water,mass_in_compartment, &
-                                    FOLPST,plant_app,Tband_top, ncom2, julday1900, applied_mass_sum_gram_per_cm2
+                                    FOLPST,plant_app,Tband_top, ncom2, applied_mass_sum_gram_per_cm2
       use utilities_1
       implicit none
       
@@ -92,7 +92,7 @@ SUBROUTINE PESTAP(application_index)
       integer            ::  CAM_local 
       integer,intent(in) ::  application_index
       real               :: distribution_of_applied(ncom2)
-      integer :: i
+
   
       plant_app = 0.0
    !   SOILAP = 0.0
@@ -343,8 +343,8 @@ SUBROUTINE pesticide_decreasing_distribution(APPAMT,DMAX,BASE,SLOPE,applied_to_s
     REAL,intent(in)  :: APPAMT,DMAX,BASE,SLOPE
     real,intent(out) :: applied_to_soil(ncom2)
 
-    INTEGER  CMPT, ncmpwithchem, i
-    REAL     DEP,APPTOT,APPREM,FRACT,SLP2,FRCTOT, prev, curr, bottom
+    INTEGER  ncmpwithchem, i
+    REAL     DEP, prev, curr, bottom
 
     DEP = 0.0
     applied_to_soil = 0.0
@@ -383,8 +383,8 @@ END SUBROUTINE pesticide_decreasing_distribution
     REAL,intent(in)  :: APPAMT,DMAX
     real,intent(out) :: applied_to_soil(ncom2)
        
-    INTEGER  CMPT, ncmpwithchem, i
-    REAL     DEP,APPTOT,APPREM,FRACT,SLP2,FRCTOT, prev, curr, bottom
+    INTEGER  ncmpwithchem, i
+    REAL     DEP,prev, curr, bottom
       
     DEP = 0.0
     applied_to_soil = 0.0
@@ -420,8 +420,8 @@ END SUBROUTINE pesticide_decreasing_distribution
       REAL,intent(in)  :: APPAMT,DMAX,BASE,SLOPE
       real,intent(out) :: applied_to_soil(ncom2)
        
-      INTEGER  CMPT, ncmpwithchem, i
-      REAL     DEP,APPTOT,APPREM,FRACT,SLP2,FRCTOT, prev, curr, bottom
+      INTEGER  ncmpwithchem, i
+      REAL     DEP,prev, curr, bottom
       
       DEP = 0.0      
       applied_to_soil = 0.0
@@ -553,8 +553,8 @@ END SUBROUTINE pesticide_decreasing_distribution
       
     real,intent(out) :: applied_to_soil(ncom2)
     REAL     APPAMT,DMAX
-    INTEGER  CMPT,ncmpwithchem,i
-    REAL     depth,APPTOT,APPREM,SLP2,FRCTOT,DEP,prev,curr,bottom
+    INTEGER  ncmpwithchem,i
+    REAL     APPTOT,APPREM,DEP,prev,curr,bottom
     real,intent(in) :: top2cm        
       
     DEP = 0.0

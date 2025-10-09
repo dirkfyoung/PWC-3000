@@ -4,7 +4,7 @@ module allocations
     
      subroutine allocate_time_series
      use constants_and_variables, ONLY:num_records, erosion_save, mass_off_field ,spray_additions, &
-		 irrigation_save,  canopy_flow_save, THAIR_save, ncom2, theta_end_save, &
+		 irrigation_save,canopy_flow_save, THAIR_save, ncom2, theta_end_save, &
 		 runoff_save,soilwater_save, velocity_save,theta_zero_save,thair_old_save, &
 	     enriched_erosion_save, et_save, infiltration_save,conc_last_horizon_save, soil_temp_save,nchem
      use TPEZ_spray_initialization, ONLY:tpez_spray_additions

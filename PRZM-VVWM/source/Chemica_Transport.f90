@@ -1,9 +1,9 @@
 module chemical_transport
     implicit none
-	contains
+    contains
 
-	subroutine chem_transport_onfield
-	!Loop for chemical transport on field
+    subroutine chem_transport_onfield
+    !Loop for chemical transport on field
     use constants_and_Variables, ONLY: julday1900 ,&
         precip, pet_evap,air_temperature ,wind_speed, solar_radiation, &
         precipitation,PEVP,air_TEMP,WIND, SOLRAD ,harvest_day, &

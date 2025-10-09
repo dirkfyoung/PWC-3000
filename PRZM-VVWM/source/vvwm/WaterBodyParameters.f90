@@ -190,7 +190,7 @@ implicit none
     use constants_and_variables, ONLY: waterbody_file_unit
 
     integer,intent(in) :: file_index
-	integer :: i,j, eof
+	integer :: eof
      
         open (UNIT=waterbody_file_unit, FILE= trim(waterbody_names(file_index)), STATUS ='old')
    

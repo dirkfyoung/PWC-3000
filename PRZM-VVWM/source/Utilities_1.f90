@@ -29,7 +29,7 @@
     implicit none
     integer, intent(in) :: i,j, ii,mm
     character(LEN=25) :: schemnumber, scenarionumber, appnumber
-    integer :: last_slash, last_dot,last_slash2, last_dot2
+    integer ::  last_slash2, last_dot2
     
     character(len=512) :: local_name
     

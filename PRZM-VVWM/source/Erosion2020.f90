@@ -5,7 +5,7 @@ module erosion
     SUBROUTINE EROSN(day, julday)
      !Determines loss of pesticide due to erosion by a variation of USLE and an enrichment ratio.
       use constants_and_Variables,ONLY: soil_temp,is_temperature_simulated,AFIELD_ha,USLEK,USLELS,USLEP,cfac, &
-                                        erflag,sedl,enriched_eroded_solids,  julday1900,model_erosion,data_date ,&
+                                        erflag,sedl,enriched_eroded_solids ,&
 	                                    erosion_save, enriched_erosion_save, runoff_save
 	  
 	  !***NOTE make sedl and enriched_erosion_solids local variables when done *************
@@ -113,7 +113,7 @@ module erosion
 ! **********************************************
   SUBROUTINE TMCOEF(EC0,EC1,EC2,julday)
       !Gets Coefficients fro Table F-1 in TR-55
-      use  constants_and_Variables, ONLY: PRECIP_rain, thrufl, ireg, inabs, smelt
+      use  constants_and_Variables, ONLY: thrufl, ireg, inabs, smelt
 
       implicit none 
 

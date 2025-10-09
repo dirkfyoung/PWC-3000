@@ -69,7 +69,7 @@ end subroutine chemical_manipulations
         water_column_rate,benthic_rate, photo_halflife_input, photo_rate, &
         hydrolysis_rate, hydrolysis_halflife_input,water_column_halflife_input   ,  benthic_halflife_input , soil_degradation_halflife_input, &
         is_total_degradation,is_constant_profile, is_ramp_profile, ramp1, ramp2, ramp3,is_exp_profile , exp_profile1, exp_profile2, folpst, &
-	    top_node_last_horizon, bottom_node_last_horizon, snow, cint, foliar_degrade_loss, SUPFLX, Foliar_volatile_loss, &
+        top_node_last_horizon, bottom_node_last_horizon, snow, cint, foliar_degrade_loss, SUPFLX, Foliar_volatile_loss, &
         is_auto_profile, profile_thick, profile_number_increments, number_of_discrete_layers, &
         aq_rate_corrected,sorb_rate_corrected, gas_rate_corrected,scenario_id,is_hydrolysis_override, &
         max_irrig_soildepth, max_irrig_soildepth_node
@@ -105,7 +105,7 @@ end subroutine chemical_manipulations
 	real :: sumofsn
 	real :: sumofcl
 
-    real :: sumoftheta_zero 
+   
     real :: sumofdispersion         
     real :: sumofsoil_temp  
     real :: sumofMolarConvert_aq12
@@ -813,7 +813,6 @@ subroutine SetupApplications
     integer :: i, j, mcrop,crop_iterations
     integer :: app_counter
     integer :: MONTH,DAY
-    integer :: YEAR_out,MONTH_out,DAY_out
 
     ! (actual total apps may be less if simulation starts late in the of stops early) but that does not matter to the program,  also because of lag and periodicity
   

@@ -1,15 +1,6 @@
 Module Output_From_Field
   implicit none
     contains
-		
-    subroutine scenario_hydrolgy_summary
-    use constants_and_variables, ONLY: scenario_id, hold_precip, hold_irrig, hold_runoff
-       !  write(98,'(A40, 4G12.4)') trim(scenario_id), hold_precip, hold_irrig, hold_runoff, hold_runoff/(hold_precip + hold_irrig) 
-
-    
-    end subroutine scenario_hydrolgy_summary
-    
-    
     
 	subroutine groundwater
 	    use constants_and_variables, ONLY: num_records, retardation_factor,  maxcap_volume, conc_last_horizon_save, &
@@ -99,17 +90,17 @@ Module Output_From_Field
  
   SUBROUTINE write_outputfile_2
     use	constants_and_Variables, ONLY: is_timeseriesfile, TimeSeriesUnit2, precipitation, snowfl,soil_temp,THRUFL,irrigation_on_day,SoilWater,cint,EvapoTran,delx, &
-    theta_end, CEVAP ,runoff_on_day,curve_number_daily,theta_sat,ainf,ncom2,snow,sedl,TDET,PVFLUX,sdkflx,SUPFLX,UPFLUX,kd_new, &
+    theta_end, CEVAP ,runoff_on_day,curve_number_daily,theta_sat,ainf,snow,sedl,TDET,PVFLUX,sdkflx,SUPFLX,UPFLUX,kd_new, &
     conc_total_per_water, mass_in_compartment, mass_in_compartment2,HEIGHT,  &
     conc_porewater, FOLPST,Foliar_degrade_loss,new_henry,Foliar_volatile_loss,plant_app, &
     NCHEM,TCNC,DKFLUX,ERFLUX, WOFLUX,ROFLUX,const,OUTPUJ,    &
     OUTPJJ,chem_id,NPLOTS, ARG,ARG2,PLNAME,MODE,DCOFLX,max_number_plots,Version_Number,julday1900,  &
-     day_number_chemtrans,mass_off_field, &
-    First_time_through_PRZM , working_directory, family_name, run_id,maxFileLength, &
+     day_number_chemtrans, &
+    First_time_through_PRZM,maxFileLength, &
 	top_node_last_horizon, bottom_node_last_horizon,conc_last_horizon_save, day_number_chemtrans, full_run_identification, &
     hold_precip,hold_irrig,hold_runoff
     
-    use waterbody_parameters, ONLY: afield 
+    !use waterbody_parameters, ONLY: afield 
     use utilities_1
     
 !   Outputs user specified time series to time series plotting files

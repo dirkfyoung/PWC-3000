@@ -8,7 +8,7 @@ subroutine solute_holding_capacity(chem_index, koc)
                                 volume1,theta                                           !INPUT
 
    use waterbody_parameters, ONLY: benthic_depth ,porosity,bulk_density,FROC2,DOC2,BNMAS,SUSED, &
-           FROC1,DOC1,area_waterbody ,depth_0 ,depth_max,PLMAS               
+           FROC1,DOC1,area_waterbody ,depth_0 ,PLMAS               
                                 
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
    !Calculates the Solute Holding capacity parameter as a vector the size of the simulation 
@@ -28,7 +28,6 @@ subroutine solute_holding_capacity(chem_index, koc)
    real:: kd_sed_2
    real:: kd_bio
    real:: kd_doc_1, kd_doc_2
-integer :: i
    
  !aqueous volumes in each region  
 !   v1= daily_depth*area      !total volume in water column, approximately equal to water volume alone

@@ -15,7 +15,7 @@ use waterbody_parameters, ONLY: benthic_depth ,porosity,area_waterbody
                          
                                   
     implicit none
-    integer :: day_count, i
+    integer :: day_count
 
     real:: m1,m2    !daily peak/average mass
     real:: mn1, mn2        !mass at end of time step
@@ -79,7 +79,7 @@ subroutine reducer2
                                          A,B,E,F  !output  
 
      implicit none 
-     integer i 
+
    
     !    CALCULATE CONSTANTS FOR USE IN SIMULDIFF2
     

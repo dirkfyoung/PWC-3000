@@ -10,12 +10,7 @@ module VVWM_solution_setup
     subroutine VVWM
     use constants_and_variables, ONLY: nchem, waterbody_timeseries_unit,summary_output_unit,summary_output_unit_deg1, summary_output_unit_deg2,&
         summary_outputfile , summary_outputfile_deg1, summary_outputfile_deg2 , &
-        is_koc, k_f_input, water_column_ref_temp, benthic_ref_temp, &
-        water_column_rate,is_hed_files_made, DELT_vvwm,is_add_return_frequency, additional_return_frequency, &
-        outputfile_parent_daily,outputfile_deg1_daily,outputfile_deg2_daily,&
-        outputfile_parent_deem,outputfile_deg1_deem,outputfile_deg2_deem,&
-        outputfile_parent_calendex,outputfile_deg1_calendex,outputfile_deg2_calendex,&
-        outputfile_parent_esa,outputfile_deg1_esa,outputfile_deg2_esa,summary_outputfile,  k_flow  !, First_time_through_wb
+        is_koc, k_f_input, DELT_vvwm,summary_outputfile,  k_flow
     
     use waterbody_parameters, ONLY: FROC2, simtypeflag, this_waterbody_name
     

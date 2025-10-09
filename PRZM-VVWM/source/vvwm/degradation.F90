@@ -19,7 +19,7 @@ subroutine gamma_one
                                  gamma_1         !output overall aqueous-phase first-order rate littoral (per sec)
                                                            
   implicit none
-integer :: i
+
   gamma_1 = k_flow+ (k_photo + k_hydro +k_volatile) *fw1  +k_aer_aq*fw1 + k_aer_s*(1.-fw1)
 
     !The following makes a minimum super low value in order to avoid numerical difficulties
@@ -126,7 +126,6 @@ subroutine metabolism (nchem)
     
     integer, intent(in) :: nchem
 
-    integer :: i    
         
     !***** Zero Half Life Represents Stabilty or Zero Rate *************************
     

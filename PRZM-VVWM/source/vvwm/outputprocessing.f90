@@ -8,25 +8,20 @@ module outputprocessing
 
     use utilities
     use utilities_1, ONLY: pick_max, find_first_annual_dates
-    use waterbody_parameters, ONLY: baseflow,SimTypeFlag, zero_depth, is_zero_depth, Afield, area_waterbody
+    use waterbody_parameters, ONLY: zero_depth, is_zero_depth, Afield, area_waterbody
     
-    use constants_and_variables, ONLY:  num_records, run_id, is_hed_files_made,is_add_return_frequency, additional_return_frequency, &
-                                       num_years, startday, &
-                                 gamma_1,        &
-                                 gamma_2,        &
-                                 fw1,            &
-                                 fw2,            &
+    use constants_and_variables, ONLY:  num_records, &
+                                       num_years,  &
                                  aq1_store,      &   !beginning day after app concentration in water column
-                                 aq2_store,      &
                                  aqconc_avg1,    &   !average daily concentration (after app)
                                  aqconc_avg2,    &
                                  daily_depth,    &
                                  runoff_total ,  &
                                  erosion_total,  &
                                  spray_total ,   &
-                                 Daily_Avg_Runoff, Daily_avg_flow_out,  runoff_fraction, erosion_fraction, drift_fraction ,&
-    k_burial, k_aer_aq, k_flow, k_hydro, k_photo, k_volatile,k_anaer_aq, gamma_1, gamma_2, gw_peak, post_bt_avg ,throughputs,simulation_avg, &
-	is_waterbody_info_output, full_run_identification, applied_mass_sum_gram_per_cm2 , fraction_off_field, m_total
+                                 runoff_fraction, erosion_fraction, drift_fraction ,&
+	                             is_waterbody_info_output, full_run_identification,  &
+                                 applied_mass_sum_gram_per_cm2 , fraction_off_field, m_total
    
                          
     implicit none
@@ -46,8 +41,6 @@ module outputprocessing
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
     real:: simulation_average
-    
-    real :: xxx  !local variable
 
  !   real(8),dimension(num_records)::c1
  !   real(8),dimension(num_records)::cavgw
@@ -76,12 +69,10 @@ module outputprocessing
     real,dimension(num_years):: benthic_c21_max                         
                                         
     integer :: i    
-    integer ::date_time(8)
     real :: convert                    !conversion factor kg/m3 
-
     real :: Total_Mass
-    integer :: YEAR,MONTH,DAY
-    integer :: eliminate_year
+
+    
     integer,dimension(num_years) ::  first_annual_dates !array of yearly first dates (absolute days).
                                     ! First date is the calendar day of start of simulation 
     first_annual_dates= 0
@@ -396,8 +387,8 @@ subroutine write_simple_batch_data(chem_index,unit_number,unit_number_deg1,unit_
                                    return_frequency,num_years, peak,Simulation_average,c1_max, &
                                    c4_max,c21_max,c60_max,c90_max,c365_max,benthic_peak, benthic_c21_max,  total_max  )
 
-use constants_and_variables, ONLY: run_id,Sediment_conversion_factor,fw2 ,&
-    nchem,     runoff_fraction,erosion_fraction,drift_fraction,summary_outputfile, &
+use constants_and_variables, ONLY: run_id,Sediment_conversion_factor ,&
+    runoff_fraction,erosion_fraction,drift_fraction,summary_outputfile, &
     effective_washout, effective_watercol_metab, effective_hydrolysis, effective_photolysis, effective_volatization, effective_total_deg1,&
     effective_burial, effective_benthic_metab, effective_benthic_hydrolysis, effective_total_deg2, &
     gw_peak, post_bt_avg ,throughputs,simulation_avg, fraction_off_field, family_name, app_window_counter, &
@@ -425,7 +416,7 @@ use utilities_1, ONLY: Return_Frequency_Value
     
     
     !****LOCAL*********************
-    real      :: peak_out,c1_out, c4_out,c21_out,c60_out,c90_out,c365_out,benthic_peak_out,benthic_c21_out  ,    total_out  
+    real      :: peak_out,c1_out, c4_out,c21_out,c60_out,c365_out,benthic_peak_out,benthic_c21_out  ,    total_out  
     logical   :: lowyearflag
     character(len= 257) :: local_run_id
     

@@ -31,8 +31,8 @@ use constants_and_variables, ONLY:  inputfile, inputfile_unit_number,&
     extra_plots, temp_PLNAME,  temp_chem_id, temp_MODE,temp_ARG,temp_ARG2,temp_CONST,&
     is_constant_profile, is_ramp_profile, ramp1, ramp2, ramp3, is_exp_profile , exp_profile1, exp_profile2, is_total_degradation, &
     is_app_window, app_window_span, app_window_step, is_timeseriesfile, &
-	is_waterbody_info_output , is_adjust_for_rain_schemes,rain_limit_schemes,optimum_application_window_schemes, &
-	intolerable_rain_window_schemes, min_days_between_apps_schemes,  is_batch_scenario , scenario_batchfile , is_needs_poundkg_conversion,&
+    is_waterbody_info_output , is_adjust_for_rain_schemes,rain_limit_schemes,optimum_application_window_schemes, &
+    intolerable_rain_window_schemes, min_days_between_apps_schemes,  is_batch_scenario , scenario_batchfile , is_needs_poundkg_conversion,&
     open_water_adj , is_hydrolysis_override, is_output_spraydrift, is_absolute_year_schemes,is_gw_btc, &
     runoff_mitigation_schemes, erosion_mitigation_schemes,drift_mitigation_schemes, calc_eof
     

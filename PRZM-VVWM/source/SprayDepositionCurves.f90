@@ -425,8 +425,8 @@ Module spray_deposition_curve
       integer, intent(in) :: column   !the column with the spray vlues of interest.  Add 1 to this value bcuz 1st col is distance
       real, intent(out)   :: output   !drift factor
     
-      integer :: index_one, index_two, i
-      real :: actual_one, actual_two, area, X, Y, actual_Y1,actual_Y2, front_area, rear_area
+      integer :: index_one, i
+      real ::  area, front_area, rear_area
       integer :: col
       real :: c_int
       

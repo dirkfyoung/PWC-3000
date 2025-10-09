@@ -71,7 +71,7 @@ module Temperatue_Calcs
       REAL     AIRDEN,Z0,D,ZCH,HTC,QC1,QEVF,QLW1,QLW2,QSWR
       real     QGHF,TEMPK,STK,FX1,FX2,DELTA,EVAP,AAA,BBB
       real     THKLY1,ABSOIL
-      REAL     XVOL(5,ncom2),VOLCOR,LBTEMP
+      REAL     XVOL(5,ncom2),LBTEMP
       real     DIFFCO(ncom2),ALAMDA(0:5),GEE(5,3),AKAY(5)
       real     THZERO(2),GFLD,SIGMA0,SIGMA1,SIGMA2,VAPLMD,AIRLMD
       real     TA(ncom2),TB(ncom2),TC(ncom2),TF(ncom2)

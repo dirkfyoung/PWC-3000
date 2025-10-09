@@ -56,9 +56,9 @@ module plantgrowth
                       do k = 1 ,last_year -first_year+1   
                            do j=emergence_date(i,k), maturity_date(i,k)
                              m = j-startday +1 
-			           	     if (m > num_records) exit
+                             if (m > num_records) exit
                       
-                      	     crop_fraction_of_max(m) = real(j-emergence_date(i,k) )/real(maturity_date(i,k)-emergence_date(i,k)   )                 
+                             crop_fraction_of_max(m) = real(j-emergence_date(i,k) )/real(maturity_date(i,k)-emergence_date(i,k)   )                 
                              canopy_cover(m)  = crop_fraction_of_max(m)*max_canopy_cover(i)
                              canopy_height(m) = crop_fraction_of_max(m)*max_canopy_height(i)
                              canopy_holdup(m) = canopy_cover(m)*max_canopy_holdup(i)
@@ -71,8 +71,8 @@ module plantgrowth
                            
                            do j=maturity_date(i,k), harvest_date(i,k)-1
                               m = j-startday +1 
-			           		  if (m > num_records) exit
-                      	      crop_fraction_of_max(j-startday +1 ) = 1.0 
+                              if (m > num_records) exit
+                              crop_fraction_of_max(j-startday +1 ) = 1.0 
                               canopy_cover(m)  = max_canopy_cover(i)
                               canopy_height(m) = max_canopy_height(i)
                               canopy_holdup(m) = max_canopy_holdup(i)*canopy_cover(m)

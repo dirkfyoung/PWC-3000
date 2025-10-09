@@ -1,26 +1,26 @@
 module field_hydrology
     implicit none
-	contains
-	
-	subroutine hydrology_only
-	use constants_and_Variables, ONLY:precip, pet_evap,air_temperature ,wind_speed, solar_radiation, &
+    contains
+    
+    subroutine hydrology_only
+    use constants_and_Variables, ONLY:precip, pet_evap,air_temperature ,wind_speed, solar_radiation, &
                                   precipitation,PEVP,air_TEMP,WIND, SOLRAD , &
                                   startday, num_records,canopy_holdup, &
                                   canopy_height, canopy_cover  , cover, height, &
                                   potential_canopy_holdup,evapo_root_node_daily, &
                                   evapo_root_node,root_node ,root_node_daily, julday1900 ,startday
-	  integer :: i
+      integer :: i
       julday1900 = startday
 
-	   do i=1, num_records
+       do i=1, num_records
 
-	        precipitation           = precip(i) 
+            precipitation           = precip(i) 
             PEVP                    = pet_evap(i)
-	        air_TEMP                = air_temperature(i)
-	        WIND                    = wind_speed(i)
+            air_TEMP                = air_temperature(i)
+            WIND                    = wind_speed(i)
             SOLRAD                  = solar_radiation(i)
-	        cover                   = canopy_cover(i)  
-	        height                  = canopy_height(i) 
+            cover                   = canopy_cover(i)  
+            height                  = canopy_height(i) 
 	        potential_canopy_holdup = canopy_holdup(i)
             evapo_root_node_daily   = evapo_root_node(i)
             root_node_daily         = root_node(i)       !only needed for irrigation

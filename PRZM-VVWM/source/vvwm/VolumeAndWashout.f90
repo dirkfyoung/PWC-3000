@@ -56,8 +56,6 @@ contains
         real,dimension(num_records)::precip_area
         
         
-        integer :: i
-        
         Daily_avg_flow_out = 0.0
         
         v_0 = area_waterbody*depth_0

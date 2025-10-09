@@ -37,7 +37,7 @@ contains
 !    integer:: app_day                !day of application
 !    integer:: app_mon                !month of application
 !    integer:: day                !month and day of erosion/ runoff event
-integer :: i
+
 
     burial = 0.
     runoff_total = 0.0
@@ -77,7 +77,7 @@ integer :: i
        use waterbody_parameters, ONLY:area_waterbody
        
        use constants_and_variables, ONLY: num_records, total_applications, drift_kg_per_m2 , application_date, startday, &
-                                      mass_off_field, spray_total, spray_additions ,  drift_mitigation           
+                                          spray_total, spray_additions ,  drift_mitigation           
        implicit none
        integer  ::  i, index_day
       ! real     ::  sprayrate
@@ -153,7 +153,7 @@ subroutine initial_conditions(chem_index)
                                                        
         implicit none      
         integer,intent(in) :: chem_index
-integer :: i
+
         !********************************************************************
         fraction_to_benthic = kd_sed_1*eroded_solids_mass/ (capacity_1 + kd_sed_1*eroded_solids_mass)    !used later in core calc routine
         

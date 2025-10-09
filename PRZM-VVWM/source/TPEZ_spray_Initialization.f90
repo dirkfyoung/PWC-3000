@@ -14,7 +14,7 @@ module TPEZ_spray_initialization
     subroutine set_tpez_spray(scheme_number)
     !After scheme and before scenarios.  
          use constants_and_variables, ONLY: num_applications_input, drift_schemes, driftbuffer_schemes,is_output_spraydrift, drift_mitigation
-         use waterbody_parameters, ONLY:  use_tpezbuffer,itstpezwpez
+         use waterbody_parameters, ONLY:  use_tpezbuffer
         ! use utilities_1, ONLY:find_in_table
          use spray_deposition_curve, ONLY: trapezoid_rule
          
@@ -43,7 +43,7 @@ module TPEZ_spray_initialization
     
    subroutine tpez_drift_finalize          
      !Call must be placed after INITL because call to tpez_spraydrift need to know toatal apps
-      use constants_and_variables, ONLY:is_output_spraydrift,is_absolute_year, &
+      use constants_and_variables, ONLY:is_absolute_year, &
                                         lag_app_in ,first_year, last_year, repeat_app_in,application_rate_in, &
                                         num_applications_input
 

@@ -126,7 +126,7 @@ Module TPEZ_WPEZ
                                  spray_total ,   &
                                  m_total,        &  !total system average daily mass
                                  runoff_fraction, erosion_fraction, drift_fraction ,&
-	is_waterbody_info_output, full_run_identification, applied_mass_sum_gram_per_cm2 , fraction_off_field
+    is_waterbody_info_output, full_run_identification, applied_mass_sum_gram_per_cm2 , fraction_off_field
    
     use utilities_1, ONLY: pick_max, find_first_annual_dates
      
@@ -828,8 +828,6 @@ subroutine calc_edge_of_field
         integer :: chem_index    !right now only parent calculated
         real :: return_frequency !right now fixed at 10
         
-        integer :: i
-        
         return_frequency = 10.0
         first_annual_dates= 0
         call find_first_annual_dates (num_years, first_annual_dates )
@@ -857,7 +855,7 @@ end subroutine calc_edge_of_field
 
 subroutine  eof_write_simple_batch_data(chem_index, return_frequency,num_years, edge_of_field_max)
 
-use constants_and_variables, ONLY: run_id,nchem, First_time_through_eof ,summary_outputfile_eof ,hold_for_medians_EoF, &
+use constants_and_variables, ONLY: run_id, First_time_through_eof ,summary_outputfile_eof ,hold_for_medians_EoF, &
         summary_output_unit_eof, app_window_counter,family_name
 
 !summary_outputfile_tpez_deg1,summary_outputfile_tpez_deg2,&

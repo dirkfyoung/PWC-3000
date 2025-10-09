@@ -34,7 +34,7 @@ module schemeload
            drift_schemes,lag_schemes,periodicity_schemes,driftbuffer_schemes,&
            app_reference_point, app_reference_point_schemes, is_adjust_for_rain_schemes, & 	
            rain_limit_schemes,optimum_application_window_schemes,intolerable_rain_window_schemes,min_days_between_apps_schemes, & 
-	       is_adjust_for_rain, rain_limit,optimum_application_window,intolerable_rain_window,min_days_between_apps, is_batch_scenario, &
+	       is_adjust_for_rain, rain_limit,optimum_application_window,intolerable_rain_window,min_days_between_apps, &
            is_absolute_year, is_absolute_year_schemes, runoff_mitigation_schemes, erosion_mitigation_schemes,  drift_mitigation_schemes, &
            runoff_mitigation, erosion_mitigation,drift_mitigation,is_output_spraydrift
        
