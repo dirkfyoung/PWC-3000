@@ -14,7 +14,7 @@ implicit none
 
 !According to EFED standard practice, the parameter CHARL is one half the sum
 !of the distance between benthic and water column midpoints.  D. Young has 
-!raised issues with this (see SAP 2004 document).  In the mean time, the omega value
+!raised issues with this (see SAP 2004 document).  In the meantime, the omega value
 !will remain constant at the initial value as determined by current EFED practice
 !as defined here.  Better estimates should be looked in to:
 

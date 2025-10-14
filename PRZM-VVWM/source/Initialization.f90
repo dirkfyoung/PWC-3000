@@ -556,10 +556,6 @@ end subroutine chemical_manipulations
         
     end do  !chemical species loop
     
-    
-    
-
-    
 
     !write (*,'(A)')   '    #     depth     bd       max_water     min_wat    orgcarb         kd         dwrate'
     !do i = 1, ncom2

@@ -590,9 +590,10 @@ Module TPEZ_WPEZ
     
     !****************************************************************************
     subroutine MainLoopTPEZ(chem_index, vmax, kd, bd)
-       use constants_and_variables, ONLY: num_records , DELT_vvwm,m1_input,m1_store,mavg1_store,  &
-                                           k_flow, burial, dwrate, ncom2, &
-                                           degradateProduced1, mwt, nchem,soil_depth, xsoil
+       use constants_and_variables, ONLY:  num_records , DELT_vvwm,m1_input,m1_store,mavg1_store,  &
+                                           k_flow, burial, dwrate_atRefTemp, ncom2, &
+                                           degradateProduced1, mwt, nchem,soil_depth, xsoil, &
+                                           Q_10,soil_ref_temp, temp_avg
 
        use initialization, ONLY: Convert_halflife_to_rate_per_sec                        
        use utilities_1
@@ -605,11 +606,10 @@ Module TPEZ_WPEZ
        integer :: day_count, i
        real:: m1        !begin day mass
        real:: mn1       !mass at end of time step 
+  
+       real :: avg_soil_deg          !corrected  to per sec below
        
-       real :: avg_soil_deg_implicit !days, has an implicit correction that will be removed se below
-       real :: avg_soil_deg          !corrected to unimlpicit and to sec
-       
-       real :: k_total
+       real :: k_total      !per sec
        real :: MWTRatio
        
        real :: dummy_holder(ncom2)
@@ -630,26 +630,28 @@ Module TPEZ_WPEZ
           m1 = mn1 + m1_input(day_count)       
           m1_store(day_count)=m1
             
-          !kflow needs to be adjusted for tpez, in normal vvwm solid phase is not considered in water column
-          !adjustment is Vmax/(Vmax + bd Kd) this is a CONSTANT Adjustment
+
         
-          !Adding daily temerature adjustments for soil degradation
-          !because dwrate includes a impicit correction that is not applicable to TPEZ, this needs to be uncorrected
-          do i = 1, ncom2  
-                dummy_holder(i) = dwrate(chem_index,i)  !necessary for subroutine call, otherwise routine gets hung up.
-                                               ! NOTE: probably should switch order of dwrate array, put chem index 2nd         
+          !Soil Degradation in TPEZ is not temperature adjusted yet. Adjusted soil temps are not saved from PRZM run, but
+          !TPEZ is conceptually different than the field anyway. TPEZ is complete mix, whereas the field is plug flow at 
+          !least for temperature,  
+          !For semi-consistency Use 30 day backward average like for other water bodies
+
+          
+          do i = 1, ncom2                                ! NOTE: probably should switch order of dwrate array, put chem index 2nd  
+                dummy_holder(i) = dwrate_atRefTemp(chem_index,i)  !necessary for subroutine call, otherwise routine gets hung up.                                      
           end do
-           
-          call find_average_property(ncom2,soil_depth,15.0, dummy_holder, avg_soil_deg_implicit)
           
-          !here is the derivation to undo the correction
-          ! aq_rate_corrected      = exp(aq_rate_input)   -1.  (this is previous correction)
-          ! aq_rate_corrected +1.  = exp(aq_rate_input)
-          ! exp(aq_rate_input)     = aq_rate_corrected +1.
-          ! aq_rate_input          = log(aq_rate_corrected +1.)   (this undoes it)
+          call find_average_property(ncom2,soil_depth,15.0, dummy_holder, avg_soil_deg)
           
-          avg_soil_deg = log(avg_soil_deg_implicit + 1.0)/86400.   ! removed implicit correction and now is in per sec,  86400 sec/day
           
+          !Adjust for temperature and convert to per sec,  86400 sec/day
+          avg_soil_deg = avg_soil_deg*Q_10**((temp_avg(day_count) - soil_ref_temp(nchem))/10.)                                          /86400.   
+          
+          
+          
+          !kflow needs to be adjusted for tpez. in normal vvwm, solid phase is not considered in water column.
+          !adjustment is Vmax/(Vmax + bd Kd) this is a CONSTANT Adjustment
           k_total =  k_flow(day_count)*vmax/(vmax+kd*bd) + burial(day_count)*Kd/(vmax+kd*bd) + avg_soil_deg
           
           mn1 = m1*exp(-DELT_vvwm * k_total) !next start day mass

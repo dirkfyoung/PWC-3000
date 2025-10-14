@@ -390,7 +390,7 @@ module constants_and_variables
       
       !Note: the soil degradation rates below have a correction for PRZMs implicit routine, Thus they are not applicable for other routines without implict calcs
       !this is problematic for TPEZ so TPEZ needs separate soil degradation calcs
-      real,allocatable,dimension(:,:) :: dwrate, dsrate, dgrate !current soil degradation rates for water solid gas, CORRECTED FOR IMPLICIT ROUTINE, per day
+      real,allocatable,dimension(:,:) :: dwrate, dsrate, dgrate !current soil degradation rates for water solid gas, per day
       real,allocatable,dimension(:,:) :: dwrate_atRefTemp, dsrate_atRefTemp, dgrate_atRefTemp !input degradation rates at ref temp
       
       !For TPEZ calculation of soil degrdataion, 

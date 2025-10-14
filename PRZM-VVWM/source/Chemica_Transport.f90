@@ -161,13 +161,11 @@ module chemical_transport
    
         ! ****** HENRY LAW COEFFICIENT CALCULATION Temperature Adjustments**************   
         IF (is_temperature_simulated) THEN  
-
             !adjust Henry's Constant for temperature
             CALL Henry_Temp_Correction (soil_temp, Henry_unitless(K),ENPY(K), henry_ref_temp, NCOM2,OLDKH)  !move to volatilization PLEASE
             new_henry(K,:) = OLDKH
             
-            call Q10DK  !adjust degradation rates for temperature
-            
+            call Q10DK  !adjust Soil degradation rates for temperature
         ENDIF
 
         call volatilization_setup(k)  !calculates boundary layer conductance and dair
