@@ -62,14 +62,14 @@ use utilities
       stop
     ENDIF 
     
-    read(inputfile_unit_number,*) !Version info                                      !Line 1                                                        !Line 1
+    read(inputfile_unit_number,*) !Version info                                      !Line 1 
                                                                                                                   
-    read(inputfile_unit_number,'(A)')  working_directory                             !Line 2                                                   !Line 2 
+    read(inputfile_unit_number,'(A)')  working_directory                             !Line 2 
     write(*,'(A23, A300)') ' working directory is: ', adjustl(working_directory)     
-    read(inputfile_unit_number,'(A)') family_name                                    !Line 3                             !Line 3
-    read(inputfile_unit_number,'(A)') weatherfiledirectory                           !Line 4                            !Line 4 
+    read(inputfile_unit_number,'(A)') family_name                                    !Line 3
+    read(inputfile_unit_number,'(A)') weatherfiledirectory                           !Line 4 
 	write(*,'(A23, A300)') ' weather directory is: ', adjustl(weatherfiledirectory) 
-    read(inputfile_unit_number,*) open_water_adj                                     !Line 5                                             !Line 5
+    read(inputfile_unit_number,*) open_water_adj                                     !Line 5 
     
 
     read(inputfile_unit_number,*) is_koc,is_freundlich,is_nonequilibrium,is_needs_poundkg_conversion,is_hydrolysis_override !Line 6
@@ -446,9 +446,9 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         read(ScenarioFileUnit,*) ! foc1Box.Text)
         read(ScenarioFileUnit,*) ! DOC1Box.Text)
         read(ScenarioFileUnit,*) ! Biomass1Box.Text)
-        read(ScenarioFileUnit,*) ! vbNewLine & EpaDefaultsCheck.Checked                                                            'line 53
-        read(ScenarioFileUnit,*) ! String.Format("{0}{1},{2}", vbNewLine, ReservoirCroppedAreaBox.Text, CustomCroppedAreaBox.Text) 'Line 54
-        read(ScenarioFileUnit,*) ! vbNewLine
+        read(ScenarioFileUnit,*) ! vbNewLine & EpaDefaultsCheck.Checked                                                            
+        read(ScenarioFileUnit,*) ! String.Format("{0}{1},{2}", vbNewLine, ReservoirCroppedAreaBox.Text, CustomCroppedAreaBox.Text) 
+        read(ScenarioFileUnit,*) ! vbNewLine    line 27
                
         read(ScenarioFileUnit,'(A)') dummy !   msg = "******** start of PRZM information ******************" & vbNewLine
         
@@ -524,14 +524,14 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
             max_irrig_soildepth = 30.0   
         end if
 
-        !----------------------------------------------------------------------------------------
-        
+        !************************* Line 45 ****************************************************
         read(ScenarioFileUnit,*) UserSpecifiesDepth !, user_irrig_depth  ! UserSpecifiesIrrigDepth.Checked, IrrigationDepthUserSpec.Text)
 
         if (UserSpecifiesDepth) then
             backspace(ScenarioFileUnit)  !if true the userirrig depth will be blank sometinmes
-            read(ScenarioFileUnit,*) UserSpecifiesDepth, user_irrig_depth        !Line 45
+            read(ScenarioFileUnit,*) UserSpecifiesDepth, user_irrig_depth      
         endif
+        !*************************************************************************************
  
         read(ScenarioFileUnit,'(A)') !dummy "*** spare line for expansion"  !Line 46   
 
@@ -539,8 +539,8 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         
         read(ScenarioFileUnit,'(A)') !dummy "*** spare line for expansion"  !Line 48 
    
-        read(ScenarioFileUnit,*) USLEK,USLELS,USLEP        
-        read(ScenarioFileUnit,*) IREG,SLP
+        read(ScenarioFileUnit,*) USLEK,USLELS,USLEP                         !Line 49   
+        read(ScenarioFileUnit,*) IREG,SLP                                   !Line 50
         read(ScenarioFileUnit,*) !line 51   *** Horizon Info *******          
         read(ScenarioFileUnit,*) NHORIZ        
         read(ScenarioFileUnit,*) (thickness(i), i=1, nhoriz)
@@ -548,15 +548,16 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         read(ScenarioFileUnit,*) (fc_input(i), i=1, nhoriz)
         read(ScenarioFileUnit,*) (wp_input(i), i=1, nhoriz)
         read(ScenarioFileUnit,*) (oc_input(i), i=1, nhoriz)      
-        read(ScenarioFileUnit,*) (Num_delx(i), i=1, nhoriz)
-        read(ScenarioFileUnit,*) !(sand_input(i), i=1, nhoriz)        
-        read(ScenarioFileUnit,*) !(clay_input(i), i=1, nhoriz)
+        read(ScenarioFileUnit,*) (Num_delx(i), i=1, nhoriz)                !Line 58
+        read(ScenarioFileUnit,*) !unused, was sand in previous versions     Line 59
+        read(ScenarioFileUnit,*) !unused, was clay in previous versions     Line 60
               
         dispersion_input = 0.0
 
         
-        read(ScenarioFileUnit,*)   !*** Horizon End, Temperature Start ********
+        read(ScenarioFileUnit,*)   !*** Horizon End, Temperature Start ******** Line 61
         
+        !******************************* Line 62 ******************************************
         read(ScenarioFileUnit,"(A50)", IOSTAT= status) dummy
 
         read(dummy,*, IOSTAT= status) scalar_albedo,scaler_soil_temp  !msg = msg & String.Format("{0}{1},{2}", vbNewLine, albedoBox.Text, bcTemp.Text)
@@ -571,36 +572,37 @@ subroutine read_scenario_file(schemenumber,scenarionumber, error)
         
         !need to set bottom boundary condition
         bottom_bc= scaler_soil_temp
+        !************************************************************************************
         
-        read(ScenarioFileUnit,*) is_temperature_simulated !msg = msg & vbNewLine & simTemperature.Checked
+        read(ScenarioFileUnit,*) is_temperature_simulated                    ! Line 63
     
         read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "***spare line for expansion"
         read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "***spare line for expansion"
-        read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "*** Erosion & Curve Number Info **********"
+        read(ScenarioFileUnit,*) !msg = msg & vbNewLine & "*** Erosion & Curve Number Info **********" Line 66
         
-        read(ScenarioFileUnit,*) NUSLEC  !msg = msg & vbNewLine & NumberOfFactors.Text
+        read(ScenarioFileUnit,*) NUSLEC                         !Line 67   
         read(ScenarioFileUnit,*) (GDUSLEC(i), i=1,nuslec)
         read(ScenarioFileUnit,*) (GMUSLEC(i), i=1,nuslec)
-        read(ScenarioFileUnit,*) (CN_2(i), i=1,nuslec)
+        read(ScenarioFileUnit,*) (CN_2(i), i=1,nuslec)          !Line 70
         read(ScenarioFileUnit,*) (USLEC(i), i=1,nuslec)
-        read(ScenarioFileUnit,*) !no longer use manning n mngn
+        read(ScenarioFileUnit,*) !no longer use manning n mngn   Line 72
 
-      READ(ScenarioFileUnit,*) runoff_extr_depth,runoff_decline,runoff_effic     
-      READ(ScenarioFileUnit,*)  erosion_depth, erosion_decline, erosion_effic
+      READ(ScenarioFileUnit,*) runoff_extr_depth,runoff_decline,runoff_effic     !Line 73
+      READ(ScenarioFileUnit,*)  erosion_depth, erosion_decline, erosion_effic    !Line 74
 
-      READ(ScenarioFileUnit,*)  use_usleyears 
+      READ(ScenarioFileUnit,*)  use_usleyears                                    !Line 75
       
       read(ScenarioFileUnit,*) !years of uslec need to add later if we want years
-      read(ScenarioFileUnit,*) Height_stagnant_air_layer_cm !msg = msg & vbNewLine & volatilizationBoundaryBox.Text
+      read(ScenarioFileUnit,*) Height_stagnant_air_layer_cm                      !Line 77
      
       profile_thick= 0.0
 	  profile_number_increments=0
-	  read(ScenarioFileUnit,*, IOSTAT=eof)  is_auto_profile
+	  read(ScenarioFileUnit,*, IOSTAT=eof)  is_auto_profile                      !Line 78
       
       
-	  if (eof >= 0) then             !provides for the possibilty of older scenarios without this feature
+	  if (eof >= 0) then   !provides for the possibilty of older scenarios without this feature
 		  if (is_auto_profile) then 
-		     read(ScenarioFileUnit,*) number_of_discrete_layers
+		     read(ScenarioFileUnit,*) number_of_discrete_layers                  !Line 79
 		     do i = 1,  number_of_discrete_layers
 		       read(ScenarioFileUnit,*) profile_thick(i), profile_number_increments(i)
                
