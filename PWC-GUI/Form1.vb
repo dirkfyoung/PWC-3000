@@ -180,7 +180,7 @@ Public Class Form1
         SaveFileDialogMain.FileName = ""
         result = SaveFileDialogMain.ShowDialog(Me)
 
-        'Cancel button will cuase return without further execution
+        'Cancel button will cause return without further execution
         If result = Windows.Forms.DialogResult.Cancel Then
             Return
         End If
@@ -193,6 +193,9 @@ Public Class Form1
         SaveFileDialogMain.InitialDirectory = WorkingDirectoryLabel.Text
 
         IOFamilyName.Text = System.IO.Path.GetFileNameWithoutExtension(SaveFileDialogMain.FileName)
+
+
+        AutomaticallyCommit()
 
         SaveInputsAsTextFile(SaveFileDialogMain.FileName)
 
@@ -288,7 +291,11 @@ Public Class Form1
 
         Dim isCorrect As Boolean
         Dim WarningMessage As String = ""
+
+        AutomaticallyCommit() 'commit the last scheme which may have not been committed
         CheckChemicalInputs(isCorrect, WarningMessage)
+
+
         If Not isCorrect Then
             MsgBox(WarningMessage)
             Return
@@ -404,17 +411,24 @@ Public Class Form1
         Dim SchemeLabels As String
         Dim DisplayedSchemeNumber As Integer
 
+
         If e.RowIndex < 0 Then
             Exit Sub
         End If
 
         Select Case SchemeTableDisplay.Columns(e.ColumnIndex).Name
-                Case "Edit"
+            Case "Edit"
 
-                    'clear all got it
-                    For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
-                        SchemeTableDisplay.Rows(i).Cells("Commit").Value = ""
-                    Next
+                If EditingScheme.Text <> "none" Then
+                    AutomaticallyCommit()
+                End If
+                ''Take note of the scheme row for use in auto commit
+                EditingScheme.Text = e.RowIndex
+
+                'clear all got it
+                For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
+                    SchemeTableDisplay.Rows(i).Cells("Commit").Value = ""
+                Next
 
                 'this if statement ensures that all buttons are deactivated when unchecked
                 If SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit").Value = True Then
@@ -443,57 +457,58 @@ Public Class Form1
 
 
                 If SchemeTableDisplay.Columns(e.ColumnIndex).Name = "Edit" Then
-                        Dim buttonCell As DataGridViewDisableButtonCell
-                        Dim checkCell As DataGridViewCheckBoxCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit"), DataGridViewCheckBoxCell)
+                    Dim buttonCell As DataGridViewDisableButtonCell
+                    Dim checkCell As DataGridViewCheckBoxCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Edit"), DataGridViewCheckBoxCell)
 
-                        For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
-                            buttonCell = CType(SchemeTableDisplay.Rows(i).Cells("Commit"), DataGridViewDisableButtonCell)
-                            buttonCell.Enabled = False
+                    For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
+                        buttonCell = CType(SchemeTableDisplay.Rows(i).Cells("Commit"), DataGridViewDisableButtonCell)
+                        buttonCell.Enabled = False
 
-                            'dont allow scheme description to be edited unless checked
-                            SchemeTableDisplay.Rows(i).Cells(3).ReadOnly = True
-                        Next
+                        'dont allow scheme description to be edited unless checked
+                        SchemeTableDisplay.Rows(i).Cells(3).ReadOnly = True
+                    Next
 
-                        '________________________________________________________________________
-                        'When a new row is created, Make the delete button imediatelty active and disable the new button
+                    '________________________________________________________________________
+                    'When a new row is created, Make the delete button imediatelty active and disable the new button
 
 
-                        If (SchemeTableDisplay.Rows.Count - 2 = e.RowIndex) Then
-                            buttonCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Delete"), DataGridViewDisableButtonCell)
-                            buttonCell.Enabled = True
-                            buttonCell = CType(SchemeTableDisplay.Rows(e.RowIndex + 1).Cells("Delete"), DataGridViewDisableButtonCell)
-                            buttonCell.Enabled = False
-                        End If
+                    If (SchemeTableDisplay.Rows.Count - 2 = e.RowIndex) Then
+                        buttonCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Delete"), DataGridViewDisableButtonCell)
+                        buttonCell.Enabled = True
+                        buttonCell = CType(SchemeTableDisplay.Rows(e.RowIndex + 1).Cells("Delete"), DataGridViewDisableButtonCell)
+                        buttonCell.Enabled = False
+                    End If
 
                     '_______________________________________________
 
                     'allow only active scheme description to be edited
                     SchemeTableDisplay.Rows(e.RowIndex).Cells(3).ReadOnly = False
 
-                        buttonCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Commit"), DataGridViewDisableButtonCell)
+                    buttonCell = CType(SchemeTableDisplay.Rows(e.RowIndex).Cells("Commit"), DataGridViewDisableButtonCell)
 
-                        buttonCell.Enabled = CType(checkCell.Value, [Boolean])
+                    buttonCell.Enabled = CType(checkCell.Value, [Boolean])
 
-                        SchemeTableDisplay.Invalidate()
-                    End If
+                    SchemeTableDisplay.Invalidate()
+                End If
 
-                    Description = SchemeTableDisplay.Rows(e.RowIndex).Cells(3).Value
 
-                    DisplayedSchemeNumber = e.RowIndex + 1
-                    SchemeLabels = DisplayedSchemeNumber & " " & Description
+                Description = SchemeTableDisplay.Rows(e.RowIndex).Cells(3).Value
 
-                    Label88.Text = SchemeLabels
-                    Label87.Text = SchemeLabels
+                DisplayedSchemeNumber = e.RowIndex + 1
+                SchemeLabels = DisplayedSchemeNumber & " " & Description
 
-                    If SchemeInfoList.Count - 1 < e.RowIndex Then
-                        'in case edit button is pushed before anything is populated previously an error will not throw
-                        Exit Sub
-                    End If
+                Label88.Text = SchemeLabels
+                Label87.Text = SchemeLabels
 
-                    ApplicationTable = SchemeInfoList(e.RowIndex)
+                If SchemeInfoList.Count - 1 < e.RowIndex Then
+                    'in case edit button is pushed before anything is populated previously an error will not throw
+                    Exit Sub
+                End If
 
-                    NumberofApplications = ApplicationTable.Days.Count
-                    AppTableDisplay.Rows.Clear()
+                ApplicationTable = SchemeInfoList(e.RowIndex)
+
+                NumberofApplications = ApplicationTable.Days.Count
+                AppTableDisplay.Rows.Clear()
 
                 If NumberofApplications > 0 Then  'prevents error if user attempts to save without any applications
                     AppTableDisplay.Rows.Add(NumberofApplications)
@@ -592,11 +607,13 @@ Public Class Form1
                 DriftMitigation.Text = ApplicationTable.DriftMitigation
 
                 ScenarioListBox.Items.Clear()
-                    For Each ee As String In ApplicationTable.Scenarios
-                        ScenarioListBox.Items.Add(ee)
-                    Next
+                For Each ee As String In ApplicationTable.Scenarios
+                    ScenarioListBox.Items.Add(ee)
+                Next
 
-                Case "Commit"
+
+
+            Case "Commit"
 
                 '    'Disabling button apparently does not really disable its action, only its color
                 '    'So I added the following IF to kick out of the commit button if the edit box is not checked
@@ -610,11 +627,11 @@ Public Class Form1
                 'without unchecking and rechecking EDIT, then the labels will not be loaded
                 Description = SchemeTableDisplay.Rows(e.RowIndex).Cells(3).Value
 
-                    DisplayedSchemeNumber = e.RowIndex + 1
-                    SchemeLabels = DisplayedSchemeNumber & " " & Description
+                DisplayedSchemeNumber = e.RowIndex + 1
+                SchemeLabels = DisplayedSchemeNumber & " " & Description
 
-                    Label88.Text = SchemeLabels
-                    Label87.Text = SchemeLabels
+                Label88.Text = SchemeLabels
+                Label87.Text = SchemeLabels
 
                 For i As Integer = 0 To SchemeTableDisplay.RowCount - 1
                     SchemeTableDisplay.Rows(i).Cells(e.ColumnIndex).Value = ""
@@ -626,78 +643,32 @@ Public Class Form1
 
                 TallyRuns()
 
-                ''******* Calculate the total number of simulations ************************
-                'Dim tally As Integer
-                'Dim runsInScheme As Integer
-                'Dim windowRuns As Integer
-                'Dim span As Single
-                'Dim windstep As Single
-
-                'tally = 0
-
-                'For i As Integer = 0 To SchemeInfoList.Count - 1
-                '    If SchemeInfoList(i).UseBatchScenarioFile Then
-                '        RunCount.Text = "????"
-
-                '        Exit For
-                '    End If
-
-                '    If SchemeInfoList(i).UseApplicationWindow Then
-                '        Try
-                '            span = SchemeInfoList(i).ApplicationWindowSpan
-                '            windstep = SchemeInfoList(i).ApplicationWindowStep
-                '            If span > 365 Then
-                '                MsgBox("Application Window span maximum is 365 days")
-                '                RunCount.Text = "XXXXXXX"
-                '                Exit Sub
-                '            End If
-
-                '        Catch ex As Exception
-                '            MsgBox("The Application Window parameters are a problem")
-                '            RunCount.Text = "XXXXXXX"
-                '            Exit Sub
-                '        End Try
-
-                '        windowRuns = span / windstep + 1
-                '    Else
-                '        windowRuns = 1
-                '    End If
-                '    runsInScheme = SchemeInfoList(i).Scenarios.Count * windowRuns
-                '    tally = tally + runsInScheme
-                'Next
-
-
-                'If RunCount.Text <> "????" Then
-                '    RunCount.Text = tally
-                'End If
-                ''********************************************************************
-
                 Timer1.Start()
 
 
 
-                Case "Delete"
+            Case "Delete"
 
                 If SchemeTableDisplay.CurrentRow.IsNewRow Then
-                        Beep()
-                    Else
-                        'toggle off scenario and app tab if delete the checked scheme 
+                    Beep()
+                Else
+                    'toggle off scenario and app tab if delete the checked scheme 
 
-                        If SchemeTableDisplay.Rows(e.RowIndex).Cells(1).Value Then
-                            TabControl1.Controls.Remove(SchemeApplicationsTab)
-                            TabControl1.Controls.Remove(SchemeScenariosTab)
-                        End If
+                    If SchemeTableDisplay.Rows(e.RowIndex).Cells(1).Value Then
+                        TabControl1.Controls.Remove(SchemeApplicationsTab)
+                        TabControl1.Controls.Remove(SchemeScenariosTab)
+                    End If
 
                     SchemeTableDisplay.Rows.Remove(SchemeTableDisplay.Rows(e.RowIndex))
-                    End If
+                End If
 
-                    If SchemeInfoList.Count > e.RowIndex Then
-                        'this if condition is needed if there is an uncommitted row, then you can still delete it
-                        'likewise if there is an uncommited row, then this prevents attempting to delete a nonexistent scheme
-                        'only want to delete table row, and not schemeinfolist item
+                If SchemeInfoList.Count > e.RowIndex Then
+                    'this if condition is needed if there is an uncommitted row, then you can still delete it
+                    'likewise if there is an uncommited row, then this prevents attempting to delete a nonexistent scheme
+                    'only want to delete table row, and not schemeinfolist item
 
-                        SchemeInfoList.RemoveAt(e.RowIndex)
-                    End If
+                    SchemeInfoList.RemoveAt(e.RowIndex)
+                End If
 
                 TallyRuns()
 
@@ -705,14 +676,69 @@ Public Class Form1
 
 
             Case Else
-                    Exit Sub
-            End Select
-
-
+                Exit Sub
+        End Select
 
 
 
     End Sub
+
+    Private Sub AutomaticallyCommit()
+        Dim Description As String
+        Dim SchemeLabels As String
+        Dim DisplayedSchemeNumber As Integer
+        Dim rownumber As Integer
+
+
+        If ManualCommit.Checked Then
+            Exit Sub
+        End If
+
+        If EditingScheme.Text = "none" Then
+            Exit Sub
+        End If
+
+        'Just need to keep track of last scheme that was edited.
+        'this needs to be called before Calculate, Save, and Edit
+
+
+        ''    'Disabling button apparently does not really disable its action, only its color
+        ''    'So I added the following IF to kick out of the commit button if the edit box is not checked
+
+        'If SchemeTableDisplay.Rows(EditingScheme.Text).Cells("Edit").Value = False Then
+        '    Exit Sub
+        'End If
+
+
+
+        'same set of lines as in EDIT above, but needed because if you change scheme description
+        'without unchecking and rechecking EDIT, then the labels will not be loaded
+        Description = SchemeTableDisplay.Rows(EditingScheme.Text).Cells(3).Value
+
+
+
+
+        rownumber = EditingScheme.Text
+
+
+        DisplayedSchemeNumber = rownumber + 1
+        SchemeLabels = DisplayedSchemeNumber & " " & Description
+
+        Label88.Text = SchemeLabels
+        Label87.Text = SchemeLabels
+
+        RecordScheme(rownumber)
+
+
+        TallyRuns()
+
+
+    End Sub
+
+
+
+
+
 
     Private Sub TallyRuns()
         '******* Calculate the total number of simulations ************************
@@ -1533,6 +1559,8 @@ Public Class Form1
         'SaveFileDialogMain.InitialDirectory = WorkingDirectoryLabel.Text
 
         'IOFamilyName.Text = System.IO.Path.GetFileNameWithoutExtension(SaveFileDialogMain.FileName)
+
+        AutomaticallyCommit()
 
         SaveSchemeTableAsTextFile(SaveFileDialogMain.FileName)
 

@@ -1744,7 +1744,6 @@
             .Lag = New List(Of String)
         }
 
-
         AppTableDisplay.CommitEdit(DataGridViewDataErrorContexts.Commit)  'commit the cell if cursor still on box
 
 
@@ -1851,6 +1850,9 @@
             'otherwise replace it
             SchemeInfoList.Item(SchemeNumber) = AppData
         End If
+
+
+
 
     End Sub
 

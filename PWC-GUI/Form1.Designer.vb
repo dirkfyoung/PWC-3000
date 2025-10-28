@@ -24,11 +24,11 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -332,6 +332,8 @@ Partial Class Form1
         Me.Label86 = New System.Windows.Forms.Label()
         Me.AppTableDisplay = New System.Windows.Forms.DataGridView()
         Me.Schemes = New System.Windows.Forms.TabPage()
+        Me.EditingScheme = New System.Windows.Forms.Label()
+        Me.tttlabel = New System.Windows.Forms.Label()
         Me.Label111 = New System.Windows.Forms.Label()
         Me.RunCount = New System.Windows.Forms.Label()
         Me.Label101 = New System.Windows.Forms.Label()
@@ -510,6 +512,7 @@ Partial Class Form1
         Me.OpenSelectScenarioBatchFile = New System.Windows.Forms.OpenFileDialog()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
+        Me.ManualCommit = New System.Windows.Forms.CheckBox()
         Me.MenuStrip1.SuspendLayout()
         Me.AdvancedTab.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
@@ -1867,14 +1870,14 @@ Partial Class Form1
         '
         'HydroDataGrid
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.HydroDataGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle6.Font = New System.Drawing.Font("Microsoft Sans Serif", 7.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.HydroDataGrid.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
         Me.HydroDataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.HydroDataGrid.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column20, Me.Column22, Me.Column23})
         Me.HydroDataGrid.Location = New System.Drawing.Point(38, 1777)
@@ -2526,8 +2529,8 @@ Partial Class Form1
         Me.HorizonGridView.Name = "HorizonGridView"
         Me.HorizonGridView.RowHeadersVisible = False
         Me.HorizonGridView.RowHeadersWidth = 51
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.HorizonGridView.RowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.HorizonGridView.RowsDefaultCellStyle = DataGridViewCellStyle7
         Me.HorizonGridView.RowTemplate.Height = 24
         Me.HorizonGridView.Size = New System.Drawing.Size(847, 252)
         Me.HorizonGridView.TabIndex = 0
@@ -3627,6 +3630,9 @@ Partial Class Form1
         'Schemes
         '
         Me.Schemes.BackColor = System.Drawing.Color.SeaShell
+        Me.Schemes.Controls.Add(Me.ManualCommit)
+        Me.Schemes.Controls.Add(Me.EditingScheme)
+        Me.Schemes.Controls.Add(Me.tttlabel)
         Me.Schemes.Controls.Add(Me.Label111)
         Me.Schemes.Controls.Add(Me.RunCount)
         Me.Schemes.Controls.Add(Me.Label101)
@@ -3641,6 +3647,24 @@ Partial Class Form1
         Me.Schemes.Size = New System.Drawing.Size(1027, 598)
         Me.Schemes.TabIndex = 7
         Me.Schemes.Text = "Schemes"
+        '
+        'EditingScheme
+        '
+        Me.EditingScheme.AutoSize = True
+        Me.EditingScheme.Location = New System.Drawing.Point(819, 504)
+        Me.EditingScheme.Name = "EditingScheme"
+        Me.EditingScheme.Size = New System.Drawing.Size(37, 16)
+        Me.EditingScheme.TabIndex = 94
+        Me.EditingScheme.Text = "none"
+        '
+        'tttlabel
+        '
+        Me.tttlabel.AutoSize = True
+        Me.tttlabel.Location = New System.Drawing.Point(702, 504)
+        Me.tttlabel.Name = "tttlabel"
+        Me.tttlabel.Size = New System.Drawing.Size(104, 16)
+        Me.tttlabel.TabIndex = 93
+        Me.tttlabel.Text = "Editing Scheme:"
         '
         'Label111
         '
@@ -3677,14 +3701,14 @@ Partial Class Form1
         '
         Me.SchemeTableDisplay.BackgroundColor = System.Drawing.Color.SeaShell
         Me.SchemeTableDisplay.BorderStyle = System.Windows.Forms.BorderStyle.None
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.SchemeTableDisplay.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle8.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.SchemeTableDisplay.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
         Me.SchemeTableDisplay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.SchemeTableDisplay.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column21, Me.Edit, Me.Commit, Me.Column24, Me.Delete})
         Me.SchemeTableDisplay.Cursor = System.Windows.Forms.Cursors.Default
@@ -3720,12 +3744,12 @@ Partial Class Form1
         'Commit
         '
         Me.Commit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.Honeydew
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.MintCream
-        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black
-        Me.Commit.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle9.BackColor = System.Drawing.Color.Honeydew
+        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.MintCream
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black
+        Me.Commit.DefaultCellStyle = DataGridViewCellStyle9
         Me.Commit.FillWeight = 15.0!
         Me.Commit.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Commit.HeaderText = "Commit"
@@ -3745,11 +3769,11 @@ Partial Class Form1
         'Delete
         '
         Me.Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle5.BackColor = System.Drawing.Color.MistyRose
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.MistyRose
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Black
-        Me.Delete.DefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle10.BackColor = System.Drawing.Color.MistyRose
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.MistyRose
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black
+        Me.Delete.DefaultCellStyle = DataGridViewCellStyle10
         Me.Delete.FillWeight = 10.0!
         Me.Delete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.Delete.HeaderText = "Delete"
@@ -5797,6 +5821,16 @@ Partial Class Form1
         Me.BackgroundWorker1.WorkerReportsProgress = True
         Me.BackgroundWorker1.WorkerSupportsCancellation = True
         '
+        'ManualCommit
+        '
+        Me.ManualCommit.AutoSize = True
+        Me.ManualCommit.Location = New System.Drawing.Point(447, 499)
+        Me.ManualCommit.Name = "ManualCommit"
+        Me.ManualCommit.Size = New System.Drawing.Size(121, 20)
+        Me.ManualCommit.TabIndex = 95
+        Me.ManualCommit.Text = "Manual Commit"
+        Me.ManualCommit.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -6362,4 +6396,7 @@ Partial Class Form1
     Friend WithEvents CalculateEoF As CheckBox
     Friend WithEvents Label91 As Label
     Friend WithEvents MaxIrrigationDepth As TextBox
+    Friend WithEvents tttlabel As Label
+    Friend WithEvents EditingScheme As Label
+    Friend WithEvents ManualCommit As CheckBox
 End Class
