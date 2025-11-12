@@ -53,8 +53,11 @@ Partial Class Form1
         Me.DataGridViewDisableButtonColumn1 = New PWC_2020.DataGridViewDisableButtonColumn()
         Me.DataGridViewButtonColumn1 = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.AdvancedTab = New System.Windows.Forms.TabPage()
+        Me.ManualCommit = New System.Windows.Forms.CheckBox()
         Me.ModifyScenarios = New System.Windows.Forms.Button()
+        Me.tttlabel = New System.Windows.Forms.Label()
         Me.IsHydrolysisOverride = New System.Windows.Forms.CheckBox()
+        Me.EditingScheme = New System.Windows.Forms.Label()
         Me.Label85 = New System.Windows.Forms.Label()
         Me.WaterbodyEvapAdjustment = New System.Windows.Forms.TextBox()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
@@ -332,17 +335,10 @@ Partial Class Form1
         Me.Label86 = New System.Windows.Forms.Label()
         Me.AppTableDisplay = New System.Windows.Forms.DataGridView()
         Me.Schemes = New System.Windows.Forms.TabPage()
-        Me.EditingScheme = New System.Windows.Forms.Label()
-        Me.tttlabel = New System.Windows.Forms.Label()
         Me.Label111 = New System.Windows.Forms.Label()
         Me.RunCount = New System.Windows.Forms.Label()
         Me.Label101 = New System.Windows.Forms.Label()
         Me.SchemeTableDisplay = New System.Windows.Forms.DataGridView()
-        Me.Column21 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Edit = New System.Windows.Forms.DataGridViewCheckBoxColumn()
-        Me.Commit = New PWC_2020.DataGridViewDisableButtonColumn()
-        Me.Column24 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.Delete = New PWC_2020.DataGridViewDisableButtonColumn()
         Me.Chemical = New System.Windows.Forms.TabPage()
         Me.ChemPropertyPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.FoliarDeg3 = New System.Windows.Forms.TextBox()
@@ -512,7 +508,11 @@ Partial Class Form1
         Me.OpenSelectScenarioBatchFile = New System.Windows.Forms.OpenFileDialog()
         Me.BackgroundWorker1 = New System.ComponentModel.BackgroundWorker()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
-        Me.ManualCommit = New System.Windows.Forms.CheckBox()
+        Me.Column21 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Edit = New System.Windows.Forms.DataGridViewCheckBoxColumn()
+        Me.Commit = New PWC_2020.DataGridViewDisableButtonColumn()
+        Me.Column24 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Delete = New PWC_2020.DataGridViewDisableButtonColumn()
         Me.MenuStrip1.SuspendLayout()
         Me.AdvancedTab.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
@@ -557,7 +557,7 @@ Partial Class Form1
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Padding = New System.Windows.Forms.Padding(5, 2, 0, 2)
-        Me.MenuStrip1.Size = New System.Drawing.Size(1052, 30)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1040, 28)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -565,7 +565,7 @@ Partial Class Form1
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveToolStripMenuItem, Me.RetrieveToolStripMenuItem, Me.WriteSchemeTableToFileToolStripMenuItem, Me.LoadSchemeTableToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 26)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(46, 24)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'SaveToolStripMenuItem
@@ -596,7 +596,7 @@ Partial Class Form1
         '
         Me.MorenTabsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToggleAdvancedToolStripMenuItem, Me.ToggleMoreOutputToolStripMenuItem, Me.ToggleScenarioExaminerToolStripMenuItem, Me.ToggeWaterbodyExaminerToolStripMenuItem})
         Me.MorenTabsToolStripMenuItem.Name = "MorenTabsToolStripMenuItem"
-        Me.MorenTabsToolStripMenuItem.Size = New System.Drawing.Size(91, 26)
+        Me.MorenTabsToolStripMenuItem.Size = New System.Drawing.Size(91, 24)
         Me.MorenTabsToolStripMenuItem.Text = "More Tabs"
         '
         'ToggleAdvancedToolStripMenuItem
@@ -627,7 +627,7 @@ Partial Class Form1
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ContactToolStripMenuItem})
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(55, 26)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(55, 24)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'ContactToolStripMenuItem
@@ -700,8 +700,11 @@ Partial Class Form1
         '
         'AdvancedTab
         '
+        Me.AdvancedTab.Controls.Add(Me.ManualCommit)
         Me.AdvancedTab.Controls.Add(Me.ModifyScenarios)
+        Me.AdvancedTab.Controls.Add(Me.tttlabel)
         Me.AdvancedTab.Controls.Add(Me.IsHydrolysisOverride)
+        Me.AdvancedTab.Controls.Add(Me.EditingScheme)
         Me.AdvancedTab.Controls.Add(Me.Label85)
         Me.AdvancedTab.Controls.Add(Me.WaterbodyEvapAdjustment)
         Me.AdvancedTab.Controls.Add(Me.GroupBox7)
@@ -736,6 +739,16 @@ Partial Class Form1
         Me.AdvancedTab.Text = "Advanced"
         Me.AdvancedTab.UseVisualStyleBackColor = True
         '
+        'ManualCommit
+        '
+        Me.ManualCommit.AutoSize = True
+        Me.ManualCommit.Location = New System.Drawing.Point(280, 31)
+        Me.ManualCommit.Name = "ManualCommit"
+        Me.ManualCommit.Size = New System.Drawing.Size(121, 20)
+        Me.ManualCommit.TabIndex = 95
+        Me.ManualCommit.Text = "Manual Commit"
+        Me.ManualCommit.UseVisualStyleBackColor = True
+        '
         'ModifyScenarios
         '
         Me.ModifyScenarios.Enabled = False
@@ -745,6 +758,15 @@ Partial Class Form1
         Me.ModifyScenarios.TabIndex = 211
         Me.ModifyScenarios.Text = "Modify Scenarios vX to vY " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for developer only"
         Me.ModifyScenarios.UseVisualStyleBackColor = True
+        '
+        'tttlabel
+        '
+        Me.tttlabel.AutoSize = True
+        Me.tttlabel.Location = New System.Drawing.Point(278, 52)
+        Me.tttlabel.Name = "tttlabel"
+        Me.tttlabel.Size = New System.Drawing.Size(104, 16)
+        Me.tttlabel.TabIndex = 93
+        Me.tttlabel.Text = "Editing Scheme:"
         '
         'IsHydrolysisOverride
         '
@@ -758,6 +780,15 @@ Partial Class Form1
         Me.IsHydrolysisOverride.Text = "Use greater of hydrolysis or soil metaballism " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for soil aqueous phase degradatio" &
     "n"
         Me.IsHydrolysisOverride.UseVisualStyleBackColor = True
+        '
+        'EditingScheme
+        '
+        Me.EditingScheme.AutoSize = True
+        Me.EditingScheme.Location = New System.Drawing.Point(390, 52)
+        Me.EditingScheme.Name = "EditingScheme"
+        Me.EditingScheme.Size = New System.Drawing.Size(37, 16)
+        Me.EditingScheme.TabIndex = 94
+        Me.EditingScheme.Text = "none"
         '
         'Label85
         '
@@ -3630,9 +3661,6 @@ Partial Class Form1
         'Schemes
         '
         Me.Schemes.BackColor = System.Drawing.Color.SeaShell
-        Me.Schemes.Controls.Add(Me.ManualCommit)
-        Me.Schemes.Controls.Add(Me.EditingScheme)
-        Me.Schemes.Controls.Add(Me.tttlabel)
         Me.Schemes.Controls.Add(Me.Label111)
         Me.Schemes.Controls.Add(Me.RunCount)
         Me.Schemes.Controls.Add(Me.Label101)
@@ -3647,24 +3675,6 @@ Partial Class Form1
         Me.Schemes.Size = New System.Drawing.Size(1027, 598)
         Me.Schemes.TabIndex = 7
         Me.Schemes.Text = "Schemes"
-        '
-        'EditingScheme
-        '
-        Me.EditingScheme.AutoSize = True
-        Me.EditingScheme.Location = New System.Drawing.Point(819, 504)
-        Me.EditingScheme.Name = "EditingScheme"
-        Me.EditingScheme.Size = New System.Drawing.Size(37, 16)
-        Me.EditingScheme.TabIndex = 94
-        Me.EditingScheme.Text = "none"
-        '
-        'tttlabel
-        '
-        Me.tttlabel.AutoSize = True
-        Me.tttlabel.Location = New System.Drawing.Point(702, 504)
-        Me.tttlabel.Name = "tttlabel"
-        Me.tttlabel.Size = New System.Drawing.Size(104, 16)
-        Me.tttlabel.TabIndex = 93
-        Me.tttlabel.Text = "Editing Scheme:"
         '
         'Label111
         '
@@ -3722,65 +3732,6 @@ Partial Class Form1
         Me.SchemeTableDisplay.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.SchemeTableDisplay.Size = New System.Drawing.Size(943, 393)
         Me.SchemeTableDisplay.TabIndex = 0
-        '
-        'Column21
-        '
-        Me.Column21.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.Column21.FillWeight = 8.0!
-        Me.Column21.HeaderText = "No."
-        Me.Column21.MinimumWidth = 6
-        Me.Column21.Name = "Column21"
-        Me.Column21.Width = 63
-        '
-        'Edit
-        '
-        Me.Edit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        Me.Edit.FillWeight = 10.0!
-        Me.Edit.HeaderText = "Edit"
-        Me.Edit.MinimumWidth = 6
-        Me.Edit.Name = "Edit"
-        Me.Edit.Width = 44
-        '
-        'Commit
-        '
-        Me.Commit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle9.BackColor = System.Drawing.Color.Honeydew
-        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.MintCream
-        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black
-        Me.Commit.DefaultCellStyle = DataGridViewCellStyle9
-        Me.Commit.FillWeight = 15.0!
-        Me.Commit.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Commit.HeaderText = "Commit"
-        Me.Commit.MinimumWidth = 6
-        Me.Commit.Name = "Commit"
-        Me.Commit.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Commit.Width = 73
-        '
-        'Column24
-        '
-        Me.Column24.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
-        Me.Column24.HeaderText = "Scheme Description"
-        Me.Column24.MinimumWidth = 6
-        Me.Column24.Name = "Column24"
-        Me.Column24.ReadOnly = True
-        '
-        'Delete
-        '
-        Me.Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle10.BackColor = System.Drawing.Color.MistyRose
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.MistyRose
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black
-        Me.Delete.DefaultCellStyle = DataGridViewCellStyle10
-        Me.Delete.FillWeight = 10.0!
-        Me.Delete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.Delete.HeaderText = "Delete"
-        Me.Delete.MinimumWidth = 6
-        Me.Delete.Name = "Delete"
-        Me.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.Delete.Width = 64
         '
         'Chemical
         '
@@ -5821,22 +5772,72 @@ Partial Class Form1
         Me.BackgroundWorker1.WorkerReportsProgress = True
         Me.BackgroundWorker1.WorkerSupportsCancellation = True
         '
-        'ManualCommit
+        'Column21
         '
-        Me.ManualCommit.AutoSize = True
-        Me.ManualCommit.Location = New System.Drawing.Point(447, 499)
-        Me.ManualCommit.Name = "ManualCommit"
-        Me.ManualCommit.Size = New System.Drawing.Size(121, 20)
-        Me.ManualCommit.TabIndex = 95
-        Me.ManualCommit.Text = "Manual Commit"
-        Me.ManualCommit.UseVisualStyleBackColor = True
+        Me.Column21.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.Column21.FillWeight = 8.0!
+        Me.Column21.HeaderText = "No."
+        Me.Column21.MinimumWidth = 6
+        Me.Column21.Name = "Column21"
+        Me.Column21.Width = 63
+        '
+        'Edit
+        '
+        Me.Edit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        Me.Edit.FillWeight = 10.0!
+        Me.Edit.HeaderText = "Edit"
+        Me.Edit.MinimumWidth = 6
+        Me.Edit.Name = "Edit"
+        Me.Edit.Width = 44
+        '
+        'Commit
+        '
+        Me.Commit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle9.BackColor = System.Drawing.Color.Honeydew
+        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.MintCream
+        DataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.Black
+        Me.Commit.DefaultCellStyle = DataGridViewCellStyle9
+        Me.Commit.FillWeight = 15.0!
+        Me.Commit.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Commit.HeaderText = "Commit"
+        Me.Commit.MinimumWidth = 6
+        Me.Commit.Name = "Commit"
+        Me.Commit.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Commit.Visible = False
+        Me.Commit.Width = 73
+        '
+        'Column24
+        '
+        Me.Column24.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill
+        Me.Column24.HeaderText = "Scheme Description"
+        Me.Column24.MinimumWidth = 6
+        Me.Column24.Name = "Column24"
+        Me.Column24.ReadOnly = True
+        '
+        'Delete
+        '
+        Me.Delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader
+        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle10.BackColor = System.Drawing.Color.MistyRose
+        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.MistyRose
+        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.Black
+        Me.Delete.DefaultCellStyle = DataGridViewCellStyle10
+        Me.Delete.FillWeight = 10.0!
+        Me.Delete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.Delete.HeaderText = "Delete"
+        Me.Delete.MinimumWidth = 6
+        Me.Delete.Name = "Delete"
+        Me.Delete.Resizable = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.Delete.Width = 64
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
-        Me.ClientSize = New System.Drawing.Size(1052, 760)
+        Me.ClientSize = New System.Drawing.Size(1040, 760)
         Me.Controls.Add(Me.Label130)
         Me.Controls.Add(Me.Label129)
         Me.Controls.Add(Me.CalculateButton)
@@ -6260,11 +6261,6 @@ Partial Class Form1
     Friend WithEvents WaterbodyName As TextBox
     Friend WithEvents UseTPEZbuffers As CheckBox
     Friend WithEvents ModifyScenarios As Button
-    Friend WithEvents Column21 As DataGridViewTextBoxColumn
-    Friend WithEvents Edit As DataGridViewCheckBoxColumn
-    Friend WithEvents Commit As DataGridViewDisableButtonColumn
-    Friend WithEvents Column24 As DataGridViewTextBoxColumn
-    Friend WithEvents Delete As DataGridViewDisableButtonColumn
     Friend WithEvents GroupBox6 As GroupBox
     Friend WithEvents Label116 As Label
     Friend WithEvents GroupBox7 As GroupBox
@@ -6399,4 +6395,9 @@ Partial Class Form1
     Friend WithEvents tttlabel As Label
     Friend WithEvents EditingScheme As Label
     Friend WithEvents ManualCommit As CheckBox
+    Friend WithEvents Column21 As DataGridViewTextBoxColumn
+    Friend WithEvents Edit As DataGridViewCheckBoxColumn
+    Friend WithEvents Commit As DataGridViewDisableButtonColumn
+    Friend WithEvents Column24 As DataGridViewTextBoxColumn
+    Friend WithEvents Delete As DataGridViewDisableButtonColumn
 End Class

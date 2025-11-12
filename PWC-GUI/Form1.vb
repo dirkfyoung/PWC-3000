@@ -1665,7 +1665,17 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub ManualCommit_CheckedChanged(sender As Object, e As EventArgs) Handles ManualCommit.CheckedChanged
 
+        If ManualCommit.Checked Then
+            SchemeTableDisplay.Columns(2).Visible = True
+        Else
+            SchemeTableDisplay.Columns(2).Visible = False
+
+        End If
+
+
+    End Sub
 End Class
 
 
