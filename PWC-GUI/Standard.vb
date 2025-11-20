@@ -16,8 +16,8 @@
     Public Const sprayterm0 As String = "Method \  Buffer (ft)"
     Public Const sprayterm1 As String = "Aerial Fine (50% Boom)"
     Public Const sprayterm2 As String = "Aerial Medium, EPA Default"
-    Public Const sprayterm3 As String = "Aerial Course"
-    Public Const sprayterm4 As String = "Aerial Very Course"
+    Public Const sprayterm3 As String = "Aerial Coarse"
+    Public Const sprayterm4 As String = "Aerial Very Coarse"
 
     Public Const sprayterm5 As String = "Ground High Boom, VF-F, EPA Default"
     Public Const sprayterm6 As String = "Ground High Boom, F-MC"
