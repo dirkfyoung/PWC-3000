@@ -1,0 +1,5 @@
+Benthic Conversion Factor             =     100.4      -Pore water (ug/L) to (total mass, ug)/(dry sed mass,kg)
+Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg, post_bt_avg,  throughput,  GWpeak
+1_333045-13602-1_Corn-r03W-A_USEPA Pond_0000_median                                   ,   4421.    ,   4322.    ,   2307.    ,   4414.    ,   4395.    ,   4380.    ,   4366.    ,   4364.    ,         NaN,  0.9094E-01,  0.1064-147
+1_125173-11030-2_Cotton-r03S-A_USEPA Pond_0000_median                                 ,   2760.    ,   2716.    ,   1433.    ,   2757.    ,   2746.    ,   2734.    ,   2731.    ,   2729.    ,         NaN,  0.5950E-01,   0.000    
+2_2642602-26312-36_Hay all-r09-A_USEPA Pond_0000_median                               ,   983.5    ,   920.8    ,   436.8    ,   980.2    ,   960.1    ,   947.3    ,   936.5    ,   936.5    ,         NaN,  0.4755E-02,   0.000    

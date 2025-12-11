@@ -1,0 +1,4 @@
+Run Information                                                                       ,  1-d avg   ,  365-d avg ,  Total avg ,  4-d avg   ,  21-d avg  ,  60-d avg  ,   B 1-day  ,  B 21-d avg,  Total System (lb/A)
+1_333045-13602-1_Corn-r03W-A_USEPA Pond_0000_median                                   ,   625.4    ,   187.0    ,   158.4    ,   309.0    ,   219.1    ,   207.7    ,   201.3    ,   201.9    ,   12.51    ,
+1_125173-11030-2_Cotton-r03S-A_USEPA Pond_0000_median                                 ,   447.9    ,   202.5    ,   164.8    ,   276.6    ,   229.0    ,   223.7    ,   221.2    ,   221.5    ,   13.55    ,
+2_2642602-26312-36_Hay all-r09-A_USEPA Pond_0000_median                               ,   739.8    ,         NaN,         NaN,   570.7    ,   570.2    ,   558.6    ,   556.5    ,   559.5    ,   34.30    ,

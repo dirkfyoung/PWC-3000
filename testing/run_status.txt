@@ -1,0 +1,19 @@
+ PRZM-VVWM Version:   1.040
+ 
+     For technical support contact:
+            Dirk F. Young 
+       Office of Pesticide Programs 
+ United States Environmental Protection Agency
+       Washington, DC 20460-0001
+       E-mail: young.dirk@epa.gov
+ 
+ working directory is: C:\Users\dyoung03\source\repos\PWC-3000\testing\                                                                                                                                                                                                                                                            
+ weather directory is: .\Scenarios\                                                                                                                                                                                                                                                                                                
+ Number of schemes =                      2
+ Doing waterbody: USEPA Pond
+ Doing Scheme No.                      1
+ cpu time, scheme   1   1.87500000000000     
+ Doing Scheme No.                      2
+ cpu time, scheme   2   2.65625000000000     
+ End program cpu time    2.65625000000000     
+ Total clock time =    5.73899984359741     

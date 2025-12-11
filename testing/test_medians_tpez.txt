@@ -1,0 +1,4 @@
+Run Information                                                                       ,  lb/A
+1_333045-13602-1_Corn-r03W-A_USEPA Pond_0000_median                                   ,   7.446    
+1_125173-11030-2_Cotton-r03S-A_USEPA Pond_0000_median                                 ,   4.275    
+2_2642602-26312-36_Hay all-r09-A_USEPA Pond_0000_median                               ,   3.118    
